@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "./Button";
+import { Reveal } from "./Reveal";
 
 export const DEFAULT_CTA = {
   to: "/consulti",
@@ -36,22 +37,34 @@ export function PageHero({
 }: Props) {
   const copy = (
     <>
-      <div className="mb-7 flex items-center gap-3">
-        <span className="h-1.5 w-1.5 bg-ink" />
-        <Kicker>{kicker}</Kicker>
-      </div>
-      <h1 className="font-display text-4xl font-light leading-[1.12] tracking-tight text-ink sm:text-5xl md:text-6xl">
-        {title}
-      </h1>
-      <div className="mt-8 max-w-lg text-base leading-[1.75] text-ink/70">{lead}</div>
-      {cta ? (
-        <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-          <HeroButton cta={cta} variant="primary" />
-          {secondary ? <HeroButton cta={secondary} variant="paper" /> : null}
+      <Reveal>
+        <div className="mb-7 flex items-center gap-3">
+          <span className="h-1.5 w-1.5 bg-ink" />
+          <Kicker>{kicker}</Kicker>
         </div>
+      </Reveal>
+      <Reveal delay={100}>
+        <h1 className="font-display text-4xl font-light leading-[1.12] tracking-tight text-ink sm:text-5xl md:text-6xl">
+          {title}
+        </h1>
+      </Reveal>
+      <Reveal delay={200}>
+        <div className="mt-8 max-w-lg text-base leading-[1.75] text-ink/70">{lead}</div>
+      </Reveal>
+      {cta ? (
+        <Reveal delay={300}>
+          <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+            <HeroButton cta={cta} variant="primary" />
+            {secondary ? <HeroButton cta={secondary} variant="paper" /> : null}
+          </div>
+        </Reveal>
       ) : null}
-      {children}
-      {meta ? <div className="mt-16">{meta}</div> : null}
+      {children ? <Reveal delay={300}>{children}</Reveal> : null}
+      {meta ? (
+        <Reveal delay={400}>
+          <div className="mt-16">{meta}</div>
+        </Reveal>
+      ) : null}
     </>
   );
 

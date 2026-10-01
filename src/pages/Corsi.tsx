@@ -3,6 +3,7 @@ import { CORSI, MATERIALI } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
+import { Reveal } from "../components/Reveal";
 import { useAuth } from "../context/AuthContext";
 
 export function Corsi() {
@@ -20,18 +21,21 @@ export function Corsi() {
 
       <div className="mx-auto max-w-3xl px-6 pb-24 md:px-10 md:pb-32">
         {!session && (
-          <p className="mb-16 text-sm text-sage">
-            Hai già un accesso?{" "}
-            <Link className="underline underline-offset-4" to="/login">
-              Entra
-            </Link>{" "}
-            per vedere prenotazioni e archivio personale.
-          </p>
+          <Reveal>
+            <p className="mb-16 text-sm text-sage">
+              Hai già un accesso?{" "}
+              <Link className="underline underline-offset-4" to="/login">
+                Entra
+              </Link>{" "}
+              per vedere prenotazioni e archivio personale.
+            </p>
+          </Reveal>
         )}
 
         <div className="flex flex-col gap-12">
-          {CORSI.map((c) => (
-            <article key={c.id} className="bg-paper p-8 md:p-10">
+          {CORSI.map((c, i) => (
+            <Reveal key={c.id} delay={i * 100}>
+            <article className="bg-paper p-8 md:p-10">
               <p className="text-[9px] uppercase tracking-[0.18em] text-sage">{c.kicker}</p>
               <div className="mt-4 flex items-start justify-between gap-4">
                 <h2 className="font-display text-xl leading-snug md:text-2xl">{c.title}</h2>
@@ -57,15 +61,21 @@ export function Corsi() {
                 </Button>
               </div>
             </article>
+            </Reveal>
           ))}
         </div>
 
         <section className="mt-24 md:mt-32">
-          <Kicker>Materiali alchemici</Kicker>
-          <h2 className="mt-4 font-display text-2xl md:text-3xl">Strumenti complementari</h2>
+          <Reveal>
+            <Kicker>Materiali alchemici</Kicker>
+          </Reveal>
+          <Reveal delay={100}>
+            <h2 className="mt-4 font-display text-2xl md:text-3xl">Strumenti complementari</h2>
+          </Reveal>
           <div className="mt-10 flex flex-col gap-6">
-            {MATERIALI.map((m) => (
-              <article key={m.id} className="flex items-center justify-between gap-6 bg-paper p-6 md:p-8">
+            {MATERIALI.map((m, i) => (
+              <Reveal key={m.id} delay={i * 80}>
+              <article className="flex items-center justify-between gap-6 bg-paper p-6 md:p-8">
                 <div>
                   <h3 className="font-display text-sm md:text-base">{m.title}</h3>
                   <p className="mt-2 text-[12px] text-ink/55">{m.blurb}</p>
@@ -78,6 +88,7 @@ export function Corsi() {
                   Scarica
                 </a>
               </article>
+              </Reveal>
             ))}
           </div>
         </section>

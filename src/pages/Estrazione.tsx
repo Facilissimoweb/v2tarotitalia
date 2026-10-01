@@ -5,6 +5,7 @@ import { siteContent } from "../data/siteContent";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
+import { Reveal } from "../components/Reveal";
 
 type Draw = {
   past: Arcano;
@@ -69,6 +70,7 @@ export function Estrazione() {
       />
 
       <div className="mx-auto max-w-xl px-6 pb-24 md:px-10 md:pb-32">
+      <Reveal>
       <button
         type="button"
         id="mazzo"
@@ -93,9 +95,12 @@ export function Estrazione() {
           </div>
         </div>
       </button>
+      </Reveal>
+      <Reveal delay={100}>
       <p className="mt-10 text-center text-[11px] text-ink/45">
         {draw ? `Triade allineata · Sigillo ${draw.sigil}` : "Mazzo pronto alla canalizzazione"}
       </p>
+      </Reveal>
 
       {cards.length > 0 && (
         <section className="mt-20 space-y-10">
@@ -103,8 +108,9 @@ export function Estrazione() {
             <span>La disposizione</span>
             <span>{draw?.sigil}</span>
           </div>
-          {cards.map((item) => (
-            <article key={item.key} className="bg-paper p-8">
+          {cards.map((item, i) => (
+            <Reveal key={item.key} delay={i * 100}>
+            <article className="bg-paper p-8">
               <div className="mb-4 flex items-start justify-between">
                 <div>
                   <p className="text-[9px] uppercase tracking-[0.18em] text-sage">{item.label}</p>
@@ -118,13 +124,17 @@ export function Estrazione() {
               <p className="text-sm text-ink">{item.card.essence}</p>
               <p className="mt-2 text-[12px] leading-relaxed text-ink/65">{item.card.upright}</p>
             </article>
+            </Reveal>
           ))}
+          <Reveal delay={300}>
           <Button variant="ghost" className="w-full" onClick={extract}>
             Estrai nuova triade
           </Button>
+          </Reveal>
         </section>
       )}
 
+      <Reveal>
       <section className="mt-24 bg-mist p-8 md:mt-32 md:p-12">
         <Kicker>Integrazione & analisi</Kicker>
         <h2 className="mt-3 font-display text-2xl leading-snug">
@@ -168,6 +178,7 @@ export function Estrazione() {
           Report WhatsApp entro 24h dal consulto
         </p>
       </section>
+      </Reveal>
       </div>
     </div>
   );

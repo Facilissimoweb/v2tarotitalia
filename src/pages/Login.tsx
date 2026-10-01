@@ -5,6 +5,7 @@ import { DEMO_ACCOUNT } from "../lib/storage";
 import { siteContent } from "../data/siteContent";
 import { Button } from "../components/Button";
 import { PageHero } from "../components/PageHero";
+import { Reveal } from "../components/Reveal";
 
 export function Login() {
   const { session, login } = useAuth();
@@ -37,6 +38,7 @@ export function Login() {
         secondary={{ href: "#login", label: "Entra nell'area riservata" }}
       />
 
+      <Reveal>
       <form
         id="login"
         onSubmit={onSubmit}
@@ -73,6 +75,7 @@ export function Login() {
           Entra nell’area riservata
         </Button>
       </form>
+      </Reveal>
     </div>
   );
 }

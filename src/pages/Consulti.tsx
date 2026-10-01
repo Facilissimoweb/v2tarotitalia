@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { TIME_SLOTS, upcomingWeekdays, type Booking, type BookingMode } from "../lib/storage";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
+import { Reveal } from "../components/Reveal";
 
 export function Consulti() {
   const { addBooking, session } = useAuth();
@@ -91,6 +92,7 @@ export function Consulti() {
         className="mx-auto flex max-w-2xl scroll-mt-28 flex-col gap-20 px-6 pb-24 md:gap-24 md:px-10 md:pb-32"
         onSubmit={onSubmit}
       >
+        <Reveal>
         <section>
           <div className="mb-8 flex justify-between">
             <Kicker>01 · Seleziona il percorso</Kicker>
@@ -125,7 +127,9 @@ export function Consulti() {
             ))}
           </div>
         </section>
+        </Reveal>
 
+        <Reveal>
         <section>
           <Kicker>02 · Modalità d’incontro</Kicker>
           <div className="mt-8 grid grid-cols-2 gap-4">
@@ -167,7 +171,9 @@ export function Consulti() {
             </p>
           )}
         </section>
+        </Reveal>
 
+        <Reveal>
         <section>
           <Kicker>03 · Sincronicità temporale</Kicker>
           <div className="mt-8 bg-paper p-6">
@@ -204,7 +210,9 @@ export function Consulti() {
             ))}
           </div>
         </section>
+        </Reveal>
 
+        <Reveal>
         <section className="bg-paper p-8 md:p-10">
           <Kicker>04 · Coordinate del consultante</Kicker>
           <div className="mt-8 flex flex-col gap-8">
@@ -241,7 +249,9 @@ export function Consulti() {
             </label>
           </div>
         </section>
+        </Reveal>
 
+        <Reveal>
         <section>
           <div className="bg-mist p-8">
             <Row k="Sessione" v={`${tariffa.name} (${tariffa.minutes} min)`} />
@@ -259,6 +269,7 @@ export function Consulti() {
             Pagamento sicuro post-accettazione. Nessun addebito preventivo.
           </p>
         </section>
+        </Reveal>
       </form>
     </div>
   );

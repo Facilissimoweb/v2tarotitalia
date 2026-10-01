@@ -2,6 +2,7 @@ import { siteContent } from "../data/siteContent";
 import { ImageSlot } from "../components/ImageSlot";
 import { Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
+import { Reveal } from "../components/Reveal";
 
 const { brand, cta, collaboratori, pages } = siteContent;
 const { maura } = collaboratori;
@@ -29,31 +30,43 @@ export function Rituali() {
             ratio="portrait"
           />
           <div className="md:pt-8">
-            <Kicker>{maura.sezione}</Kicker>
-            <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-              {maura.nome}
-            </h2>
-            <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{maura.descrizione}</p>
-            <p className="mt-14 text-[10px] uppercase tracking-[0.2em] text-sage">{maura.ritualiKicker}</p>
+            <Reveal>
+              <Kicker>{maura.sezione}</Kicker>
+            </Reveal>
+            <Reveal delay={100}>
+              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+                {maura.nome}
+              </h2>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{maura.descrizione}</p>
+            </Reveal>
+            <Reveal delay={300}>
+              <p className="mt-14 text-[10px] uppercase tracking-[0.2em] text-sage">{maura.ritualiKicker}</p>
+            </Reveal>
             <ul className="mt-6 space-y-5">
-              {maura.rituali.map((rito) => (
-                <li key={rito} className="font-display text-xl text-ink">
+              {maura.rituali.map((rito, i) => (
+                <Reveal key={rito} as="li" delay={350 + i * 80} className="font-display text-xl text-ink">
                   {rito}
-                </li>
+                </Reveal>
               ))}
             </ul>
-            <blockquote className="mt-16 max-w-lg border-l border-sage pl-8">
-              <p className="font-display text-xl italic leading-relaxed text-ink">«{maura.citazione}»</p>
-            </blockquote>
+            <Reveal delay={400}>
+              <blockquote className="mt-16 max-w-lg border-l border-sage pl-8">
+                <p className="font-display text-xl italic leading-relaxed text-ink">«{maura.citazione}»</p>
+              </blockquote>
+            </Reveal>
           </div>
         </div>
       </section>
 
       <section className="px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
-          <Kicker>{brand.name}</Kicker>
-          <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
-        </div>
+        <Reveal>
+          <div className="mx-auto max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
+            <Kicker>{brand.name}</Kicker>
+            <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
+          </div>
+        </Reveal>
       </section>
     </div>
   );
