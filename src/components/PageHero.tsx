@@ -108,7 +108,7 @@ export function PageHero({
     <section className="relative overflow-hidden bg-ink">
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <HeroVideo src={video} />
-        <div className="absolute inset-0 bg-black/15" />
+        <div className="absolute inset-0 bg-black/10" />
       </div>
       <div className="relative z-10 px-6 md:px-10">
         <div className="mx-auto grid max-w-6xl items-center gap-10 pt-16 pb-20 md:grid-cols-[1fr_auto] md:gap-16 md:pt-28 md:pb-32">
@@ -157,14 +157,10 @@ function HeroVideo({ src }: { src: string }) {
       aria-hidden
       style={{
         position: "absolute",
-        top: "50%",
-        left: "50%",
-        width: "108%",
-        height: "108%",
-        maxWidth: "none",
+        inset: 0,
+        width: "100%",
+        height: "100%",
         objectFit: "cover",
-        transform: "translate3d(-50%, -50%, 0)",
-        filter: "blur(8px)",
       }}
     >
       <source src={src} type="video/mp4" />
