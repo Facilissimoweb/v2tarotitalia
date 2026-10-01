@@ -220,18 +220,18 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       aria-modal="true"
       aria-label={nav.menu}
     >
-      <div className="flex h-[4.25rem] items-center justify-between border-b border-ink/5 px-5">
+      <div className="flex h-[4.25rem] items-center justify-between border-b border-ink/10 px-5">
         <NavLink to="/" className="flex items-center gap-3" onClick={onClose}>
           <img src="/logo.svg" alt="" className="h-8 w-8" />
           <span className="font-display text-[11px] tracking-[0.28em] text-ink">
             {brand.wordmark.toUpperCase()}
           </span>
         </NavLink>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <CartLink />
           <button
             type="button"
-            className="flex h-10 w-10 items-center justify-center text-ink"
+            className="flex h-11 w-11 items-center justify-center text-ink ring-1 ring-ink/15"
             aria-label={nav.chiudi}
             onClick={onClose}
           >
@@ -239,19 +239,19 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
           </button>
         </div>
       </div>
-      <nav className="flex-1 overflow-y-auto px-8 py-14" aria-label="Principale">
-        <div className="flex flex-col gap-9">
+      <nav className="flex-1 overflow-y-auto px-6 py-8" aria-label="Principale">
+        <div className="flex flex-col gap-3.5">
           {MAIN_NAV.map((item) =>
             isNavBranch(item) ? (
               <div key={item.label}>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-sage">{item.label}</p>
-                <ul className="mt-5 flex flex-col gap-5">
+                <p className="text-lg leading-snug text-ink">{item.label}</p>
+                <ul className="mt-2 flex flex-col gap-1.5 pl-5">
                   {item.children.map((child) => (
                     <li key={child.to}>
                       <NavLink
                         to={child.to}
                         className={({ isActive }) =>
-                          `font-display text-2xl ${isActive ? "text-ink" : "text-ink/50"}`
+                          `block text-base leading-snug ${isActive ? "text-ink" : "text-ink/50"}`
                         }
                       >
                         {child.label}
@@ -266,7 +266,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `font-display text-3xl ${isActive ? "text-ink" : "text-ink/45"}`
+                  `text-lg leading-snug ${isActive ? "text-ink" : "text-ink/55"}`
                 }
               >
                 {item.label}
@@ -310,7 +310,7 @@ function MenuIcon() {
 
 function CloseIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
       <path d="M6 6 L18 18 M18 6 L6 18" />
     </svg>
   );
