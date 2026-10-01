@@ -15,16 +15,27 @@ const linkClass = (active: boolean) =>
     active ? "text-ink" : "text-ink/40 hover:text-ink"
   }`;
 
+const SCROLL_DELTA = 8;
+
+function heroEndY() {
+  const hero = document.querySelector<HTMLElement>("[data-page-hero]");
+  if (!hero) return Math.round(window.innerHeight * 0.4);
+  const rect = hero.getBoundingClientRect();
+  return rect.bottom + window.scrollY;
+}
+
 export function Header() {
   const { pathname } = useLocation();
-  const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(!isHome);
+  const [visible, setVisible] = useState(false);
+  const lastY = useRef(0);
+  const ticking = useRef(false);
 
   useEffect(() => {
     setOpen(false);
-    setVisible(!isHome);
-  }, [isHome, pathname]);
+    setVisible(false);
+    lastY.current = 0;
+  }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -34,35 +45,53 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    if (!isHome) {
-      setVisible(true);
-      return;
-    }
-
-    const onScroll = () => {
+    const apply = () => {
+      ticking.current = false;
       if (open) {
         setVisible(true);
         return;
       }
-      setVisible(window.scrollY > 24);
+
+      const y = Math.max(0, window.scrollY);
+      const prev = lastY.current;
+      const delta = y - prev;
+      lastY.current = y;
+
+      if (y < heroEndY() - 12) {
+        setVisible(false);
+        return;
+      }
+
+      if (delta > SCROLL_DELTA) setVisible(false);
+      else if (delta < -SCROLL_DELTA) setVisible(true);
     };
 
-    onScroll();
+    const onScroll = () => {
+      if (ticking.current) return;
+      ticking.current = true;
+      requestAnimationFrame(apply);
+    };
+
+    lastY.current = Math.max(0, window.scrollY);
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isHome, open]);
+    window.addEventListener("resize", apply);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", apply);
+    };
+  }, [pathname, open]);
 
   const show = visible || open;
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl transition-[transform,opacity] duration-500 ease-out ${
+        className={`fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
           show ? "pointer-events-auto" : "pointer-events-none overflow-hidden"
         }`}
         style={{
           transform: show ? "translate3d(0, 0, 0)" : "translate3d(0, -100%, 0)",
-          opacity: show ? 1 : 0,
         }}
         aria-hidden={!show}
         inert={!show || undefined}
@@ -131,8 +160,6 @@ export function Header() {
           </div>
         </div>
       </header>
-
-      {isHome ? null : <div className="h-[4.25rem] lg:h-[15.25rem]" aria-hidden />}
 
       {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
     </>

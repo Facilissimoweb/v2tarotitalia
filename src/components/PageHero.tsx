@@ -148,7 +148,7 @@ function HomeHero({
 
   if (!video) {
     return (
-      <section className="px-6 md:px-10">
+      <section data-page-hero className="px-6 md:px-10">
         <div className="mx-auto grid max-w-6xl items-center gap-10 pt-16 pb-20 md:grid-cols-[1fr_auto] md:gap-16 md:pt-28 md:pb-32">
           <img src="/logo.svg" alt="" className="h-16 w-16 md:hidden" />
           <div className="min-w-0">{copy}</div>
@@ -159,7 +159,7 @@ function HomeHero({
   }
 
   return (
-    <section className="relative overflow-hidden bg-ink">
+    <section data-page-hero className="relative overflow-hidden bg-ink">
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <HeroVideo src={video} />
         <div className="absolute inset-0 bg-black/10" />
@@ -207,6 +207,7 @@ function InnerHero({
 
   return (
     <section
+      data-page-hero
       className={`relative overflow-hidden ${onMedia ? "bg-ink" : "bg-mist"}`}
     >
       {media ? (
