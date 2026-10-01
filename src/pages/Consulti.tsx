@@ -1,5 +1,6 @@
 import { useMemo, useState, type FormEvent } from "react";
 import { STUDIO, TARIFFE, type TariffaId } from "../data/catalogo";
+import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { TIME_SLOTS, upcomingWeekdays, type Booking, type BookingMode } from "../lib/storage";
 import { Button, Kicker } from "../components/Button";
@@ -81,8 +82,8 @@ export function Consulti() {
           </>
         }
         lead={`Uno spazio di ascolto a ${STUDIO.city} o per via auricolare. Tariffe fisse, protocollo WhatsApp vocale, report PDF su richiesta.`}
-        cta={{ href: "#prenota", label: "Prenota un consulto WhatsApp" }}
-        secondary={{ to: "/arcani", label: "Esplora i 22 Arcani" }}
+        cta={{ href: "#prenota", label: siteContent.cta.consultoWhatsapp }}
+        secondary={{ to: "/arcani", label: siteContent.cta.esploraArcani }}
       />
 
       <form
@@ -162,8 +163,7 @@ export function Consulti() {
             </div>
           ) : (
             <p className="mt-8 bg-mist p-8 text-[12px] leading-relaxed text-ink/70">
-              Ricevimento in ambiente riservato nel cuore storico di {STUDIO.city}. L’indirizzo
-              esatto arriverà via messaggio dopo la conferma.
+              {siteContent.brand.studioDiTeresa}
             </p>
           )}
         </section>

@@ -3,6 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { Layout } from "./components/Layout";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
+import { ChiSiamo } from "./pages/ChiSiamo";
 import { Arcani, ArcanoDetail } from "./pages/Arcani";
 import { Consulti } from "./pages/Consulti";
 import { Corsi } from "./pages/Corsi";
@@ -17,6 +18,7 @@ export default function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
+            <Route path="/chi-siamo" element={<ChiSiamo />} />
             <Route path="/arcani" element={<Arcani />} />
             <Route path="/arcani/:slug" element={<ArcanoDetail />} />
             <Route path="/consulti" element={<Consulti />} />

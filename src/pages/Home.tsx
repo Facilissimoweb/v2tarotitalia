@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { ARCANI } from "../data/arcani";
-import { TARIFFE, STUDIO } from "../data/catalogo";
+import { TARIFFE } from "../data/catalogo";
+import { siteContent } from "../data/siteContent";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button, Kicker } from "../components/Button";
+import { ImageSlot } from "../components/ImageSlot";
 import { PageHero } from "../components/PageHero";
+
+const { brand, chiSiamo, cta, nav } = siteContent;
 
 export function Home() {
   return (
@@ -19,16 +23,15 @@ export function Home() {
         }
         lead={
           <>
-            {STUDIO.name} a {STUDIO.city}. Decodifichiamo i moti interiori attraverso la lente
-            archetipica del mazzo marsigliese. Senza fatalismi: solo evoluzione della coscienza.
+            {brand.name} · {brand.city}. {brand.slogan}
           </>
         }
-        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         secondary={{ to: "/estrazione", label: "Pesca 3 carte · Gratis" }}
         meta={
           <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-ink/40">
-            <span>{STUDIO.coords}</span>
-            <span>{STUDIO.region}</span>
+            <span>{brand.coords}</span>
+            <span>{brand.region}</span>
           </div>
         }
       />
@@ -36,29 +39,29 @@ export function Home() {
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">
           <div>
-            <Kicker>Genius Loci</Kicker>
+            <Kicker>{nav.chiSiamo}</Kicker>
             <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-              Nel cuore silente
-              <br />
-              delle Marche.
+              {chiSiamo.titolo}
             </h2>
-            <p className="mt-8 text-base leading-[1.75] text-ink/75">
-              Tarot Italia nasce tra i colli marchigiani. Rifiutiamo la cartomanzia predittiva
-              d’ansia: il consulto è un{" "}
-              <strong className="font-medium text-ink">atto dialogico e fenomenologico</strong>,
-              dove ogni arcano agisce da specchio e mappa delle decisioni.
-            </p>
+            <p className="mt-8 text-base leading-[1.75] text-ink/75">{chiSiamo.presentazione}</p>
             <div className="mt-10 bg-paper p-8">
               <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink">
-                Patto etico trasparente
+                {brand.name}
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-ink/65">
-                Nessun consulto su salute o eventi fatali. L’essere umano resta sempre l’unico
-                scultore del proprio destino.
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.deontologia}</p>
+            </div>
+            <div className="mt-10">
+              <Button to="/chi-siamo" variant="ghost">
+                {cta.leggiChiSiamo} →
+              </Button>
             </div>
           </div>
-          <StudioPanel />
+          <ImageSlot
+            src={chiSiamo.immagini.teresa.src}
+            alt={chiSiamo.immagini.teresa.alt}
+            caption={chiSiamo.immagini.teresa.caption}
+            ratio="square"
+          />
         </div>
       </section>
 
@@ -106,7 +109,7 @@ export function Home() {
         </div>
         <div className="mt-12">
           <Button to="/consulti" variant="ghost">
-            Prenota dalla pagina consulti →
+            {cta.consultoWhatsapp} →
           </Button>
         </div>
       </section>
@@ -152,7 +155,7 @@ export function Home() {
 
       <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-3xl bg-mist p-10 md:p-14">
-          <Kicker>Pubblicazioni dello Studio</Kicker>
+          <Kicker>{brand.name}</Kicker>
           <h3 className="mt-5 font-display text-2xl md:text-3xl">I 22 Passaggi dell’Eroe</h3>
           <p className="mt-5 text-base leading-[1.75] text-ink/70">
             Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. Scaricala dall’area
@@ -163,27 +166,6 @@ export function Home() {
           </div>
         </div>
       </section>
-    </div>
-  );
-}
-
-function StudioPanel() {
-  return (
-    <div className="relative aspect-square overflow-hidden bg-ink">
-      <svg viewBox="0 0 400 400" className="h-full w-full" aria-hidden>
-        <rect width="400" height="400" fill="#2B2523" />
-        <rect x="70" y="40" width="180" height="240" fill="none" stroke="#7A8B78" strokeWidth="1.2" />
-        <rect x="90" y="60" width="140" height="180" fill="#F9F8F6" opacity="0.08" />
-        <path d="M70 160 Q160 120 250 160" fill="none" stroke="#7A8B78" strokeWidth="0.8" />
-        <rect x="200" y="250" width="140" height="10" fill="#7A8B78" opacity="0.7" />
-        <rect x="230" y="220" width="70" height="30" fill="none" stroke="#F9F8F6" strokeWidth="0.8" />
-        <circle cx="300" cy="200" r="8" fill="none" stroke="#F9F8F6" strokeWidth="0.6" />
-      </svg>
-      <div className="absolute bottom-0 left-0 bg-ink/80 px-4 py-3">
-        <p className="text-[9px] uppercase tracking-[0.18em] text-on-ink">
-          {STUDIO.name} — Borgo {STUDIO.city}
-        </p>
-      </div>
     </div>
   );
 }

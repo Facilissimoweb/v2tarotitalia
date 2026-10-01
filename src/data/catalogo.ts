@@ -89,12 +89,17 @@ export const MATERIALI = [
   },
 ];
 
+import { siteContent } from "./siteContent";
+
 export const STUDIO = {
-  name: "Studio Olistico",
-  city: "Macerata",
-  region: "Marche — Italia",
-  coords: "43° 18′ 01″ N / 13° 27′ 12″ E",
-  email: "sanctuary@tarotitalia.it",
+  name: siteContent.brand.name,
+  slogan: siteContent.brand.slogan,
+  city: siteContent.brand.city,
+  region: siteContent.brand.region,
+  address: siteContent.brand.studioDiTeresa,
+  deontologia: siteContent.brand.deontologia,
+  coords: siteContent.brand.coords,
+  email: siteContent.brand.email,
   whatsappNote:
     "I consulti a distanza si svolgono esclusivamente tramite chiamata vocale telefonica WhatsApp. Nessuna videochiamata, per preservare la concentrazione auricolare.",
 };

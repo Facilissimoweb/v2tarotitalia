@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
+import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "./Button";
 
 export const DEFAULT_CTA = {
   to: "/consulti",
-  label: "Prenota un consulto WhatsApp",
+  label: siteContent.cta.consultoWhatsapp,
 };
 
 export type HeroCta = {

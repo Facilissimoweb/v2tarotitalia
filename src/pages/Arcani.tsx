@@ -1,5 +1,6 @@
 import { Link, useParams, Navigate } from "react-router-dom";
 import { ARCANI, getArcanoBySlug } from "../data/arcani";
+import { siteContent } from "../data/siteContent";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button } from "../components/Button";
 import { PageHero } from "../components/PageHero";
@@ -11,7 +12,7 @@ export function Arcani() {
         kicker="I ventidue passaggi"
         title="Gli Arcani Maggiori"
         lead="Galleria completa del mazzo marsigliese. Ogni scheda apre essenza, dritto e rovescio — per studio, non per oracolo automatico."
-        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/estrazione", label: "Pesca 3 carte" }}
       />
       <div className="mx-auto max-w-6xl px-6 pb-24 md:px-10 md:pb-32">
@@ -56,7 +57,7 @@ export function ArcanoDetail() {
             {arcano.essence}
           </>
         }
-        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/arcani", label: "Tutti i 22 Arcani" }}
       />
       <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-24 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-32">

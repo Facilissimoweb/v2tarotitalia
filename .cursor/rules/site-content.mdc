@@ -1,0 +1,11 @@
+---
+description: Contenuti ufficiali e design Lumiere — attingere solo a siteContent.ts
+alwaysApply: true
+---
+
+# Studio Olistico — contenuti e design
+
+- Testi visibili: solo da `src/data/siteContent.ts`. Non inventare copy, metodi o titoli formativi.
+- Vietato menzionare Jodorowsky o metodi non autorizzati.
+- Nome studio: Studio Olistico (non Santuario). Pagina principale: Home.
+- Palette Lumiere: `#F9F8F6`, `#2B2523`, `#7A8B78`. Ampie spaziature editoriali su ogni pagina.

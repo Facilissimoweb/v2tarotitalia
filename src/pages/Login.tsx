@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { DEMO_ACCOUNT } from "../lib/storage";
+import { siteContent } from "../data/siteContent";
 import { Button } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 
@@ -32,7 +33,7 @@ export function Login() {
         kicker="Soglia riservata"
         title="Accedi"
         lead="Area membri per consulti prenotati, dispense e materiali alchemici. Oppure prenota una sessione vocale WhatsApp senza attendere."
-        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ href: "#login", label: "Entra nell'area riservata" }}
       />
 

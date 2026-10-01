@@ -1,44 +1,51 @@
 import { NavLink } from "react-router-dom";
-import { STUDIO } from "../data/catalogo";
+import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
+
+const { brand, nav } = siteContent;
 
 export function Footer() {
   const { session } = useAuth();
   return (
     <footer className="mt-auto bg-mist px-6 py-20 text-center md:px-10 md:py-28">
-      <p className="font-display text-lg tracking-[0.2em] text-ink">TAROT ITALIA</p>
-      <p className="mt-4 text-[10px] uppercase tracking-[0.22em] text-sage">
-        {STUDIO.name} · {STUDIO.city} ({STUDIO.region})
+      <p className="font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
+      <p className="mt-4 text-[10px] uppercase tracking-[0.22em] text-sage">{brand.name}</p>
+      <p className="mt-6 text-[11px] leading-relaxed tracking-[0.04em] text-ink/55">{brand.slogan}</p>
+      <p className="mx-auto mt-8 max-w-md text-[10px] uppercase leading-relaxed tracking-[0.16em] text-ink/45">
+        {brand.studioDiTeresa}
       </p>
-      <p className="mt-8 text-[10px] uppercase tracking-[0.16em] text-ink/45">{STUDIO.coords}</p>
+      <p className="mt-6 text-[10px] uppercase tracking-[0.16em] text-ink/45">{brand.coords}</p>
       <a
-        href={`mailto:${STUDIO.email}`}
+        href={`mailto:${brand.email}`}
         className="mt-6 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4"
       >
-        {STUDIO.email}
+        {brand.email}
       </a>
       <div className="mx-auto mt-14 flex max-w-lg flex-wrap justify-center gap-x-8 gap-y-3 text-[10px] uppercase tracking-[0.16em] text-ink/50">
         <NavLink to="/" className="hover:text-ink">
-          Home
+          {nav.home}
+        </NavLink>
+        <NavLink to="/chi-siamo" className="hover:text-ink">
+          {nav.chiSiamo}
         </NavLink>
         <NavLink to="/consulti" className="hover:text-ink">
-          Consulti
+          {nav.consulti}
         </NavLink>
         <NavLink to="/arcani" className="hover:text-ink">
-          22 Arcani
+          {nav.arcani}
         </NavLink>
         <NavLink to="/corsi" className="hover:text-ink">
-          Corsi
+          {nav.corsi}
         </NavLink>
         <NavLink to="/estrazione" className="hover:text-ink">
-          Estrazione
+          {nav.estrazione}
         </NavLink>
         <NavLink to={session ? "/riservata" : "/login"} className="hover:text-ink">
-          {session ? "Riservata" : "Accedi"}
+          {session ? nav.riservata : nav.accedi}
         </NavLink>
       </div>
-      <p className="mt-12 text-[9px] uppercase tracking-[0.2em] text-ink/35">
-        Nessun consulto su salute o eventi fatali. L'essere umano resta l'unico scultore del proprio destino.
+      <p className="mx-auto mt-12 max-w-lg text-[9px] uppercase leading-relaxed tracking-[0.16em] text-ink/35">
+        {brand.deontologia}
       </p>
     </footer>
   );

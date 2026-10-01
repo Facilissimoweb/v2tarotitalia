@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { CORSI, MATERIALI } from "../data/catalogo";
+import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 import { useAuth } from "../context/AuthContext";
@@ -13,7 +14,7 @@ export function Corsi() {
         kicker="Archivio iniziatico"
         title="Area Corsi"
         lead="Dispense scaricabili e lezioni audio. I file sono aperti: l’Area Riservata conserva anche lo storico dei consulti e i materiali alchemici."
-        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={session ? { to: "/riservata", label: "Area riservata" } : { to: "/login", label: "Accedi" }}
       />
 

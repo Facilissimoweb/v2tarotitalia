@@ -1,13 +1,16 @@
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { STUDIO } from "../data/catalogo";
+import { siteContent } from "../data/siteContent";
+
+const { brand, nav } = siteContent;
 
 const links = [
-  { to: "/", label: "Home" },
-  { to: "/arcani", label: "22 Arcani" },
-  { to: "/consulti", label: "Consulti" },
-  { to: "/corsi", label: "Corsi" },
-  { to: "/estrazione", label: "3 Carte" },
+  { to: "/", label: nav.home },
+  { to: "/chi-siamo", label: nav.chiSiamo },
+  { to: "/arcani", label: nav.arcani },
+  { to: "/consulti", label: nav.consulti },
+  { to: "/corsi", label: nav.corsi },
+  { to: "/estrazione", label: nav.estrazione },
 ];
 
 export function Header() {
@@ -20,15 +23,15 @@ export function Header() {
           <img src="/logo.svg" alt="" className="h-8 w-8" />
           <div className="flex flex-col leading-none">
             <span className="font-display text-[13px] tracking-[0.28em] text-ink">
-              TAROT ITALIA
+              {brand.wordmark.toUpperCase()}
             </span>
             <span className="mt-1 text-[9px] uppercase tracking-[0.22em] text-sage">
-              Studio Olistico · {STUDIO.city}
+              {brand.name} · {brand.city}
             </span>
           </div>
         </NavLink>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Principale">
+        <nav className="hidden items-center gap-5 lg:gap-7 md:flex" aria-label="Principale">
           {links.map((l) => (
             <NavLink
               key={l.to}
@@ -47,16 +50,16 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <NavLink
-            to="/corsi"
+            to="/chi-siamo"
             className="text-[10px] uppercase tracking-[0.18em] text-ink/45 hover:text-ink md:hidden"
           >
-            Corsi
+            {nav.chiSiamo}
           </NavLink>
           <NavLink
             to={session ? "/riservata" : "/login"}
             className="text-[10px] uppercase tracking-[0.18em] text-sage hover:text-ink"
           >
-            {session ? "Area riservata" : "Accedi"}
+            {session ? nav.riservata : nav.accedi}
           </NavLink>
         </div>
       </div>
@@ -65,11 +68,11 @@ export function Header() {
 }
 
 const tabs = [
-  { to: "/", label: "Home", icon: HomeIcon },
-  { to: "/consulti", label: "Consulti", icon: CalIcon },
-  { to: "/estrazione", label: "3 Carte", icon: DeckIcon },
-  { to: "/arcani", label: "Arcani", icon: BookIcon },
-  { to: "/riservata", label: "Riservata", icon: KeyIcon },
+  { to: "/", label: nav.home, icon: HomeIcon },
+  { to: "/consulti", label: nav.consulti, icon: CalIcon },
+  { to: "/estrazione", label: nav.estrazione, icon: DeckIcon },
+  { to: "/arcani", label: nav.arcaniShort, icon: BookIcon },
+  { to: "/riservata", label: nav.riservataShort, icon: KeyIcon },
 ];
 
 export function BottomNav() {

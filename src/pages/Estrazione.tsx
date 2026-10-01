@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { ARCANI, type Arcano } from "../data/arcani";
 import { TARIFFE } from "../data/catalogo";
+import { siteContent } from "../data/siteContent";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
@@ -63,7 +64,7 @@ export function Estrazione() {
           </>
         }
         lead="Focalizza l’intento e tocca il mazzo. Tre carte — passato, presente, evoluzione — estratte dai 22 Arcani Maggiori."
-        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ href: "#mazzo", label: "Pesca le tre carte" }}
       />
 

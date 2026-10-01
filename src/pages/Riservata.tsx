@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { CORSI, MATERIALI, STUDIO, TARIFFE } from "../data/catalogo";
+import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 
@@ -23,7 +24,7 @@ export function Riservata() {
           </>
         }
         lead={`Iniziato · ${session?.email}. Qui trovi le sessioni prenotate, le dispense e i materiali alchemici.`}
-        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
       >
         <div className="mt-8 flex items-center gap-4">
           <span className="bg-paper px-3 py-1.5 text-[10px] uppercase tracking-[0.16em]">Attivo</span>
