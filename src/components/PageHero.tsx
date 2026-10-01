@@ -208,7 +208,7 @@ function InnerHero({
   return (
     <section
       data-page-hero
-      className={`relative overflow-hidden ${onMedia ? "bg-ink" : "bg-mist"}`}
+      className={`relative mb-16 overflow-hidden lg:mb-32 ${onMedia ? "bg-ink" : "bg-mist"}`}
     >
       {media ? (
         <div className="pointer-events-none absolute inset-0" aria-hidden>
@@ -226,9 +226,18 @@ function InnerHero({
         </div>
       ) : null}
 
-      <div className="relative z-10 flex min-h-[13rem] items-center justify-center px-6 py-10 md:min-h-[16rem] md:px-10 md:py-12">
+      <div className="relative z-10 flex min-h-[13rem] items-center justify-center px-6 py-10 md:min-h-[24rem] md:px-10 md:py-24 lg:min-h-[32rem] lg:py-32">
         <div className="mx-auto max-w-3xl text-center">
           <Reveal>
+            <img
+              src="/logo.svg"
+              alt=""
+              className={`mx-auto mb-6 h-16 w-16 lg:mb-8 ${
+                onMedia ? "drop-shadow-[0_8px_24px_rgba(0,0,0,0.35)]" : ""
+              }`}
+            />
+          </Reveal>
+          <Reveal delay={80}>
             <div className="mb-3 flex items-center justify-center gap-3">
               <span className={`h-1.5 w-1.5 ${tone === "ivory" ? "bg-ivory" : "bg-ink"}`} />
               <span className={tone === "ivory" ? "[&_.label-kicker]:text-ivory/80" : undefined}>
@@ -236,7 +245,7 @@ function InnerHero({
               </span>
             </div>
           </Reveal>
-          <Reveal delay={80}>
+          <Reveal delay={140}>
             <h1
               className={`font-display text-3xl font-light leading-[1.15] tracking-tight md:text-4xl ${
                 tone === "ivory"
@@ -248,7 +257,7 @@ function InnerHero({
             </h1>
           </Reveal>
           {lead ? (
-            <Reveal delay={140}>
+            <Reveal delay={200}>
               <div
                 className={`mx-auto mt-4 max-w-xl text-sm leading-relaxed ${
                   tone === "ivory"
@@ -261,7 +270,7 @@ function InnerHero({
             </Reveal>
           ) : null}
           {cta ? (
-            <Reveal delay={200}>
+            <Reveal delay={280}>
               <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                 <HeroButton cta={cta} variant={onMedia ? "paper" : "primary"} arrow />
                 {secondary ? <HeroButton cta={secondary} variant="paper" /> : null}
