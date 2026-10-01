@@ -16,7 +16,7 @@ export function Layout() {
     <div className="flex min-h-dvh flex-col bg-ivory text-ink">
       <ScrollToTop />
       <Header />
-      <main className="flex-1 pb-24 md:pb-0">
+      <main className="flex-1 pb-24 lg:pb-0">
         <Outlet />
       </main>
       <Footer />

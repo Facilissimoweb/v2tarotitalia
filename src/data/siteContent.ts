@@ -16,20 +16,45 @@ export const siteContent = {
   nav: {
     home: "Home",
     chiSiamo: "Chi Siamo",
-    arcani: "22 Arcani",
-    arcaniShort: "Arcani",
+    tarocchi: "Tarocchi",
+    arcaniMaggiori: "22 Arcani Maggiori",
+    arcaniMinori: "Arcani Minori",
     consulti: "Consulti",
-    corsi: "Corsi",
-    estrazione: "3 Carte",
+    rituali: "Rituali",
+    blog: "Blog",
+    contatti: "Contatti",
+    menu: "Menu",
+    chiudi: "Chiudi",
     accedi: "Accedi",
     riservata: "Area riservata",
-    riservataShort: "Riservata",
   },
+
+  comingSoon: "Archivio in costruzione",
 
   cta: {
     consultoWhatsapp: "Prenota un consulto WhatsApp",
     esploraArcani: "Esplora i 22 Arcani",
     leggiChiSiamo: "Leggi Chi Siamo",
+    scriviStudio: "Scrivi allo Studio",
+  },
+
+  pages: {
+    rituali: {
+      kicker: "Rituali",
+      titolo: "Folklore Tradizionale Marchigiano",
+    },
+    blog: {
+      kicker: "Blog",
+      titolo: "Blog",
+    },
+    contatti: {
+      kicker: "Contatti",
+      titolo: "Contatti",
+    },
+    arcaniMinori: {
+      kicker: "Tarocchi",
+      titolo: "Arcani Minori",
+    },
   },
 
   chiSiamo: {

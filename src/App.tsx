@@ -5,7 +5,11 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { ChiSiamo } from "./pages/ChiSiamo";
 import { Arcani, ArcanoDetail } from "./pages/Arcani";
+import { ArcaniMinori } from "./pages/ArcaniMinori";
 import { Consulti } from "./pages/Consulti";
+import { Rituali } from "./pages/Rituali";
+import { Blog } from "./pages/Blog";
+import { Contatti } from "./pages/Contatti";
 import { Corsi } from "./pages/Corsi";
 import { Estrazione } from "./pages/Estrazione";
 import { Login } from "./pages/Login";
@@ -21,7 +25,11 @@ export default function App() {
             <Route path="/chi-siamo" element={<ChiSiamo />} />
             <Route path="/arcani" element={<Arcani />} />
             <Route path="/arcani/:slug" element={<ArcanoDetail />} />
+            <Route path="/arcani-minori" element={<ArcaniMinori />} />
             <Route path="/consulti" element={<Consulti />} />
+            <Route path="/rituali" element={<Rituali />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contatti" element={<Contatti />} />
             <Route path="/corsi" element={<Corsi />} />
             <Route path="/estrazione" element={<Estrazione />} />
             <Route path="/login" element={<Login />} />
