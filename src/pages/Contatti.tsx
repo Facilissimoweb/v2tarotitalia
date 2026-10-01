@@ -13,7 +13,11 @@ export function Contatti() {
         title={pages.contatti.titolo}
         lead={brand.studioDiTeresa}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
-        secondary={{ href: `mailto:${brand.email}`, label: cta.scriviStudio }}
+        media={{
+          src: siteContent.chiSiamo.immagini.studio.src,
+          type: "image",
+          alt: siteContent.chiSiamo.immagini.studio.alt,
+        }}
       />
 
       <section className="px-6 pb-24 md:px-10 md:pb-32">

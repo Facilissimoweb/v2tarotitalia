@@ -14,6 +14,13 @@ export type HeroCta = {
   label: string;
 };
 
+export type HeroMedia = {
+  src: string;
+  type?: "image" | "video";
+  alt?: string;
+  objectPosition?: string;
+};
+
 type Props = {
   kicker: string;
   title: ReactNode;
@@ -24,7 +31,14 @@ type Props = {
   children?: ReactNode;
   logo?: boolean;
   video?: string;
+  media?: HeroMedia;
 };
+
+function isVideoMedia(media: HeroMedia) {
+  if (media.type === "video") return true;
+  if (media.type === "image") return false;
+  return /\.(mp4|webm|ogg)(\?|$)/i.test(media.src);
+}
 
 export function PageHero({
   kicker,
@@ -36,8 +50,55 @@ export function PageHero({
   children,
   logo = false,
   video,
+  media,
 }: Props) {
-  const cinematic = Boolean(logo && video);
+  if (logo) {
+    return (
+      <HomeHero
+        kicker={kicker}
+        title={title}
+        lead={lead}
+        cta={cta}
+        secondary={secondary}
+        meta={meta}
+        video={video}
+      />
+    );
+  }
+
+  return (
+    <InnerHero
+      kicker={kicker}
+      title={title}
+      lead={lead}
+      cta={cta}
+      secondary={secondary}
+      meta={meta}
+      media={media}
+    >
+      {children}
+    </InnerHero>
+  );
+}
+
+function HomeHero({
+  kicker,
+  title,
+  lead,
+  cta,
+  secondary,
+  meta,
+  video,
+}: {
+  kicker: string;
+  title: ReactNode;
+  lead: ReactNode;
+  cta?: HeroCta | null;
+  secondary?: HeroCta;
+  meta?: ReactNode;
+  video?: string;
+}) {
+  const cinematic = Boolean(video);
 
   const copy = (
     <>
@@ -75,22 +136,15 @@ export function PageHero({
           </div>
         </Reveal>
       ) : null}
-      {children ? <Reveal delay={300}>{children}</Reveal> : null}
       {meta ? (
         <Reveal delay={400}>
-          <div className={`mt-16 ${cinematic ? "text-ivory/80 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]" : ""}`}>{meta}</div>
+          <div className={`mt-16 ${cinematic ? "text-ivory/80 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]" : ""}`}>
+            {meta}
+          </div>
         </Reveal>
       ) : null}
     </>
   );
-
-  if (!logo) {
-    return (
-      <section className="px-6 md:px-10">
-        <div className="mx-auto max-w-3xl pt-16 pb-20 md:pt-28 md:pb-32">{copy}</div>
-      </section>
-    );
-  }
 
   if (!video) {
     return (
@@ -123,6 +177,106 @@ export function PageHero({
             alt=""
             className="hidden h-44 w-44 drop-shadow-[0_16px_40px_rgba(0,0,0,0.4)] md:block lg:h-52 lg:w-52"
           />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function InnerHero({
+  kicker,
+  title,
+  lead,
+  cta,
+  secondary,
+  meta,
+  media,
+  children,
+}: {
+  kicker: string;
+  title: ReactNode;
+  lead: ReactNode;
+  cta?: HeroCta | null;
+  secondary?: HeroCta;
+  meta?: ReactNode;
+  media?: HeroMedia;
+  children?: ReactNode;
+}) {
+  const onMedia = Boolean(media);
+  const tone = onMedia ? "ivory" : "ink";
+
+  return (
+    <section
+      className={`relative overflow-hidden ${onMedia ? "bg-ink" : "bg-mist"}`}
+    >
+      {media ? (
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          {isVideoMedia(media) ? (
+            <HeroVideo src={media.src} />
+          ) : (
+            <img
+              src={media.src}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover"
+              style={media.objectPosition ? { objectPosition: media.objectPosition } : undefined}
+            />
+          )}
+          <div className="absolute inset-0 bg-black/20" />
+        </div>
+      ) : null}
+
+      <div className="relative z-10 flex min-h-[13rem] items-center justify-center px-6 py-10 md:min-h-[16rem] md:px-10 md:py-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <Reveal>
+            <div className="mb-3 flex items-center justify-center gap-3">
+              <span className={`h-1.5 w-1.5 ${tone === "ivory" ? "bg-ivory" : "bg-ink"}`} />
+              <span className={tone === "ivory" ? "[&_.label-kicker]:text-ivory/80" : undefined}>
+                <Kicker>{kicker}</Kicker>
+              </span>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1
+              className={`font-display text-3xl font-light leading-[1.15] tracking-tight md:text-4xl ${
+                tone === "ivory"
+                  ? "text-ivory [text-shadow:0_2px_18px_rgba(0,0,0,0.4)]"
+                  : "text-ink"
+              }`}
+            >
+              {title}
+            </h1>
+          </Reveal>
+          {lead ? (
+            <Reveal delay={140}>
+              <div
+                className={`mx-auto mt-4 max-w-xl text-sm leading-relaxed ${
+                  tone === "ivory"
+                    ? "text-ivory/85 [text-shadow:0_1px_12px_rgba(0,0,0,0.35)]"
+                    : "text-ink/65"
+                }`}
+              >
+                {lead}
+              </div>
+            </Reveal>
+          ) : null}
+          {cta ? (
+            <Reveal delay={200}>
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+                <HeroButton cta={cta} variant={onMedia ? "paper" : "primary"} arrow />
+                {secondary ? <HeroButton cta={secondary} variant="paper" /> : null}
+              </div>
+            </Reveal>
+          ) : null}
+          {children ? <div className="mt-5">{children}</div> : null}
+          {meta ? (
+            <div
+              className={`mt-5 ${
+                tone === "ivory" ? "text-ivory/70" : "text-ink/45"
+              }`}
+            >
+              {meta}
+            </div>
+          ) : null}
         </div>
       </div>
     </section>
@@ -171,23 +325,29 @@ function HeroVideo({ src }: { src: string }) {
 function HeroButton({
   cta,
   variant,
+  arrow = variant === "primary",
 }: {
   cta: HeroCta;
   variant: "primary" | "paper";
+  arrow?: boolean;
 }) {
   const extra = "w-full sm:w-auto";
+  const label = (
+    <>
+      {cta.label}
+      {arrow ? <span aria-hidden>→</span> : null}
+    </>
+  );
   if (cta.to) {
     return (
       <Button to={cta.to} variant={variant} className={extra}>
-        {cta.label}
-        {variant === "primary" ? <span aria-hidden>→</span> : null}
+        {label}
       </Button>
     );
   }
   return (
     <Button href={cta.href} variant={variant} className={extra}>
-      {cta.label}
-      {variant === "primary" ? <span aria-hidden>→</span> : null}
+      {label}
     </Button>
   );
 }

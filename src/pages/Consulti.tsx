@@ -53,9 +53,9 @@ export function Consulti() {
         title="La soglia è aperta"
         lead={
           <>
-            Gentile <strong className="text-ink">{done.name}</strong>, la prenotazione per{" "}
-            <strong className="text-ink">{tariffa.name}</strong> ({done.minutes} min, {done.price}€)
-            il <strong className="text-ink">{day?.label}</strong> alle {done.slot} —{" "}
+            Gentile <strong className="font-medium">{done.name}</strong>, la prenotazione per{" "}
+            <strong className="font-medium">{tariffa.name}</strong> ({done.minutes} min, {done.price}€)
+            il <strong className="font-medium">{day?.label}</strong> alle {done.slot} —{" "}
             {done.mode === "remote" ? "chiamata vocale WhatsApp" : `in studio a ${STUDIO.city}`} — è
             stata registrata.
             {done.pdf ? " Il report PDF verrà inviato su WhatsApp al termine." : ""} Entro due ore
@@ -67,6 +67,11 @@ export function Consulti() {
           label: session ? "Vedi in Area Riservata" : "Accedi per i tuoi consulti",
         }}
         secondary={{ to: "/", label: "Torna alla Home" }}
+        media={{
+          src: siteContent.chiSiamo.immagini.simboli.src,
+          type: "image",
+          alt: siteContent.chiSiamo.immagini.simboli.alt,
+        }}
       />
     );
   }
@@ -84,7 +89,11 @@ export function Consulti() {
         }
         lead={`Uno spazio di ascolto a ${STUDIO.city} o per via auricolare. Tariffe fisse, protocollo WhatsApp vocale, report PDF su richiesta.`}
         cta={{ href: "#prenota", label: siteContent.cta.consultoWhatsapp }}
-        secondary={{ to: "/arcani", label: siteContent.cta.esploraArcani }}
+        media={{
+          src: siteContent.chiSiamo.immagini.simboli.src,
+          type: "image",
+          alt: siteContent.chiSiamo.immagini.simboli.alt,
+        }}
       />
 
       <form

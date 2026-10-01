@@ -15,12 +15,12 @@ export function ChiSiamo() {
         title={chiSiamo.titolo}
         lead={brand.slogan}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
-        secondary={{ to: "/arcani", label: cta.esploraArcani }}
-        meta={
-          <p className="max-w-md text-[10px] uppercase leading-relaxed tracking-[0.16em] text-ink/40">
-            {brand.studioDiTeresa}
-          </p>
-        }
+        media={{
+          src: chiSiamo.immagini.teresa.src,
+          type: "image",
+          alt: chiSiamo.immagini.teresa.alt,
+          objectPosition: "50% 18%",
+        }}
       />
 
       <section className="px-6 pb-24 md:px-10 md:pb-32">

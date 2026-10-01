@@ -15,10 +15,11 @@ export function Rituali() {
         title={pages.rituali.titolo}
         lead={maura.descrizione}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
-        secondary={{ to: "/chi-siamo", label: cta.leggiChiSiamo }}
-        meta={
-          <p className="font-display text-xl text-ink">{maura.nome}</p>
-        }
+        media={{
+          src: maura.immagine.src,
+          type: "image",
+          alt: maura.immagine.alt,
+        }}
       />
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">

@@ -17,13 +17,14 @@ const linkClass = (active: boolean) =>
 
 export function Header() {
   const { pathname } = useLocation();
+  const isHome = pathname === "/";
   const [open, setOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
+  const [visible, setVisible] = useState(!isHome);
 
   useEffect(() => {
     setOpen(false);
-    setHidden(false);
-  }, [pathname]);
+    setVisible(!isHome);
+  }, [isHome, pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -33,33 +34,38 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    let last = window.scrollY;
+    if (!isHome) {
+      setVisible(true);
+      return;
+    }
+
     const onScroll = () => {
-      const y = Math.max(0, window.scrollY);
       if (open) {
-        setHidden(false);
-        last = y;
+        setVisible(true);
         return;
       }
-      if (y > last + 1 && y > 16) setHidden(true);
-      else if (y < last) setHidden(false);
-      last = y;
+      setVisible(window.scrollY > 24);
     };
+
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [open]);
+  }, [isHome, open]);
+
+  const show = visible || open;
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl transition-transform ease-out ${
-          hidden && !open
-            ? "overflow-hidden duration-300"
-            : "duration-150"
+        className={`fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl transition-[transform,opacity] duration-500 ease-out ${
+          show ? "pointer-events-auto" : "pointer-events-none overflow-hidden"
         }`}
         style={{
-          transform: hidden && !open ? "translate3d(0, -100%, 0)" : "translate3d(0, 0, 0)",
+          transform: show ? "translate3d(0, 0, 0)" : "translate3d(0, -100%, 0)",
+          opacity: show ? 1 : 0,
         }}
+        aria-hidden={!show}
+        inert={!show || undefined}
       >
         <div className="hidden lg:block">
           <NavLink
@@ -126,7 +132,7 @@ export function Header() {
         </div>
       </header>
 
-      <div className="h-[4.25rem] lg:h-[15.25rem]" aria-hidden />
+      {isHome ? null : <div className="h-[4.25rem] lg:h-[15.25rem]" aria-hidden />}
 
       {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
     </>
