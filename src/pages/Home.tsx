@@ -32,7 +32,7 @@ export function Home() {
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         secondary={{ to: "/estrazione", label: "Pesca 3 carte · Gratis" }}
         meta={
-          <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-ink/40">
+          <div className="flex justify-between text-[9px] uppercase tracking-[0.2em]">
             <span>{brand.coords}</span>
             <span>{brand.region}</span>
           </div>
