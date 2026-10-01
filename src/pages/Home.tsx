@@ -13,6 +13,7 @@ export function Home() {
   return (
     <div>
       <PageHero
+        logo
         kicker="Vol. IV — Radici & Simboli"
         title={
           <>

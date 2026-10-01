@@ -11,7 +11,8 @@ export function Footer() {
 
   return (
     <footer className="mt-auto bg-mist px-6 py-20 text-center md:px-10 md:py-28">
-      <p className="font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
+      <img src="/logo.svg" alt="" className="mx-auto h-12 w-12" />
+      <p className="mt-8 font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
       <p className="mt-4 text-[10px] uppercase tracking-[0.22em] text-sage">{brand.name}</p>
       <p className="mt-6 text-[11px] leading-relaxed tracking-[0.04em] text-ink/55">{brand.slogan}</p>
       <p className="mx-auto mt-8 max-w-md text-[10px] uppercase leading-relaxed tracking-[0.16em] text-ink/45">
