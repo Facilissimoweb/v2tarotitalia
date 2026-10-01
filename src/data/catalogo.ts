@@ -90,6 +90,7 @@ export const MATERIALI = [
 ];
 
 export const STUDIO = {
+  name: "Studio Olistico",
   city: "Macerata",
   region: "Marche — Italia",
   coords: "43° 18′ 01″ N / 13° 27′ 12″ E",

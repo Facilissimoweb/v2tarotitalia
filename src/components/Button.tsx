@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import type { ReactNode } from "react";
 
 const base =
-  "inline-flex items-center justify-center gap-2 px-5 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
+  "inline-flex items-center justify-center gap-2 px-6 py-4 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
 
 const variants = {
   primary: "bg-ink text-on-ink hover:bg-moss",
@@ -44,7 +44,11 @@ export function Button({
   }
   if (href) {
     return (
-      <a href={href} className={cls} download={download ?? true}>
+      <a
+        href={href}
+        className={cls}
+        {...(download !== undefined ? { download: download === true ? true : download } : {})}
+      >
         {children}
       </a>
     );

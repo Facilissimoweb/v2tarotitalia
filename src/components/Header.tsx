@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { STUDIO } from "../data/catalogo";
 
 const links = [
-  { to: "/", label: "Santuario" },
+  { to: "/", label: "Home" },
   { to: "/arcani", label: "22 Arcani" },
   { to: "/consulti", label: "Consulti" },
   { to: "/corsi", label: "Corsi" },
@@ -15,7 +15,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-ink/5 bg-ivory/80 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+      <div className="mx-auto flex h-20 max-w-6xl items-center justify-between px-6 md:px-10">
         <NavLink to="/" className="flex items-center gap-3">
           <img src="/logo.svg" alt="" className="h-8 w-8" />
           <div className="flex flex-col leading-none">
@@ -23,12 +23,12 @@ export function Header() {
               TAROT ITALIA
             </span>
             <span className="mt-1 text-[9px] uppercase tracking-[0.22em] text-sage">
-              Santuario · {STUDIO.city}
+              Studio Olistico · {STUDIO.city}
             </span>
           </div>
         </NavLink>
 
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Principale">
+        <nav className="hidden items-center gap-8 md:flex" aria-label="Principale">
           {links.map((l) => (
             <NavLink
               key={l.to}
@@ -65,7 +65,7 @@ export function Header() {
 }
 
 const tabs = [
-  { to: "/", label: "Santuario", icon: HomeIcon },
+  { to: "/", label: "Home", icon: HomeIcon },
   { to: "/consulti", label: "Consulti", icon: CalIcon },
   { to: "/estrazione", label: "3 Carte", icon: DeckIcon },
   { to: "/arcani", label: "Arcani", icon: BookIcon },

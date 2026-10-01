@@ -3,6 +3,7 @@ import { ARCANI, type Arcano } from "../data/arcani";
 import { TARIFFE } from "../data/catalogo";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button, Kicker } from "../components/Button";
+import { PageHero } from "../components/PageHero";
 
 type Draw = {
   past: Arcano;
@@ -51,22 +52,27 @@ export function Estrazione() {
   }, [draw]);
 
   return (
-    <div className="mx-auto max-w-xl px-6 py-12">
-      <Kicker>Oracolo temporale</Kicker>
-      <h1 className="mt-3 font-display text-4xl font-light leading-tight">
-        Oracolo archetipico:
-        <br />
-        <span className="italic">La Triade</span>
-      </h1>
-      <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink/70">
-        Focalizza l’intento e tocca il mazzo. Tre carte — passato, presente, evoluzione —
-        estratte dai 22 Arcani Maggiori.
-      </p>
+    <div>
+      <PageHero
+        kicker="Oracolo temporale"
+        title={
+          <>
+            Oracolo archetipico:
+            <br />
+            <span className="italic">La Triade</span>
+          </>
+        }
+        lead="Focalizza l’intento e tocca il mazzo. Tre carte — passato, presente, evoluzione — estratte dai 22 Arcani Maggiori."
+        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        secondary={{ href: "#mazzo", label: "Pesca le tre carte" }}
+      />
 
+      <div className="mx-auto max-w-xl px-6 pb-24 md:px-10 md:pb-32">
       <button
         type="button"
+        id="mazzo"
         onClick={extract}
-        className="mx-auto mt-12 block w-40 origin-center transition-transform active:scale-95"
+        className="mx-auto block w-40 origin-center scroll-mt-28 transition-transform active:scale-95"
         aria-label="Tocca per estrarre"
       >
         <div className="relative h-60">
@@ -86,18 +92,18 @@ export function Estrazione() {
           </div>
         </div>
       </button>
-      <p className="mt-4 text-center text-[11px] text-ink/45">
+      <p className="mt-10 text-center text-[11px] text-ink/45">
         {draw ? `Triade allineata · Sigillo ${draw.sigil}` : "Mazzo pronto alla canalizzazione"}
       </p>
 
       {cards.length > 0 && (
-        <section className="mt-12 space-y-5">
+        <section className="mt-20 space-y-10">
           <div className="flex justify-between text-[10px] uppercase tracking-[0.18em] text-ink/45">
             <span>La disposizione</span>
             <span>{draw?.sigil}</span>
           </div>
           {cards.map((item) => (
-            <article key={item.key} className="bg-paper p-5">
+            <article key={item.key} className="bg-paper p-8">
               <div className="mb-4 flex items-start justify-between">
                 <div>
                   <p className="text-[9px] uppercase tracking-[0.18em] text-sage">{item.label}</p>
@@ -118,7 +124,7 @@ export function Estrazione() {
         </section>
       )}
 
-      <section className="mt-12 bg-mist p-6">
+      <section className="mt-24 bg-mist p-8 md:mt-32 md:p-12">
         <Kicker>Integrazione & analisi</Kicker>
         <h2 className="mt-3 font-display text-2xl leading-snug">
           Comprendere il filo invisibile tra le tre energie
@@ -154,13 +160,14 @@ export function Estrazione() {
             </label>
           ))}
         </div>
-        <Button to={`/consulti`} className="mt-5 w-full">
+        <Button to={`/consulti`} className="mt-8 w-full">
           Prenota approfondimento →
         </Button>
         <p className="mt-3 text-center text-[10px] uppercase tracking-[0.14em] text-ink/45">
           Report WhatsApp entro 24h dal consulto
         </p>
       </section>
+      </div>
     </div>
   );
 }

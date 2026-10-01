@@ -3,63 +3,58 @@ import { ARCANI } from "../data/arcani";
 import { TARIFFE, STUDIO } from "../data/catalogo";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button, Kicker } from "../components/Button";
+import { PageHero } from "../components/PageHero";
 
 export function Home() {
   return (
     <div>
-      <section className="mx-auto max-w-3xl px-6 pb-16 pt-10 md:pt-16">
-        <div className="mb-5 flex items-center gap-2">
-          <span className="h-1.5 w-1.5 bg-ink" />
-          <Kicker>Vol. IV — Radici & Simboli</Kicker>
-        </div>
-        <h1 className="font-display text-4xl font-light leading-[1.12] tracking-tight text-ink sm:text-5xl md:text-6xl">
-          La Geometria
-          <br />
-          <span className="italic">dell’Invisibile</span>
-        </h1>
-        <p className="mt-6 max-w-md text-sm leading-relaxed text-ink/70">
-          Santuario olistico a {STUDIO.city}. Decodifichiamo i moti interiori attraverso
-          la lente archetipica del mazzo marsigliese. Senza fatalismi: solo evoluzione
-          della coscienza.
-        </p>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <Button to="/consulti" className="w-full sm:w-auto">
-            Prenota un consulto
-            <span aria-hidden>→</span>
-          </Button>
-          <Button to="/estrazione" variant="paper" className="w-full justify-between sm:w-auto sm:min-w-64">
-            <span>Pesca 3 carte online</span>
-            <span className="text-[10px] tracking-[0.18em] text-sage">Gratis</span>
-          </Button>
-        </div>
-        <div className="mt-12 flex justify-between text-[9px] uppercase tracking-[0.2em] text-ink/40">
-          <span>{STUDIO.coords}</span>
-          <span>{STUDIO.region}</span>
-        </div>
-      </section>
+      <PageHero
+        kicker="Vol. IV — Radici & Simboli"
+        title={
+          <>
+            La Geometria
+            <br />
+            <span className="italic">dell’Invisibile</span>
+          </>
+        }
+        lead={
+          <>
+            {STUDIO.name} a {STUDIO.city}. Decodifichiamo i moti interiori attraverso la lente
+            archetipica del mazzo marsigliese. Senza fatalismi: solo evoluzione della coscienza.
+          </>
+        }
+        cta={{ to: "/consulti", label: "Prenota un consulto WhatsApp" }}
+        secondary={{ to: "/estrazione", label: "Pesca 3 carte · Gratis" }}
+        meta={
+          <div className="flex justify-between text-[9px] uppercase tracking-[0.2em] text-ink/40">
+            <span>{STUDIO.coords}</span>
+            <span>{STUDIO.region}</span>
+          </div>
+        }
+      />
 
-      <section className="bg-mist px-6 py-16">
-        <div className="mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-2">
+      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">
           <div>
             <Kicker>Genius Loci</Kicker>
-            <h2 className="mt-3 font-display text-3xl font-normal leading-snug text-ink">
+            <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
               Nel cuore silente
               <br />
               delle Marche.
             </h2>
-            <p className="mt-5 text-sm leading-relaxed text-ink/75">
-              Tarot Italia nasce tra i colli marchigiani. Rifiutiamo la cartomanzia
-              predittiva d’ansia: il consulto è un{" "}
+            <p className="mt-8 text-base leading-[1.75] text-ink/75">
+              Tarot Italia nasce tra i colli marchigiani. Rifiutiamo la cartomanzia predittiva
+              d’ansia: il consulto è un{" "}
               <strong className="font-medium text-ink">atto dialogico e fenomenologico</strong>,
               dove ogni arcano agisce da specchio e mappa delle decisioni.
             </p>
-            <div className="mt-6 bg-paper p-4">
+            <div className="mt-10 bg-paper p-8">
               <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink">
                 Patto etico trasparente
               </p>
-              <p className="mt-2 text-xs leading-relaxed text-ink/65">
-                Nessun consulto su salute o eventi fatali. L’essere umano resta sempre
-                l’unico scultore del proprio destino.
+              <p className="mt-3 text-sm leading-relaxed text-ink/65">
+                Nessun consulto su salute o eventi fatali. L’essere umano resta sempre l’unico
+                scultore del proprio destino.
               </p>
             </div>
           </div>
@@ -67,94 +62,103 @@ export function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-6 py-16">
-        <div className="mb-8 flex items-end justify-between">
-          <div>
-            <Kicker>Trasparenza</Kicker>
-            <h2 className="mt-2 font-display text-3xl">Tariffe sessioni</h2>
-          </div>
+      <section className="mx-auto max-w-4xl px-6 py-24 md:px-10 md:py-32">
+        <div className="mb-14">
+          <Kicker>Trasparenza</Kicker>
+          <h2 className="mt-4 font-display text-3xl md:text-4xl">Tariffe sessioni</h2>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           {TARIFFE.map((t) => (
             <article
               key={t.id}
-              className={t.id === "deep" ? "bg-ink p-6 text-on-ink" : "bg-paper p-6"}
+              className={t.id === "deep" ? "bg-ink p-8 text-on-ink md:p-10" : "bg-paper p-8 md:p-10"}
             >
               <div className="flex items-start justify-between">
                 <div>
-                  <p className={`text-[9px] uppercase tracking-[0.2em] ${t.id === "deep" ? "text-on-ink/55" : "text-sage"}`}>
+                  <p
+                    className={`text-[9px] uppercase tracking-[0.2em] ${t.id === "deep" ? "text-on-ink/55" : "text-sage"}`}
+                  >
                     {t.kicker}
                   </p>
-                  <h3 className="mt-1 font-display text-xl">{t.name}</h3>
+                  <h3 className="mt-2 font-display text-xl">{t.name}</h3>
                 </div>
                 <div className="text-right">
                   <p className="font-display text-3xl font-light">{t.price}€</p>
-                  <p className={`text-[9px] uppercase tracking-[0.16em] ${t.id === "deep" ? "text-on-ink/55" : "text-sage"}`}>
+                  <p
+                    className={`mt-1 text-[9px] uppercase tracking-[0.16em] ${t.id === "deep" ? "text-on-ink/55" : "text-sage"}`}
+                  >
                     {t.minutes} minuti
                   </p>
                 </div>
               </div>
-              <p className={`mt-4 text-xs leading-relaxed ${t.id === "deep" ? "text-on-ink/75" : "text-ink/65"}`}>
+              <p
+                className={`mt-8 text-sm leading-relaxed ${t.id === "deep" ? "text-on-ink/75" : "text-ink/65"}`}
+              >
                 {t.summary}
               </p>
-              <p className={`mt-6 text-[10px] uppercase tracking-[0.16em] ${t.id === "deep" ? "text-on-ink/70" : "text-ink"}`}>
+              <p
+                className={`mt-10 text-[10px] uppercase tracking-[0.16em] ${t.id === "deep" ? "text-on-ink/70" : "text-ink"}`}
+              >
                 In studio o chiamata vocale WhatsApp
               </p>
             </article>
           ))}
         </div>
-        <div className="mt-6">
+        <div className="mt-12">
           <Button to="/consulti" variant="ghost">
             Prenota dalla pagina consulti →
           </Button>
         </div>
       </section>
 
-      <section className="bg-mist px-8 py-16 text-center">
+      <section className="bg-mist px-8 py-24 text-center md:py-32">
         <blockquote className="mx-auto max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
-          «Ciò che è in basso è come ciò che è in alto, e ciò che è in alto è come
-          ciò che è in basso, per compiere le meraviglie dell’uno.»
+          «Ciò che è in basso è come ciò che è in alto, e ciò che è in alto è come ciò che è in
+          basso, per compiere le meraviglie dell’uno.»
         </blockquote>
-        <p className="mt-6 text-[10px] uppercase tracking-[0.22em] text-ink">Ermete Trismegisto</p>
-        <p className="mt-1 text-[9px] uppercase tracking-[0.16em] text-sage">Tavola di Smeraldo</p>
+        <p className="mt-10 text-[10px] uppercase tracking-[0.22em] text-ink">Ermete Trismegisto</p>
+        <p className="mt-3 text-[9px] uppercase tracking-[0.16em] text-sage">Tavola di Smeraldo</p>
       </section>
 
-      <section className="py-16">
-        <div className="mx-auto mb-6 flex max-w-6xl items-end justify-between px-6">
+      <section className="py-24 md:py-32">
+        <div className="mx-auto mb-14 flex max-w-6xl items-end justify-between px-6 md:px-10">
           <div>
             <Kicker>Antologia visiva</Kicker>
-            <h2 className="mt-2 font-display text-3xl">Gli archetipi primari</h2>
+            <h2 className="mt-4 font-display text-3xl md:text-4xl">Gli archetipi primari</h2>
           </div>
-          <Link to="/arcani" className="text-[10px] uppercase tracking-[0.18em] text-ink hover:text-sage">
+          <Link
+            to="/arcani"
+            className="text-[10px] uppercase tracking-[0.18em] text-ink hover:text-sage"
+          >
             Tutti i 22 →
           </Link>
         </div>
-        <div className="flex gap-4 overflow-x-auto px-6 pb-2">
+        <div className="flex gap-8 overflow-x-auto px-6 pb-4 md:px-10">
           {ARCANI.slice(0, 6).map((a) => (
             <Link
               key={a.slug}
               to={`/arcani/${a.slug}`}
-              className="w-44 shrink-0 bg-paper p-3 transition-colors hover:bg-mist"
+              className="w-48 shrink-0 bg-paper p-5 transition-colors hover:bg-mist"
             >
               <div className="aspect-[2/3] bg-mist">
                 <ArcanoArt arcano={a} />
               </div>
-              <p className="mt-3 font-display text-sm text-ink">{a.name}</p>
-              <p className="mt-0.5 text-[10px] uppercase tracking-[0.14em] text-sage">{a.subtitle}</p>
+              <p className="mt-5 font-display text-sm text-ink">{a.name}</p>
+              <p className="mt-1.5 text-[10px] uppercase tracking-[0.14em] text-sage">{a.subtitle}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="bg-paper px-6 py-14">
-        <div className="mx-auto max-w-3xl bg-mist p-6 md:p-8">
-          <Kicker>Pubblicazioni del Santuario</Kicker>
-          <h3 className="mt-3 font-display text-2xl">I 22 Passaggi dell’Eroe</h3>
-          <p className="mt-2 text-sm leading-relaxed text-ink/70">
-            Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. Scaricala
-            dall’area corsi — l’archivio completo è in Area Riservata.
+      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-3xl bg-mist p-10 md:p-14">
+          <Kicker>Pubblicazioni dello Studio</Kicker>
+          <h3 className="mt-5 font-display text-2xl md:text-3xl">I 22 Passaggi dell’Eroe</h3>
+          <p className="mt-5 text-base leading-[1.75] text-ink/70">
+            Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. Scaricala dall’area
+            corsi — l’archivio completo è in Area Riservata.
           </p>
-          <div className="mt-6">
+          <div className="mt-10">
             <Button to="/corsi">Vai ai corsi e alle dispense</Button>
           </div>
         </div>
@@ -175,9 +179,9 @@ function StudioPanel() {
         <rect x="230" y="220" width="70" height="30" fill="none" stroke="#F9F8F6" strokeWidth="0.8" />
         <circle cx="300" cy="200" r="8" fill="none" stroke="#F9F8F6" strokeWidth="0.6" />
       </svg>
-      <div className="absolute bottom-0 left-0 bg-ink/80 px-3 py-2">
+      <div className="absolute bottom-0 left-0 bg-ink/80 px-4 py-3">
         <p className="text-[9px] uppercase tracking-[0.18em] text-on-ink">
-          Studio privato — Borgo {STUDIO.city}
+          {STUDIO.name} — Borgo {STUDIO.city}
         </p>
       </div>
     </div>

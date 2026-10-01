@@ -1,13 +1,12 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
 import { STUDIO, TARIFFE, type TariffaId } from "../data/catalogo";
 import { useAuth } from "../context/AuthContext";
 import { TIME_SLOTS, upcomingWeekdays, type Booking, type BookingMode } from "../lib/storage";
 import { Button, Kicker } from "../components/Button";
+import { PageHero } from "../components/PageHero";
 
 export function Consulti() {
   const { addBooking, session } = useAuth();
-  const navigate = useNavigate();
   const days = useMemo(() => upcomingWeekdays(7), []);
   const [type, setType] = useState<TariffaId>("deep");
   const [mode, setMode] = useState<BookingMode>("remote");
@@ -47,56 +46,60 @@ export function Consulti() {
 
   if (done) {
     return (
-      <div className="mx-auto max-w-lg px-6 py-16 text-center">
-        <Kicker>Richiesta registrata</Kicker>
-        <h1 className="mt-3 font-display text-4xl">La soglia è aperta</h1>
-        <p className="mt-6 bg-mist p-5 text-left text-sm leading-relaxed text-ink/75">
-          Gentile <strong className="text-ink">{done.name}</strong>, la prenotazione per{" "}
-          <strong className="text-ink">{tariffa.name}</strong> ({done.minutes} min, {done.price}€) il{" "}
-          <strong className="text-ink">{day?.label}</strong> alle {done.slot} —{" "}
-          {done.mode === "remote" ? "chiamata vocale WhatsApp" : `in studio a ${STUDIO.city}`} — è
-          stata registrata.
-          {done.pdf ? " Il report PDF verrà inviato su WhatsApp al termine." : ""}
-        </p>
-        <p className="mt-4 text-xs text-ink/55">
-          Entro due ore riceverai conferma al numero indicato. Nessun addebito preventivo.
-        </p>
-        <div className="mt-8 flex flex-col gap-3">
-          <Button onClick={() => navigate(session ? "/riservata" : "/login")}>
-            {session ? "Vedi in Area Riservata" : "Accedi per vedere i tuoi consulti"}
-          </Button>
-          <Button variant="ghost" to="/">
-            Torna al Santuario
-          </Button>
-        </div>
-      </div>
+      <PageHero
+        kicker="Richiesta registrata"
+        title="La soglia è aperta"
+        lead={
+          <>
+            Gentile <strong className="text-ink">{done.name}</strong>, la prenotazione per{" "}
+            <strong className="text-ink">{tariffa.name}</strong> ({done.minutes} min, {done.price}€)
+            il <strong className="text-ink">{day?.label}</strong> alle {done.slot} —{" "}
+            {done.mode === "remote" ? "chiamata vocale WhatsApp" : `in studio a ${STUDIO.city}`} — è
+            stata registrata.
+            {done.pdf ? " Il report PDF verrà inviato su WhatsApp al termine." : ""} Entro due ore
+            riceverai conferma. Nessun addebito preventivo.
+          </>
+        }
+        cta={{
+          to: session ? "/riservata" : "/login",
+          label: session ? "Vedi in Area Riservata" : "Accedi per i tuoi consulti",
+        }}
+        secondary={{ to: "/", label: "Torna alla Home" }}
+      />
     );
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-12">
-      <Kicker>Sessioni & booking diretto</Kicker>
-      <h1 className="mt-3 font-display text-4xl font-light leading-tight">
-        Consulti archetipici &
-        <br />
-        <span className="italic">divinazione evolutiva</span>
-      </h1>
-      <p className="mt-4 text-sm leading-relaxed text-ink/70">
-        Uno spazio di ascolto a {STUDIO.city} o per via auricolare. Tariffe fisse, protocollo
-        WhatsApp vocale, report PDF su richiesta.
-      </p>
+    <div>
+      <PageHero
+        kicker="Sessioni & booking diretto"
+        title={
+          <>
+            Consulti archetipici &
+            <br />
+            <span className="italic">divinazione evolutiva</span>
+          </>
+        }
+        lead={`Uno spazio di ascolto a ${STUDIO.city} o per via auricolare. Tariffe fisse, protocollo WhatsApp vocale, report PDF su richiesta.`}
+        cta={{ href: "#prenota", label: "Prenota un consulto WhatsApp" }}
+        secondary={{ to: "/arcani", label: "Esplora i 22 Arcani" }}
+      />
 
-      <form className="mt-12 flex flex-col gap-12" onSubmit={onSubmit}>
+      <form
+        id="prenota"
+        className="mx-auto flex max-w-2xl scroll-mt-28 flex-col gap-20 px-6 pb-24 md:gap-24 md:px-10 md:pb-32"
+        onSubmit={onSubmit}
+      >
         <section>
-          <div className="mb-4 flex justify-between">
+          <div className="mb-8 flex justify-between">
             <Kicker>01 · Seleziona il percorso</Kicker>
             <span className="text-[10px] uppercase tracking-[0.16em] text-sage">Tariffa fissa</span>
           </div>
-          <div className="grid gap-3">
+          <div className="grid gap-6">
             {TARIFFE.map((t) => (
               <label
                 key={t.id}
-                className={`cursor-pointer bg-paper p-5 ${type === t.id ? "ring-1 ring-ink" : ""}`}
+                className={`cursor-pointer bg-paper p-8 ${type === t.id ? "ring-1 ring-ink" : ""}`}
               >
                 <input
                   type="radio"
@@ -124,7 +127,7 @@ export function Consulti() {
 
         <section>
           <Kicker>02 · Modalità d’incontro</Kicker>
-          <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="mt-8 grid grid-cols-2 gap-4">
             <button
               type="button"
               onClick={() => setMode("studio")}
@@ -147,7 +150,7 @@ export function Consulti() {
             </button>
           </div>
           {mode === "remote" ? (
-            <div className="mt-4 bg-linen p-4">
+            <div className="mt-8 bg-linen p-8">
               <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-ink">
                 Protocollo di conduzione auricolare
               </p>
@@ -158,7 +161,7 @@ export function Consulti() {
               </p>
             </div>
           ) : (
-            <p className="mt-4 bg-mist p-4 text-[12px] leading-relaxed text-ink/70">
+            <p className="mt-8 bg-mist p-8 text-[12px] leading-relaxed text-ink/70">
               Ricevimento in ambiente riservato nel cuore storico di {STUDIO.city}. L’indirizzo
               esatto arriverà via messaggio dopo la conferma.
             </p>
@@ -167,7 +170,7 @@ export function Consulti() {
 
         <section>
           <Kicker>03 · Sincronicità temporale</Kicker>
-          <div className="mt-4 bg-paper p-3">
+          <div className="mt-8 bg-paper p-6">
             <p className="mb-3 text-[10px] uppercase tracking-[0.16em] text-sage">Giorni disponibili</p>
             <div className="grid grid-cols-4 gap-2 sm:grid-cols-7">
               {days.map((d) => (
@@ -202,9 +205,9 @@ export function Consulti() {
           </div>
         </section>
 
-        <section className="bg-paper p-6">
+        <section className="bg-paper p-8 md:p-10">
           <Kicker>04 · Coordinate del consultante</Kicker>
-          <div className="mt-6 flex flex-col gap-5">
+          <div className="mt-8 flex flex-col gap-8">
             <Field label="Nome completo *" value={name} onChange={setName} required placeholder="Es. Elena Silvestri" />
             <Field
               label="Recapito WhatsApp per la chiamata *"
@@ -240,7 +243,7 @@ export function Consulti() {
         </section>
 
         <section>
-          <div className="bg-mist p-4">
+          <div className="bg-mist p-8">
             <Row k="Sessione" v={`${tariffa.name} (${tariffa.minutes} min)`} />
             <Row k="Erogazione" v={mode === "remote" ? "Chiamata vocale WhatsApp" : `In studio a ${STUDIO.city}`} />
             <Row k="Data & ora" v={`${day?.label ?? ""} — ${slot}`} />
@@ -249,7 +252,7 @@ export function Consulti() {
               <span className="font-display text-xl">{tariffa.price},00 €</span>
             </div>
           </div>
-          <Button type="submit" className="mt-4 w-full">
+          <Button type="submit" className="mt-8 w-full">
             Conferma e riserva la sessione →
           </Button>
           <p className="mt-3 text-center text-[10px] uppercase tracking-[0.14em] text-ink/45">
