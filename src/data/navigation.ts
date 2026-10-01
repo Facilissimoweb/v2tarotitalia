@@ -18,6 +18,10 @@ export type NavItem = NavLeaf | NavBranch;
 export const MAIN_NAV: NavItem[] = [
   { to: "/", label: nav.home, end: true },
   { to: "/chi-siamo", label: nav.chiSiamo },
+  { to: "/consulti", label: nav.consulti },
+  { to: "/rituali", label: nav.rituali },
+  { to: "/blog", label: nav.blog },
+  { to: "/contatti", label: nav.contatti },
   {
     label: nav.tarocchi,
     children: [
@@ -25,18 +29,6 @@ export const MAIN_NAV: NavItem[] = [
       { to: "/arcani-minori", label: nav.arcaniMinori },
     ],
   },
-  { to: "/consulti", label: nav.consulti },
-  { to: "/rituali", label: nav.rituali },
-  { to: "/blog", label: nav.blog },
-  { to: "/contatti", label: nav.contatti },
-];
-
-export const MOBILE_TABS: NavLeaf[] = [
-  { to: "/", label: nav.home, end: true },
-  { to: "/consulti", label: nav.consulti },
-  { to: "/rituali", label: nav.rituali },
-  { to: "/blog", label: nav.blog },
-  { to: "/contatti", label: nav.contatti },
 ];
 
 export function isNavBranch(item: NavItem): item is NavBranch {

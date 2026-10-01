@@ -1,10 +1,8 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 import { siteContent } from "../data/siteContent";
 import {
   MAIN_NAV,
-  MOBILE_TABS,
   isNavBranch,
   isTarocchiPath,
   type NavBranch,
@@ -14,16 +12,17 @@ const { brand, nav } = siteContent;
 
 const linkClass = (active: boolean) =>
   `text-[11px] uppercase tracking-[0.16em] transition-colors ${
-    active ? "text-ink" : "text-ink/45 hover:text-ink"
+    active ? "text-ink" : "text-ink/40 hover:text-ink"
   }`;
 
 export function Header() {
-  const { session } = useAuth();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     setOpen(false);
+    setHidden(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -33,59 +32,103 @@ export function Header() {
     };
   }, [open]);
 
+  useEffect(() => {
+    let last = window.scrollY;
+    const onScroll = () => {
+      const y = Math.max(0, window.scrollY);
+      if (open) {
+        setHidden(false);
+        last = y;
+        return;
+      }
+      if (y > last + 1 && y > 16) setHidden(true);
+      else if (y < last) setHidden(false);
+      last = y;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open]);
+
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-ink/5 bg-ivory/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-6 lg:px-10">
-          <NavLink to="/" className="flex shrink-0 items-center gap-3">
-            <img src="/logo.svg" alt="" className="h-8 w-8" />
-            <div className="flex flex-col leading-none">
-              <span className="font-display text-[13px] tracking-[0.28em] text-ink">
-                {brand.wordmark.toUpperCase()}
-              </span>
-              <span className="mt-1 text-[9px] uppercase tracking-[0.22em] text-sage">
-                {brand.name} · {brand.city}
-              </span>
-            </div>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl transition-transform ease-out ${
+          hidden && !open
+            ? "overflow-hidden duration-300"
+            : "duration-150"
+        }`}
+        style={{
+          transform: hidden && !open ? "translate3d(0, -100%, 0)" : "translate3d(0, 0, 0)",
+        }}
+      >
+        <div className="hidden lg:block">
+          <NavLink
+            to="/"
+            className="mx-auto flex max-w-3xl flex-col items-center px-8 pt-10 pb-8"
+          >
+            <img src="/logo.svg" alt="" className="h-11 w-11" />
+            <span className="mt-5 font-display text-[15px] tracking-[0.42em] text-ink">
+              {brand.wordmark.toUpperCase()}
+            </span>
+            <span className="mt-2.5 text-[10px] uppercase tracking-[0.32em] text-sage">
+              {brand.name}
+            </span>
           </NavLink>
 
-          <nav className="hidden items-center gap-7 xl:gap-9 lg:flex" aria-label="Principale">
-            {MAIN_NAV.map((item) =>
-              isNavBranch(item) ? (
-                <TarocchiMenu key={item.label} item={item} />
-              ) : (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.end}
-                  className={({ isActive }) => linkClass(isActive)}
-                >
-                  {item.label}
-                </NavLink>
-              ),
-            )}
-          </nav>
-
-          <div className="flex items-center gap-5">
-            <NavLink
-              to={session ? "/riservata" : "/login"}
-              className="text-[11px] uppercase tracking-[0.16em] text-sage hover:text-ink"
+          <div className="relative border-t border-ink/5">
+            <nav
+              className="mx-auto flex max-w-5xl items-center justify-center gap-8 px-20 py-5 xl:gap-10"
+              aria-label="Principale"
             >
-              {session ? nav.riservata : nav.accedi}
-            </NavLink>
+              {MAIN_NAV.map((item) =>
+                isNavBranch(item) ? (
+                  <TarocchiMenu key={item.label} item={item} />
+                ) : (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.end}
+                    className={({ isActive }) => linkClass(isActive)}
+                  >
+                    {item.label}
+                  </NavLink>
+                ),
+              )}
+            </nav>
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-8 xl:pr-12">
+              <div className="pointer-events-auto">
+                <CartLink />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex h-[4.25rem] items-center justify-between px-5 lg:hidden">
+          <NavLink to="/" className="flex items-center gap-3">
+            <img src="/logo.svg" alt="" className="h-8 w-8" />
+            <span className="font-display text-[11px] tracking-[0.28em] text-ink">
+              {brand.wordmark.toUpperCase()}
+            </span>
+          </NavLink>
+          <div className="flex items-center gap-4">
+            <CartLink />
             <button
               type="button"
-              className="text-[11px] uppercase tracking-[0.16em] text-ink lg:hidden"
+              className="flex h-10 w-10 items-center justify-center text-ink"
               aria-expanded={open}
               aria-controls="menu-mobile"
+              aria-label={open ? nav.chiudi : nav.menu}
               onClick={() => setOpen((v) => !v)}
             >
-              {open ? nav.chiudi : nav.menu}
+              {open ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
         </div>
       </header>
-      {open ? <MobilePanel /> : null}
+
+      <div className="h-[4.25rem] lg:h-[15.25rem]" aria-hidden />
+
+      {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
     </>
   );
 }
@@ -137,7 +180,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
       <div
         id={menuId}
         role="menu"
-        className={`absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-4 ${
+        className={`absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3 ${
           pinned
             ? "visible pointer-events-auto"
             : "invisible pointer-events-none group-hover:visible group-hover:pointer-events-auto group-focus-within:visible group-focus-within:pointer-events-auto"
@@ -168,72 +211,107 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
   );
 }
 
-function MobilePanel() {
+function MobileDrawer({ onClose }: { onClose: () => void }) {
   return (
     <div
       id="menu-mobile"
-      className="fixed inset-x-0 bottom-16 top-20 z-50 overflow-y-auto bg-ivory lg:hidden"
+      className="fixed inset-0 z-[60] flex flex-col bg-ivory lg:hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label={nav.menu}
     >
-      <nav className="mx-auto flex max-w-lg flex-col gap-10 px-8 py-16" aria-label="Principale">
-        {MAIN_NAV.map((item) =>
-          isNavBranch(item) ? (
-            <div key={item.label}>
-              <p className="text-[11px] uppercase tracking-[0.18em] text-sage">{item.label}</p>
-              <ul className="mt-5 flex flex-col gap-5">
-                {item.children.map((child) => (
-                  <li key={child.to}>
-                    <NavLink
-                      to={child.to}
-                      className={({ isActive }) =>
-                        `font-display text-2xl ${isActive ? "text-ink" : "text-ink/50"}`
-                      }
-                    >
-                      {child.label}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ) : (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.end}
-              className={({ isActive }) =>
-                `font-display text-3xl ${isActive ? "text-ink" : "text-ink/45"}`
-              }
-            >
-              {item.label}
-            </NavLink>
-          ),
-        )}
+      <div className="flex h-[4.25rem] items-center justify-between border-b border-ink/5 px-5">
+        <NavLink to="/" className="flex items-center gap-3" onClick={onClose}>
+          <img src="/logo.svg" alt="" className="h-8 w-8" />
+          <span className="font-display text-[11px] tracking-[0.28em] text-ink">
+            {brand.wordmark.toUpperCase()}
+          </span>
+        </NavLink>
+        <div className="flex items-center gap-4">
+          <CartLink />
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center text-ink"
+            aria-label={nav.chiudi}
+            onClick={onClose}
+          >
+            <CloseIcon />
+          </button>
+        </div>
+      </div>
+      <nav className="flex-1 overflow-y-auto px-8 py-14" aria-label="Principale">
+        <div className="flex flex-col gap-9">
+          {MAIN_NAV.map((item) =>
+            isNavBranch(item) ? (
+              <div key={item.label}>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-sage">{item.label}</p>
+                <ul className="mt-5 flex flex-col gap-5">
+                  {item.children.map((child) => (
+                    <li key={child.to}>
+                      <NavLink
+                        to={child.to}
+                        className={({ isActive }) =>
+                          `font-display text-2xl ${isActive ? "text-ink" : "text-ink/50"}`
+                        }
+                      >
+                        {child.label}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `font-display text-3xl ${isActive ? "text-ink" : "text-ink/45"}`
+                }
+              >
+                {item.label}
+              </NavLink>
+            ),
+          )}
+        </div>
       </nav>
     </div>
   );
 }
 
-export function BottomNav() {
+function CartLink() {
   return (
-    <nav
-      className="fixed bottom-0 left-0 right-0 z-40 border-t border-ink/5 bg-ivory/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden"
-      aria-label="Mobile"
+    <NavLink
+      to="/carrello"
+      className="flex h-10 w-10 items-center justify-center text-ink/70 transition-colors hover:text-ink"
+      aria-label={nav.carrello}
     >
-      <div className="flex h-16 items-center justify-around px-2">
-        {MOBILE_TABS.map((t) => (
-          <NavLink
-            key={t.to}
-            to={t.to}
-            end={t.end}
-            className={({ isActive }) =>
-              `flex min-w-[3.25rem] flex-col items-center gap-1 ${
-                isActive ? "text-ink" : "text-ink/40"
-              }`
-            }
-          >
-            <span className="text-[9px] uppercase tracking-[0.12em]">{t.label}</span>
-          </NavLink>
-        ))}
-      </div>
-    </nav>
+      <BagIcon />
+    </NavLink>
+  );
+}
+
+function BagIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <path d="M6 8 H18 L19.2 20 H4.8 Z" />
+      <path d="M9 8 V7.2 C9 5.1 10.4 3.8 12 3.8 C13.6 3.8 15 5.1 15 7.2 V8" />
+    </svg>
+  );
+}
+
+function MenuIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <path d="M4 7 H20 M4 12 H20 M4 17 H20" />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <path d="M6 6 L18 18 M18 6 L6 18" />
+    </svg>
   );
 }

@@ -10,6 +10,7 @@ import { Consulti } from "./pages/Consulti";
 import { Rituali } from "./pages/Rituali";
 import { Blog } from "./pages/Blog";
 import { Contatti } from "./pages/Contatti";
+import { Carrello } from "./pages/Carrello";
 import { Corsi } from "./pages/Corsi";
 import { Estrazione } from "./pages/Estrazione";
 import { Login } from "./pages/Login";
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/rituali" element={<Rituali />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contatti" element={<Contatti />} />
+            <Route path="/carrello" element={<Carrello />} />
             <Route path="/corsi" element={<Corsi />} />
             <Route path="/estrazione" element={<Estrazione />} />
             <Route path="/login" element={<Login />} />

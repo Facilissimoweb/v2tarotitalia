@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import { Header, BottomNav } from "./Header";
+import { Header } from "./Header";
 import { Footer } from "./Footer";
 
 function ScrollToTop() {
@@ -16,11 +16,10 @@ export function Layout() {
     <div className="flex min-h-dvh flex-col bg-ivory text-ink">
       <ScrollToTop />
       <Header />
-      <main className="flex-1 pb-24 lg:pb-0">
+      <main className="flex-1">
         <Outlet />
       </main>
       <Footer />
-      <BottomNav />
     </div>
   );
 }

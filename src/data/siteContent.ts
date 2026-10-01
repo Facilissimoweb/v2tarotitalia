@@ -27,6 +27,7 @@ export const siteContent = {
     chiudi: "Chiudi",
     accedi: "Accedi",
     riservata: "Area riservata",
+    carrello: "Carrello",
   },
 
   comingSoon: "Archivio in costruzione",
@@ -54,6 +55,10 @@ export const siteContent = {
     arcaniMinori: {
       kicker: "Tarocchi",
       titolo: "Arcani Minori",
+    },
+    carrello: {
+      kicker: "Carrello",
+      titolo: "Carrello",
     },
   },
 
