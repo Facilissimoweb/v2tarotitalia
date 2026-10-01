@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "./Button";
 import { Reveal } from "./Reveal";
@@ -23,6 +23,7 @@ type Props = {
   meta?: ReactNode;
   children?: ReactNode;
   logo?: boolean;
+  video?: string;
 };
 
 export function PageHero({
@@ -34,6 +35,7 @@ export function PageHero({
   meta,
   children,
   logo = false,
+  video,
 }: Props) {
   const copy = (
     <>
@@ -78,12 +80,55 @@ export function PageHero({
 
   return (
     <section className="px-6 md:px-10">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 pt-16 pb-20 md:grid-cols-[1fr_auto] md:gap-16 md:pt-28 md:pb-32">
-        <img src="/logo.svg" alt="" className="h-16 w-16 md:hidden" />
-        <div className="min-w-0">{copy}</div>
-        <img src="/logo.svg" alt="" className="hidden h-44 w-44 md:block lg:h-52 lg:w-52" />
+      <div className="mx-auto grid max-w-6xl items-center gap-10 pt-16 pb-20 md:grid-cols-[1fr_minmax(16rem,38%)] md:gap-16 md:pt-28 md:pb-32">
+        <img src="/logo.svg" alt="" className="order-1 h-16 w-16 md:hidden" />
+        <div className="order-3 min-w-0 md:order-1">{copy}</div>
+        {video ? (
+          <div className="relative order-2 aspect-[16/10] overflow-hidden bg-mist md:aspect-square">
+            <HeroVideo src={video} />
+            <img
+              src="/logo.svg"
+              alt=""
+              className="absolute top-1/2 left-1/2 hidden h-44 w-44 -translate-x-1/2 -translate-y-1/2 md:block lg:h-52 lg:w-52"
+            />
+          </div>
+        ) : (
+          <img src="/logo.svg" alt="" className="hidden h-44 w-44 md:block lg:h-52 lg:w-52" />
+        )}
       </div>
     </section>
+  );
+}
+
+function HeroVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.muted = true;
+    const play = () => {
+      void el.play().catch(() => undefined);
+    };
+    play();
+    el.addEventListener("canplay", play);
+    return () => el.removeEventListener("canplay", play);
+  }, [src]);
+
+  return (
+    <video
+      ref={ref}
+      className="pointer-events-none absolute inset-0 h-full w-full object-cover motion-reduce:hidden"
+      autoPlay
+      loop
+      muted
+      playsInline
+      preload="auto"
+      disablePictureInPicture
+      aria-hidden
+    >
+      <source src={src} type="video/mp4" />
+    </video>
   );
 }
 

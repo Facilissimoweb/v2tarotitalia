@@ -15,6 +15,7 @@ export function Home() {
     <div>
       <PageHero
         logo
+        video="/videos/hero-tarot-italia.mp4"
         kicker="Vol. IV — Radici & Simboli"
         title={
           <>
