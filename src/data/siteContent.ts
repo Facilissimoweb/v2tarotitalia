@@ -14,6 +14,7 @@ export const siteContent = {
     coords: "43° 18′ 01″ N / 13° 27′ 12″ E",
     email: "sanctuary@tarotitalia.it",
     adminEmail: "info@tarotitalia.com",
+    whatsapp: "+39 379 103 82 53",
   },
 
   nav: {
@@ -258,9 +259,13 @@ export const siteContent = {
     creaAccount: "Crea account",
     adminEmail: "info@tarotitalia.com",
     consensi: {
-      privacyCookie: "Accettazione dell'Informativa sulla Privacy e dei Cookie.",
-      adulto: "Dichiarazione esplicita che i servizi sono rivolti esclusivamente a un pubblico adulto (maggiorenni, +18).",
-      rimborso: "Accettazione delle politiche di rimborso.",
+      privacyCookie:
+        "Dichiaro di aver preso visione dell'Informativa sulla Privacy e sui Cookie e acconsento al trattamento dei dati personali. (Obbligatorio)",
+      adulto:
+        "Confermo di avere un'età superiore ai 18 anni e che i servizi e i prodotti offerti da Tarot Italia sono rivolti esclusivamente a un pubblico adulto. (Obbligatorio)",
+      rimborso:
+        "Accetto le Condizioni di Vendita e le Politiche di Rimborso. Prendo atto che i consulti decadono a prestazione completata, l'oggettistica segue il reso a 14 giorni (con trattenuta in caso di danneggiamento o segnalazione corriere entro 48h) e i prodotti digitali perdono il diritto di recesso all'avvio del download. (Obbligatorio)",
+      leggiPrivacy: "Apri l’Informativa sulla Privacy e sui Cookie",
     },
     errori: {
       credenziali: "Email o password non validi.",
@@ -335,6 +340,78 @@ export const siteContent = {
             "Se desideri contattarci per saperne di più su questa Politica o desideri contattarci in merito a qualsiasi questione relativa ai diritti individuali e alle tue Informazioni personali, puoi inviare un'e-mail a info@tarotitalia.com",
         },
       ],
+    },
+    vendita: {
+      sezione: "Condizioni di Vendita e Rimborsi",
+      titolo: "Condizioni di Vendita, Recesso e Rimborsi",
+      intestazione: "www.tarotitalia.com • Condizioni di vendita",
+      leggi: "Leggi le Condizioni di Vendita e Rimborsi",
+      sezioni: [
+        {
+          id: "consulti",
+          titolo: "A. Consulti Tarologici (Servizi)",
+          testi: [
+            "I consulti tarologici sono servizi di natura personalizzata, eseguiti su espressa richiesta della persona che si rivolge allo Studio.",
+            "Il diritto di recesso decade a prestazione completata: una volta erogato il consulto, il servizio si intende interamente eseguito.",
+            "L’assistenza preliminare alla prenotazione e al consulto avviene in via esclusiva tramite messaggio WhatsApp.",
+          ],
+        },
+        {
+          id: "oggettistica",
+          titolo: "B. Oggettistica e Beni Fisici",
+          testi: [
+            "Per i beni fisici è riconosciuto il diritto di recesso standard entro 14 giorni dalla ricezione. Le spese di reso restano a carico del cliente.",
+            "In caso di merce restituita danneggiata o usurata, Tarot Italia si riserva una trattenuta fino al 100% del valore.",
+            "Eventuali danni da trasporto devono essere segnalati con documentazione fotografica entro 48 ore dalla ricezione.",
+          ],
+        },
+        {
+          id: "digitali",
+          titolo: "C. Contenuti Digitali e Dispense (PDF)",
+          testi: [
+            "I contenuti digitali e le dispense in PDF sono beni immateriali a fruizione immediata.",
+            "Il diritto di recesso si perde in modo irreversibile all’avvio del download o dell’accesso al contenuto, ai sensi dell’art. 59 del Codice del Consumo.",
+          ],
+        },
+      ],
+      assistenza: {
+        titolo: "Assistenza ufficiale",
+        testo:
+          "Non è prevista assistenza telefonica o via email. Ogni richiesta va inviata esclusivamente tramite messaggio WhatsApp al numero ufficiale: +39 379 103 82 53.",
+      },
+    },
+    tutela: {
+      sezione: "Trasparenza e tutela del marchio",
+      titolo: "Nota ufficiale di sicurezza",
+      intestazione: "www.tarotitalia.com • Tutela del marchio e anti-phishing",
+      kicker: "Trasparenza",
+      intro:
+        "Per proteggere chi si affida a Tarot Italia e l’identità professionale dello Studio, pubblichiamo questa nota ufficiale di sicurezza, tutela del marchio e prevenzione delle imitazioni.",
+      sintesi:
+        "tarotitalia.com è l’unico canale ufficiale autorizzato. I professionisti e i collaboratori di Tarot Italia non sollecitano mai consulti o servizi tramite chat private o social.",
+      punti: [
+        {
+          titolo: "Unicità del dominio",
+          testo:
+            "Si ricorda che tarotitalia.com è l’unico canale ufficiale autorizzato per i servizi di Tarot Italia. Ogni altra pagina, profilo o indirizzo che ne imiti il nome non è riconosciuto dallo Studio.",
+        },
+        {
+          titolo: "Tutela del marchio",
+          testo:
+            "Il marchio «Tarot Italia» è protetto a tutela della qualità e dell’identità professionale dei servizi offerti. L’uso non autorizzato del nome, del logo o dell’immagine dello Studio è contrario a questa tutela.",
+        },
+        {
+          titolo: "Politica anti-contatti non sollecitati",
+          testo:
+            "I professionisti e i collaboratori di Tarot Italia non contattano mai direttamente gli utenti di loro sponte tramite chat private o social per offrire consulti o servizi non richiesti. Qualsiasi proposta non preceduta da una richiesta esplicita dell’utente è da considerarsi estranea allo Studio.",
+        },
+        {
+          titolo: "Segnalazioni",
+          testo:
+            "Invitiamo gli utenti a segnalare qualsiasi tentativo di imitazione o contatto sospetto scrivendo esclusivamente all’indirizzo email ufficiale: info@tarotitalia.com.",
+        },
+      ],
+      apri: "Apri la nota ufficiale di sicurezza",
     },
     disclaimer: {
       sezione: "Disclaimer Legale (Deontologia & Legge)",

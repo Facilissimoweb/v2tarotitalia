@@ -16,7 +16,7 @@ import { buildWhatsAppMessage, formatBookingDay, whatsappHref, WHATSAPP_ANCHOR }
 import { BookingCalendar } from "../components/BookingCalendar";
 import { Button, Kicker } from "../components/Button";
 import { ConsentFields } from "../components/ConsentFields";
-import { LegalNotice } from "../components/LegalNotice";
+import { LegalNotice, type LegalKind } from "../components/LegalNotice";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 
@@ -39,7 +39,7 @@ export function Consulti() {
   const [query, setQuery] = useState("");
   const [pdf, setPdf] = useState(false);
   const [consents, setConsents] = useState<Consents>(emptyConsents);
-  const [privacy, setPrivacy] = useState(false);
+  const [notice, setNotice] = useState<LegalKind | null>(null);
   const [done, setDone] = useState<Purchase | null>(null);
   const [error, setError] = useState<string | null>(null);
   const pendingLock = useRef(false);
@@ -52,12 +52,6 @@ export function Consulti() {
   useEffect(() => {
     if (session?.name && !name) setName(session.name);
   }, [session, name]);
-
-  useEffect(() => {
-    if (session?.consents && hasRequiredConsents(session.consents)) {
-      setConsents(session.consents);
-    }
-  }, [session]);
 
   function chooseDate(iso: string) {
     setDateIso(iso);
@@ -315,7 +309,12 @@ export function Consulti() {
             </div>
             <p className="mt-8 bg-linen p-6 text-[12px] leading-relaxed text-ink/75">{consulti.avvisoConferma}</p>
             <div className="mt-8">
-              <ConsentFields consents={consents} onChange={setConsents} onPrivacy={() => setPrivacy(true)} />
+              <ConsentFields
+                consents={consents}
+                onChange={setConsents}
+                onPrivacy={() => setNotice("privacy")}
+                onVendita={() => setNotice("vendita")}
+              />
             </div>
             {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
             <Button type="submit" className="mt-8 w-full">
@@ -344,7 +343,7 @@ export function Consulti() {
           </section>
         </Reveal>
       </form>
-      <LegalNotice kind={privacy ? "privacy" : null} onClose={() => setPrivacy(false)} />
+      <LegalNotice kind={notice} onClose={() => setNotice(null)} />
     </div>
   );
 }

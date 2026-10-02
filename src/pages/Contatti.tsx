@@ -1,4 +1,5 @@
 import { siteContent } from "../data/siteContent";
+import { BrandSafetyNote } from "../components/BrandSafetyNote";
 import { PageHero } from "../components/PageHero";
 import { Kicker } from "../components/Button";
 import { Reveal } from "../components/Reveal";
@@ -43,11 +44,19 @@ export function Contatti() {
               >
                 {brand.email}
               </a>
+              <a
+                href={`mailto:${brand.adminEmail}`}
+                className="mt-4 block font-display text-xl italic text-ink underline decoration-sage/40 underline-offset-4"
+              >
+                {brand.adminEmail}
+              </a>
               <p className="mt-10 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
             </article>
           </Reveal>
         </div>
       </section>
+
+      <BrandSafetyNote />
     </div>
   );
 }

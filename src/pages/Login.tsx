@@ -5,7 +5,7 @@ import { siteContent } from "../data/siteContent";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { AuthForm } from "../components/AuthForm";
-import { LegalNotice } from "../components/LegalNotice";
+import { LegalNotice, type LegalKind } from "../components/LegalNotice";
 import { WidgetFrame } from "../components/WidgetFrame";
 
 const { auth } = siteContent;
@@ -16,7 +16,7 @@ export function Login() {
   const location = useLocation();
   const from = (location.state as { from?: string } | null)?.from ?? "/riservata";
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [legal, setLegal] = useState<"privacy" | null>(null);
+  const [legal, setLegal] = useState<LegalKind | null>(null);
 
   if (session) return <Navigate to={from} replace />;
 
@@ -37,6 +37,7 @@ export function Login() {
               mode={mode}
               onMode={setMode}
               onPrivacy={() => setLegal("privacy")}
+              onVendita={() => setLegal("vendita")}
               onSuccess={() => navigate(from, { replace: true })}
             />
           </WidgetFrame>

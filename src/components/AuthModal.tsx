@@ -2,14 +2,14 @@ import { useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { AuthForm } from "./AuthForm";
-import { LegalNotice } from "./LegalNotice";
+import { LegalNotice, type LegalKind } from "./LegalNotice";
 import { WidgetDialog } from "./WidgetDialog";
 
 const { auth } = siteContent;
 
 export function AuthModal() {
   const { authOpen, closeAuth } = useAuth();
-  const [legal, setLegal] = useState<"privacy" | null>(null);
+  const [legal, setLegal] = useState<LegalKind | null>(null);
   const [mode, setMode] = useState<"login" | "register">("login");
 
   if (!authOpen) return null;
@@ -21,6 +21,7 @@ export function AuthModal() {
           mode={mode}
           onMode={setMode}
           onPrivacy={() => setLegal("privacy")}
+          onVendita={() => setLegal("vendita")}
           onSuccess={closeAuth}
         />
       </WidgetDialog>

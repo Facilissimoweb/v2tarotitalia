@@ -13,10 +13,11 @@ type Props = {
   mode?: Mode;
   onMode?: (mode: Mode) => void;
   onPrivacy?: () => void;
+  onVendita?: () => void;
   onSuccess?: () => void;
 };
 
-export function AuthForm({ mode: modeProp, onMode, onPrivacy, onSuccess }: Props) {
+export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSuccess }: Props) {
   const { login, register } = useAuth();
   const [modeState, setModeState] = useState<Mode>("login");
   const mode = modeProp ?? modeState;
@@ -121,7 +122,12 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onSuccess }: Props
         />
       ) : null}
 
-      <ConsentFields consents={consents} onChange={setConsents} onPrivacy={onPrivacy} />
+      <ConsentFields
+        consents={consents}
+        onChange={setConsents}
+        onPrivacy={onPrivacy}
+        onVendita={onVendita}
+      />
 
       {error ? <p className="text-sm text-ink">{error}</p> : null}
       {info ? <p className="text-sm text-ink/70">{info}</p> : null}

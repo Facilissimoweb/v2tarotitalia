@@ -4,9 +4,10 @@ import { siteContent } from "../data/siteContent";
 import { flattenNav, MAIN_NAV } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
-import { LegalNotice, type LegalKind } from "./LegalNotice";
+import { LegalCopy, LegalNotice, type LegalKind } from "./LegalNotice";
 
 const { brand, cookies, legal, nav } = siteContent;
+const { tutela } = legal;
 
 export function Footer() {
   const { session } = useAuth();
@@ -47,13 +48,29 @@ export function Footer() {
         {brand.deontologia}
       </p>
 
-      <div className="mx-auto mt-16 max-w-xl border-t border-ink/10 pt-14">
-        <div className="flex flex-col items-center gap-5 text-[10px] uppercase tracking-[0.16em] text-ink/50">
+      <div className="mx-auto mt-16 max-w-xl border-t border-ink/10 pt-14 text-center">
+        <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{tutela.kicker}</p>
+        <p className="mt-5 text-sm leading-[1.9] text-ink/65">
+          <LegalCopy>{tutela.sintesi}</LegalCopy>
+        </p>
+        <a
+          href={`mailto:${brand.adminEmail}`}
+          className="mt-5 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4"
+        >
+          {brand.adminEmail}
+        </a>
+        <div className="mt-10 flex flex-col items-center gap-5 text-[10px] uppercase tracking-[0.16em] text-ink/50">
+          <button type="button" className="hover:text-ink" onClick={() => setNotice("tutela")}>
+            {tutela.sezione}
+          </button>
           <button type="button" className="hover:text-ink" onClick={() => setNotice("privacy")}>
             {legal.privacy.sezione}
           </button>
           <button type="button" className="hover:text-ink" onClick={() => setNotice("disclaimer")}>
             {legal.disclaimer.sezione}
+          </button>
+          <button type="button" className="hover:text-ink" onClick={() => setNotice("vendita")}>
+            {legal.vendita.sezione}
           </button>
         </div>
       </div>

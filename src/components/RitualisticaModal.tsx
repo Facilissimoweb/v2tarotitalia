@@ -91,6 +91,7 @@ export function RitualisticaModal() {
           <div className="flex flex-col gap-8 text-left">
             <AuthForm
               onPrivacy={() => setLegalKind("privacy")}
+              onVendita={() => setLegalKind("vendita")}
               onSuccess={() => setPane("richiesta")}
             />
             <button
@@ -139,9 +140,21 @@ export function RitualisticaModal() {
               >
                 {ritualistica.disclaimerApri}
               </button>
+              <button
+                type="button"
+                onClick={() => setLegalKind("vendita")}
+                className="text-left text-[11px] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+              >
+                {legal.vendita.leggi}
+              </button>
             </div>
 
-            <ConsentFields consents={consents} onChange={setConsents} onPrivacy={() => setLegalKind("privacy")} />
+            <ConsentFields
+              consents={consents}
+              onChange={setConsents}
+              onPrivacy={() => setLegalKind("privacy")}
+              onVendita={() => setLegalKind("vendita")}
+            />
 
             <label className="flex flex-col gap-1.5">
               <span className="text-[10px] uppercase tracking-[0.16em] text-sage">{ritualistica.nome} *</span>

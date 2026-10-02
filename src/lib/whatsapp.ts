@@ -3,7 +3,14 @@ import { STUDIO } from "../data/catalogo";
 import type { PurchaseDraft } from "./storage";
 
 export function getWhatsAppNumber() {
-  return (import.meta.env.VITE_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
+  const fromEnv = (import.meta.env.VITE_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
+  if (fromEnv) return fromEnv;
+  return siteContent.brand.whatsapp.replace(/\D/g, "");
+}
+
+export function whatsappChatHref() {
+  const phone = getWhatsAppNumber();
+  return phone ? `https://wa.me/${phone}` : "https://wa.me/";
 }
 
 export function formatBookingDay(dateIso: string) {

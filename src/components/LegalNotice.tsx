@@ -1,11 +1,12 @@
-import { useEffect, useId, type ReactNode } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button } from "./Button";
 import { WidgetFrame } from "./WidgetFrame";
+import { WHATSAPP_ANCHOR, whatsappChatHref } from "../lib/whatsapp";
 
 const { legal, nav } = siteContent;
 
-export type LegalKind = "privacy" | "disclaimer";
+export type LegalKind = "privacy" | "disclaimer" | "tutela" | "vendita";
 
 type Props = {
   kind: LegalKind | null;
@@ -26,8 +27,9 @@ export function LegalNotice({ kind, onClose }: Props) {
 
   if (!kind) return null;
 
-  const title = kind === "privacy" ? legal.privacy.titolo : legal.disclaimer.titolo;
-  const intestazione = kind === "privacy" ? legal.privacy.intestazione : legal.disclaimer.intestazione;
+  const meta = legalMeta(kind);
+  const title = meta.titolo;
+  const intestazione = meta.intestazione;
 
   return (
     <div
@@ -49,11 +51,37 @@ export function LegalNotice({ kind, onClose }: Props) {
           <p className="text-center text-[12px] tracking-[0.04em] text-ink/50">
             <LegalCopy>{intestazione}</LegalCopy>
           </p>
-          {kind === "privacy" ? <PrivacyBody /> : <DisclaimerBody onClose={onClose} />}
+          <LegalBody kind={kind} onClose={onClose} />
         </WidgetFrame>
       </div>
     </div>
   );
+}
+
+function legalMeta(kind: LegalKind) {
+  switch (kind) {
+    case "privacy":
+      return legal.privacy;
+    case "disclaimer":
+      return legal.disclaimer;
+    case "tutela":
+      return legal.tutela;
+    case "vendita":
+      return legal.vendita;
+  }
+}
+
+function LegalBody({ kind, onClose }: { kind: LegalKind; onClose: () => void }) {
+  switch (kind) {
+    case "privacy":
+      return <PrivacyBody />;
+    case "disclaimer":
+      return <DisclaimerBody onClose={onClose} />;
+    case "tutela":
+      return <TutelaBody />;
+    case "vendita":
+      return <VenditaBody />;
+  }
 }
 
 function PrivacyBody() {
@@ -103,9 +131,71 @@ function DisclaimerBody({ onClose }: { onClose: () => void }) {
   );
 }
 
-const TOKEN = /(www\.tarotitalia\.com|info@tarotitalia\.com|tarotitalia\.com)/g;
+function TutelaBody() {
+  const { tutela } = legal;
+  return (
+    <div className="mt-8 space-y-8 text-left">
+      <p className="text-sm leading-[1.9] text-ink/70">
+        <LegalCopy>{tutela.intro}</LegalCopy>
+      </p>
+      {tutela.punti.map((punto) => (
+        <section key={punto.titolo} className="border-t border-ink/10 pt-8">
+          <h3 className="font-display text-lg leading-snug text-ink">{punto.titolo}</h3>
+          <p className="mt-4 text-sm leading-[1.9] text-ink/70">
+            <LegalCopy>{punto.testo}</LegalCopy>
+          </p>
+        </section>
+      ))}
+    </div>
+  );
+}
 
-function LegalCopy({ children }: { children: string }) {
+function VenditaBody() {
+  const { vendita } = legal;
+  const [open, setOpen] = useState<string>(vendita.sezioni[0].id);
+
+  return (
+    <div className="mt-8 text-left">
+      {vendita.sezioni.map((sezione) => {
+        const expanded = open === sezione.id;
+        return (
+          <section key={sezione.id} className="border-t border-ink/10">
+            <button
+              type="button"
+              className="flex w-full items-start justify-between gap-4 py-5 text-left"
+              aria-expanded={expanded}
+              onClick={() => setOpen(expanded ? "" : sezione.id)}
+            >
+              <h3 className="font-display text-lg leading-snug text-ink">{sezione.titolo}</h3>
+              <span className="mt-1 shrink-0 text-sage" aria-hidden>
+                {expanded ? "–" : "+"}
+              </span>
+            </button>
+            {expanded ? (
+              <div className="space-y-4 pb-6">
+                {sezione.testi.map((paragrafo) => (
+                  <p key={paragrafo} className="text-sm leading-[1.9] text-ink/70">
+                    <LegalCopy>{paragrafo}</LegalCopy>
+                  </p>
+                ))}
+              </div>
+            ) : null}
+          </section>
+        );
+      })}
+      <section className="border-t border-ink/10 pt-8">
+        <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{vendita.assistenza.titolo}</p>
+        <p className="mt-4 text-sm leading-[1.9] text-ink/70">
+          <LegalCopy>{vendita.assistenza.testo}</LegalCopy>
+        </p>
+      </section>
+    </div>
+  );
+}
+
+const TOKEN = /(www\.tarotitalia\.com|info@tarotitalia\.com|tarotitalia\.com|\+39 379 103 82 53)/g;
+
+export function LegalCopy({ children }: { children: string }) {
   const nodes: ReactNode[] = [];
   let last = 0;
   let match: RegExpExecArray | null;
@@ -118,6 +208,17 @@ function LegalCopy({ children }: { children: string }) {
         <a
           key={`${token}-${match.index}`}
           href={`mailto:${token}`}
+          className="underline decoration-sage/40 underline-offset-4 hover:text-ink"
+        >
+          {token}
+        </a>,
+      );
+    } else if (token.startsWith("+39")) {
+      nodes.push(
+        <a
+          key={`${token}-${match.index}`}
+          href={whatsappChatHref()}
+          {...WHATSAPP_ANCHOR}
           className="underline decoration-sage/40 underline-offset-4 hover:text-ink"
         >
           {token}
