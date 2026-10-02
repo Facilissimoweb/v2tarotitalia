@@ -4,6 +4,7 @@ import { ConsentProvider } from "./context/ConsentContext";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
 import { CookieSettingsLaunch } from "./components/CookieSettingsLaunch";
+import { AuthModal } from "./components/AuthModal";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { ChiSiamo } from "./pages/ChiSiamo";
@@ -53,6 +54,7 @@ export default function App() {
         </BrowserRouter>
         <CookieBanner />
         <CookieSettingsLaunch />
+        <AuthModal />
       </ConsentProvider>
     </AuthProvider>
   );

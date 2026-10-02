@@ -2,12 +2,23 @@ import type { TariffaId } from "../data/catalogo";
 
 export type BookingMode = "studio" | "remote";
 
-export type Booking = {
+export type PurchaseStatus = "pending" | "confirmed" | "completed" | "cancelled";
+
+export type Consents = {
+  privacy: boolean;
+  adult: boolean;
+  refund: boolean;
+};
+
+export type Purchase = {
   id: string;
   createdAt: string;
   type: TariffaId;
   minutes: 30 | 60;
-  price: 40 | 70;
+  consultPrice: 40 | 70;
+  pdf: boolean;
+  pdfPrice: 0 | 10;
+  total: number;
   mode: BookingMode;
   dateIso: string;
   slot: string;
@@ -15,8 +26,12 @@ export type Booking = {
   phone: string;
   birth?: string;
   query?: string;
-  pdf: boolean;
+  status: PurchaseStatus;
+  consents: Consents;
 };
+
+/** Bozza di prenotazione prima di autenticazione e salvataggio. */
+export type PurchaseDraft = Omit<Purchase, "id" | "createdAt" | "status" | "consents">;
 
 const AUTH_KEY = "tarot-italia-auth";
 const BOOKINGS_KEY = "tarot-italia-bookings";
@@ -29,14 +44,31 @@ export const DEMO_ACCOUNT = {
 };
 
 export type Session = {
+  id: string;
   email: string;
   name: string;
+  consents: Consents;
 };
+
+export function emptyConsents(): Consents {
+  return { privacy: false, adult: false, refund: false };
+}
+
+export function hasRequiredConsents(consents: Consents | undefined) {
+  return Boolean(consents?.privacy && consents?.adult && consents?.refund);
+}
 
 export function readSession(): Session | null {
   try {
     const raw = localStorage.getItem(AUTH_KEY);
-    return raw ? (JSON.parse(raw) as Session) : null;
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Session & { consents?: Consents };
+    return {
+      id: parsed.id || parsed.email,
+      email: parsed.email,
+      name: parsed.name,
+      consents: parsed.consents ?? emptyConsents(),
+    };
   } catch {
     return null;
   }
@@ -50,17 +82,44 @@ export function clearSession() {
   localStorage.removeItem(AUTH_KEY);
 }
 
-export function readBookings(): Booking[] {
+function asPurchase(raw: Record<string, unknown>): Purchase {
+  const pdf = Boolean(raw.pdf);
+  const consultPrice = Number(raw.consultPrice ?? raw.price) as 40 | 70;
+  const pdfPrice = (raw.pdfPrice != null ? Number(raw.pdfPrice) : 0) as 0 | 10;
+  return {
+    id: String(raw.id),
+    createdAt: String(raw.createdAt),
+    type: (raw.type as TariffaId) ?? "focus",
+    minutes: (Number(raw.minutes) as 30 | 60) || 30,
+    consultPrice,
+    pdf,
+    pdfPrice,
+    total: Number(raw.total ?? consultPrice + pdfPrice),
+    mode: (raw.mode as BookingMode) ?? "remote",
+    dateIso: String(raw.dateIso ?? ""),
+    slot: String(raw.slot ?? ""),
+    name: String(raw.name ?? ""),
+    phone: String(raw.phone ?? ""),
+    birth: raw.birth ? String(raw.birth) : undefined,
+    query: raw.query ? String(raw.query) : undefined,
+    status: (raw.status as PurchaseStatus) ?? "confirmed",
+    consents: (raw.consents as Consents) ?? emptyConsents(),
+  };
+}
+
+export function readPurchases(): Purchase[] {
   try {
     const raw = localStorage.getItem(BOOKINGS_KEY);
-    return raw ? (JSON.parse(raw) as Booking[]) : [];
+    if (!raw) return [];
+    const list = JSON.parse(raw) as Record<string, unknown>[];
+    return list.map(asPurchase);
   } catch {
     return [];
   }
 }
 
-export function writeBookings(bookings: Booking[]) {
-  localStorage.setItem(BOOKINGS_KEY, JSON.stringify(bookings));
+export function writePurchases(purchases: Purchase[]) {
+  localStorage.setItem(BOOKINGS_KEY, JSON.stringify(purchases));
 }
 
 export function upcomingWeekdays(count = 8): { iso: string; label: string; day: string; num: string }[] {

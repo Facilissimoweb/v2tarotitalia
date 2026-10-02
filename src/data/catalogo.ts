@@ -1,3 +1,7 @@
+import { siteContent } from "./siteContent";
+
+export const REPORT_PDF_PRICE = siteContent.consulti.pdf.prezzo;
+
 export const TARIFFE = [
   {
     id: "focus" as const,
@@ -24,6 +28,10 @@ export const TARIFFE = [
 ];
 
 export type TariffaId = (typeof TARIFFE)[number]["id"];
+
+export function consultTotal(price: number, pdf: boolean) {
+  return pdf ? price + REPORT_PDF_PRICE : price;
+}
 
 export const CORSI = [
   {
@@ -88,8 +96,6 @@ export const MATERIALI = [
     filename: "Glossario_Ermetico.txt",
   },
 ];
-
-import { siteContent } from "./siteContent";
 
 export const STUDIO = {
   name: siteContent.brand.name,

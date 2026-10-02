@@ -177,6 +177,49 @@ export const siteContent = {
     gestisci: "Impostazioni Cookie",
   },
 
+  consulti: {
+    conferma: "Conferma e riserva la sessione",
+    opzioni: [
+      { id: "focus", titolo: "Consulto di 30 minuti", minuti: 30, prezzo: 40 },
+      { id: "deep", titolo: "Consulto di 1 ora", minuti: 60, prezzo: 70 },
+    ],
+    pdf: {
+      etichetta: "Report di sintesi in PDF inviato via WhatsApp",
+      prezzo: 10,
+    },
+  },
+
+  auth: {
+    login: "Login",
+    registrazione: "Registrazione",
+    email: "Email",
+    password: "Password",
+    confermaPassword: "Conferma password",
+    nome: "Nome",
+    entra: "Entra",
+    creaAccount: "Crea account",
+    adminEmail: "info@tarotitalia.com",
+    consensi: {
+      privacyCookie: "Accettazione dell'Informativa sulla Privacy e dei Cookie.",
+      adulto: "Dichiarazione che i servizi sono rivolti esclusivamente a un pubblico adulto.",
+      rimborso: "Accettazione delle politiche di rimborso.",
+    },
+    errori: {
+      credenziali: "Email o password non validi.",
+      consensi: "Per procedere è necessario accettare tutti i consensi obbligatori.",
+      password: "Le password non coincidono.",
+      servizio: "Servizio di accesso non disponibile.",
+    },
+    verificaEmail: "Controlla la casella di posta per confermare l'account.",
+    storico: "Storico acquisti",
+    stati: {
+      pending: "In attesa",
+      confirmed: "Confermata",
+      completed: "Completata",
+      cancelled: "Annullata",
+    },
+  },
+
   legal: {
     sitoLabel: "www.tarotitalia.com",
     sitoUrl: "https://www.tarotitalia.com",

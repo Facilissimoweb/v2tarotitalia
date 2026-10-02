@@ -1,16 +1,18 @@
-import { useMemo, useState, type FormEvent } from "react";
-import { STUDIO, TARIFFE, type TariffaId } from "../data/catalogo";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { consultTotal, REPORT_PDF_PRICE, STUDIO, TARIFFE, type TariffaId } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
-import { TIME_SLOTS, upcomingWeekdays, type Booking, type BookingMode } from "../lib/storage";
+import { hasRequiredConsents, TIME_SLOTS, upcomingWeekdays, type BookingMode, type Purchase } from "../lib/storage";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 
+const { consulti } = siteContent;
+
 export function Consulti() {
-  const { addBooking, session } = useAuth();
+  const { addPurchase, session, openAuth } = useAuth();
   const days = useMemo(() => upcomingWeekdays(7), []);
-  const [type, setType] = useState<TariffaId>("deep");
+  const [type, setType] = useState<TariffaId>("focus");
   const [mode, setMode] = useState<BookingMode>("remote");
   const [dateIso, setDateIso] = useState(days[0]?.iso ?? "");
   const [slot, setSlot] = useState("15:00");
@@ -18,21 +20,28 @@ export function Consulti() {
   const [phone, setPhone] = useState("");
   const [birth, setBirth] = useState("");
   const [query, setQuery] = useState("");
-  const [pdf, setPdf] = useState(true);
-  const [done, setDone] = useState<Booking | null>(null);
+  const [pdf, setPdf] = useState(false);
+  const [done, setDone] = useState<Purchase | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
+  const pendingLock = useRef(false);
 
-  const tariffa = TARIFFE.find((t) => t.id === type)!;
+  const option = consulti.opzioni.find((o) => o.id === type)!;
   const day = days.find((d) => d.iso === dateIso);
+  const total = consultTotal(option.prezzo, pdf);
 
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    if (!name.trim() || !phone.trim()) return;
-    const booking: Booking = {
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
+  useEffect(() => {
+    if (session?.name && !name) setName(session.name);
+  }, [session, name]);
+
+  function draft() {
+    return {
       type,
-      minutes: tariffa.minutes as 30 | 60,
-      price: tariffa.price as 40 | 70,
+      minutes: option.minuti as 30 | 60,
+      consultPrice: option.prezzo as 40 | 70,
+      pdf,
+      pdfPrice: (pdf ? REPORT_PDF_PRICE : 0) as 0 | 10,
+      total,
       mode,
       dateIso,
       slot,
@@ -40,10 +49,45 @@ export function Consulti() {
       phone: phone.trim(),
       birth: birth || undefined,
       query: query.trim() || undefined,
-      pdf,
     };
-    addBooking(booking);
-    setDone(booking);
+  }
+
+  async function confirm() {
+    const data = draft();
+    if (!data.name || !data.phone) return;
+    if (!session || !hasRequiredConsents(session.consents)) {
+      setPending(true);
+      openAuth();
+      return;
+    }
+    if (pendingLock.current) return;
+    pendingLock.current = true;
+    setError(null);
+    const err = await addPurchase(data, session.consents);
+    pendingLock.current = false;
+    if (err) {
+      setError(err);
+      return;
+    }
+    setPending(false);
+    setDone({
+      ...data,
+      id: crypto.randomUUID(),
+      createdAt: new Date().toISOString(),
+      status: "pending",
+      consents: session.consents,
+    });
+  }
+
+  useEffect(() => {
+    if (!pending || !session || !hasRequiredConsents(session.consents) || done) return;
+    void confirm();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pending, session]);
+
+  function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    void confirm();
   }
 
   if (done) {
@@ -54,17 +98,19 @@ export function Consulti() {
         lead={
           <>
             Gentile <strong className="font-medium">{done.name}</strong>, la prenotazione per{" "}
-            <strong className="font-medium">{tariffa.name}</strong> ({done.minutes} min, {done.price}€)
+            <strong className="font-medium">{option.titolo}</strong> ({done.minutes} min, {done.total}€)
             il <strong className="font-medium">{day?.label}</strong> alle {done.slot} —{" "}
             {done.mode === "remote" ? "chiamata vocale WhatsApp" : `in studio a ${STUDIO.city}`} — è
             stata registrata.
-            {done.pdf ? " Il report PDF verrà inviato su WhatsApp al termine." : ""} Entro due ore
-            riceverai conferma. Nessun addebito preventivo.
+            {done.pdf
+              ? ` ${consulti.pdf.etichetta} (+€${consulti.pdf.prezzo}).`
+              : ""}{" "}
+            Entro due ore riceverai conferma. Nessun addebito preventivo.
           </>
         }
         cta={{
-          to: session ? "/riservata" : "/login",
-          label: session ? "Vedi in Area Riservata" : "Accedi per i tuoi consulti",
+          to: "/riservata",
+          label: siteContent.nav.riservata,
         }}
         secondary={{ to: "/", label: "Torna alla Home" }}
         media={{
@@ -108,33 +154,48 @@ export function Consulti() {
             <span className="text-[10px] uppercase tracking-[0.16em] text-sage">Tariffa fissa</span>
           </div>
           <div className="grid gap-6">
-            {TARIFFE.map((t) => (
-              <label
-                key={t.id}
-                className={`cursor-pointer bg-paper p-8 ${type === t.id ? "ring-1 ring-ink" : ""}`}
-              >
-                <input
-                  type="radio"
-                  name="type"
-                  className="sr-only"
-                  checked={type === t.id}
-                  onChange={() => setType(t.id)}
-                />
-                <div className="flex justify-between gap-4">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{t.kicker}</p>
-                    <p className="font-display text-lg">{t.name}</p>
-                    <p className="text-xs text-ink/55">Durata: {t.minutes} minuti</p>
+            {consulti.opzioni.map((opt) => {
+              const t = TARIFFE.find((x) => x.id === opt.id)!;
+              return (
+                <label
+                  key={opt.id}
+                  className={`cursor-pointer bg-paper p-8 ${type === opt.id ? "ring-1 ring-ink" : ""}`}
+                >
+                  <input
+                    type="radio"
+                    name="type"
+                    className="sr-only"
+                    checked={type === opt.id}
+                    onChange={() => setType(opt.id)}
+                  />
+                  <div className="flex justify-between gap-4">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{t.kicker}</p>
+                      <p className="font-display text-lg">{opt.titolo}</p>
+                      <p className="text-xs text-ink/55">Durata: {opt.minuti} minuti</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-display text-xl">€{opt.prezzo}</p>
+                      <p className="text-[9px] uppercase tracking-[0.14em] text-sage">Onnicomprensivo</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="font-display text-xl">{t.price},00 €</p>
-                    <p className="text-[9px] uppercase tracking-[0.14em] text-sage">Onnicomprensivo</p>
-                  </div>
-                </div>
-                <p className="mt-3 bg-mist p-3 text-[11px] leading-relaxed text-ink/65">{t.summary}</p>
-              </label>
-            ))}
+                  <p className="mt-3 bg-mist p-3 text-[11px] leading-relaxed text-ink/65">{t.summary}</p>
+                </label>
+              );
+            })}
           </div>
+          <label className="mt-8 flex cursor-pointer items-start gap-3 bg-paper p-6 text-[12px] leading-snug text-ink/70">
+            <input
+              type="checkbox"
+              className="mt-0.5 accent-ink"
+              checked={pdf}
+              onChange={(e) => setPdf(e.target.checked)}
+            />
+            <span>
+              {consulti.pdf.etichetta}
+              <strong className="ml-2 font-medium text-ink">+ €{consulti.pdf.prezzo}</strong>
+            </span>
+          </label>
         </section>
         </Reveal>
 
@@ -164,16 +225,7 @@ export function Consulti() {
             </button>
           </div>
           {mode === "remote" ? (
-            <div className="mt-8 bg-linen p-8">
-              <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-ink">
-                Protocollo di conduzione auricolare
-              </p>
-              <p className="mt-2 text-[12px] leading-relaxed text-ink/70">{STUDIO.whatsappNote}</p>
-              <p className="mt-3 bg-paper p-3 text-[11px] leading-relaxed text-ink/75">
-                Su richiesta è incluso l’invio del report sintetico fotografico e interpretativo in
-                PDF ad alta risoluzione sul vostro WhatsApp al termine della sessione.
-              </p>
-            </div>
+            <p className="mt-8 bg-linen p-8 text-[12px] leading-relaxed text-ink/70">{STUDIO.whatsappNote}</p>
           ) : (
             <p className="mt-8 bg-mist p-8 text-[12px] leading-relaxed text-ink/70">
               {siteContent.brand.studioDiTeresa}
@@ -247,15 +299,6 @@ export function Consulti() {
                 placeholder="Descrivi brevemente l’argomento nodale..."
               />
             </label>
-            <label className="flex items-start gap-3 text-[12px] leading-snug text-ink/70">
-              <input
-                type="checkbox"
-                className="mt-0.5 accent-ink"
-                checked={pdf}
-                onChange={(e) => setPdf(e.target.checked)}
-              />
-              Desidero ricevere il <strong className="font-medium text-ink"> report fotografico e sintesi PDF</strong> su WhatsApp.
-            </label>
           </div>
         </section>
         </Reveal>
@@ -263,16 +306,18 @@ export function Consulti() {
         <Reveal>
         <section>
           <div className="bg-mist p-8">
-            <Row k="Sessione" v={`${tariffa.name} (${tariffa.minutes} min)`} />
+            <Row k="Sessione" v={`${option.titolo} (${option.minuti} min)`} />
             <Row k="Erogazione" v={mode === "remote" ? "Chiamata vocale WhatsApp" : `In studio a ${STUDIO.city}`} />
             <Row k="Data & ora" v={`${day?.label ?? ""} — ${slot}`} />
+            {pdf ? <Row k={consulti.pdf.etichetta} v={`€${consulti.pdf.prezzo}`} /> : null}
             <div className="mt-3 flex items-center justify-between">
               <span className="text-[10px] uppercase tracking-[0.16em] text-ink">Totale sessione</span>
-              <span className="font-display text-xl">{tariffa.price},00 €</span>
+              <span className="font-display text-xl">€{total}</span>
             </div>
           </div>
+          {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
           <Button type="submit" className="mt-8 w-full">
-            Conferma e riserva la sessione →
+            {consulti.conferma}
           </Button>
           <p className="mt-3 text-center text-[10px] uppercase tracking-[0.14em] text-ink/45">
             Pagamento sicuro post-accettazione. Nessun addebito preventivo.
@@ -286,9 +331,9 @@ export function Consulti() {
 
 function Row({ k, v }: { k: string; v: string }) {
   return (
-    <div className="flex items-center justify-between py-1.5 text-xs">
+    <div className="flex items-center justify-between gap-4 py-1.5 text-xs">
       <span className="uppercase tracking-[0.14em] text-sage">{k}</span>
-      <span className="text-ink">{v}</span>
+      <span className="text-right text-ink">{v}</span>
     </div>
   );
 }

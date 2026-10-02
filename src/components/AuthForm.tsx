@@ -1,0 +1,214 @@
+import { useState, type FormEvent } from "react";
+import { siteContent } from "../data/siteContent";
+import { useAuth } from "../context/AuthContext";
+import { emptyConsents, hasRequiredConsents, type Consents } from "../lib/storage";
+import { Button } from "./Button";
+
+const { auth } = siteContent;
+
+type Mode = "login" | "register";
+
+type Props = {
+  mode?: Mode;
+  onMode?: (mode: Mode) => void;
+  onPrivacy?: () => void;
+  onSuccess?: () => void;
+};
+
+export function AuthForm({ mode: modeProp, onMode, onPrivacy, onSuccess }: Props) {
+  const { login, register } = useAuth();
+  const [modeState, setModeState] = useState<Mode>("login");
+  const mode = modeProp ?? modeState;
+
+  function setMode(next: Mode) {
+    onMode?.(next);
+    setModeState(next);
+  }
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [name, setName] = useState("");
+  const [consents, setConsents] = useState<Consents>(emptyConsents);
+  const [error, setError] = useState<string | null>(null);
+  const [info, setInfo] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+
+  const ready = hasRequiredConsents(consents);
+
+  function toggle(key: keyof Consents) {
+    setConsents((c) => ({ ...c, [key]: !c[key] }));
+  }
+
+  async function onSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+    setInfo(null);
+    if (!ready) {
+      setError(auth.errori.consensi);
+      return;
+    }
+    if (mode === "register" && password !== confirm) {
+      setError(auth.errori.password);
+      return;
+    }
+    setBusy(true);
+    const result =
+      mode === "login"
+        ? await login(email, password, consents)
+        : await register(email, password, consents, name);
+    setBusy(false);
+    if (result === "verify") {
+      setInfo(auth.verificaEmail);
+      return;
+    }
+    if (result) {
+      setError(result);
+      return;
+    }
+    onSuccess?.();
+  }
+
+  return (
+    <form className="flex flex-col gap-8 text-left" onSubmit={(e) => void onSubmit(e)}>
+      <div className="flex justify-center gap-2">
+        <button
+          type="button"
+          onClick={() => setMode("login")}
+          className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
+            mode === "login" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
+          }`}
+        >
+          {auth.login}
+        </button>
+        <button
+          type="button"
+          onClick={() => setMode("register")}
+          className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
+            mode === "register" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
+          }`}
+        >
+          {auth.registrazione}
+        </button>
+      </div>
+
+      {mode === "register" ? (
+        <Field label={auth.nome} value={name} onChange={setName} autoComplete="name" />
+      ) : null}
+
+      <Field
+        label={auth.email}
+        value={email}
+        onChange={setEmail}
+        type="email"
+        required
+        autoComplete="email"
+      />
+      <Field
+        label={auth.password}
+        value={password}
+        onChange={setPassword}
+        type="password"
+        required
+        minLength={6}
+        autoComplete={mode === "login" ? "current-password" : "new-password"}
+      />
+      {mode === "register" ? (
+        <Field
+          label={auth.confermaPassword}
+          value={confirm}
+          onChange={setConfirm}
+          type="password"
+          required
+          minLength={6}
+          autoComplete="new-password"
+        />
+      ) : null}
+
+      <fieldset className="flex flex-col gap-4">
+        <ConsentRow
+          checked={consents.privacy}
+          onChange={() => toggle("privacy")}
+          label={auth.consensi.privacyCookie}
+          onOpen={onPrivacy}
+        />
+        <ConsentRow
+          checked={consents.adult}
+          onChange={() => toggle("adult")}
+          label={auth.consensi.adulto}
+        />
+        <ConsentRow
+          checked={consents.refund}
+          onChange={() => toggle("refund")}
+          label={auth.consensi.rimborso}
+        />
+      </fieldset>
+
+      {error ? <p className="text-sm text-ink">{error}</p> : null}
+      {info ? <p className="text-sm text-ink/70">{info}</p> : null}
+
+      <Button type="submit" className="w-full" disabled={!ready || busy}>
+        {mode === "login" ? auth.entra : auth.creaAccount}
+      </Button>
+    </form>
+  );
+}
+
+function ConsentRow({
+  checked,
+  onChange,
+  label,
+  onOpen,
+}: {
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+  onOpen?: () => void;
+}) {
+  return (
+    <label className="flex items-start gap-3 text-[12px] leading-snug text-ink/70">
+      <input type="checkbox" className="mt-0.5 accent-ink" checked={checked} onChange={onChange} required />
+      <span>
+        {onOpen ? (
+          <button type="button" className="text-left underline decoration-sage/40 underline-offset-4 hover:text-ink" onClick={onOpen}>
+            {label}
+          </button>
+        ) : (
+          label
+        )}
+      </span>
+    </label>
+  );
+}
+
+function Field({
+  label,
+  value,
+  onChange,
+  type = "text",
+  required,
+  minLength,
+  autoComplete,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  required?: boolean;
+  minLength?: number;
+  autoComplete?: string;
+}) {
+  return (
+    <label className="flex flex-col gap-2">
+      <span className="text-[10px] uppercase tracking-[0.16em] text-sage">{label}</span>
+      <input
+        type={type}
+        required={required}
+        minLength={minLength}
+        autoComplete={autoComplete}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="border-0 border-b border-ink/20 bg-transparent py-3 text-sm outline-none focus:border-ink"
+      />
+    </label>
+  );
+}

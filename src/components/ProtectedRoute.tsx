@@ -3,8 +3,9 @@ import type { ReactNode } from "react";
 import { useAuth } from "../context/AuthContext";
 
 export function ProtectedRoute({ children }: { children: ReactNode }) {
-  const { session } = useAuth();
+  const { session, ready } = useAuth();
   const location = useLocation();
+  if (!ready) return null;
   if (!session) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
