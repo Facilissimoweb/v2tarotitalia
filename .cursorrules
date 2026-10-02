@@ -1,16 +1,32 @@
-# Studio Olistico — regole di contenuto e design
+# Tarot Italia — identità, contenuti e design
+
+Fonte allineata a `.cursor/rules/site-content.mdc`.
+
+## Identità
+
+- Brand: **Tarot Italia**. Nome dello studio: **Studio Olistico** (non Santuario). Pagina principale: **Home**.
+- Titolare e Fondatrice: **M. Teresa Rogani** (Teresa in contesti confidenziali).
+- Ruolo: operatrice olistica ed esoterica, cartomante e tarologa professionista.
+- Collaborazioni: **Maura**, collaboratrice esterna a Macerata, specializzata in ritualistica.
+- Formazione, collaboratori e deontologia si aggiornano solo in `src/data/siteContent.ts`.
 
 ## Contenuti (tassativo)
 
-- I testi visibili nel sito devono attingere rigorosamente a `src/data/siteContent.ts`.
-- Non inventare slogan, biografie, titoli formativi, indirizzi, citazioni o metodi.
-- Vietato usare termini inventati o metodi non autorizzati. MAI menzionare il metodo Jodorowsky o analoghi non presenti in `siteContent.ts`.
-- Il nome dello studio è **Studio Olistico** (non Santuario). La pagina principale si chiama **Home**.
-- Formazione, collaboratori (Teresa, Maura) e deontologia si aggiornano solo in `siteContent.ts`, poi si riflettono nelle pagine.
+- Testi visibili: solo da `src/data/siteContent.ts`. Non inventare copy, metodi o titoli formativi.
+- Vietato menzionare Jodorowsky o metodi non autorizzati.
 
-## Palette Lumiere e layout
+## Filosofia, valori e tono
+
+- Umanesimo Digitale: spazio digitale intimo, protetto e sartoriale; niente estetiche commerciali aggressive.
+- Valori: chiarezza e verità (anche di fronte ad aspetti complessi), confidenzialità, rispetto, pulizia della pratica.
+- Tono: autorevole, veritiero, accogliente, senza filtri artificiosi.
+
+## Estetica Lumiere
 
 - Palette: ivory `#F9F8F6`, ink `#2B2523`, sage `#7A8B78`.
-- Mantenere ampie spaziature editoriali in ogni pagina (padding verticali generosi tra sezioni, niente blocchi appiccicati).
-- Hero di apertura con CTA primaria su tutte le pagine, esclusi eventuali articoli del blog.
-- Raggio 0px, tipografia Noto Serif + Inter.
+- Whitespace generoso, raggio 0px, Noto Serif + Inter. Hero con CTA primaria (esclusi articoli del blog).
+- Animazioni React sobrie, fluide e ipnotiche; non distrarre.
+
+## Autonomia tecnica
+
+- React, Vite, Tailwind CSS su Vercel. Gestione diretta con Cursor e Git; proprietà e indipendenza totali.
