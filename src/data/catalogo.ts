@@ -19,7 +19,7 @@ export const TARIFFE = [
     name: "Sessione Madre",
     kicker: "Percorso completo",
     minutes: 60,
-    price: 70,
+    price: 60,
     summary:
       "Analisi completa di stasi evolutiva, croce celtica integrata e dialogo archetipico.",
     details:

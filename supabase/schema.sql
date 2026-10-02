@@ -1,6 +1,7 @@
 -- Tarot Italia — schema Supabase
 -- Admin di riferimento: info@tarotitalia.com
 -- Eseguire nell'editor SQL del progetto Supabase (dopo aver abilitato Auth).
+-- Prenotazioni guest: user_id nullable; conferma solo dopo risposta esplicita via WhatsApp.
 
 create extension if not exists "pgcrypto";
 
@@ -20,11 +21,45 @@ create table if not exists public.profiles (
 );
 
 -- ---------------------------------------------------------------------------
--- Acquisti / prenotazioni consulti
+-- Prenotazioni consulti (canonica)
+-- ---------------------------------------------------------------------------
+create table if not exists public.bookings (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users (id) on delete set null,
+  consult_type text not null check (consult_type in ('focus', 'deep')),
+  minutes integer not null check (minutes in (30, 60)),
+  consult_price numeric(10, 2) not null check (consult_price in (40, 60)),
+  pdf_report boolean not null default false,
+  pdf_price numeric(10, 2) not null default 0,
+  total_price numeric(10, 2) not null,
+  mode text not null check (mode in ('studio', 'remote')),
+  session_date date not null,
+  slot text not null,
+  guest_name text not null,
+  phone text not null,
+  birth date,
+  query text,
+  status text not null default 'pending_whatsapp'
+    check (status in ('pending', 'pending_whatsapp', 'confirmed', 'completed', 'cancelled')),
+  consent_privacy boolean not null default false,
+  consent_adult boolean not null default false,
+  consent_refund boolean not null default false,
+  whatsapp_sent_at timestamptz,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists bookings_user_id_created_at_idx
+  on public.bookings (user_id, created_at desc);
+
+create index if not exists bookings_session_date_slot_idx
+  on public.bookings (session_date, slot);
+
+-- ---------------------------------------------------------------------------
+-- Acquisti (tabella legacy, allineata)
 -- ---------------------------------------------------------------------------
 create table if not exists public.purchases (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references auth.users (id) on delete cascade,
+  user_id uuid references auth.users (id) on delete set null,
   consult_type text not null check (consult_type in ('focus', 'deep')),
   minutes integer not null check (minutes in (30, 60)),
   consult_price numeric(10, 2) not null,
@@ -38,13 +73,27 @@ create table if not exists public.purchases (
   phone text,
   birth date,
   query text,
-  status text not null default 'pending'
-    check (status in ('pending', 'confirmed', 'completed', 'cancelled')),
+  status text not null default 'pending_whatsapp',
   consent_privacy boolean not null default false,
   consent_adult boolean not null default false,
   consent_refund boolean not null default false,
+  whatsapp_sent_at timestamptz,
   created_at timestamptz not null default now()
 );
+
+alter table public.purchases alter column user_id drop not null;
+
+alter table public.purchases add column if not exists whatsapp_sent_at timestamptz;
+
+do $$
+begin
+  alter table public.purchases drop constraint if exists purchases_status_check;
+  alter table public.purchases
+    add constraint purchases_status_check
+    check (status in ('pending', 'pending_whatsapp', 'confirmed', 'completed', 'cancelled'));
+exception
+  when duplicate_object then null;
+end $$;
 
 create index if not exists purchases_user_id_created_at_idx
   on public.purchases (user_id, created_at desc);
@@ -107,6 +156,7 @@ $$;
 -- Row Level Security
 -- ---------------------------------------------------------------------------
 alter table public.profiles enable row level security;
+alter table public.bookings enable row level security;
 alter table public.purchases enable row level security;
 
 drop policy if exists "profiles_select_own" on public.profiles;
@@ -128,6 +178,31 @@ create policy "profiles_update_own"
   using (auth.uid() = id or public.is_admin())
   with check (auth.uid() = id or public.is_admin());
 
+drop policy if exists "bookings_insert_guest" on public.bookings;
+create policy "bookings_insert_guest"
+  on public.bookings for insert
+  to anon
+  with check (user_id is null);
+
+drop policy if exists "bookings_insert_auth" on public.bookings;
+create policy "bookings_insert_auth"
+  on public.bookings for insert
+  to authenticated
+  with check (user_id is null or auth.uid() = user_id or public.is_admin());
+
+drop policy if exists "bookings_select_own" on public.bookings;
+create policy "bookings_select_own"
+  on public.bookings for select
+  to authenticated
+  using (auth.uid() = user_id or public.is_admin());
+
+drop policy if exists "bookings_update_admin" on public.bookings;
+create policy "bookings_update_admin"
+  on public.bookings for update
+  to authenticated
+  using (public.is_admin())
+  with check (public.is_admin());
+
 drop policy if exists "purchases_select_own" on public.purchases;
 create policy "purchases_select_own"
   on public.purchases for select
@@ -147,7 +222,27 @@ create policy "purchases_update_admin"
   using (public.is_admin())
   with check (public.is_admin());
 
-grant usage on schema public to authenticated;
+grant usage on schema public to anon, authenticated;
 grant select, insert, update on public.profiles to authenticated;
+grant insert on public.bookings to anon, authenticated;
+grant select on public.bookings to authenticated;
+grant update on public.bookings to authenticated;
 grant select, insert on public.purchases to authenticated;
 grant update on public.purchases to authenticated;
+
+-- Copia eventuale storico da purchases verso bookings
+insert into public.bookings (
+  id, user_id, consult_type, minutes, consult_price, pdf_report, pdf_price, total_price,
+  mode, session_date, slot, guest_name, phone, birth, query, status,
+  consent_privacy, consent_adult, consent_refund, whatsapp_sent_at, created_at
+)
+select
+  id, user_id, consult_type, minutes,
+  case when consult_price in (40, 60) then consult_price else 60 end,
+  pdf_report, pdf_price, total_price,
+  mode, session_date, slot, coalesce(guest_name, ''), coalesce(phone, ''), birth, query,
+  case when status = 'pending' then 'pending_whatsapp' else status end,
+  consent_privacy, consent_adult, consent_refund, whatsapp_sent_at, created_at
+from public.purchases
+where session_date is not null and slot is not null
+on conflict (id) do nothing;

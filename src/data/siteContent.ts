@@ -181,11 +181,22 @@ export const siteContent = {
     conferma: "Conferma e riserva la sessione",
     opzioni: [
       { id: "focus", titolo: "Consulto di 30 minuti", minuti: 30, prezzo: 40 },
-      { id: "deep", titolo: "Consulto di 1 ora", minuti: 60, prezzo: 70 },
+      { id: "deep", titolo: "Consulto di 1 ora", minuti: 60, prezzo: 60 },
     ],
     pdf: {
       etichetta: "Report di sintesi in PDF inviato via WhatsApp",
       prezzo: 10,
+    },
+    avvisoConferma:
+      "La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
+    senzaRegistrazione:
+      "Puoi confermare e inviare i dettagli della seduta su WhatsApp anche senza registrazione. L’area riservata e lo storico acquisti restano disponibili per chi preferisce accedere.",
+    successoKicker: "Richiesta inviata",
+    successoTitolo: "Dettagli inoltrati su WhatsApp",
+    orarioNonDisponibile: "Seleziona una fascia oraria disponibile.",
+    calendario: {
+      giorno: "Giorno",
+      orario: "Fascia oraria",
     },
   },
 
@@ -201,7 +212,7 @@ export const siteContent = {
     adminEmail: "info@tarotitalia.com",
     consensi: {
       privacyCookie: "Accettazione dell'Informativa sulla Privacy e dei Cookie.",
-      adulto: "Dichiarazione che i servizi sono rivolti esclusivamente a un pubblico adulto.",
+      adulto: "Dichiarazione esplicita che i servizi sono rivolti esclusivamente a un pubblico adulto (maggiorenni, +18).",
       rimborso: "Accettazione delle politiche di rimborso.",
     },
     errori: {
@@ -214,6 +225,7 @@ export const siteContent = {
     storico: "Storico acquisti",
     stati: {
       pending: "In attesa",
+      pending_whatsapp: "In attesa di conferma manuale via WhatsApp",
       confirmed: "Confermata",
       completed: "Completata",
       cancelled: "Annullata",

@@ -2,7 +2,7 @@ import type { TariffaId } from "../data/catalogo";
 
 export type BookingMode = "studio" | "remote";
 
-export type PurchaseStatus = "pending" | "confirmed" | "completed" | "cancelled";
+export type PurchaseStatus = "pending" | "pending_whatsapp" | "confirmed" | "completed" | "cancelled";
 
 export type Consents = {
   privacy: boolean;
@@ -15,7 +15,7 @@ export type Purchase = {
   createdAt: string;
   type: TariffaId;
   minutes: 30 | 60;
-  consultPrice: 40 | 70;
+  consultPrice: 40 | 60 | 70;
   pdf: boolean;
   pdfPrice: 0 | 10;
   total: number;
@@ -84,7 +84,7 @@ export function clearSession() {
 
 function asPurchase(raw: Record<string, unknown>): Purchase {
   const pdf = Boolean(raw.pdf);
-  const consultPrice = Number(raw.consultPrice ?? raw.price) as 40 | 70;
+  const consultPrice = Number(raw.consultPrice ?? raw.price) as 40 | 60 | 70;
   const pdfPrice = (raw.pdfPrice != null ? Number(raw.pdfPrice) : 0) as 0 | 10;
   return {
     id: String(raw.id),
@@ -102,7 +102,7 @@ function asPurchase(raw: Record<string, unknown>): Purchase {
     phone: String(raw.phone ?? ""),
     birth: raw.birth ? String(raw.birth) : undefined,
     query: raw.query ? String(raw.query) : undefined,
-    status: (raw.status as PurchaseStatus) ?? "confirmed",
+    status: (raw.status as PurchaseStatus) ?? "pending_whatsapp",
     consents: (raw.consents as Consents) ?? emptyConsents(),
   };
 }
@@ -122,30 +122,31 @@ export function writePurchases(purchases: Purchase[]) {
   localStorage.setItem(BOOKINGS_KEY, JSON.stringify(purchases));
 }
 
-export function upcomingWeekdays(count = 8): { iso: string; label: string; day: string; num: string }[] {
-  const out: { iso: string; label: string; day: string; num: string }[] = [];
-  const start = new Date();
-  start.setHours(12, 0, 0, 0);
-  const weekday = new Intl.DateTimeFormat("it-IT", { weekday: "short" });
-  const long = new Intl.DateTimeFormat("it-IT", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  });
-  for (let i = 1; out.length < count && i < 28; i++) {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-    const dow = d.getDay();
-    if (dow === 0) continue;
-    const iso = d.toISOString().slice(0, 10);
-    out.push({
-      iso,
-      label: long.format(d),
-      day: weekday.format(d).replace(".", ""),
-      num: String(d.getDate()),
-    });
-  }
-  return out;
+export function localIso(date = new Date()) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
+  return `${y}-${m}-${d}`;
 }
 
-export const TIME_SLOTS = ["10:30", "12:00", "15:00", "17:30", "19:00"];
+export const HOUR_SLOTS = Array.from({ length: 14 }, (_, i) => `${String(i + 9).padStart(2, "0")}:00`);
+
+export function slotsForDate(dateIso: string) {
+  const today = localIso();
+  if (dateIso > today) return HOUR_SLOTS;
+  if (dateIso < today) return [];
+  const now = new Date();
+  const nextHour = now.getMinutes() > 0 ? now.getHours() + 1 : now.getHours();
+  return HOUR_SLOTS.filter((slot) => Number(slot.slice(0, 2)) >= nextHour);
+}
+
+export function nextBookableDate(fromIso = localIso()) {
+  const start = new Date(`${fromIso}T12:00:00`);
+  for (let i = 0; i < 60; i++) {
+    const d = new Date(start);
+    d.setDate(start.getDate() + i);
+    const iso = localIso(d);
+    if (slotsForDate(iso).length > 0) return iso;
+  }
+  return fromIso;
+}

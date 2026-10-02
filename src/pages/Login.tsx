@@ -25,7 +25,7 @@ export function Login() {
       <PageHero
         kicker="Soglia riservata"
         title="Accedi"
-        lead="Area membri per consulti prenotati e storico degli acquisti. Oppure prenota una sessione vocale WhatsApp senza attendere."
+        lead={siteContent.consulti.senzaRegistrazione}
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ href: "#login", label: "Entra nell'area riservata" }}
       />

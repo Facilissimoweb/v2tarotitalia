@@ -141,7 +141,7 @@ export function Estrazione() {
           Comprendere il filo invisibile tra le tre energie
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-ink/70">
-          Sblocca il consulto telefonico dedicato da 30 min (40€) o 1 ora (70€), con report
+          Sblocca il consulto telefonico dedicato da 30 min (40€) o 1 ora (60€), con report
           WhatsApp PDF personalizzato.
         </p>
         <div className="mt-5 space-y-3">

@@ -4,7 +4,7 @@ import type { TariffaId } from "../data/catalogo";
 
 export type PurchaseRow = {
   id: string;
-  user_id: string;
+  user_id: string | null;
   consult_type: string;
   minutes: number;
   consult_price: number | string;
@@ -30,12 +30,12 @@ export function draftToPurchase(draft: PurchaseDraft, consents: Consents): Purch
     ...draft,
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
-    status: "pending",
+    status: "pending_whatsapp",
     consents,
   };
 }
 
-export function purchaseToInsert(userId: string, purchase: Purchase) {
+export function purchaseToInsert(userId: string | null, purchase: Purchase) {
   return {
     id: purchase.id,
     user_id: userId,
@@ -56,6 +56,7 @@ export function purchaseToInsert(userId: string, purchase: Purchase) {
     consent_privacy: purchase.consents.privacy,
     consent_adult: purchase.consents.adult,
     consent_refund: purchase.consents.refund,
+    whatsapp_sent_at: new Date().toISOString(),
   };
 }
 
@@ -65,7 +66,7 @@ export function rowToPurchase(row: PurchaseRow): Purchase {
     createdAt: row.created_at,
     type: (row.consult_type as TariffaId) || "focus",
     minutes: (Number(row.minutes) as 30 | 60) || 30,
-    consultPrice: Number(row.consult_price) as 40 | 70,
+    consultPrice: Number(row.consult_price) as 40 | 60 | 70,
     pdf: row.pdf_report,
     pdfPrice: Number(row.pdf_price) as 0 | 10,
     total: Number(row.total_price),
@@ -76,7 +77,7 @@ export function rowToPurchase(row: PurchaseRow): Purchase {
     phone: row.phone ?? "",
     birth: row.birth ?? undefined,
     query: row.query ?? undefined,
-    status: (row.status as PurchaseStatus) || "pending",
+    status: (row.status as PurchaseStatus) || "pending_whatsapp",
     consents: {
       privacy: row.consent_privacy,
       adult: row.consent_adult,

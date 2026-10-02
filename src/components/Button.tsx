@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import type { ReactNode } from "react";
+import { isWhatsAppHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
 const base =
   "inline-flex items-center justify-center gap-2 px-6 py-4 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
@@ -43,10 +44,12 @@ export function Button({
     );
   }
   if (href) {
+    const whatsapp = isWhatsAppHref(href);
     return (
       <a
         href={href}
         className={cls}
+        {...(whatsapp ? WHATSAPP_ANCHOR : {})}
         {...(download !== undefined ? { download: download === true ? true : download } : {})}
       >
         {children}

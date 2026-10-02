@@ -70,6 +70,14 @@ async function persistConsents(userId: string, email: string, name: string, cons
 async function loadRemotePurchases(userId: string): Promise<Purchase[]> {
   const sb = getSupabaseClient();
   if (!sb) return [];
+  const bookings = await sb
+    .from("bookings")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+  if (!bookings.error && bookings.data) {
+    return (bookings.data as PurchaseRow[]).map(rowToPurchase);
+  }
   const { data, error } = await sb
     .from("purchases")
     .select("*")
@@ -77,6 +85,17 @@ async function loadRemotePurchases(userId: string): Promise<Purchase[]> {
     .order("created_at", { ascending: false });
   if (error || !data) return [];
   return (data as PurchaseRow[]).map(rowToPurchase);
+}
+
+async function persistBooking(userId: string | null, purchase: Purchase) {
+  const sb = getSupabaseClient();
+  if (!sb) return null;
+  const row = purchaseToInsert(userId, purchase);
+  const bookings = await sb.from("bookings").insert(row);
+  if (!bookings.error) return null;
+  if (!userId) return bookings.error.message;
+  const purchases = await sb.from("purchases").insert(row);
+  return purchases.error?.message ?? null;
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -201,23 +220,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       },
       addPurchase: async (draft, consents) => {
         const current = session;
-        if (!current) return auth.errori.credenziali;
-        const used = consents ?? current.consents;
+        const used = consents ?? current?.consents ?? emptyConsents();
         if (!hasRequiredConsents(used)) return auth.errori.consensi;
         const purchase = draftToPurchase(draft, used);
         if (isSupabaseConfigured()) {
-          const sb = getSupabaseClient();
-          if (!sb) return auth.errori.servizio;
-          const { error } = await sb.from("purchases").insert(purchaseToInsert(current.id, purchase));
-          if (error) return error.message;
-          const list = await loadRemotePurchases(current.id);
-          setPurchases(list);
-          writePurchases(list);
+          const err = await persistBooking(current?.id ?? null, purchase);
+          if (err) return err;
+          if (current) {
+            const list = await loadRemotePurchases(current.id);
+            setPurchases(list);
+            writePurchases(list);
+          }
           return null;
         }
-        const next = [purchase, ...readPurchases()];
-        writePurchases(next);
-        setPurchases(next);
+        if (current) {
+          const next = [purchase, ...readPurchases()];
+          writePurchases(next);
+          setPurchases(next);
+        }
         return null;
       },
     }),
