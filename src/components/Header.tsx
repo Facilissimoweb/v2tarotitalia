@@ -220,6 +220,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
         }`}
       >
         <div className="border border-ink/10 bg-ivory px-7 py-8 shadow-[0_18px_40px_rgba(43,37,35,0.06)]">
+          <img src="/logo.svg" alt="" className="mb-5 h-8 w-8" />
           <p className="mb-6 text-[9px] uppercase tracking-[0.2em] text-sage">{item.label}</p>
           <ul className="flex flex-col gap-5">
             {item.children.map((child) => (

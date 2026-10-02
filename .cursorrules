@@ -26,6 +26,7 @@ Fonte allineata a `.cursor/rules/site-content.mdc`.
 - Palette: ivory `#F9F8F6`, ink `#2B2523`, sage `#7A8B78`.
 - Whitespace generoso, raggio 0px, Noto Serif + Inter. Hero con CTA primaria (esclusi articoli del blog).
 - Animazioni React sobrie, fluide e ipnotiche; non distrarre.
+- Widget e modali: logo ufficiale in alto, prima di qualsiasi scritta o titolo (`WidgetFrame`).
 
 ## Autonomia tecnica
 

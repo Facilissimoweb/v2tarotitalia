@@ -1,6 +1,8 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { ConsentProvider } from "./context/ConsentContext";
 import { Layout } from "./components/Layout";
+import { CookieBanner } from "./components/CookieBanner";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { ChiSiamo } from "./pages/ChiSiamo";
@@ -19,34 +21,37 @@ import { Riservata } from "./pages/Riservata";
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/chi-siamo" element={<ChiSiamo />} />
-            <Route path="/arcani" element={<Arcani />} />
-            <Route path="/arcani/:slug" element={<ArcanoDetail />} />
-            <Route path="/arcani-minori" element={<ArcaniMinori />} />
-            <Route path="/consulti" element={<Consulti />} />
-            <Route path="/rituali" element={<Rituali />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/contatti" element={<Contatti />} />
-            <Route path="/carrello" element={<Carrello />} />
-            <Route path="/corsi" element={<Corsi />} />
-            <Route path="/estrazione" element={<Estrazione />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/riservata"
-              element={
-                <ProtectedRoute>
-                  <Riservata />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <ConsentProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/chi-siamo" element={<ChiSiamo />} />
+              <Route path="/arcani" element={<Arcani />} />
+              <Route path="/arcani/:slug" element={<ArcanoDetail />} />
+              <Route path="/arcani-minori" element={<ArcaniMinori />} />
+              <Route path="/consulti" element={<Consulti />} />
+              <Route path="/rituali" element={<Rituali />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/contatti" element={<Contatti />} />
+              <Route path="/carrello" element={<Carrello />} />
+              <Route path="/corsi" element={<Corsi />} />
+              <Route path="/estrazione" element={<Estrazione />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/riservata"
+                element={
+                  <ProtectedRoute>
+                    <Riservata />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+        <CookieBanner />
+      </ConsentProvider>
     </AuthProvider>
   );
 }

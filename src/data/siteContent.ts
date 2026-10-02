@@ -13,6 +13,7 @@ export const siteContent = {
     region: "Marche, Italia",
     coords: "43° 18′ 01″ N / 13° 27′ 12″ E",
     email: "sanctuary@tarotitalia.it",
+    adminEmail: "info@tarotitalia.com",
   },
 
   nav: {
@@ -148,6 +149,31 @@ export const siteContent = {
         caption: "Folklore tradizionale marchigiano",
       },
     },
+  },
+
+  cookies: {
+    titolo: "Configura i Tuoi Cookie",
+    descrizione:
+      "Di seguito puoi abilitare o disabilitare le diverse tipologie di cookie impiegate sul sito. I cookie necessari non possono essere disattivati in quanto fondamentali per l’accesso alle sessioni e ai moduli di prenotazione.",
+    necessari: {
+      titolo: "Cookie Tecnici Necessari (Sempre Attivi)",
+      testo:
+        "Indispensabili per navigare nel sito, memorizzare le preferenze dell’utente ed eseguire in sicurezza l’inoltro delle prenotazioni verso WhatsApp.",
+      stato: "Sempre attivi",
+    },
+    statistici: {
+      titolo: "Misurazione & Statistiche Anonime",
+      testo:
+        "Consentono di aggregare metriche anonimizzate sull’affluenza alle guide degli arcani e alle pagine dei servizi per migliorare l’esperienza d’uso.",
+    },
+    preferenze: {
+      titolo: "Preferenze e Funzioni Avanzate",
+      testo:
+        "Permettono al sito di ricordare la modalità di consulto preferita e il percorso di lettura prescelto.",
+    },
+    rifiuta: "Rifiuta Opzionali",
+    accetta: "Accetta Tutti",
+    salva: "Salva Scelte",
   },
 } as const;
 

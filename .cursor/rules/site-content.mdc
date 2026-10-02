@@ -31,6 +31,7 @@ alwaysApply: true
 - Stile: pulito, leggibile, whitespace generoso, attenzione sartoriale. Raggio 0px, tipografia Noto Serif + Inter.
 - Hero con CTA primaria su tutte le pagine, esclusi eventuali articoli del blog.
 - Animazioni (React): sobrie, fluide e ipnotiche (parallassi sottili, transizioni morbide); accompagnano l’introspezione senza distrarre.
+- Widget e modali: il logo ufficiale (`/logo.svg`) sta sempre in alto, prima di qualsiasi scritta o titolo. Usare `WidgetFrame`.
 
 ## Autonomia tecnica
 
