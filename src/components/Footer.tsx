@@ -2,11 +2,13 @@ import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { flattenNav, MAIN_NAV } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
+import { useConsent } from "../context/ConsentContext";
 
-const { brand, nav } = siteContent;
+const { brand, cookies, nav } = siteContent;
 
 export function Footer() {
   const { session } = useAuth();
+  const { reopen } = useConsent();
   const links = flattenNav(MAIN_NAV);
 
   return (
@@ -34,6 +36,9 @@ export function Footer() {
         <NavLink to={session ? "/riservata" : "/login"} className="hover:text-ink">
           {session ? nav.riservata : nav.accedi}
         </NavLink>
+        <button type="button" className="uppercase tracking-[0.16em] hover:text-ink" onClick={reopen}>
+          {cookies.gestisci}
+        </button>
       </div>
       <p className="mx-auto mt-12 max-w-lg text-[9px] uppercase leading-relaxed tracking-[0.16em] text-ink/35">
         {brand.deontologia}

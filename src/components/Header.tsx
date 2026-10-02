@@ -7,6 +7,7 @@ import {
   isTarocchiPath,
   type NavBranch,
 } from "../data/navigation";
+import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav } = siteContent;
 
@@ -220,8 +221,8 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
         }`}
       >
         <div className="border border-ink/10 bg-ivory px-7 py-8 shadow-[0_18px_40px_rgba(43,37,35,0.06)]">
-          <img src="/logo.svg" alt="" className="mb-5 h-8 w-8" />
-          <p className="mb-6 text-[9px] uppercase tracking-[0.2em] text-sage">{item.label}</p>
+          <WidgetBrandMark size="sm" />
+          <p className="mt-5 mb-6 text-[9px] uppercase tracking-[0.2em] text-sage">{item.label}</p>
           <ul className="flex flex-col gap-5">
             {item.children.map((child) => (
               <li key={child.to} role="none">
@@ -254,14 +255,8 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       aria-modal="true"
       aria-label={nav.menu}
     >
-      <div className="flex h-[4.25rem] items-center justify-between border-b border-ink/10 px-5">
-        <NavLink to="/" className="flex items-center gap-3" onClick={onClose}>
-          <img src="/logo.svg" alt="" className="h-8 w-8" />
-          <span className="font-display text-[11px] tracking-[0.28em] text-ink">
-            {brand.wordmark.toUpperCase()}
-          </span>
-        </NavLink>
-        <div className="flex items-center gap-2">
+      <div className="relative border-b border-ink/10 px-5 pb-6 pt-8">
+        <div className="absolute right-5 top-5 flex items-center gap-2">
           <CartLink />
           <button
             type="button"
@@ -272,6 +267,8 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
             <CloseIcon />
           </button>
         </div>
+        <WidgetBrandMark />
+        <p className="mt-5 text-center font-display text-xl font-light text-ink">{nav.menu}</p>
       </div>
       <nav className="flex-1 overflow-y-auto px-6 py-8" aria-label="Principale">
         <div className="flex flex-col gap-3.5">

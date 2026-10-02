@@ -174,6 +174,7 @@ export const siteContent = {
     rifiuta: "Rifiuta Opzionali",
     accetta: "Accetta Tutti",
     salva: "Salva Scelte",
+    gestisci: "Impostazioni Cookie",
   },
 } as const;
 
