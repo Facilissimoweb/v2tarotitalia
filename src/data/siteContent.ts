@@ -176,6 +176,78 @@ export const siteContent = {
     salva: "Salva Scelte",
     gestisci: "Impostazioni Cookie",
   },
+
+  legal: {
+    sitoLabel: "www.tarotitalia.com",
+    sitoUrl: "https://www.tarotitalia.com",
+    privacy: {
+      sezione: "Informativa sulla privacy",
+      titolo: "Informativa sulla privacy",
+      intestazione: "www.tarotitalia.com • Tarot Italia",
+      intro: [
+        "Il sito web www.tarotitalia.com è di proprietà di Tarot Italia, che è un titolare del trattamento dei tuoi dati personali.",
+        "Abbiamo adottato questa Informativa sulla privacy, che determina come elaboriamo le informazioni raccolte da tarotitalia.com, che fornisce anche i motivi per cui dobbiamo raccogliere determinati dati personali su di te. Pertanto, devi leggere questa Informativa sulla privacy prima di utilizzare il sito web tarotitalia.com.",
+        "Ci prendiamo cura dei tuoi dati personali e ci impegniamo a garantirne la riservatezza e la sicurezza.",
+      ],
+      sezioni: [
+        {
+          icon: "shield",
+          titolo: "Informazioni personali che raccogliamo:",
+          testo:
+            'Quando visiti tarotitalia.com, raccogliamo automaticamente determinate informazioni sul tuo dispositivo, tra cui informazioni sul tuo browser web, indirizzo IP, fuso orario e alcuni dei cookie installati sul tuo dispositivo. Inoltre, mentre navighi sul Sito, raccogliamo informazioni sulle singole pagine web o prodotti che visualizzi, quali siti web o termini di ricerca ti hanno indirizzato al Sito e come interagisci con il Sito. Ci riferiamo a queste informazioni raccolte automaticamente come "Informazioni sul dispositivo". Inoltre, potremmo raccogliere i dati personali che ci fornisci (inclusi, ma non limitati a, Nome, Cognome, Indirizzo, informazioni di pagamento, ecc.) durante la registrazione per poter adempiere all\'accordo.',
+        },
+        {
+          icon: "settings",
+          titolo: "Perché elaboriamo i tuoi dati?",
+          testo:
+            "La nostra massima priorità è la sicurezza dei dati dei clienti e, in quanto tale, potremmo elaborare solo dati utente minimi, solo nella misura in cui è assolutamente necessario per mantenere il sito web. Le informazioni raccolte automaticamente vengono utilizzate solo per identificare potenziali casi di abuso e stabilire informazioni statistiche sull'utilizzo del sito web. Queste informazioni statistiche non vengono altrimenti aggregate in modo tale da identificare un particolare utente del sistema. Puoi visitare il sito web senza dirci chi sei o rivelare alcuna informazione, tramite la quale qualcuno potrebbe identificarti come un individuo specifico e identificabile. Se, tuttavia, desideri utilizzare alcune delle funzionalità del sito web o desideri ricevere la nostra newsletter o fornire altri dettagli compilando un modulo, puoi fornirci dati personali, come la tua e-mail, nome, cognome, città di residenza, organizzazione, numero di telefono. Puoi scegliere di non fornirci i tuoi dati personali, ma in tal caso potresti non essere in grado di sfruttare alcune delle funzionalità del sito web. Ad esempio, non sarai in grado di ricevere la nostra Newsletter o di contattarci direttamente dal sito web. Gli utenti che non sono certi su quali informazioni siano obbligatorie sono invitati a contattarci tramite info@tarotitalia.com .",
+        },
+        {
+          icon: "gavel",
+          titolo: "I tuoi diritti:",
+          testo:
+            "Se sei un residente europeo, hai i seguenti diritti relativi ai tuoi dati personali: Il diritto di essere informato. Il diritto di accesso. Il diritto di rettifica. Il diritto di cancellazione. Il diritto di limitare il trattamento. Il diritto alla portabilità dei dati. Il diritto di opposizione. Diritti in relazione al processo decisionale automatizzato e alla profilazione. Se desideri esercitare questo diritto, ti preghiamo di contattarci tramite le informazioni di contatto riportate di seguito. Inoltre, se sei un residente europeo, ti informiamo che stiamo elaborando le tue informazioni per adempiere ai contratti che potremmo avere con te (ad esempio, se effettui un ordine tramite il Sito) o altrimenti per perseguire i nostri legittimi interessi commerciali elencati sopra. Inoltre, tieni presente che le tue informazioni potrebbero essere trasferite al di fuori dell'Europa, inclusi Canada e Stati Uniti.",
+        },
+        {
+          icon: "link",
+          titolo: "Collegamenti ad altri siti Web:",
+          testo:
+            "Il nostro sito Web potrebbe contenere collegamenti ad altri siti Web che non sono di nostra proprietà o controllati da noi. Tieni presente che non siamo responsabili per tali altri siti Web o per le pratiche sulla privacy di terze parti. Ti invitiamo a prestare attenzione quando lasci il nostro sito Web e a leggere le dichiarazioni sulla privacy di ciascun sito Web che potrebbe raccogliere informazioni personali.",
+        },
+        {
+          icon: "lock",
+          titolo: "Sicurezza delle informazioni:",
+          testo:
+            "Proteggiamo le informazioni che fornisci su server informatici in un ambiente controllato e sicuro, protetto da accessi, usi o divulgazioni non autorizzati. Manteniamo ragionevoli misure di sicurezza amministrative, tecniche e fisiche per proteggere da accessi, usi, modifiche e divulgazioni non autorizzati di dati personali sotto il nostro controllo e la nostra custodia. Tuttavia, non è possibile garantire alcuna trasmissione di dati tramite Internet o rete wireless.",
+        },
+        {
+          icon: "policy",
+          titolo: "Divulgazione legale:",
+          testo:
+            "Divulgheremo qualsiasi informazione che raccogliamo, utilizziamo o riceviamo se richiesto o consentito dalla legge, ad esempio per ottemperare a una citazione in giudizio o a un procedimento legale simile, e quando riteniamo in buona fede che la divulgazione sia necessaria per proteggere i nostri diritti, proteggere la tua sicurezza o la sicurezza di altri, indagare su frodi o rispondere a una richiesta governativa.",
+        },
+        {
+          icon: "mail",
+          titolo: "Informazioni di contatto:",
+          testo:
+            "Se desideri contattarci per saperne di più su questa Politica o desideri contattarci in merito a qualsiasi questione relativa ai diritti individuali e alle tue Informazioni personali, puoi inviare un'e-mail a info@tarotitalia.com",
+        },
+      ],
+    },
+    disclaimer: {
+      sezione: "Disclaimer Legale (Deontologia & Legge)",
+      titolo: "INFORMATIVA LEGALE",
+      intestazione: "www.tarotitalia.com • Deontologia & Legge",
+      heading: "INFORMATIVA E LIBERATORIA PER ESCLUSIONE DA RESPONSABILITÀ",
+      paragrafi: [
+        "I corsi, i servizi e i trattamenti offerti da Maria Teresa Rogani, e da chiunque operi per suo conto, la cui lista è disponibile presso la sede del Titolare, sono pratiche senza alcuna valenza scientifica e gli operatori e le operatrici che le svolgono non sono né medici, né psichiatri, né psicologi o psicoterapeuti, non possono quindi fornire diagnosi, prescrivere o somministrare farmaci, né formulare terapie. Le persone che decidono di usufruire di questi servizi lo fanno in piena coscienza, libertà e responsabilità. In nessun caso le suddette pratiche possono essere considerate una terapia, né tantomeno è consigliato sospendere o ridurre le terapie mediche in corso. Le suddette pratiche non costituiscono formalmente una cura fisica, pertanto non è garantito alcun risultato specifico. Consultare sempre un medico abilitato per prendersi cura del proprio stato fisico e/o psichico. Ogni individuo è responsabile per sé stesso e per le proprie cure mediche, psicologiche o psichiatriche. Chi prende visione di tali informazioni e le sottoscrive rinuncia ad ogni tipo di azione legale nei confronti di Maria Teresa Rogani, o di chiunque operi per suo conto, la cui lista è disponibile presso la sede del Titolare, e libera tutti i soggetti indicati in questo documento da ogni e qualsivoglia responsabilità.",
+        "L’OPERATORE OLISTICO: L’operatore olistico non si pone come sostituto della medicina classica occidentale, ma come strumento complementare. Si occupa di preservare il benessere dell’individuo a 360°, aiutandolo ad integrarsi nei cicli naturali della vita, ristabilendo gli equilibri del benessere. Non formula diagnosi, non rilascia ricette e non interferisce con le prescrizioni di farmaci e rimedi dati o suggeriti dai medici. Fornisce consigli su come utilizzare nel migliore dei modi i rimedi naturali ritenuti più idonei per il miglioramento del proprio benessere psico-fisico e energetico. Questo sito non intende offrire consigli medici e le informazioni qui contenute non possono sostituirsi ad un consulto personalizzato effettuato da un medico. Il cliente dovrebbe consultare un medico a proposito della propria salute, soprattutto riguardo a sintomi che possano richiedere diagnosi e/o trattamento. L’operatore olistico può supportare chi si rivolge a lui, nella scelta del metodo di cura naturale più indicato al suo problema. L’operatore olistico non si assume alcuna responsabilità per qualsiasi conseguenza che possa derivare da qualsiasi trattamento, procedura, azione, modifica dello stato di salute o applicazione di qualsiasi metodo da parte di qualsiasi persona che legga o segua le informazioni contenute su questo sito. Non si può garantire che le informazioni e i consigli qui contenuti siano adatti o sicuri per ogni persona. Ogni sforzo è stato fatto per garantire che le informazioni qui contenute siano il più complete ed accurate possibile, oltre che aggiornate. Ma queste informazioni dovrebbero essere usate soltanto come guida, e non come la fonte definitiva di informazioni sui disturbi e disagi a cui qui si fa cenno. Per tutti questi motivi si declina ogni responsabilità per qualsiasi conseguenza, danno o perdita che possano essere causate dal contenuto di questo sito e dagli articoli in esso pubblicati.",
+        "Ad oggi le discipline Olistiche dette anche Bio-Naturali non hanno ottenuto una normativa a livello nazionale. In attesa di una regolamentazione “ufficiale” alcune regioni come la Lombardia, Toscana, Liguria, Emilia Romagna, hanno stabilito leggi regionali che permettono alla medicina Olistica di affiancarsi a quella tradizionale. Viene riportata di seguito la LEGGE REGIONALE 1 febbraio 2005, N. 2 “Norme in materia di discipline bio-naturali”. (BURL n. 5, 1º suppl. ord. del 04 Febbraio 2005) urn:nir:regione.lombardia:legge:2005-02-01;2",
+        "Tali pratiche, che non hanno carattere di prestazioni sanitarie, tendono a stimolare le risorse vitali dell’individuo attraverso metodi ed elementi naturali la cui efficacia sia stata verificata nei contesti culturali e geografici in cui le discipline sono sorgenti e si sono sviluppate. Le informazioni contenute in essi non sono a carattere medico e non vogliono in alcun modo sostituirsi a qualunque consulenza o prescrizione medica. Questo sito fornisce informazioni su argomenti riguardanti il benessere inteso in senso olistico. L’approccio olistico non si pone in contrapposizione, né in alcun modo intende sostituire la medicina tradizionale. Pertanto, è sempre richiesto di utilizzare con intelligenza e buon senso tutte le informazioni presenti su questo sito. Le informazioni contenute in questo sito non costituiscono pareri di tipo professionale, medico o giuridico e non possono in nessun caso essere utilizzate per la cura di patologie o disturbi di qualsivoglia natura. Per qualsiasi decisione o informazione riguardante lo stato di salute è necessario che la persona si rivolga al proprio medico curante o ad un’altra figura professionale autorizzata. Se credi di essere in una condizione che richiede cure mediche, psicologiche, ecc., per favore rivogliti subito alla figura professionale di riferimento. Nessun professionista olistico può dunque sovrapporsi alle figure medico/psicologiche o ricoprirne le vesti. L’Operatore Olistico, l’Operatore del Benessere e l’Operatore Energetico possono intervenire esclusivamente per aiutare il soggetto in questione a riequilibrare il proprio sistema energetico, ma non possono in nessun caso fare diagnosi, prescrivere e/o somministrare farmaci, sostituire un medico o qualunque altra figura professionale preposta. In Italia, la professione dell’operatore olistico è regolamentata dalla legge 4/2013. I trattamenti olistici sono trattamenti di riequilibrio energetico volti al recupero ed al mantenimento del benessere e della vitalità della persona.",
+      ],
+      conferma: "Ho Letto e Compreso",
+    },
+  },
 } as const;
 
 export type SiteContent = typeof siteContent;

@@ -1,15 +1,18 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { flattenNav, MAIN_NAV } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
+import { LegalNotice, type LegalKind } from "./LegalNotice";
 
-const { brand, cookies, nav } = siteContent;
+const { brand, cookies, legal, nav } = siteContent;
 
 export function Footer() {
   const { session } = useAuth();
   const { reopen } = useConsent();
   const links = flattenNav(MAIN_NAV);
+  const [notice, setNotice] = useState<LegalKind | null>(null);
 
   return (
     <footer className="mt-auto bg-mist px-6 py-20 text-center md:px-10 md:py-28">
@@ -43,6 +46,19 @@ export function Footer() {
       <p className="mx-auto mt-12 max-w-lg text-[9px] uppercase leading-relaxed tracking-[0.16em] text-ink/35">
         {brand.deontologia}
       </p>
+
+      <div className="mx-auto mt-16 max-w-xl border-t border-ink/10 pt-14">
+        <div className="flex flex-col items-center gap-5 text-[10px] uppercase tracking-[0.16em] text-ink/50">
+          <button type="button" className="hover:text-ink" onClick={() => setNotice("privacy")}>
+            {legal.privacy.sezione}
+          </button>
+          <button type="button" className="hover:text-ink" onClick={() => setNotice("disclaimer")}>
+            {legal.disclaimer.sezione}
+          </button>
+        </div>
+      </div>
+
+      <LegalNotice kind={notice} onClose={() => setNotice(null)} />
     </footer>
   );
 }
