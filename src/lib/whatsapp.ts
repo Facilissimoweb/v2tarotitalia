@@ -35,6 +35,27 @@ export function buildWhatsAppMessage(draft: PurchaseDraft, optionTitle: string) 
   return lines.join("\n");
 }
 
+export function buildRitualisticaMessage(input: {
+  name: string;
+  phone: string;
+  tipo?: string;
+  note?: string;
+}) {
+  const { brand, consulti, ritualistica } = siteContent;
+  const lines = [
+    `Richiesta ritualistica — ${brand.wordmark}`,
+    `Intermediaria: ${brand.titolare} (Teresa)`,
+    "Percorso curato da: Maura",
+    `Nome: ${input.name}`,
+    `Recapito: ${input.phone}`,
+  ];
+  if (input.tipo) lines.push(`${ritualistica.tipologia}: ${input.tipo}`);
+  if (input.note) lines.push(`Nota: ${input.note}`);
+  lines.push("");
+  lines.push(consulti.avvisoConferma);
+  return lines.join("\n");
+}
+
 export function whatsappHref(text: string) {
   const phone = getWhatsAppNumber();
   const encoded = encodeURIComponent(text);

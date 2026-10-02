@@ -12,6 +12,8 @@ export type HeroCta = {
   to?: string;
   href?: string;
   label: string;
+  onClick?: () => void;
+  variant?: "primary" | "sage" | "ghost" | "paper";
 };
 
 export type HeroMedia = {
@@ -27,6 +29,7 @@ type Props = {
   lead: ReactNode;
   cta?: HeroCta | null;
   secondary?: HeroCta;
+  tertiary?: HeroCta;
   meta?: ReactNode;
   children?: ReactNode;
   logo?: boolean;
@@ -46,6 +49,7 @@ export function PageHero({
   lead,
   cta = DEFAULT_CTA,
   secondary,
+  tertiary,
   meta,
   children,
   logo = false,
@@ -60,6 +64,7 @@ export function PageHero({
         lead={lead}
         cta={cta}
         secondary={secondary}
+        tertiary={tertiary}
         meta={meta}
         video={video}
       />
@@ -73,6 +78,7 @@ export function PageHero({
       lead={lead}
       cta={cta}
       secondary={secondary}
+      tertiary={tertiary}
       meta={meta}
       media={media}
     >
@@ -87,6 +93,7 @@ function HomeHero({
   lead,
   cta,
   secondary,
+  tertiary,
   meta,
   video,
 }: {
@@ -95,6 +102,7 @@ function HomeHero({
   lead: ReactNode;
   cta?: HeroCta | null;
   secondary?: HeroCta;
+  tertiary?: HeroCta;
   meta?: ReactNode;
   video?: string;
 }) {
@@ -133,6 +141,7 @@ function HomeHero({
           <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
             <HeroButton cta={cta} variant="primary" />
             {secondary ? <HeroButton cta={secondary} variant="paper" /> : null}
+            {tertiary ? <HeroButton cta={tertiary} variant={tertiary.variant ?? "sage"} /> : null}
           </div>
         </Reveal>
       ) : null}
@@ -189,6 +198,7 @@ function InnerHero({
   lead,
   cta,
   secondary,
+  tertiary,
   meta,
   media,
   children,
@@ -198,6 +208,7 @@ function InnerHero({
   lead: ReactNode;
   cta?: HeroCta | null;
   secondary?: HeroCta;
+  tertiary?: HeroCta;
   meta?: ReactNode;
   media?: HeroMedia;
   children?: ReactNode;
@@ -274,6 +285,7 @@ function InnerHero({
               <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
                 <HeroButton cta={cta} variant={onMedia ? "paper" : "primary"} arrow />
                 {secondary ? <HeroButton cta={secondary} variant="paper" /> : null}
+                {tertiary ? <HeroButton cta={tertiary} variant={tertiary.variant ?? "sage"} /> : null}
               </div>
             </Reveal>
           ) : null}
@@ -338,25 +350,33 @@ function HeroButton({
   arrow = variant === "primary",
 }: {
   cta: HeroCta;
-  variant: "primary" | "paper";
+  variant: "primary" | "sage" | "ghost" | "paper";
   arrow?: boolean;
 }) {
   const extra = "w-full sm:w-auto";
+  const resolved = cta.variant ?? variant;
   const label = (
     <>
       {cta.label}
       {arrow ? <span aria-hidden>→</span> : null}
     </>
   );
+  if (cta.onClick && !cta.to && !cta.href) {
+    return (
+      <Button onClick={cta.onClick} variant={resolved} className={extra}>
+        {label}
+      </Button>
+    );
+  }
   if (cta.to) {
     return (
-      <Button to={cta.to} variant={variant} className={extra}>
+      <Button to={cta.to} variant={resolved} className={extra}>
         {label}
       </Button>
     );
   }
   return (
-    <Button href={cta.href} variant={variant} className={extra}>
+    <Button href={cta.href} variant={resolved} className={extra}>
       {label}
     </Button>
   );

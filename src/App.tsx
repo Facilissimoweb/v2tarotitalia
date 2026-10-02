@@ -1,10 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ConsentProvider } from "./context/ConsentContext";
+import { RitualisticaProvider } from "./context/RitualisticaContext";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
 import { CookieSettingsLaunch } from "./components/CookieSettingsLaunch";
 import { AuthModal } from "./components/AuthModal";
+import { RitualisticaModal } from "./components/RitualisticaModal";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { ChiSiamo } from "./pages/ChiSiamo";
@@ -24,6 +26,7 @@ export default function App() {
   return (
     <AuthProvider>
       <ConsentProvider>
+        <RitualisticaProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
@@ -55,6 +58,8 @@ export default function App() {
         <CookieBanner />
         <CookieSettingsLaunch />
         <AuthModal />
+        <RitualisticaModal />
+        </RitualisticaProvider>
       </ConsentProvider>
     </AuthProvider>
   );

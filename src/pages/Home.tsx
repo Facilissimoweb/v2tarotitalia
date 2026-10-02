@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ARCANI } from "../data/arcani";
 import { TARIFFE } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
+import { useRitualistica } from "../context/RitualisticaContext";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button, Kicker } from "../components/Button";
 import { ImageSlot } from "../components/ImageSlot";
@@ -11,6 +12,7 @@ import { Reveal } from "../components/Reveal";
 const { brand, chiSiamo, cta, home, nav } = siteContent;
 
 export function Home() {
+  const { openRitualistica } = useRitualistica();
   return (
     <div>
       <PageHero
@@ -27,6 +29,7 @@ export function Home() {
         lead={home.lead}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         secondary={{ to: "/estrazione", label: "Pesca 3 carte · Gratis" }}
+        tertiary={{ label: cta.ritualistica, onClick: () => openRitualistica(), variant: "sage" }}
         meta={
           <div className="flex justify-between text-[9px] uppercase tracking-[0.2em]">
             <span>{brand.coords}</span>

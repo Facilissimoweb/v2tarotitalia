@@ -23,7 +23,7 @@ export const siteContent = {
     arcaniMaggiori: "22 Arcani Maggiori",
     arcaniMinori: "Arcani Minori",
     consulti: "Consulti",
-    rituali: "Rituali",
+    rituali: "Ritualistica",
     blog: "Blog",
     contatti: "Contatti",
     menu: "Menu",
@@ -40,6 +40,8 @@ export const siteContent = {
     esploraArcani: "Esplora i 22 Arcani",
     leggiChiSiamo: "Leggi Chi Siamo",
     scriviStudio: "Scrivi allo Studio",
+    ritualistica: "Ritualistica",
+    prenotaRitualistica: "Chiacchierata preliminare",
   },
 
   home: {
@@ -51,7 +53,7 @@ export const siteContent = {
 
   pages: {
     rituali: {
-      kicker: "Rituali",
+      kicker: "Ritualistica",
       titolo: "Folklore Tradizionale Marchigiano",
     },
     blog: {
@@ -149,6 +151,51 @@ export const siteContent = {
         caption: "Folklore tradizionale marchigiano",
       },
     },
+  },
+
+  ritualistica: {
+    titoloWidget: "Consulenza ritualistica",
+    mediazione:
+      "Maria Teresa Rogani (Teresa) funge da mediatrice e intermediaria per i percorsi di ritualistica curati da Maura, collaboratrice esterna di Tarot Italia a Macerata, specializzata in ritualistica.",
+    intro:
+      "I percorsi di ritualistica si rivolgono a chi cerca uno spazio intimo, protetto e rispettoso, in ascolto della tradizione popolare marchigiana. La ritualità di coppia è proposta come mediatrice tra il mondo spirituale e quello umano: un incontro sartoriale, confidenziale, lontano da linguaggi commerciali aggressivi. Non sostituisce pareri medici, sanitari o legali.",
+    chiacchierata:
+      "Ogni richiesta apre una chiacchierata preliminare con Teresa, in qualità di intermediaria per Maura. La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
+    inviaWhatsapp: "Invia la richiesta su WhatsApp",
+    tornaScelta: "Torna alla richiesta",
+    nome: "Nome completo",
+    telefono: "Recapito WhatsApp",
+    nota: "Nota o intento (facoltativo)",
+    tipologia: "Percorso",
+    legaleKicker: "Deontologia & Legge",
+    privacyApri: "Apri l’Informativa sulla privacy",
+    disclaimerApri: "Apri il Disclaimer Legale",
+    tipologie: [
+      {
+        id: "amore",
+        titolo: "Rituali d'Amore e Attrazione",
+        testo:
+          "Un percorso di ritualità di coppia rivolto a chi desidera prendersi cura del sentire affettivo, con rispetto e chiarezza, nel solco del folklore tradizionale marchigiano.",
+      },
+      {
+        id: "legamenti",
+        titolo: "Legamenti d'Amore",
+        testo:
+          "Una pratica tradizionale di ritualità di coppia, proposta con deontologia e senza promesse di esito: lo sguardo resta sulla relazione e sulla responsabilità di chi si affida.",
+      },
+      {
+        id: "riconciliazione",
+        titolo: "Riti di Riconciliazione",
+        testo:
+          "Uno spazio rituale per chi attraversa distanze o fratture affettive, in ascolto della tradizione locale e del dialogo tra sfera umana e spirituale.",
+      },
+      {
+        id: "coppia",
+        titolo: "Rafforzamento della Coppia",
+        testo:
+          "Una ritualità pensata per sostenere il vincolo di coppia con cura sartoriale, nel rispetto delle persone coinvolte e della pratica pulita di Tarot Italia.",
+      },
+    ],
   },
 
   cookies: {
