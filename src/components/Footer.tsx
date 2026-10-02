@@ -16,7 +16,7 @@ export function Footer() {
       <p className="mt-4 text-[10px] uppercase tracking-[0.22em] text-sage">{brand.name}</p>
       <p className="mt-6 text-[11px] leading-relaxed tracking-[0.04em] text-ink/55">{brand.slogan}</p>
       <p className="mx-auto mt-8 max-w-md text-[10px] uppercase leading-relaxed tracking-[0.16em] text-ink/45">
-        {brand.studioDiTeresa}
+        {brand.titolare} — {brand.studioDiTeresa}
       </p>
       <p className="mt-6 text-[10px] uppercase tracking-[0.16em] text-ink/45">{brand.coords}</p>
       <a

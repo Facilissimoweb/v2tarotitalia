@@ -27,6 +27,9 @@ export function Contatti() {
               <Kicker>{brand.name}</Kicker>
               <p className="mt-8 font-display text-2xl leading-snug text-ink">{brand.wordmark}</p>
               <p className="mt-4 text-sm leading-relaxed text-ink/65">{brand.slogan}</p>
+              <p className="mt-6 text-sm leading-relaxed text-ink/70">
+                {brand.titolare}, {brand.ruolo.toLowerCase()}.
+              </p>
               <p className="mt-10 text-sm leading-[1.9] text-ink/75">{brand.studioDiTeresa}</p>
               <p className="mt-6 text-[10px] uppercase tracking-[0.16em] text-sage">{brand.coords}</p>
             </article>

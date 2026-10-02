@@ -13,7 +13,7 @@ export function ChiSiamo() {
       <PageHero
         kicker={chiSiamo.kicker}
         title={chiSiamo.titolo}
-        lead={brand.slogan}
+        lead={`${brand.titolare} — ${brand.ruolo}`}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         media={{
           src: chiSiamo.immagini.teresa.src,
@@ -70,6 +70,10 @@ export function ChiSiamo() {
           <Reveal>
             <div className="mx-auto mt-16 max-w-2xl text-center">
               <Kicker>{brand.name}</Kicker>
+              <p className="mt-6 font-display text-xl leading-relaxed text-ink md:text-2xl">
+                {brand.titolare}
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.ruolo}</p>
               <p className="mt-6 font-display text-xl leading-relaxed text-ink md:text-2xl">
                 {brand.studioDiTeresa}
               </p>

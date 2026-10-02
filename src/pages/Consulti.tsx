@@ -87,7 +87,7 @@ export function Consulti() {
             <span className="italic">divinazione evolutiva</span>
           </>
         }
-        lead={`Uno spazio di ascolto a ${STUDIO.city} o per via auricolare. Tariffe fisse, protocollo WhatsApp vocale, report PDF su richiesta.`}
+        lead={`Uno spazio di ascolto intimo e protetto a ${STUDIO.city} o per via auricolare. Tariffe fisse, protocollo WhatsApp vocale, report PDF su richiesta.`}
         cta={{ href: "#prenota", label: siteContent.cta.consultoWhatsapp }}
         media={{
           src: siteContent.chiSiamo.immagini.simboli.src,

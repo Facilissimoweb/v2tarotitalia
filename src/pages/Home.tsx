@@ -8,7 +8,7 @@ import { ImageSlot } from "../components/ImageSlot";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 
-const { brand, chiSiamo, cta, nav } = siteContent;
+const { brand, chiSiamo, cta, home, nav } = siteContent;
 
 export function Home() {
   return (
@@ -16,19 +16,15 @@ export function Home() {
       <PageHero
         logo
         video="/videos/hero-tarot-italia.mp4"
-        kicker="Vol. IV — Radici & Simboli"
+        kicker={home.kicker}
         title={
           <>
-            La Geometria
+            {home.titolo}
             <br />
-            <span className="italic">dell’Invisibile</span>
+            <span className="italic">{home.titoloCorsivo}</span>
           </>
         }
-        lead={
-          <>
-            {brand.name} · {brand.city}. {brand.slogan}
-          </>
-        }
+        lead={home.lead}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         secondary={{ to: "/estrazione", label: "Pesca 3 carte · Gratis" }}
         meta={
@@ -57,6 +53,9 @@ export function Home() {
               <div className="mt-10 bg-paper p-8">
                 <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink">
                   {brand.name}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                  {brand.titolare}, {brand.ruolo.toLowerCase()}.
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.deontologia}</p>
               </div>
