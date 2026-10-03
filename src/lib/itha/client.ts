@@ -10,7 +10,7 @@ import {
   readDevReadings,
 } from "./dev.ts";
 import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
-import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, type IthaDecode, type IthaDecodeRequest, type IthaPlanId, type IthaReading } from "./types.ts";
+import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, ithaDemoAccess, type IthaDecode, type IthaDecodeRequest, type IthaPlanId, type IthaReading } from "./types.ts";
 import type { DrawnIthaCard } from "../../data/ithaMazzo.ts";
 
 async function authHeaders() {
@@ -25,7 +25,26 @@ export async function requestIthaDecode(input: IthaDecodeRequest) {
   if (isIthaQuestionBlocked(input.question)) {
     throw new Error(ithaEthicsMessage());
   }
-  if (isIthaDev()) {
+  if (isIthaDev() || ithaDemoAccess()) {
+    try {
+      const response = await fetch("/api/itha-decode", {
+        method: "POST",
+        headers: await authHeaders(),
+        body: JSON.stringify(input),
+      });
+      const json = (await response.json()) as {
+        error?: string;
+        id?: string;
+        createdAt?: string;
+        credits?: number;
+        decode?: IthaDecode;
+      };
+      if (response.ok && json.decode && json.id) {
+        return json as { id: string; createdAt: string; credits: number; decode: IthaDecode };
+      }
+    } catch {
+      // In demo si passa alla decodifica locale se l’API non è pronta.
+    }
     return decodeInDev(input);
   }
   const response = await fetch("/api/itha-decode", {
@@ -41,7 +60,6 @@ export async function requestIthaDecode(input: IthaDecodeRequest) {
     decode?: IthaDecode;
   };
   if (!response.ok || !json.decode || !json.id) {
-    if (isIthaDev()) return decodeInDev(input);
     throw new Error(json.error || "decode");
   }
   return json as { id: string; createdAt: string; credits: number; decode: IthaDecode };

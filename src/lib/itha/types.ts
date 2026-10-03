@@ -31,7 +31,12 @@ export type IthaDecodeRequest = {
 
 /** Temporaneo: test libero delle letture. Login e registrazione restano invariati. */
 export const ITHA_CREDITS_UNLOCKED = true;
+export const ITHA_SESSION_UNLOCKED = true;
 export const ITHA_UNLOCKED_BALANCE = 999;
+
+export function ithaDemoAccess() {
+  return ITHA_CREDITS_UNLOCKED || ITHA_SESSION_UNLOCKED;
+}
 
 export const ITHA_PLAN_CREDITS: Record<IthaPlanId, { credits: number; amount: string }> = {
   singola: { credits: 1, amount: "5.00" },

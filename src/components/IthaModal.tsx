@@ -6,7 +6,7 @@ import { drawCrocicchio, type DrawnIthaCard } from "../data/ithaMazzo.ts";
 import { requestIthaDecode } from "../lib/itha/client.ts";
 import { downloadIthaPdf } from "../lib/itha/pdf.ts";
 import { ithaCardSections } from "../lib/itha/prompt.ts";
-import { ITHA_CREDITS_UNLOCKED, type IthaPlanId, type IthaReading } from "../lib/itha/types.ts";
+import { ITHA_CREDITS_UNLOCKED, ithaDemoAccess, type IthaPlanId, type IthaReading } from "../lib/itha/types.ts";
 import { isIthaDev } from "../lib/itha/dev.ts";
 import { isIthaQuestionBlocked } from "../lib/itha/safety.ts";
 import { AuthForm } from "./AuthForm";
@@ -31,7 +31,7 @@ type Pane =
   | "recharge";
 
 export function IthaModal() {
-  const { session } = useAuth();
+  const { session, openAuth } = useAuth();
   const { open, closeItha, credits, readings, refreshItha, setCredits } = useItha();
   const [pane, setPane] = useState<Pane>("intro");
   const [legal, setLegal] = useState<LegalKind | null>(null);
@@ -56,7 +56,7 @@ export function IthaModal() {
   }
 
   function canEnterHub() {
-    return Boolean(session) || isIthaDev();
+    return Boolean(session) || isIthaDev() || ithaDemoAccess();
   }
 
   function goHub() {
@@ -99,7 +99,12 @@ export function IthaModal() {
       setPane("reading");
       await refreshItha();
     } catch (e) {
-      setError(e instanceof Error && e.message ? e.message : itha.errori.decodifica);
+      const message = e instanceof Error && e.message ? e.message : itha.errori.decodifica;
+      setError(message);
+      if (message === itha.errori.sessione && !ithaDemoAccess()) {
+        setPane("auth");
+        openAuth();
+      }
     } finally {
       setBusy(false);
     }
@@ -125,6 +130,11 @@ export function IthaModal() {
                 setPane("hub");
               }}
             />
+            {ithaDemoAccess() ? (
+              <Button variant="ghost" className="w-full" onClick={() => setPane("hub")}>
+                {itha.prosegui}
+              </Button>
+            ) : null}
             <IthaDevGrant onGranted={() => setPane("hub")} />
           </div>
         ) : null}

@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import { useAuth } from "./AuthContext";
 import { loadIthaCredits, loadIthaReadings } from "../lib/itha/client.ts";
 import { grantDevCredits, isIthaDev, readDevCredits, readDevReadings } from "../lib/itha/dev.ts";
+import { ithaDemoAccess } from "../lib/itha/types.ts";
 import type { IthaReading } from "../lib/itha/types.ts";
 
 type IthaContextValue = {
@@ -24,7 +25,7 @@ export function IthaProvider({ children }: { children: ReactNode }) {
   const [readings, setReadings] = useState<IthaReading[]>([]);
 
   const refreshItha = useCallback(async () => {
-    if (!session && !isIthaDev()) {
+    if (!session && !isIthaDev() && !ithaDemoAccess()) {
       setCredits(0);
       setReadings([]);
       return;
