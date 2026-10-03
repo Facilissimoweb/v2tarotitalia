@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useItha } from "../context/IthaContext.tsx";
 import { CORSI, MATERIALI, STUDIO, TARIFFE } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
+import { IthaDevGrant } from "../components/IthaDevGrant.tsx";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import type { PurchaseStatus } from "../lib/storage";
 
-type Tab = "acquisti" | "corsi" | "alchemici";
+type Tab = "acquisti" | "corsi" | "alchemici" | "itha";
 
-const { auth, consulti } = siteContent;
+const { auth, consulti, itha } = siteContent;
 
 export function Riservata() {
   const { session, purchases, logout } = useAuth();
+  const { credits, readings, openItha } = useItha();
   const [tab, setTab] = useState<Tab>("acquisti");
 
   return (
@@ -45,6 +48,7 @@ export function Riservata() {
           {(
             [
               ["acquisti", `${auth.storico} (${purchases.length})`],
+              ["itha", `${itha.sticky} (${credits})`],
               ["corsi", `Corsi & dispense (${CORSI.length})`],
               ["alchemici", "Materiali alchemici"],
             ] as const
@@ -133,6 +137,36 @@ export function Riservata() {
                 Prenota un nuovo consulto
               </Button>
             </Reveal>
+          </div>
+        )}
+
+        {tab === "itha" && (
+          <div className="flex flex-col gap-8">
+            <Reveal>
+              <div className="flex items-center justify-between bg-mist px-6 py-5">
+                <div>
+                  <Kicker>{itha.kicker}</Kicker>
+                  <h2 className="mt-2 font-display text-xl">{itha.titoloWidget}</h2>
+                </div>
+                <p className="font-display text-3xl">{credits}</p>
+              </div>
+            </Reveal>
+            <Reveal>
+              <Button onClick={openItha}>{itha.entra}</Button>
+            </Reveal>
+            <IthaDevGrant />
+            {readings.length === 0 ? (
+              <p className="text-sm leading-[1.9] text-ink/65">{itha.archivioVuoto}</p>
+            ) : (
+              readings.map((item, i) => (
+                <Reveal key={item.id} delay={i * 60}>
+                  <article className="bg-paper p-6">
+                    <p className="text-[10px] uppercase tracking-[0.14em] text-sage">{item.category}</p>
+                    <p className="mt-3 text-sm leading-relaxed text-ink/75">{item.question}</p>
+                  </article>
+                </Reveal>
+              ))
+            )}
           </div>
         )}
 

@@ -10,13 +10,16 @@ const { auth } = siteContent;
 export function AuthModal() {
   const { authOpen, closeAuth } = useAuth();
   const [legal, setLegal] = useState<LegalKind | null>(null);
-  const [mode, setMode] = useState<"login" | "register">("login");
+  const [mode, setMode] = useState<"login" | "register" | "magic">("login");
 
   if (!authOpen) return null;
 
   return (
     <>
-      <WidgetDialog title={mode === "login" ? auth.login : auth.registrazione} onClose={closeAuth}>
+      <WidgetDialog
+        title={mode === "login" ? auth.login : mode === "magic" ? auth.magicLink : auth.registrazione}
+        onClose={closeAuth}
+      >
         <AuthForm
           mode={mode}
           onMode={setMode}

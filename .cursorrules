@@ -28,6 +28,12 @@ Fonte allineata a `.cursor/rules/site-content.mdc`.
 - Animazioni React sobrie, fluide e ipnotiche; non distrarre.
 - Widget, modali e pannelli fluttuanti (Cookie Banner incluso): in testa, in questo ordine vincolante — 1) logo ufficiale (`/logo.svg`); 2) scritta **Tarot Italia**; 3) titolo specifico del widget e contenuti. Usare `WidgetFrame` / `WidgetBrandMark`. Ogni nuovo widget o modale deve ereditare questo standard.
 
+## Itha · Crocicchio di Ecate
+
+- Alter ego ufficiale di Tarot Italia. Regola completa: `.cursor/rules/itha.mdc`.
+- Voce: analista lucido, diretto, tagliente. Vincolo / Specchio / Soglia + sveglia pratica. Zero astrologia, zero eco della domanda.
+- Zero gratuità, zero prescrizioni, sovranità interiore. Testi Itha solo da `siteContent.ts`. Groq solo server-side.
+
 ## Autonomia tecnica
 
 - React, Vite, Tailwind CSS su Vercel. Gestione diretta con Cursor e Git; proprietà e indipendenza totali.

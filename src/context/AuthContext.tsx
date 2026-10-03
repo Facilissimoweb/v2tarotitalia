@@ -33,6 +33,7 @@ type AuthContextValue = {
     consents: Consents,
     name?: string,
   ) => Promise<string | null | "verify">;
+  requestMagicLink: (email: string, consents: Consents) => Promise<string | null | "verify">;
   logout: () => Promise<void>;
   addPurchase: (draft: PurchaseDraft, consents?: Consents) => Promise<string | null>;
 };
@@ -212,6 +213,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const next: Session = { id: e, email: e, name: display, consents };
         applySession(next, readPurchases());
         return null;
+      },
+      requestMagicLink: async (email, consents) => {
+        if (!hasRequiredConsents(consents)) return auth.errori.consensi;
+        const e = email.trim().toLowerCase();
+        const sb = getSupabaseClient();
+        if (!sb) return auth.errori.servizio;
+        const { error } = await sb.auth.signInWithOtp({
+          email: e,
+          options: { shouldCreateUser: true },
+        });
+        if (error) return error.message;
+        return "verify";
       },
       logout: async () => {
         const sb = getSupabaseClient();

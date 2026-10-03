@@ -15,7 +15,7 @@ export function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = (location.state as { from?: string } | null)?.from ?? "/riservata";
-  const [mode, setMode] = useState<"login" | "register">("login");
+  const [mode, setMode] = useState<"login" | "register" | "magic">("login");
   const [legal, setLegal] = useState<LegalKind | null>(null);
 
   if (session) return <Navigate to={from} replace />;
@@ -32,7 +32,7 @@ export function Login() {
 
       <Reveal>
         <div id="login" className="mx-auto max-w-lg scroll-mt-28 px-6 pb-24 md:px-10 md:pb-32">
-          <WidgetFrame title={mode === "login" ? auth.login : auth.registrazione}>
+          <WidgetFrame title={mode === "login" ? auth.login : mode === "magic" ? auth.magicLink : auth.registrazione}>
             <AuthForm
               mode={mode}
               onMode={setMode}

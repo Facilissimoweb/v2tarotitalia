@@ -2,11 +2,14 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ConsentProvider } from "./context/ConsentContext";
 import { RitualisticaProvider } from "./context/RitualisticaContext";
+import { IthaProvider } from "./context/IthaContext.tsx";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
 import { CookieSettingsLaunch } from "./components/CookieSettingsLaunch";
 import { AuthModal } from "./components/AuthModal";
 import { RitualisticaModal } from "./components/RitualisticaModal";
+import { IthaLaunch } from "./components/IthaLaunch.tsx";
+import { IthaModal } from "./components/IthaModal.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { ChiSiamo } from "./pages/ChiSiamo";
@@ -27,6 +30,7 @@ export default function App() {
     <AuthProvider>
       <ConsentProvider>
         <RitualisticaProvider>
+        <IthaProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
@@ -59,6 +63,9 @@ export default function App() {
         <CookieSettingsLaunch />
         <AuthModal />
         <RitualisticaModal />
+        <IthaLaunch />
+        <IthaModal />
+        </IthaProvider>
         </RitualisticaProvider>
       </ConsentProvider>
     </AuthProvider>

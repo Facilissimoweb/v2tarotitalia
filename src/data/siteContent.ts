@@ -32,6 +32,7 @@ export const siteContent = {
     accedi: "Accedi",
     riservata: "Area riservata",
     carrello: "Carrello",
+    itha: "Itha",
   },
 
   comingSoon: "Archivio in costruzione",
@@ -43,6 +44,7 @@ export const siteContent = {
     scriviStudio: "Scrivi allo Studio",
     ritualistica: "Ritualistica",
     prenotaRitualistica: "Chiacchierata preliminare",
+    itha: "Itha",
   },
 
   home: {
@@ -199,6 +201,159 @@ export const siteContent = {
     ],
   },
 
+  itha: {
+    titoloWidget: "Itha · Il Crocicchio di Ecate",
+    sticky: "Itha",
+    kicker: "Alter ego di Tarot Italia",
+    intro:
+      "Itha è l’alter ego ufficiale di Tarot Italia. Il Crocicchio di Ecate non è un generatore di divinazioni né un oracolo predittivo: è uno spazio di indagine lucida, etica e trasparente, guidato da un codice deontologico rigoroso.",
+    visionTitolo: "Vision",
+    vision:
+      "Ogni individuo maggiorenne, di qualsiasi genere o identità, possiede una sovranità interiore inalienabile. Gli archetipi non decidono il futuro: fungono da specchio per illuminare le dinamiche del presente.",
+    missionTitolo: "Mission",
+    mission:
+      "Sostituire l’approccio catastrofico, dogmatico o paternalistico con un’indagine focalizzata sulla coerenza interiore.",
+    codiceTitolo: "Codice deontologico",
+    pilastri: [
+      {
+        titolo: "Nessun problema, ma dinamiche",
+        testo:
+          "Il linguaggio rifiuta etichette vittimistiche o paralizzanti. Si parlano flussi energetici, polarità e nodi relazionali o esistenziali in movimento.",
+      },
+      {
+        titolo: "Zero prescrittività",
+        testo:
+          "È vietato l’uso di verbi all’imperativo. Itha non fornisce comandi né soluzioni preconfezionate.",
+      },
+      {
+        titolo: "Restituzione di sovranità",
+        testo:
+          "Ogni lettura si chiude con una sveglia chiara e pratica. La direzione è visibile; scelta e responsabilità restano unicamente di chi interroga.",
+      },
+    ],
+    zeroGratuita:
+      "Non esistono consultazioni gratuite. Il valore energetico del Crocicchio si preserva tramite crediti attivi, associati al profilo nell’area riservata.",
+    entra: "Entra nel Crocicchio",
+    prosegui: "Prosegui",
+    credito: "Crediti attivi",
+    creditoEsaurito: "I crediti sono esauriti. Per aprire il Crocicchio è necessaria una ricarica.",
+    ricarica: "Ricarica crediti",
+    campoTitolo: "Campo energetico",
+    campoLead: "Scegli l’ambito in cui si muove il nodo.",
+    campi: [
+      {
+        id: "professione",
+        titolo: "Direzione Professionale e Progetti",
+      },
+      {
+        id: "risorse",
+        titolo: "Risorse e Percezione del Valore",
+      },
+      {
+        id: "relazioni",
+        titolo: "Dinamiche Relazionali e Affettive",
+      },
+      {
+        id: "ostili",
+        titolo: "Contesti Ostili e Interferenze",
+      },
+      {
+        id: "transizioni",
+        titolo: "Transizioni Personali e Scelte",
+      },
+    ],
+    quesitoTitolo: "Quesito mirato",
+    quesitoLead:
+      "Formula una e una sola domanda dettagliata. Puoi includere nomi, contesti o dinamiche specifiche. Questo testo è il perno a cui l’oracolo risponde.",
+    quesitoPlaceholder: "Come evolverà la mia dinamica con Gianfranco riguardo al progetto?",
+    quesitoErrore: "Il Crocicchio richiede una sola domanda, scritta con chiarezza.",
+    pescaTitolo: "Pesca dal mazzo",
+    pescaLead:
+      "Tre carte dall’intero mazzo Rider-Waite-Smith. Tocca il mazzo per estrarre Vincolo, Specchio e Soglia.",
+    pescaAzione: "Estrai le tre carte",
+    decodifica: "Apri la decodifica",
+    decodificaInCorso: "Itha sta ascoltando il campo…",
+    posizioni: [
+      {
+        id: "vincolo",
+        titolo: "Carta I · Il Vincolo",
+        ruolo:
+          "Sbatte in faccia la radice del blocco o la dinamica nascosta: paura, abitudine, patto invisibile, compromesso tossico.",
+      },
+      {
+        id: "specchio",
+        titolo: "Carta II · Lo Specchio",
+        ruolo:
+          "Riflette il presente: resistenze, comportamenti e tentennamenti in atto, senza giudizio morale.",
+      },
+      {
+        id: "soglia",
+        titolo: "Carta III · La Soglia",
+        ruolo:
+          "Indica la via d’uscita, il taglio o la presa di coscienza. Mai un compromesso distruttivo: sovranità personale.",
+      },
+    ],
+    sezioni: {
+      analisi: "Analisi della Dinamica",
+      coerenza: "Coerenza Energetica",
+      spunto: "Spunto di Ragionamento",
+    },
+    pdf: "Scarica il report in PDF",
+    pdfSottotitolo: "Itha - Il Crocicchio di Ecate",
+    pdfSignificato: "Significato originario",
+    pdfLettura: "La lettura nel Crocicchio",
+    pdfMetodo:
+      "La lettura è eseguita e ispirata secondo l’esclusivo metodo Tarot Italia di lettura dei simboli.",
+    pdfFooter:
+      "© Tarot Italia - Tutti i diritti riservati. Il presente documento, l’elaborazione testuale e il metodo di lettura simbolica sono di proprietà esclusiva di Tarot Italia. È severamente vietata la divulgazione, la riproduzione o la cessione a terzi senza autorizzazione scritta. Consultazione riservata a fini introspettivi.",
+    nuova: "Nuova consultazione",
+    archivio: "Archivio Itha",
+    archivioVuoto: "Nessuna consultazione Itha è ancora conservata nel tuo archivio.",
+    pianiTitolo: "Piani di ricarica",
+    pianiLead: "Circuito esclusivo PayPal. Nessuna formula gratuita.",
+    paypalManca: "Il circuito PayPal non è ancora configurato. I crediti si attivano dopo il pagamento.",
+    groqManca: "La decodifica non è disponibile in questo momento.",
+    devSimula: "🔑 [Dev] Simula crediti",
+    devNota: "Solo in locale: assegna 5 crediti di prova e bypassa PayPal.",
+    bloccoEtico:
+      "Il Crocicchio non elabora questo quesito. Itha resta entro il perimetro introspettivo e tarologico: non tratta ambiti medici o diagnostici, contenuti sessuali espliciti, autolesionismo, violenza, illecito o incitamento all’odio. Per salute fisica o psichica è necessario rivolgersi a professionisti abilitati. Formula una domanda sul campo interiore, relazionale o decisionale.",
+    errori: {
+      crediti: "Servono crediti attivi per aprire il Crocicchio.",
+      sessione: "Accedi all’area riservata per consultare Itha.",
+      decodifica: "La lettura non è stata completata. Riprova tra poco.",
+    },
+    piani: [
+      {
+        id: "singola",
+        crediti: 1,
+        prezzo: 5,
+        titolo: "Consultazione Singola",
+        testo: "1 accesso immediato al Crocicchio.",
+        paypal: "PayPal Standard",
+        rate: "",
+      },
+      {
+        id: "pacchetto3",
+        crediti: 3,
+        prezzo: 12,
+        titolo: "Pacchetto 3 Consultazioni",
+        testo: "Consultazioni puntuali con l’alter ego.",
+        paypal: "PayPal Standard",
+        rate: "",
+      },
+      {
+        id: "pass5",
+        crediti: 5,
+        prezzo: 20,
+        titolo: "Pass 5 Consultazioni Approfondite",
+        testo:
+          "Ideale per indagini approfondite, monitoraggio delle dinamiche nel tempo e salvataggio nell’archivio protetto.",
+        paypal: "PayPal / Disponibile Paga in 3 rate",
+        rate: "Paga in 3 rate da €6,66 (senza interessi).",
+      },
+    ],
+  },
+
   cookies: {
     titolo: "Configura i Tuoi Cookie",
     descrizione:
@@ -257,6 +412,8 @@ export const siteContent = {
     nome: "Nome",
     entra: "Entra",
     creaAccount: "Crea account",
+    magicLink: "Link magico",
+    inviaMagicLink: "Invia il link magico",
     adminEmail: "info@tarotitalia.com",
     consensi: {
       privacyCookie:
@@ -274,6 +431,7 @@ export const siteContent = {
       servizio: "Servizio di accesso non disponibile.",
     },
     verificaEmail: "Controlla la casella di posta per confermare l'account.",
+    magicInviato: "Controlla la casella di posta: il link magico apre l’area riservata e Itha.",
     storico: "Storico acquisti",
     stati: {
       pending: "In attesa",

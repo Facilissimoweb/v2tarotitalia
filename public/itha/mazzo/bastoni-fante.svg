@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 240" role="img">
+  <rect width="160" height="240" fill="#F9F8F6"/>
+  <rect x="8" y="8" width="144" height="224" fill="none" stroke="#2B2523" stroke-width="0.8"/>
+  <rect x="14" y="14" width="132" height="212" fill="none" stroke="#7A8B78" stroke-width="0.4"/>
+  <text x="80" y="36" text-anchor="middle" fill="#7A8B78" font-family="Inter, sans-serif" font-size="8" letter-spacing="2">FANTE</text>
+  <g transform="translate(80 118)" fill="none" stroke="#2B2523" stroke-width="1"><path d="M0 -32 V32 M-8 20 L0 32 L8 20"/></g>
+  <text x="80" y="214" text-anchor="middle" fill="#2B2523" font-family="Noto Serif, serif" font-size="8" letter-spacing="1">FANTE DI BASTONI</text>
+</svg>

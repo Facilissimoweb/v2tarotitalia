@@ -7,7 +7,7 @@ import { ConsentFields } from "./ConsentFields";
 
 const { auth } = siteContent;
 
-type Mode = "login" | "register";
+type Mode = "login" | "register" | "magic";
 
 type Props = {
   mode?: Mode;
@@ -18,7 +18,7 @@ type Props = {
 };
 
 export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSuccess }: Props) {
-  const { login, register } = useAuth();
+  const { login, register, requestMagicLink } = useAuth();
   const [modeState, setModeState] = useState<Mode>("login");
   const mode = modeProp ?? modeState;
 
@@ -53,10 +53,12 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
     const result =
       mode === "login"
         ? await login(email, password, consents)
-        : await register(email, password, consents, name);
+        : mode === "magic"
+          ? await requestMagicLink(email, consents)
+          : await register(email, password, consents, name);
     setBusy(false);
     if (result === "verify") {
-      setInfo(auth.verificaEmail);
+      setInfo(mode === "magic" ? auth.magicInviato : auth.verificaEmail);
       return;
     }
     if (result) {
@@ -68,7 +70,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
 
   return (
     <form className="flex flex-col gap-8 text-left" onSubmit={(e) => void onSubmit(e)}>
-      <div className="flex justify-center gap-2">
+      <div className="flex flex-wrap justify-center gap-2">
         <button
           type="button"
           onClick={() => setMode("login")}
@@ -87,6 +89,15 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
         >
           {auth.registrazione}
         </button>
+        <button
+          type="button"
+          onClick={() => setMode("magic")}
+          className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
+            mode === "magic" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
+          }`}
+        >
+          {auth.magicLink}
+        </button>
       </div>
 
       {mode === "register" ? (
@@ -101,6 +112,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
         required
         autoComplete="email"
       />
+      {mode !== "magic" ? (
       <Field
         label={auth.password}
         value={password}
@@ -110,6 +122,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
         minLength={6}
         autoComplete={mode === "login" ? "current-password" : "new-password"}
       />
+      ) : null}
       {mode === "register" ? (
         <Field
           label={auth.confermaPassword}
@@ -133,7 +146,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
       {info ? <p className="text-sm text-ink/70">{info}</p> : null}
 
       <Button type="submit" className="w-full" disabled={!ready || busy}>
-        {mode === "login" ? auth.entra : auth.creaAccount}
+        {mode === "login" ? auth.entra : mode === "magic" ? auth.inviaMagicLink : auth.creaAccount}
       </Button>
     </form>
   );

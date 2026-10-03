@@ -10,10 +10,11 @@ type Props = {
   onClose?: () => void;
   children: ReactNode;
   wide?: boolean;
+  xl?: boolean;
 };
 
 /** Overlay Lumiere: logo, Tarot Italia, titolo. Chiusura opzionale. */
-export function WidgetDialog({ title, titleId, onClose, children, wide }: Props) {
+export function WidgetDialog({ title, titleId, onClose, children, wide, xl }: Props) {
   const fallbackId = useId();
   const labelledBy = titleId ?? fallbackId;
 
@@ -33,8 +34,8 @@ export function WidgetDialog({ title, titleId, onClose, children, wide }: Props)
       aria-labelledby={labelledBy}
     >
       <div
-        className={`relative max-h-[min(90vh,48rem)] w-full overflow-y-auto bg-ivory px-7 py-10 shadow-[0_24px_60px_rgba(43,37,35,0.18)] md:px-12 md:py-14 ${
-          wide ? "max-w-2xl" : "max-w-lg"
+        className={`relative max-h-[min(92vh,56rem)] w-full overflow-y-auto bg-ivory px-7 py-10 shadow-[0_24px_60px_rgba(43,37,35,0.18)] md:px-12 md:py-14 ${
+          xl ? "max-w-3xl" : wide ? "max-w-2xl" : "max-w-lg"
         }`}
       >
         {onClose ? (
