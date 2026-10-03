@@ -10,7 +10,7 @@ import {
   supabaseAnonKey,
   supabaseUrl,
 } from "./serverEnv.ts";
-import type { IthaDecode, IthaDecodeRequest } from "./types.ts";
+import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, type IthaDecode, type IthaDecodeRequest } from "./types.ts";
 
 const { itha } = siteContent;
 
@@ -41,9 +41,13 @@ export async function handleIthaDecode(token: string, body: IthaDecodeRequest) {
   const user = userData.user as AuthUser | null;
   if (userError || !user?.id) return { status: 401, body: { error: itha.errori.sessione } };
 
-  const consumed = await sb.rpc("consume_itha_credit");
-  if (consumed.error) {
-    return { status: 402, body: { error: itha.errori.crediti } };
+  let remaining = ITHA_UNLOCKED_BALANCE;
+  if (!ITHA_CREDITS_UNLOCKED) {
+    const consumed = await sb.rpc("consume_itha_credit");
+    if (consumed.error) {
+      return { status: 402, body: { error: itha.errori.crediti } };
+    }
+    remaining = Number(consumed.data ?? 0);
   }
 
   try {
@@ -67,7 +71,7 @@ export async function handleIthaDecode(token: string, body: IthaDecodeRequest) {
       body: {
         id: data.id,
         createdAt: data.created_at,
-        credits: consumed.data,
+        credits: remaining,
         decode,
       },
     };

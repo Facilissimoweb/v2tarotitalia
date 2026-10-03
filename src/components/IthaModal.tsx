@@ -6,7 +6,7 @@ import { drawCrocicchio, type DrawnIthaCard } from "../data/ithaMazzo.ts";
 import { requestIthaDecode } from "../lib/itha/client.ts";
 import { downloadIthaPdf } from "../lib/itha/pdf.ts";
 import { ithaCardSections } from "../lib/itha/prompt.ts";
-import type { IthaPlanId, IthaReading } from "../lib/itha/types.ts";
+import { ITHA_CREDITS_UNLOCKED, type IthaPlanId, type IthaReading } from "../lib/itha/types.ts";
 import { isIthaDev } from "../lib/itha/dev.ts";
 import { isIthaQuestionBlocked } from "../lib/itha/safety.ts";
 import { AuthForm } from "./AuthForm";
@@ -131,7 +131,7 @@ export function IthaModal() {
         {pane === "hub" ? (
           <Hub
             credits={credits}
-            onStart={() => (isIthaDev() || credits > 0 ? setPane("category") : setPane("recharge"))}
+            onStart={() => (ITHA_CREDITS_UNLOCKED || isIthaDev() || credits > 0 ? setPane("category") : setPane("recharge"))}
             onRecharge={() => setPane("recharge")}
             onArchive={() => setPane("archive")}
           />
@@ -176,7 +176,7 @@ export function IthaModal() {
             reading={reading}
             onNew={() => {
               resetFlow();
-              setPane(isIthaDev() || credits > 0 ? "category" : "recharge");
+              setPane(ITHA_CREDITS_UNLOCKED || isIthaDev() || credits > 0 ? "category" : "recharge");
             }}
             onHub={goHub}
           />
@@ -258,8 +258,8 @@ function Hub({
         <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{itha.credito}</p>
         <p className="font-display text-2xl">{credits}</p>
       </div>
-      {credits < 1 && !isIthaDev() ? <p className="text-sm leading-[1.9] text-ink/70">{itha.creditoEsaurito}</p> : null}
-      <Button className="w-full" onClick={onStart} disabled={!isIthaDev() && credits < 1}>
+      {credits < 1 && !isIthaDev() && !ITHA_CREDITS_UNLOCKED ? <p className="text-sm leading-[1.9] text-ink/70">{itha.creditoEsaurito}</p> : null}
+      <Button className="w-full" onClick={onStart} disabled={!ITHA_CREDITS_UNLOCKED && !isIthaDev() && credits < 1}>
         {itha.entra}
       </Button>
       <Button variant="ghost" className="w-full" onClick={onRecharge}>

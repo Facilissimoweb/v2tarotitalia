@@ -29,6 +29,10 @@ export type IthaDecodeRequest = {
   }>;
 };
 
+/** Temporaneo: test libero delle letture. Login e registrazione restano invariati. */
+export const ITHA_CREDITS_UNLOCKED = true;
+export const ITHA_UNLOCKED_BALANCE = 999;
+
 export const ITHA_PLAN_CREDITS: Record<IthaPlanId, { credits: number; amount: string }> = {
   singola: { credits: 1, amount: "5.00" },
   pacchetto3: { credits: 3, amount: "12.00" },

@@ -60,15 +60,12 @@ set search_path = public
 as $$
 declare remaining integer;
 begin
-  perform set_config('itha.credit_ok', '1', true);
-  update public.profiles
-  set itha_credits = itha_credits - 1
-  where id = auth.uid() and itha_credits > 0
-  returning itha_credits into remaining;
-  if remaining is null then
-    raise exception 'NO_CREDITS';
-  end if;
-  return remaining;
+  -- TEMP: test libero delle letture. Non scala il saldo.
+  -- Per ripristinare: scalare itha_credits di 1 e sollevare NO_CREDITS se il saldo è 0.
+  select coalesce(itha_credits, 999) into remaining
+  from public.profiles
+  where id = auth.uid();
+  return greatest(coalesce(remaining, 999), 999);
 end;
 $$;
 

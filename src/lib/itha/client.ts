@@ -10,7 +10,7 @@ import {
   readDevReadings,
 } from "./dev.ts";
 import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
-import type { IthaDecode, IthaDecodeRequest, IthaPlanId, IthaReading } from "./types.ts";
+import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, type IthaDecode, type IthaDecodeRequest, type IthaPlanId, type IthaReading } from "./types.ts";
 import type { DrawnIthaCard } from "../../data/ithaMazzo.ts";
 
 async function authHeaders() {
@@ -51,7 +51,9 @@ async function decodeInDev(input: IthaDecodeRequest) {
   if (isIthaQuestionBlocked(input.question)) {
     throw new Error(ithaEthicsMessage());
   }
-  const remaining = consumeDevCredit() ?? (isIthaDev() ? ITHA_DEV_PACK : null);
+  const remaining = ITHA_CREDITS_UNLOCKED
+    ? ITHA_UNLOCKED_BALANCE
+    : consumeDevCredit() ?? (isIthaDev() ? ITHA_DEV_PACK : null);
   if (remaining === null) throw new Error(siteContent.itha.errori.crediti);
   let decode = buildLumiereFallback(input);
   try {
@@ -94,6 +96,7 @@ export async function capturePaypalOrder(orderId: string) {
 }
 
 export async function loadIthaCredits() {
+  if (ITHA_CREDITS_UNLOCKED) return ITHA_UNLOCKED_BALANCE;
   const local = isIthaDev() ? readDevCredits() : 0;
   const sb = getSupabaseClient();
   if (!sb) return local;
