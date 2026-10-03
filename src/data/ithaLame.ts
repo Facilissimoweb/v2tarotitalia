@@ -118,6 +118,6 @@ export function formatIthaLama(lamaEntry: IthaLama) {
     lamaEntry.name,
     `Significato originario (tradurre nel fatto concreto, non copiare): ${lamaEntry.significato}`,
     `Nodo d’ombra da applicare a questa vita, in parole piane: ${lamaEntry.problematica}`,
-    `Sveglia possibile, da formulare come direzione e non come ordine: ${lamaEntry.ritualita}`,
+    `Movimento possibile, da tradurre come apertura e non come ordine: ${lamaEntry.ritualita}`,
   ].join("\n");
 }

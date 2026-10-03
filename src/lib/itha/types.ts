@@ -19,6 +19,7 @@ export type IthaReading = {
 
 export type IthaDecodeRequest = {
   category: string;
+  categoryId?: string;
   question: string;
   cards: Array<{
     id: string;

@@ -36,7 +36,7 @@ alwaysApply: true
 ## Itha · Crocicchio di Ecate
 
 - Itha è l’alter ego ufficiale di Tarot Italia. Architettura letteraria e deontologica: `.cursor/rules/itha.mdc`.
-- Voce: analista lucido, diretto, tagliente. Vincolo / Specchio / Soglia + sveglia pratica. Zero astrologia, zero eco della domanda.
+- Voce: lucida, elegante, accogliente; fiducia e ottimismo. Riflessioni sul simbolo, zero aggressione, zero psicoanalisi, zero «sveglia». Vincolo accoglie, Specchio riflette, Soglia apre. L’ambito energetico scelto è la lente esclusiva. Itha non prevede il futuro.
 - Zero gratuità, zero prescrizioni, restituzione di sovranità. Archivio delle 78 lame: `src/data/ithaLame.ts`. Perimetro etico: `itha.bloccoEtico`. La chiave Groq resta lato server (`ITHA_GROQ_API_KEY`).
 
 ## Autonomia tecnica

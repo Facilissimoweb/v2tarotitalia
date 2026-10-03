@@ -205,8 +205,21 @@ export const siteContent = {
     titoloWidget: "Itha · Il Crocicchio di Ecate",
     sticky: "Itha",
     kicker: "Alter ego di Tarot Italia",
+    saluto: "Ciao, sono Itha.",
     intro:
-      "Itha è l’alter ego ufficiale di Tarot Italia. Il Crocicchio di Ecate non è un generatore di divinazioni né un oracolo predittivo: è uno spazio di indagine lucida, etica e trasparente, guidato da un codice deontologico rigoroso.",
+      "Sono l’alter ego ufficiale di Tarot Italia. Ti accompagno nel Crocicchio di Ecate: tre carte, un ragionamento sul presente, la scelta che resta tua.",
+    crocicchioTitolo: "Il Crocicchio di Ecate",
+    crocicchioTesto:
+      "Si chiama così perché il crocicchio è il punto d’incrocio delle scelte e delle strade. Ecate, nella tradizione, veglia proprio lì: non per decidere al posto tuo, ma per fare luce su ciò che stai attraversando. Qui non si cerca un verdetto. Si guarda il nodo, lo specchio, la soglia.",
+    steseTitolo: "Cosa trovi nella stesa",
+    steseTesto:
+      "Tre carte dall’intero mazzo. Il Vincolo accoglie e illumina la dinamica presente. Lo Specchio riflette con delicatezza movimenti e pause. La Soglia apre a una nuova consapevolezza, con fiducia nella tua misura.",
+    usoTitolo: "Come si usa",
+    usoTesto:
+      "Scegli l’ambito in cui si muove il nodo. Formula una sola domanda, chiara. Estrai le tre carte. Apri la decodifica. Puoi conservare la lettura e scaricare il report.",
+    presenteTitolo: "Non prevede il futuro",
+    presenteTesto:
+      "Itha non prevede il futuro. Offre riflessioni lucide sul presente della situazione, attraverso i simboli estratti, senza aggressione né psicoanalisi.",
     visionTitolo: "Vision",
     vision:
       "Ogni individuo maggiorenne, di qualsiasi genere o identità, possiede una sovranità interiore inalienabile. Gli archetipi non decidono il futuro: fungono da specchio per illuminare le dinamiche del presente.",
@@ -228,7 +241,7 @@ export const siteContent = {
       {
         titolo: "Restituzione di sovranità",
         testo:
-          "Ogni lettura si chiude con una sveglia chiara e pratica. La direzione è visibile; scelta e responsabilità restano unicamente di chi interroga.",
+          "Ogni lettura si chiude in modo fluido, aprendo una possibilità. La direzione è visibile; scelta e responsabilità restano unicamente di chi interroga.",
       },
     ],
     zeroGratuita:
@@ -278,19 +291,19 @@ export const siteContent = {
         id: "vincolo",
         titolo: "Carta I · Il Vincolo",
         ruolo:
-          "Sbatte in faccia la radice del blocco o la dinamica nascosta: paura, abitudine, patto invisibile, compromesso tossico.",
+          "Accoglie, guarda e illumina la carta come dinamica presente, senza inventare valori altri. Serenità, naturalezza. Non è un destino: è un’apertura al nuovo.",
       },
       {
         id: "specchio",
         titolo: "Carta II · Lo Specchio",
         ruolo:
-          "Riflette il presente: resistenze, comportamenti e tentennamenti in atto, senza giudizio morale.",
+          "Riflette delicatamente e con chiarezza il presente: movimenti, pause e sfumature, in un clima di rispetto, ascolto, accoglienza, positività, ottimismo e familiarità.",
       },
       {
         id: "soglia",
         titolo: "Carta III · La Soglia",
         ruolo:
-          "Indica la via d’uscita, il taglio o la presa di coscienza. Mai un compromesso distruttivo: sovranità personale.",
+          "Apre luminosa a una nuova consapevolezza. Sostiene con fiducia, misura ed equilibrio, e rilascia la piena sovranità personale di chi interroga.",
       },
     ],
     sezioni: {

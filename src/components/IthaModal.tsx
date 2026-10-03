@@ -77,6 +77,7 @@ export function IthaModal() {
     try {
       const result = await requestIthaDecode({
         category: category.titolo,
+        categoryId: category.id,
         question: question.trim(),
         cards: cards.map((card) => ({
           id: card.id,
@@ -222,27 +223,25 @@ function Intro({ onContinue, onDevGranted }: { onContinue: () => void; onDevGran
   return (
     <div className="flex flex-col gap-8 text-left">
       <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
+      <h3 className="font-display text-3xl leading-tight text-ink">{itha.saluto}</h3>
       <p className="text-sm leading-[1.9] text-ink/75">{itha.intro}</p>
       <section>
-        <Kicker>{itha.visionTitolo}</Kicker>
-        <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.vision}</p>
+        <Kicker>{itha.crocicchioTitolo}</Kicker>
+        <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.crocicchioTesto}</p>
       </section>
       <section>
-        <Kicker>{itha.missionTitolo}</Kicker>
-        <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.mission}</p>
+        <Kicker>{itha.steseTitolo}</Kicker>
+        <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.steseTesto}</p>
       </section>
       <section>
-        <Kicker>{itha.codiceTitolo}</Kicker>
-        <div className="mt-6 space-y-5">
-          {itha.pilastri.map((p) => (
-            <article key={p.titolo}>
-              <h3 className="font-display text-lg text-ink">{p.titolo}</h3>
-              <p className="mt-2 text-sm leading-[1.85] text-ink/70">{p.testo}</p>
-            </article>
-          ))}
-        </div>
+        <Kicker>{itha.usoTitolo}</Kicker>
+        <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.usoTesto}</p>
       </section>
-      <p className="bg-mist p-5 text-sm leading-[1.85] text-ink/70">{itha.zeroGratuita}</p>
+      <aside className="border-l-2 border-sage bg-mist px-5 py-5">
+        <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-sage">{itha.presenteTitolo}</p>
+        <p className="mt-3 font-display text-xl leading-snug text-ink">{itha.presenteTesto}</p>
+      </aside>
+      <p className="text-sm leading-[1.85] text-ink/70">{itha.zeroGratuita}</p>
       <Button className="w-full" onClick={onContinue}>
         {itha.entra}
       </Button>
