@@ -15,21 +15,25 @@ export type NavBranch = {
 
 export type NavItem = NavLeaf | NavBranch;
 
-export const MAIN_NAV: NavItem[] = [
-  { to: "/", label: nav.home, end: true },
-  { to: "/chi-siamo", label: nav.chiSiamo },
-  { to: "/consulti", label: nav.consulti },
-  { to: "/rituali", label: nav.rituali },
-  { to: "/blog", label: nav.blog },
-  { to: "/contatti", label: nav.contatti },
-  {
-    label: nav.tarocchi,
-    children: [
-      { to: "/arcani", label: nav.arcaniMaggiori },
-      { to: "/arcani-minori", label: nav.arcaniMinori },
-    ],
-  },
-];
+const tarocchi: NavBranch = {
+  label: nav.tarocchi,
+  children: [
+    { to: "/arcani", label: nav.arcaniMaggiori },
+    { to: "/arcani-minori", label: nav.arcaniMinori },
+  ],
+};
+
+const home: NavLeaf = { to: "/", label: nav.home, end: true };
+const chiSiamo: NavLeaf = { to: "/chi-siamo", label: nav.chiSiamo };
+const consulti: NavLeaf = { to: "/consulti", label: nav.consulti };
+const rituali: NavLeaf = { to: "/rituali", label: nav.rituali };
+const blog: NavLeaf = { to: "/blog", label: nav.blog };
+const contatti: NavLeaf = { to: "/contatti", label: nav.contatti };
+
+export const NAV_LEADING: NavItem[] = [home, chiSiamo, consulti, tarocchi];
+export const NAV_TRAILING: NavItem[] = [rituali, blog, contatti];
+
+export const MAIN_NAV: NavItem[] = [home, chiSiamo, consulti, rituali, blog, contatti, tarocchi];
 
 export function isNavBranch(item: NavItem): item is NavBranch {
   return "children" in item;

@@ -3,39 +3,29 @@ import { NavLink, useLocation } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import {
   MAIN_NAV,
+  NAV_LEADING,
+  NAV_TRAILING,
   isNavBranch,
   isTarocchiPath,
   type NavBranch,
+  type NavItem,
 } from "../data/navigation";
+import { useAuth } from "../context/AuthContext";
 import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav } = siteContent;
 
 const linkClass = (active: boolean) =>
-  `text-[11px] uppercase tracking-[0.16em] transition-colors ${
+  `whitespace-nowrap text-[11px] uppercase tracking-[0.16em] transition-colors ${
     active ? "text-ink" : "text-ink/40 hover:text-ink"
   }`;
-
-const SCROLL_DELTA = 8;
-
-function heroEndY() {
-  const hero = document.querySelector<HTMLElement>("[data-page-hero]");
-  if (!hero) return Math.round(window.innerHeight * 0.4);
-  const rect = hero.getBoundingClientRect();
-  return rect.bottom + window.scrollY;
-}
 
 export function Header() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const lastY = useRef(0);
-  const ticking = useRef(false);
 
   useEffect(() => {
     setOpen(false);
-    setVisible(false);
-    lastY.current = 0;
   }, [pathname]);
 
   useEffect(() => {
@@ -45,109 +35,44 @@ export function Header() {
     };
   }, [open]);
 
-  useEffect(() => {
-    const apply = () => {
-      ticking.current = false;
-      if (open) {
-        setVisible(true);
-        return;
-      }
-
-      const y = Math.max(0, window.scrollY);
-      const prev = lastY.current;
-      const delta = y - prev;
-      lastY.current = y;
-
-      if (y < heroEndY() - 12) {
-        setVisible(false);
-        return;
-      }
-
-      if (delta > SCROLL_DELTA) setVisible(false);
-      else if (delta < -SCROLL_DELTA) setVisible(true);
-    };
-
-    const onScroll = () => {
-      if (ticking.current) return;
-      ticking.current = true;
-      requestAnimationFrame(apply);
-    };
-
-    lastY.current = Math.max(0, window.scrollY);
-    apply();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", apply);
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", apply);
-    };
-  }, [pathname, open]);
-
-  const show = visible || open;
-
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-          show ? "pointer-events-auto" : "pointer-events-none overflow-hidden"
-        }`}
-        style={{
-          transform: show ? "translate3d(0, 0, 0)" : "translate3d(0, -100%, 0)",
-        }}
-        aria-hidden={!show}
-        inert={!show || undefined}
-      >
-        <div className="hidden lg:block">
-          <NavLink
-            to="/"
-            className="mx-auto flex max-w-3xl flex-col items-center px-8 pt-10 pb-8"
-          >
-            <img src="/logo.svg" alt="" className="h-11 w-11" />
-            <span className="mt-5 font-display text-[15px] tracking-[0.42em] text-ink">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl">
+        <nav
+          className="mx-auto hidden h-[6.75rem] max-w-[90rem] grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 xl:grid"
+          aria-label="Principale"
+        >
+          <div className="flex items-center justify-end gap-6 2xl:gap-8">
+            {NAV_LEADING.map((item) => (
+              <NavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
+            ))}
+          </div>
+
+          <NavLink to="/" className="flex flex-col items-center px-8" aria-label={brand.wordmark}>
+            <img src="/logo.svg" alt="" className="h-10 w-10" />
+            <span className="mt-2 font-display text-[13px] leading-none tracking-[0.42em] text-ink">
               {brand.wordmark.toUpperCase()}
             </span>
-            <span className="mt-2.5 text-[10px] uppercase tracking-[0.32em] text-sage">
+            <span className="mt-1.5 text-[9px] uppercase leading-none tracking-[0.28em] text-sage">
               {brand.name}
             </span>
           </NavLink>
 
-          <div className="relative border-t border-ink/5">
-            <nav
-              className="mx-auto flex max-w-5xl items-center justify-center gap-8 px-20 py-5 xl:gap-10"
-              aria-label="Principale"
-            >
-              {MAIN_NAV.map((item) =>
-                isNavBranch(item) ? (
-                  <TarocchiMenu key={item.label} item={item} />
-                ) : (
-                  <NavLink
-                    key={item.to}
-                    to={item.to}
-                    end={item.end}
-                    className={({ isActive }) => linkClass(isActive)}
-                  >
-                    {item.label}
-                  </NavLink>
-                ),
-              )}
-            </nav>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-8 xl:pr-12">
-              <div className="pointer-events-auto">
-                <CartLink />
-              </div>
+          <div className="flex items-center justify-start gap-6 2xl:gap-8">
+            <div className="flex items-center gap-6 2xl:gap-8">
+              {NAV_TRAILING.map((item) => (
+                <NavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
+              ))}
+            </div>
+            <div className="flex items-center">
+              <AccountLink />
+              <CartLink />
             </div>
           </div>
-        </div>
+        </nav>
 
-        <div className="flex h-[4.25rem] items-center justify-between px-5 lg:hidden">
-          <NavLink to="/" className="flex items-center gap-3">
-            <img src="/logo.svg" alt="" className="h-8 w-8" />
-            <span className="font-display text-[11px] tracking-[0.28em] text-ink">
-              {brand.wordmark.toUpperCase()}
-            </span>
-          </NavLink>
-          <div className="flex items-center gap-4">
-            <CartLink />
+        <div className="grid h-16 grid-cols-3 items-center px-3 xl:hidden">
+          <div className="flex justify-start">
             <button
               type="button"
               className="flex h-10 w-10 items-center justify-center text-ink"
@@ -159,11 +84,27 @@ export function Header() {
               {open ? <CloseIcon /> : <MenuIcon />}
             </button>
           </div>
+          <NavLink to="/" className="justify-self-center" aria-label={brand.wordmark}>
+            <img src="/logo.svg" alt="" className="h-8 w-8" />
+          </NavLink>
+          <div className="flex items-center justify-end">
+            <AccountLink />
+            <CartLink />
+          </div>
         </div>
       </header>
 
       {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
     </>
+  );
+}
+
+function NavEntry({ item }: { item: NavItem }) {
+  if (isNavBranch(item)) return <TarocchiMenu item={item} />;
+  return (
+    <NavLink to={item.to} end={item.end} className={({ isActive }) => linkClass(isActive)}>
+      {item.label}
+    </NavLink>
   );
 }
 
@@ -214,7 +155,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
       <div
         id={menuId}
         role="menu"
-        className={`absolute left-1/2 top-full z-50 w-64 -translate-x-1/2 pt-3 ${
+        className={`absolute right-0 top-full z-50 w-64 pt-3 ${
           pinned
             ? "visible pointer-events-auto"
             : "invisible pointer-events-none group-hover:visible group-hover:pointer-events-auto group-focus-within:visible group-focus-within:pointer-events-auto"
@@ -250,13 +191,14 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
   return (
     <div
       id="menu-mobile"
-      className="fixed inset-0 z-[60] flex flex-col bg-ivory lg:hidden"
+      className="fixed inset-0 z-[60] flex flex-col bg-ivory xl:hidden"
       role="dialog"
       aria-modal="true"
       aria-label={nav.menu}
     >
       <div className="relative border-b border-ink/10 px-5 pb-6 pt-8">
-        <div className="absolute right-5 top-5 flex items-center gap-2">
+        <div className="absolute right-5 top-5 flex items-center gap-1">
+          <AccountLink />
           <CartLink />
           <button
             type="button"
@@ -310,6 +252,19 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
   );
 }
 
+function AccountLink() {
+  const { session } = useAuth();
+  return (
+    <NavLink
+      to={session ? "/riservata" : "/login"}
+      className="flex h-10 w-10 items-center justify-center text-ink/70 transition-colors hover:text-ink"
+      aria-label={session ? nav.riservata : nav.accedi}
+    >
+      <ProfileIcon />
+    </NavLink>
+  );
+}
+
 function CartLink() {
   return (
     <NavLink
@@ -319,6 +274,16 @@ function CartLink() {
     >
       <BagIcon />
     </NavLink>
+  );
+}
+
+function ProfileIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+      <circle cx="12" cy="12" r="8.25" />
+      <circle cx="12" cy="10" r="2.4" />
+      <path d="M7.2 17.6 C8 15.4 9.7 14.3 12 14.3 C14.3 14.3 16 15.4 16.8 17.6" />
+    </svg>
   );
 }
 

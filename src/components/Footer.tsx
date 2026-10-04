@@ -2,15 +2,13 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { flattenNav, MAIN_NAV } from "../data/navigation";
-import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
 import { LegalCopy, LegalNotice, type LegalKind } from "./LegalNotice";
 
-const { brand, cookies, legal, nav } = siteContent;
+const { brand, cookies, legal } = siteContent;
 const { tutela } = legal;
 
 export function Footer() {
-  const { session } = useAuth();
   const { reopen } = useConsent();
   const links = flattenNav(MAIN_NAV);
   const [notice, setNotice] = useState<LegalKind | null>(null);
@@ -37,9 +35,6 @@ export function Footer() {
             {item.label}
           </NavLink>
         ))}
-        <NavLink to={session ? "/riservata" : "/login"} className="hover:text-ink">
-          {session ? nav.riservata : nav.accedi}
-        </NavLink>
         <button type="button" className="uppercase tracking-[0.16em] hover:text-ink" onClick={reopen}>
           {cookies.gestisci}
         </button>
