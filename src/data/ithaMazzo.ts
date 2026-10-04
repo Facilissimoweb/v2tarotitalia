@@ -59,6 +59,15 @@ const MINORI: IthaCard[] = SUITS.flatMap((suit) =>
 
 export const ITHA_MAZZO: IthaCard[] = [...MAGGIORI, ...MINORI];
 
+const ROW_ORDER: IthaSuit[] = ["maggiori", "spade", "coppe", "pentacoli", "bastoni"];
+
+export function ithaDeckRows() {
+  return ROW_ORDER.map((suit) => ({
+    suit,
+    cards: ITHA_MAZZO.filter((card) => card.suit === suit),
+  }));
+}
+
 export function getIthaCard(id: string) {
   return ITHA_MAZZO.find((card) => card.id === id);
 }

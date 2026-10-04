@@ -280,12 +280,21 @@ export const siteContent = {
       "Formula una e una sola domanda dettagliata. Puoi includere nomi, contesti o dinamiche specifiche. Questo testo è il perno a cui l’oracolo risponde.",
     quesitoPlaceholder: "Come evolverà la mia dinamica con Gianfranco riguardo al progetto?",
     quesitoErrore: "Il Crocicchio richiede una sola domanda, scritta con chiarezza.",
-    pescaTitolo: "Pesca dal mazzo",
+    pescaTitolo: "Scelta delle lame",
     pescaLead:
-      "Tre carte dall’intero mazzo Rider-Waite-Smith. Tocca il mazzo per estrarre Vincolo, Specchio e Soglia.",
-    pescaAzione: "Estrai le tre carte",
+      "Il mazzo è intero e a dorso coperto. Scorri le file con il dito e scegli tre lame. L’identità resta nascosta fino alla stesa.",
+    pescaFile: [
+      { id: "maggiori", titolo: "I 22 Arcani Maggiori" },
+      { id: "spade", titolo: "Spade" },
+      { id: "coppe", titolo: "Coppe" },
+      { id: "pentacoli", titolo: "Denari" },
+      { id: "bastoni", titolo: "Bastoni" },
+    ],
+    pescaDorso: "Lama a dorso coperto",
+    pescaScelte: "Lame scelte",
+    pescaAzione: "Conferma la stesa",
     decodifica: "Apri la decodifica",
-    decodificaInCorso: "Itha sta ascoltando il campo…",
+    decodificaInCorso: "Itha sta ragionando sulla stesa...",
     posizioni: [
       {
         id: "vincolo",

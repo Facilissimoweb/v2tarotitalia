@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { siteContent } from "../data/siteContent.ts";
 import { useAuth } from "../context/AuthContext.tsx";
 import { useItha } from "../context/IthaContext.tsx";
-import { drawCrocicchio, type DrawnIthaCard } from "../data/ithaMazzo.ts";
+import { ithaDeckRows, type DrawnIthaCard, type IthaCard, type IthaPositionId } from "../data/ithaMazzo.ts";
 import { requestIthaDecode } from "../lib/itha/client.ts";
 import { downloadIthaPdf } from "../lib/itha/pdf.ts";
 import { ithaCardSections } from "../lib/itha/prompt.ts";
@@ -70,8 +70,8 @@ export function IthaModal() {
     closeItha();
   }
 
-  async function decode() {
-    if (!category || !question.trim() || cards.length !== 3) return;
+  async function decode(drawn: DrawnIthaCard[] = cards) {
+    if (!category || !question.trim() || drawn.length !== 3) return;
     setBusy(true);
     setError(null);
     try {
@@ -79,7 +79,7 @@ export function IthaModal() {
         category: category.titolo,
         categoryId: category.id,
         question: question.trim(),
-        cards: cards.map((card) => ({
+        cards: drawn.map((card) => ({
           id: card.id,
           name: card.name,
           suit: card.suit,
@@ -93,7 +93,7 @@ export function IthaModal() {
         createdAt: result.createdAt,
         category: category.titolo,
         question: question.trim(),
-        cards,
+        cards: drawn,
         decode: result.decode,
       };
       setReading(next);
@@ -178,7 +178,12 @@ export function IthaModal() {
             cards={cards}
             busy={busy}
             error={error}
-            onDraw={() => setCards(drawCrocicchio())}
+            onConfirm={(picked) => {
+              const positions: IthaPositionId[] = ["vincolo", "specchio", "soglia"];
+              const drawn = picked.map((card, index) => ({ ...card, position: positions[index] }));
+              setCards(drawn);
+              void decode(drawn);
+            }}
             onDecode={() => void decode()}
           />
         ) : null}
@@ -359,50 +364,103 @@ function Draw({
   cards,
   busy,
   error,
-  onDraw,
+  onConfirm,
   onDecode,
 }: {
   cards: DrawnIthaCard[];
   busy: boolean;
   error: string | null;
-  onDraw: () => void;
+  onConfirm: (picked: IthaCard[]) => void;
   onDecode: () => void;
 }) {
+  const [picked, setPicked] = useState<IthaCard[]>([]);
+  const rows = useMemo(() => ithaDeckRows(), []);
+  const choosing = cards.length === 0 && !busy;
+
+  function toggle(card: IthaCard) {
+    setPicked((current) => {
+      const index = current.findIndex((item) => item.id === card.id);
+      if (index >= 0) return current.filter((item) => item.id !== card.id);
+      if (current.length >= 3) return current;
+      return [...current, card];
+    });
+  }
+
   return (
     <div className="flex flex-col gap-8 text-left">
-      <div>
-        <Kicker>{itha.pescaTitolo}</Kicker>
-        <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.pescaLead}</p>
-      </div>
-      {cards.length === 0 ? (
-        <button type="button" onClick={onDraw} className="mx-auto w-36" aria-label={itha.pescaAzione}>
-          <IthaCardBack />
-        </button>
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-3">
+      {choosing ? (
+        <>
+          <div>
+            <Kicker>{itha.pescaTitolo}</Kicker>
+            <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.pescaLead}</p>
+          </div>
+          <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
+            {itha.pescaScelte} {picked.length}/3
+          </p>
+          <div className="flex flex-col gap-6">
+            {rows.map((row) => {
+              const titolo = itha.pescaFile.find((file) => file.id === row.suit)?.titolo ?? row.suit;
+              return (
+                <section key={row.suit}>
+                  <p className="mb-3 text-[10px] uppercase tracking-[0.14em] text-sage">{titolo}</p>
+                  <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    {row.cards.map((card) => {
+                      const order = picked.findIndex((item) => item.id === card.id);
+                      const selected = order >= 0;
+                      return (
+                        <button
+                          key={card.id}
+                          type="button"
+                          onClick={() => toggle(card)}
+                          aria-pressed={selected}
+                          aria-label={itha.pescaDorso}
+                          className={`relative w-[4.75rem] shrink-0 snap-start ${selected ? "ring-2 ring-sage" : ""}`}
+                        >
+                          <IthaCardBack />
+                          {selected ? (
+                            <span className="absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center bg-ivory text-[10px] text-ink">
+                              {order + 1}
+                            </span>
+                          ) : null}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        </>
+      ) : null}
+      {busy ? <p className="font-display text-xl leading-snug text-ink">{itha.decodificaInCorso}</p> : null}
+      {!choosing && !busy ? (
+        <div className="grid grid-cols-1 gap-8">
           {cards.map((card) => {
             const pos = itha.posizioni.find((p) => p.id === card.position);
             return (
               <article key={card.id}>
                 <p className="mb-3 text-[10px] uppercase tracking-[0.14em] text-sage">{pos?.titolo}</p>
-                <IthaCardFace card={card} />
+                <div className="mx-auto w-36 sm:mx-0">
+                  <IthaCardFace card={card} />
+                </div>
                 <p className="mt-3 font-display text-sm">{card.name}</p>
                 <p className="mt-1 text-[11px] leading-relaxed text-ink/55">{pos?.ruolo}</p>
               </article>
             );
           })}
         </div>
-      )}
+      ) : null}
       {error ? <p className="text-sm text-ink">{error}</p> : null}
-      {cards.length === 0 ? (
-        <Button className="w-full" onClick={onDraw}>
+      {choosing ? (
+        <Button className="w-full" onClick={() => onConfirm(picked)} disabled={picked.length !== 3}>
           {itha.pescaAzione}
         </Button>
-      ) : (
-        <Button className="w-full" onClick={onDecode} disabled={busy}>
-          {busy ? itha.decodificaInCorso : itha.decodifica}
+      ) : null}
+      {!choosing && !busy && cards.length === 3 ? (
+        <Button className="w-full" onClick={onDecode}>
+          {itha.decodifica}
         </Button>
-      )}
+      ) : null}
     </div>
   );
 }

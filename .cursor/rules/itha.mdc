@@ -35,13 +35,22 @@ Nessuna elaborazione se il quesito tocca: medicina/diagnosi/cure; sessualità es
 
 Nomi e logica non si modificano.
 
+## Interfaccia e scelta delle carte (mobile-first)
+
+- Nessuna illusione visiva. Il mazzo completo è in file scorrevoli (carosello orizzontale, scorrimento touch nativo, `scroll-snap`), adatte ai piccoli schermi:
+  - I 22 Arcani Maggiori, in ordine numerico.
+  - I 4 semi degli Arcani Minori, in quest’ordine: Spade, Coppe, Denari, Bastoni. Ogni seme dall’Asso al Re.
+- Fase di scelta: le 78 lame sono a dorso coperto. Chi consulta scorre e ne sceglie tre senza conoscerne l’identità.
+- Fase di elaborazione: al tap su conferma, messaggio sobrio «Itha sta ragionando sulla stesa...». Il carosello si chiude.
+- Fase di restituzione: solo le tre carte scelte e svelate, in verticale o in griglia pulita, nella stesa immutabile (Il Vincolo, Lo Specchio, La Soglia).
+
 ## Archivio delle 78 lame
 
 Significati, dinamiche e ritualità: solo da `src/data/ithaLame.ts` (Rider-Waite-Smith; Denari = Pentacoli). Non inventare altre voci. Nel report: «Significato originario» + «La lettura nel Crocicchio».
 
 ## Flusso
 
-Login/registrazione Supabase → crediti PayPal → campo energetico → un solo quesito mirato → verifica etica → pesca di 3 carte RWS → decodifica JSON in tre parti via Groq (`ITHA_GROQ_API_KEY` solo lato server).
+Login/registrazione Supabase → crediti PayPal → campo energetico → un solo quesito mirato → verifica etica → scelta di 3 carte a dorso coperto dal mazzo RWS → decodifica JSON in tre parti via Groq (`ITHA_GROQ_API_KEY` solo lato server).
 
 ## Esempio di tono
 
