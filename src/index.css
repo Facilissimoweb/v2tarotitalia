@@ -25,6 +25,40 @@
     scroll-behavior: smooth;
   }
 
+  html.translated-ltr,
+  html.translated-rtl {
+    margin-top: 0 !important;
+  }
+
+  html.translated-ltr body,
+  html.translated-rtl body {
+    top: 0 !important;
+    position: static !important;
+  }
+
+  #google_translate_element,
+  .goog-te-banner-frame,
+  .goog-te-balloon-frame,
+  .skiptranslate,
+  .goog-te-gadget,
+  iframe.skiptranslate {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+    position: absolute !important;
+    inset: 0 auto auto 0 !important;
+    pointer-events: none !important;
+  }
+
+  .goog-te-spinner-pos,
+  .goog-logo-link,
+  .goog-te-gadget-icon {
+    display: none !important;
+  }
+
   html,
   body,
   #root {

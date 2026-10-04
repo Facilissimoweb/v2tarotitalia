@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { flattenNav, MAIN_NAV } from "../data/navigation";
 import { useConsent } from "../context/ConsentContext";
+import { LanguageWidget } from "./LanguageWidget";
 import { LegalCopy, LegalNotice, type LegalKind } from "./LegalNotice";
 
 const { brand, cookies, legal } = siteContent;
@@ -15,9 +16,11 @@ export function Footer() {
 
   return (
     <footer className="mt-auto bg-mist px-6 py-20 text-center md:px-10 md:py-28">
-      <img src="/logo.svg" alt="" className="mx-auto h-12 w-12" />
-      <p className="mt-8 font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
-      <p className="mt-4 text-[10px] uppercase tracking-[0.22em] text-sage">{brand.name}</p>
+      <div translate="no">
+        <img src="/logo.svg" alt="" className="mx-auto h-12 w-12" />
+        <p className="mt-8 font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
+        <p className="mt-4 text-[10px] uppercase tracking-[0.22em] text-sage">{brand.name}</p>
+      </div>
       <p className="mt-6 text-[11px] leading-relaxed tracking-[0.04em] text-ink/55">{brand.slogan}</p>
       <p className="mx-auto mt-8 max-w-md text-[10px] uppercase leading-relaxed tracking-[0.16em] text-ink/45">
         {brand.titolare} — {brand.studioDiTeresa}
@@ -35,6 +38,7 @@ export function Footer() {
             {item.label}
           </NavLink>
         ))}
+        <LanguageWidget placement="footer" />
         <button type="button" className="uppercase tracking-[0.16em] hover:text-ink" onClick={reopen}>
           {cookies.gestisci}
         </button>

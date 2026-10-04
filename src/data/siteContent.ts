@@ -33,6 +33,13 @@ export const siteContent = {
     riservata: "Area riservata",
     carrello: "Carrello",
     itha: "Itha",
+    lingua: "Lingua",
+  },
+
+  lingua: {
+    titolo: "Lingua",
+    lead: "Scegli la lingua. La pagina si traduce all’istante.",
+    originale: "Italiano",
   },
 
   comingSoon: "Archivio in costruzione",

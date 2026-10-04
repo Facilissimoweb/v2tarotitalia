@@ -1,4 +1,5 @@
 import { siteContent } from "../data/siteContent";
+import { siteDateTime } from "./locale";
 import { STUDIO } from "../data/catalogo";
 import type { PurchaseDraft } from "./storage";
 
@@ -15,7 +16,7 @@ export function whatsappChatHref() {
 
 export function formatBookingDay(dateIso: string) {
   if (!dateIso) return "";
-  return new Intl.DateTimeFormat("it-IT", {
+  return siteDateTime({
     weekday: "long",
     day: "numeric",
     month: "long",

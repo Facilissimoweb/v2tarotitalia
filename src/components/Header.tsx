@@ -11,6 +11,7 @@ import {
   type NavItem,
 } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
+import { LanguageWidget } from "./LanguageWidget";
 import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav } = siteContent;
@@ -48,7 +49,7 @@ export function Header() {
             ))}
           </div>
 
-          <NavLink to="/" className="flex flex-col items-center px-8" aria-label={brand.wordmark}>
+          <NavLink to="/" className="flex flex-col items-center px-8" aria-label={brand.wordmark} translate="no">
             <img src="/logo.svg" alt="" className="h-10 w-10" />
             <span className="mt-2 font-display text-[13px] leading-none tracking-[0.42em] text-ink">
               {brand.wordmark.toUpperCase()}
@@ -65,6 +66,7 @@ export function Header() {
               ))}
             </div>
             <div className="flex items-center">
+              <LanguageWidget placement="nav" />
               <AccountLink />
               <CartLink />
             </div>
@@ -72,7 +74,7 @@ export function Header() {
         </nav>
 
         <div className="grid h-16 grid-cols-3 items-center px-3 xl:hidden">
-          <div className="flex justify-start">
+          <div className="flex items-center justify-start">
             <button
               type="button"
               className="flex h-10 w-10 items-center justify-center text-ink"
@@ -83,6 +85,7 @@ export function Header() {
             >
               {open ? <CloseIcon /> : <MenuIcon />}
             </button>
+            <LanguageWidget placement="nav" />
           </div>
           <NavLink to="/" className="justify-self-center" aria-label={brand.wordmark}>
             <img src="/logo.svg" alt="" className="h-8 w-8" />
@@ -246,6 +249,9 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
               </NavLink>
             ),
           )}
+          <div className="mt-6">
+            <LanguageWidget placement="footer" />
+          </div>
         </div>
       </nav>
     </div>

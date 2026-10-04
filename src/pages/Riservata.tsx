@@ -8,6 +8,7 @@ import { Button, Kicker } from "../components/Button";
 import { IthaDevGrant } from "../components/IthaDevGrant.tsx";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
+import { siteDateTime } from "../lib/locale";
 import type { PurchaseStatus } from "../lib/storage";
 
 type Tab = "acquisti" | "corsi" | "alchemici" | "itha";
@@ -91,13 +92,13 @@ export function Riservata() {
               const t = TARIFFE.find((x) => x.id === b.type);
               const option = consulti.opzioni.find((o) => o.id === b.type);
               const date = b.dateIso
-                ? new Intl.DateTimeFormat("it-IT", {
+                ? siteDateTime({
                     weekday: "long",
                     day: "numeric",
                     month: "long",
                     year: "numeric",
                   }).format(new Date(b.dateIso + "T12:00:00"))
-                : new Intl.DateTimeFormat("it-IT", {
+                : siteDateTime({
                     day: "numeric",
                     month: "long",
                     year: "numeric",

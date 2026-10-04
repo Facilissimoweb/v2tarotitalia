@@ -1,4 +1,5 @@
 import { siteContent } from "../../data/siteContent.ts";
+import { siteDateTime } from "../locale.ts";
 import { getIthaCardImagePath, type DrawnIthaCard } from "../../data/ithaMazzo.ts";
 import { ithaCardSvg } from "./cardArt.ts";
 import { ithaCardSections } from "./prompt.ts";
@@ -134,7 +135,7 @@ async function loadLocalLogo() {
 }
 
 export async function downloadIthaPdf(reading: IthaReading) {
-  const date = new Intl.DateTimeFormat("it-IT", {
+  const date = siteDateTime({
     day: "numeric",
     month: "long",
     year: "numeric",

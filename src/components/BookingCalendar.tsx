@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { siteContent } from "../data/siteContent";
+import { siteDateTime } from "../lib/locale";
 import { HOUR_SLOTS, localIso, slotsForDate } from "../lib/storage";
 
 const { consulti } = siteContent;
 
-const WEEKDAYS = new Intl.DateTimeFormat("it-IT", { weekday: "short" });
-const MONTH = new Intl.DateTimeFormat("it-IT", { month: "long", year: "numeric" });
+const WEEKDAYS = siteDateTime({ weekday: "short" });
+const MONTH = siteDateTime({ month: "long", year: "numeric" });
 
 type Props = {
   dateIso: string;
