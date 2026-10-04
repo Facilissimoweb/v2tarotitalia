@@ -1,29 +1,12 @@
-import { SITE_LOCALE, applySiteLocale } from "./locale";
+import { LANGUAGE_STORAGE_KEY, SITE_LANGUAGES, SITE_SOURCE_LANG } from "./language";
+import { applySiteLocale } from "./locale";
 
-const STORAGE_KEY = "ti-lingua";
+export { SITE_LANGUAGES, SITE_SOURCE_LANG } from "./language";
+
+const STORAGE_KEY = LANGUAGE_STORAGE_KEY;
 const COOKIE_NAME = "googtrans";
 const SCRIPT_ID = "ti-google-translate";
 const ELEMENT_ID = "google_translate_element";
-
-export type SiteLanguage = {
-  code: string;
-  label: string;
-};
-
-export const SITE_LANGUAGES: SiteLanguage[] = [
-  { code: "en", label: "English" },
-  { code: "fr", label: "Français" },
-  { code: "es", label: "Español" },
-  { code: "de", label: "Deutsch" },
-  { code: "pt", label: "Português" },
-  { code: "zh-CN", label: "中文" },
-  { code: "ar", label: "العربية" },
-  { code: "ja", label: "日本語" },
-  { code: "ru", label: "Русский" },
-  { code: "nl", label: "Nederlands" },
-];
-
-export const SITE_SOURCE_LANG = SITE_LOCALE.htmlLang;
 
 type TranslateCombo = HTMLSelectElement | null;
 

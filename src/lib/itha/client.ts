@@ -10,6 +10,8 @@ import {
   readDevReadings,
 } from "./dev.ts";
 import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
+import { isSourceLanguage } from "../language.ts";
+import { localizeOfficialTexts } from "../localizeClient.ts";
 import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, ithaDemoAccess, type IthaDecode, type IthaDecodeRequest, type IthaPlanId, type IthaReading } from "./types.ts";
 import type { DrawnIthaCard } from "../../data/ithaMazzo.ts";
 
@@ -86,6 +88,20 @@ async function decodeInDev(input: IthaDecodeRequest) {
     }
   } catch {
     // Resta l’argomentazione locale se Groq non è disponibile.
+  }
+  if (!isSourceLanguage(input.language)) {
+    try {
+      const localized = await localizeOfficialTexts(input.language, decode);
+      if (localized.analisi && localized.coerenza && localized.spunto) {
+        decode = {
+          analisi: localized.analisi,
+          coerenza: localized.coerenza,
+          spunto: localized.spunto,
+        };
+      }
+    } catch {
+      /* resta il testo ufficiale italiano */
+    }
   }
   const saved = readingFromDevDecode(input, decode, remaining);
   return { id: saved.id, createdAt: saved.createdAt, credits: remaining, decode };

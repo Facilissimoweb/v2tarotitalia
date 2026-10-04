@@ -3,6 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { ConsentProvider } from "./context/ConsentContext";
 import { RitualisticaProvider } from "./context/RitualisticaContext";
 import { IthaProvider } from "./context/IthaContext.tsx";
+import { LanguageProvider } from "./context/LanguageContext";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
 import { CookieSettingsLaunch } from "./components/CookieSettingsLaunch";
@@ -30,6 +31,7 @@ export default function App() {
     <AuthProvider>
       <ConsentProvider>
         <RitualisticaProvider>
+        <LanguageProvider>
         <IthaProvider>
         <BrowserRouter>
           <Routes>
@@ -66,6 +68,7 @@ export default function App() {
         <IthaLaunch />
         <IthaModal />
         </IthaProvider>
+        </LanguageProvider>
         </RitualisticaProvider>
       </ConsentProvider>
     </AuthProvider>

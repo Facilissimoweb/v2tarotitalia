@@ -3,12 +3,14 @@ import { siteContent } from "../data/siteContent.ts";
 import { useAuth } from "../context/AuthContext.tsx";
 import { useItha } from "../context/IthaContext.tsx";
 import { ithaDeckRows, type DrawnIthaCard, type IthaCard, type IthaPositionId } from "../data/ithaMazzo.ts";
+import { useLanguage } from "../context/LanguageContext";
 import { requestIthaDecode } from "../lib/itha/client.ts";
 import { downloadIthaPdf } from "../lib/itha/pdf.ts";
 import { ithaCardSections } from "../lib/itha/prompt.ts";
 import { ITHA_CREDITS_UNLOCKED, ithaDemoAccess, type IthaPlanId, type IthaReading } from "../lib/itha/types.ts";
 import { isIthaDev } from "../lib/itha/dev.ts";
 import { isIthaQuestionBlocked } from "../lib/itha/safety.ts";
+import { isSourceLanguage } from "../lib/language.ts";
 import { AuthForm } from "./AuthForm";
 import { Button, Kicker } from "./Button";
 import { IthaCardBack, IthaCardFace } from "./IthaCardFace.tsx";
@@ -33,6 +35,7 @@ type Pane =
 export function IthaModal() {
   const { session, openAuth } = useAuth();
   const { open, closeItha, credits, readings, refreshItha, setCredits } = useItha();
+  const { language } = useLanguage();
   const [pane, setPane] = useState<Pane>("intro");
   const [legal, setLegal] = useState<LegalKind | null>(null);
   const [categoryId, setCategoryId] = useState<string>("");
@@ -78,6 +81,7 @@ export function IthaModal() {
       const result = await requestIthaDecode({
         category: category.titolo,
         categoryId: category.id,
+        language,
         question: question.trim(),
         cards: drawn.map((card) => ({
           id: card.id,
@@ -95,6 +99,7 @@ export function IthaModal() {
         question: question.trim(),
         cards: drawn,
         decode: result.decode,
+        language,
       };
       setReading(next);
       setPane("reading");
@@ -474,6 +479,9 @@ function Reading({
   onNew: () => void;
   onHub: () => void;
 }) {
+  const { language } = useLanguage();
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const [pdfError, setPdfError] = useState<string | null>(null);
   const cards = useMemo(() => ithaCardSections(reading), [reading]);
   return (
     <div className="flex flex-col gap-8 text-left">
@@ -491,13 +499,29 @@ function Reading({
             </div>
             <div className="mt-6">
               <Kicker>{itha.pdfLettura}</Kicker>
-              <p className="mt-3 whitespace-pre-line text-sm leading-[1.9] text-ink/70">{section.lettura}</p>
+              <p
+                className="mt-3 whitespace-pre-line text-sm leading-[1.9] text-ink/70"
+                translate={isSourceLanguage(reading.language ?? language) ? undefined : "no"}
+              >
+                {section.lettura}
+              </p>
             </div>
           </article>
         ) : null,
       )}
-      <Button className="w-full" onClick={() => void downloadIthaPdf(reading)}>
-        {itha.pdf}
+      {pdfError ? <p className="text-sm text-ink">{pdfError}</p> : null}
+      <Button
+        className="w-full"
+        disabled={pdfBusy}
+        onClick={() => {
+          setPdfBusy(true);
+          setPdfError(null);
+          void downloadIthaPdf(reading, language)
+            .catch(() => setPdfError(itha.groqManca))
+            .finally(() => setPdfBusy(false));
+        }}
+      >
+        {pdfBusy ? siteContent.lingua.genera : itha.pdf}
       </Button>
       <Button variant="ghost" className="w-full" onClick={onNew}>
         {itha.nuova}

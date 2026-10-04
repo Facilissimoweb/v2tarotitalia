@@ -66,6 +66,7 @@ export function readingFromDevDecode(input: IthaDecodeRequest, decode: IthaDecod
     question: input.question.trim(),
     cards,
     decode,
+    language: input.language,
   };
   saveDevReading(reading);
   return { id: reading.id, createdAt: reading.createdAt, credits, decode, reading };

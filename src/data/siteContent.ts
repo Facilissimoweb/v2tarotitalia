@@ -40,6 +40,7 @@ export const siteContent = {
     titolo: "Lingua",
     lead: "Scegli la lingua. La pagina si traduce all’istante.",
     originale: "Italiano",
+    genera: "Preparazione nella lingua scelta...",
   },
 
   comingSoon: "Archivio in costruzione",

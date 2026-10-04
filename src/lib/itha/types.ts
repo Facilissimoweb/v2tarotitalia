@@ -15,11 +15,13 @@ export type IthaReading = {
   question: string;
   cards: DrawnIthaCard[];
   decode: IthaDecode;
+  language?: string;
 };
 
 export type IthaDecodeRequest = {
   category: string;
   categoryId?: string;
+  language?: string;
   question: string;
   cards: Array<{
     id: string;

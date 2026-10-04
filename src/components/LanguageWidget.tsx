@@ -1,13 +1,8 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { siteContent } from "../data/siteContent";
-import {
-  SITE_LANGUAGES,
-  applyLanguage,
-  resetLanguage,
-  restoreLanguage,
-  storedLanguage,
-} from "../lib/translate";
+import { useLanguage } from "../context/LanguageContext";
+import { SITE_LANGUAGES, SITE_SOURCE_LANG } from "../lib/language";
 import { WidgetFrame } from "./WidgetFrame";
 
 const { lingua, nav } = siteContent;
@@ -17,15 +12,11 @@ type Props = {
 };
 
 export function LanguageWidget({ placement }: Props) {
+  const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [current, setCurrent] = useState<string | null>(null);
+  const current = language === SITE_SOURCE_LANG ? null : language;
   const titleId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    setCurrent(storedLanguage());
-    restoreLanguage();
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -102,8 +93,7 @@ export function LanguageWidget({ placement }: Props) {
                           !current ? "text-ink" : "text-ink/55 hover:text-ink"
                         }`}
                         onClick={() => {
-                          resetLanguage();
-                          setCurrent(null);
+                          setLanguage(SITE_SOURCE_LANG);
                           setOpen(false);
                         }}
                       >
@@ -121,8 +111,7 @@ export function LanguageWidget({ placement }: Props) {
                               selected ? "text-ink" : "text-ink/55 hover:text-ink"
                             }`}
                             onClick={() => {
-                              void applyLanguage(lang.code);
-                              setCurrent(lang.code);
+                              setLanguage(lang.code);
                               setOpen(false);
                             }}
                           >

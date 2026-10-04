@@ -40,6 +40,11 @@ function ithaApiPlugin(): Plugin {
             sendJson(nodeRes, result.status, result.body);
             return;
           }
+          if (url === "/api/localize") {
+            const { default: handler } = await import("./api/localize.ts");
+            await handler(nodeReq, nodeRes);
+            return;
+          }
           if (url === "/api/paypal-create-order") {
             const { default: handler } = await import("./api/paypal-create-order.ts");
             await handler(nodeReq, nodeRes);

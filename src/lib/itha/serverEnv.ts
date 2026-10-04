@@ -9,8 +9,11 @@ export const ITHA_GROQ_LLAMA_70B = "llama-3.3-70b-versatile";
 /** Sostituto ufficiale Groq del 70B per i piani developer: 120B, produzione. */
 export const ITHA_GROQ_OSS_120B = "openai/gpt-oss-120b";
 
+const PLACEHOLDER_GROQ_KEYS = new Set(["", "tua_chiave_groq_qui", "your_groq_api_key"]);
+
 export function groqApiKey() {
-  return readServerEnv("ITHA_GROQ_API_KEY") || readServerEnv("GROQ_API_KEY");
+  const key = readServerEnv("ITHA_GROQ_API_KEY") || readServerEnv("GROQ_API_KEY");
+  return PLACEHOLDER_GROQ_KEYS.has(key) ? "" : key;
 }
 
 export function groqModelPreference() {

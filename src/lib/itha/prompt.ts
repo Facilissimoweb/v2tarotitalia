@@ -1,5 +1,6 @@
 import { formatIthaLama, getIthaLama } from "../../data/ithaLame.ts";
 import { siteContent } from "../../data/siteContent.ts";
+import { languageName, resolveOutputLanguage, SITE_SOURCE_LANG } from "../language.ts";
 import type { IthaDecodeRequest, IthaReading } from "./types.ts";
 
 const { itha, brand } = siteContent;
@@ -35,7 +36,9 @@ function campiElenco() {
   return itha.campi.map((campo) => `- ${campo.id}: ${campo.titolo}`).join("\n");
 }
 
-export function buildIthaSystemPrompt() {
+export function buildIthaSystemPrompt(language?: string) {
+  const output = resolveOutputLanguage(language);
+  const outputName = languageName(output);
   return [
     `Sei Itha, alter ego ufficiale di ${brand.wordmark}. Operi nel Crocicchio di Ecate secondo l’esclusivo metodo Tarot Italia di lettura dei simboli.`,
     `${itha.saluto} ${itha.intro}`,
@@ -71,6 +74,10 @@ export function buildIthaSystemPrompt() {
     "Perimetro etico invalicabile. Se il quesito riguarda medicina, diagnosi, prescrizioni, sessualità esplicita, autolesionismo, violenza, crimine o incitamento all’odio, interrompi ogni lettura e restituisci soltanto il rifiuto etico. Non interpretare le carte.",
     "Usa solo l’archivio delle 78 lame fornito per le tre carte. Non inventare altri significati. Denari e Pentacoli coincidono.",
     "",
+    `LINGUA DI ORIGINE DELLA PAGINA: italiano (${SITE_SOURCE_LANG}). Archivio, ruoli e metodo restano quelli ufficiali in italiano.`,
+    `LINGUA DI RESTITUZIONE: ${outputName} (${output}). Scrivi interamente in ${outputName} i valori JSON analisi, coerenza e spunto, e ogni materiale testuale destinato al consultante o al report scaricabile.`,
+    "Le chiavi JSON restano analisi, coerenza, spunto. Non mescolare altre lingue nei valori. Non tradurre i nomi propri Tarot Italia, Itha, Studio Olistico, M. Teresa Rogani.",
+    "",
     "Rispondi solo in JSON valido con le chiavi analisi, coerenza, spunto.",
     `analisi = «La lettura nel Crocicchio» di ${itha.posizioni[0].titolo}: due capoversi, sette o otto frasi, tutte su QUESTO quesito e su QUESTO ambito.`,
     `coerenza = «La lettura nel Crocicchio» di ${itha.posizioni[1].titolo}: due capoversi, sette o otto frasi, tutte su QUESTO quesito e su QUESTO ambito.`,
@@ -104,11 +111,12 @@ export function buildIthaUserPrompt(input: IthaDecodeRequest) {
     campo ? `Identificativo ambito: ${campo.id}` : "",
     "Questo ambito è il perno centrale ed esclusivo. Ogni carta si interpreta rigorosamente dentro questo campo. Nessuna deriva verso un altro ambito, salvo un fatto secondario nominato nel quesito.",
     "=======================================",
+    `Lingua scelta dal consultante: ${languageName(input.language)} (${resolveOutputLanguage(input.language)}).`,
     `QUESITO UNICO DI QUESTA PERSONA: ${input.question}`,
     "Estrai dal quesito nomi, rapporti, luoghi, scadenze, oggetti concreti e usali nella lettura, sempre filtrati dall’ambito scelto.",
     "Disposizione Rider-Waite-Smith e archivio ufficiale delle lame:",
     positions,
-    "Scrivi tre letture lunghe, ciascuna di due capoversi (7-8 frasi). Riflessioni sul simbolo, non psicoanalisi. Voce accogliente, elegante, luminosa. Ambito rispettato, niente astrologia, niente «sveglia», nessuna aggressione. Non predire.",
+    `Scrivi tre letture lunghe, ciascuna di due capoversi (7-8 frasi), interamente in ${languageName(input.language)}. Riflessioni sul simbolo, non psicoanalisi. Voce accogliente, elegante, luminosa. Ambito rispettato, niente astrologia, niente «sveglia», nessuna aggressione. Non predire.`,
   ]
     .filter(Boolean)
     .join("\n");

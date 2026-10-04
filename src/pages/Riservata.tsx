@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useItha } from "../context/IthaContext.tsx";
-import { CORSI, MATERIALI, STUDIO, TARIFFE } from "../data/catalogo";
+import { STUDIO, TARIFFE } from "../data/catalogo";
+import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { IthaDevGrant } from "../components/IthaDevGrant.tsx";
@@ -13,11 +14,12 @@ import type { PurchaseStatus } from "../lib/storage";
 
 type Tab = "acquisti" | "corsi" | "alchemici" | "itha";
 
-const { auth, consulti, itha } = siteContent;
+const { auth, consulti, itha, lingua } = siteContent;
 
 export function Riservata() {
   const { session, purchases, logout } = useAuth();
   const { credits, readings, openItha } = useItha();
+  const { corsi, materiali, busy, localized, error, download } = useLocalizedCatalog();
   const [tab, setTab] = useState<Tab>("acquisti");
 
   return (
@@ -50,7 +52,7 @@ export function Riservata() {
             [
               ["acquisti", `${auth.storico} (${purchases.length})`],
               ["itha", `${itha.sticky} (${credits})`],
-              ["corsi", `Corsi & dispense (${CORSI.length})`],
+              ["corsi", `Corsi & dispense (${corsi.length})`],
               ["alchemici", "Materiali alchemici"],
             ] as const
           ).map(([id, label]) => (
@@ -69,6 +71,7 @@ export function Riservata() {
       </div>
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:px-10 md:py-20">
+        {error ? <p className="mb-10 text-sm text-ink">{error}</p> : null}
         {tab === "acquisti" && (
           <div className="flex flex-col gap-10">
             <Reveal>
@@ -176,19 +179,21 @@ export function Riservata() {
             <Reveal>
               <Kicker>Percorsi & dispense digitali</Kicker>
             </Reveal>
-            {CORSI.map((c, i) => (
+            {corsi.map((c, i) => (
               <Reveal key={c.id} delay={i * 80}>
-                <article className="bg-paper p-8">
+                <article className="bg-paper p-8" translate={localized ? "no" : undefined}>
                   <p className="text-[9px] uppercase tracking-[0.16em] text-sage">{c.kicker}</p>
                   <h3 className="mt-1 font-display">{c.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-ink/65">{c.blurb}</p>
-                  <a
-                    href={c.file}
-                    download={c.filename}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void download(c.file, c.filename, c.title);
+                    }}
                     className="mt-4 inline-flex bg-ink px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-on-ink"
                   >
-                    Scarica
-                  </a>
+                    {busy ? lingua.genera : "Scarica"}
+                  </button>
                 </article>
               </Reveal>
             ))}
@@ -200,20 +205,22 @@ export function Riservata() {
             <Reveal>
               <Kicker>Risorse complementari</Kicker>
             </Reveal>
-            {MATERIALI.map((m, i) => (
+            {materiali.map((m, i) => (
               <Reveal key={m.id} delay={i * 80}>
-                <article className="flex items-center justify-between bg-paper p-6">
+                <article className="flex items-center justify-between bg-paper p-6" translate={localized ? "no" : undefined}>
                   <div>
                     <h3 className="font-display text-sm">{m.title}</h3>
                     <p className="text-[11px] text-ink/55">{m.blurb}</p>
                   </div>
-                  <a
-                    href={m.file}
-                    download={m.filename}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      void download(m.file, m.filename, m.title);
+                    }}
                     className="text-[10px] uppercase tracking-[0.16em] text-sage"
                   >
-                    Scarica
-                  </a>
+                    {busy ? lingua.genera : "Scarica"}
+                  </button>
                 </article>
               </Reveal>
             ))}

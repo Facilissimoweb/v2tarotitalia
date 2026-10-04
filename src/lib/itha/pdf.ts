@@ -1,4 +1,6 @@
 import { siteContent } from "../../data/siteContent.ts";
+import { activeLanguage, isLatinLanguage, isSourceLanguage } from "../language.ts";
+import { localizeOfficialTexts } from "../localizeClient.ts";
 import { siteDateTime } from "../locale.ts";
 import { getIthaCardImagePath, type DrawnIthaCard } from "../../data/ithaMazzo.ts";
 import { ithaCardSvg } from "./cardArt.ts";
@@ -39,7 +41,34 @@ function winAnsi(text: string) {
     .replace(/’/g, "'")
     .replace(/«|»/g, '"')
     .replace(/—/g, "-")
-    .replace(/·/g, "-");
+    .replace(/·/g, "-")
+    .replace(/ã/g, "\\343")
+    .replace(/õ/g, "\\365")
+    .replace(/ç/g, "\\347")
+    .replace(/ñ/g, "\\361")
+    .replace(/ä/g, "\\344")
+    .replace(/ö/g, "\\366")
+    .replace(/ü/g, "\\374")
+    .replace(/ß/g, "\\337")
+    .replace(/â/g, "\\342")
+    .replace(/ê/g, "\\352")
+    .replace(/î/g, "\\356")
+    .replace(/ô/g, "\\364")
+    .replace(/û/g, "\\373")
+    .replace(/ë/g, "\\353")
+    .replace(/ï/g, "\\357")
+    .replace(/ÿ/g, "\\377")
+    .replace(/Á/g, "\\301")
+    .replace(/É/g, "\\311")
+    .replace(/Í/g, "\\315")
+    .replace(/Ó/g, "\\323")
+    .replace(/Ú/g, "\\332")
+    .replace(/á/g, "\\341")
+    .replace(/í/g, "\\355")
+    .replace(/ó/g, "\\363")
+    .replace(/ú/g, "\\372")
+    .replace(/¿/g, "\\277")
+    .replace(/¡/g, "\\241");
 }
 
 function wrap(text: string, width: number) {
@@ -134,12 +163,83 @@ async function loadLocalLogo() {
   }
 }
 
-export async function downloadIthaPdf(reading: IthaReading) {
+type ReportLabels = {
+  subtitle: string;
+  significato: string;
+  lettura: string;
+  metodo: string;
+  footer: string;
+  category: string;
+};
+
+type ReportSection = {
+  titolo: string;
+  significato: string;
+  lettura: string;
+};
+
+async function localizeReport(reading: IthaReading, language: string) {
+  const sections = ithaCardSections(reading);
+  const official: Record<string, string> = {
+    subtitle: itha.pdfSottotitolo,
+    significato: itha.pdfSignificato,
+    lettura: itha.pdfLettura,
+    metodo: itha.pdfMetodo,
+    footer: itha.pdfFooter,
+    category: reading.category,
+  };
+  sections.forEach((section, i) => {
+    official[`title_${i}`] = section.titolo;
+    official[`sig_${i}`] = section.lama?.significato ?? "";
+    official[`read_${i}`] = section.lettura;
+  });
+  const localized = isSourceLanguage(language)
+    ? official
+    : await localizeOfficialTexts(language, official, { strict: true });
+  return {
+    labels: {
+      subtitle: localized.subtitle || official.subtitle,
+      significato: localized.significato || official.significato,
+      lettura: localized.lettura || official.lettura,
+      metodo: localized.metodo || official.metodo,
+      footer: localized.footer || official.footer,
+      category: localized.category || official.category,
+    } satisfies ReportLabels,
+    sections: sections.map((section, i) => ({
+      titolo: localized[`title_${i}`] || section.titolo,
+      significato: localized[`sig_${i}`] || section.lama?.significato || "",
+      lettura: localized[`read_${i}`] || section.lettura,
+    })),
+  };
+}
+
+function triggerBlob(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function languageFile(base: string, language: string, ext: string) {
+  const stem = base.replace(/\.[^.]+$/, "");
+  return isSourceLanguage(language) ? `${stem}${ext}` : `${stem}-${language}${ext}`;
+}
+
+export async function downloadIthaPdf(reading: IthaReading, language?: string) {
+  const target = activeLanguage(language);
+  const { labels, sections } = await localizeReport(reading, target);
   const date = siteDateTime({
     day: "numeric",
     month: "long",
     year: "numeric",
   }).format(new Date(reading.createdAt));
+
+  if (!isLatinLanguage(target)) {
+    downloadIthaText(reading, labels, date, target, sections);
+    return;
+  }
 
   const [logo, ...cardRasters] = await Promise.all([
     loadLocalLogo(),
@@ -153,14 +253,28 @@ export async function downloadIthaPdf(reading: IthaReading) {
     if (raster) images.push({ name: `ImCard${i}`, ...raster });
   });
 
-  const pages = layoutPages(reading, date, images);
-  const blob = assemblePdf(pages, images);
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `itha-crocicchio-${reading.id.slice(0, 8)}.pdf`;
-  a.click();
-  URL.revokeObjectURL(url);
+  const pages = layoutPages(reading, date, images, labels, sections);
+  const blob = assemblePdf(pages, images, labels.footer);
+  triggerBlob(blob, languageFile(`itha-crocicchio-${reading.id.slice(0, 8)}.pdf`, target, ".pdf"));
+}
+
+export async function downloadLumiereDocument(input: {
+  title: string;
+  body: string;
+  filename: string;
+  language: string;
+  footer?: string;
+}) {
+  const target = activeLanguage(input.language);
+  const footer = input.footer || itha.pdfFooter;
+  if (!isLatinLanguage(target)) {
+    triggerBlob(new Blob([`${input.title}\n\n${input.body}\n\n${footer}`], { type: "text/plain;charset=utf-8" }), languageFile(input.filename, target, ".txt"));
+    return;
+  }
+  const logo = await loadLocalLogo();
+  const images: JpegImage[] = logo ? [{ name: "ImLogo", ...logo }] : [];
+  const pages = layoutDocumentPages(input.title, input.body, images);
+  triggerBlob(assemblePdf(pages, images, footer), languageFile(input.filename.replace(/\.txt$/i, ".pdf"), target, ".pdf"));
 }
 
 function textOp(font: "/F1" | "/F2" | "/F3", text: string, color: readonly number[], size: number, x: number, y: number) {
@@ -179,7 +293,83 @@ function sageRule(x: number, y: number, width: number) {
   return `q ${rgb(SAGE)} ${x.toFixed(2)} ${y.toFixed(2)} ${width.toFixed(2)} 0.55 re f Q`;
 }
 
-function layoutPages(reading: IthaReading, date: string, images: JpegImage[]) {
+function downloadIthaText(
+  reading: IthaReading,
+  labels: ReportLabels,
+  date: string,
+  language: string,
+  sections: ReportSection[],
+) {
+  const body = [
+    brand.wordmark,
+    labels.subtitle,
+    date,
+    labels.category,
+    reading.question,
+    labels.metodo,
+    sections
+      .map((section) =>
+        [section.titolo, labels.significato, section.significato, labels.lettura, section.lettura].join("\n\n"),
+      )
+      .join("\n\n----\n\n"),
+    labels.footer,
+  ].join("\n\n");
+  triggerBlob(new Blob([body], { type: "text/plain;charset=utf-8" }), languageFile(`itha-crocicchio-${reading.id.slice(0, 8)}.txt`, language, ".txt"));
+}
+
+function layoutDocumentPages(title: string, body: string, images: JpegImage[]) {
+  const pages: string[][] = [[]];
+  let y = PAGE_H - 42;
+  const current = () => pages[pages.length - 1];
+  const push = (ops: string) => current().push(ops);
+  const ensure = (height: number) => {
+    if (y - height < MARGIN + FOOTER_H) {
+      pages.push([]);
+      y = PAGE_H - 56;
+    }
+  };
+  const space = (height: number) => {
+    ensure(height);
+    y -= height;
+  };
+
+  const logo = images.find((image) => image.name === "ImLogo");
+  if (logo) {
+    const h = 20;
+    const w = (logo.width / logo.height) * h;
+    ensure(h + 10);
+    y -= h;
+    push(`q ${w.toFixed(2)} 0 0 ${h} ${MARGIN} ${y.toFixed(2)} cm /${logo.name} Do Q`);
+    space(10);
+  }
+
+  ensure(22);
+  y -= 18;
+  push(trackedTitle("TAROT ITALIA", MARGIN, y));
+  space(16);
+  for (const line of wrap(title, 52)) {
+    ensure(18);
+    y -= 14;
+    push(textOp("/F2", line, INK, 13, MARGIN, y));
+    space(4);
+  }
+  space(8);
+  push(sageRule(MARGIN, y, PAGE_W - MARGIN * 2));
+  space(18);
+  for (const paragraph of body.split(/\n{2,}/)) {
+    for (const line of wrap(paragraph.replace(/\s+/g, " ").trim(), 78)) {
+      if (!line) continue;
+      ensure(15);
+      y -= 12;
+      push(textOp("/F1", line, INK, 10, MARGIN, y));
+      space(3);
+    }
+    space(10);
+  }
+  return pages.map((ops) => ops.join("\n"));
+}
+
+function layoutPages(reading: IthaReading, date: string, images: JpegImage[], labels: ReportLabels, sections: ReportSection[]) {
   const pages: string[][] = [[]];
   let y = PAGE_H - 42;
 
@@ -211,7 +401,7 @@ function layoutPages(reading: IthaReading, date: string, images: JpegImage[]) {
   push(trackedTitle("TAROT ITALIA", MARGIN, y));
   space(16);
   y -= 12;
-  push(textOp("/F2", itha.pdfSottotitolo, SAGE, 11, MARGIN, y));
+  push(textOp("/F2", labels.subtitle, SAGE, 11, MARGIN, y));
   space(10);
   push(sageRule(MARGIN, y, PAGE_W - MARGIN * 2));
   space(16);
@@ -219,7 +409,7 @@ function layoutPages(reading: IthaReading, date: string, images: JpegImage[]) {
   push(textOp("/F3", date.toUpperCase(), SAGE, 8, MARGIN, y));
   space(12);
   y -= 10;
-  push(textOp("/F3", reading.category.toUpperCase(), SAGE, 8, MARGIN, y));
+  push(textOp("/F3", labels.category.toUpperCase(), SAGE, 8, MARGIN, y));
   space(16);
   for (const line of wrap(reading.question, 76)) {
     ensure(16);
@@ -228,7 +418,7 @@ function layoutPages(reading: IthaReading, date: string, images: JpegImage[]) {
     space(3);
   }
 
-  const metodo = wrap(itha.pdfMetodo, 80);
+  const metodo = wrap(labels.metodo, 80);
   const boxH = metodo.length * 12 + 16;
   ensure(boxH + 12);
   y -= boxH;
@@ -242,8 +432,8 @@ function layoutPages(reading: IthaReading, date: string, images: JpegImage[]) {
   const cardW = 88;
   const cardH = 132;
   const textX = MARGIN + cardW + 14;
-  ithaCardSections(reading).forEach((section, i) => {
-    const sigLines = wrap(section.lama?.significato ?? "", 46);
+  sections.forEach((section, i) => {
+    const sigLines = wrap(section.significato, 46);
     const readLines = wrap(section.lettura, 78);
     const headerH = 28 + cardH;
     ensure(headerH);
@@ -259,7 +449,7 @@ function layoutPages(reading: IthaReading, date: string, images: JpegImage[]) {
       push(`q ${rgb(MIST)} ${MARGIN.toFixed(2)} ${y.toFixed(2)} ${cardW} ${cardH} re f Q`);
     }
     let ty = y + cardH - 10;
-    push(textOp("/F3", itha.pdfSignificato.toUpperCase(), SAGE, 7, textX, ty));
+    push(textOp("/F3", labels.significato.toUpperCase(), SAGE, 7, textX, ty));
     ty -= 14;
     for (const line of sigLines) {
       ty -= 11;
@@ -268,7 +458,7 @@ function layoutPages(reading: IthaReading, date: string, images: JpegImage[]) {
     y = Math.min(y, ty) - 14;
     ensure(28);
     y -= 11;
-    push(textOp("/F3", itha.pdfLettura.toUpperCase(), SAGE, 7, MARGIN, y));
+    push(textOp("/F3", labels.lettura.toUpperCase(), SAGE, 7, MARGIN, y));
     space(8);
     for (const line of readLines) {
       ensure(15);
@@ -284,8 +474,8 @@ function layoutPages(reading: IthaReading, date: string, images: JpegImage[]) {
   return pages.map((ops) => ops.join("\n"));
 }
 
-function pageChrome(content: string, pageIndex: number, pageCount: number) {
-  const footerLines = wrap(itha.pdfFooter, 90);
+function pageChrome(content: string, pageIndex: number, pageCount: number, footer: string) {
+  const footerLines = wrap(footer, 90);
   const footerTop = MARGIN + 18 + (footerLines.length - 1) * 9;
   return [
     `q ${rgb(IVORY)} 0 0 ${PAGE_W} ${PAGE_H} re f Q`,
@@ -296,7 +486,7 @@ function pageChrome(content: string, pageIndex: number, pageCount: number) {
   ].join("\n");
 }
 
-function assemblePdf(pageContents: string[], images: JpegImage[]) {
+function assemblePdf(pageContents: string[], images: JpegImage[], footer: string) {
   const encoder = new TextEncoder();
   const items: Uint8Array[] = [];
   const put = (bytes: Uint8Array | string) => {
@@ -327,7 +517,7 @@ function assemblePdf(pageContents: string[], images: JpegImage[]) {
   }
 
   const pageIds: number[] = [];
-  const rendered = pageContents.map((content, i) => pageChrome(content, i, pageContents.length));
+  const rendered = pageContents.map((content, i) => pageChrome(content, i, pageContents.length, footer));
   for (const content of rendered) {
     const stream = encoder.encode(content);
     const contentId = next;

@@ -147,7 +147,7 @@ async function callGroqModel(key: string, body: IthaDecodeRequest, model: string
       max_tokens: 3500,
       response_format: { type: "json_object" },
       messages: [
-        { role: "system", content: buildIthaSystemPrompt() },
+        { role: "system", content: buildIthaSystemPrompt(body.language) },
         { role: "user", content: buildIthaUserPrompt(body) },
       ],
     }),
