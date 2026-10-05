@@ -26,8 +26,14 @@ import { Estrazione } from "./pages/Estrazione";
 import { Login } from "./pages/Login";
 import { Riservata } from "./pages/Riservata";
 import { NonTrovata } from "./pages/NonTrovata";
+import { ComingSoon } from "./components/ComingSoon";
+import { ContactLaunch } from "./components/ContactLaunch";
+import { useSiteAccess } from "./lib/useSiteAccess";
 
 export default function App() {
+  const unlocked = useSiteAccess();
+  if (!unlocked) return <ComingSoon />;
+
   return (
     <AuthProvider>
       <ConsentProvider>
@@ -67,6 +73,7 @@ export default function App() {
         <AuthModal />
         <RitualisticaModal />
         <IthaLaunch />
+        <ContactLaunch raised />
         <IthaModal />
         </IthaProvider>
         </LanguageProvider>

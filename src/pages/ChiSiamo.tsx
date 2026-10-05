@@ -13,7 +13,7 @@ export function ChiSiamo() {
       <PageHero
         kicker={chiSiamo.kicker}
         title={chiSiamo.titolo}
-        lead={`${brand.titolare} — ${brand.ruolo}`}
+        lead={brand.slogan}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         media={{
           src: chiSiamo.immagini.teresa.src,

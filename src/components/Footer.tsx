@@ -4,8 +4,10 @@ import { siteContent } from "../data/siteContent";
 import { flattenNav, MAIN_NAV } from "../data/navigation";
 import { useConsent } from "../context/ConsentContext";
 import { BrandLogo } from "./BrandLogo";
+import { Button } from "./Button";
 import { LanguageWidget } from "./LanguageWidget";
 import { LegalCopy, LegalNotice, type LegalKind } from "./LegalNotice";
+import { getPhoneHref, whatsappChatHref } from "../lib/whatsapp";
 
 const { brand, cookies, legal } = siteContent;
 const { tutela } = legal;
@@ -22,7 +24,9 @@ export function Footer() {
         <p className="mt-8 font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
         <p className="mt-4 text-[10px] uppercase tracking-[0.22em] text-sage">{brand.name}</p>
       </div>
-      <p className="mt-6 text-[11px] leading-relaxed tracking-[0.04em] text-ink/55">{brand.slogan}</p>
+      <p className="mx-auto mt-6 max-w-2xl text-[11px] leading-relaxed tracking-[0.04em] text-ink/55">
+        {brand.slogan}
+      </p>
       <p className="mx-auto mt-8 max-w-md text-[10px] uppercase leading-relaxed tracking-[0.16em] text-ink/45">
         {brand.titolare} — {brand.studioDiTeresa}
       </p>
@@ -33,6 +37,12 @@ export function Footer() {
       >
         {brand.email}
       </a>
+      <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <Button href={whatsappChatHref()}>{siteContent.cta.whatsappRapido}</Button>
+        <Button href={getPhoneHref()} variant="ghost">
+          {siteContent.cta.chiama}
+        </Button>
+      </div>
       <div className="mx-auto mt-14 flex max-w-xl flex-wrap justify-center gap-x-8 gap-y-4 text-[10px] uppercase tracking-[0.16em] text-ink/50">
         {links.map((item) => (
           <NavLink key={item.to} to={item.to} end={item.end} className="hover:text-ink">

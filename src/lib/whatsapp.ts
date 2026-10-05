@@ -14,6 +14,11 @@ export function whatsappChatHref() {
   return phone ? `https://wa.me/${phone}` : "https://wa.me/";
 }
 
+export function getPhoneHref() {
+  const phone = getWhatsAppNumber();
+  return phone ? `tel:+${phone}` : "";
+}
+
 export function formatBookingDay(dateIso: string) {
   if (!dateIso) return "";
   return siteDateTime({

@@ -1,8 +1,9 @@
 import { siteContent } from "../data/siteContent";
 import { BrandSafetyNote } from "../components/BrandSafetyNote";
+import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
-import { Kicker } from "../components/Button";
 import { Reveal } from "../components/Reveal";
+import { getPhoneHref, whatsappChatHref } from "../lib/whatsapp";
 
 const { brand, cta, pages } = siteContent;
 
@@ -51,6 +52,12 @@ export function Contatti() {
                 {brand.adminEmail}
               </a>
               <p className="mt-10 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                <Button href={whatsappChatHref()}>{cta.whatsappRapido}</Button>
+                <Button href={getPhoneHref()} variant="ghost">
+                  {cta.chiama}
+                </Button>
+              </div>
             </article>
           </Reveal>
         </div>
