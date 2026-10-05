@@ -1,10 +1,11 @@
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { ARCANI, getArcanoBySlug } from "../data/arcani";
 import { siteContent } from "../data/siteContent";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
+import { NonTrovata } from "./NonTrovata";
 
 export function Arcani() {
   return (
@@ -42,7 +43,7 @@ export function Arcani() {
 export function ArcanoDetail() {
   const { slug } = useParams();
   const arcano = slug ? getArcanoBySlug(slug) : undefined;
-  if (!arcano) return <Navigate to="/arcani" replace />;
+  if (!arcano) return <NonTrovata />;
 
   const idx = ARCANI.findIndex((a) => a.slug === arcano.slug);
   const prev = ARCANI[(idx + ARCANI.length - 1) % ARCANI.length];

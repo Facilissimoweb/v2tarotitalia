@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ConsentProvider } from "./context/ConsentContext";
 import { RitualisticaProvider } from "./context/RitualisticaContext";
@@ -25,6 +25,7 @@ import { Corsi } from "./pages/Corsi";
 import { Estrazione } from "./pages/Estrazione";
 import { Login } from "./pages/Login";
 import { Riservata } from "./pages/Riservata";
+import { NonTrovata } from "./pages/NonTrovata";
 
 export default function App() {
   return (
@@ -57,7 +58,7 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route path="*" element={<NonTrovata />} />
             </Route>
           </Routes>
         </BrowserRouter>

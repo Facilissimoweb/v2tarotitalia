@@ -83,6 +83,11 @@ export const siteContent = {
       kicker: "Carrello",
       titolo: "Carrello",
     },
+    nonTrovata: {
+      kicker: "Tarot Italia",
+      titolo: "Questa pagina non è nel percorso",
+      lead: "L’indirizzo che hai aperto non appartiene allo Studio. Niente è perduto: la Home resta aperta, con la stessa cura e la stessa chiarezza.",
+    },
   },
 
   chiSiamo: {
