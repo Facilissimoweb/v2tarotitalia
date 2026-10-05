@@ -7,7 +7,7 @@ export const siteContent = {
     titolare: "M. Teresa Rogani",
     ruolo: "Operatrice olistica ed esoterica, cartomante e tarologa professionista",
     slogan:
-      "Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia • Macerata • Tarot Italia • Ritualistica e Tradizione Popolare",
+      "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
     studioDiTeresa:
       "Via Crispi 37, 62100 Macerata (MC), Marche, Italia — Riceve esclusivamente su appuntamento",
     deontologia:
@@ -64,7 +64,7 @@ export const siteContent = {
     kicker: "Tarot Italia",
     titolo: "La Geometria",
     titoloCorsivo: "dell’Invisibile",
-    lead: "Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia • Macerata • Tarot Italia • Ritualistica e Tradizione Popolare",
+    lead: "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
   },
 
   pages: {
@@ -96,7 +96,7 @@ export const siteContent = {
     soglia: {
       kicker: "Tarot Italia",
       titolo: "Coming Soon",
-      lead: "Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia • Macerata • Tarot Italia • Ritualistica e Tradizione Popolare",
+      lead: "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
     },
   },
 

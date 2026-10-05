@@ -26,7 +26,7 @@ export function Home() {
             <span className="italic">{home.titoloCorsivo}</span>
           </>
         }
-        lead={home.lead}
+        lead={brand.slogan}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         secondary={{ to: "/estrazione", label: "Pesca 3 carte · Gratis" }}
         tertiary={{ label: cta.ritualistica, onClick: () => openRitualistica(), variant: "sage" }}
