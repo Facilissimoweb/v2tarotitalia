@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { flattenNav, MAIN_NAV } from "../data/navigation";
 import { useConsent } from "../context/ConsentContext";
+import { BrandLogo } from "./BrandLogo";
 import { LanguageWidget } from "./LanguageWidget";
 import { LegalCopy, LegalNotice, type LegalKind } from "./LegalNotice";
 
@@ -17,7 +18,7 @@ export function Footer() {
   return (
     <footer className="mt-auto bg-mist px-6 py-20 text-center md:px-10 md:py-28">
       <div translate="no">
-        <img src="/logo.svg" alt="" className="mx-auto h-12 w-12" />
+        <BrandLogo className="mx-auto h-24 w-24 md:h-28 md:w-28" />
         <p className="mt-8 font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
         <p className="mt-4 text-[10px] uppercase tracking-[0.22em] text-sage">{brand.name}</p>
       </div>

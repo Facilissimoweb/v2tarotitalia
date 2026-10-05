@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
+import { BrandLogo } from "./BrandLogo";
 
 const { brand } = siteContent;
 
@@ -9,11 +10,11 @@ type MarkProps = {
 
 /** Logo ufficiale + scritta Tarot Italia. Obbligatorio in testa a ogni widget o modale. */
 export function WidgetBrandMark({ size = "md" }: MarkProps) {
-  const logo = size === "sm" ? "mx-auto h-8 w-8" : "mx-auto h-11 w-11";
+  const logo = size === "sm" ? "mx-auto h-12 w-12" : "mx-auto h-14 w-14";
   const word = size === "sm" ? "mt-3 text-[10px] tracking-[0.28em]" : "mt-3.5 text-[11px] tracking-[0.32em]";
   return (
     <div data-widget-brand className="text-center">
-      <img src="/logo.svg" alt="" className={logo} />
+      <BrandLogo className={logo} />
       <p className={`font-display uppercase text-ink ${word}`}>{brand.wordmark}</p>
     </div>
   );

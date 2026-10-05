@@ -12,6 +12,7 @@ import {
 } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
 import { LanguageWidget } from "./LanguageWidget";
+import { BrandLogo } from "./BrandLogo";
 import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav } = siteContent;
@@ -40,7 +41,7 @@ export function Header() {
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl">
         <nav
-          className="mx-auto hidden h-[6.75rem] max-w-[90rem] grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 xl:grid"
+          className="mx-auto hidden h-[8.5rem] max-w-[90rem] grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 xl:grid"
           aria-label="Principale"
         >
           <div className="flex items-center justify-end gap-6 2xl:gap-8">
@@ -50,7 +51,7 @@ export function Header() {
           </div>
 
           <NavLink to="/" className="flex flex-col items-center px-8" aria-label={brand.wordmark} translate="no">
-            <img src="/logo.svg" alt="" className="h-10 w-10" />
+            <BrandLogo className="h-16 w-16" />
             <span className="mt-2 font-display text-[13px] leading-none tracking-[0.42em] text-ink">
               {brand.wordmark.toUpperCase()}
             </span>
@@ -73,7 +74,7 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="grid h-16 grid-cols-3 items-center px-3 xl:hidden">
+        <div className="grid h-20 grid-cols-3 items-center px-3 xl:hidden">
           <div className="flex items-center justify-start">
             <button
               type="button"
@@ -88,7 +89,7 @@ export function Header() {
             <LanguageWidget placement="nav" />
           </div>
           <NavLink to="/" className="justify-self-center" aria-label={brand.wordmark}>
-            <img src="/logo.svg" alt="" className="h-8 w-8" />
+            <BrandLogo className="h-12 w-12" />
           </NavLink>
           <div className="flex items-center justify-end">
             <AccountLink />

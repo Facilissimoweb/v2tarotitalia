@@ -31,7 +31,7 @@ alwaysApply: true
 - Stile: pulito, leggibile, whitespace generoso, attenzione sartoriale. Raggio 0px, tipografia Noto Serif + Inter.
 - Hero con CTA primaria su tutte le pagine, esclusi eventuali articoli del blog.
 - Animazioni (React): sobrie, fluide e ipnotiche (parallassi sottili, transizioni morbide); accompagnano l’introspezione senza distrarre.
-- Widget, modali e pannelli fluttuanti (Cookie Banner incluso): sequenza vincolante in testa — 1) logo ufficiale (`/logo.svg`); 2) scritta **Tarot Italia**; 3) titolo del widget e contenuti. Usare `WidgetFrame` / `WidgetBrandMark`. Ogni nuovo widget deve ereditare questo standard.
+- Widget, modali e pannelli fluttuanti (Cookie Banner incluso): sequenza vincolante in testa — 1) logo ufficiale (`/logo.png`); 2) scritta **Tarot Italia**; 3) titolo del widget e contenuti. Usare `WidgetFrame` / `WidgetBrandMark`. Ogni nuovo widget deve ereditare questo standard.
 
 ## Itha · Crocicchio di Ecate
 

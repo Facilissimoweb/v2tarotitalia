@@ -31,7 +31,7 @@ export function Home() {
         secondary={{ to: "/estrazione", label: "Pesca 3 carte · Gratis" }}
         tertiary={{ label: cta.ritualistica, onClick: () => openRitualistica(), variant: "sage" }}
         meta={
-          <div className="flex justify-between text-[9px] uppercase tracking-[0.2em]">
+          <div className="flex justify-center gap-10 text-[9px] uppercase tracking-[0.2em]">
             <span>{brand.coords}</span>
             <span>{brand.region}</span>
           </div>

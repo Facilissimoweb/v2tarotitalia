@@ -2,6 +2,8 @@ export const siteContent = {
   brand: {
     name: "Studio Olistico",
     wordmark: "Tarot Italia",
+    logo: "/logo.png",
+    logoHero: "/logo-hero.png?v=2",
     titolare: "M. Teresa Rogani",
     ruolo: "Operatrice olistica ed esoterica, cartomante e tarologa professionista",
     slogan: "Tarot Italia • Ritualistica & Tradizione Popolare",

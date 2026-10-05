@@ -157,7 +157,7 @@ async function loadLocalCard(card: DrawnIthaCard) {
 
 async function loadLocalLogo() {
   try {
-    return await rasterizeUrl(localAssetUrl("/logo.svg"), 72);
+    return await rasterizeUrl(localAssetUrl(brand.logo), 72);
   } catch {
     return null;
   }
