@@ -29,15 +29,8 @@ function ithaApiPlugin(): Plugin {
             return;
           }
           if (url === "/api/itha-dev-decode") {
-            const { readJsonBody, sendJson } = await import("./src/lib/itha/http.ts");
-            const { handleIthaDevPreview } = await import("./src/lib/itha/serverDecode.ts");
-            if (req.method !== "POST") {
-              sendJson(nodeRes, 405, { error: "method" });
-              return;
-            }
-            const body = await readJsonBody(nodeReq);
-            const result = await handleIthaDevPreview(body);
-            sendJson(nodeRes, result.status, result.body);
+            const { default: handler } = await import("./api/itha-dev-decode.ts");
+            await handler(nodeReq, nodeRes);
             return;
           }
           if (url === "/api/localize") {
@@ -57,9 +50,10 @@ function ithaApiPlugin(): Plugin {
           }
           next();
         } catch {
-          res.statusCode = 500;
+          const { siteContent } = await import("./src/data/siteContent.ts");
+          res.statusCode = 503;
           res.setHeader("Content-Type", "application/json");
-          res.end(JSON.stringify({ error: "api" }));
+          res.end(JSON.stringify({ error: siteContent.itha.groqManca }));
         }
       });
     },

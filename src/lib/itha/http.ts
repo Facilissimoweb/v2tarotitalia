@@ -30,6 +30,11 @@ export function readBearer(req: NodeLikeReq) {
 
 export function readJsonBody<T>(req: NodeLikeReq): Promise<T> {
   return new Promise((resolve, reject) => {
+    const existing = (req as NodeLikeReq & { body?: unknown }).body;
+    if (existing && typeof existing === "object" && !ArrayBuffer.isView(existing)) {
+      resolve(existing as T);
+      return;
+    }
     const chunks: string[] = [];
     req.on("data", (chunk) => chunks.push(String(chunk)));
     req.on("end", () => {
@@ -39,5 +44,6 @@ export function readJsonBody<T>(req: NodeLikeReq): Promise<T> {
         reject(error);
       }
     });
+    req.on("error", (error) => reject(error));
   });
 }

@@ -10,10 +10,19 @@ import {
   readDevReadings,
 } from "./dev.ts";
 import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
-import { isSourceLanguage } from "../language.ts";
+import { activeLanguage, isSourceLanguage } from "../language.ts";
 import { localizeOfficialTexts } from "../localizeClient.ts";
+import { readJsonSafe } from "../readJsonSafe.ts";
 import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, ithaDemoAccess, type IthaDecode, type IthaDecodeRequest, type IthaPlanId, type IthaReading } from "./types.ts";
 import type { DrawnIthaCard } from "../../data/ithaMazzo.ts";
+
+type DecodeResponse = {
+  error?: string;
+  id?: string;
+  createdAt?: string;
+  credits?: number;
+  decode?: IthaDecode;
+};
 
 async function authHeaders() {
   const headers: Record<string, string> = { "Content-Type": "application/json" };
@@ -23,48 +32,38 @@ async function authHeaders() {
   return headers;
 }
 
+function withLanguage(input: IthaDecodeRequest): IthaDecodeRequest {
+  return { ...input, language: activeLanguage(input.language) };
+}
+
 export async function requestIthaDecode(input: IthaDecodeRequest) {
-  if (isIthaQuestionBlocked(input.question)) {
+  const payload = withLanguage(input);
+  if (isIthaQuestionBlocked(payload.question)) {
     throw new Error(ithaEthicsMessage());
   }
+  const remote = await requestRemoteDecode(payload);
+  if (remote) return remote;
   if (isIthaDev() || ithaDemoAccess()) {
-    try {
-      const response = await fetch("/api/itha-decode", {
-        method: "POST",
-        headers: await authHeaders(),
-        body: JSON.stringify(input),
-      });
-      const json = (await response.json()) as {
-        error?: string;
-        id?: string;
-        createdAt?: string;
-        credits?: number;
-        decode?: IthaDecode;
-      };
-      if (response.ok && json.decode && json.id) {
-        return json as { id: string; createdAt: string; credits: number; decode: IthaDecode };
-      }
-    } catch {
-      // In demo si passa alla decodifica locale se l’API non è pronta.
+    return decodeInDev(payload);
+  }
+  throw new Error(siteContent.itha.groqManca);
+}
+
+async function requestRemoteDecode(input: IthaDecodeRequest) {
+  try {
+    const response = await fetch("/api/itha-decode", {
+      method: "POST",
+      headers: await authHeaders(),
+      body: JSON.stringify(input),
+    });
+    const json = await readJsonSafe<DecodeResponse>(response);
+    if (response.ok && json?.decode && json.id) {
+      return json as { id: string; createdAt: string; credits: number; decode: IthaDecode };
     }
-    return decodeInDev(input);
+    return null;
+  } catch {
+    return null;
   }
-  const response = await fetch("/api/itha-decode", {
-    method: "POST",
-    headers: await authHeaders(),
-    body: JSON.stringify(input),
-  });
-  const json = (await response.json()) as {
-    error?: string;
-    id?: string;
-    createdAt?: string;
-    credits?: number;
-    decode?: IthaDecode;
-  };
-  if (!response.ok || !json.decode || !json.id) {
-    throw new Error(json.error || "decode");
-  }
-  return json as { id: string; createdAt: string; credits: number; decode: IthaDecode };
 }
 
 async function decodeInDev(input: IthaDecodeRequest) {
@@ -76,19 +75,6 @@ async function decodeInDev(input: IthaDecodeRequest) {
     : consumeDevCredit() ?? (isIthaDev() ? ITHA_DEV_PACK : null);
   if (remaining === null) throw new Error(siteContent.itha.errori.crediti);
   let decode = buildLumiereFallback(input);
-  try {
-    const response = await fetch("/api/itha-dev-decode", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(input),
-    });
-    const json = (await response.json()) as { decode?: IthaDecode };
-    if (response.ok && json.decode?.analisi && json.decode.coerenza && json.decode.spunto) {
-      decode = json.decode;
-    }
-  } catch {
-    // Resta l’argomentazione locale se Groq non è disponibile.
-  }
   if (!isSourceLanguage(input.language)) {
     try {
       const localized = await localizeOfficialTexts(input.language, decode);
@@ -113,8 +99,8 @@ export async function createPaypalOrder(planId: IthaPlanId) {
     headers: await authHeaders(),
     body: JSON.stringify({ planId }),
   });
-  const json = (await response.json()) as { id?: string; error?: string };
-  if (!response.ok || !json.id) throw new Error(json.error || "paypal");
+  const json = await readJsonSafe<{ id?: string; error?: string }>(response);
+  if (!response.ok || !json?.id) throw new Error(json?.error || "paypal");
   return json.id;
 }
 
@@ -124,9 +110,9 @@ export async function capturePaypalOrder(orderId: string) {
     headers: await authHeaders(),
     body: JSON.stringify({ orderId }),
   });
-  const json = (await response.json()) as { credits?: number; error?: string };
-  if (!response.ok) throw new Error(json.error || "paypal");
-  return json.credits ?? 0;
+  const json = await readJsonSafe<{ credits?: number; error?: string }>(response);
+  if (!response.ok) throw new Error(json?.error || "paypal");
+  return json?.credits ?? 0;
 }
 
 export async function loadIthaCredits() {
@@ -162,5 +148,5 @@ export async function loadIthaReadings(): Promise<IthaReading[]> {
     },
   }));
   const seen = new Set(local.map((item) => item.id));
-  return [...local, ...remote.filter((item) => !seen.has(item.id))];
+  return [...local, ...remote.filter((item) => item.id && !seen.has(item.id))];
 }

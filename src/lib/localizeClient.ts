@@ -1,4 +1,5 @@
 import { activeLanguage, isSourceLanguage } from "./language";
+import { readJsonSafe } from "./readJsonSafe";
 
 const cache = new Map<string, Record<string, string>>();
 
@@ -28,16 +29,21 @@ export async function localizeOfficialTexts(
   const key = cacheKey(target, texts);
   const hit = cache.get(key);
   if (hit) return hit;
-  const response = await fetch("/api/localize", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ language: target, texts }),
-  });
-  const json = (await response.json()) as { texts?: Record<string, string> };
-  if (!response.ok || !json.texts || !changed(texts, json.texts)) {
-    if (options.strict) throw new Error("localize");
+  try {
+    const response = await fetch("/api/localize", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ language: target, texts }),
+    });
+    const json = await readJsonSafe<{ texts?: Record<string, string>; available?: boolean }>(response);
+    if (!response.ok || !json?.texts || !changed(texts, json.texts)) {
+      if (options.strict) throw new Error("localize");
+      return texts;
+    }
+    cache.set(key, json.texts);
+    return json.texts;
+  } catch (error) {
+    if (options.strict) throw error instanceof Error ? error : new Error("localize");
     return texts;
   }
-  cache.set(key, json.texts);
-  return json.texts;
 }

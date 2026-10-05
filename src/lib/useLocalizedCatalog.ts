@@ -54,6 +54,13 @@ export function useLocalizedCatalog() {
         );
         setLocalized(Object.keys(texts).some((key) => next[key] && next[key] !== texts[key]));
       })
+      .catch(() => {
+        if (!cancelled) {
+          setCorsi(CORSI);
+          setMateriali(MATERIALI);
+          setLocalized(false);
+        }
+      })
       .finally(() => {
         if (!cancelled) setBusy(false);
       });
