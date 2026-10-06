@@ -10,7 +10,7 @@ import { WidgetFrame } from "./WidgetFrame";
 const { lingua, nav } = siteContent;
 
 type Props = {
-  placement: "nav" | "footer";
+  placement: "nav" | "footer" | "drawer";
 };
 
 export function LanguageWidget({ placement }: Props) {
@@ -35,6 +35,7 @@ export function LanguageWidget({ placement }: Props) {
   }, [open]);
 
   const compact = placement === "nav";
+  const drawer = placement === "drawer";
   const active = current ? SITE_LANGUAGES.find((lang) => lang.code === current) : null;
   const selectedLabel = languageLabel(language);
 
@@ -46,7 +47,9 @@ export function LanguageWidget({ placement }: Props) {
         className={
           compact
             ? "flex h-10 w-10 shrink-0 items-center justify-center text-ink/70 transition-colors hover:text-ink"
-            : "inline-flex items-center gap-2 uppercase tracking-[0.16em] hover:text-ink"
+            : drawer
+              ? "flex w-full items-center gap-4 py-4 text-left font-body text-[1.05rem] font-normal lowercase not-italic tracking-[0.02em] text-ink/50 hover:text-ink"
+              : "inline-flex items-center gap-2 uppercase tracking-[0.16em] hover:text-ink"
         }
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -54,8 +57,20 @@ export function LanguageWidget({ placement }: Props) {
         translate="no"
         onClick={() => setOpen(true)}
       >
-        <LanguageFlag code={language} className={compact ? "h-[1.05rem] w-[1.55rem]" : "h-3.5 w-5"} />
-        {compact ? <span className="sr-only">{selectedLabel}</span> : nav.lingua}
+        <LanguageFlag
+          code={language}
+          className={compact ? "h-[1.05rem] w-[1.55rem]" : drawer ? "h-5 w-7" : "h-4 w-6"}
+        />
+        {compact ? (
+          <span className="sr-only">{selectedLabel}</span>
+        ) : drawer ? (
+          <>
+            <span>{nav.lingua}</span>
+            <span className="ml-auto text-ink/35">{selectedLabel}</span>
+          </>
+        ) : (
+          nav.lingua
+        )}
       </button>
 
       {open

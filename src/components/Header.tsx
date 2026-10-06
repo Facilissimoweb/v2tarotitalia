@@ -11,6 +11,7 @@ import {
   type NavItem,
 } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
+import { useItha } from "../context/IthaContext.tsx";
 import { LanguageWidget } from "./LanguageWidget";
 import { BrandLogo } from "./BrandLogo";
 import { WidgetCloseButton } from "./WidgetCloseButton";
@@ -202,6 +203,8 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
 }
 
 function MobileDrawer({ onClose }: { onClose: () => void }) {
+  const { openItha } = useItha();
+
   return (
     <div
       id="menu-mobile"
@@ -210,28 +213,32 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       aria-modal="true"
       aria-label={nav.menu}
     >
-      <div className="relative border-b border-ink/10 px-5 pb-6 pt-8">
+      <div className="relative px-8 pb-8 pt-10">
         <div className="absolute right-4 top-4 flex items-center gap-2">
           <AccountLink />
           <CartLink />
           <WidgetCloseButton placement="inline" onClick={onClose} />
         </div>
-        <WidgetBrandMark />
-        <p className="mt-5 text-center font-display text-xl font-light text-ink">{nav.menu}</p>
+        <WidgetBrandMark size="sm" />
       </div>
-      <nav className="flex-1 overflow-y-auto px-6 py-8" aria-label="Principale">
-        <div className="flex flex-col gap-3.5">
+
+      <nav className="flex-1 overflow-y-auto px-8 pb-4" aria-label="Principale">
+        <div className="flex flex-col">
           {MAIN_NAV.map((item) =>
             isNavBranch(item) ? (
-              <div key={item.label}>
-                <p className="text-lg leading-snug text-ink">{item.label}</p>
-                <ul className="mt-2 flex flex-col gap-1.5 pl-5">
+              <div key={item.label} className="border-t border-ink/10">
+                <p className="py-6 font-body text-[1.45rem] font-normal lowercase not-italic leading-none tracking-[0.01em] text-ink">
+                  {item.label}
+                </p>
+                <ul className="pb-4">
                   {item.children.map((child) => (
                     <li key={child.to}>
                       <NavLink
                         to={child.to}
                         className={({ isActive }) =>
-                          `block text-base leading-snug ${isActive ? "text-ink" : "text-ink/50"}`
+                          `block py-4 font-body text-[1.15rem] font-normal lowercase not-italic leading-none tracking-[0.01em] ${
+                            isActive ? "text-ink" : "text-ink/35"
+                          }`
                         }
                       >
                         {child.label}
@@ -246,18 +253,37 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `text-lg leading-snug ${isActive ? "text-ink" : "text-ink/55"}`
+                  `border-t border-ink/10 py-6 font-body text-[1.45rem] font-normal lowercase not-italic leading-none tracking-[0.01em] ${
+                    isActive ? "text-ink" : "text-ink/40"
+                  }`
                 }
               >
                 {item.label}
               </NavLink>
             ),
           )}
-          <div className="mt-6">
-            <LanguageWidget placement="footer" />
-          </div>
         </div>
       </nav>
+
+      <div className="shrink-0 bg-ivory border-t border-ink/10 px-8 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+        <button
+          type="button"
+          className="flex w-full items-center gap-4 px-4 py-3.5 text-left ring-1 ring-ink/12"
+          aria-label={nav.itha}
+          onClick={() => {
+            onClose();
+            openItha();
+          }}
+        >
+          <BrandLogo className="h-10 w-10" />
+          <span className="font-body text-[1.25rem] font-normal lowercase not-italic tracking-[0.02em] text-ink">
+            {nav.itha}
+          </span>
+        </button>
+        <div className="mt-1 border-t border-ink/10 pt-1">
+          <LanguageWidget placement="drawer" />
+        </div>
+      </div>
     </div>
   );
 }
