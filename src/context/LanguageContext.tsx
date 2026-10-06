@@ -1,6 +1,13 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { SITE_SOURCE_LANG, resolveOutputLanguage } from "../lib/language";
-import { applyLanguage, resetLanguage, restoreLanguage, storedLanguage } from "../lib/translate";
+import {
+  LANGUAGE_QUERY_KEY,
+  SITE_SOURCE_LANG,
+  hreflangCode,
+  isRtlLanguage,
+  resolveOutputLanguage,
+} from "../lib/language";
+import { applyDocumentLanguage } from "../lib/locale";
+import { applyLanguage, resetLanguage, storedLanguage } from "../lib/translate";
 
 type LanguageContextValue = {
   language: string;
@@ -9,11 +16,44 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
+function queryLanguage() {
+  try {
+    return new URLSearchParams(window.location.search).get(LANGUAGE_QUERY_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function writeLanguageQuery(code: string) {
+  try {
+    const url = new URL(window.location.href);
+    if (code === SITE_SOURCE_LANG) url.searchParams.delete(LANGUAGE_QUERY_KEY);
+    else url.searchParams.set(LANGUAGE_QUERY_KEY, code);
+    const next = `${url.pathname}${url.search}${url.hash}`;
+    if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== next) {
+      window.history.replaceState(window.history.state, "", next);
+    }
+  } catch {
+    /* ignore */
+  }
+}
+
+function applyDocument(code: string) {
+  applyDocumentLanguage(code, {
+    rtl: isRtlLanguage(code),
+    hreflang: hreflangCode(code),
+  });
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setStored] = useState(() => resolveOutputLanguage(storedLanguage()));
+  const [language, setStored] = useState(() =>
+    resolveOutputLanguage(queryLanguage() ?? storedLanguage()),
+  );
 
   useEffect(() => {
-    restoreLanguage();
+    applyDocument(language);
+    writeLanguageQuery(language);
+    if (language !== SITE_SOURCE_LANG) void applyLanguage(language);
   }, []);
 
   const value = useMemo<LanguageContextValue>(
@@ -22,6 +62,8 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       setLanguage: (code) => {
         const next = resolveOutputLanguage(code);
         setStored(next);
+        applyDocument(next);
+        writeLanguageQuery(next);
         if (next === SITE_SOURCE_LANG) resetLanguage();
         else void applyLanguage(next);
       },

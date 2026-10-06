@@ -1,4 +1,4 @@
-import { LANGUAGE_STORAGE_KEY, SITE_LANGUAGES, SITE_SOURCE_LANG } from "./language";
+import { includedTranslateCodes, LANGUAGE_STORAGE_KEY, SITE_LANGUAGES, SITE_SOURCE_LANG } from "./language";
 import { applySiteLocale } from "./locale";
 
 export { SITE_LANGUAGES, SITE_SOURCE_LANG } from "./language";
@@ -30,7 +30,7 @@ declare global {
 }
 
 function includedLanguages() {
-  return [SITE_SOURCE_LANG, ...SITE_LANGUAGES.map((lang) => lang.code)].join(",");
+  return includedTranslateCodes();
 }
 
 function cookieDomain() {

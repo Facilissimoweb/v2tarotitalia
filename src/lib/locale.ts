@@ -10,7 +10,12 @@ export const SITE_LOCALE = {
 } as const;
 
 export function applySiteLocale() {
-  document.documentElement.lang = SITE_LOCALE.htmlLang;
+  applyDocumentLanguage(SITE_LOCALE.htmlLang);
+}
+
+export function applyDocumentLanguage(code: string, options?: { rtl?: boolean; hreflang?: string }) {
+  document.documentElement.lang = options?.hreflang ?? code;
+  document.documentElement.dir = options?.rtl ? "rtl" : "ltr";
 }
 
 export function siteDateTime(options?: Intl.DateTimeFormatOptions) {
