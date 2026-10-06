@@ -21,10 +21,11 @@ const tipClass =
 
 type DockBarProps = {
   onItha?: () => void;
+  onCookies?: () => void;
   hidden?: boolean;
 };
 
-export function ContactDock({ onItha, hidden = false }: DockBarProps) {
+export function ContactDock({ onItha, onCookies, hidden = false }: DockBarProps) {
   const lift = useFooterClearance();
   const tel = getPhoneHref();
   const wa = whatsappChatHref();
@@ -35,7 +36,7 @@ export function ContactDock({ onItha, hidden = false }: DockBarProps) {
 
   return (
     <div
-      className="pointer-events-none fixed left-14 right-3 z-40 flex justify-center sm:left-16 sm:right-4 md:inset-x-0 md:px-16"
+      className="pointer-events-none fixed inset-x-0 z-40 flex justify-center px-3 sm:px-4"
       style={{ bottom: `calc(${lift}px + ${inset})` }}
     >
       <nav className={dockClass} aria-label={nav.contatti}>
@@ -57,8 +58,14 @@ export function ContactDock({ onItha, hidden = false }: DockBarProps) {
         ) : null}
         {onItha ? (
           <button type="button" className={itemClass} aria-label={itha.sticky} onClick={onItha}>
-            <BrandLogo className="h-8 w-8 md:h-9 md:w-9" />
+            <BrandLogo className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9" />
             <span className={tipClass}>{itha.sticky}</span>
+          </button>
+        ) : null}
+        {onCookies ? (
+          <button type="button" className={itemClass} aria-label={siteContent.cookies.gestisci} onClick={onCookies}>
+            <CookieIcon />
+            <span className={tipClass}>{siteContent.cookies.gestisci}</span>
           </button>
         ) : null}
       </nav>
@@ -69,11 +76,11 @@ export function ContactDock({ onItha, hidden = false }: DockBarProps) {
 /** Barra contatti dello Studio: nasconde il dock quando un overlay è aperto. */
 export function StudioContactDock() {
   const { openItha, open: ithaOpen } = useItha();
-  const { open: cookieOpen, ready } = useConsent();
+  const { open: cookieOpen, ready, reopen } = useConsent();
   const { authOpen } = useAuth();
   const { open: ritualOpen } = useRitualistica();
   const hidden = !ready || cookieOpen || ithaOpen || authOpen || ritualOpen;
-  return <ContactDock onItha={openItha} hidden={hidden} />;
+  return <ContactDock onItha={openItha} onCookies={reopen} hidden={hidden} />;
 }
 
 function DockLink({
@@ -145,6 +152,17 @@ function TelegramIcon() {
         strokeWidth="1.4"
         strokeLinejoin="round"
       />
+    </svg>
+  );
+}
+
+function CookieIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="7.25" stroke="currentColor" strokeWidth="1.4" />
+      <circle cx="9.2" cy="10.2" r="1" fill="currentColor" />
+      <circle cx="13.6" cy="13" r="0.9" fill="currentColor" />
+      <circle cx="10.2" cy="15.2" r="0.75" fill="currentColor" />
     </svg>
   );
 }

@@ -10,7 +10,6 @@
     { "source": "/contatti", "destination": "/index.html" },
     { "source": "/carrello", "destination": "/index.html" },
     { "source": "/corsi", "destination": "/index.html" },
-    { "source": "/estrazione", "destination": "/index.html" },
     { "source": "/login", "destination": "/index.html" },
     { "source": "/riservata", "destination": "/index.html" },
     { "source": "/arcani/il-matto", "destination": "/index.html" },

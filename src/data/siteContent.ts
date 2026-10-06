@@ -49,7 +49,7 @@ export const siteContent = {
   comingSoon: "Archivio in costruzione",
 
   cta: {
-    consultoWhatsapp: "Prenota un consulto WhatsApp",
+    consultoWhatsapp: "Prenota un consulto",
     whatsappRapido: "WhatsApp",
     chiama: "Chiama",
     telegram: "Telegram",
@@ -437,11 +437,12 @@ export const siteContent = {
       prezzo: 10,
     },
     avvisoConferma:
-      "La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
+      "La prenotazione è registrata sul tuo account. Lo storico degli acquisti e le richieste di recesso restano disponibili in Area riservata.",
     accessoObbligatorio:
       "Per finalizzare la prenotazione è necessario accedere o registrarsi. Lo storico degli acquisti e le richieste di recesso restano disponibili in Area riservata.",
     successoKicker: "Richiesta inviata",
-    successoTitolo: "Dettagli inoltrati su WhatsApp",
+    successoTitolo: "Prenotazione registrata",
+    recapito: "Recapito telefonico *",
     orarioNonDisponibile: "Seleziona una fascia oraria disponibile.",
     calendario: {
       giorno: "Giorno",

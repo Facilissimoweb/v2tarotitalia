@@ -15,7 +15,7 @@ export function Arcani() {
         title="Gli Arcani Maggiori"
         lead="Galleria completa del mazzo marsigliese. Ogni scheda apre essenza, dritto e rovescio — per studio, non per oracolo automatico."
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
-        secondary={{ to: "/estrazione", label: "Pesca 3 carte" }}
+        secondary={{ to: "/arcani-minori", label: siteContent.nav.arcaniMinori }}
       />
       <div className="mx-auto max-w-6xl px-6 pb-24 md:px-10 md:pb-32">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-10 lg:grid-cols-4">

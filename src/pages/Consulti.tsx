@@ -14,7 +14,7 @@ import {
   type BookingMode,
   type Consents,
 } from "../lib/storage";
-import { buildWhatsAppMessage, formatBookingDay, whatsappHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
+import { formatBookingDay } from "../lib/whatsapp";
 import { AuthForm } from "../components/AuthForm";
 import { BookingCalendar } from "../components/BookingCalendar";
 import { Button, Kicker } from "../components/Button";
@@ -49,7 +49,6 @@ export function Consulti() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const pendingLock = useRef(false);
-  const waLink = useRef<HTMLAnchorElement>(null);
   const restored = useRef(false);
 
   const option = consulti.opzioni.find((o) => o.id === type)!;
@@ -158,11 +157,6 @@ export function Consulti() {
       setBusy(false);
       setError(err);
       return;
-    }
-    const message = buildWhatsAppMessage(data, option.titolo);
-    if (waLink.current) {
-      waLink.current.href = whatsappHref(message);
-      waLink.current.click();
     }
     clearBookingDraft();
     pendingLock.current = false;
@@ -296,7 +290,7 @@ export function Consulti() {
             <div className="mt-8 flex flex-col gap-8">
               <Field label="Nome completo *" value={name} onChange={setName} required placeholder="Es. Elena Silvestri" />
               <Field
-                label="Recapito WhatsApp per la chiamata *"
+                label={consulti.recapito}
                 value={phone}
                 onChange={setPhone}
                 required
@@ -369,16 +363,6 @@ export function Consulti() {
                 {error ? <p className="mt-6 text-center text-sm text-ink">{error}</p> : null}
               </div>
             )}
-            <a
-              ref={waLink}
-              href={whatsappHref(buildWhatsAppMessage(draft(), option.titolo))}
-              {...WHATSAPP_ANCHOR}
-              className="sr-only"
-              tabIndex={-1}
-              aria-hidden
-            >
-              {consulti.conferma}
-            </a>
           </section>
         </Reveal>
       </div>

@@ -30,7 +30,7 @@ export function draftToPurchase(draft: PurchaseDraft, consents: Consents): Purch
     ...draft,
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
-    status: "pending_whatsapp",
+    status: "pending",
     consents,
   };
 }
@@ -56,7 +56,6 @@ export function purchaseToInsert(userId: string | null, purchase: Purchase) {
     consent_privacy: purchase.consents.privacy,
     consent_adult: purchase.consents.adult,
     consent_refund: purchase.consents.refund,
-    whatsapp_sent_at: new Date().toISOString(),
   };
 }
 
@@ -77,7 +76,7 @@ export function rowToPurchase(row: PurchaseRow): Purchase {
     phone: row.phone ?? "",
     birth: row.birth ?? undefined,
     query: row.query ?? undefined,
-    status: (row.status as PurchaseStatus) || "pending_whatsapp",
+    status: (row.status as PurchaseStatus) || "pending",
     consents: {
       privacy: row.consent_privacy,
       adult: row.consent_adult,

@@ -81,7 +81,7 @@ export function RitualisticaModal() {
       <WidgetDialog title={ritualistica.titoloWidget} onClose={resetAndClose} wide>
         {sent ? (
           <div className="flex flex-col gap-6 text-left">
-            <p className="text-sm leading-[1.9] text-ink/75">{consulti.avvisoConferma}</p>
+            <p className="text-sm leading-[1.9] text-ink/75">{ritualistica.mediazione}</p>
             <p className="text-sm leading-[1.9] text-ink/70">{ritualistica.chiacchierata}</p>
             <Button href={whatsappHref(buildRitualisticaMessage({
               name: name.trim() || session?.name || "",

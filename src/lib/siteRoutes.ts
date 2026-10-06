@@ -11,7 +11,6 @@ export const STATIC_APP_PATHS = [
   "/contatti",
   "/carrello",
   "/corsi",
-  "/estrazione",
   "/login",
   "/riservata",
 ] as const;

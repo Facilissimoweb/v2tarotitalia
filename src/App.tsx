@@ -6,7 +6,6 @@ import { IthaProvider } from "./context/IthaContext.tsx";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
-import { CookieSettingsLaunch } from "./components/CookieSettingsLaunch";
 import { AuthModal } from "./components/AuthModal";
 import { RitualisticaModal } from "./components/RitualisticaModal";
 import { IthaModal } from "./components/IthaModal.tsx";
@@ -21,7 +20,6 @@ import { Blog } from "./pages/Blog";
 import { Contatti } from "./pages/Contatti";
 import { Carrello } from "./pages/Carrello";
 import { Corsi } from "./pages/Corsi";
-import { Estrazione } from "./pages/Estrazione";
 import { Login } from "./pages/Login";
 import { Riservata } from "./pages/Riservata";
 import { NonTrovata } from "./pages/NonTrovata";
@@ -53,7 +51,6 @@ export default function App() {
               <Route path="/contatti" element={<Contatti />} />
               <Route path="/carrello" element={<Carrello />} />
               <Route path="/corsi" element={<Corsi />} />
-              <Route path="/estrazione" element={<Estrazione />} />
               <Route path="/login" element={<Login />} />
               <Route
                 path="/riservata"
@@ -68,7 +65,6 @@ export default function App() {
           </Routes>
         </BrowserRouter>
         <CookieBanner />
-        <CookieSettingsLaunch />
         <AuthModal />
         <RitualisticaModal />
         <StudioContactDock />

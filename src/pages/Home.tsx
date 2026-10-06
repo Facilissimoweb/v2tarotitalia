@@ -28,7 +28,7 @@ export function Home() {
         }
         lead={brand.slogan}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
-        secondary={{ to: "/estrazione", label: "Pesca 3 carte · Gratis" }}
+        secondary={{ to: "/arcani", label: cta.esploraArcani }}
         tertiary={{ label: cta.ritualistica, onClick: () => openRitualistica(), variant: "sage" }}
         meta={
           <div className="flex justify-center gap-10 text-[9px] uppercase tracking-[0.2em]">
