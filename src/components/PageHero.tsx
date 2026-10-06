@@ -144,8 +144,15 @@ export function PageHero({
                   cta={cta}
                   variant={home || !onMedia ? "primary" : "paper"}
                   arrow={home || !onMedia}
+                  onMedia={onMedia}
                 />
-                {secondary ? <HeroButton cta={secondary} variant={secondary.variant ?? "paper"} /> : null}
+                {secondary ? (
+                  <HeroButton
+                    cta={secondary}
+                    variant={secondary.variant ?? "paper"}
+                    onMedia={onMedia}
+                  />
+                ) : null}
                 {tertiary ? <HeroButton cta={tertiary} variant={tertiary.variant ?? "sage"} /> : null}
               </div>
             </Reveal>
@@ -237,13 +244,17 @@ function HeroButton({
   cta,
   variant,
   arrow = variant === "primary",
+  onMedia = false,
 }: {
   cta: HeroCta;
   variant: "primary" | "sage" | "ghost" | "paper";
   arrow?: boolean;
+  onMedia?: boolean;
 }) {
   const extra = "w-full sm:w-auto";
   const resolved = cta.variant ?? variant;
+  const edge =
+    onMedia && resolved === "paper" ? `${extra} ring-1 ring-ivory` : extra;
   const label = (
     <>
       {cta.label}
@@ -252,20 +263,20 @@ function HeroButton({
   );
   if (cta.onClick && !cta.to && !cta.href) {
     return (
-      <Button onClick={cta.onClick} variant={resolved} className={extra}>
+      <Button onClick={cta.onClick} variant={resolved} className={edge}>
         {label}
       </Button>
     );
   }
   if (cta.to) {
     return (
-      <Button to={cta.to} variant={resolved} className={extra}>
+      <Button to={cta.to} variant={resolved} className={edge}>
         {label}
       </Button>
     );
   }
   return (
-    <Button href={cta.href} variant={resolved} className={extra}>
+    <Button href={cta.href} variant={resolved} className={edge}>
       {label}
     </Button>
   );

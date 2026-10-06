@@ -25,8 +25,8 @@ export function Home() {
           </>
         }
         lead={brand.slogan}
-        cta={{ to: "/consulti", label: home.ctaConsulto }}
-        secondary={{ to: "/rituali", label: cta.ritualistica, variant: "sage" }}
+        cta={{ to: "/consulti", label: home.ctaConsulto, variant: "sage" }}
+        secondary={{ to: "/rituali", label: cta.ritualistica, variant: "paper" }}
         meta={
           <div className="flex justify-center gap-10 text-[9px] uppercase tracking-[0.2em]">
             <span>{brand.coords}</span>

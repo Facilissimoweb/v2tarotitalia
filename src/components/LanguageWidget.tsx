@@ -2,7 +2,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { siteContent } from "../data/siteContent";
 import { useLanguage } from "../context/LanguageContext";
-import { SITE_LANGUAGES, SITE_SOURCE_LANG } from "../lib/language";
+import { languageLabel, SITE_LANGUAGES, SITE_SOURCE_LANG } from "../lib/language";
+import { LanguageFlag } from "./LanguageFlag";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetFrame } from "./WidgetFrame";
 
@@ -35,6 +36,7 @@ export function LanguageWidget({ placement }: Props) {
 
   const compact = placement === "nav";
   const active = current ? SITE_LANGUAGES.find((lang) => lang.code === current) : null;
+  const selectedLabel = languageLabel(language);
 
   return (
     <>
@@ -44,15 +46,16 @@ export function LanguageWidget({ placement }: Props) {
         className={
           compact
             ? "flex h-10 w-10 shrink-0 items-center justify-center text-ink/70 transition-colors hover:text-ink"
-            : "uppercase tracking-[0.16em] hover:text-ink"
+            : "inline-flex items-center gap-2 uppercase tracking-[0.16em] hover:text-ink"
         }
         aria-haspopup="dialog"
         aria-expanded={open}
-        aria-label={nav.lingua}
+        aria-label={`${nav.lingua}: ${selectedLabel}`}
         translate="no"
         onClick={() => setOpen(true)}
       >
-        {compact ? <GlobeIcon /> : nav.lingua}
+        <LanguageFlag code={language} className={compact ? "h-[1.05rem] w-[1.55rem]" : "h-3.5 w-5"} />
+        {compact ? <span className="sr-only">{selectedLabel}</span> : nav.lingua}
       </button>
 
       {open
@@ -81,51 +84,36 @@ export function LanguageWidget({ placement }: Props) {
                 />
                 <div className="max-h-[min(90vh,40rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
                   <WidgetFrame title={lingua.titolo} titleId={titleId}>
-                  <p className="text-sm leading-[1.8] text-ink/70">{lingua.lead}</p>
-                  <ul className="mt-8 divide-y divide-ink/10">
-                    <li>
-                      <button
-                        type="button"
-                        className={`flex w-full items-center justify-between py-3.5 text-left text-sm ${
-                          !current ? "text-ink" : "text-ink/55 hover:text-ink"
-                        }`}
-                        onClick={() => {
-                          setLanguage(SITE_SOURCE_LANG);
-                          setOpen(false);
-                        }}
-                      >
-                        <span>{lingua.originale}</span>
-                        {!current ? <span className="text-[10px] uppercase tracking-[0.16em] text-sage">IT</span> : null}
-                      </button>
-                    </li>
-                    {SITE_LANGUAGES.map((lang) => {
-                      const selected = current === lang.code;
-                      return (
+                    <p className="text-sm leading-[1.8] text-ink/70">{lingua.lead}</p>
+                    <ul className="mt-8 divide-y divide-ink/10">
+                      <li>
+                        <LanguageOption
+                          code={SITE_SOURCE_LANG}
+                          label={lingua.originale}
+                          selected={!current}
+                          onSelect={() => {
+                            setLanguage(SITE_SOURCE_LANG);
+                            setOpen(false);
+                          }}
+                        />
+                      </li>
+                      {SITE_LANGUAGES.map((lang) => (
                         <li key={lang.code}>
-                          <button
-                            type="button"
-                            className={`flex w-full items-center justify-between py-3.5 text-left text-sm ${
-                              selected ? "text-ink" : "text-ink/55 hover:text-ink"
-                            }`}
-                            onClick={() => {
+                          <LanguageOption
+                            code={lang.code}
+                            label={lang.label}
+                            selected={current === lang.code}
+                            onSelect={() => {
                               setLanguage(lang.code);
                               setOpen(false);
                             }}
-                          >
-                            <span>{lang.label}</span>
-                            {selected ? (
-                              <span className="text-[10px] uppercase tracking-[0.16em] text-sage">
-                                {lang.code}
-                              </span>
-                            ) : null}
-                          </button>
+                          />
                         </li>
-                      );
-                    })}
-                  </ul>
-                  {active ? (
-                    <p className="mt-6 text-[10px] uppercase tracking-[0.16em] text-sage">{active.label}</p>
-                  ) : null}
+                      ))}
+                    </ul>
+                    {active ? (
+                      <p className="mt-6 text-[10px] uppercase tracking-[0.16em] text-sage">{active.label}</p>
+                    ) : null}
                   </WidgetFrame>
                 </div>
               </div>
@@ -137,11 +125,27 @@ export function LanguageWidget({ placement }: Props) {
   );
 }
 
-function GlobeIcon() {
+function LanguageOption({
+  code,
+  label,
+  selected,
+  onSelect,
+}: {
+  code: string;
+  label: string;
+  selected: boolean;
+  onSelect: () => void;
+}) {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-      <circle cx="12" cy="12" r="8.25" />
-      <path d="M3.8 12 H20.2 M12 3.8 C9.4 6.4 8.2 9.2 8.2 12 C8.2 14.8 9.4 17.6 12 20.2 M12 3.8 C14.6 6.4 15.8 9.2 15.8 12 C15.8 14.8 14.6 17.6 12 20.2" />
-    </svg>
+    <button
+      type="button"
+      className={`flex w-full items-center gap-3 py-3.5 text-left text-sm ${
+        selected ? "text-ink" : "text-ink/55 hover:text-ink"
+      }`}
+      onClick={onSelect}
+    >
+      <LanguageFlag code={code} />
+      <span className="flex-1">{label}</span>
+    </button>
   );
 }
