@@ -13,6 +13,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 import { LanguageWidget } from "./LanguageWidget";
 import { BrandLogo } from "./BrandLogo";
+import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav } = siteContent;
@@ -210,17 +211,10 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       aria-label={nav.menu}
     >
       <div className="relative border-b border-ink/10 px-5 pb-6 pt-8">
-        <div className="absolute right-5 top-5 flex items-center gap-1">
+        <div className="absolute right-4 top-4 flex items-center gap-2">
           <AccountLink />
           <CartLink />
-          <button
-            type="button"
-            className="flex h-11 w-11 items-center justify-center text-ink ring-1 ring-ink/15"
-            aria-label={nav.chiudi}
-            onClick={onClose}
-          >
-            <CloseIcon />
-          </button>
+          <WidgetCloseButton placement="inline" onClick={onClose} />
         </div>
         <WidgetBrandMark />
         <p className="mt-5 text-center font-display text-xl font-light text-ink">{nav.menu}</p>

@@ -2,12 +2,13 @@ import { useEffect, useId, useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { useConsent } from "../context/ConsentContext";
 import { Button } from "./Button";
+import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetFrame } from "./WidgetFrame";
 
 const { cookies } = siteContent;
 
 export function CookieBanner() {
-  const { open, ready, record, acceptAll, rejectOptional, saveChoices } = useConsent();
+  const { open, ready, record, dismiss, acceptAll, rejectOptional, saveChoices } = useConsent();
   const titleId = useId();
   const [stats, setStats] = useState(false);
   const [prefs, setPrefs] = useState(false);
@@ -36,7 +37,9 @@ export function CookieBanner() {
       aria-modal="true"
       aria-labelledby={titleId}
     >
-      <div className="max-h-[min(90vh,44rem)] w-full max-w-lg overflow-y-auto bg-ivory px-7 py-10 shadow-[0_24px_60px_rgba(43,37,35,0.18)] md:px-12 md:py-14">
+      <div className="relative w-full max-w-lg bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
+        <WidgetCloseButton onClick={dismiss} />
+        <div className="max-h-[min(90vh,44rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={cookies.titolo} titleId={titleId}>
             <p className="text-sm leading-[1.8] text-ink/70">{cookies.descrizione}</p>
 
@@ -80,6 +83,7 @@ export function CookieBanner() {
               </Button>
             </div>
           </WidgetFrame>
+        </div>
       </div>
     </div>
   );

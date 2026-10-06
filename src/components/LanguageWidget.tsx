@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { siteContent } from "../data/siteContent";
 import { useLanguage } from "../context/LanguageContext";
 import { SITE_LANGUAGES, SITE_SOURCE_LANG } from "../lib/language";
+import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetFrame } from "./WidgetFrame";
 
 const { lingua, nav } = siteContent;
@@ -71,19 +72,15 @@ export function LanguageWidget({ placement }: Props) {
                   triggerRef.current?.focus();
                 }}
               />
-              <div className="relative max-h-[min(90vh,40rem)] w-full max-w-md overflow-y-auto bg-ivory px-7 py-10 shadow-[0_24px_60px_rgba(43,37,35,0.18)] md:px-12 md:py-14">
-                <button
-                  type="button"
-                  className="absolute top-5 right-5 flex h-10 w-10 items-center justify-center text-ink"
-                  aria-label={nav.chiudi}
+              <div className="relative z-10 w-full max-w-md bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
+                <WidgetCloseButton
                   onClick={() => {
                     setOpen(false);
                     triggerRef.current?.focus();
                   }}
-                >
-                  <CloseIcon />
-                </button>
-                <WidgetFrame title={lingua.titolo} titleId={titleId}>
+                />
+                <div className="max-h-[min(90vh,40rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
+                  <WidgetFrame title={lingua.titolo} titleId={titleId}>
                   <p className="text-sm leading-[1.8] text-ink/70">{lingua.lead}</p>
                   <ul className="mt-8 divide-y divide-ink/10">
                     <li>
@@ -129,7 +126,8 @@ export function LanguageWidget({ placement }: Props) {
                   {active ? (
                     <p className="mt-6 text-[10px] uppercase tracking-[0.16em] text-sage">{active.label}</p>
                   ) : null}
-                </WidgetFrame>
+                  </WidgetFrame>
+                </div>
               </div>
             </div>,
             document.body,
@@ -144,14 +142,6 @@ function GlobeIcon() {
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
       <circle cx="12" cy="12" r="8.25" />
       <path d="M3.8 12 H20.2 M12 3.8 C9.4 6.4 8.2 9.2 8.2 12 C8.2 14.8 9.4 17.6 12 20.2 M12 3.8 C14.6 6.4 15.8 9.2 15.8 12 C15.8 14.8 14.6 17.6 12 20.2" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <path d="M6 6 L18 18 M18 6 L6 18" />
     </svg>
   );
 }

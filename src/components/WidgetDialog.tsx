@@ -1,8 +1,6 @@
 import { useEffect, useId, type ReactNode } from "react";
-import { siteContent } from "../data/siteContent";
+import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetFrame } from "./WidgetFrame";
-
-const { nav } = siteContent;
 
 type Props = {
   title: string;
@@ -34,32 +32,17 @@ export function WidgetDialog({ title, titleId, onClose, children, wide, xl }: Pr
       aria-labelledby={labelledBy}
     >
       <div
-        className={`relative max-h-[min(92vh,56rem)] w-full overflow-y-auto bg-ivory px-7 py-10 shadow-[0_24px_60px_rgba(43,37,35,0.18)] md:px-12 md:py-14 ${
+        className={`relative w-full bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)] ${
           xl ? "max-w-3xl" : wide ? "max-w-2xl" : "max-w-lg"
         }`}
       >
-        {onClose ? (
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label={nav.chiudi}
-            className="absolute right-4 top-4 p-2 text-ink/40 transition-colors hover:text-ink"
-          >
-            <CloseIcon />
-          </button>
-        ) : null}
-        <WidgetFrame title={title} titleId={labelledBy}>
-          {children}
-        </WidgetFrame>
+        {onClose ? <WidgetCloseButton onClick={onClose} /> : null}
+        <div className="max-h-[min(92vh,56rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
+          <WidgetFrame title={title} titleId={labelledBy}>
+            {children}
+          </WidgetFrame>
+        </div>
       </div>
     </div>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-      <path d="M6 6 L18 18 M18 6 L6 18" />
-    </svg>
   );
 }

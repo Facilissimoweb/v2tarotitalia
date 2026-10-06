@@ -145,7 +145,7 @@ export function PageHero({
                   variant={home || !onMedia ? "primary" : "paper"}
                   arrow={home || !onMedia}
                 />
-                {secondary ? <HeroButton cta={secondary} variant="paper" /> : null}
+                {secondary ? <HeroButton cta={secondary} variant={secondary.variant ?? "paper"} /> : null}
                 {tertiary ? <HeroButton cta={tertiary} variant={tertiary.variant ?? "sage"} /> : null}
               </div>
             </Reveal>

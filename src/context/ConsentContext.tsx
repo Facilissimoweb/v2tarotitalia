@@ -12,6 +12,7 @@ type ConsentContextValue = {
   open: boolean;
   ready: boolean;
   reopen: () => void;
+  dismiss: () => void;
   acceptAll: () => void;
   rejectOptional: () => void;
   saveChoices: (stats: boolean, prefs: boolean) => void;
@@ -46,6 +47,7 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
       open,
       ready,
       reopen: () => setOpen(true),
+      dismiss: () => setOpen(false),
       acceptAll: () => {
         setRecord(saveConsentDecision({ stats: true, prefs: true }));
         setOpen(false);

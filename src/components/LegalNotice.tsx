@@ -1,10 +1,11 @@
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button } from "./Button";
+import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetFrame } from "./WidgetFrame";
 import { WHATSAPP_ANCHOR, whatsappChatHref } from "../lib/whatsapp";
 
-const { legal, nav } = siteContent;
+const { legal } = siteContent;
 
 export type LegalKind = "privacy" | "disclaimer" | "tutela" | "vendita";
 
@@ -38,21 +39,16 @@ export function LegalNotice({ kind, onClose }: Props) {
       aria-modal="true"
       aria-labelledby={titleId}
     >
-      <div className="relative max-h-[min(90vh,48rem)] w-full max-w-2xl overflow-y-auto bg-ivory px-7 py-10 shadow-[0_24px_60px_rgba(43,37,35,0.18)] md:px-12 md:py-14">
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label={nav.chiudi}
-          className="absolute right-4 top-4 p-2 text-ink/40 transition-colors hover:text-ink"
-        >
-          <CloseIcon />
-        </button>
-        <WidgetFrame title={title} titleId={titleId}>
-          <p className="text-center text-[12px] tracking-[0.04em] text-ink/50">
-            <LegalCopy>{intestazione}</LegalCopy>
-          </p>
-          <LegalBody kind={kind} onClose={onClose} />
-        </WidgetFrame>
+      <div className="relative w-full max-w-2xl bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
+        <WidgetCloseButton onClick={onClose} />
+        <div className="max-h-[min(90vh,48rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
+          <WidgetFrame title={title} titleId={titleId}>
+            <p className="text-center text-[12px] tracking-[0.04em] text-ink/50">
+              <LegalCopy>{intestazione}</LegalCopy>
+            </p>
+            <LegalBody kind={kind} onClose={onClose} />
+          </WidgetFrame>
+        </div>
       </div>
     </div>
   );
@@ -239,14 +235,6 @@ export function LegalCopy({ children }: { children: string }) {
   }
   if (last < children.length) nodes.push(children.slice(last));
   return <>{nodes}</>;
-}
-
-function CloseIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-      <path d="M6 6 L18 18 M18 6 L6 18" />
-    </svg>
-  );
 }
 
 function LegalIcon({ name }: { name: (typeof legal.privacy.sezioni)[number]["icon"] }) {
