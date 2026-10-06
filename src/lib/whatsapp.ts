@@ -1,7 +1,7 @@
 import { siteContent } from "../data/siteContent";
 import { siteDateTime } from "./locale";
 import { STUDIO } from "../data/catalogo";
-import type { PurchaseDraft } from "./storage";
+import type { Purchase, PurchaseDraft } from "./storage";
 
 export function getWhatsAppNumber() {
   const fromEnv = (import.meta.env.VITE_WHATSAPP_NUMBER ?? "").replace(/\D/g, "");
@@ -46,6 +46,22 @@ export function buildWhatsAppMessage(draft: PurchaseDraft, optionTitle: string) 
   lines.push("");
   lines.push(consulti.avvisoConferma);
   return lines.join("\n");
+}
+
+export function buildRecessoMessage(purchase: Purchase, optionTitle: string) {
+  const venditaConsulti = siteContent.legal.vendita.sezioni.find((sezione) => sezione.id === "consulti");
+  const lines = [
+    `Richiesta di recesso — ${siteContent.brand.wordmark}`,
+    `Nome: ${purchase.name}`,
+    `Consulto: ${optionTitle}`,
+    `Data: ${formatBookingDay(purchase.dateIso)}`,
+    `Orario: ${purchase.slot}`,
+    `${siteContent.auth.riferimento}: ${purchase.id}`,
+    "",
+    venditaConsulti?.testi[1] ?? "",
+    siteContent.legal.vendita.assistenza.testo,
+  ];
+  return lines.filter(Boolean).join("\n");
 }
 
 export function buildRitualisticaMessage(input: {

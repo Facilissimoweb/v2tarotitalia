@@ -129,6 +129,7 @@ export function IthaModal() {
           <div className="flex flex-col gap-8 text-left">
             <p className="text-sm leading-[1.9] text-ink/70">{itha.errori.sessione}</p>
             <AuthForm
+              redirectTo={`${window.location.pathname}${window.location.search}`}
               onPrivacy={() => setLegal("privacy")}
               onVendita={() => setLegal("vendita")}
               onSuccess={() => {
@@ -516,7 +517,12 @@ function Reading({
         onClick={() => {
           setPdfBusy(true);
           setPdfError(null);
-          void downloadIthaPdf(reading, language)
+          void Promise.race([
+            downloadIthaPdf(reading, language),
+            new Promise<never>((_, reject) => {
+              window.setTimeout(() => reject(new Error("pdf")), 20000);
+            }),
+          ])
             .catch(() => setPdfError(itha.groqManca))
             .finally(() => setPdfBusy(false));
         }}

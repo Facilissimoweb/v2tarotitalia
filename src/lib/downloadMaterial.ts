@@ -24,11 +24,11 @@ export async function downloadLocalizedFile(
     });
     return;
   }
-  const localized = await localizeOfficialTexts(
-    target,
-    { title, body: italian, footer: itha.pdfFooter },
-    { strict: true },
-  );
+  const localized = await localizeOfficialTexts(target, {
+    title,
+    body: italian,
+    footer: itha.pdfFooter,
+  });
   await downloadLumiereDocument({
     title: localized.title || title,
     body: localized.body || italian,

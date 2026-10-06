@@ -59,6 +59,53 @@ export function hasRequiredConsents(consents: Consents | undefined) {
   return Boolean(consents?.privacy && consents?.adult && consents?.refund);
 }
 
+export function canRequestWithdrawal(status: PurchaseStatus) {
+  return status === "pending" || status === "pending_whatsapp" || status === "confirmed";
+}
+
+const PENDING_CONSENTS_KEY = "tarot-italia-pending-consents";
+const BOOKING_DRAFT_KEY = "tarot-italia-booking-draft";
+
+export type BookingDraftStored = PurchaseDraft & { consents: Consents };
+
+export function readPendingConsents(): Consents | null {
+  try {
+    const raw = sessionStorage.getItem(PENDING_CONSENTS_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Consents;
+    if (!parsed || typeof parsed.privacy !== "boolean") return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+export function writePendingConsents(consents: Consents) {
+  sessionStorage.setItem(PENDING_CONSENTS_KEY, JSON.stringify(consents));
+}
+
+export function clearPendingConsents() {
+  sessionStorage.removeItem(PENDING_CONSENTS_KEY);
+}
+
+export function readBookingDraft(): BookingDraftStored | null {
+  try {
+    const raw = sessionStorage.getItem(BOOKING_DRAFT_KEY);
+    if (!raw) return null;
+    return JSON.parse(raw) as BookingDraftStored;
+  } catch {
+    return null;
+  }
+}
+
+export function writeBookingDraft(draft: BookingDraftStored) {
+  sessionStorage.setItem(BOOKING_DRAFT_KEY, JSON.stringify(draft));
+}
+
+export function clearBookingDraft() {
+  sessionStorage.removeItem(BOOKING_DRAFT_KEY);
+}
+
 export function readSession(): Session | null {
   try {
     const raw = localStorage.getItem(AUTH_KEY);

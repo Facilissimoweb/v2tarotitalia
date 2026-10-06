@@ -18,7 +18,7 @@ import { WidgetBrandMark } from "./WidgetFrame";
 const { brand, nav } = siteContent;
 
 const linkClass = (active: boolean) =>
-  `whitespace-nowrap text-[11px] uppercase tracking-[0.16em] transition-colors ${
+  `whitespace-nowrap text-[10px] uppercase tracking-[0.14em] transition-colors xl:text-[11px] xl:tracking-[0.16em] ${
     active ? "text-ink" : "text-ink/40 hover:text-ink"
   }`;
 
@@ -31,6 +31,16 @@ export function Header() {
   }, [pathname]);
 
   useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const closeOnDesktop = () => {
+      if (mq.matches) setOpen(false);
+    };
+    closeOnDesktop();
+    mq.addEventListener("change", closeOnDesktop);
+    return () => mq.removeEventListener("change", closeOnDesktop);
+  }, []);
+
+  useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
@@ -40,33 +50,31 @@ export function Header() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl">
-        <nav
-          className="mx-auto hidden h-[8.5rem] max-w-[90rem] grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 xl:grid"
-          aria-label="Principale"
-        >
-          <div className="flex items-center justify-end gap-6 2xl:gap-8">
-            {NAV_LEADING.map((item) => (
-              <NavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
-            ))}
-          </div>
-
-          <NavLink to="/" className="flex flex-col items-center px-8" aria-label={brand.wordmark} translate="no">
-            <BrandLogo className="h-16 w-16" />
-            <span className="mt-2 font-display text-[13px] leading-none tracking-[0.42em] text-ink">
-              {brand.wordmark.toUpperCase()}
-            </span>
-            <span className="mt-1.5 text-[9px] uppercase leading-none tracking-[0.28em] text-sage">
-              {brand.name}
+        <nav className="relative mx-auto hidden h-[6.75rem] lg:block" aria-label="Principale">
+          <NavLink
+            to="/"
+            className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+            aria-label={brand.wordmark}
+            translate="no"
+          >
+            <BrandLogo className="h-10 w-10" />
+            <span className="mt-2 font-display text-[11px] uppercase leading-none tracking-[0.32em] text-ink">
+              {brand.wordmark}
             </span>
           </NavLink>
 
-          <div className="flex items-center justify-start gap-6 2xl:gap-8">
-            <div className="flex items-center gap-6 2xl:gap-8">
-              {NAV_TRAILING.map((item) => (
-                <NavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
+          <div className="mx-auto flex h-full max-w-[90rem] items-center px-5 xl:px-8">
+            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly pr-24 xl:pr-40">
+              {NAV_LEADING.map((item) => (
+                <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}
             </div>
-            <div className="flex items-center">
+            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly pl-24 pr-2 xl:pl-40 xl:pr-3">
+              {NAV_TRAILING.map((item) => (
+                <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
+              ))}
+            </div>
+            <div className="flex shrink-0 items-center">
               <LanguageWidget placement="nav" />
               <AccountLink />
               <CartLink />
@@ -74,7 +82,7 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="grid h-20 grid-cols-3 items-center px-3 xl:hidden">
+        <div className="grid h-20 grid-cols-3 items-center px-3 lg:hidden">
           <div className="flex items-center justify-start">
             <button
               type="button"
@@ -103,7 +111,7 @@ export function Header() {
   );
 }
 
-function NavEntry({ item }: { item: NavItem }) {
+function DesktopNavEntry({ item }: { item: NavItem }) {
   if (isNavBranch(item)) return <TarocchiMenu item={item} />;
   return (
     <NavLink to={item.to} end={item.end} className={({ isActive }) => linkClass(isActive)}>
@@ -117,10 +125,13 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
   const wrap = useRef<HTMLDivElement>(null);
   const menuId = useId();
   const [pinned, setPinned] = useState(false);
+  const [hover, setHover] = useState(false);
   const active = isTarocchiPath(pathname);
+  const expanded = pinned || hover;
 
   useEffect(() => {
     setPinned(false);
+    setHover(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -139,15 +150,19 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
   }, []);
 
   return (
-    <div ref={wrap} className="group relative">
+    <div
+      ref={wrap}
+      className="relative flex h-full items-center"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
       <button
         type="button"
-        className={`${linkClass(active)} inline-flex items-center gap-2`}
-        aria-expanded={pinned}
+        className={`${linkClass(active)} inline-flex items-center gap-1.5`}
+        aria-expanded={expanded}
         aria-haspopup="menu"
         aria-controls={menuId}
         onClick={() => setPinned((v) => !v)}
-        onMouseDown={(e) => e.stopPropagation()}
       >
         {item.label}
         <span aria-hidden className="text-sage">
@@ -159,33 +174,27 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
       <div
         id={menuId}
         role="menu"
-        className={`absolute right-0 top-full z-50 w-64 pt-3 ${
-          pinned
-            ? "visible pointer-events-auto"
-            : "invisible pointer-events-none group-hover:visible group-hover:pointer-events-auto group-focus-within:visible group-focus-within:pointer-events-auto"
+        className={`absolute right-0 top-full z-50 min-w-[13.5rem] pt-2 ${
+          expanded ? "visible pointer-events-auto" : "invisible pointer-events-none"
         }`}
       >
-        <div className="border border-ink/10 bg-ivory px-7 py-8 shadow-[0_18px_40px_rgba(43,37,35,0.06)]">
-          <WidgetBrandMark size="sm" />
-          <p className="mt-5 mb-6 text-[9px] uppercase tracking-[0.2em] text-sage">{item.label}</p>
-          <ul className="flex flex-col gap-5">
-            {item.children.map((child) => (
-              <li key={child.to} role="none">
-                <NavLink
-                  role="menuitem"
-                  to={child.to}
-                  className={({ isActive }) =>
-                    `block font-display text-base leading-snug ${
-                      isActive ? "text-ink" : "text-ink/55 hover:text-ink"
-                    }`
-                  }
-                >
-                  {child.label}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="flex flex-col gap-4 border border-ink/10 bg-ivory px-6 py-5 shadow-[0_18px_40px_rgba(43,37,35,0.06)]">
+          {item.children.map((child) => (
+            <li key={child.to} role="none">
+              <NavLink
+                role="menuitem"
+                to={child.to}
+                className={({ isActive }) =>
+                  `block whitespace-nowrap text-[11px] uppercase tracking-[0.14em] ${
+                    isActive ? "text-ink" : "text-ink/45 hover:text-ink"
+                  }`
+                }
+              >
+                {child.label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
@@ -195,7 +204,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
   return (
     <div
       id="menu-mobile"
-      className="fixed inset-0 z-[60] flex flex-col bg-ivory xl:hidden"
+      className="fixed inset-0 z-[60] flex flex-col bg-ivory lg:hidden"
       role="dialog"
       aria-modal="true"
       aria-label={nav.menu}

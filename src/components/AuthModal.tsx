@@ -23,6 +23,7 @@ export function AuthModal() {
         <AuthForm
           mode={mode}
           onMode={setMode}
+          redirectTo={`${window.location.pathname}${window.location.search}`}
           onPrivacy={() => setLegal("privacy")}
           onVendita={() => setLegal("vendita")}
           onSuccess={closeAuth}

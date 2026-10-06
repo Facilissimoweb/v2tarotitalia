@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { emptyConsents, hasRequiredConsents, type Consents } from "../lib/storage";
+import { isSupabaseConfigured } from "../lib/supabase";
 import { Button } from "./Button";
 import { ConsentFields } from "./ConsentFields";
 
@@ -15,12 +16,14 @@ type Props = {
   onPrivacy?: () => void;
   onVendita?: () => void;
   onSuccess?: () => void;
+  redirectTo?: string;
 };
 
-export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSuccess }: Props) {
-  const { login, register, requestMagicLink } = useAuth();
+export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSuccess, redirectTo }: Props) {
+  const { login, register, requestMagicLink, loginWithGoogle } = useAuth();
   const [modeState, setModeState] = useState<Mode>("login");
   const mode = modeProp ?? modeState;
+  const googleReady = isSupabaseConfigured();
 
   function setMode(next: Mode) {
     onMode?.(next);
@@ -54,8 +57,8 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
       mode === "login"
         ? await login(email, password, consents)
         : mode === "magic"
-          ? await requestMagicLink(email, consents)
-          : await register(email, password, consents, name);
+          ? await requestMagicLink(email, consents, redirectTo)
+          : await register(email, password, consents, name, redirectTo);
     setBusy(false);
     if (result === "verify") {
       setInfo(mode === "magic" ? auth.magicInviato : auth.verificaEmail);
@@ -66,6 +69,21 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
       return;
     }
     onSuccess?.();
+  }
+
+  async function onGoogle() {
+    setError(null);
+    setInfo(null);
+    if (!ready) {
+      setError(auth.errori.consensi);
+      return;
+    }
+    setBusy(true);
+    const result = await loginWithGoogle(consents, redirectTo);
+    if (result) {
+      setBusy(false);
+      setError(result);
+    }
   }
 
   return (
@@ -144,6 +162,12 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
 
       {error ? <p className="text-sm text-ink">{error}</p> : null}
       {info ? <p className="text-sm text-ink/70">{info}</p> : null}
+
+      {googleReady ? (
+        <Button type="button" variant="ghost" className="w-full" disabled={!ready || busy} onClick={() => void onGoogle()}>
+          {auth.google}
+        </Button>
+      ) : null}
 
       <Button type="submit" className="w-full" disabled={!ready || busy}>
         {mode === "login" ? auth.entra : mode === "magic" ? auth.inviaMagicLink : auth.creaAccount}

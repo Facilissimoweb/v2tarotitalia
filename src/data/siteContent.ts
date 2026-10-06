@@ -437,8 +437,8 @@ export const siteContent = {
     },
     avvisoConferma:
       "La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
-    senzaRegistrazione:
-      "Puoi confermare e inviare i dettagli della seduta su WhatsApp anche senza registrazione. L’area riservata e lo storico acquisti restano disponibili per chi preferisce accedere.",
+    accessoObbligatorio:
+      "Per finalizzare la prenotazione è necessario accedere o registrarsi. Lo storico degli acquisti e le richieste di recesso restano disponibili in Area riservata.",
     successoKicker: "Richiesta inviata",
     successoTitolo: "Dettagli inoltrati su WhatsApp",
     orarioNonDisponibile: "Seleziona una fascia oraria disponibile.",
@@ -459,7 +459,11 @@ export const siteContent = {
     creaAccount: "Crea account",
     magicLink: "Link magico",
     inviaMagicLink: "Invia il link magico",
+    google: "Continua con Google",
     adminEmail: "info@tarotitalia.com",
+    riferimento: "Riferimento",
+    recesso: "Richiedi recesso",
+    recessoInviato: "Richiesta di recesso inviata. L’assistenza prosegue via WhatsApp.",
     consensi: {
       privacyCookie:
         "Dichiaro di aver preso visione dell'Informativa sulla Privacy e sui Cookie e acconsento al trattamento dei dati personali. (Obbligatorio)",
@@ -474,6 +478,7 @@ export const siteContent = {
       consensi: "Per procedere è necessario accettare tutti i consensi obbligatori.",
       password: "Le password non coincidono.",
       servizio: "Servizio di accesso non disponibile.",
+      accesso: "Per finalizzare è necessario accedere o registrarsi.",
     },
     verificaEmail: "Controlla la casella di posta per confermare l'account.",
     magicInviato: "Controlla la casella di posta: il link magico apre l’area riservata e Itha.",

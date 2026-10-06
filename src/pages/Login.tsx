@@ -25,7 +25,7 @@ export function Login() {
       <PageHero
         kicker="Soglia riservata"
         title="Accedi"
-        lead={siteContent.consulti.senzaRegistrazione}
+        lead={siteContent.consulti.accessoObbligatorio}
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ href: "#login", label: "Entra nell'area riservata" }}
       />
@@ -36,6 +36,7 @@ export function Login() {
             <AuthForm
               mode={mode}
               onMode={setMode}
+              redirectTo={from}
               onPrivacy={() => setLegal("privacy")}
               onVendita={() => setLegal("vendita")}
               onSuccess={() => navigate(from, { replace: true })}

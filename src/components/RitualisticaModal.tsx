@@ -51,6 +51,11 @@ export function RitualisticaModal() {
   function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
+    if (!session) {
+      setPane("accesso");
+      setError(auth.errori.accesso);
+      return;
+    }
     if (!ready) {
       setError(auth.errori.consensi);
       return;
@@ -89,7 +94,9 @@ export function RitualisticaModal() {
           </div>
         ) : pane === "accesso" ? (
           <div className="flex flex-col gap-8 text-left">
+            <p className="text-sm leading-[1.9] text-ink/75">{consulti.accessoObbligatorio}</p>
             <AuthForm
+              redirectTo={`${window.location.pathname}${window.location.search}`}
               onPrivacy={() => setLegalKind("privacy")}
               onVendita={() => setLegalKind("vendita")}
               onSuccess={() => setPane("richiesta")}
@@ -187,9 +194,15 @@ export function RitualisticaModal() {
 
             {error ? <p className="text-sm text-ink">{error}</p> : null}
 
-            <Button type="submit" className="w-full" disabled={!ready}>
-              {ritualistica.inviaWhatsapp}
-            </Button>
+            {session ? (
+              <Button type="submit" className="w-full" disabled={!ready}>
+                {ritualistica.inviaWhatsapp}
+              </Button>
+            ) : (
+              <Button type="button" className="w-full" onClick={() => setPane("accesso")}>
+                {nav.accedi}
+              </Button>
+            )}
             <a
               ref={waLink}
               href={whatsappHref(
@@ -207,7 +220,7 @@ export function RitualisticaModal() {
             >
               {ritualistica.inviaWhatsapp}
             </a>
-            <p className="text-center text-[12px] leading-relaxed text-ink/55">{consulti.senzaRegistrazione}</p>
+            <p className="text-center text-[12px] leading-relaxed text-ink/55">{consulti.accessoObbligatorio}</p>
             {!session ? (
               <button
                 type="button"

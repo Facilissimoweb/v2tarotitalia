@@ -21,11 +21,11 @@ export function groqModelPreference() {
 }
 
 export function supabaseUrl() {
-  return readServerEnv("SUPABASE_URL") || readServerEnv("VITE_SUPABASE_URL");
+  return readServerEnv("VITE_SUPABASE_URL") || readServerEnv("SUPABASE_URL");
 }
 
 export function supabaseAnonKey() {
-  return readServerEnv("SUPABASE_ANON_KEY") || readServerEnv("VITE_SUPABASE_ANON_KEY");
+  return readServerEnv("VITE_SUPABASE_ANON_KEY") || readServerEnv("SUPABASE_ANON_KEY");
 }
 
 export function supabaseServiceKey() {

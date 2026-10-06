@@ -1,33 +1,38 @@
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { consultTotal, REPORT_PDF_PRICE, STUDIO, TARIFFE, type TariffaId } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import {
+  clearBookingDraft,
   emptyConsents,
   hasRequiredConsents,
   nextBookableDate,
+  readBookingDraft,
   slotsForDate,
+  writeBookingDraft,
   type BookingMode,
   type Consents,
-  type Purchase,
 } from "../lib/storage";
 import { buildWhatsAppMessage, formatBookingDay, whatsappHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
+import { AuthForm } from "../components/AuthForm";
 import { BookingCalendar } from "../components/BookingCalendar";
 import { Button, Kicker } from "../components/Button";
 import { ConsentFields } from "../components/ConsentFields";
 import { LegalNotice, type LegalKind } from "../components/LegalNotice";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
+import { WidgetFrame } from "../components/WidgetFrame";
 
-const { consulti } = siteContent;
+const { consulti, auth } = siteContent;
 
 function initialDate() {
   return nextBookableDate();
 }
 
 export function Consulti() {
-  const { addPurchase, session } = useAuth();
+  const { addPurchase, session, ready } = useAuth();
+  const navigate = useNavigate();
   const start = initialDate();
   const [type, setType] = useState<TariffaId>("focus");
   const [mode, setMode] = useState<BookingMode>("remote");
@@ -40,18 +45,64 @@ export function Consulti() {
   const [pdf, setPdf] = useState(false);
   const [consents, setConsents] = useState<Consents>(emptyConsents);
   const [notice, setNotice] = useState<LegalKind | null>(null);
-  const [done, setDone] = useState<Purchase | null>(null);
+  const [authMode, setAuthMode] = useState<"login" | "register" | "magic">("login");
   const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const pendingLock = useRef(false);
   const waLink = useRef<HTMLAnchorElement>(null);
+  const restored = useRef(false);
 
   const option = consulti.opzioni.find((o) => o.id === type)!;
   const total = consultTotal(option.prezzo, pdf);
   const dayLabel = formatBookingDay(dateIso);
 
   useEffect(() => {
+    if (restored.current) return;
+    const saved = readBookingDraft();
+    if (!saved) {
+      restored.current = true;
+      return;
+    }
+    restored.current = true;
+    setType(saved.type);
+    setMode(saved.mode);
+    setDateIso(saved.dateIso);
+    setSlot(saved.slot);
+    setName(saved.name);
+    setPhone(saved.phone);
+    setBirth(saved.birth ?? "");
+    setQuery(saved.query ?? "");
+    setPdf(saved.pdf);
+    setConsents(saved.consents);
+  }, []);
+
+  useEffect(() => {
     if (session?.name && !name) setName(session.name);
+    if (session?.consents && hasRequiredConsents(session.consents)) {
+      setConsents(session.consents);
+    }
   }, [session, name]);
+
+  useEffect(() => {
+    if (session) return;
+    if (!name.trim() && !phone.trim()) return;
+    writeBookingDraft({
+      type,
+      minutes: option.minuti as 30 | 60,
+      consultPrice: option.prezzo as 40 | 60 | 70,
+      pdf,
+      pdfPrice: (pdf ? REPORT_PDF_PRICE : 0) as 0 | 10,
+      total,
+      mode,
+      dateIso,
+      slot,
+      name: name.trim(),
+      phone: phone.trim(),
+      birth: birth || undefined,
+      query: query.trim() || undefined,
+      consents,
+    });
+  }, [session, type, option.minuti, option.prezzo, pdf, total, mode, dateIso, slot, name, phone, birth, query, consents]);
 
   function chooseDate(iso: string) {
     setDateIso(iso);
@@ -77,6 +128,10 @@ export function Consulti() {
     };
   }
 
+  function persistDraft() {
+    writeBookingDraft({ ...draft(), consents });
+  }
+
   async function confirm() {
     const data = draft();
     if (!data.name || !data.phone || !data.dateIso || !data.slot) return;
@@ -84,64 +139,35 @@ export function Consulti() {
       setError(consulti.orarioNonDisponibile);
       return;
     }
+    if (!session) {
+      persistDraft();
+      setError(auth.errori.accesso);
+      return;
+    }
     if (!hasRequiredConsents(consents)) {
-      setError(siteContent.auth.errori.consensi);
+      setError(auth.errori.consensi);
       return;
     }
     if (pendingLock.current) return;
     pendingLock.current = true;
+    setBusy(true);
     setError(null);
+    const err = await addPurchase(data, consents);
+    if (err) {
+      pendingLock.current = false;
+      setBusy(false);
+      setError(err);
+      return;
+    }
     const message = buildWhatsAppMessage(data, option.titolo);
     if (waLink.current) {
       waLink.current.href = whatsappHref(message);
       waLink.current.click();
     }
-    await addPurchase(data, consents);
+    clearBookingDraft();
     pendingLock.current = false;
-    setDone({
-      ...data,
-      id: crypto.randomUUID(),
-      createdAt: new Date().toISOString(),
-      status: "pending_whatsapp",
-      consents,
-    });
-  }
-
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    void confirm();
-  }
-
-  if (done) {
-    const sent = whatsappHref(buildWhatsAppMessage(done, option.titolo));
-    return (
-      <PageHero
-        kicker={consulti.successoKicker}
-        title={consulti.successoTitolo}
-        lead={
-          <>
-            Gentile <strong className="font-medium">{done.name}</strong>, i dettagli per{" "}
-            <strong className="font-medium">{option.titolo}</strong> ({done.minutes} min, €{done.total}) il{" "}
-            <strong className="font-medium">{formatBookingDay(done.dateIso)}</strong> alle {done.slot} —{" "}
-            {done.mode === "remote" ? "chiamata vocale WhatsApp" : `in studio a ${STUDIO.city}`} — sono stati
-            inoltrati.
-            {done.pdf ? ` ${consulti.pdf.etichetta} (+€${consulti.pdf.prezzo}).` : ""}{" "}
-            {consulti.avvisoConferma}
-          </>
-        }
-        cta={{ href: sent, label: "Apri WhatsApp" }}
-        secondary={
-          session
-            ? { to: "/riservata", label: siteContent.nav.riservata }
-            : { to: "/login", label: siteContent.nav.accedi }
-        }
-        media={{
-          src: siteContent.chiSiamo.immagini.simboli.src,
-          type: "image",
-          alt: siteContent.chiSiamo.immagini.simboli.alt,
-        }}
-      />
-    );
+    setBusy(false);
+    navigate("/riservata");
   }
 
   return (
@@ -164,10 +190,9 @@ export function Consulti() {
         }}
       />
 
-      <form
+      <div
         id="prenota"
         className="mx-auto flex max-w-2xl scroll-mt-28 flex-col gap-20 px-6 pb-24 md:gap-24 md:px-10 md:pb-32"
-        onSubmit={onSubmit}
       >
         <Reveal>
           <section>
@@ -308,18 +333,42 @@ export function Consulti() {
               </div>
             </div>
             <p className="mt-8 bg-linen p-6 text-[12px] leading-relaxed text-ink/75">{consulti.avvisoConferma}</p>
-            <div className="mt-8">
-              <ConsentFields
-                consents={consents}
-                onChange={setConsents}
-                onPrivacy={() => setNotice("privacy")}
-                onVendita={() => setNotice("vendita")}
-              />
-            </div>
-            {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
-            <Button type="submit" className="mt-8 w-full">
-              {consulti.conferma}
-            </Button>
+            {session ? (
+              <>
+                <div className="mt-8">
+                  <ConsentFields
+                    consents={consents}
+                    onChange={setConsents}
+                    onPrivacy={() => setNotice("privacy")}
+                    onVendita={() => setNotice("vendita")}
+                  />
+                </div>
+                {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
+                <Button type="button" className="mt-8 w-full" disabled={busy} onClick={() => void confirm()}>
+                  {consulti.conferma}
+                </Button>
+              </>
+            ) : (
+              <div className="mt-8 bg-paper p-8 md:p-10">
+                <WidgetFrame
+                  title={authMode === "login" ? auth.login : authMode === "magic" ? auth.magicLink : auth.registrazione}
+                >
+                  {ready ? <p className="mb-8 text-center text-sm leading-[1.9] text-ink/70">{consulti.accessoObbligatorio}</p> : null}
+                  <AuthForm
+                    mode={authMode}
+                    onMode={setAuthMode}
+                    redirectTo="/consulti"
+                    onPrivacy={() => setNotice("privacy")}
+                    onVendita={() => setNotice("vendita")}
+                    onSuccess={() => {
+                      persistDraft();
+                      setError(null);
+                    }}
+                  />
+                </WidgetFrame>
+                {error ? <p className="mt-6 text-center text-sm text-ink">{error}</p> : null}
+              </div>
+            )}
             <a
               ref={waLink}
               href={whatsappHref(buildWhatsAppMessage(draft(), option.titolo))}
@@ -330,19 +379,9 @@ export function Consulti() {
             >
               {consulti.conferma}
             </a>
-            <p className="mt-4 text-center text-[12px] leading-relaxed text-ink/55">{consulti.senzaRegistrazione}</p>
-            {!session ? (
-              <p className="mt-3 text-center text-[11px] text-ink/45">
-                <Link to="/login" className="underline decoration-sage/40 underline-offset-4 hover:text-ink">
-                  {siteContent.nav.accedi}
-                </Link>
-                {" · "}
-                {siteContent.nav.riservata}
-              </p>
-            ) : null}
           </section>
         </Reveal>
-      </form>
+      </div>
       <LegalNotice kind={notice} onClose={() => setNotice(null)} />
     </div>
   );

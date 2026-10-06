@@ -122,8 +122,18 @@ async function rasterizeSvg(svg: string, width = 280) {
 
 async function rasterizeUrl(url: string, width: number) {
   const image = new Image();
-  image.src = url;
-  await image.decode();
+  await new Promise<void>((resolve, reject) => {
+    const timer = window.setTimeout(() => reject(new Error("img")), 8000);
+    image.onload = () => {
+      window.clearTimeout(timer);
+      resolve();
+    };
+    image.onerror = () => {
+      window.clearTimeout(timer);
+      reject(new Error("img"));
+    };
+    image.src = url;
+  });
   const height = Math.max(1, Math.round((image.naturalHeight / Math.max(image.naturalWidth, 1)) * width));
   const canvas = document.createElement("canvas");
   canvas.width = width;
@@ -195,7 +205,7 @@ async function localizeReport(reading: IthaReading, language: string) {
   });
   const localized = isSourceLanguage(language)
     ? official
-    : await localizeOfficialTexts(language, official, { strict: true });
+    : await localizeOfficialTexts(language, official);
   return {
     labels: {
       subtitle: localized.subtitle || official.subtitle,
@@ -218,8 +228,11 @@ function triggerBlob(blob: Blob, filename: string) {
   const a = document.createElement("a");
   a.href = url;
   a.download = filename;
+  a.rel = "noopener";
+  document.body.append(a);
   a.click();
-  URL.revokeObjectURL(url);
+  a.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function languageFile(base: string, language: string, ext: string) {

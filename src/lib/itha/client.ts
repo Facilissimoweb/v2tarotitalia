@@ -13,6 +13,7 @@ import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
 import { activeLanguage, isSourceLanguage } from "../language.ts";
 import { localizeOfficialTexts } from "../localizeClient.ts";
 import { readJsonSafe } from "../readJsonSafe.ts";
+import { fetchWithTimeout, isGroqUnavailable, markGroqUnavailable } from "../remoteApi.ts";
 import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, ithaDemoAccess, type IthaDecode, type IthaDecodeRequest, type IthaPlanId, type IthaReading } from "./types.ts";
 import type { DrawnIthaCard } from "../../data/ithaMazzo.ts";
 
@@ -50,8 +51,9 @@ export async function requestIthaDecode(input: IthaDecodeRequest) {
 }
 
 async function requestRemoteDecode(input: IthaDecodeRequest) {
+  if (isGroqUnavailable()) return null;
   try {
-    const response = await fetch("/api/itha-decode", {
+    const response = await fetchWithTimeout("/api/itha-decode", {
       method: "POST",
       headers: await authHeaders(),
       body: JSON.stringify(input),
@@ -60,8 +62,10 @@ async function requestRemoteDecode(input: IthaDecodeRequest) {
     if (response.ok && json?.decode && json.id) {
       return json as { id: string; createdAt: string; credits: number; decode: IthaDecode };
     }
+    if (response.status === 503) markGroqUnavailable();
     return null;
   } catch {
+    markGroqUnavailable();
     return null;
   }
 }
@@ -75,7 +79,7 @@ async function decodeInDev(input: IthaDecodeRequest) {
     : consumeDevCredit() ?? (isIthaDev() ? ITHA_DEV_PACK : null);
   if (remaining === null) throw new Error(siteContent.itha.errori.crediti);
   let decode = buildLumiereFallback(input);
-  if (!isSourceLanguage(input.language)) {
+  if (!isSourceLanguage(input.language) && !isGroqUnavailable()) {
     try {
       const localized = await localizeOfficialTexts(input.language, decode);
       if (localized.analisi && localized.coerenza && localized.spunto) {

@@ -10,17 +10,40 @@ import { IthaDevGrant } from "../components/IthaDevGrant.tsx";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { siteDateTime } from "../lib/locale";
-import type { PurchaseStatus } from "../lib/storage";
+import { canRequestWithdrawal, type PurchaseStatus } from "../lib/storage";
+import { buildRecessoMessage, openWhatsApp } from "../lib/whatsapp";
 
 type Tab = "acquisti" | "corsi" | "alchemici" | "itha";
 
-const { auth, consulti, itha, lingua } = siteContent;
+const { auth, consulti, itha, lingua, legal } = siteContent;
 
 export function Riservata() {
-  const { session, purchases, logout } = useAuth();
+  const { session, purchases, logout, requestWithdrawal } = useAuth();
   const { credits, readings, openItha } = useItha();
   const { corsi, materiali, busy, localized, error, download } = useLocalizedCatalog();
   const [tab, setTab] = useState<Tab>("acquisti");
+  const [withdrawId, setWithdrawId] = useState<string | null>(null);
+  const [withdrawError, setWithdrawError] = useState<string | null>(null);
+  const [withdrawn, setWithdrawn] = useState<string | null>(null);
+
+  const recessoConsulti = legal.vendita.sezioni.find((sezione) => sezione.id === "consulti")?.testi[1];
+  const recessoDigitali = legal.vendita.sezioni.find((sezione) => sezione.id === "digitali")?.testi[1];
+
+  async function onRecesso(id: string, optionTitle: string) {
+    if (withdrawId) return;
+    setWithdrawError(null);
+    setWithdrawn(null);
+    setWithdrawId(id);
+    const err = await requestWithdrawal(id);
+    setWithdrawId(null);
+    if (err) {
+      setWithdrawError(err);
+      return;
+    }
+    const purchase = purchases.find((item) => item.id === id);
+    if (purchase) openWhatsApp(buildRecessoMessage({ ...purchase, status: "cancelled" }, optionTitle));
+    setWithdrawn(auth.recessoInviato);
+  }
 
   return (
     <div>
@@ -77,15 +100,24 @@ export function Riservata() {
             <Reveal>
               <div>
                 <Kicker>{auth.storico}</Kicker>
-                <h2 className="font-display text-xl italic">I tuoi acquisti</h2>
+                <h2 className="font-display text-xl italic">{auth.storico}</h2>
+                {recessoConsulti ? (
+                  <p className="mt-4 text-sm leading-[1.9] text-ink/70">{recessoConsulti}</p>
+                ) : null}
+                {recessoDigitali ? (
+                  <p className="mt-2 text-sm leading-[1.9] text-ink/70">{recessoDigitali}</p>
+                ) : null}
+                <p className="mt-2 text-sm leading-[1.9] text-ink/70">{legal.vendita.assistenza.testo}</p>
               </div>
             </Reveal>
+            {withdrawError ? <p className="text-sm text-ink">{withdrawError}</p> : null}
+            {withdrawn ? <p className="text-sm text-ink/70">{withdrawn}</p> : null}
             {purchases.length === 0 && (
               <Reveal delay={100}>
                 <p className="bg-mist p-5 text-sm text-ink/65">
                   Nessun acquisto registrato.{" "}
                   <Link to="/consulti" className="underline underline-offset-4">
-                    Prenota una sessione
+                    {siteContent.cta.consultoWhatsapp}
                   </Link>
                   .
                 </p>
@@ -94,6 +126,7 @@ export function Riservata() {
             {purchases.map((b, i) => {
               const t = TARIFFE.find((x) => x.id === b.type);
               const option = consulti.opzioni.find((o) => o.id === b.type);
+              const title = option?.titolo ?? t?.name ?? b.type;
               const date = b.dateIso
                 ? siteDateTime({
                     weekday: "long",
@@ -107,6 +140,7 @@ export function Riservata() {
                     year: "numeric",
                   }).format(new Date(b.createdAt));
               const status = auth.stati[b.status as PurchaseStatus];
+              const withdrawable = canRequestWithdrawal(b.status);
               return (
                 <Reveal key={b.id} delay={i * 80}>
                   <article className="bg-paper p-8">
@@ -114,10 +148,18 @@ export function Riservata() {
                       <p className="text-[11px] uppercase tracking-[0.16em] text-sage">{date}</p>
                       <span className="bg-mist px-2 py-0.5 text-xs">{status}</span>
                     </div>
-                    <h3 className="mt-3 font-display text-lg">{option?.titolo ?? t?.name}</h3>
+                    <h3 className="mt-3 font-display text-lg">{title}</h3>
                     <p className="mt-1 text-xs text-ink/60">
                       {b.minutes} minuti · {b.mode === "remote" ? "Chiamata vocale WhatsApp" : `In studio a ${STUDIO.city}`}
                       {b.slot ? ` · Ore ${b.slot}` : ""}
+                    </p>
+                    <p className="mt-3 text-xs leading-relaxed text-ink/65">
+                      {b.name}
+                      {b.phone ? ` · ${b.phone}` : ""}
+                    </p>
+                    {b.query ? <p className="mt-2 text-xs leading-relaxed text-ink/60">{b.query}</p> : null}
+                    <p className="mt-2 text-[10px] uppercase tracking-[0.14em] text-ink/45">
+                      {auth.riferimento} {b.id}
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2">
                       <span className="bg-mist px-2.5 py-1 text-[10px] uppercase tracking-wider">
@@ -132,13 +174,26 @@ export function Riservata() {
                         Totale €{b.total}
                       </span>
                     </div>
+                    {withdrawable ? (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="mt-6"
+                        disabled={withdrawId === b.id}
+                        onClick={() => void onRecesso(b.id, title)}
+                      >
+                        {auth.recesso}
+                      </Button>
+                    ) : b.status === "completed" && recessoConsulti ? (
+                      <p className="mt-6 text-[12px] leading-relaxed text-ink/55">{recessoConsulti}</p>
+                    ) : null}
                   </article>
                 </Reveal>
               );
             })}
             <Reveal>
               <Button to="/consulti" variant="ghost">
-                Prenota un nuovo consulto
+                {siteContent.cta.consultoWhatsapp}
               </Button>
             </Reveal>
           </div>

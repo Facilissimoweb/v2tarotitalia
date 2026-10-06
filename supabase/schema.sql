@@ -1,7 +1,7 @@
 -- Tarot Italia — schema Supabase
 -- Admin di riferimento: info@tarotitalia.com
 -- Eseguire nell'editor SQL del progetto Supabase (dopo aver abilitato Auth).
--- Prenotazioni guest: user_id nullable; conferma solo dopo risposta esplicita via WhatsApp.
+-- Prenotazioni canoniche: user_id = auth.uid(). L’inserimento guest resta solo per compatibilità storica.
 
 create extension if not exists "pgcrypto";
 
@@ -203,6 +203,19 @@ create policy "bookings_update_admin"
   using (public.is_admin())
   with check (public.is_admin());
 
+drop policy if exists "bookings_update_own_cancel" on public.bookings;
+create policy "bookings_update_own_cancel"
+  on public.bookings for update
+  to authenticated
+  using (
+    auth.uid() = user_id
+    and status in ('pending', 'pending_whatsapp', 'confirmed')
+  )
+  with check (
+    auth.uid() = user_id
+    and status = 'cancelled'
+  );
+
 drop policy if exists "purchases_select_own" on public.purchases;
 create policy "purchases_select_own"
   on public.purchases for select
@@ -221,6 +234,19 @@ create policy "purchases_update_admin"
   to authenticated
   using (public.is_admin())
   with check (public.is_admin());
+
+drop policy if exists "purchases_update_own_cancel" on public.purchases;
+create policy "purchases_update_own_cancel"
+  on public.purchases for update
+  to authenticated
+  using (
+    auth.uid() = user_id
+    and status in ('pending', 'pending_whatsapp', 'confirmed')
+  )
+  with check (
+    auth.uid() = user_id
+    and status = 'cancelled'
+  );
 
 grant usage on schema public to anon, authenticated;
 grant select, insert, update on public.profiles to authenticated;
