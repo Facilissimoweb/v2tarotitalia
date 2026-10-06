@@ -17,7 +17,7 @@ import { BrandLogo } from "./BrandLogo";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetBrandMark } from "./WidgetFrame";
 
-const { brand, nav } = siteContent;
+const { brand, nav, itha } = siteContent;
 
 const linkClass = (active: boolean) =>
   `whitespace-nowrap text-[10px] uppercase tracking-[0.14em] transition-colors xl:text-[11px] xl:tracking-[0.16em] ${
@@ -227,7 +227,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
           {MAIN_NAV.map((item) =>
             isNavBranch(item) ? (
               <div key={item.label} className="border-t border-ink/10">
-                <p className="py-6 font-body text-[1.45rem] font-normal lowercase not-italic leading-none tracking-[0.01em] text-ink">
+                <p className="py-6 font-body text-[13px] font-normal uppercase not-italic leading-none tracking-[0.22em] text-ink">
                   {item.label}
                 </p>
                 <ul className="pb-4">
@@ -236,7 +236,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                       <NavLink
                         to={child.to}
                         className={({ isActive }) =>
-                          `block py-4 font-body text-[1.15rem] font-normal lowercase not-italic leading-none tracking-[0.01em] ${
+                          `block py-4 font-body text-[11px] font-normal uppercase not-italic leading-none tracking-[0.18em] ${
                             isActive ? "text-ink" : "text-ink/35"
                           }`
                         }
@@ -253,7 +253,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `border-t border-ink/10 py-6 font-body text-[1.45rem] font-normal lowercase not-italic leading-none tracking-[0.01em] ${
+                  `border-t border-ink/10 py-6 font-body text-[13px] font-normal uppercase not-italic leading-none tracking-[0.22em] ${
                     isActive ? "text-ink" : "text-ink/40"
                   }`
                 }
@@ -268,16 +268,23 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       <div className="shrink-0 bg-ivory border-t border-ink/10 px-8 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <button
           type="button"
-          className="flex w-full items-center gap-4 px-4 py-3.5 text-left ring-1 ring-ink/12"
-          aria-label={nav.itha}
+          className="flex w-full items-stretch bg-ink text-left text-ivory"
+          aria-label={`${nav.itha}. ${itha.drawerLead}`}
           onClick={() => {
             onClose();
             openItha();
           }}
         >
-          <BrandLogo className="h-10 w-10" />
-          <span className="font-body text-[1.25rem] font-normal lowercase not-italic tracking-[0.02em] text-ink">
-            {nav.itha}
+          <span className="flex w-[3.25rem] shrink-0 items-center justify-center bg-sage/25 text-sage" aria-hidden>
+            <IthaAppGlyph />
+          </span>
+          <span className="min-w-0 flex-1 px-4 py-3.5">
+            <span className="block font-body text-[12px] font-normal uppercase not-italic leading-none tracking-[0.22em]">
+              {nav.itha}
+            </span>
+            <span className="mt-2 block font-body text-[10px] font-normal uppercase not-italic leading-snug tracking-[0.12em] text-ivory/60">
+              {itha.drawerLead}
+            </span>
           </span>
         </button>
         <div className="mt-1 border-t border-ink/10 pt-1">
@@ -344,6 +351,18 @@ function CloseIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
       <path d="M6 6 L18 18 M18 6 L6 18" />
+    </svg>
+  );
+}
+
+/** Glifo delle tre lame: distingue Itha dalle voci di navigazione. */
+function IthaAppGlyph() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+      <rect x="2.2" y="5.2" width="8.2" height="13.2" stroke="currentColor" strokeWidth="1.2" />
+      <rect x="7" y="3.4" width="8.2" height="13.2" stroke="currentColor" strokeWidth="1.2" />
+      <rect x="11.8" y="5.2" width="8.2" height="13.2" stroke="currentColor" strokeWidth="1.2" />
+      <path d="M11 2.2 V4.4 M9.9 3.3 H12.1" stroke="currentColor" strokeWidth="1.1" />
     </svg>
   );
 }

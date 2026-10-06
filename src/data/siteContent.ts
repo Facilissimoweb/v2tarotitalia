@@ -229,6 +229,7 @@ export const siteContent = {
   itha: {
     titoloWidget: "Itha · Il Crocicchio di Ecate",
     sticky: "Itha",
+    drawerLead: "App di lettura con IA online",
     kicker: "Alter ego di Tarot Italia",
     saluto: "Ciao, sono Itha.",
     intro:
