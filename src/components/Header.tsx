@@ -223,11 +223,11 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       </div>
 
       <nav className="flex-1 overflow-y-auto px-8 pb-4" aria-label="Principale">
-        <div className="flex flex-col">
+        <div className="flex flex-col text-center">
           {MAIN_NAV.map((item) =>
             isNavBranch(item) ? (
               <div key={item.label} className="border-t border-ink/10">
-                <p className="py-6 font-body text-[13px] font-normal uppercase not-italic leading-none tracking-[0.22em] text-ink">
+                <p className="py-6 font-body text-[13px] font-bold uppercase not-italic leading-none tracking-[0.22em] text-ink">
                   {item.label}
                 </p>
                 <ul className="pb-4">
@@ -236,8 +236,8 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                       <NavLink
                         to={child.to}
                         className={({ isActive }) =>
-                          `block py-4 font-body text-[11px] font-normal uppercase not-italic leading-none tracking-[0.18em] ${
-                            isActive ? "text-ink" : "text-ink/35"
+                          `block py-4 font-body text-[11px] font-semibold uppercase not-italic leading-none tracking-[0.18em] ${
+                            isActive ? "text-ink" : "text-ink/40"
                           }`
                         }
                       >
@@ -253,8 +253,8 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `border-t border-ink/10 py-6 font-body text-[13px] font-normal uppercase not-italic leading-none tracking-[0.22em] ${
-                    isActive ? "text-ink" : "text-ink/40"
+                  `border-t border-ink/10 py-6 font-body text-[13px] font-bold uppercase not-italic leading-none tracking-[0.22em] ${
+                    isActive ? "text-ink" : "text-ink/45"
                   }`
                 }
               >
@@ -268,23 +268,21 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       <div className="shrink-0 bg-ivory border-t border-ink/10 px-8 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <button
           type="button"
-          className="flex w-full items-stretch bg-ink text-left text-ivory"
+          className="flex w-full flex-col items-center bg-ink px-4 py-4 text-center text-ivory"
           aria-label={`${nav.itha}. ${itha.drawerLead}`}
           onClick={() => {
             onClose();
             openItha();
           }}
         >
-          <span className="flex w-[3.25rem] shrink-0 items-center justify-center bg-sage/25 text-sage" aria-hidden>
+          <span className="mb-3 flex h-10 w-10 items-center justify-center bg-sage/25 text-sage" aria-hidden>
             <IthaAppGlyph />
           </span>
-          <span className="min-w-0 flex-1 px-4 py-3.5">
-            <span className="block font-body text-[12px] font-normal uppercase not-italic leading-none tracking-[0.22em]">
-              {nav.itha}
-            </span>
-            <span className="mt-2 block font-body text-[10px] font-normal uppercase not-italic leading-snug tracking-[0.12em] text-ivory/60">
-              {itha.drawerLead}
-            </span>
+          <span className="block font-body text-[12px] font-bold uppercase not-italic leading-none tracking-[0.22em]">
+            {nav.itha}
+          </span>
+          <span className="mt-2 block font-body text-[10px] font-semibold uppercase not-italic leading-snug tracking-[0.12em] text-ivory/70">
+            {itha.drawerLead}
           </span>
         </button>
         <div className="mt-1 border-t border-ink/10 pt-1">
