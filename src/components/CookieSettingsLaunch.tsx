@@ -1,11 +1,14 @@
 import { siteContent } from "../data/siteContent";
 import { useConsent } from "../context/ConsentContext";
+import { useFooterClearance } from "../lib/useFooterClearance";
 
 const { cookies } = siteContent;
 
 /** Pulsante sticky a sola icona: riapre il modale cookie in qualsiasi punto dello scroll. */
 export function CookieSettingsLaunch() {
   const { ready, open, reopen } = useConsent();
+  const lift = useFooterClearance();
+  const inset = "max(1.25rem, env(safe-area-inset-bottom))";
 
   if (!ready || open) return null;
 
@@ -14,7 +17,8 @@ export function CookieSettingsLaunch() {
       type="button"
       onClick={reopen}
       aria-label={cookies.gestisci}
-      className="fixed bottom-5 left-5 z-40 flex h-11 w-11 items-center justify-center bg-ivory/95 text-ink/55 shadow-[0_8px_24px_rgba(43,37,35,0.08)] ring-1 ring-ink/10 backdrop-blur-md transition-colors duration-200 hover:text-ink md:bottom-6 md:left-6"
+      className="fixed left-5 z-40 flex h-11 w-11 items-center justify-center bg-ivory/95 text-ink/55 shadow-[0_8px_24px_rgba(43,37,35,0.08)] ring-1 ring-ink/10 backdrop-blur-md transition-colors duration-200 hover:text-ink md:left-6"
+      style={{ bottom: `calc(${lift}px + ${inset})` }}
     >
       <CookieIcon />
     </button>

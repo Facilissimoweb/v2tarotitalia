@@ -9,7 +9,6 @@ import { CookieBanner } from "./components/CookieBanner";
 import { CookieSettingsLaunch } from "./components/CookieSettingsLaunch";
 import { AuthModal } from "./components/AuthModal";
 import { RitualisticaModal } from "./components/RitualisticaModal";
-import { IthaLaunch } from "./components/IthaLaunch.tsx";
 import { IthaModal } from "./components/IthaModal.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
@@ -27,7 +26,7 @@ import { Login } from "./pages/Login";
 import { Riservata } from "./pages/Riservata";
 import { NonTrovata } from "./pages/NonTrovata";
 import { ComingSoon } from "./components/ComingSoon";
-import { ContactLaunch } from "./components/ContactLaunch";
+import { StudioContactDock } from "./components/ContactDock";
 import { useSiteAccess } from "./lib/useSiteAccess";
 
 export default function App() {
@@ -72,8 +71,7 @@ export default function App() {
         <CookieSettingsLaunch />
         <AuthModal />
         <RitualisticaModal />
-        <IthaLaunch />
-        <ContactLaunch raised />
+        <StudioContactDock />
         <IthaModal />
         </IthaProvider>
         </LanguageProvider>

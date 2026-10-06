@@ -52,6 +52,7 @@ export const siteContent = {
     consultoWhatsapp: "Prenota un consulto WhatsApp",
     whatsappRapido: "WhatsApp",
     chiama: "Chiama",
+    telegram: "Telegram",
     esploraArcani: "Esplora i 22 Arcani",
     leggiChiSiamo: "Leggi Chi Siamo",
     scriviStudio: "Scrivi allo Studio",

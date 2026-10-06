@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
-import { ContactLaunch } from "./ContactLaunch";
+import { ContactDock } from "./ContactDock";
 import { Kicker } from "./Button";
 
 const { brand, pages } = siteContent;
@@ -40,7 +40,7 @@ export function ComingSoon() {
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-ink/65">{brand.slogan}</p>
       </div>
-      <ContactLaunch />
+      <ContactDock />
     </main>
   );
 }

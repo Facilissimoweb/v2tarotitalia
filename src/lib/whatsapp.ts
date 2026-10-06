@@ -19,6 +19,13 @@ export function getPhoneHref() {
   return phone ? `tel:+${phone}` : "";
 }
 
+export function telegramHref() {
+  const fromEnv = (import.meta.env.VITE_TELEGRAM_URL ?? "").trim();
+  if (fromEnv) return fromEnv;
+  const phone = getWhatsAppNumber();
+  return phone ? `https://t.me/+${phone}` : "";
+}
+
 export function formatBookingDay(dateIso: string) {
   if (!dateIso) return "";
   return siteDateTime({

@@ -18,7 +18,7 @@ export function Footer() {
   const [notice, setNotice] = useState<LegalKind | null>(null);
 
   return (
-    <footer className="mt-auto bg-mist px-6 py-20 text-center md:px-10 md:py-28">
+    <footer data-site-footer className="mt-auto bg-mist px-6 py-20 text-center md:px-10 md:py-28">
       <div translate="no">
         <BrandLogo className="mx-auto h-24 w-24 md:h-28 md:w-28" />
         <p className="mt-8 font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
