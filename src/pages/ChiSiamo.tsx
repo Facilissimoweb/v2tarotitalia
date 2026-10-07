@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { siteContent } from "../data/siteContent";
+import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { ImageSlot } from "../components/ImageSlot";
-import { Kicker } from "../components/Button";
+import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 
@@ -8,6 +10,8 @@ const { brand, chiSiamo, collaboratori, cta } = siteContent;
 const { maura } = collaboratori;
 
 export function ChiSiamo() {
+  const [formazioneOpen, setFormazioneOpen] = useState(false);
+
   return (
     <div>
       <PageHero
@@ -104,7 +108,7 @@ export function ChiSiamo() {
         </div>
       </section>
 
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <section className="px-6 py-24 pb-40 md:px-10 md:py-32 md:pb-48">
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <Kicker>{chiSiamo.percorsoKicker}</Kicker>
@@ -117,8 +121,17 @@ export function ChiSiamo() {
               </Reveal>
             ))}
           </ul>
+          <Reveal delay={200}>
+            <div className="mt-14 text-center">
+              <Button variant="ghost" onClick={() => setFormazioneOpen(true)}>
+                {chiSiamo.percorsoEsteso.kicker}
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
+
+      {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.85fr)_1.15fr] md:gap-24">

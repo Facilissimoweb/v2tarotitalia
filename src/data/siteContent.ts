@@ -55,6 +55,7 @@ export const siteContent = {
     chiama: "Chiama",
     telegram: "Telegram",
     esploraArcani: "Esplora i 22 Arcani",
+    formazioneOlistica: "Formazione Olistica di Teresa",
     leggiChiSiamo: "Leggi Chi Siamo",
     scriviStudio: "Scrivi allo Studio",
     ritualistica: "Ritualistica",
@@ -203,6 +204,56 @@ export const siteContent = {
         dettaglio: "Emiliano Amici",
       },
     ],
+    percorsoEsteso: {
+      kicker: "PERCORSO DISCIPLINARE ESTESO",
+      badge: "Percorso Disciplinare Certificato | ACCREDITAMENTI IPHM",
+      titolo: "Formazione Olistica di Teresa",
+      lead: "Un percorso di continua ricerca, studio con maestri accreditati e pratica rigorosa su molteplici canali della salute energetica e della divinazione simbolica.",
+      voci: [
+        {
+          badge: "Percorso 2025",
+          icona: "✨",
+          titolo: "Tarocchi Rider Waite Smith",
+          testo:
+            "Formata con la taromante Mariangela Aggio per il Percorso 2025 in lettura e decodifica intuitiva dei Tarocchi Rider Waite Smith.",
+        },
+        {
+          badge: "Annuale 2023 / 2024",
+          icona: "📖",
+          titolo: "Accademia Nazionale del Tarocco Esoterico",
+          testo:
+            "Formata come tarologa nel percorso annuale diretto da Dorian Bones (artista, libero ricercatore, membro fondatore della Società dello Zolfo e direttore dell’Accademia Nazionale del Tarocco Esoterico).",
+        },
+        {
+          badge: "Lignaggio Originale",
+          icona: "⚡",
+          titolo: "Operatore Reiki II Livello",
+          testo:
+            "Certificata con il Maestro F. Tartuferi secondo il lignaggio originale di Mikao Usui® per il trattamento energetico e l’armonizzazione a distanza.",
+        },
+        {
+          badge: "Accredito IPHM",
+          icona: "🧘",
+          titolo: "Facilitatore Mindfulness",
+          testo:
+            "Formata presso Mindfulness Educators®, accreditata dall’ente internazionale IPHM (International Practitioners of Holistic Medicine).",
+        },
+        {
+          badge: "Accredito IPHM",
+          icona: "🌿",
+          titolo: "Operatore Naturopata",
+          testo:
+            "Formata presso Future Academy®, accreditata dall’ente IPHM (International Practitioners of Holistic Medicine) per il benessere integrato.",
+        },
+        {
+          badge: "Radiestesia & Energie",
+          icona: "🧭",
+          titolo: "Pendolo PTAH & Piramidologia",
+          testo:
+            "Specializzata nell’individuazione ed elaborazione delle energie sottili da oggetti, persone, luoghi, piante e animali. Percorso diretto dall’operatore olistico Emiliano Amici.",
+        },
+      ],
+    },
     immagini: {
       teresa: {
         src: "/chi-siamo/teresa-ritratto.svg?v=3",

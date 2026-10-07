@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { useItha } from "../context/IthaContext.tsx";
 import { BrandLogo } from "../components/BrandLogo";
 import { Button, Kicker } from "../components/Button";
+import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
 import { ImageSlot } from "../components/ImageSlot";
 import { PageHero } from "../components/PageHero";
@@ -11,6 +13,7 @@ const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
 
 export function Home() {
   const { openItha } = useItha();
+  const [formazioneOpen, setFormazioneOpen] = useState(false);
 
   return (
     <div>
@@ -26,6 +29,11 @@ export function Home() {
           </>
         }
         lead={brand.slogan}
+        beforeCta={{
+          label: cta.formazioneOlistica,
+          onClick: () => setFormazioneOpen(true),
+          variant: "paper",
+        }}
         cta={{ to: "/consulti", label: home.ctaConsulto, variant: "sage" }}
         secondary={{ to: "/rituali", label: cta.ritualistica, variant: "paper" }}
         meta={
@@ -218,6 +226,8 @@ export function Home() {
           </Reveal>
         </div>
       </section>
+
+      {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
     </div>
   );
 }

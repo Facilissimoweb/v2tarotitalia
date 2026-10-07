@@ -9,10 +9,11 @@ type Props = {
   children: ReactNode;
   wide?: boolean;
   xl?: boolean;
+  xxl?: boolean;
 };
 
 /** Overlay Lumiere: logo, Tarot Italia, titolo. Chiusura opzionale. */
-export function WidgetDialog({ title, titleId, onClose, children, wide, xl }: Props) {
+export function WidgetDialog({ title, titleId, onClose, children, wide, xl, xxl }: Props) {
   const fallbackId = useId();
   const labelledBy = titleId ?? fallbackId;
 
@@ -33,7 +34,7 @@ export function WidgetDialog({ title, titleId, onClose, children, wide, xl }: Pr
     >
       <div
         className={`relative w-full bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)] ${
-          xl ? "max-w-3xl" : wide ? "max-w-2xl" : "max-w-lg"
+          xxl ? "max-w-5xl" : xl ? "max-w-3xl" : wide ? "max-w-2xl" : "max-w-lg"
         }`}
       >
         {onClose ? <WidgetCloseButton onClick={onClose} /> : null}

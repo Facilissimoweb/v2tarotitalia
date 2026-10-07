@@ -30,6 +30,7 @@ type Props = {
   title: ReactNode;
   lead: ReactNode;
   cta?: HeroCta | null;
+  beforeCta?: HeroCta;
   secondary?: HeroCta;
   tertiary?: HeroCta;
   meta?: ReactNode;
@@ -50,6 +51,7 @@ export function PageHero({
   title,
   lead,
   cta = DEFAULT_CTA,
+  beforeCta,
   secondary,
   tertiary,
   meta,
@@ -140,6 +142,13 @@ export function PageHero({
                   home ? "mt-12 flex-col sm:flex-row" : "mt-7"
                 }`}
               >
+                {beforeCta ? (
+                  <HeroButton
+                    cta={beforeCta}
+                    variant={beforeCta.variant ?? "paper"}
+                    onMedia={onMedia}
+                  />
+                ) : null}
                 <HeroButton
                   cta={cta}
                   variant={home || !onMedia ? "primary" : "paper"}
