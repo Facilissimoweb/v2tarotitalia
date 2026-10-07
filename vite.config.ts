@@ -51,6 +51,11 @@ function ithaApiPlugin(): Plugin {
             await handler(nodeReq, nodeRes);
             return;
           }
+          if (url === "/api/google-reviews") {
+            const { default: handler } = await import("./api/google-reviews.ts");
+            await handler(nodeReq, nodeRes);
+            return;
+          }
           next();
         } catch {
           const { siteContent } = await import("./src/data/siteContent.ts");

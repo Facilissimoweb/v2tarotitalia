@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom";
-import { ARCANI } from "../data/arcani";
-import { TARIFFE } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
-import { ArcanoArt } from "../components/ArcanoArt";
+import { useItha } from "../context/IthaContext.tsx";
+import { BrandLogo } from "../components/BrandLogo";
 import { Button, Kicker } from "../components/Button";
+import { GoogleReviews } from "../components/GoogleReviews";
 import { ImageSlot } from "../components/ImageSlot";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 
-const { brand, chiSiamo, cta, home, nav } = siteContent;
+const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
 
 export function Home() {
+  const { openItha } = useItha();
+
   return (
     <div>
       <PageHero
@@ -34,38 +35,6 @@ export function Home() {
           </div>
         }
       />
-
-      <section className="px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
-            <Reveal>
-              <Kicker>{home.visione.kicker}</Kicker>
-              <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {home.visione.titolo}
-              </h2>
-            </Reveal>
-            <Reveal delay={80}>
-              <p className="text-base leading-[1.75] text-ink/75">{home.visione.lead}</p>
-            </Reveal>
-          </div>
-          <div className="mt-14 grid gap-8 lg:grid-cols-3">
-            {home.visione.pilastri.map((pilastro, i) => (
-              <Reveal key={pilastro.titolo} delay={i * 80}>
-                <article className="flex h-full flex-col bg-paper p-8 md:p-10">
-                  <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
-                  <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{pilastro.testo}</p>
-                  <p className="mt-10 text-[10px] uppercase tracking-[0.16em] text-ink">
-                    {pilastro.etichetta}
-                  </p>
-                </article>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">
@@ -109,125 +78,142 @@ export function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-4xl px-6 py-24 md:px-10 md:py-32">
-        <Reveal>
-          <div className="mb-14">
-            <Kicker>Trasparenza</Kicker>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">Tariffe sessioni</h2>
-          </div>
-        </Reveal>
-        <div className="grid gap-8 md:grid-cols-2">
-          {TARIFFE.map((t, i) => (
-            <Reveal key={t.id} delay={i * 100}>
-            <article
-              className={t.id === "deep" ? "bg-ink p-8 text-on-ink md:p-10" : "bg-paper p-8 md:p-10"}
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <p
-                    className={`text-[9px] uppercase tracking-[0.2em] ${t.id === "deep" ? "text-on-ink/55" : "text-sage"}`}
-                  >
-                    {t.kicker}
-                  </p>
-                  <h3 className="mt-2 font-display text-xl">{t.name}</h3>
-                </div>
-                <div className="text-right">
-                  <p className="font-display text-3xl font-light">{t.price}€</p>
-                  <p
-                    className={`mt-1 text-[9px] uppercase tracking-[0.16em] ${t.id === "deep" ? "text-on-ink/55" : "text-sage"}`}
-                  >
-                    {t.minutes} minuti
-                  </p>
-                </div>
-              </div>
-              <p
-                className={`mt-8 text-sm leading-relaxed ${t.id === "deep" ? "text-on-ink/75" : "text-ink/65"}`}
-              >
-                {t.summary}
-              </p>
-              <p
-                className={`mt-10 text-[10px] uppercase tracking-[0.16em] ${t.id === "deep" ? "text-on-ink/70" : "text-ink"}`}
-              >
-                In studio o chiamata vocale WhatsApp
-              </p>
-            </article>
+      <section className="px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
+            <Reveal>
+              <Kicker>{home.visione.kicker}</Kicker>
+              <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+                {home.visione.titolo}
+              </h2>
             </Reveal>
-          ))}
-        </div>
-        <Reveal delay={200}>
-          <div className="mt-12">
-            <Button to="/consulti" variant="ghost">
-              {cta.consultoWhatsapp} →
-            </Button>
-          </div>
-        </Reveal>
-      </section>
-
-      <section className="bg-mist px-8 py-24 text-center md:py-32">
-        <Reveal>
-          <blockquote className="mx-auto max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
-            «Ciò che è in basso è come ciò che è in alto, e ciò che è in alto è come ciò che è in
-            basso, per compiere le meraviglie dell’uno.»
-          </blockquote>
-        </Reveal>
-        <Reveal delay={100}>
-          <p className="mt-10 text-[10px] uppercase tracking-[0.22em] text-ink">Ermete Trismegisto</p>
-        </Reveal>
-        <Reveal delay={200}>
-          <p className="mt-3 text-[9px] uppercase tracking-[0.16em] text-sage">Tavola di Smeraldo</p>
-        </Reveal>
-      </section>
-
-      <section className="py-24 md:py-32">
-        <Reveal>
-          <div className="mx-auto mb-14 flex max-w-6xl items-end justify-between px-6 md:px-10">
-            <div>
-              <Kicker>Antologia visiva</Kicker>
-              <h2 className="mt-4 font-display text-3xl md:text-4xl">Gli archetipi primari</h2>
-            </div>
-            <Link
-              to="/arcani"
-              className="text-[10px] uppercase tracking-[0.18em] text-ink hover:text-sage"
-            >
-              Tutti i 22 →
-            </Link>
-          </div>
-        </Reveal>
-        <div className="flex gap-8 overflow-x-auto px-6 pb-4 md:px-10">
-          {ARCANI.slice(0, 6).map((a, i) => (
-            <Reveal key={a.slug} delay={i * 80} className="w-48 shrink-0">
-            <Link
-              to={`/arcani/${a.slug}`}
-              className="block bg-paper p-5 transition-colors hover:bg-mist"
-            >
-              <div className="aspect-[2/3] bg-mist">
-                <ArcanoArt arcano={a} />
-              </div>
-              <p className="mt-5 font-display text-sm text-ink">{a.name}</p>
-              <p className="mt-1.5 text-[10px] uppercase tracking-[0.14em] text-sage">{a.subtitle}</p>
-            </Link>
+            <Reveal delay={80}>
+              <p className="text-base leading-[1.75] text-ink/75">{home.visione.lead}</p>
             </Reveal>
-          ))}
+          </div>
+          <div className="mt-14 grid gap-8 lg:grid-cols-3">
+            {home.visione.pilastri.map((pilastro, i) => (
+              <Reveal key={pilastro.titolo} delay={i * 80}>
+                <article className="flex h-full flex-col bg-paper p-8 md:p-10">
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
+                  <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{pilastro.testo}</p>
+                  <p className="mt-10 text-[10px] uppercase tracking-[0.16em] text-ink">
+                    {pilastro.etichetta}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-3xl bg-mist p-10 md:p-14">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <Kicker>{nav.consulti}</Kicker>
+            <h2 className="mt-4 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+              {home.percorsi.titolo}
+            </h2>
+          </Reveal>
+          <div className="mt-14 grid gap-8 lg:grid-cols-3">
+            {home.percorsi.letture.map((lettura, i) => {
+              const featured = lettura.id === "deep";
+              return (
+                <Reveal key={lettura.id} delay={i * 80}>
+                  <article
+                    className={`flex h-full flex-col p-8 md:p-10 ${
+                      featured ? "bg-ink text-on-ink" : "bg-ivory"
+                    }`}
+                  >
+                    <p
+                      className={`text-[10px] uppercase tracking-[0.16em] ${
+                        featured ? "text-on-ink/55" : "text-sage"
+                      }`}
+                    >
+                      {lettura.meta}
+                    </p>
+                    <h3 className="mt-4 font-display text-xl leading-snug">{lettura.titolo}</h3>
+                    <p
+                      className={`mt-6 flex-1 text-sm leading-[1.85] ${
+                        featured ? "text-on-ink/75" : "text-ink/70"
+                      }`}
+                    >
+                      {lettura.testo}
+                    </p>
+                    <div className="mt-10">
+                      <Button
+                        to={`/consulti?tipo=${lettura.id}`}
+                        variant={featured ? "paper" : "sage"}
+                        className="w-full"
+                      >
+                        {lettura.cta}
+                      </Button>
+                    </div>
+                  </article>
+                </Reveal>
+              );
+            })}
+            <Reveal delay={160}>
+              <article className="flex h-full flex-col bg-ivory p-8 md:p-10">
+                <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
+                <h3 className="mt-4 font-display text-xl leading-snug text-ink">
+                  {home.percorsi.itha.titolo}
+                </h3>
+                <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">
+                  {home.percorsi.itha.testo}
+                </p>
+                <div className="mt-10">
+                  <Button variant="ghost" className="w-full" onClick={openItha}>
+                    {home.percorsi.itha.cta}
+                  </Button>
+                </div>
+              </article>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-mist px-8 pb-24 pt-32 text-center md:pb-32 md:pt-40">
+        <Reveal>
+          <BrandLogo className="mx-auto h-16 w-16" />
+          <p className="mt-5 font-display text-[11px] uppercase leading-none tracking-[0.32em] text-ink">
+            {brand.wordmark}
+          </p>
+        </Reveal>
+        <Reveal delay={80}>
+          <blockquote className="mx-auto mt-10 max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
+            «{home.citazione.testo}»
+          </blockquote>
+        </Reveal>
+        <Reveal delay={160}>
+          <p className="mt-10 text-[10px] uppercase tracking-[0.22em] text-ink">{home.citazione.autore}</p>
+        </Reveal>
+        <Reveal delay={220}>
+          <p className="mt-3 text-[9px] uppercase tracking-[0.16em] text-sage">{home.citazione.fonte}</p>
+        </Reveal>
+      </section>
+
+      <GoogleReviews />
+
+      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
           <Reveal>
             <Kicker>{brand.name}</Kicker>
           </Reveal>
           <Reveal delay={100}>
-            <h3 className="mt-5 font-display text-2xl md:text-3xl">I 22 Passaggi dell’Eroe</h3>
+            <h2 className="mt-5 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
+              {home.passaggi.titolo}
+            </h2>
           </Reveal>
           <Reveal delay={200}>
-            <p className="mt-5 text-base leading-[1.75] text-ink/70">
-              Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. Scaricala dall’area
-              corsi — l’archivio completo è in Area Riservata.
-            </p>
+            <p className="mt-5 text-base leading-[1.75] text-ink/70">{home.passaggi.testo}</p>
           </Reveal>
           <Reveal delay={300}>
             <div className="mt-10">
-              <Button to="/corsi">Vai ai corsi e alle dispense</Button>
+              <Button to="/corsi">{home.passaggi.cta}</Button>
             </div>
           </Reveal>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { consultTotal, REPORT_PDF_PRICE, STUDIO, TARIFFE, type TariffaId } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
@@ -33,6 +33,7 @@ function initialDate() {
 export function Consulti() {
   const { addPurchase, session, ready } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const start = initialDate();
   const [type, setType] = useState<TariffaId>("focus");
   const [mode, setMode] = useState<BookingMode>("remote");
@@ -74,6 +75,11 @@ export function Consulti() {
     setPdf(saved.pdf);
     setConsents(saved.consents);
   }, []);
+
+  useEffect(() => {
+    const tipo = searchParams.get("tipo");
+    if (tipo === "focus" || tipo === "deep") setType(tipo);
+  }, [searchParams]);
 
   useEffect(() => {
     if (session?.name && !name) setName(session.name);

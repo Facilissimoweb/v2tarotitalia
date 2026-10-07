@@ -90,6 +90,44 @@ export const siteContent = {
         },
       ],
     },
+    percorsi: {
+      titolo: "Percorsi di Chiarezza ed Equilibrio",
+      letture: [
+        {
+          id: "focus",
+          titolo: "Lettura Breve & Focalizzata",
+          meta: "30 minuti — 40€",
+          testo: "Uno spazio concentrato su un quesito specifico o su un nodo puntuale, per ottenere chiarezza immediata e indicazioni concrete.",
+          cta: "Prenota 30 min",
+        },
+        {
+          id: "deep",
+          titolo: "Lettura Integrale a 360°",
+          meta: "60 minuti — 60€",
+          testo: "Un’ora di ascolto profondo e analisi dettagliata dei temi ricorrenti, delle dinamiche personali e delle scelte di vita.",
+          cta: "Prenota 60 min",
+        },
+      ],
+      itha: {
+        titolo: "ITHA — Percorsi Evolutivi",
+        testo: "Percorsi e approfondimenti simbolici dedicati all’esplorazione avanzata degli archetipi e della tradizione ermetica.",
+        cta: "Scopri Itha",
+      },
+    },
+    citazione: {
+      testo: "Ciò che è in basso è come ciò che è in alto, e ciò che è in alto è come ciò che è in basso, per compiere le meraviglie dell’uno.",
+      autore: "Ermete Trismegisto",
+      fonte: "Tavola di Smeraldo",
+    },
+    recensioni: {
+      kicker: "Google",
+      titolo: "Recensioni Google",
+    },
+    passaggi: {
+      titolo: "Studio Olistico: Dal Matto al Mondo — I 22 Passaggi dell’Eroe",
+      testo: "Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. Scaricala dall’area corsi — l’archivio completo è in Area Riservata.",
+      cta: "Vai ai corsi e alle dispense",
+    },
   },
 
   pages: {
