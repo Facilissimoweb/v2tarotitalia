@@ -35,6 +35,38 @@ export function Home() {
         }
       />
 
+      <section className="px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
+            <Reveal>
+              <Kicker>{home.visione.kicker}</Kicker>
+              <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+                {home.visione.titolo}
+              </h2>
+            </Reveal>
+            <Reveal delay={80}>
+              <p className="text-base leading-[1.75] text-ink/75">{home.visione.lead}</p>
+            </Reveal>
+          </div>
+          <div className="mt-14 grid gap-8 lg:grid-cols-3">
+            {home.visione.pilastri.map((pilastro, i) => (
+              <Reveal key={pilastro.titolo} delay={i * 80}>
+                <article className="flex h-full flex-col bg-paper p-8 md:p-10">
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
+                  <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{pilastro.testo}</p>
+                  <p className="mt-10 text-[10px] uppercase tracking-[0.16em] text-ink">
+                    {pilastro.etichetta}
+                  </p>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">
           <div>

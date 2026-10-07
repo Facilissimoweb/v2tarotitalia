@@ -68,6 +68,28 @@ export const siteContent = {
     titoloCorsivo: "dell’Invisibile",
     lead: "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
     ctaConsulto: "Prenota consulto",
+    visione: {
+      kicker: "Visione & Deontologia",
+      titolo: "Un Approccio Rigoroso, Empatico e Intuitivo",
+      lead: "I tarocchi non sono predestinazione immutabile, ma una grammatica per svelare l’invisibile e risvegliare le tue decisioni più autentiche.",
+      pilastri: [
+        {
+          titolo: "Introspezione non Dogmatica",
+          testo: "I tarocchi come specchio della psiche e bussola d’orientamento personale. Nessun fatalismo: stimoliamo il pensiero critico e la consapevolezza emotiva.",
+          etichetta: "Specchio archetipico",
+        },
+        {
+          titolo: "Spazio d’Ascolto Protetto",
+          testo: "Un’ora integrale (60 min) dedicata senza fretta ai tuoi sogni, desideri nascosti, nodi emotivi e scelte di vita, in un contesto privo di giudizio.",
+          etichetta: "Riservatezza assoluta",
+        },
+        {
+          titolo: "Doppia Modalità Fluida",
+          testo: "Consulti dal vivo presso la quiete dello studio storico di Macerata, oppure comodamente online via WhatsApp o videochiamata ovunque ti trovi nel mondo.",
+          etichetta: "Presenza & Digitale",
+        },
+      ],
+    },
   },
 
   pages: {
