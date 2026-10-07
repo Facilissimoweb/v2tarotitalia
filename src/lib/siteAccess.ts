@@ -6,14 +6,13 @@ function accessToken() {
   return import.meta.env.VITE_SITE_ACCESS?.trim() || DEFAULT_TOKEN;
 }
 
-function isLocalDevHost() {
-  if (typeof window === "undefined") return import.meta.env.DEV;
-  const host = window.location.hostname;
-  return host === "localhost" || host === "127.0.0.1" || host === "[::1]";
+/** `npm run dev` / Vite HMR: l’anteprima locale non deve mai essere bloccata. */
+function isLocalDev() {
+  return import.meta.env.DEV;
 }
 
 export function siteGateEnabled() {
-  if (isLocalDevHost()) return false;
+  if (isLocalDev()) return false;
   const raw = import.meta.env.VITE_SITE_GATE?.trim().toLowerCase();
   if (raw === "0" || raw === "false" || raw === "off") return false;
   return true;

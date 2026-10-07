@@ -19,8 +19,14 @@ import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav, itha } = siteContent;
 
+/** Stessa tipografia per navbar desktop e menu hamburger. */
+const NAV_ITEM =
+  "font-body text-[13px] font-bold uppercase not-italic leading-none tracking-[0.22em]";
+const NAV_CHILD =
+  "font-body text-[11px] font-semibold uppercase not-italic leading-none tracking-[0.18em]";
+
 const linkClass = (active: boolean) =>
-  `whitespace-nowrap text-[10px] uppercase tracking-[0.14em] transition-colors xl:text-[11px] xl:tracking-[0.16em] ${
+  `whitespace-nowrap ${NAV_ITEM} transition-colors ${
     active ? "text-ink" : "text-ink/40 hover:text-ink"
   }`;
 
@@ -66,12 +72,12 @@ export function Header() {
           </NavLink>
 
           <div className="mx-auto flex h-full max-w-[90rem] items-center px-5 xl:px-8">
-            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly pr-24 xl:pr-40">
+            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly gap-x-3 pr-16 xl:gap-x-6 xl:pr-40">
               {NAV_LEADING.map((item) => (
                 <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}
             </div>
-            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly pl-24 pr-2 xl:pl-40 xl:pr-3">
+            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly gap-x-3 pl-16 pr-2 xl:gap-x-6 xl:pl-40 xl:pr-3">
               {NAV_TRAILING.map((item) => (
                 <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}
@@ -187,7 +193,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
                 role="menuitem"
                 to={child.to}
                 className={({ isActive }) =>
-                  `block whitespace-nowrap text-[11px] uppercase tracking-[0.14em] ${
+                  `block whitespace-nowrap ${NAV_CHILD} ${
                     isActive ? "text-ink" : "text-ink/45 hover:text-ink"
                   }`
                 }
@@ -227,7 +233,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
           {MAIN_NAV.map((item) =>
             isNavBranch(item) ? (
               <div key={item.label} className="border-t border-ink/10">
-                <p className="py-6 font-body text-[13px] font-bold uppercase not-italic leading-none tracking-[0.22em] text-ink">
+                <p className={`py-6 ${NAV_ITEM} text-ink`}>
                   {item.label}
                 </p>
                 <ul className="pb-4">
@@ -236,7 +242,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                       <NavLink
                         to={child.to}
                         className={({ isActive }) =>
-                          `block py-4 font-body text-[11px] font-semibold uppercase not-italic leading-none tracking-[0.18em] ${
+                          `block py-4 ${NAV_CHILD} ${
                             isActive ? "text-ink" : "text-ink/40"
                           }`
                         }
@@ -253,7 +259,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `border-t border-ink/10 py-6 font-body text-[13px] font-bold uppercase not-italic leading-none tracking-[0.22em] ${
+                  `border-t border-ink/10 py-6 ${NAV_ITEM} ${
                     isActive ? "text-ink" : "text-ink/45"
                   }`
                 }
@@ -278,10 +284,10 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
           <span className="mb-3 flex h-10 w-10 items-center justify-center bg-sage/25 text-sage" aria-hidden>
             <IthaAppGlyph />
           </span>
-          <span className="block font-body text-[12px] font-bold uppercase not-italic leading-none tracking-[0.22em]">
+          <span className={`block ${NAV_ITEM}`}>
             {nav.itha}
           </span>
-          <span className="mt-2 block font-body text-[10px] font-semibold uppercase not-italic leading-snug tracking-[0.12em] text-ivory/70">
+          <span className={`mt-2 block ${NAV_CHILD} leading-snug text-ivory/70`}>
             {itha.drawerLead}
           </span>
         </button>

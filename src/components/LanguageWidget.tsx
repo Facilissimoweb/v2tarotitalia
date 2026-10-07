@@ -69,7 +69,7 @@ export function LanguageWidget({ placement }: Props) {
           compact
             ? "flex h-10 w-10 shrink-0 items-center justify-center text-ink/70 transition-colors hover:text-ink"
             : drawer
-              ? "flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[11px] font-semibold uppercase not-italic tracking-[0.18em] text-ink/55 hover:text-ink"
+              ? "flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[13px] font-bold uppercase not-italic leading-none tracking-[0.22em] text-ink/55 hover:text-ink"
               : "inline-flex items-center gap-2 uppercase tracking-[0.16em] hover:text-ink"
         }
         aria-haspopup="dialog"
