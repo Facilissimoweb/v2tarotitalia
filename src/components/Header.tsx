@@ -19,14 +19,15 @@ import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav, itha } = siteContent;
 
-/** Stessa tipografia per navbar desktop e menu hamburger. */
+/** Tipografia menu hamburger (mobile / tablet). */
 const NAV_ITEM =
   "font-body text-[13px] font-bold uppercase not-italic leading-none tracking-[0.22em]";
 const NAV_CHILD =
   "font-body text-[11px] font-semibold uppercase not-italic leading-none tracking-[0.18em]";
 
-const linkClass = (active: boolean) =>
-  `whitespace-nowrap ${NAV_ITEM} transition-colors ${
+/** Visualizzazione estesa desktop: voci complete in una riga. */
+const desktopLinkClass = (active: boolean) =>
+  `whitespace-nowrap text-[10px] uppercase tracking-[0.14em] transition-colors xl:text-[11px] xl:tracking-[0.16em] ${
     active ? "text-ink" : "text-ink/40 hover:text-ink"
   }`;
 
@@ -72,12 +73,12 @@ export function Header() {
           </NavLink>
 
           <div className="mx-auto flex h-full max-w-[90rem] items-center px-5 xl:px-8">
-            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly gap-x-3 pr-16 xl:gap-x-6 xl:pr-40">
+            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly pr-24 xl:pr-40">
               {NAV_LEADING.map((item) => (
                 <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}
             </div>
-            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly gap-x-3 pl-16 pr-2 xl:gap-x-6 xl:pl-40 xl:pr-3">
+            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly pl-24 pr-2 xl:pl-40 xl:pr-3">
               {NAV_TRAILING.map((item) => (
                 <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}
@@ -122,7 +123,7 @@ export function Header() {
 function DesktopNavEntry({ item }: { item: NavItem }) {
   if (isNavBranch(item)) return <TarocchiMenu item={item} />;
   return (
-    <NavLink to={item.to} end={item.end} className={({ isActive }) => linkClass(isActive)}>
+    <NavLink to={item.to} end={item.end} className={({ isActive }) => desktopLinkClass(isActive)}>
       {item.label}
     </NavLink>
   );
@@ -166,7 +167,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
     >
       <button
         type="button"
-        className={`${linkClass(active)} inline-flex items-center gap-1.5`}
+        className={`${desktopLinkClass(active)} inline-flex items-center gap-1.5`}
         aria-expanded={expanded}
         aria-haspopup="menu"
         aria-controls={menuId}
@@ -193,7 +194,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
                 role="menuitem"
                 to={child.to}
                 className={({ isActive }) =>
-                  `block whitespace-nowrap ${NAV_CHILD} ${
+                  `block whitespace-nowrap text-[11px] uppercase tracking-[0.14em] ${
                     isActive ? "text-ink" : "text-ink/45 hover:text-ink"
                   }`
                 }

@@ -24,29 +24,29 @@ export function ComingSoon() {
   }, []);
 
   return (
-    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-ivory px-6 text-ink">
+    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-ink px-6 text-white">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <img
           src={copy.sfondo}
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-[center_22%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-ivory/55 via-ivory/35 to-ivory/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/40 to-ink/75" />
       </div>
-      <div className="relative z-10 flex max-w-xl flex-col items-center py-24 text-center">
+      <div className="relative z-10 flex max-w-xl flex-col items-center py-24 text-center [text-shadow:0_1px_18px_rgba(0,0,0,0.45)]">
         <BrandLogo tone="hero" className="mx-auto h-32 w-32 md:h-40 md:w-40 lg:h-44 lg:w-44" />
-        <div className="mt-10 flex items-center justify-center gap-3">
-          <span className="h-1.5 w-1.5 bg-ink" />
+        <div className="mt-10 flex items-center justify-center gap-3 [&_.label-kicker]:text-white">
+          <span className="h-1.5 w-1.5 bg-white" />
           <Kicker>{copy.kicker}</Kicker>
         </div>
-        <p className="mt-8 font-display text-[13px] leading-none tracking-[0.42em] text-ink">
+        <p className="mt-8 font-display text-[13px] leading-none tracking-[0.42em] text-white">
           {brand.wordmark.toUpperCase()}
         </p>
-        <p className="mt-2 text-[9px] uppercase leading-none tracking-[0.28em] text-sage">{brand.name}</p>
-        <h1 className="mt-12 font-display text-3xl font-light leading-[1.15] tracking-tight md:text-4xl">
+        <p className="mt-2 text-[9px] uppercase leading-none tracking-[0.28em] text-white/80">{brand.name}</p>
+        <h1 className="mt-12 font-display text-3xl font-light leading-[1.15] tracking-tight text-white md:text-4xl">
           {copy.titolo}
         </h1>
-        <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-ink/65">{brand.slogan}</p>
+        <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/85">{brand.slogan}</p>
       </div>
       <ContactDock />
     </main>
