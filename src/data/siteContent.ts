@@ -256,6 +256,10 @@ export const siteContent = {
       ],
     },
     immagini: {
+      hero: {
+        src: "/chi-siamo/hero.jpg",
+        alt: "Chi Siamo",
+      },
       teresa: {
         src: "/chi-siamo/teresa-ritratto.svg?v=3",
         alt: "Ritratto evocativo di M. Teresa Rogani, operatrice olistica ed esoterica, cartomante e tarologa professionista",

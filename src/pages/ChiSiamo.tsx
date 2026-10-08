@@ -20,10 +20,10 @@ export function ChiSiamo() {
         lead={brand.slogan}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         media={{
-          src: chiSiamo.immagini.teresa.src,
+          src: chiSiamo.immagini.hero.src,
           type: "image",
-          alt: chiSiamo.immagini.teresa.alt,
-          objectPosition: "50% 18%",
+          alt: chiSiamo.immagini.hero.alt,
+          objectPosition: "center center",
         }}
       />
 
