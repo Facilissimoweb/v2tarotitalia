@@ -164,6 +164,7 @@ export const siteContent = {
       kicker: "Tarot Italia",
       titolo: "Coming Soon",
       lead: "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
+      sfondo: "/coming-soon.png",
     },
   },
 
