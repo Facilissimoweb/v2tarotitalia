@@ -18,7 +18,7 @@ export function Layout() {
       <ScrollToTop />
       <LanguageSeo />
       <Header />
-      <main className="flex-1 pt-20 lg:pt-[7rem]">
+      <main className="flex-1 pt-20 xl:pt-[7rem]">
         <Outlet />
       </main>
       <Footer />

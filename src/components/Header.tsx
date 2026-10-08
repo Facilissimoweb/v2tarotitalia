@@ -25,9 +25,9 @@ const NAV_ITEM =
 const NAV_CHILD =
   "font-body text-[11px] font-semibold uppercase not-italic leading-none tracking-[0.18em]";
 
-/** Visualizzazione estesa desktop: voci complete in una riga. */
+/** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
-  `whitespace-nowrap text-[10px] uppercase tracking-[0.14em] transition-colors xl:text-[11px] xl:tracking-[0.16em] ${
+  `whitespace-nowrap text-[11px] uppercase tracking-[0.16em] transition-colors ${
     active ? "text-ink" : "text-ink/40 hover:text-ink"
   }`;
 
@@ -40,7 +40,7 @@ export function Header() {
   }, [pathname]);
 
   useEffect(() => {
-    const mq = window.matchMedia("(min-width: 1024px)");
+    const mq = window.matchMedia("(min-width: 1280px)");
     const closeOnDesktop = () => {
       if (mq.matches) setOpen(false);
     };
@@ -59,10 +59,19 @@ export function Header() {
   return (
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl">
-        <nav className="relative mx-auto hidden h-[6.75rem] lg:block" aria-label="Principale">
+        <nav
+          className="mx-auto hidden h-[6.75rem] max-w-[90rem] grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 xl:grid"
+          aria-label="Principale"
+        >
+          <div className="flex items-center justify-end gap-6 2xl:gap-8">
+            {NAV_LEADING.map((item) => (
+              <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
+            ))}
+          </div>
+
           <NavLink
             to="/"
-            className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
+            className="flex flex-col items-center px-8"
             aria-label={brand.wordmark}
             translate="no"
           >
@@ -72,13 +81,8 @@ export function Header() {
             </span>
           </NavLink>
 
-          <div className="mx-auto flex h-full max-w-[90rem] items-center px-5 xl:px-8">
-            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly pr-24 xl:pr-40">
-              {NAV_LEADING.map((item) => (
-                <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
-              ))}
-            </div>
-            <div className="flex h-full min-w-0 flex-1 items-center justify-evenly pl-24 pr-2 xl:pl-40 xl:pr-3">
+          <div className="flex min-w-0 items-center justify-between gap-6">
+            <div className="flex items-center gap-6 2xl:gap-8">
               {NAV_TRAILING.map((item) => (
                 <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}
@@ -91,7 +95,7 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="grid h-20 grid-cols-3 items-center px-3 lg:hidden">
+        <div className="grid h-20 grid-cols-3 items-center px-3 xl:hidden">
           <div className="flex items-center justify-start">
             <button
               type="button"
@@ -194,7 +198,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
                 role="menuitem"
                 to={child.to}
                 className={({ isActive }) =>
-                  `block whitespace-nowrap text-[11px] uppercase tracking-[0.14em] ${
+                  `block whitespace-nowrap text-[11px] uppercase tracking-[0.16em] ${
                     isActive ? "text-ink" : "text-ink/45 hover:text-ink"
                   }`
                 }
@@ -215,7 +219,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
   return (
     <div
       id="menu-mobile"
-      className="fixed inset-0 z-[60] flex flex-col bg-ivory lg:hidden"
+      className="fixed inset-0 z-[60] flex flex-col bg-ivory xl:hidden"
       role="dialog"
       aria-modal="true"
       aria-label={nav.menu}
