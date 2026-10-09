@@ -123,6 +123,7 @@ export const siteContent = {
     recensioni: {
       kicker: "Google",
       titolo: "Recensioni Google",
+      heroCta: "Leggi le recensioni",
       cta: "Verifica su Google",
       profiloUrl:
         "https://www.google.com/maps/search/?api=1&query=Tarot%20Italia%2C%20Via%20Crispi%2037%2C%2062100%20Macerata",

@@ -2,6 +2,7 @@ import { useEffect, useRef, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
 import { Button, Kicker } from "./Button";
+import { GoogleMark, GoogleStars } from "./GoogleMark";
 import { Reveal } from "./Reveal";
 
 export const DEFAULT_CTA = {
@@ -15,6 +16,7 @@ export type HeroCta = {
   label: string;
   onClick?: () => void;
   variant?: "primary" | "sage" | "ghost" | "paper";
+  accent?: "google";
 };
 
 /** Sfondo dinamico della hero: immagine, video o superficie mist in attesa. */
@@ -162,7 +164,13 @@ export function PageHero({
                     onMedia={onMedia}
                   />
                 ) : null}
-                {tertiary ? <HeroButton cta={tertiary} variant={tertiary.variant ?? "sage"} /> : null}
+                {tertiary ? (
+                  <HeroButton
+                    cta={tertiary}
+                    variant={tertiary.variant ?? "sage"}
+                    onMedia={onMedia}
+                  />
+                ) : null}
               </div>
             </Reveal>
           ) : null}
@@ -260,6 +268,10 @@ function HeroButton({
   arrow?: boolean;
   onMedia?: boolean;
 }) {
+  if (cta.accent === "google" && cta.href) {
+    return <GoogleReviewsHeroLink href={cta.href} label={cta.label} onMedia={onMedia} />;
+  }
+
   const extra = "w-full sm:w-auto";
   const resolved = cta.variant ?? variant;
   const edge =
@@ -288,5 +300,35 @@ function HeroButton({
     <Button href={cta.href} variant={resolved} className={edge}>
       {label}
     </Button>
+  );
+}
+
+function GoogleReviewsHeroLink({
+  href,
+  label,
+  onMedia,
+}: {
+  href: string;
+  label: string;
+  onMedia: boolean;
+}) {
+  return (
+    <a
+      href={href}
+      className={`relative inline-flex w-full items-center justify-center gap-2.5 bg-paper px-5 py-4 text-[11px] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-200 hover:bg-mist sm:w-auto ${
+        onMedia ? "ring-1 ring-ivory" : "ring-1 ring-ink/10"
+      }`}
+    >
+      <span
+        className="absolute inset-x-0 top-0 h-0.5"
+        style={{
+          background: "linear-gradient(90deg, #4285F4 0 25%, #EA4335 25% 50%, #FBBC05 50% 75%, #34A853 75% 100%)",
+        }}
+        aria-hidden
+      />
+      <GoogleMark className="h-[1.15rem] w-[1.15rem] shrink-0" />
+      <GoogleStars className="h-3 w-3" />
+      <span>{label}</span>
+    </a>
   );
 }

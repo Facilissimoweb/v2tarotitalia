@@ -36,6 +36,11 @@ export function Home() {
         }}
         cta={{ to: "/consulti", label: home.ctaConsulto, variant: "sage" }}
         secondary={{ to: "/rituali", label: cta.ritualistica, variant: "paper" }}
+        tertiary={{
+          href: "#recensioni-google",
+          label: home.recensioni.heroCta,
+          accent: "google",
+        }}
         meta={
           <div className="flex justify-center gap-10 text-[9px] uppercase tracking-[0.2em]">
             <span>{brand.coords}</span>
