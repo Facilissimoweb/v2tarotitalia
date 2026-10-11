@@ -170,15 +170,6 @@ function SacredGeometry() {
   );
 }
 
-function NameCard() {
-  return (
-    <>
-      <p className="text-[9px] uppercase tracking-[0.22em] text-on-ink/60">{brand.name}</p>
-      <p className="mt-2 font-display text-lg leading-snug">{brand.titolare}</p>
-    </>
-  );
-}
-
 export function HomeHero({ onOpenFormazione }: Props) {
   const root = useRef<HTMLElement>(null);
   useDepth(root);
@@ -217,7 +208,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
         Fino a 1199px (mobile, tablet, laptop medi): colonna unica centrata. Le due
         colonne diventano `contents`, così ogni blocco è un elemento diretto della
         griglia e si riordina con `order-*`:
-        1 titolo · 2 logo (con la card sovrapposta) · 3 sottotitolo · 4 CTA · 5 link secondari · 6 coordinate.
+        1 titolo · 2 logo · 3 sottotitolo · 4 CTA · 5 link secondari.
         Da 1200px in su le colonne tornano blocchi e la struttura è quella desktop a due colonne.
       */}
       <div className="relative mx-auto grid w-full max-w-3xl items-center gap-0 px-6 py-20 md:px-10 md:py-28 min-[1200px]:min-h-[calc(100svh-7rem)] min-[1200px]:max-w-7xl min-[1200px]:grid-cols-12 min-[1200px]:gap-10 min-[1200px]:py-32">
@@ -272,7 +263,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
         <div className="contents min-[1200px]:col-span-5 min-[1200px]:block">
           <Reveal
             delay={160}
-            className="order-2 mb-16 mt-12 sm:mb-8 md:mb-10 md:mt-16 min-[1200px]:order-none min-[1200px]:m-0"
+            className="order-2 mt-12 md:mt-16 min-[1200px]:order-none min-[1200px]:m-0"
           >
             <div className="relative mx-auto aspect-square w-full max-w-sm sm:max-w-md min-[1200px]:max-w-none">
               <Layer depth={14} className="inset-0">
@@ -283,18 +274,6 @@ export function HomeHero({ onOpenFormazione }: Props) {
               <Layer depth={26} className="inset-[12%]">
                 <img src={brand.logoHero} alt="" className="h-full w-full object-contain" />
               </Layer>
-
-              {/* Card sotto il logo, sovrapposta in basso a sinistra: identica a ogni larghezza */}
-              <Layer depth={40} className="-bottom-10 left-2 bg-ink px-6 py-5 text-on-ink sm:-bottom-4 sm:-left-4">
-                <NameCard />
-              </Layer>
-            </div>
-          </Reveal>
-
-          <Reveal delay={260} className="order-6 min-[1200px]:order-none">
-            <div className="mx-auto mt-12 flex max-w-sm justify-between gap-6 border-t border-ink/10 bg-ivory/90 pt-4 text-[9px] uppercase tracking-[0.2em] text-ink/70 sm:max-w-md md:mt-16 min-[1200px]:max-w-none">
-              <span>{brand.coords}</span>
-              <span>{brand.region}</span>
             </div>
           </Reveal>
         </div>
