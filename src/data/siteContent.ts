@@ -65,8 +65,7 @@ export const siteContent = {
 
   home: {
     kicker: "Tarot Italia",
-    titolo: "La Geometria",
-    titoloCorsivo: "dell’Invisibile",
+    titolo: "Tarot Italia",
     lead: "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
     ctaConsulto: "Prenota consulto",
     visione: {

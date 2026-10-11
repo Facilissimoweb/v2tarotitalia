@@ -7,6 +7,10 @@ import { Reveal } from "./Reveal";
 
 const { brand, cta, home } = siteContent;
 
+/* "Tarot Italia" su due righe: la seconda con il gradiente smeraldo */
+const [titoloPrima, ...titoloAltre] = home.titolo.split(" ");
+const titoloResto = titoloAltre.join(" ");
+
 type Props = {
   onOpenFormazione: () => void;
 };
@@ -241,10 +245,10 @@ export function HomeHero({ onOpenFormazione }: Props) {
           </Reveal>
 
           <Reveal delay={100} className="order-1 min-[1200px]:order-none">
-            <h1 className="mt-8 font-h1 text-[2.6rem] leading-[1.08] text-ink [text-shadow:0_2px_24px_rgba(0,0,0,0.5)] sm:text-6xl md:mt-10 xl:text-7xl">
-              <span className="block">{home.titolo}</span>
+            <h1 className="mt-8 font-h1 text-[4.75rem] leading-[0.95] text-ink [text-shadow:0_2px_24px_rgba(0,0,0,0.5)] sm:text-[7rem] md:mt-10 xl:text-[9.5rem]">
+              <span className="block">{titoloPrima}</span>
               <span className="block bg-gradient-to-b from-[#c4f7e0] via-[#3fd69a] to-[#1f9d6e] bg-clip-text text-transparent [text-shadow:none] md:pl-12 xl:pl-24">
-                {home.titoloCorsivo}
+                {titoloResto}
               </span>
             </h1>
           </Reveal>
