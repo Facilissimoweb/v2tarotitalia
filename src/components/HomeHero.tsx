@@ -121,6 +121,15 @@ function SacredGeometry() {
   );
 }
 
+function NameCard() {
+  return (
+    <>
+      <p className="text-[9px] uppercase tracking-[0.22em] text-on-ink/60">{brand.name}</p>
+      <p className="mt-2 font-display text-lg leading-snug">{brand.titolare}</p>
+    </>
+  );
+}
+
 export function HomeHero({ onOpenFormazione }: Props) {
   const root = useRef<HTMLElement>(null);
   useDepth(root);
@@ -133,30 +142,36 @@ export function HomeHero({ onOpenFormazione }: Props) {
         className="pointer-events-none absolute -bottom-56 -left-56 h-[34rem] w-[34rem] rounded-full border border-ink/10 md:-bottom-72 md:-left-72 md:h-[48rem] md:w-[48rem]"
       />
 
-      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-20 px-6 py-20 md:px-10 md:py-28 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-12 lg:gap-10 lg:py-32">
+      {/*
+        Mobile (< md): le due colonne diventano `contents`, così ogni blocco è un
+        elemento diretto della griglia e si riordina con `order-*`:
+        1 titolo · 2 logo · 3 sottotitolo · 4 CTA · 5 link secondari · 6 card · 7 coordinate.
+        Da md in su le colonne tornano blocchi e la struttura è quella originale.
+      */}
+      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-0 px-6 py-20 md:gap-20 md:px-10 md:py-28 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-12 lg:gap-10 lg:py-32">
         {/* Testo: colonna ampia, allineata a sinistra */}
-        <div className="lg:col-span-7">
-          <Reveal>
+        <div className="contents md:block lg:col-span-7">
+          <Reveal className="order-1 md:order-none">
             <div className="flex items-center gap-4">
               <span aria-hidden className="h-px w-12 bg-sage" />
               <Kicker>{home.kicker}</Kicker>
             </div>
           </Reveal>
 
-          <Reveal delay={100}>
+          <Reveal delay={100} className="order-1 md:order-none">
             <h1 className="mt-8 font-display text-[2.75rem] font-light leading-[1.05] tracking-tight text-ink sm:text-6xl md:mt-10 xl:text-7xl">
               <span className="block">{home.titolo}</span>
               <span className="block italic text-moss md:pl-12 xl:pl-24">{home.titoloCorsivo}</span>
             </h1>
           </Reveal>
 
-          <Reveal delay={200}>
+          <Reveal delay={200} className="order-3 md:order-none">
             <p className="mt-10 max-w-md border-l border-sage/60 pl-6 text-base leading-[1.85] text-ink/70 md:mt-12">
               {brand.slogan}
             </p>
           </Reveal>
 
-          <Reveal delay={300}>
+          <Reveal delay={300} className="order-4 md:order-none">
             <div className="mt-12 flex flex-col gap-3 sm:flex-row md:mt-14">
               <Button to="/consulti" variant="primary" className="w-full sm:w-auto">
                 {home.ctaConsulto} <span aria-hidden>→</span>
@@ -167,7 +182,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
             </div>
           </Reveal>
 
-          <Reveal delay={380}>
+          <Reveal delay={380} className="order-5 md:order-none">
             <div className="mt-10 flex flex-col items-start gap-6 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:gap-10 md:mt-12">
               <button
                 type="button"
@@ -182,8 +197,8 @@ export function HomeHero({ onOpenFormazione }: Props) {
         </div>
 
         {/* Composizione: sigillo al centro di strati geometrici sovrapposti */}
-        <div className="lg:col-span-5">
-          <Reveal delay={160}>
+        <div className="contents md:block lg:col-span-5">
+          <Reveal delay={160} className="order-2 mb-6 mt-12 md:order-none md:m-0">
             <div className="relative mx-auto aspect-square w-full max-w-sm sm:max-w-md lg:max-w-none">
               <Layer depth={6} className="inset-x-[8%] top-[8%] bottom-[14%] bg-mist lg:bg-linen" />
 
@@ -197,15 +212,22 @@ export function HomeHero({ onOpenFormazione }: Props) {
                 </span>
               </Layer>
 
-              <Layer depth={40} className="-bottom-4 left-2 bg-ink px-6 py-5 text-on-ink sm:-left-4">
-                <p className="text-[9px] uppercase tracking-[0.22em] text-on-ink/60">{brand.name}</p>
-                <p className="mt-2 font-display text-lg leading-snug">{brand.titolare}</p>
+              {/* Da md in su: card sovrapposta al sigillo (su mobile è un blocco a parte, più sotto) */}
+              <Layer depth={40} className="-bottom-4 -left-4 hidden bg-ink px-6 py-5 text-on-ink md:block">
+                <NameCard />
               </Layer>
             </div>
           </Reveal>
 
-          <Reveal delay={260}>
-            <div className="mx-auto mt-16 flex max-w-sm justify-between gap-6 border-t border-ink/10 pt-4 text-[9px] uppercase tracking-[0.2em] text-ink/55 sm:max-w-md lg:max-w-none">
+          {/* Solo mobile: la card segue sottotitolo e CTA */}
+          <Reveal delay={200} className="order-6 justify-self-start md:hidden">
+            <div className="mt-10 bg-ink px-6 py-5 text-on-ink">
+              <NameCard />
+            </div>
+          </Reveal>
+
+          <Reveal delay={260} className="order-7 md:order-none">
+            <div className="mx-auto mt-12 flex max-w-sm md:mt-16 justify-between gap-6 border-t border-ink/10 pt-4 text-[9px] uppercase tracking-[0.2em] text-ink/55 sm:max-w-md lg:max-w-none">
               <span>{brand.coords}</span>
               <span>{brand.region}</span>
             </div>
