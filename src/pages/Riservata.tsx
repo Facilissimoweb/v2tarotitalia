@@ -84,7 +84,7 @@ export function Riservata() {
               type="button"
               onClick={() => setTab(id)}
               className={`whitespace-nowrap px-4 py-2 text-[11px] uppercase tracking-[0.14em] ${
-                tab === id ? "bg-ink text-on-ink" : "bg-mist text-ink/60"
+                tab === id ? "bg-gold-sheen text-on-ink" : "bg-mist text-ink/60"
               }`}
             >
               {label}
@@ -100,7 +100,7 @@ export function Riservata() {
             <Reveal>
               <div>
                 <Kicker>{auth.storico}</Kicker>
-                <h2 className="font-display text-xl italic">{auth.storico}</h2>
+                <h2 className="font-title text-xl italic">{auth.storico}</h2>
                 {recessoConsulti ? (
                   <p className="mt-4 text-sm leading-[1.9] text-ink/70">{recessoConsulti}</p>
                 ) : null}
@@ -205,7 +205,7 @@ export function Riservata() {
               <div className="flex items-center justify-between bg-mist px-6 py-5">
                 <div>
                   <Kicker>{itha.kicker}</Kicker>
-                  <h2 className="mt-2 font-display text-xl">{itha.titoloWidget}</h2>
+                  <h2 className="mt-2 font-title text-xl">{itha.titoloWidget}</h2>
                 </div>
                 <p className="font-display text-3xl">{credits}</p>
               </div>

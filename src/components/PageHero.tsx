@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
+import { Bokeh } from "./Bokeh";
 import { Button, Kicker } from "./Button";
 import { GoogleMark, GoogleStars } from "./GoogleMark";
 import { Reveal } from "./Reveal";
@@ -59,9 +60,10 @@ export function PageHero({
   return (
     <section
       data-page-hero
-      className={`relative overflow-hidden mb-16 lg:mb-32 ${onMedia ? "bg-ink" : "bg-mist"}`}
+      className={`relative overflow-hidden mb-16 lg:mb-32 ${onMedia ? "bg-ivory" : "bg-mist"}`}
     >
       <HeroBackdrop media={backdrop} />
+      <Bokeh />
 
       <div
         data-hero-content
@@ -72,19 +74,17 @@ export function PageHero({
             <span data-hero-logo className="block">
               <BrandLogo
                 tone="hero"
-                className={`mx-auto h-32 w-32 md:h-40 md:w-40 lg:h-48 lg:w-48 ${
-                  onMedia ? "drop-shadow-[0_12px_32px_rgba(0,0,0,0.4)]" : ""
-                }`}
+                className="mx-auto h-32 w-32 md:h-40 md:w-40 lg:h-48 lg:w-48 rim-gold"
               />
             </span>
           </Reveal>
 
           <Reveal delay={80}>
             <div className="mt-8 mb-7 flex items-center justify-center gap-3 md:mt-10">
-              <span className={`h-1.5 w-1.5 ${tone === "ivory" ? "bg-ivory" : "bg-ink"}`} />
+              <span className={`h-1.5 w-1.5 ${tone === "ivory" ? "bg-moss" : "bg-sage"}`} />
               <span
                 className={
-                  tone === "ivory" ? "[&_.label-kicker]:text-ivory [text-shadow:0_1px_14px_rgba(0,0,0,0.4)]" : undefined
+                  tone === "ivory" ? "[&_.label-kicker]:text-moss [text-shadow:0_1px_14px_rgba(0,0,0,0.4)]" : undefined
                 }
               >
                 <Kicker>{kicker}</Kicker>
@@ -94,9 +94,9 @@ export function PageHero({
 
           <Reveal delay={140}>
             <h1
-              className={`font-display font-light tracking-tight text-3xl leading-[1.15] md:text-4xl ${
+              className={`font-title font-light tracking-[0.02em] text-3xl leading-[1.15] md:text-4xl ${
                 tone === "ivory"
-                  ? "text-ivory [text-shadow:0_2px_20px_rgba(0,0,0,0.45)]"
+                  ? "text-ink [text-shadow:0_2px_20px_rgba(0,0,0,0.45)]"
                   : "text-ink"
               }`}
             >
@@ -109,7 +109,7 @@ export function PageHero({
               <div
                 className={`mx-auto mt-6 max-w-xl text-sm leading-relaxed md:mt-8 ${
                   tone === "ivory"
-                    ? "text-ivory/90 [text-shadow:0_1px_16px_rgba(0,0,0,0.4)]"
+                    ? "text-ink/90 [text-shadow:0_1px_16px_rgba(0,0,0,0.4)]"
                     : "text-ink/65"
                 }`}
               >
@@ -159,7 +159,7 @@ export function PageHero({
               <div
                 className={`mt-12 w-full md:mt-16 ${
                   tone === "ivory"
-                    ? "text-ivory/80 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
+                    ? "text-ink/80 [text-shadow:0_1px_12px_rgba(0,0,0,0.4)]"
                     : "text-ink/45"
                 }`}
               >
@@ -190,7 +190,7 @@ function HeroBackdrop({ media }: { media?: HeroMedia }) {
         data-hero-scrim
         className={
           media
-            ? "absolute inset-0 bg-gradient-to-b from-ink/45 via-ink/30 to-ink/55"
+            ? "absolute inset-0 bg-gradient-to-b from-ivory/90 via-ivory/85 to-ivory/95"
             : "absolute inset-0 bg-transparent"
         }
       />
@@ -216,7 +216,7 @@ function HeroButton({
   const extra = "w-full sm:w-auto";
   const resolved = cta.variant ?? variant;
   const edge =
-    onMedia && resolved === "paper" ? `${extra} ring-1 ring-ivory` : extra;
+    onMedia && resolved === "paper" ? `${extra} ring-1 ring-ink/40` : extra;
   const label = (
     <>
       {cta.label}
@@ -256,8 +256,8 @@ export function GoogleReviewsHeroLink({
   return (
     <a
       href={href}
-      className={`relative inline-flex w-full items-center justify-center gap-2.5 bg-paper px-5 py-4 text-[11px] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-200 hover:bg-mist sm:w-auto ${
-        onMedia ? "ring-1 ring-ivory" : "ring-1 ring-ink/10"
+      className={`relative inline-flex w-full items-center justify-center gap-2.5 bg-white px-5 py-4 text-[11px] font-medium uppercase tracking-[0.18em] text-[#2b2523] transition-[background-color,box-shadow] duration-200 hover:bg-[#efece7] hover:shadow-[0_0_24px_rgba(197,168,128,0.25)] sm:w-auto ${
+        onMedia ? "ring-1 ring-white/30" : "ring-1 ring-sage/30"
       }`}
     >
       <span

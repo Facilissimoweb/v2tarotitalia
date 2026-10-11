@@ -30,7 +30,7 @@ function Stars({ value }: { value: number }) {
 const AVATAR_TONES = [
   "bg-sage text-on-ink",
   "bg-moss text-on-ink",
-  "bg-ink text-on-ink",
+  "bg-bronze text-ink",
 ] as const;
 
 function initialOf(author: string) {
@@ -64,7 +64,7 @@ function ReviewCard({
 }: (typeof googleReviewsContent)[number] & { echo?: boolean }) {
   return (
     <article
-      className="flex w-[min(100%,20.5rem)] shrink-0 snap-start flex-col bg-paper p-5 ring-1 ring-ink/10 md:w-[21.25rem] md:p-6"
+      className="flex w-[min(100%,20.5rem)] glass-night shrink-0 snap-start flex-col p-5 md:w-[21.25rem] md:p-6"
       aria-hidden={echo || undefined}
     >
       <div className="flex items-center gap-3">
@@ -110,7 +110,7 @@ function NavArrow({
       type="button"
       onClick={onClick}
       aria-label={dir < 0 ? "Recensioni precedenti" : "Recensioni successive"}
-      className="inline-flex h-12 w-12 shrink-0 items-center justify-center bg-paper text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist hover:ring-ink/30"
+      className="inline-flex h-12 w-12 shrink-0 items-center justify-center border border-bronze bg-ivory/35 text-ink backdrop-blur-md transition-[color,border-color,box-shadow] duration-300 hover:border-moss hover:text-moss hover:shadow-[0_0_22px_rgba(197,168,128,0.18)]"
     >
       <Chevron dir={dir} />
     </button>
@@ -218,7 +218,7 @@ export function GoogleReviews() {
                 <GoogleMark className="h-5 w-5" />
                 <Kicker>{recensioni.kicker}</Kicker>
               </div>
-              <h2 className="mt-4 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
+              <h2 className="mt-4 font-title text-2xl font-normal leading-snug text-ink md:text-3xl">
                 {recensioni.titolo}
               </h2>
             </div>
@@ -226,7 +226,7 @@ export function GoogleReviews() {
               href={recensioni.profiloUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist"
+              className="inline-flex items-center gap-2 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] border border-bronze bg-ivory/35 text-ink backdrop-blur-md transition-[color,border-color,box-shadow] duration-300 hover:border-moss hover:text-moss hover:shadow-[0_0_22px_rgba(197,168,128,0.18)]"
             >
               <GoogleMark className="h-4 w-4" />
               {recensioni.cta}

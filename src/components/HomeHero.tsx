@@ -1,5 +1,6 @@
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
+import { Bokeh } from "./Bokeh";
 import { Button, Kicker } from "./Button";
 import { GoogleReviewsHeroLink } from "./PageHero";
 import { Reveal } from "./Reveal";
@@ -110,7 +111,7 @@ function SacredGeometry() {
   const slowReverse = "motion-safe:animate-[spin_110s_linear_infinite_reverse]";
   return (
     <>
-      <svg viewBox="0 0 400 400" fill="none" className={`absolute inset-0 h-full w-full text-ink/25 ${slow}`}>
+      <svg viewBox="0 0 400 400" fill="none" className={`absolute inset-0 h-full w-full text-sage/60 ${slow}`}>
         <defs>
           <mask id="hero-seal-hole-a">
             <rect width="400" height="400" fill="white" />
@@ -177,10 +178,23 @@ export function HomeHero({ onOpenFormazione }: Props) {
 
   return (
     <section ref={root} data-home-hero className="relative overflow-hidden bg-ivory">
+      {/* Chiaroscuro: brace calda al centro, aura dorata dietro la figura, penombra in basso a sinistra */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(ellipse 80% 80% at 50% 45%, #1c1713 0%, transparent 75%), radial-gradient(70% 75% at 82% 40%, rgba(197, 168, 128, 0.24), rgba(150, 82, 52, 0.16) 45%, transparent 72%), radial-gradient(60% 60% at 8% 100%, rgba(74, 36, 30, 0.34), transparent 70%)",
+        }}
+      />
+
+      {/* Luce pulviscolo: bokeh bronzo e oro, dietro tutto */}
+      <Bokeh />
+
       {/* Anello di sfondo, tagliato dal bordo: profondità senza peso */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -bottom-56 -left-56 h-[34rem] w-[34rem] rounded-full border border-ink/10 md:-bottom-72 md:-left-72 md:h-[48rem] md:w-[48rem]"
+        className="pointer-events-none absolute -bottom-56 -left-56 h-[34rem] w-[34rem] rounded-full border border-sage/30 md:-bottom-72 md:-left-72 md:h-[48rem] md:w-[48rem]"
       />
 
       {/*
@@ -199,10 +213,10 @@ export function HomeHero({ onOpenFormazione }: Props) {
         >
           {/* object-position: il volto (circa 27% dell'altezza) resta sempre nel primo schermo */}
           <img
-            src="/matto-hero.png"
+            src="/matto-hero-night.png"
             alt=""
             decoding="async"
-            className="h-full w-full object-cover object-[30%_22%] opacity-50 mix-blend-multiply"
+            className="h-full w-full object-cover object-[30%_22%] opacity-90"
           />
         </div>
         {/* Velo ivory solo sul lato del testo: il volto resta libero */}
@@ -227,14 +241,16 @@ export function HomeHero({ onOpenFormazione }: Props) {
           </Reveal>
 
           <Reveal delay={100} className="order-1 min-[1200px]:order-none">
-            <h1 className="mt-8 font-display text-[2.75rem] font-light leading-[1.05] tracking-tight text-ink sm:text-6xl md:mt-10 xl:text-7xl">
+            <h1 className="mt-8 font-title text-[2.1rem] font-medium leading-[1.12] tracking-[0.02em] text-ink [text-shadow:0_2px_24px_rgba(0,0,0,0.5)] sm:text-5xl md:mt-10 xl:text-6xl">
               <span className="block">{home.titolo}</span>
-              <span className="block italic text-moss md:pl-12 xl:pl-24">{home.titoloCorsivo}</span>
+              <span className="block bg-gradient-to-b from-[#ecd9b3] via-[#c5a880] to-[#a88a5e] bg-clip-text text-transparent [text-shadow:none] md:pl-12 xl:pl-24">
+                {home.titoloCorsivo}
+              </span>
             </h1>
           </Reveal>
 
           <Reveal delay={200} className="order-3 min-[1200px]:order-none">
-            <p className="mt-10 max-w-md border-l border-sage/60 bg-ivory/90 py-4 pl-6 pr-4 text-base leading-[1.85] text-ink/85 backdrop-blur-sm md:mt-12">
+            <p className="mt-10 max-w-md border-l border-sage/70 bg-ivory/60 py-4 pl-6 pr-4 text-base leading-[1.85] text-ink/85 backdrop-blur-md md:mt-12">
               {brand.slogan}
             </p>
           </Reveal>
@@ -244,18 +260,18 @@ export function HomeHero({ onOpenFormazione }: Props) {
               <Button to="/consulti" variant="primary" className="w-full sm:w-auto">
                 {home.ctaConsulto} <span aria-hidden>→</span>
               </Button>
-              <Button to="/rituali" variant="ghost" className="w-full bg-ivory/90! hover:bg-mist! sm:w-auto">
+              <Button to="/rituali" variant="ghost" className="w-full sm:w-auto">
                 {cta.ritualistica}
               </Button>
             </div>
           </Reveal>
 
           <Reveal delay={380} className="order-5 min-[1200px]:order-none">
-            <div className="mt-10 flex flex-col items-start gap-6 border-t border-ink/10 pt-8 md:mt-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:gap-10">
+            <div className="mt-10 flex flex-col items-start gap-6 border-t border-sage/30 pt-8 md:mt-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:gap-10">
               <button
                 type="button"
                 onClick={onOpenFormazione}
-                className="inline-flex items-center gap-3 border-b border-ink/30 bg-ivory/90 px-3 pb-1.5 pt-2 text-[11px] font-medium uppercase tracking-[0.2em] text-ink transition-colors duration-200 hover:border-ink hover:text-moss"
+                className="inline-flex items-center gap-3 border-b border-bronze bg-ivory/50 px-3 pb-1.5 pt-2 text-[11px] font-medium uppercase tracking-[0.2em] text-ink backdrop-blur-sm transition-colors duration-200 hover:border-moss hover:text-moss"
               >
                 {cta.formazioneOlistica}
               </button>
@@ -271,13 +287,28 @@ export function HomeHero({ onOpenFormazione }: Props) {
             className="order-2 mt-12 md:mt-16 min-[1200px]:order-none min-[1200px]:m-0"
           >
             <div className="relative mx-auto aspect-square w-full max-w-[15rem] sm:max-w-[18rem] min-[1200px]:max-w-[21rem]">
-              <Layer depth={14} className="inset-0">
+              {/* Aura dorata dietro la geometria */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-[38%] rounded-full"
+                style={{
+                  backgroundImage:
+                    "radial-gradient(circle, rgba(197, 168, 128, 0.32) 0%, rgba(168, 138, 94, 0.14) 38%, transparent 66%)",
+                }}
+              />
+
+              {/* Rim light sulla geometria sacra: filo dorato nitido + bagliore morbido */}
+              <Layer depth={14} className="inset-0 rim-gold">
                 <SacredGeometry />
               </Layer>
 
-              {/* Solo il sigillo: PNG già trasparente, nessuna maschera, cornice o riquadro */}
+              {/* Solo il sigillo: PNG già trasparente; rim light dorato sul bordo dell'occhio e del cerchio */}
               <Layer depth={26} className="inset-[12%]">
-                <img src={brand.logoHero} alt="" className="h-full w-full object-contain" />
+                <img
+                  src={brand.logoHero}
+                  alt=""
+                  className="h-full w-full object-contain [filter:sepia(0.3)_brightness(0.95)_drop-shadow(0_0_1px_rgba(197,168,128,0.95))_drop-shadow(0_0_16px_rgba(197,168,128,0.5))]"
+                />
               </Layer>
             </div>
           </Reveal>

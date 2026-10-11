@@ -122,7 +122,7 @@ export function RitualisticaModal() {
             ) : null}
             <p className="text-sm leading-[1.9] text-ink/70">{ritualistica.chiacchierata}</p>
 
-            <section className="max-h-56 overflow-y-auto border-y border-ink/10 py-6">
+            <section className="max-h-56 overflow-y-auto border-y border-sage/30 py-6">
               <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{ritualistica.legaleKicker}</p>
               <p className="mt-4 text-xs leading-[1.9] text-ink/70">{brand.deontologia}</p>
               <p className="mt-6 font-display text-sm text-ink">{legal.disclaimer.heading}</p>
@@ -169,7 +169,7 @@ export function RitualisticaModal() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="border-0 border-b border-ink/20 bg-transparent py-2 text-sm outline-none focus:border-ink"
+                className="border-0 border-b border-sage/40 bg-transparent py-2 text-sm outline-none focus:border-ink"
               />
             </label>
             <label className="flex flex-col gap-1.5">
@@ -179,7 +179,7 @@ export function RitualisticaModal() {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="border-0 border-b border-ink/20 bg-transparent py-2 text-sm outline-none focus:border-ink"
+                className="border-0 border-b border-sage/40 bg-transparent py-2 text-sm outline-none focus:border-ink"
               />
             </label>
             <label className="flex flex-col gap-1.5">
@@ -188,7 +188,7 @@ export function RitualisticaModal() {
                 rows={3}
                 value={note}
                 onChange={(e) => setNote(e.target.value)}
-                className="w-full border-0 border-b border-ink/20 bg-transparent py-2 text-sm outline-none focus:border-ink"
+                className="w-full border-0 border-b border-sage/40 bg-transparent py-2 text-sm outline-none focus:border-ink"
               />
             </label>
 

@@ -40,7 +40,7 @@ export function ChiSiamo() {
               <Kicker>{brand.name}</Kicker>
             </Reveal>
             <Reveal delay={100}>
-              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+              <h2 className="mt-6 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
                 {chiSiamo.titolo}
               </h2>
             </Reveal>
@@ -113,7 +113,7 @@ export function ChiSiamo() {
           <Reveal>
             <Kicker>{chiSiamo.percorsoKicker}</Kicker>
           </Reveal>
-          <ul className="mt-16 divide-y divide-ink/10">
+          <ul className="mt-16 divide-y divide-sage/30">
             {chiSiamo.percorsoDisciplinare.map((item, i) => (
               <Reveal key={item.titolo} as="li" delay={i * 80} className="grid gap-3 py-10 md:grid-cols-[1fr_1fr] md:gap-16">
                 <p className="font-display text-xl text-ink">{item.titolo}</p>
@@ -146,7 +146,7 @@ export function ChiSiamo() {
               <Kicker>{maura.sezione}</Kicker>
             </Reveal>
             <Reveal delay={100}>
-              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+              <h2 className="mt-6 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
                 {maura.nome}
               </h2>
             </Reveal>

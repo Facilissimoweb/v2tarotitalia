@@ -1,14 +1,29 @@
 @import "tailwindcss";
 
+/*
+ * Estetica "Notte Esoterica" cinematografica: chiaroscuro, oro antico e bronzo.
+ * I nomi dei token sono rimasti quelli storici per non toccare ogni componente,
+ * ma i valori sono semantici e NOTTURNI:
+ *   ivory  = fondo pagina (nero charcoal)     ink   = testo principale (oro perlaceo)
+ *   mist   = fondo sezioni alternate          paper = fondo card / superfici
+ *   linen  = superfici incassate              sage  = oro metallico (accenti, kicker, linee, icone)
+ *   moss   = oro chiaro (hover, bagliori)     on-ink = testo scuro su superfici oro
+ * Font: Cinzel solo per i titoli principali (font-title); Noto Serif per il resto del serif.
+ */
 @theme {
-  --color-ivory: #f9f8f6;
-  --color-ink: #2b2523;
-  --color-sage: #7a8b78;
-  --color-paper: #ffffff;
-  --color-mist: #efece7;
-  --color-linen: #e7e2da;
-  --color-moss: #5f6f5d;
-  --color-on-ink: #f3efe8;
+  --color-ivory: #0d0b09;
+  --color-ink: #f5efe6;
+  --color-sage: #c5a880;
+  --color-paper: #1a1613;
+  --color-mist: #12100e;
+  --color-linen: #211c18;
+  --color-moss: #d6bf98;
+  --color-on-ink: #0d0b09;
+  --color-bronze: #8c7355;
+  --color-smoke: #a8a29e;
+  --color-gold: #c5a880;
+  --color-gold-deep: #a88a5e;
+  --font-title: "Cinzel", "Noto Serif", "Times New Roman", serif;
   --font-display: "Noto Serif", "Times New Roman", serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
   --radius-none: 0px;
@@ -67,7 +82,10 @@
 
   body {
     margin: 0;
-    background: var(--color-ivory);
+    background-color: var(--color-ivory);
+    /* Chiaroscuro: charcoal ai bordi, brace calda al centro */
+    background-image: radial-gradient(ellipse 85% 75% at 50% 42%, #1c1713 0%, #0d0b09 78%);
+    background-attachment: fixed;
     color: var(--color-ink);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
@@ -88,6 +106,12 @@
   }
 }
 
+/* Cinzel non ha il corsivo: nei titoli niente obliquo sintetico (fuori dai layer, vince sulle utility) */
+.font-title.italic,
+.font-title .italic {
+  font-style: normal;
+}
+
 @utility label-kicker {
   font-family: var(--font-body);
   font-size: 0.625rem;
@@ -95,6 +119,59 @@
   text-transform: uppercase;
   font-weight: 500;
   color: var(--color-sage);
+}
+
+/* Titoli principali: Cinzel */
+@utility font-title {
+  font-family: var(--font-title);
+}
+
+/* Gradiente oro metallico per il pulsante principale e le superfici attive */
+@utility bg-gold-sheen {
+  background-image: linear-gradient(135deg, #c5a880 0%, #a88a5e 100%);
+}
+
+/* Vetro fumé di lusso: card, pannelli e contenitori */
+@utility glass-night {
+  background-image: linear-gradient(135deg, rgba(30, 26, 22, 0.85) 0%, rgba(18, 16, 14, 0.9) 100%);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(197, 168, 128, 0.25);
+}
+
+/* Sticky dock in basso: stesso vetro fumé, forma a pillola */
+@utility dock-night {
+  background-image: linear-gradient(135deg, rgba(30, 26, 22, 0.85) 0%, rgba(18, 16, 14, 0.9) 100%);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(197, 168, 128, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(197, 168, 128, 0.25);
+  border-radius: 9999px;
+}
+
+/* Rim light: bordo dorato nitido + bagliore morbido, sulle forme con trasparenza (logo, SVG) */
+@utility rim-gold {
+  filter: drop-shadow(0 0 1px rgba(197, 168, 128, 0.95)) drop-shadow(0 0 12px rgba(197, 168, 128, 0.4));
+}
+
+/* Bokeh: cerchi di luce sfocati, solo transform (compositor) e movimento lentissimo */
+@utility bokeh {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(40px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+@keyframes bokeh-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(2.5%, -4%, 0) scale(1.08);
+  }
 }
 
 @layer utilities {

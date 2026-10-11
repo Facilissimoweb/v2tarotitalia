@@ -100,7 +100,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
                 onClick={() => onDate(cell.iso)}
                 className={`h-10 text-sm ${
                   selected
-                    ? "bg-ink text-on-ink"
+                    ? "bg-gold-sheen text-on-ink"
                     : disabled
                       ? "text-ink/20"
                       : cell.outside
@@ -126,7 +126,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
               onClick={() => onSlot(hour)}
               className={`py-3 text-xs tracking-wide ${
                 slot === hour && available
-                  ? "bg-ink text-on-ink"
+                  ? "bg-gold-sheen text-on-ink"
                   : available
                     ? "bg-paper text-ink hover:bg-mist"
                     : "bg-mist text-ink/25"

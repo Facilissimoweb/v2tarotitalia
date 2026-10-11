@@ -11,7 +11,7 @@ export function LanguageFlag({ code, className = "" }: Props) {
   const flag = languageFlagId(code);
   return (
     <span
-      className={`inline-flex h-4 w-[1.45rem] shrink-0 overflow-hidden ring-1 ring-ink/20 ${className}`}
+      className={`inline-flex h-4 w-[1.45rem] shrink-0 overflow-hidden ring-1 ring-sage/40 ${className}`}
       aria-hidden
     >
       <FlagById id={flag} />

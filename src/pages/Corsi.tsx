@@ -42,7 +42,7 @@ export function Corsi() {
             <article className="bg-paper p-8 md:p-10" translate={localized ? "no" : undefined}>
               <p className="text-[9px] uppercase tracking-[0.18em] text-sage">{c.kicker}</p>
               <div className="mt-4 flex items-start justify-between gap-4">
-                <h2 className="font-display text-xl leading-snug md:text-2xl">{c.title}</h2>
+                <h2 className="font-title text-xl leading-snug md:text-2xl">{c.title}</h2>
                 <span className="shrink-0 bg-mist px-3 py-1.5 text-[10px] uppercase tracking-wider">
                   {c.pages}
                 </span>
@@ -78,7 +78,7 @@ export function Corsi() {
             <Kicker>Materiali alchemici</Kicker>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-4 font-display text-2xl md:text-3xl">Strumenti complementari</h2>
+            <h2 className="mt-4 font-title text-2xl md:text-3xl">Strumenti complementari</h2>
           </Reveal>
           <div className="mt-10 flex flex-col gap-6">
             {materiali.map((m, i) => (

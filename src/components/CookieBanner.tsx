@@ -32,18 +32,18 @@ export function CookieBanner() {
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/35 p-5 backdrop-blur-md md:p-8"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-black/65 p-5 backdrop-blur-md md:p-8"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
     >
-      <div className="relative w-full max-w-lg bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
+      <div className="relative w-full max-w-lg bg-ivory ring-1 ring-smoke/25 shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
         <WidgetCloseButton onClick={dismiss} />
         <div className="max-h-[min(90vh,44rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={cookies.titolo} titleId={titleId}>
             <p className="text-sm leading-[1.8] text-ink/70">{cookies.descrizione}</p>
 
-            <ul className="mt-10 divide-y divide-ink/10">
+            <ul className="mt-10 divide-y divide-sage/30">
               <li className="py-6">
                 <CookieRow
                   title={cookies.necessari.titolo}

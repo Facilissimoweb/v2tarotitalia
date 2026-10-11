@@ -33,7 +33,7 @@ export function WidgetFrame({ title, titleId, children }: Props) {
       <WidgetBrandMark />
       <h2
         id={titleId}
-        className="mt-6 text-center font-display text-2xl font-light leading-snug tracking-tight text-ink md:text-3xl"
+        className="mt-6 text-center font-title text-2xl font-light leading-snug tracking-[0.02em] text-ink md:text-3xl"
       >
         {title}
       </h2>

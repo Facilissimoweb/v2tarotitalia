@@ -319,7 +319,7 @@ function Category({
             type="button"
             onClick={() => onSelect(campo.id)}
             className={`px-5 py-4 text-left text-sm leading-snug ${
-              selected === campo.id ? "bg-ink text-on-ink" : "bg-mist text-ink hover:bg-paper"
+              selected === campo.id ? "bg-gold-sheen text-on-ink" : "bg-mist text-ink hover:bg-paper"
             }`}
           >
             {campo.titolo}
@@ -356,7 +356,7 @@ function Question({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={itha.quesitoPlaceholder}
-        className="w-full border-0 border-b border-ink/20 bg-transparent py-3 text-sm leading-[1.8] outline-none focus:border-ink"
+        className="w-full border-0 border-b border-sage/40 bg-transparent py-3 text-sm leading-[1.8] outline-none focus:border-ink"
       />
       {error ? <p className="text-sm text-ink">{error}</p> : null}
       <Button className="w-full" onClick={onNext}>
@@ -489,7 +489,7 @@ function Reading({
       <p className="text-sm leading-[1.9] text-ink/70">{reading.question}</p>
       {cards.map((section) =>
         section.card ? (
-          <article key={section.pos.id} className="border-t border-ink/10 pt-6">
+          <article key={section.pos.id} className="border-t border-sage/30 pt-6">
             <p className="text-[10px] uppercase tracking-[0.14em] text-sage">{section.titolo}</p>
             <div className="mt-4 grid gap-5 sm:grid-cols-[7.5rem_1fr] sm:items-start">
               <IthaCardFace card={section.card} />

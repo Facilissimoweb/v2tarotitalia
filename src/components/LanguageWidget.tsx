@@ -97,7 +97,7 @@ export function LanguageWidget({ placement }: Props) {
       {open
         ? createPortal(
             <div
-              className="fixed inset-0 z-[85] flex items-center justify-center bg-ink/35 p-5 backdrop-blur-md md:p-8"
+              className="fixed inset-0 z-[85] flex items-center justify-center bg-black/65 p-5 backdrop-blur-md md:p-8"
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
@@ -111,7 +111,7 @@ export function LanguageWidget({ placement }: Props) {
                   triggerRef.current?.focus();
                 }}
               />
-              <div className="relative z-10 flex max-h-[min(90vh,42rem)] w-full max-w-md flex-col bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
+              <div className="relative z-10 flex max-h-[min(90vh,42rem)] w-full max-w-md flex-col bg-ivory ring-1 ring-smoke/25 shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
                 <WidgetCloseButton
                   onClick={() => {
                     setOpen(false);
@@ -132,7 +132,7 @@ export function LanguageWidget({ placement }: Props) {
                         placeholder={lingua.cerca}
                         autoComplete="off"
                         spellCheck={false}
-                        className="w-full border-0 border-b border-ink/15 bg-transparent py-2.5 font-body text-sm text-ink outline-none placeholder:text-ink/30 focus:border-ink/40"
+                        className="w-full border-0 border-b border-sage/35 bg-transparent py-2.5 font-body text-sm text-ink outline-none placeholder:text-ink/30 focus:border-ink/40"
                       />
                     </label>
                   </WidgetFrame>
@@ -193,7 +193,7 @@ function LanguageOption({
   return (
     <button
       type="button"
-      className={`flex w-full items-center gap-3 border-t border-ink/10 py-3.5 text-left text-sm ${
+      className={`flex w-full items-center gap-3 border-t border-sage/30 py-3.5 text-left text-sm ${
         selected ? "text-ink" : "text-ink/55 hover:text-ink"
       }`}
       onClick={onSelect}

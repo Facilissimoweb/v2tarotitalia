@@ -58,7 +58,7 @@ export function Footer() {
         {brand.deontologia}
       </p>
 
-      <div className="mx-auto mt-16 max-w-xl border-t border-ink/10 pt-14 text-center">
+      <div className="mx-auto mt-16 max-w-xl border-t border-sage/30 pt-14 text-center">
         <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{tutela.kicker}</p>
         <p className="mt-5 text-sm leading-[1.9] text-ink/65">
           <LegalCopy>{tutela.sintesi}</LegalCopy>

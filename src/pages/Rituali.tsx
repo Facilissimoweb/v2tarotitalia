@@ -30,7 +30,7 @@ export function Rituali() {
             <Kicker>{maura.sezione}</Kicker>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+            <h2 className="mt-6 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
               {maura.nome}
             </h2>
           </Reveal>
@@ -47,7 +47,7 @@ export function Rituali() {
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <Kicker>{maura.ritualiKicker}</Kicker>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">{pages.rituali.kicker}</h2>
+            <h2 className="mt-4 font-title text-3xl md:text-4xl">{pages.rituali.kicker}</h2>
           </Reveal>
           <div className="mt-14 grid gap-8 md:grid-cols-2">
             {ritualistica.tipologie.map((tipo, i) => (

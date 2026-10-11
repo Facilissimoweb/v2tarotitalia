@@ -10,7 +10,7 @@ function FormazioneCards() {
       {percorsoEsteso.voci.map((voce) => (
         <article
           key={voce.titolo}
-          className="relative isolate flex h-full flex-col overflow-hidden bg-sage p-8 ring-1 ring-ivory/25 transition-colors duration-300 hover:ring-ivory/40"
+          className="glass-night relative isolate flex h-full flex-col overflow-hidden p-8 transition-[border-color,box-shadow] duration-300 hover:border-moss/50 hover:shadow-[0_0_36px_rgba(197,168,128,0.12),0_25px_50px_-12px_rgba(0,0,0,0.6)]"
         >
           {/* Ornamento floreale come sfondo della card: dietro al testo, ancorato a destra */}
           <img
@@ -19,17 +19,17 @@ function FormazioneCards() {
             aria-hidden
             loading="lazy"
             decoding="async"
-            className="pointer-events-none absolute -bottom-8 -right-10 -z-10 h-[120%] w-auto max-w-none opacity-40 mix-blend-soft-light"
+            className="pointer-events-none absolute -bottom-8 -right-10 -z-10 h-[120%] w-auto max-w-none opacity-[0.16]"
           />
-          <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-ivory">{voce.badge}</p>
+          <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-sage">{voce.badge}</p>
           <span
             className="mt-5 inline-block text-lg leading-none grayscale brightness-[1.65] contrast-110"
             aria-hidden
           >
             {voce.icona}
           </span>
-          <h3 className="mt-4 font-display text-xl leading-snug text-ivory">{voce.titolo}</h3>
-          <p className="mt-5 flex-1 text-sm leading-[1.85] text-ivory/85">{voce.testo}</p>
+          <h3 className="mt-4 font-display text-xl leading-snug text-ink">{voce.titolo}</h3>
+          <p className="mt-5 flex-1 text-sm leading-[1.85] text-ink/80">{voce.testo}</p>
         </article>
       ))}
     </div>
