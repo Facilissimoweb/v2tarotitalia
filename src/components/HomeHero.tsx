@@ -265,7 +265,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
             delay={160}
             className="order-2 mt-12 md:mt-16 min-[1200px]:order-none min-[1200px]:m-0"
           >
-            <div className="relative mx-auto aspect-square w-full max-w-sm sm:max-w-md min-[1200px]:max-w-none">
+            <div className="relative mx-auto aspect-square w-full max-w-[15rem] sm:max-w-[18rem] min-[1200px]:max-w-[21rem]">
               <Layer depth={14} className="inset-0">
                 <SacredGeometry />
               </Layer>
