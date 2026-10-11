@@ -10,8 +10,17 @@ function FormazioneCards() {
       {percorsoEsteso.voci.map((voce) => (
         <article
           key={voce.titolo}
-          className="flex h-full flex-col bg-sage p-8 ring-1 ring-ivory/25 transition-colors duration-300 hover:ring-ivory/40"
+          className="relative isolate flex h-full flex-col overflow-hidden bg-sage p-8 ring-1 ring-ivory/25 transition-colors duration-300 hover:ring-ivory/40"
         >
+          {/* Ornamento floreale come sfondo della card: dietro al testo, ancorato a destra */}
+          <img
+            src="/sfondo-card.png"
+            alt=""
+            aria-hidden
+            loading="lazy"
+            decoding="async"
+            className="pointer-events-none absolute -bottom-8 -right-10 -z-10 h-[120%] w-auto max-w-none opacity-40 mix-blend-soft-light"
+          />
           <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-ivory">{voce.badge}</p>
           <span
             className="mt-5 inline-block text-lg leading-none grayscale brightness-[1.65] contrast-110"

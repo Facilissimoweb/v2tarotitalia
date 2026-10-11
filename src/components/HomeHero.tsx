@@ -184,20 +184,25 @@ export function HomeHero({ onOpenFormazione }: Props) {
       />
 
       {/*
-        Il Matto in formato copertina: riempie tutta la hero (object-cover) e scorre
-        con la pagina a velocità ridotta (parallasse), senza mai scoprire i bordi.
+        Il Matto in formato copertina, ancorato sul lato destro dello schermo (il volto
+        resta fuori dal sigillo): scorre con la pagina a velocità ridotta (parallasse).
       */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
-          className="absolute inset-x-0 -top-[7%] h-[107%] will-change-transform"
-          style={{ transform: "translate3d(0, calc(var(--sy, 0) * 1px), 0)" }}
+          className="absolute -top-[7%] left-[30%] h-[107%] w-[70%] will-change-transform min-[1200px]:left-[65%] min-[1200px]:w-[55%]"
+          style={{
+            transform: "translate3d(0, calc(var(--sy, 0) * 1px), 0)",
+            // Bordo sinistro sfumato: niente taglio netto sulla figura ritagliata
+            maskImage: "linear-gradient(to right, transparent, #000 16%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent, #000 16%)",
+          }}
         >
           {/* object-position: il volto (circa 27% dell'altezza) resta sempre nel primo schermo */}
           <img
             src="/matto-hero.png"
             alt=""
             decoding="async"
-            className="h-full w-full object-cover object-[52%_22%] opacity-50 mix-blend-multiply"
+            className="h-full w-full object-cover object-[30%_22%] opacity-50 mix-blend-multiply"
           />
         </div>
         {/* Velo ivory solo sul lato del testo: il volto resta libero */}
