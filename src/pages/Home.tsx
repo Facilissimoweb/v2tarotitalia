@@ -8,6 +8,7 @@ import { GoogleReviews } from "../components/GoogleReviews";
 import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
 import { Reveal } from "../components/Reveal";
+import { SectionCover } from "../components/SectionCover";
 
 const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
 
@@ -61,8 +62,9 @@ export function Home() {
         </div>
       </section>
 
-      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-6xl">
+      <section className="relative overflow-hidden bg-paper px-6 py-24 md:px-10 md:py-32">
+        <SectionCover src="/forza-consulti.png" objectPosition="50% 15%" />
+        <div className="relative mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{nav.consulti}</Kicker>
             <h2 className="mt-4 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
