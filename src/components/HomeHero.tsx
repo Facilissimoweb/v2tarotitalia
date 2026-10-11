@@ -1,6 +1,5 @@
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
-import { BrandLogo } from "./BrandLogo";
 import { Button, Kicker } from "./Button";
 import { GoogleReviewsHeroLink } from "./PageHero";
 import { Reveal } from "./Reveal";
@@ -78,40 +77,56 @@ function SacredGeometry() {
   return (
     <>
       <svg viewBox="0 0 400 400" fill="none" className={`absolute inset-0 h-full w-full text-ink/25 ${slow}`}>
-        <circle cx="200" cy="200" r="196" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-        <circle
-          cx="200"
-          cy="200"
-          r="152"
-          stroke="currentColor"
-          strokeWidth="1"
-          strokeDasharray="2 7"
-          vectorEffect="non-scaling-stroke"
-        />
-        <path
-          d="M200 4 369.7 298 30.3 298Z"
-          stroke="currentColor"
-          strokeWidth="1"
-          strokeLinejoin="miter"
-          vectorEffect="non-scaling-stroke"
-        />
+        <defs>
+          <mask id="hero-seal-hole-a">
+            <rect width="400" height="400" fill="white" />
+            <circle cx="200" cy="200" r="126" fill="black" />
+          </mask>
+        </defs>
+        <g mask="url(#hero-seal-hole-a)">
+          <circle cx="200" cy="200" r="196" stroke="currentColor" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+          <circle
+            cx="200"
+            cy="200"
+            r="152"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeDasharray="2 7"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M200 4 369.7 298 30.3 298Z"
+            stroke="currentColor"
+            strokeWidth="1"
+            strokeLinejoin="miter"
+            vectorEffect="non-scaling-stroke"
+          />
+        </g>
       </svg>
       <svg viewBox="0 0 400 400" fill="none" className={`absolute inset-0 h-full w-full text-sage ${slowReverse}`}>
-        <path
-          d="M200 4 396 200 200 396 4 200Z"
-          stroke="currentColor"
-          strokeWidth="1"
-          vectorEffect="non-scaling-stroke"
-        />
-        <rect
-          x="92"
-          y="92"
-          width="216"
-          height="216"
-          stroke="currentColor"
-          strokeWidth="1"
-          vectorEffect="non-scaling-stroke"
-        />
+        <defs>
+          <mask id="hero-seal-hole-b">
+            <rect width="400" height="400" fill="white" />
+            <circle cx="200" cy="200" r="126" fill="black" />
+          </mask>
+        </defs>
+        <g mask="url(#hero-seal-hole-b)">
+          <path
+            d="M200 4 396 200 200 396 4 200Z"
+            stroke="currentColor"
+            strokeWidth="1"
+            vectorEffect="non-scaling-stroke"
+          />
+          <rect
+            x="92"
+            y="92"
+            width="216"
+            height="216"
+            stroke="currentColor"
+            strokeWidth="1"
+            vectorEffect="non-scaling-stroke"
+          />
+        </g>
         <circle cx="200" cy="4" r="3" fill="currentColor" />
         <circle cx="396" cy="200" r="3" fill="currentColor" />
         <circle cx="200" cy="396" r="3" fill="currentColor" />
@@ -143,35 +158,36 @@ export function HomeHero({ onOpenFormazione }: Props) {
       />
 
       {/*
-        Mobile (< md): le due colonne diventano `contents`, così ogni blocco è un
-        elemento diretto della griglia e si riordina con `order-*`:
-        1 titolo · 2 logo · 3 sottotitolo · 4 CTA · 5 link secondari · 6 card · 7 coordinate.
-        Da md in su le colonne tornano blocchi e la struttura è quella originale.
+        Fino a 1199px (mobile, tablet, laptop medi): colonna unica centrata. Le due
+        colonne diventano `contents`, così ogni blocco è un elemento diretto della
+        griglia e si riordina con `order-*`:
+        1 titolo · 2 logo (con la card sovrapposta) · 3 sottotitolo · 4 CTA · 5 link secondari · 6 coordinate.
+        Da 1200px in su le colonne tornano blocchi e la struttura è quella desktop a due colonne.
       */}
-      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-0 px-6 py-20 md:gap-20 md:px-10 md:py-28 lg:min-h-[calc(100svh-7rem)] lg:grid-cols-12 lg:gap-10 lg:py-32">
+      <div className="relative mx-auto grid w-full max-w-3xl items-center gap-0 px-6 py-20 md:px-10 md:py-28 min-[1200px]:min-h-[calc(100svh-7rem)] min-[1200px]:max-w-7xl min-[1200px]:grid-cols-12 min-[1200px]:gap-10 min-[1200px]:py-32">
         {/* Testo: colonna ampia, allineata a sinistra */}
-        <div className="contents md:block lg:col-span-7">
-          <Reveal className="order-1 md:order-none">
+        <div className="contents min-[1200px]:col-span-7 min-[1200px]:block">
+          <Reveal className="order-1 min-[1200px]:order-none">
             <div className="flex items-center gap-4">
               <span aria-hidden className="h-px w-12 bg-sage" />
               <Kicker>{home.kicker}</Kicker>
             </div>
           </Reveal>
 
-          <Reveal delay={100} className="order-1 md:order-none">
+          <Reveal delay={100} className="order-1 min-[1200px]:order-none">
             <h1 className="mt-8 font-display text-[2.75rem] font-light leading-[1.05] tracking-tight text-ink sm:text-6xl md:mt-10 xl:text-7xl">
               <span className="block">{home.titolo}</span>
               <span className="block italic text-moss md:pl-12 xl:pl-24">{home.titoloCorsivo}</span>
             </h1>
           </Reveal>
 
-          <Reveal delay={200} className="order-3 md:order-none">
+          <Reveal delay={200} className="order-3 min-[1200px]:order-none">
             <p className="mt-10 max-w-md border-l border-sage/60 pl-6 text-base leading-[1.85] text-ink/70 md:mt-12">
               {brand.slogan}
             </p>
           </Reveal>
 
-          <Reveal delay={300} className="order-4 md:order-none">
+          <Reveal delay={300} className="order-4 min-[1200px]:order-none">
             <div className="mt-12 flex flex-col gap-3 sm:flex-row md:mt-14">
               <Button to="/consulti" variant="primary" className="w-full sm:w-auto">
                 {home.ctaConsulto} <span aria-hidden>→</span>
@@ -182,8 +198,8 @@ export function HomeHero({ onOpenFormazione }: Props) {
             </div>
           </Reveal>
 
-          <Reveal delay={380} className="order-5 md:order-none">
-            <div className="mt-10 flex flex-col items-start gap-6 border-t border-ink/10 pt-8 sm:flex-row sm:items-center sm:gap-10 md:mt-12">
+          <Reveal delay={380} className="order-5 min-[1200px]:order-none">
+            <div className="mt-10 flex flex-col items-start gap-6 border-t border-ink/10 pt-8 md:mt-12 min-[1200px]:flex-row min-[1200px]:items-center min-[1200px]:gap-10">
               <button
                 type="button"
                 onClick={onOpenFormazione}
@@ -197,37 +213,30 @@ export function HomeHero({ onOpenFormazione }: Props) {
         </div>
 
         {/* Composizione: sigillo al centro di strati geometrici sovrapposti */}
-        <div className="contents md:block lg:col-span-5">
-          <Reveal delay={160} className="order-2 mb-6 mt-12 md:order-none md:m-0">
-            <div className="relative mx-auto aspect-square w-full max-w-sm sm:max-w-md lg:max-w-none">
-              <Layer depth={6} className="inset-x-[8%] top-[8%] bottom-[14%] bg-mist lg:bg-linen" />
-
+        <div className="contents min-[1200px]:col-span-5 min-[1200px]:block">
+          <Reveal
+            delay={160}
+            className="order-2 mb-16 mt-12 sm:mb-8 md:mb-10 md:mt-16 min-[1200px]:order-none min-[1200px]:m-0"
+          >
+            <div className="relative mx-auto aspect-square w-full max-w-sm sm:max-w-md min-[1200px]:max-w-none">
               <Layer depth={14} className="inset-0">
                 <SacredGeometry />
               </Layer>
 
-              <Layer depth={26} className="inset-[24%] bg-paper shadow-[0_32px_70px_-28px_rgba(43,37,35,0.45)] ring-1 ring-ink/10">
-                <span className="absolute inset-0 flex items-center justify-center">
-                  <BrandLogo tone="hero" className="h-[78%] w-[78%]" />
-                </span>
+              {/* Solo il sigillo: PNG già trasparente, nessuna maschera, cornice o riquadro */}
+              <Layer depth={26} className="inset-[12%]">
+                <img src={brand.logoHero} alt="" className="h-full w-full object-contain" />
               </Layer>
 
-              {/* Da md in su: card sovrapposta al sigillo (su mobile è un blocco a parte, più sotto) */}
-              <Layer depth={40} className="-bottom-4 -left-4 hidden bg-ink px-6 py-5 text-on-ink md:block">
+              {/* Card sotto il logo, sovrapposta in basso a sinistra: identica a ogni larghezza */}
+              <Layer depth={40} className="-bottom-10 left-2 bg-ink px-6 py-5 text-on-ink sm:-bottom-4 sm:-left-4">
                 <NameCard />
               </Layer>
             </div>
           </Reveal>
 
-          {/* Solo mobile: la card segue sottotitolo e CTA */}
-          <Reveal delay={200} className="order-6 justify-self-start md:hidden">
-            <div className="mt-10 bg-ink px-6 py-5 text-on-ink">
-              <NameCard />
-            </div>
-          </Reveal>
-
-          <Reveal delay={260} className="order-7 md:order-none">
-            <div className="mx-auto mt-12 flex max-w-sm md:mt-16 justify-between gap-6 border-t border-ink/10 pt-4 text-[9px] uppercase tracking-[0.2em] text-ink/55 sm:max-w-md lg:max-w-none">
+          <Reveal delay={260} className="order-6 min-[1200px]:order-none">
+            <div className="mx-auto mt-12 flex max-w-sm justify-between gap-6 border-t border-ink/10 pt-4 text-[9px] uppercase tracking-[0.2em] text-ink/55 sm:max-w-md md:mt-16 min-[1200px]:max-w-none">
               <span>{brand.coords}</span>
               <span>{brand.region}</span>
             </div>
