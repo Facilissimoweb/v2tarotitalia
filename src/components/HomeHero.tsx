@@ -47,6 +47,40 @@ function useDepth(ref: React.RefObject<HTMLElement | null>) {
   }, [ref]);
 }
 
+/**
+ * Parallasse allo scroll: --sy cresce con lo scorrimento (10% della distanza),
+ * limitato al margine extra dell'immagine. Attivo solo con la hero visibile;
+ * disattivato con prefers-reduced-motion.
+ */
+function useScrollParallax(ref: React.RefObject<HTMLElement | null>) {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const rect = el.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const shift = Math.min(Math.max(-rect.top * 0.1, 0), rect.height * 0.07);
+      el.style.setProperty("--sy", shift.toFixed(1));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [ref]);
+}
+
 function Layer({
   depth,
   className = "",
@@ -148,6 +182,7 @@ function NameCard() {
 export function HomeHero({ onOpenFormazione }: Props) {
   const root = useRef<HTMLElement>(null);
   useDepth(root);
+  useScrollParallax(root);
 
   return (
     <section ref={root} data-home-hero className="relative overflow-hidden bg-ivory">
@@ -156,6 +191,27 @@ export function HomeHero({ onOpenFormazione }: Props) {
         aria-hidden
         className="pointer-events-none absolute -bottom-56 -left-56 h-[34rem] w-[34rem] rounded-full border border-ink/10 md:-bottom-72 md:-left-72 md:h-[48rem] md:w-[48rem]"
       />
+
+      {/*
+        Il Matto in formato copertina: riempie tutta la hero (object-cover) e scorre
+        con la pagina a velocità ridotta (parallasse), senza mai scoprire i bordi.
+      */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute inset-x-0 -top-[7%] h-[107%] will-change-transform"
+          style={{ transform: "translate3d(0, calc(var(--sy, 0) * 1px), 0)" }}
+        >
+          {/* object-position: il volto (circa 27% dell'altezza) resta sempre nel primo schermo */}
+          <img
+            src="/matto-hero.png"
+            alt=""
+            decoding="async"
+            className="h-full w-full object-cover object-[52%_22%] opacity-50 mix-blend-multiply"
+          />
+        </div>
+        {/* Velo ivory solo sul lato del testo: il volto resta libero */}
+        <div className="absolute inset-0 bg-gradient-to-r from-ivory/60 via-ivory/5 via-35% to-transparent min-[1200px]:from-ivory/90 min-[1200px]:via-ivory/30" />
+      </div>
 
       {/*
         Fino a 1199px (mobile, tablet, laptop medi): colonna unica centrata. Le due
@@ -182,7 +238,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
           </Reveal>
 
           <Reveal delay={200} className="order-3 min-[1200px]:order-none">
-            <p className="mt-10 max-w-md border-l border-sage/60 pl-6 text-base leading-[1.85] text-ink/70 md:mt-12">
+            <p className="mt-10 max-w-md border-l border-sage/60 bg-ivory/90 py-4 pl-6 pr-4 text-base leading-[1.85] text-ink/85 backdrop-blur-sm md:mt-12">
               {brand.slogan}
             </p>
           </Reveal>
@@ -192,7 +248,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
               <Button to="/consulti" variant="primary" className="w-full sm:w-auto">
                 {home.ctaConsulto} <span aria-hidden>→</span>
               </Button>
-              <Button to="/rituali" variant="ghost" className="w-full sm:w-auto">
+              <Button to="/rituali" variant="ghost" className="w-full bg-ivory/90! hover:bg-mist! sm:w-auto">
                 {cta.ritualistica}
               </Button>
             </div>
@@ -203,7 +259,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
               <button
                 type="button"
                 onClick={onOpenFormazione}
-                className="inline-flex items-center gap-3 border-b border-ink/30 pb-1.5 text-[11px] font-medium uppercase tracking-[0.2em] text-ink transition-colors duration-200 hover:border-ink hover:text-moss"
+                className="inline-flex items-center gap-3 border-b border-ink/30 bg-ivory/90 px-3 pb-1.5 pt-2 text-[11px] font-medium uppercase tracking-[0.2em] text-ink transition-colors duration-200 hover:border-ink hover:text-moss"
               >
                 {cta.formazioneOlistica}
               </button>
@@ -236,7 +292,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
           </Reveal>
 
           <Reveal delay={260} className="order-6 min-[1200px]:order-none">
-            <div className="mx-auto mt-12 flex max-w-sm justify-between gap-6 border-t border-ink/10 pt-4 text-[9px] uppercase tracking-[0.2em] text-ink/55 sm:max-w-md md:mt-16 min-[1200px]:max-w-none">
+            <div className="mx-auto mt-12 flex max-w-sm justify-between gap-6 border-t border-ink/10 bg-ivory/90 pt-4 text-[9px] uppercase tracking-[0.2em] text-ink/70 sm:max-w-md md:mt-16 min-[1200px]:max-w-none">
               <span>{brand.coords}</span>
               <span>{brand.region}</span>
             </div>
