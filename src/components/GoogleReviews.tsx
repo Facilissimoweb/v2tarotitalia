@@ -27,6 +27,34 @@ function Stars({ value }: { value: number }) {
   );
 }
 
+const AVATAR_TONES = [
+  "bg-sage text-on-ink",
+  "bg-moss text-on-ink",
+  "bg-ink text-on-ink",
+] as const;
+
+function initialOf(author: string) {
+  const letter = author.trim().match(/\p{L}/u)?.[0];
+  return (letter ?? "·").toLocaleUpperCase("it-IT");
+}
+
+function toneOf(author: string) {
+  let hash = 0;
+  for (const char of author) hash = (hash * 31 + char.codePointAt(0)!) >>> 0;
+  return AVATAR_TONES[hash % AVATAR_TONES.length];
+}
+
+function Avatar({ author }: { author: string }) {
+  return (
+    <span
+      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-base leading-none ${toneOf(author)}`}
+      aria-hidden
+    >
+      {initialOf(author)}
+    </span>
+  );
+}
+
 function ReviewCard({
   author,
   rating,
@@ -39,13 +67,18 @@ function ReviewCard({
       className="flex w-[min(100%,20.5rem)] shrink-0 snap-start flex-col bg-paper p-5 ring-1 ring-ink/10 md:w-[21.25rem] md:p-6"
       aria-hidden={echo || undefined}
     >
-      <div className="flex items-center gap-2.5">
-        <GoogleMark className="h-[1.05rem] w-[1.05rem] shrink-0" />
+      <div className="flex items-center gap-3">
+        <Avatar author={author} />
+        <div className="min-w-0 flex-1">
+          <p className="truncate font-display text-[15px] leading-tight text-ink">{author}</p>
+          <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-sage">{date}</p>
+        </div>
+        <GoogleMark className="h-[1.05rem] w-[1.05rem] shrink-0 self-start" />
+      </div>
+      <div className="mt-4">
         <Stars value={rating} />
       </div>
-      <p className="mt-4 line-clamp-5 flex-1 text-sm leading-[1.75] text-ink/75">{text}</p>
-      <p className="mt-5 font-display text-[15px] text-ink">{author}</p>
-      <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-sage">{date}</p>
+      <p className="mt-3 line-clamp-5 flex-1 text-sm leading-[1.75] text-ink/75">{text}</p>
     </article>
   );
 }
@@ -146,8 +179,7 @@ function ReviewsStrip() {
   };
 
   return (
-    <div className="mt-8 grid grid-cols-[3rem_minmax(0,1fr)_3rem] items-center gap-2 md:gap-3">
-      <NavArrow dir={-1} onClick={() => step(-1)} />
+    <div className="mt-8">
       <div
         ref={scroller}
         className="flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-auto pb-1 [scrollbar-width:none] [touch-action:pan-x] [&::-webkit-scrollbar]:hidden md:gap-5"
@@ -162,7 +194,10 @@ function ReviewsStrip() {
           )),
         )}
       </div>
-      <NavArrow dir={1} onClick={() => step(1)} />
+      <div className="mt-6 flex items-center justify-center gap-3">
+        <NavArrow dir={-1} onClick={() => step(-1)} />
+        <NavArrow dir={1} onClick={() => step(1)} />
+      </div>
     </div>
   );
 }
