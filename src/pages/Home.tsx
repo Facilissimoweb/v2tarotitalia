@@ -5,8 +5,8 @@ import { BrandLogo } from "../components/BrandLogo";
 import { Button, Kicker } from "../components/Button";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
+import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
-import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 
 const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
@@ -17,37 +17,7 @@ export function Home() {
 
   return (
     <div>
-      <PageHero
-        logo
-        video="/videos/hero-tarot-italia.mp4"
-        kicker={home.kicker}
-        title={
-          <>
-            {home.titolo}
-            <br />
-            <span className="italic">{home.titoloCorsivo}</span>
-          </>
-        }
-        lead={brand.slogan}
-        beforeCta={{
-          label: cta.formazioneOlistica,
-          onClick: () => setFormazioneOpen(true),
-          variant: "paper",
-        }}
-        cta={{ to: "/consulti", label: home.ctaConsulto, variant: "sage" }}
-        secondary={{ to: "/rituali", label: cta.ritualistica, variant: "paper" }}
-        tertiary={{
-          href: "#recensioni-google",
-          label: home.recensioni.heroCta,
-          accent: "google",
-        }}
-        meta={
-          <div className="flex justify-center gap-10 text-[9px] uppercase tracking-[0.2em]">
-            <span>{brand.coords}</span>
-            <span>{brand.region}</span>
-          </div>
-        }
-      />
+      <HomeHero onOpenFormazione={() => setFormazioneOpen(true)} />
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">

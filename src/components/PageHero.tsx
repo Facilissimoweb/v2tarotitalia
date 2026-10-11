@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
 import { Button, Kicker } from "./Button";
@@ -19,10 +19,10 @@ export type HeroCta = {
   accent?: "google";
 };
 
-/** Sfondo dinamico della hero: immagine, video o superficie mist in attesa. */
+/** Sfondo della hero interna: immagine o superficie mist in attesa. */
 export type HeroMedia = {
   src: string;
-  type?: "image" | "video";
+  type?: "image";
   alt?: string;
   objectPosition?: string;
 };
@@ -37,16 +37,8 @@ type Props = {
   tertiary?: HeroCta;
   meta?: ReactNode;
   children?: ReactNode;
-  logo?: boolean;
-  video?: string;
   media?: HeroMedia;
 };
-
-function isVideoMedia(media: HeroMedia) {
-  if (media.type === "video") return true;
-  if (media.type === "image") return false;
-  return /\.(mp4|webm|ogg)(\?|$)/i.test(media.src);
-}
 
 export function PageHero({
   kicker,
@@ -58,21 +50,16 @@ export function PageHero({
   tertiary,
   meta,
   children,
-  logo = false,
-  video,
   media,
 }: Props) {
-  const backdrop = media ?? (video ? { src: video, type: "video" as const } : undefined);
+  const backdrop = media;
   const onMedia = Boolean(backdrop);
-  const home = logo;
   const tone = onMedia ? "ivory" : "ink";
 
   return (
     <section
       data-page-hero
-      className={`relative overflow-hidden ${home ? "" : "mb-16 lg:mb-32"} ${
-        onMedia ? "bg-ink" : "bg-mist"
-      }`}
+      className={`relative overflow-hidden mb-16 lg:mb-32 ${onMedia ? "bg-ink" : "bg-mist"}`}
     >
       <HeroBackdrop media={backdrop} />
 
@@ -107,11 +94,7 @@ export function PageHero({
 
           <Reveal delay={140}>
             <h1
-              className={`font-display font-light tracking-tight ${
-                home
-                  ? "text-4xl leading-[1.12] sm:text-5xl md:text-6xl"
-                  : "text-3xl leading-[1.15] md:text-4xl"
-              } ${
+              className={`font-display font-light tracking-tight text-3xl leading-[1.15] md:text-4xl ${
                 tone === "ivory"
                   ? "text-ivory [text-shadow:0_2px_20px_rgba(0,0,0,0.45)]"
                   : "text-ink"
@@ -124,9 +107,7 @@ export function PageHero({
           {lead ? (
             <Reveal delay={200}>
               <div
-                className={`mx-auto mt-6 max-w-xl md:mt-8 ${
-                  home ? "text-base leading-[1.75]" : "text-sm leading-relaxed"
-                } ${
+                className={`mx-auto mt-6 max-w-xl text-sm leading-relaxed md:mt-8 ${
                   tone === "ivory"
                     ? "text-ivory/90 [text-shadow:0_1px_16px_rgba(0,0,0,0.4)]"
                     : "text-ink/65"
@@ -139,11 +120,7 @@ export function PageHero({
 
           {cta ? (
             <Reveal delay={280}>
-              <div
-                className={`flex w-full flex-wrap items-center justify-center gap-3 ${
-                  home ? "mt-12 flex-col sm:flex-row" : "mt-7"
-                }`}
-              >
+              <div className="mt-7 flex w-full flex-wrap items-center justify-center gap-3">
                 {beforeCta ? (
                   <HeroButton
                     cta={beforeCta}
@@ -153,8 +130,8 @@ export function PageHero({
                 ) : null}
                 <HeroButton
                   cta={cta}
-                  variant={home || !onMedia ? "primary" : "paper"}
-                  arrow={home || !onMedia}
+                  variant={!onMedia ? "primary" : "paper"}
+                  arrow={!onMedia}
                   onMedia={onMedia}
                 />
                 {secondary ? (
@@ -200,16 +177,12 @@ function HeroBackdrop({ media }: { media?: HeroMedia }) {
   return (
     <div data-hero-backdrop className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
       {media ? (
-        isVideoMedia(media) ? (
-          <HeroVideo src={media.src} />
-        ) : (
-          <img
-            src={media.src}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover object-center"
-            style={media.objectPosition ? { objectPosition: media.objectPosition } : undefined}
-          />
-        )
+        <img
+          src={media.src}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center"
+          style={media.objectPosition ? { objectPosition: media.objectPosition } : undefined}
+        />
       ) : (
         <div className="absolute inset-0 bg-mist" />
       )}
@@ -222,38 +195,6 @@ function HeroBackdrop({ media }: { media?: HeroMedia }) {
         }
       />
     </div>
-  );
-}
-
-function HeroVideo({ src }: { src: string }) {
-  const ref = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.muted = true;
-    const play = () => {
-      void el.play().catch(() => undefined);
-    };
-    play();
-    el.addEventListener("canplay", play);
-    return () => el.removeEventListener("canplay", play);
-  }, [src]);
-
-  return (
-    <video
-      ref={ref}
-      className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center motion-reduce:hidden"
-      autoPlay
-      loop
-      muted
-      playsInline
-      preload="auto"
-      disablePictureInPicture
-      aria-hidden
-    >
-      <source src={src} type="video/mp4" />
-    </video>
   );
 }
 
@@ -303,7 +244,7 @@ function HeroButton({
   );
 }
 
-function GoogleReviewsHeroLink({
+export function GoogleReviewsHeroLink({
   href,
   label,
   onMedia,
