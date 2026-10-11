@@ -85,7 +85,7 @@ export function Riservata() {
               type="button"
               onClick={() => setTab(id)}
               className={`whitespace-nowrap px-4 py-2 text-[11px] uppercase tracking-[0.14em] ${
-                tab === id ? "bg-gold-sheen text-on-ink" : "bg-mist text-ink/60"
+                tab === id ? "bg-accent-sheen text-on-ink" : "bg-mist text-ink/60"
               }`}
             >
               {label}

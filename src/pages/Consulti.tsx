@@ -254,7 +254,7 @@ export function Consulti() {
               <button
                 type="button"
                 onClick={() => setMode("studio")}
-                className={`p-4 text-left ${mode === "studio" ? "bg-gold-sheen text-on-ink" : "bg-mist text-ink"}`}
+                className={`p-4 text-left ${mode === "studio" ? "bg-accent-sheen text-on-ink" : "bg-mist text-ink"}`}
               >
                 <p className="font-display">In studio</p>
                 <p className={`mt-1 text-[10px] ${mode === "studio" ? "text-on-ink/70" : "text-ink/50"}`}>
@@ -264,7 +264,7 @@ export function Consulti() {
               <button
                 type="button"
                 onClick={() => setMode("remote")}
-                className={`p-4 text-left ${mode === "remote" ? "bg-gold-sheen text-on-ink" : "bg-mist text-ink"}`}
+                className={`p-4 text-left ${mode === "remote" ? "bg-accent-sheen text-on-ink" : "bg-mist text-ink"}`}
               >
                 <p className="font-display">A distanza</p>
                 <p className={`mt-1 text-[10px] ${mode === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>

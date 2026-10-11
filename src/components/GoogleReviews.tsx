@@ -6,14 +6,15 @@ import { GoogleMark } from "./GoogleMark";
 import { Reveal } from "./Reveal";
 
 const { recensioni } = siteContent.home;
-const STAR_GOLD = "#C6A15B";
+// Le stelle prendono il verde d'accento della sezione (smeraldo sul nero, verde scuro sul chiaro)
+const STAR_GOLD = "currentColor";
 
 function Stars({ value }: { value: number }) {
   const filled = Math.round(Math.min(5, Math.max(0, value)));
   return (
     <span className="flex gap-0.5" aria-label={`${filled} su 5`}>
       {Array.from({ length: 5 }, (_, i) => (
-        <svg key={i} viewBox="0 0 24 24" className="h-3.5 w-3.5" aria-hidden>
+        <svg key={i} viewBox="0 0 24 24" className="h-3.5 w-3.5 text-sage" aria-hidden>
           <path
             d="M12 2.6 14.7 8.4l6.4.9-4.6 4.5 1.1 6.3L12 17.1 6.4 20.1l1.1-6.3L2.9 9.3l6.4-.9L12 2.6z"
             fill={i < filled ? STAR_GOLD : "none"}
@@ -110,7 +111,7 @@ function NavArrow({
       type="button"
       onClick={onClick}
       aria-label={dir < 0 ? "Recensioni precedenti" : "Recensioni successive"}
-      className="inline-flex h-12 w-12 shrink-0 items-center justify-center border border-bronze bg-ivory/35 text-ink backdrop-blur-md transition-[color,border-color,box-shadow] duration-300 hover:border-moss hover:text-moss hover:shadow-[0_0_22px_rgba(197,168,128,0.18)]"
+      className="inline-flex h-12 w-12 shrink-0 items-center justify-center border border-bronze bg-ivory/35 text-ink backdrop-blur-md transition-[color,border-color,box-shadow] duration-300 hover:border-moss hover:text-moss hover:shadow-[0_0_22px_rgba(63,214,154,0.18)]"
     >
       <Chevron dir={dir} />
     </button>
@@ -226,7 +227,7 @@ export function GoogleReviews() {
               href={recensioni.profiloUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] border border-bronze bg-ivory/35 text-ink backdrop-blur-md transition-[color,border-color,box-shadow] duration-300 hover:border-moss hover:text-moss hover:shadow-[0_0_22px_rgba(197,168,128,0.18)]"
+              className="inline-flex items-center gap-2 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] border border-bronze bg-ivory/35 text-ink backdrop-blur-md transition-[color,border-color,box-shadow] duration-300 hover:border-moss hover:text-moss hover:shadow-[0_0_22px_rgba(63,214,154,0.18)]"
             >
               <GoogleMark className="h-4 w-4" />
               {recensioni.cta}

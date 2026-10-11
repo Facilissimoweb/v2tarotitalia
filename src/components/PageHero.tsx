@@ -74,7 +74,7 @@ export function PageHero({
             <span data-hero-logo className="block">
               <BrandLogo
                 tone="hero"
-                className="mx-auto h-32 w-32 md:h-40 md:w-40 lg:h-48 lg:w-48 rim-gold"
+                className="mx-auto h-32 w-32 md:h-40 md:w-40 lg:h-48 lg:w-48 rim-glow"
               />
             </span>
           </Reveal>
@@ -94,7 +94,7 @@ export function PageHero({
 
           <Reveal delay={140}>
             <h1
-              className={`font-title font-light tracking-[0.02em] text-3xl leading-[1.15] md:text-4xl ${
+              className={`font-h1 text-4xl leading-[1.1] md:text-5xl ${
                 tone === "ivory"
                   ? "text-ink [text-shadow:0_2px_20px_rgba(0,0,0,0.45)]"
                   : "text-ink"
@@ -256,7 +256,7 @@ export function GoogleReviewsHeroLink({
   return (
     <a
       href={href}
-      className={`relative inline-flex w-full items-center justify-center gap-2.5 bg-white px-5 py-4 text-[11px] font-medium uppercase tracking-[0.18em] text-[#2b2523] transition-[background-color,box-shadow] duration-200 hover:bg-[#efece7] hover:shadow-[0_0_24px_rgba(197,168,128,0.25)] sm:w-auto ${
+      className={`relative inline-flex w-full items-center justify-center gap-2.5 bg-white px-5 py-4 text-[11px] font-medium uppercase tracking-[0.18em] text-[#2b2523] transition-[background-color,box-shadow] duration-200 hover:bg-[#efece7] hover:shadow-[0_0_24px_rgba(63,214,154,0.25)] sm:w-auto ${
         onMedia ? "ring-1 ring-white/30" : "ring-1 ring-sage/30"
       }`}
     >

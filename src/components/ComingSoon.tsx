@@ -43,7 +43,7 @@ export function ComingSoon() {
           {brand.wordmark.toUpperCase()}
         </p>
         <p className="mt-2 text-[9px] uppercase leading-none tracking-[0.28em] text-white/80">{brand.name}</p>
-        <h1 className="mt-12 font-title text-3xl font-light leading-[1.15] tracking-[0.02em] text-white md:text-4xl">
+        <h1 className="mt-12 font-h1 text-4xl leading-[1.1] text-white md:text-5xl">
           {copy.titolo}
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-white/85">{brand.slogan}</p>

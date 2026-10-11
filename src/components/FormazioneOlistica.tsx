@@ -10,7 +10,7 @@ function FormazioneCards() {
       {percorsoEsteso.voci.map((voce) => (
         <article
           key={voce.titolo}
-          className="glass-night relative isolate flex h-full flex-col overflow-hidden p-8 transition-[border-color,box-shadow] duration-300 hover:border-moss/50 hover:shadow-[0_0_36px_rgba(197,168,128,0.12),0_25px_50px_-12px_rgba(0,0,0,0.6)]"
+          className="glass-night relative isolate flex h-full flex-col overflow-hidden p-8 transition-[border-color,box-shadow] duration-300 hover:border-moss/50 hover:shadow-[0_0_36px_rgba(63,214,154,0.12),0_25px_50px_-12px_rgba(0,0,0,0.6)]"
         >
           {/* Ornamento floreale come sfondo della card: dietro al testo, ancorato a destra */}
           <img

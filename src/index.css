@@ -1,29 +1,32 @@
 @import "tailwindcss";
 
 /*
- * Estetica "Notte Esoterica" cinematografica: chiaroscuro, oro antico e bronzo.
+ * Estetica "Notte Esoterica" cinematografica: chiaroscuro nero-verde, verde smeraldo e viola.
  * I nomi dei token sono rimasti quelli storici per non toccare ogni componente,
  * ma i valori sono semantici e NOTTURNI:
- *   ivory  = fondo pagina (nero charcoal)     ink   = testo principale (oro perlaceo)
+ *   ivory  = fondo pagina (nero verdastro)    ink   = testo principale (bianco avorio)
  *   mist   = fondo sezioni alternate          paper = fondo card / superfici
- *   linen  = superfici incassate              sage  = oro metallico (accenti, kicker, linee, icone)
- *   moss   = oro chiaro (hover, bagliori)     on-ink = testo scuro su superfici oro
+ *   linen  = superfici incassate              sage  = verde smeraldo (accenti, kicker, linee, icone)
+ *   moss   = verde menta chiaro (hover)       bronze = viola (bordi secondari, geometria, bokeh)
+ *   on-ink = testo scuro su superfici verdi
  * Font: Cinzel solo per i titoli principali (font-title); Noto Serif per il resto del serif.
  */
 @theme {
-  --color-ivory: #0d0b09;
-  --color-ink: #f5efe6;
-  --color-sage: #c5a880;
-  --color-paper: #1a1613;
-  --color-mist: #12100e;
-  --color-linen: #211c18;
-  --color-moss: #d6bf98;
-  --color-on-ink: #0d0b09;
-  --color-bronze: #8c7355;
-  --color-smoke: #a8a29e;
-  --color-gold: #c5a880;
-  --color-gold-deep: #a88a5e;
+  --color-ivory: #090d0b;
+  --color-ink: #f5f1e8;
+  --color-sage: #3fd69a;
+  --color-paper: #111a16;
+  --color-mist: #0d1411;
+  --color-linen: #17231e;
+  --color-moss: #8af0c4;
+  --color-on-ink: #06100b;
+  --color-bronze: #8b5cf6;
+  --color-smoke: #a3aba6;
+  --color-emerald: #3fd69a;
+  --color-emerald-deep: #1f9d6e;
+  --color-violet: #8b5cf6;
   --font-title: "Cinzel", "Noto Serif", "Times New Roman", serif;
+  --font-h1: "Pirata One", "Cinzel", "Noto Serif", serif;
   --font-display: "Noto Serif", "Times New Roman", serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
   --radius-none: 0px;
@@ -83,8 +86,8 @@
   body {
     margin: 0;
     background-color: var(--color-ivory);
-    /* Chiaroscuro: charcoal ai bordi, brace calda al centro */
-    background-image: radial-gradient(ellipse 85% 75% at 50% 42%, #1c1713 0%, #0d0b09 78%);
+    /* Chiaroscuro: nero verdastro ai bordi, velo smeraldo al centro */
+    background-image: radial-gradient(ellipse 85% 75% at 50% 42%, #10201a 0%, #090d0b 78%);
     background-attachment: fixed;
     color: var(--color-ink);
     font-family: var(--font-body);
@@ -108,33 +111,35 @@
 
 /*
  * Ritmo chiaro/scuro: una sezione con `section-light bg-ivory` ridefinisce i token di colore
- * per tutti i suoi discendenti (avorio caldo, inchiostro bruno, oro scurito per il contrasto).
+ * per tutti i suoi discendenti (avorio, inchiostro scuro, verde e viola scuriti per il contrasto).
  * Le classi Tailwind restano le stesse: bg-paper, text-ink, text-sage... cambiano valore dentro la sezione.
  * Fuori dai layer di proposito: vince sui token del tema.
  */
 .section-light {
-  --color-ivory: #f9f8f6;
-  --color-ink: #2b2523;
-  --color-sage: #8a6a3d;
-  --color-moss: #6f5530;
+  --color-ivory: #f7f8f5;
+  --color-ink: #1b2420;
+  --color-sage: #1b7a54;
+  --color-moss: #135a3d;
   --color-paper: #ffffff;
-  --color-mist: #f0ede7;
-  --color-linen: #e8e3da;
-  --color-bronze: #a88a5e;
-  --color-smoke: #6b625c;
+  --color-mist: #edf1ed;
+  --color-linen: #e1e8e2;
+  --color-bronze: #6d3fd1;
+  --color-smoke: #5f6b65;
   color: var(--color-ink);
 }
 
-/* Vetro per le sezioni chiare: velo avorio, bordo oro, ombra morbida */
+/* Vetro per le sezioni chiare: velo avorio, bordo verde, ombra morbida */
 .section-light .glass-night {
-  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(249, 248, 246, 0.96) 100%);
-  border: 1px solid rgba(138, 106, 61, 0.3);
-  box-shadow: 0 10px 30px rgba(43, 37, 35, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(247, 248, 245, 0.96) 100%);
+  border: 1px solid rgba(27, 122, 84, 0.3);
+  box-shadow: 0 10px 30px rgba(27, 36, 32, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 /* Cinzel non ha il corsivo: nei titoli niente obliquo sintetico (fuori dai layer, vince sulle utility) */
 .font-title.italic,
-.font-title .italic {
+.font-title .italic,
+.font-h1.italic,
+.font-h1 .italic {
   font-style: normal;
 }
 
@@ -152,33 +157,40 @@
   font-family: var(--font-title);
 }
 
-/* Gradiente oro metallico per il pulsante principale e le superfici attive */
-@utility bg-gold-sheen {
-  background-image: linear-gradient(135deg, #c5a880 0%, #a88a5e 100%);
+/* Titoli H1: blackletter Pirata One (OFL, uso commerciale consentito). Peso unico, nessuna spaziatura tra lettere */
+@utility font-h1 {
+  font-family: var(--font-h1);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* Gradiente verde smeraldo per il pulsante principale e le superfici attive */
+@utility bg-accent-sheen {
+  background-image: linear-gradient(135deg, #3fd69a 0%, #1f9d6e 100%);
 }
 
 /* Vetro fumé di lusso: card, pannelli e contenitori */
 @utility glass-night {
-  background-image: linear-gradient(135deg, rgba(30, 26, 22, 0.85) 0%, rgba(18, 16, 14, 0.9) 100%);
+  background-image: linear-gradient(135deg, rgba(17, 28, 23, 0.85) 0%, rgba(8, 13, 11, 0.9) 100%);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(197, 168, 128, 0.35);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(197, 168, 128, 0.25);
+  border: 1px solid rgba(63, 214, 154, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(63, 214, 154, 0.25);
 }
 
 /* Sticky dock in basso: stesso vetro fumé, forma a pillola */
 @utility dock-night {
-  background-image: linear-gradient(135deg, rgba(30, 26, 22, 0.85) 0%, rgba(18, 16, 14, 0.9) 100%);
+  background-image: linear-gradient(135deg, rgba(17, 28, 23, 0.85) 0%, rgba(8, 13, 11, 0.9) 100%);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(197, 168, 128, 0.35);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(197, 168, 128, 0.25);
+  border: 1px solid rgba(63, 214, 154, 0.35);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(63, 214, 154, 0.25);
   border-radius: 9999px;
 }
 
-/* Rim light: bordo dorato nitido + bagliore morbido, sulle forme con trasparenza (logo, SVG) */
-@utility rim-gold {
-  filter: drop-shadow(0 0 1px rgba(197, 168, 128, 0.95)) drop-shadow(0 0 12px rgba(197, 168, 128, 0.4));
+/* Rim light: filo smeraldo nitido + bagliore viola morbido, sulle forme con trasparenza (logo, SVG) */
+@utility rim-glow {
+  filter: drop-shadow(0 0 1px rgba(63, 214, 154, 0.95)) drop-shadow(0 0 12px rgba(139, 92, 246, 0.45));
 }
 
 /* Bokeh: cerchi di luce sfocati, solo transform (compositor) e movimento lentissimo */

@@ -138,7 +138,7 @@ function SacredGeometry() {
           />
         </g>
       </svg>
-      <svg viewBox="0 0 400 400" fill="none" className={`absolute inset-0 h-full w-full text-sage ${slowReverse}`}>
+      <svg viewBox="0 0 400 400" fill="none" className={`absolute inset-0 h-full w-full text-bronze ${slowReverse}`}>
         <defs>
           <mask id="hero-seal-hole-b">
             <rect width="400" height="400" fill="white" />
@@ -178,17 +178,17 @@ export function HomeHero({ onOpenFormazione }: Props) {
 
   return (
     <section ref={root} data-home-hero className="relative overflow-hidden bg-ivory">
-      {/* Chiaroscuro: brace calda al centro, aura dorata dietro la figura, penombra in basso a sinistra */}
+      {/* Chiaroscuro: velo smeraldo al centro, aura verde-viola dietro la figura, penombra viola in basso a sinistra */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            "radial-gradient(ellipse 80% 80% at 50% 45%, #1c1713 0%, transparent 75%), radial-gradient(70% 75% at 82% 40%, rgba(197, 168, 128, 0.24), rgba(150, 82, 52, 0.16) 45%, transparent 72%), radial-gradient(60% 60% at 8% 100%, rgba(74, 36, 30, 0.34), transparent 70%)",
+            "radial-gradient(ellipse 80% 80% at 50% 45%, #10201a 0%, transparent 75%), radial-gradient(70% 75% at 82% 40%, rgba(63, 214, 154, 0.2), rgba(139, 92, 246, 0.14) 48%, transparent 72%), radial-gradient(60% 60% at 8% 100%, rgba(139, 92, 246, 0.26), transparent 70%)",
         }}
       />
 
-      {/* Luce pulviscolo: bokeh bronzo e oro, dietro tutto */}
+      {/* Luce pulviscolo: bokeh smeraldo e viola, dietro tutto */}
       <Bokeh />
 
       {/* Anello di sfondo, tagliato dal bordo: profondità senza peso */}
@@ -241,9 +241,9 @@ export function HomeHero({ onOpenFormazione }: Props) {
           </Reveal>
 
           <Reveal delay={100} className="order-1 min-[1200px]:order-none">
-            <h1 className="mt-8 font-title text-[2.1rem] font-medium leading-[1.12] tracking-[0.02em] text-ink [text-shadow:0_2px_24px_rgba(0,0,0,0.5)] sm:text-5xl md:mt-10 xl:text-6xl">
+            <h1 className="mt-8 font-h1 text-[2.6rem] leading-[1.08] text-ink [text-shadow:0_2px_24px_rgba(0,0,0,0.5)] sm:text-6xl md:mt-10 xl:text-7xl">
               <span className="block">{home.titolo}</span>
-              <span className="block bg-gradient-to-b from-[#ecd9b3] via-[#c5a880] to-[#a88a5e] bg-clip-text text-transparent [text-shadow:none] md:pl-12 xl:pl-24">
+              <span className="block bg-gradient-to-b from-[#c4f7e0] via-[#3fd69a] to-[#1f9d6e] bg-clip-text text-transparent [text-shadow:none] md:pl-12 xl:pl-24">
                 {home.titoloCorsivo}
               </span>
             </h1>
@@ -287,27 +287,27 @@ export function HomeHero({ onOpenFormazione }: Props) {
             className="order-2 mt-12 md:mt-16 min-[1200px]:order-none min-[1200px]:m-0"
           >
             <div className="relative mx-auto aspect-square w-full max-w-[15rem] sm:max-w-[18rem] min-[1200px]:max-w-[21rem]">
-              {/* Aura dorata dietro la geometria */}
+              {/* Aura smeraldo e viola dietro la geometria */}
               <div
                 aria-hidden
                 className="pointer-events-none absolute -inset-[38%] rounded-full"
                 style={{
                   backgroundImage:
-                    "radial-gradient(circle, rgba(197, 168, 128, 0.32) 0%, rgba(168, 138, 94, 0.14) 38%, transparent 66%)",
+                    "radial-gradient(circle, rgba(63, 214, 154, 0.26) 0%, rgba(139, 92, 246, 0.16) 40%, transparent 66%)",
                 }}
               />
 
-              {/* Rim light sulla geometria sacra: filo dorato nitido + bagliore morbido */}
-              <Layer depth={14} className="inset-0 rim-gold">
+              {/* Rim light sulla geometria sacra: filo smeraldo nitido + bagliore viola morbido */}
+              <Layer depth={14} className="inset-0 rim-glow">
                 <SacredGeometry />
               </Layer>
 
-              {/* Solo il sigillo: PNG già trasparente; rim light dorato sul bordo dell'occhio e del cerchio */}
+              {/* Solo il sigillo: PNG già trasparente; rim light smeraldo sul bordo dell'occhio e del cerchio */}
               <Layer depth={26} className="inset-[12%]">
                 <img
                   src={brand.logoHero}
                   alt=""
-                  className="h-full w-full object-contain [filter:sepia(0.3)_brightness(0.95)_drop-shadow(0_0_1px_rgba(197,168,128,0.95))_drop-shadow(0_0_16px_rgba(197,168,128,0.5))]"
+                  className="h-full w-full object-contain [filter:drop-shadow(0_0_1px_rgba(63,214,154,0.95))_drop-shadow(0_0_16px_rgba(139,92,246,0.55))]"
                 />
               </Layer>
             </div>

@@ -78,7 +78,7 @@ export function Home() {
                 <Reveal key={lettura.id} delay={i * 80}>
                   <article
                     className={`flex h-full flex-col p-8 md:p-10 ${
-                      featured ? "glass-night !border-moss/60 shadow-[0_0_44px_rgba(197,168,128,0.14),0_25px_50px_-12px_rgba(0,0,0,0.6)]" : "glass-night"
+                      featured ? "glass-night !border-moss/60 shadow-[0_0_44px_rgba(63,214,154,0.14),0_25px_50px_-12px_rgba(0,0,0,0.6)]" : "glass-night"
                     }`}
                   >
                     <p

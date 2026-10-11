@@ -20,7 +20,7 @@ const sealButtonClass =
   "group relative flex items-center justify-center !rounded-full";
 
 const tipClass =
-  "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap border border-moss/30 bg-[#12100e] px-2.5 py-1 text-[9px] uppercase tracking-[0.16em] text-sage opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
+  "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap border border-moss/30 bg-[#0d1411] px-2.5 py-1 text-[9px] uppercase tracking-[0.16em] text-sage opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
 
 type DockBarProps = {
   onItha?: () => void;
@@ -115,7 +115,7 @@ function DockSeal() {
   return (
     <span
       className="flex h-8 w-8 items-center justify-center rounded-full p-0.5 shadow-md sm:h-9 sm:w-9"
-      style={{ background: "linear-gradient(135deg, #c5a880 0%, #8c7355 100%)" }}
+      style={{ background: "linear-gradient(135deg, #3fd69a 0%, #8b5cf6 100%)" }}
     >
       <BrandLogo className="h-full w-full !ring-0" />
     </span>
