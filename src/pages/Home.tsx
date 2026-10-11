@@ -20,7 +20,7 @@ export function Home() {
     <div>
       <HomeHero onOpenFormazione={() => setFormazioneOpen(true)} />
 
-      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
+      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>
@@ -129,7 +129,7 @@ export function Home() {
         </div>
       </section>
 
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
             <Reveal>

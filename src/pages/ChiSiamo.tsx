@@ -27,7 +27,7 @@ export function ChiSiamo() {
         }}
       />
 
-      <section className="px-6 pb-24 md:px-10 md:pb-32">
+      <section className="section-light bg-ivory px-6 pt-16 pb-24 md:px-10 md:pt-24 md:pb-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:gap-24">
           <ImageSlot
             src={chiSiamo.immagini.teresa.src}
@@ -63,7 +63,7 @@ export function ChiSiamo() {
         </Reveal>
       </section>
 
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <ImageSlot
             src={chiSiamo.immagini.studio.src}
@@ -108,7 +108,7 @@ export function ChiSiamo() {
         </div>
       </section>
 
-      <section className="px-6 py-24 pb-40 md:px-10 md:py-32 md:pb-48">
+      <section className="section-light bg-ivory px-6 py-24 pb-40 md:px-10 md:py-32 md:pb-48">
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <Kicker>{chiSiamo.percorsoKicker}</Kicker>
@@ -172,7 +172,7 @@ export function ChiSiamo() {
         </div>
       </section>
 
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <div className="mx-auto max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
             <Kicker>{brand.name}</Kicker>

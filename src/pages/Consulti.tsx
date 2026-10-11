@@ -190,6 +190,7 @@ export function Consulti() {
         }}
       />
 
+      <div className="section-light bg-ivory pt-16 md:pt-24">
       <div
         id="prenota"
         className="mx-auto flex max-w-2xl scroll-mt-28 flex-col gap-20 px-6 pb-24 md:gap-24 md:px-10 md:pb-32"
@@ -371,6 +372,7 @@ export function Consulti() {
             )}
           </section>
         </Reveal>
+      </div>
       </div>
       <LegalNotice kind={notice} onClose={() => setNotice(null)} />
     </div>

@@ -69,7 +69,8 @@ export function Riservata() {
         </div>
       </PageHero>
 
-      <div className="sticky top-20 z-30 bg-ivory/90 px-5 py-4 backdrop-blur-md">
+      <div className="section-light bg-ivory">
+      <div className="sticky top-20 z-30 border-b border-sage/20 bg-ivory/90 px-5 py-4 backdrop-blur-md">
         <div className="mx-auto flex max-w-3xl gap-2 overflow-x-auto">
           {(
             [
@@ -281,6 +282,7 @@ export function Riservata() {
             ))}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

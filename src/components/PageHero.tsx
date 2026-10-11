@@ -60,7 +60,7 @@ export function PageHero({
   return (
     <section
       data-page-hero
-      className={`relative overflow-hidden mb-16 lg:mb-32 ${onMedia ? "bg-ivory" : "bg-mist"}`}
+      className={`relative overflow-hidden ${onMedia ? "bg-ivory" : "bg-mist"}`}
     >
       <HeroBackdrop media={backdrop} />
       <Bokeh />

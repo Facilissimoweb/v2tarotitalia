@@ -24,7 +24,7 @@ export function Rituali() {
         }}
       />
 
-      <section className="px-6 pb-20 md:px-10 md:pb-28">
+      <section className="section-light bg-ivory px-6 pt-16 pb-20 md:px-10 md:pt-24 md:pb-28">
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Kicker>{maura.sezione}</Kicker>
@@ -74,7 +74,7 @@ export function Rituali() {
         </div>
       </section>
 
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <blockquote className="mx-auto max-w-lg border-l border-sage pl-8">
             <p className="font-display text-xl italic leading-relaxed text-ink">«{maura.citazione}»</p>

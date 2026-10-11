@@ -208,7 +208,7 @@ export function GoogleReviews() {
   return (
     <section
       id="recensioni-google"
-      className="scroll-mt-24 bg-ivory px-6 py-14 md:px-10 md:py-16 xl:scroll-mt-[7rem]"
+      className="section-light scroll-mt-24 bg-ivory px-6 py-20 md:px-10 md:py-24 xl:scroll-mt-[7rem]"
     >
       <div className="mx-auto max-w-6xl">
         <Reveal>

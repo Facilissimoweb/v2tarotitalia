@@ -21,6 +21,7 @@ export function Corsi() {
         secondary={session ? { to: "/riservata", label: "Area riservata" } : { to: "/login", label: "Accedi" }}
       />
 
+      <div className="section-light bg-ivory pt-16 md:pt-24">
       <div className="mx-auto max-w-3xl px-6 pb-24 md:px-10 md:pb-32">
         {!session && (
           <Reveal>
@@ -102,6 +103,7 @@ export function Corsi() {
             ))}
           </div>
         </section>
+      </div>
       </div>
     </div>
   );
