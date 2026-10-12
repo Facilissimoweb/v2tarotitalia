@@ -27,13 +27,13 @@ export function WidgetDialog({ title, titleId, onClose, children, wide, xl, xxl 
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-black/65 p-5 backdrop-blur-md md:p-8"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/35 p-5 backdrop-blur-md md:p-8"
       role="dialog"
       aria-modal="true"
       aria-labelledby={labelledBy}
     >
       <div
-        className={`relative w-full bg-ivory ring-1 ring-smoke/25 shadow-[0_24px_60px_rgba(0,0,0,0.6)] ${
+        className={`relative w-full bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)] ${
           xxl ? "max-w-5xl" : xl ? "max-w-3xl" : wide ? "max-w-2xl" : "max-w-lg"
         }`}
       >

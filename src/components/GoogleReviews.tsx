@@ -6,15 +6,14 @@ import { GoogleMark } from "./GoogleMark";
 import { Reveal } from "./Reveal";
 
 const { recensioni } = siteContent.home;
-// Le stelle prendono il verde d'accento della sezione (smeraldo sul nero, verde scuro sul chiaro)
-const STAR_GOLD = "currentColor";
+const STAR_GOLD = "#C6A15B";
 
 function Stars({ value }: { value: number }) {
   const filled = Math.round(Math.min(5, Math.max(0, value)));
   return (
     <span className="flex gap-0.5" aria-label={`${filled} su 5`}>
       {Array.from({ length: 5 }, (_, i) => (
-        <svg key={i} viewBox="0 0 24 24" className="h-3.5 w-3.5 text-sage" aria-hidden>
+        <svg key={i} viewBox="0 0 24 24" className="h-3.5 w-3.5" aria-hidden>
           <path
             d="M12 2.6 14.7 8.4l6.4.9-4.6 4.5 1.1 6.3L12 17.1 6.4 20.1l1.1-6.3L2.9 9.3l6.4-.9L12 2.6z"
             fill={i < filled ? STAR_GOLD : "none"}
@@ -31,7 +30,7 @@ function Stars({ value }: { value: number }) {
 const AVATAR_TONES = [
   "bg-sage text-on-ink",
   "bg-moss text-on-ink",
-  "bg-bronze text-ink",
+  "bg-ink text-on-ink",
 ] as const;
 
 function initialOf(author: string) {
@@ -65,7 +64,7 @@ function ReviewCard({
 }: (typeof googleReviewsContent)[number] & { echo?: boolean }) {
   return (
     <article
-      className="flex w-[min(100%,20.5rem)] glass-night shrink-0 snap-start flex-col p-5 md:w-[21.25rem] md:p-6"
+      className="flex w-[min(100%,20.5rem)] shrink-0 snap-start flex-col bg-paper p-5 ring-1 ring-ink/10 md:w-[21.25rem] md:p-6"
       aria-hidden={echo || undefined}
     >
       <div className="flex items-center gap-3">
@@ -111,7 +110,7 @@ function NavArrow({
       type="button"
       onClick={onClick}
       aria-label={dir < 0 ? "Recensioni precedenti" : "Recensioni successive"}
-      className="inline-flex h-12 w-12 shrink-0 items-center justify-center border border-bronze bg-ivory/35 text-ink backdrop-blur-md transition-[color,border-color,box-shadow] duration-300 hover:border-moss hover:text-moss hover:shadow-[0_0_22px_rgba(63,214,154,0.18)]"
+      className="inline-flex h-12 w-12 shrink-0 items-center justify-center bg-paper text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist hover:ring-ink/30"
     >
       <Chevron dir={dir} />
     </button>
@@ -209,7 +208,7 @@ export function GoogleReviews() {
   return (
     <section
       id="recensioni-google"
-      className="section-light scroll-mt-24 bg-ivory px-6 py-20 md:px-10 md:py-24 xl:scroll-mt-[7rem]"
+      className="scroll-mt-24 bg-ivory px-6 py-14 md:px-10 md:py-16 xl:scroll-mt-[7rem]"
     >
       <div className="mx-auto max-w-6xl">
         <Reveal>
@@ -219,7 +218,7 @@ export function GoogleReviews() {
                 <GoogleMark className="h-5 w-5" />
                 <Kicker>{recensioni.kicker}</Kicker>
               </div>
-              <h2 className="mt-4 font-title text-2xl font-normal leading-snug text-ink md:text-3xl">
+              <h2 className="mt-4 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
                 {recensioni.titolo}
               </h2>
             </div>
@@ -227,7 +226,7 @@ export function GoogleReviews() {
               href={recensioni.profiloUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] border border-bronze bg-ivory/35 text-ink backdrop-blur-md transition-[color,border-color,box-shadow] duration-300 hover:border-moss hover:text-moss hover:shadow-[0_0_22px_rgba(63,214,154,0.18)]"
+              className="inline-flex items-center gap-2 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist"
             >
               <GoogleMark className="h-4 w-4" />
               {recensioni.cta}

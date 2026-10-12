@@ -19,7 +19,7 @@ export function SectionCover({
   src,
   objectPosition = "50% 20%",
   boxClassName = "left-[34%] top-[5.5rem] h-[min(100%,46rem)] w-full md:-top-[7%] md:h-[107%]",
-  veilClassName = "bg-gradient-to-r from-paper/90 via-paper/30 via-45% to-transparent",
+  veilClassName = "bg-gradient-to-r from-paper/85 via-paper/25 via-45% to-transparent",
 }: Props) {
   const root = useRef<HTMLDivElement>(null);
 
@@ -61,7 +61,7 @@ export function SectionCover({
           alt=""
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover opacity-45"
+          className="h-full w-full object-cover opacity-50 mix-blend-multiply"
           style={{ objectPosition }}
         />
       </div>

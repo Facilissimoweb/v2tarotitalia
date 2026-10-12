@@ -2,7 +2,7 @@ import { getIthaCardImagePath, type IthaCard } from "../data/ithaMazzo.ts";
 
 export function IthaCardFace({ card, className = "" }: { card: IthaCard; className?: string }) {
   return (
-    <div className={`aspect-[2/3] bg-mist ring-1 ring-sage/30 ${className}`}>
+    <div className={`aspect-[2/3] bg-mist ring-1 ring-ink/10 ${className}`}>
       <img src={getIthaCardImagePath(card.id)} alt={card.name} className="block h-full w-full object-cover" />
     </div>
   );
@@ -10,7 +10,7 @@ export function IthaCardFace({ card, className = "" }: { card: IthaCard; classNa
 
 export function IthaCardBack({ className = "" }: { className?: string }) {
   return (
-    <div className={`aspect-[2/3] bg-accent-sheen text-on-ink ${className}`}>
+    <div className={`aspect-[2/3] bg-ink text-on-ink ${className}`}>
       <div className="flex h-full flex-col justify-between p-3">
         <p className="text-center text-[8px] uppercase tracking-[0.28em] text-on-ink/55">Itha</p>
         <svg viewBox="0 0 100 100" className="mx-auto h-16 w-16 stroke-on-ink/80" fill="none">

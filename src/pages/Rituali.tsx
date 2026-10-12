@@ -24,13 +24,13 @@ export function Rituali() {
         }}
       />
 
-      <section className="section-light bg-ivory px-6 pt-16 pb-20 md:px-10 md:pt-24 md:pb-28">
+      <section className="px-6 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Kicker>{maura.sezione}</Kicker>
           </Reveal>
           <Reveal delay={80}>
-            <h2 className="mt-6 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
+            <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
               {maura.nome}
             </h2>
           </Reveal>
@@ -47,7 +47,7 @@ export function Rituali() {
         <div className="mx-auto max-w-5xl">
           <Reveal>
             <Kicker>{maura.ritualiKicker}</Kicker>
-            <h2 className="mt-4 font-title text-3xl md:text-4xl">{pages.rituali.kicker}</h2>
+            <h2 className="mt-4 font-display text-3xl md:text-4xl">{pages.rituali.kicker}</h2>
           </Reveal>
           <div className="mt-14 grid gap-8 md:grid-cols-2">
             {ritualistica.tipologie.map((tipo, i) => (
@@ -74,7 +74,7 @@ export function Rituali() {
         </div>
       </section>
 
-      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
+      <section className="px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <blockquote className="mx-auto max-w-lg border-l border-sage pl-8">
             <p className="font-display text-xl italic leading-relaxed text-ink">«{maura.citazione}»</p>

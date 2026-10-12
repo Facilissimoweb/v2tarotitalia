@@ -34,12 +34,12 @@ export function LegalNotice({ kind, onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-black/65 p-5 backdrop-blur-md md:p-8"
+      className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/35 p-5 backdrop-blur-md md:p-8"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
     >
-      <div className="relative w-full max-w-2xl bg-ivory ring-1 ring-smoke/25 shadow-[0_24px_60px_rgba(0,0,0,0.6)]">
+      <div className="relative w-full max-w-2xl bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
         <WidgetCloseButton onClick={onClose} />
         <div className="max-h-[min(90vh,48rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={title} titleId={titleId}>
@@ -90,7 +90,7 @@ function PrivacyBody() {
         </p>
       ))}
       {privacy.sezioni.map((sezione) => (
-        <section key={sezione.titolo} className="border-t border-sage/30 pt-8">
+        <section key={sezione.titolo} className="border-t border-ink/10 pt-8">
           <h3 className="flex items-start gap-3 font-display text-lg leading-snug text-ink">
             <span className="mt-1 shrink-0 text-sage">
               <LegalIcon name={sezione.icon} />
@@ -135,7 +135,7 @@ function TutelaBody() {
         <LegalCopy>{tutela.intro}</LegalCopy>
       </p>
       {tutela.punti.map((punto) => (
-        <section key={punto.titolo} className="border-t border-sage/30 pt-8">
+        <section key={punto.titolo} className="border-t border-ink/10 pt-8">
           <h3 className="font-display text-lg leading-snug text-ink">{punto.titolo}</h3>
           <p className="mt-4 text-sm leading-[1.9] text-ink/70">
             <LegalCopy>{punto.testo}</LegalCopy>
@@ -155,7 +155,7 @@ function VenditaBody() {
       {vendita.sezioni.map((sezione) => {
         const expanded = open === sezione.id;
         return (
-          <section key={sezione.id} className="border-t border-sage/30">
+          <section key={sezione.id} className="border-t border-ink/10">
             <button
               type="button"
               className="flex w-full items-start justify-between gap-4 py-5 text-left"
@@ -179,7 +179,7 @@ function VenditaBody() {
           </section>
         );
       })}
-      <section className="border-t border-sage/30 pt-8">
+      <section className="border-t border-ink/10 pt-8">
         <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{vendita.assistenza.titolo}</p>
         <p className="mt-4 text-sm leading-[1.9] text-ink/70">
           <LegalCopy>{vendita.assistenza.testo}</LegalCopy>

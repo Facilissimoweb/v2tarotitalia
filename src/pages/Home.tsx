@@ -20,14 +20,14 @@ export function Home() {
     <div>
       <HomeHero onOpenFormazione={() => setFormazioneOpen(true)} />
 
-      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
+      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>
               <Kicker>{nav.chiSiamo}</Kicker>
             </Reveal>
             <Reveal delay={100}>
-              <h2 className="mt-5 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
+              <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
                 {chiSiamo.titolo}
               </h2>
             </Reveal>
@@ -35,7 +35,7 @@ export function Home() {
               <p className="mt-8 text-base leading-[1.75] text-ink/75">{chiSiamo.presentazione}</p>
             </Reveal>
             <Reveal delay={300}>
-              <div className="glass-night mt-10 p-8">
+              <div className="mt-10 bg-paper p-8">
                 <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink">
                   {brand.name}
                 </p>
@@ -67,7 +67,7 @@ export function Home() {
         <div className="relative mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{nav.consulti}</Kicker>
-            <h2 className="mt-4 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
+            <h2 className="mt-4 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
               {home.percorsi.titolo}
             </h2>
           </Reveal>
@@ -78,12 +78,12 @@ export function Home() {
                 <Reveal key={lettura.id} delay={i * 80}>
                   <article
                     className={`flex h-full flex-col p-8 md:p-10 ${
-                      featured ? "glass-night !border-moss/60 shadow-[0_0_44px_rgba(63,214,154,0.14),0_25px_50px_-12px_rgba(0,0,0,0.6)]" : "glass-night"
+                      featured ? "bg-ink text-on-ink" : "bg-ivory"
                     }`}
                   >
                     <p
                       className={`text-[10px] uppercase tracking-[0.16em] ${
-                        "text-sage"
+                        featured ? "text-on-ink/55" : "text-sage"
                       }`}
                     >
                       {lettura.meta}
@@ -91,7 +91,7 @@ export function Home() {
                     <h3 className="mt-4 font-display text-xl leading-snug">{lettura.titolo}</h3>
                     <p
                       className={`mt-6 flex-1 text-sm leading-[1.85] ${
-                        "text-ink/70"
+                        featured ? "text-on-ink/75" : "text-ink/70"
                       }`}
                     >
                       {lettura.testo}
@@ -99,7 +99,7 @@ export function Home() {
                     <div className="mt-10">
                       <Button
                         to={`/consulti?tipo=${lettura.id}`}
-                        variant={featured ? "primary" : "ghost"}
+                        variant={featured ? "paper" : "sage"}
                         className="w-full"
                       >
                         {lettura.cta}
@@ -110,7 +110,7 @@ export function Home() {
               );
             })}
             <Reveal delay={160}>
-              <article className="glass-night flex h-full flex-col p-8 md:p-10">
+              <article className="flex h-full flex-col bg-ivory p-8 md:p-10">
                 <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
                 <h3 className="mt-4 font-display text-xl leading-snug text-ink">
                   {home.percorsi.itha.titolo}
@@ -129,12 +129,12 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
+      <section className="px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
             <Reveal>
               <Kicker>{home.visione.kicker}</Kicker>
-              <h2 className="mt-5 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
+              <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
                 {home.visione.titolo}
               </h2>
             </Reveal>
@@ -145,7 +145,7 @@ export function Home() {
           <div className="mt-14 grid gap-8 lg:grid-cols-3">
             {home.visione.pilastri.map((pilastro, i) => (
               <Reveal key={pilastro.titolo} delay={i * 80}>
-                <article className="glass-night flex h-full flex-col p-8 md:p-10">
+                <article className="flex h-full flex-col bg-paper p-8 md:p-10">
                   <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
                     {String(i + 1).padStart(2, "0")}
                   </p>
@@ -184,12 +184,12 @@ export function Home() {
       <GoogleReviews />
 
       <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
-        <div className="glass-night mx-auto max-w-3xl p-10 text-center md:p-14">
+        <div className="mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
           <Reveal>
             <Kicker>{brand.name}</Kicker>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-5 font-title text-2xl font-normal leading-snug text-ink md:text-3xl">
+            <h2 className="mt-5 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
               {home.passaggi.titolo}
             </h2>
           </Reveal>

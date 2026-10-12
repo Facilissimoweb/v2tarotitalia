@@ -30,7 +30,6 @@ export function Login() {
         secondary={{ href: "#login", label: "Entra nell'area riservata" }}
       />
 
-      <div className="section-light bg-ivory pt-16 md:pt-24">
       <Reveal>
         <div id="login" className="mx-auto max-w-lg scroll-mt-28 px-6 pb-24 md:px-10 md:pb-32">
           <WidgetFrame title={mode === "login" ? auth.login : mode === "magic" ? auth.magicLink : auth.registrazione}>
@@ -45,7 +44,6 @@ export function Login() {
           </WidgetFrame>
         </div>
       </Reveal>
-      </div>
       <LegalNotice kind={legal} onClose={() => setLegal(null)} />
     </div>
   );

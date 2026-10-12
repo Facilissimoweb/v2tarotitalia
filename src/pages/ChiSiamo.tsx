@@ -27,7 +27,7 @@ export function ChiSiamo() {
         }}
       />
 
-      <section className="section-light bg-ivory px-6 pt-16 pb-24 md:px-10 md:pt-24 md:pb-32">
+      <section className="px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:gap-24">
           <ImageSlot
             src={chiSiamo.immagini.teresa.src}
@@ -40,7 +40,7 @@ export function ChiSiamo() {
               <Kicker>{brand.name}</Kicker>
             </Reveal>
             <Reveal delay={100}>
-              <h2 className="mt-6 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
+              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
                 {chiSiamo.titolo}
               </h2>
             </Reveal>
@@ -63,7 +63,7 @@ export function ChiSiamo() {
         </Reveal>
       </section>
 
-      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
+      <section className="px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <ImageSlot
             src={chiSiamo.immagini.studio.src}
@@ -108,12 +108,12 @@ export function ChiSiamo() {
         </div>
       </section>
 
-      <section className="section-light bg-ivory px-6 py-24 pb-40 md:px-10 md:py-32 md:pb-48">
+      <section className="px-6 py-24 pb-40 md:px-10 md:py-32 md:pb-48">
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <Kicker>{chiSiamo.percorsoKicker}</Kicker>
           </Reveal>
-          <ul className="mt-16 divide-y divide-sage/30">
+          <ul className="mt-16 divide-y divide-ink/10">
             {chiSiamo.percorsoDisciplinare.map((item, i) => (
               <Reveal key={item.titolo} as="li" delay={i * 80} className="grid gap-3 py-10 md:grid-cols-[1fr_1fr] md:gap-16">
                 <p className="font-display text-xl text-ink">{item.titolo}</p>
@@ -146,7 +146,7 @@ export function ChiSiamo() {
               <Kicker>{maura.sezione}</Kicker>
             </Reveal>
             <Reveal delay={100}>
-              <h2 className="mt-6 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
+              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
                 {maura.nome}
               </h2>
             </Reveal>
@@ -172,7 +172,7 @@ export function ChiSiamo() {
         </div>
       </section>
 
-      <section className="section-light bg-ivory px-6 py-24 md:px-10 md:py-32">
+      <section className="px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <div className="mx-auto max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
             <Kicker>{brand.name}</Kicker>

@@ -3,20 +3,13 @@ import type { ReactNode } from "react";
 import { isWhatsAppHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
 const base =
-  "inline-flex items-center justify-center gap-2 border px-6 py-4 text-[11px] uppercase tracking-[0.2em] transition-[color,background-color,border-color,box-shadow,translate] duration-300 disabled:opacity-40";
-
-// Pulsante in evidenza: verde smeraldo, testo scuro, alone verde; in hover sale di 2px e il bagliore cresce
-const accent =
-  "border-sage/50 bg-accent-sheen font-semibold text-on-ink shadow-[0_0_20px_rgba(63,214,154,0.3)] hover:-translate-y-0.5 hover:shadow-[0_0_30px_rgba(63,214,154,0.5)]";
+  "inline-flex items-center justify-center gap-2 px-6 py-4 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
 
 const variants = {
-  primary: accent,
-  sage: accent,
-  // Secondario: bordo viola, vetro fumé sfocato, testo chiaro
-  ghost:
-    "border-bronze bg-ivory/35 font-medium text-ink backdrop-blur-md hover:-translate-y-0.5 hover:border-sage hover:text-sage hover:shadow-[0_0_22px_rgba(63,214,154,0.2)]",
-  paper:
-    "border-sage/30 bg-paper/80 font-medium text-ink backdrop-blur-md hover:border-sage/60 hover:bg-linen",
+  primary: "bg-ink text-on-ink hover:bg-moss",
+  sage: "bg-sage text-ivory hover:bg-moss",
+  ghost: "bg-transparent text-ink ring-1 ring-ink/15 hover:bg-mist",
+  paper: "bg-paper text-ink hover:bg-mist",
 };
 
 type Props = {

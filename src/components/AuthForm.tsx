@@ -93,7 +93,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
           type="button"
           onClick={() => setMode("login")}
           className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
-            mode === "login" ? "bg-accent-sheen text-on-ink" : "bg-mist text-ink/55"
+            mode === "login" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
           }`}
         >
           {auth.login}
@@ -102,7 +102,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
           type="button"
           onClick={() => setMode("register")}
           className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
-            mode === "register" ? "bg-accent-sheen text-on-ink" : "bg-mist text-ink/55"
+            mode === "register" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
           }`}
         >
           {auth.registrazione}
@@ -111,7 +111,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
           type="button"
           onClick={() => setMode("magic")}
           className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
-            mode === "magic" ? "bg-accent-sheen text-on-ink" : "bg-mist text-ink/55"
+            mode === "magic" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
           }`}
         >
           {auth.magicLink}
@@ -203,7 +203,7 @@ function Field({
         autoComplete={autoComplete}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="border-0 border-b border-sage/40 bg-transparent py-3 text-sm outline-none focus:border-ink"
+        className="border-0 border-b border-ink/20 bg-transparent py-3 text-sm outline-none focus:border-ink"
       />
     </label>
   );

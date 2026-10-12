@@ -17,7 +17,6 @@ export function Arcani() {
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/arcani-minori", label: siteContent.nav.arcaniMinori }}
       />
-      <div className="section-light bg-ivory pt-16 md:pt-24">
       <div className="mx-auto max-w-6xl px-6 pb-24 md:px-10 md:pb-32">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-10 lg:grid-cols-4">
           {ARCANI.map((a, i) => (
@@ -36,7 +35,6 @@ export function Arcani() {
             </Reveal>
           ))}
         </div>
-      </div>
       </div>
     </div>
   );
@@ -65,7 +63,6 @@ export function ArcanoDetail() {
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/arcani", label: "Tutti i 22 Arcani" }}
       />
-      <div className="section-light bg-ivory pt-16 md:pt-24">
       <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-24 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-32">
         <Reveal>
           <div className="bg-paper p-6">
@@ -119,7 +116,6 @@ export function ArcanoDetail() {
             </div>
           </Reveal>
         </div>
-      </div>
       </div>
     </div>
   );

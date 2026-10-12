@@ -58,7 +58,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-sage/20 bg-ivory/95 backdrop-blur-xl">
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl">
         <nav
           className="mx-auto hidden h-[6.75rem] max-w-[90rem] grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 xl:grid"
           aria-label="Principale"
@@ -99,7 +99,7 @@ export function Header() {
           <div className="flex items-center justify-start">
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center text-sage transition-colors hover:text-ink"
+              className="flex h-10 w-10 items-center justify-center text-ink"
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? nav.chiudi : nav.menu}
@@ -191,7 +191,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
           expanded ? "visible pointer-events-auto" : "invisible pointer-events-none"
         }`}
       >
-        <ul className="flex flex-col gap-4 border border-sage/30 bg-ivory px-6 py-5 shadow-[0_18px_40px_rgba(0,0,0,0.4)]">
+        <ul className="flex flex-col gap-4 border border-ink/10 bg-ivory px-6 py-5 shadow-[0_18px_40px_rgba(43,37,35,0.06)]">
           {item.children.map((child) => (
             <li key={child.to} role="none">
               <NavLink
@@ -237,7 +237,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
         <div className="flex flex-col text-center">
           {MAIN_NAV.map((item) =>
             isNavBranch(item) ? (
-              <div key={item.label} className="border-t border-sage/30">
+              <div key={item.label} className="border-t border-ink/10">
                 <p className={`py-6 ${NAV_ITEM} text-ink`}>
                   {item.label}
                 </p>
@@ -264,7 +264,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `border-t border-sage/30 py-6 ${NAV_ITEM} ${
+                  `border-t border-ink/10 py-6 ${NAV_ITEM} ${
                     isActive ? "text-ink" : "text-ink/45"
                   }`
                 }
@@ -276,10 +276,10 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
         </div>
       </nav>
 
-      <div className="shrink-0 bg-ivory border-t border-sage/30 px-8 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+      <div className="shrink-0 bg-ivory border-t border-ink/10 px-8 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <button
           type="button"
-          className="glass-night flex w-full flex-col items-center px-4 py-4 text-center text-ink"
+          className="flex w-full flex-col items-center bg-ink px-4 py-4 text-center text-ivory"
           aria-label={`${nav.itha}. ${itha.drawerLead}`}
           onClick={() => {
             onClose();
@@ -292,11 +292,11 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
           <span className={`block ${NAV_ITEM}`}>
             {nav.itha}
           </span>
-          <span className={`mt-2 block ${NAV_CHILD} leading-snug text-ink/70`}>
+          <span className={`mt-2 block ${NAV_CHILD} leading-snug text-ivory/70`}>
             {itha.drawerLead}
           </span>
         </button>
-        <div className="mt-1 border-t border-sage/30 pt-1">
+        <div className="mt-1 border-t border-ink/10 pt-1">
           <LanguageWidget placement="drawer" />
         </div>
       </div>
@@ -309,7 +309,7 @@ function AccountLink() {
   return (
     <NavLink
       to={session ? "/riservata" : "/login"}
-      className="flex h-10 w-10 items-center justify-center text-sage transition-colors hover:text-ink"
+      className="flex h-10 w-10 items-center justify-center text-ink/70 transition-colors hover:text-ink"
       aria-label={session ? nav.riservata : nav.accedi}
     >
       <ProfileIcon />
@@ -321,7 +321,7 @@ function CartLink() {
   return (
     <NavLink
       to="/carrello"
-      className="flex h-10 w-10 items-center justify-center text-sage transition-colors hover:text-ink"
+      className="flex h-10 w-10 items-center justify-center text-ink/70 transition-colors hover:text-ink"
       aria-label={nav.carrello}
     >
       <BagIcon />

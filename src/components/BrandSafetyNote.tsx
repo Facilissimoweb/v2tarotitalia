@@ -12,7 +12,7 @@ export function BrandSafetyNote() {
       <div className="mx-auto max-w-5xl">
         <Reveal>
           <Kicker>{tutela.kicker}</Kicker>
-          <h2 className="mt-4 font-title text-3xl font-normal leading-snug text-ink md:text-4xl">
+          <h2 className="mt-4 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
             {tutela.titolo}
           </h2>
         </Reveal>

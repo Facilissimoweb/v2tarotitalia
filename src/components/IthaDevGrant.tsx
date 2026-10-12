@@ -9,7 +9,7 @@ export function IthaDevGrant({ onGranted }: { onGranted?: () => void }) {
   if (!isIthaDev()) return null;
 
   return (
-    <div className="border-t border-sage/30 pt-5">
+    <div className="border-t border-ink/10 pt-5">
       <button
         type="button"
         onClick={() => {

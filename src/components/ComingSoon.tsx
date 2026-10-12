@@ -24,14 +24,14 @@ export function ComingSoon() {
   }, []);
 
   return (
-    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-ivory px-6 text-white">
+    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-ink px-6 text-white">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <img
           src={copy.sfondo}
           alt=""
           className="absolute inset-0 h-full w-full object-cover object-[center_22%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/75" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/40 to-ink/75" />
       </div>
       <div className="relative z-10 flex max-w-xl flex-col items-center py-24 text-center [text-shadow:0_1px_18px_rgba(0,0,0,0.45)]">
         <BrandLogo tone="hero" className="mx-auto h-32 w-32 md:h-40 md:w-40 lg:h-44 lg:w-44" />

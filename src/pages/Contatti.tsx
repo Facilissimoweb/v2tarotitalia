@@ -22,7 +22,7 @@ export function Contatti() {
         }}
       />
 
-      <section className="section-light bg-ivory px-6 pt-16 pb-24 md:px-10 md:pt-24 md:pb-32">
+      <section className="px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-4xl gap-10 md:grid-cols-2 md:gap-16">
           <Reveal>
             <article className="bg-paper px-8 py-12 md:px-10 md:py-16">

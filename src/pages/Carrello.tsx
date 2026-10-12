@@ -17,7 +17,7 @@ export function Carrello() {
           <p className="text-[11px] uppercase tracking-[0.2em] text-sage">{comingSoon}</p>
         }
       />
-      <section className="section-light bg-ivory px-6 pt-16 pb-24 md:px-10 md:pt-24 md:pb-32">
+      <section className="px-6 pb-24 md:px-10 md:pb-32">
         <Reveal>
           <div className="mx-auto max-w-2xl bg-mist px-8 py-20 text-center md:px-16 md:py-28">
             <p className="font-display text-2xl italic leading-relaxed text-ink">{comingSoon}</p>
