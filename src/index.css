@@ -125,7 +125,27 @@
     transform: translate3d(0, 0, 0);
   }
 
+  .hero-glow {
+    animation: hero-glow-breathe 9s ease-in-out infinite;
+  }
+
+  @keyframes hero-glow-breathe {
+    0%,
+    100% {
+      opacity: 0.88;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .hero-glow {
+      animation: none;
+    }
+
     .reveal {
       opacity: 1;
       transform: none;

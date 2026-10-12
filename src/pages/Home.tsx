@@ -53,9 +53,9 @@ export function Home() {
             </Reveal>
           </div>
           <ImageSlot
-            src={chiSiamo.immagini.teresa.src}
-            alt={chiSiamo.immagini.teresa.alt}
-            caption={chiSiamo.immagini.teresa.caption}
+            src={chiSiamo.immagini.teresaHome.src}
+            alt={chiSiamo.immagini.teresaHome.alt}
+            caption={chiSiamo.immagini.teresaHome.caption}
             ratio="square"
           />
         </div>

@@ -265,6 +265,11 @@ export const siteContent = {
         alt: "Ritratto evocativo di M. Teresa Rogani, operatrice olistica ed esoterica, cartomante e tarologa professionista",
         caption: "M. Teresa Rogani · Studio Olistico",
       },
+      teresaHome: {
+        src: "/chi-siamo/teresa-home.jpg",
+        alt: "Ritratto simbolico di M. Teresa Rogani con il terzo occhio",
+        caption: "M. Teresa Rogani",
+      },
       studio: {
         src: "/chi-siamo/studio-macerata.svg?v=2",
         alt: "Studio di M. Teresa Rogani in Via Crispi 37 a Macerata",
