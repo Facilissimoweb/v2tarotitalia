@@ -7,6 +7,7 @@ import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
 import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
+import { ParallaxLayer } from "../components/ParallaxLayer";
 import { Reveal } from "../components/Reveal";
 const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
 
@@ -61,14 +62,15 @@ export function Home() {
       </section>
 
       <section className="relative overflow-hidden bg-paper px-6 py-24 md:px-10 md:py-32">
-        <img
-          src="/consulti-sfondo.webp"
-          alt=""
-          aria-hidden
-          loading="lazy"
-          decoding="async"
-          className="pointer-events-none absolute -top-8 right-0 h-[40rem] w-auto max-w-none select-none opacity-40 mix-blend-multiply md:-top-52 md:h-[62rem] md:opacity-70"
-        />
+        <ParallaxLayer speed={0.12} className="opacity-40 mix-blend-multiply md:opacity-70">
+          <img
+            src="/consulti-sfondo.webp"
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="absolute -top-8 right-0 h-[40rem] w-auto max-w-none select-none md:-top-52 md:h-[62rem]"
+          />
+        </ParallaxLayer>
         <div className="relative mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{nav.consulti}</Kicker>
