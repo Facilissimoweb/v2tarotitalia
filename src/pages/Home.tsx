@@ -56,7 +56,7 @@ export function Home() {
             src={chiSiamo.immagini.teresaHome.src}
             alt={chiSiamo.immagini.teresaHome.alt}
             caption={chiSiamo.immagini.teresaHome.caption}
-            ratio="square"
+            ratio="portrait"
           />
         </div>
       </section>

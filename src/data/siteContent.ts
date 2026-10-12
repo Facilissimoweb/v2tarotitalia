@@ -266,8 +266,8 @@ export const siteContent = {
         caption: "M. Teresa Rogani · Studio Olistico",
       },
       teresaHome: {
-        src: "/chi-siamo/teresa-home.jpg",
-        alt: "Ritratto simbolico di M. Teresa Rogani con il terzo occhio",
+        src: "/chi-siamo/teresa-home.jpg?v=2",
+        alt: "Ritratto di M. Teresa Rogani con due carte dei tarocchi",
         caption: "M. Teresa Rogani",
       },
       studio: {
