@@ -64,11 +64,11 @@ export function Home() {
       <section className="relative overflow-hidden bg-paper px-6 py-24 md:px-10 md:py-32">
         <ParallaxLayer speed={0.12} className="opacity-40 mix-blend-multiply md:opacity-70">
           <img
-            src="/consulti-sfondo.webp"
+            src="/consulti-sfondo.png"
             alt=""
             loading="lazy"
             decoding="async"
-            className="absolute -top-8 right-0 h-[40rem] w-auto max-w-none select-none md:-top-52 md:h-[62rem]"
+            className="absolute -top-8 left-0 h-[40rem] w-auto max-w-none select-none md:-top-40 md:h-[56rem]"
           />
         </ParallaxLayer>
         <div className="relative mx-auto max-w-6xl">
