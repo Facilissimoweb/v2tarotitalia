@@ -25,7 +25,7 @@ export function HomeHero({ onOpenFormazione }: Props) {
       {/* Grafica bianca di sfondo, attenuata */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[url('/tarot-sfondo.webp')] bg-cover bg-center bg-no-repeat opacity-45"
+        className="pointer-events-none absolute inset-0 bg-[url('/tarot-sfondo.webp')] bg-cover bg-[position:50%_14%] bg-no-repeat opacity-60"
       />
       {/* Velo scuro: denso al centro, dove sta il testo; ai lati la grafica resta visibile */}
       <div
