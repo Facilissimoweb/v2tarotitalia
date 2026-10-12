@@ -8,8 +8,6 @@ import { GoogleReviews } from "../components/GoogleReviews";
 import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
 import { Reveal } from "../components/Reveal";
-import { SectionCover } from "../components/SectionCover";
-
 const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
 
 export function Home() {
@@ -63,7 +61,14 @@ export function Home() {
       </section>
 
       <section className="relative overflow-hidden bg-paper px-6 py-24 md:px-10 md:py-32">
-        <SectionCover src="/forza-consulti.png" objectPosition="50% 15%" />
+        <img
+          src="/consulti-sfondo.webp"
+          alt=""
+          aria-hidden
+          loading="lazy"
+          decoding="async"
+          className="pointer-events-none absolute -top-8 right-0 h-[40rem] w-auto max-w-none select-none opacity-40 mix-blend-multiply md:-top-52 md:h-[62rem] md:opacity-70"
+        />
         <div className="relative mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{nav.consulti}</Kicker>
