@@ -15,22 +15,16 @@ type Props = {
 
 /** Proporzioni dell'illustrazione di sfondo (verticale 9:16). */
 const ART_RATIO = 16 / 9;
-/** Larghezza massima dell'illustrazione sugli schermi larghi (il resto resta ivory). */
-const ART_MAX_WIDTH = "1100px";
 
 /** Altezza dello spazio visibile sotto l'header fisso (vedi `Layout`: pt-20 / xl:pt-28). */
 const FRAME_H = "calc(100svh - var(--hh))";
-/** Larghezza dell'illustrazione: mai più stretta della cornice (cover sui telefoni), mai oltre il massimo. */
-const ART_W = `max(min(100vw, ${ART_MAX_WIDTH}), calc(${FRAME_H} * ${1 / ART_RATIO}))`;
+/** Larghezza dell'illustrazione: a tutto schermo (destra e sinistra), mai più stretta della cornice. */
+const ART_W = `max(100vw, calc(${FRAME_H} * ${1 / ART_RATIO}))`;
 
 /** Altezza dell'illustrazione alla larghezza corrente. */
 const ART_H = `calc(${ART_W} * ${ART_RATIO})`;
 /** Quota (0–1) dell'altezza dell'illustrazione in cui cade il centro della fiamma. */
 const FLAME_Y = 0.657;
-
-/** Sfumatura dei bordi laterali dell'illustrazione, per fonderla con lo sfondo ivory. */
-const ART_FADE = "linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%)";
-
 /**
  * Hero della Home con scroll container dedicato.
  * - Una cornice `sticky` resta ferma sotto l'header e contiene l'illustrazione di sfondo.
@@ -118,8 +112,6 @@ export function HomeHero({ onOpenFormazione }: Props) {
             width: ART_W,
             backgroundSize: "100% auto",
             backgroundPosition: "50% 0%",
-            WebkitMaskImage: ART_FADE,
-            maskImage: ART_FADE,
           }}
         />
       </div>
