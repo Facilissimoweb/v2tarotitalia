@@ -28,11 +28,12 @@ export function Home() {
             </Reveal>
             <Reveal delay={100}>
               <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {chiSiamo.titolo}
+                {home.chiSiamo.titolo}
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-8 text-base leading-[1.75] text-ink/75">{chiSiamo.presentazione}</p>
+              <p className="mt-8 text-base leading-[1.75] text-ink/75">{home.chiSiamo.presentazione}</p>
+              <p className="mt-5 text-base leading-[1.75] text-ink/75">{home.chiSiamo.collaborazione}</p>
             </Reveal>
             <Reveal delay={300}>
               <div className="mt-10 bg-paper p-8">

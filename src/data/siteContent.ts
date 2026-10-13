@@ -72,6 +72,13 @@ export const siteContent = {
     kicker: "Tarot Italia",
     titolo: "Tarot Italia",
     lead: sloganBrand,
+    chiSiamo: {
+      titolo: "Simbolismo visivo e tradizione esoterica locale",
+      presentazione:
+        "Benvenuti in Tarot Italia. Sono Teresa, operatrice olistica, esoterica e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine al linguaggio degli Arcani. Ogni consulto è uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirti piena sovranità decisionale. Opero con trasparenza, rigore ed etica, lontano da automatismi e logiche commerciali.",
+      collaborazione:
+        "Ad arricchire Tarot Italia c'è la collaborazione esterna con Maura, operatrice esoterica a Macerata specializzata in ritualistica. Radicata nel folklore e nelle tradizioni popolari marchigiane, Maura offre un supporto rituale serio, consapevole e integrato nel nostro codice deontologico.",
+    },
     ctaConsulto: "Prenota consulto",
     visione: {
       kicker: "Visione & Deontologia",
