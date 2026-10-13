@@ -60,10 +60,10 @@ export function Header() {
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl">
         <nav
-          className="mx-auto hidden h-[6.75rem] max-w-[90rem] grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 xl:grid"
+          className="mx-auto hidden h-[6.75rem] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
           aria-label="Principale"
         >
-          <div className="flex items-center justify-end gap-6 2xl:gap-8">
+          <div className="flex items-center justify-evenly gap-6">
             {NAV_LEADING.map((item) => (
               <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
             ))}
@@ -82,7 +82,7 @@ export function Header() {
           </NavLink>
 
           <div className="flex min-w-0 items-center justify-between gap-6">
-            <div className="flex items-center gap-6 2xl:gap-8">
+            <div className="flex flex-1 items-center justify-evenly gap-6">
               {NAV_TRAILING.map((item) => (
                 <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}

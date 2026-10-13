@@ -8,6 +8,9 @@ const { brand, cta, home } = siteContent;
 
 const titolo = home.titolo;
 
+/** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
+const heroBtn = "w-full sm:w-auto xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.22em] 2xl:px-14 2xl:py-7 2xl:text-base";
+
 /** Proporzioni dell'illustrazione di sfondo (verticale 9:16). */
 const ART_RATIO = 16 / 9;
 
@@ -140,24 +143,28 @@ export function HomeHero() {
             </Reveal>
 
             <Reveal delay={140}>
-              <h1 className="mt-[clamp(1rem,3svh,2rem)] font-h1 text-[clamp(3.5rem,min(14vw,14svh),8.5rem)] leading-[1] text-ink [text-shadow:0_0_36px_rgba(255,254,251,0.95),0_0_72px_rgba(255,254,251,0.85)]">
+              <h1 className="mt-[clamp(1rem,3svh,2rem)] font-h1 text-[clamp(3.5rem,min(14vw,14svh),8.5rem)] leading-[1] xl:text-[clamp(6rem,min(9vw,15svh),10.5rem)] text-ink [text-shadow:0_0_36px_rgba(255,254,251,0.95),0_0_72px_rgba(255,254,251,0.85)]">
                 {titolo}
               </h1>
             </Reveal>
 
             <Reveal delay={200}>
-              <div className="mx-auto mt-[clamp(0.75rem,2.4svh,1.75rem)] max-w-xl">
-                <p className="font-display text-base leading-snug text-ink md:text-lg">{brand.sottotitolo}</p>
-                <p className="mt-2 text-sm leading-relaxed text-ink/80">{brand.descrizione}</p>
+              <div className="mx-auto mt-[clamp(0.75rem,2.4svh,1.75rem)] max-w-xl xl:max-w-3xl">
+                <p className="font-display text-base leading-snug text-ink md:text-lg xl:text-[1.75rem] 2xl:text-3xl">
+                  {brand.sottotitolo}
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/80 xl:mt-3 xl:text-lg 2xl:text-xl">
+                  {brand.descrizione}
+                </p>
               </div>
             </Reveal>
 
             <Reveal delay={280}>
               <div className="mt-[clamp(1rem,3svh,1.75rem)] flex w-full flex-wrap items-center justify-center gap-3">
-                <Button to="/consulti" className="w-full sm:w-auto">
+                <Button to="/consulti" className={heroBtn}>
                   {home.ctaConsulto} <span aria-hidden>→</span>
                 </Button>
-                <Button to="/rituali" variant="paper" className="w-full ring-1 ring-ink/15 sm:w-auto">
+                <Button to="/rituali" variant="paper" className={`${heroBtn} ring-1 ring-ink/15`}>
                   {cta.ritualistica}
                 </Button>
               </div>
