@@ -53,7 +53,7 @@ export function Rituali() {
             {ritualistica.tipologie.map((tipo, i) => (
               <Reveal key={tipo.id} delay={i * 80}>
                 <article className="flex h-full flex-col bg-paper p-8 md:p-10">
-                  <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
+                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
                     {maura.ritualiKicker}
                   </p>
                   <h3 className="mt-4 font-display text-xl leading-snug text-ink">{tipo.titolo}</h3>

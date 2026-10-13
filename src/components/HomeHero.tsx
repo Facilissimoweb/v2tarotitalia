@@ -92,7 +92,7 @@ export function HomeHero() {
     <section
       ref={section}
       data-home-hero
-      className="relative overflow-x-clip bg-ivory [--hh:5rem] xl:[--hh:7rem]"
+      className="relative overflow-x-clip bg-ivory [--hh:80px] xl:[--hh:112px]"
     >
       {/* Pista alta quanto l'illustrazione: cornice e apparato scorrono 1:1 con la pagina */}
       <div ref={track} className="relative" style={{ height: ART_H }}>
@@ -100,7 +100,7 @@ export function HomeHero() {
       <div
         ref={frame}
         aria-hidden
-        className="pointer-events-none sticky top-20 overflow-hidden xl:top-28"
+        className="pointer-events-none sticky top-[80px] overflow-hidden xl:top-[112px]"
         style={{ height: FRAME_H }}
       >
         <div

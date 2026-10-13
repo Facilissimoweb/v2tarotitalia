@@ -154,7 +154,7 @@ export function ChiSiamo() {
               <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{maura.descrizione}</p>
             </Reveal>
             <Reveal delay={300}>
-              <p className="mt-14 text-[10px] uppercase tracking-[0.2em] text-sage">{maura.ritualiKicker}</p>
+              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.2em] text-sage">{maura.ritualiKicker}</p>
             </Reveal>
             <ul className="mt-6 space-y-4">
               {maura.rituali.map((rito, i) => (

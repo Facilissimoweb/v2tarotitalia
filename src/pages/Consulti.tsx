@@ -198,7 +198,7 @@ export function Consulti() {
           <section>
             <div className="mb-8 flex justify-between">
               <Kicker>01 · Seleziona il percorso</Kicker>
-              <span className="text-[10px] uppercase tracking-[0.16em] text-sage">Tariffa fissa</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">Tariffa fissa</span>
             </div>
             <div className="grid gap-6">
               {consulti.opzioni.map((opt) => {
@@ -217,21 +217,21 @@ export function Consulti() {
                     />
                     <div className="flex justify-between gap-4">
                       <div>
-                        <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{t.kicker}</p>
+                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{t.kicker}</p>
                         <p className="font-display text-lg">{opt.titolo}</p>
                         <p className="text-xs text-ink/55">Durata: {opt.minuti} minuti</p>
                       </div>
                       <div className="text-right">
                         <p className="font-display text-xl">€{opt.prezzo}</p>
-                        <p className="text-[9px] uppercase tracking-[0.14em] text-sage">Onnicomprensivo</p>
+                        <p className="text-[0.5625rem] uppercase tracking-[0.14em] text-sage">Onnicomprensivo</p>
                       </div>
                     </div>
-                    <p className="mt-3 bg-mist p-3 text-[11px] leading-relaxed text-ink/65">{t.summary}</p>
+                    <p className="mt-3 bg-mist p-3 text-[0.6875rem] leading-relaxed text-ink/65">{t.summary}</p>
                   </label>
                 );
               })}
             </div>
-            <label className="mt-8 flex cursor-pointer items-start gap-3 bg-paper p-6 text-[12px] leading-snug text-ink/70">
+            <label className="mt-8 flex cursor-pointer items-start gap-3 bg-paper p-6 text-[0.75rem] leading-snug text-ink/70">
               <input
                 type="checkbox"
                 className="mt-0.5 accent-ink"
@@ -256,7 +256,7 @@ export function Consulti() {
                 className={`p-4 text-left ${mode === "studio" ? "bg-ink text-on-ink" : "bg-mist text-ink"}`}
               >
                 <p className="font-display">In studio</p>
-                <p className={`mt-1 text-[10px] ${mode === "studio" ? "text-on-ink/70" : "text-ink/50"}`}>
+                <p className={`mt-1 text-[0.625rem] ${mode === "studio" ? "text-on-ink/70" : "text-ink/50"}`}>
                   {STUDIO.city} centro
                 </p>
               </button>
@@ -266,15 +266,15 @@ export function Consulti() {
                 className={`p-4 text-left ${mode === "remote" ? "bg-ink text-on-ink" : "bg-mist text-ink"}`}
               >
                 <p className="font-display">A distanza</p>
-                <p className={`mt-1 text-[10px] ${mode === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>
+                <p className={`mt-1 text-[0.625rem] ${mode === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>
                   Audio WhatsApp
                 </p>
               </button>
             </div>
             {mode === "remote" ? (
-              <p className="mt-8 bg-linen p-8 text-[12px] leading-relaxed text-ink/70">{STUDIO.whatsappNote}</p>
+              <p className="mt-8 bg-linen p-8 text-[0.75rem] leading-relaxed text-ink/70">{STUDIO.whatsappNote}</p>
             ) : (
-              <p className="mt-8 bg-mist p-8 text-[12px] leading-relaxed text-ink/70">
+              <p className="mt-8 bg-mist p-8 text-[0.75rem] leading-relaxed text-ink/70">
                 {siteContent.brand.studioDiTeresa}
               </p>
             )}
@@ -305,7 +305,7 @@ export function Consulti() {
               />
               <Field label="Data di nascita (facoltativa)" value={birth} onChange={setBirth} type="date" />
               <label className="flex flex-col gap-1.5">
-                <span className="text-[10px] uppercase tracking-[0.16em] text-sage">
+                <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
                   Quesito o intento della sessione
                 </span>
                 <textarea
@@ -328,11 +328,11 @@ export function Consulti() {
               <Row k="Data & ora" v={`${dayLabel} — ${slot}`} />
               {pdf ? <Row k={consulti.pdf.etichetta} v={`€${consulti.pdf.prezzo}`} /> : null}
               <div className="mt-3 flex items-center justify-between">
-                <span className="text-[10px] uppercase tracking-[0.16em] text-ink">Totale sessione</span>
+                <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ink">Totale sessione</span>
                 <span className="font-display text-xl">€{total}</span>
               </div>
             </div>
-            <p className="mt-8 bg-linen p-6 text-[12px] leading-relaxed text-ink/75">{consulti.avvisoConferma}</p>
+            <p className="mt-8 bg-linen p-6 text-[0.75rem] leading-relaxed text-ink/75">{consulti.avvisoConferma}</p>
             {session ? (
               <>
                 <div className="mt-8">
@@ -403,7 +403,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="text-[10px] uppercase tracking-[0.16em] text-sage">{label}</span>
+      <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{label}</span>
       <input
         required={required}
         type={type}

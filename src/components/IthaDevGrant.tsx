@@ -16,11 +16,11 @@ export function IthaDevGrant({ onGranted }: { onGranted?: () => void }) {
           simulateCredits();
           onGranted?.();
         }}
-        className="text-left text-[10px] uppercase tracking-[0.14em] text-sage/80 hover:text-ink"
+        className="text-left text-[0.625rem] uppercase tracking-[0.14em] text-sage/80 hover:text-ink"
       >
         {itha.devSimula}
       </button>
-      <p className="mt-2 text-[11px] leading-relaxed text-ink/45">{itha.devNota}</p>
+      <p className="mt-2 text-[0.6875rem] leading-relaxed text-ink/45">{itha.devNota}</p>
     </div>
   );
 }

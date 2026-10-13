@@ -104,7 +104,7 @@ export function RitualisticaModal() {
             <button
               type="button"
               onClick={() => setPane("richiesta")}
-              className="text-center text-[10px] uppercase tracking-[0.16em] text-sage hover:text-ink"
+              className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
             >
               {ritualistica.tornaScelta}
             </button>
@@ -114,7 +114,7 @@ export function RitualisticaModal() {
             <p className="text-sm leading-[1.9] text-ink/75">{ritualistica.mediazione}</p>
             {tipo ? (
               <p className="bg-mist p-5 text-sm leading-relaxed text-ink/75">
-                <span className="mb-2 block text-[10px] uppercase tracking-[0.16em] text-sage">
+                <span className="mb-2 block text-[0.625rem] uppercase tracking-[0.16em] text-sage">
                   {ritualistica.tipologia}
                 </span>
                 {tipo.titolo}
@@ -123,11 +123,11 @@ export function RitualisticaModal() {
             <p className="text-sm leading-[1.9] text-ink/70">{ritualistica.chiacchierata}</p>
 
             <section className="max-h-56 overflow-y-auto border-y border-ink/10 py-6">
-              <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{ritualistica.legaleKicker}</p>
+              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{ritualistica.legaleKicker}</p>
               <p className="mt-4 text-xs leading-[1.9] text-ink/70">{brand.deontologia}</p>
               <p className="mt-6 font-display text-sm text-ink">{legal.disclaimer.heading}</p>
               {legal.disclaimer.paragrafi.map((p) => (
-                <p key={p.slice(0, 48)} className="mt-4 text-[11px] leading-[1.85] text-ink/65">
+                <p key={p.slice(0, 48)} className="mt-4 text-[0.6875rem] leading-[1.85] text-ink/65">
                   {p}
                 </p>
               ))}
@@ -136,21 +136,21 @@ export function RitualisticaModal() {
               <button
                 type="button"
                 onClick={() => setLegalKind("privacy")}
-                className="text-left text-[11px] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+                className="text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
               >
                 {ritualistica.privacyApri}
               </button>
               <button
                 type="button"
                 onClick={() => setLegalKind("disclaimer")}
-                className="text-left text-[11px] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+                className="text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
               >
                 {ritualistica.disclaimerApri}
               </button>
               <button
                 type="button"
                 onClick={() => setLegalKind("vendita")}
-                className="text-left text-[11px] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+                className="text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
               >
                 {legal.vendita.leggi}
               </button>
@@ -164,7 +164,7 @@ export function RitualisticaModal() {
             />
 
             <label className="flex flex-col gap-1.5">
-              <span className="text-[10px] uppercase tracking-[0.16em] text-sage">{ritualistica.nome} *</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{ritualistica.nome} *</span>
               <input
                 required
                 value={name}
@@ -173,7 +173,7 @@ export function RitualisticaModal() {
               />
             </label>
             <label className="flex flex-col gap-1.5">
-              <span className="text-[10px] uppercase tracking-[0.16em] text-sage">{ritualistica.telefono} *</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{ritualistica.telefono} *</span>
               <input
                 required
                 type="tel"
@@ -183,7 +183,7 @@ export function RitualisticaModal() {
               />
             </label>
             <label className="flex flex-col gap-1.5">
-              <span className="text-[10px] uppercase tracking-[0.16em] text-sage">{ritualistica.nota}</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{ritualistica.nota}</span>
               <textarea
                 rows={3}
                 value={note}
@@ -220,12 +220,12 @@ export function RitualisticaModal() {
             >
               {ritualistica.inviaWhatsapp}
             </a>
-            <p className="text-center text-[12px] leading-relaxed text-ink/55">{consulti.accessoObbligatorio}</p>
+            <p className="text-center text-[0.75rem] leading-relaxed text-ink/55">{consulti.accessoObbligatorio}</p>
             {!session ? (
               <button
                 type="button"
                 onClick={() => setPane("accesso")}
-                className="text-center text-[10px] uppercase tracking-[0.16em] text-sage hover:text-ink"
+                className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
               >
                 {nav.accedi} · {auth.registrazione}
               </button>

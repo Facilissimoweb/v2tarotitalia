@@ -58,13 +58,13 @@ export function IthaPayPal({ planId, onPaid }: Props) {
   }, [clientId, planId]);
 
   if (!clientId) {
-    return <p className="text-[12px] leading-relaxed text-ink/55">{itha.paypalManca}</p>;
+    return <p className="text-[0.75rem] leading-relaxed text-ink/55">{itha.paypalManca}</p>;
   }
 
   return (
     <div>
       <div ref={host} />
-      {error ? <p className="mt-3 text-[12px] text-ink">{error}</p> : null}
+      {error ? <p className="mt-3 text-[0.75rem] text-ink">{error}</p> : null}
     </div>
   );
 }

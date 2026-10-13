@@ -154,3 +154,91 @@
   }
 }
 
+
+/* ───────── Facilitazione visiva (vedi src/lib/accessibility.ts) ─────────
+   Regole fuori da @layer: prevalgono sulle utility Tailwind. */
+
+.a11y-panel {
+  animation: a11y-panel-in 220ms ease-out both;
+}
+
+@keyframes a11y-panel-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -0.5rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .a11y-panel {
+    animation: none;
+  }
+}
+
+/* Alto contrasto: nero su bianco, accenti scuri, testi senza velature, bordi marcati. */
+html[data-a11y-contrast="on"] {
+  --color-ivory: #ffffff;
+  --color-paper: #ffffff;
+  --color-mist: #f0f0f0;
+  --color-linen: #d4d4d4;
+  --color-ink: #000000;
+  --color-sage: #2c4a2a;
+  --color-moss: #1c321a;
+  --color-on-ink: #ffffff;
+}
+
+html[data-a11y-contrast="on"] [class*="text-ink/"] {
+  color: var(--color-ink);
+}
+
+html[data-a11y-contrast="on"] [class*="text-ivory/"],
+html[data-a11y-contrast="on"] [class*="text-on-ink/"] {
+  color: var(--color-on-ink);
+}
+
+html[data-a11y-contrast="on"] [class*="border-ink/"] {
+  border-color: var(--color-ink);
+}
+
+html[data-a11y-contrast="on"] [class*="ring-ink/"] {
+  --tw-ring-color: var(--color-ink);
+}
+
+html[data-a11y-contrast="on"] :focus-visible {
+  outline: 3px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+/* Alta leggibilità: Atkinson Hyperlegible (caricato solo se attivato), interlinea 1.6, lettere +0.02em.
+   Va prima della spaziatura: se entrambe sono attive, vince la spaziatura più ampia. */
+html[data-a11y-font="on"],
+html[data-a11y-font="on"] * {
+  font-family: "Atkinson Hyperlegible", Verdana, sans-serif;
+}
+
+html[data-a11y-font="on"] :where(p, li, dd, dt, blockquote, figcaption, label, td, th, input, textarea) {
+  line-height: 1.6;
+}
+
+html[data-a11y-font="on"] :where(p, li, dd, dt, blockquote, figcaption, td, th, input, textarea):not([class*="tracking-"]) {
+  letter-spacing: 0.02em;
+}
+
+/* Spaziatura del testo (criterio WCAG 1.4.12): righe, lettere, parole. */
+html[data-a11y-spacing="on"] :where(p, li, dd, dt, blockquote, figcaption, label, td, th, input, textarea) {
+  line-height: 1.9;
+  word-spacing: 0.16em;
+}
+
+html[data-a11y-spacing="on"] :where(p, li, dd, dt, blockquote, figcaption, td, th, input, textarea):not([class*="tracking-"]) {
+  letter-spacing: 0.06em;
+}
+
+html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
+  line-height: 1.5;
+  word-spacing: 0.12em;
+}

@@ -40,17 +40,17 @@ export function Corsi() {
           {corsi.map((c, i) => (
             <Reveal key={c.id} delay={i * 100}>
             <article className="bg-paper p-8 md:p-10" translate={localized ? "no" : undefined}>
-              <p className="text-[9px] uppercase tracking-[0.18em] text-sage">{c.kicker}</p>
+              <p className="text-[0.5625rem] uppercase tracking-[0.18em] text-sage">{c.kicker}</p>
               <div className="mt-4 flex items-start justify-between gap-4">
                 <h2 className="font-display text-xl leading-snug md:text-2xl">{c.title}</h2>
-                <span className="shrink-0 bg-mist px-3 py-1.5 text-[10px] uppercase tracking-wider">
+                <span className="shrink-0 bg-mist px-3 py-1.5 text-[0.625rem] uppercase tracking-wider">
                   {c.pages}
                 </span>
               </div>
               <p className="mt-5 text-sm leading-[1.75] text-ink/70">{c.blurb}</p>
               {c.kind === "audio" && c.audio && (
                 <div className="mt-8 bg-mist p-6">
-                  <p className="mb-4 text-[10px] uppercase tracking-[0.16em] text-sage">
+                  <p className="mb-4 text-[0.625rem] uppercase tracking-[0.16em] text-sage">
                     Anteprima — Lezione 01 · Il velo di Maya
                   </p>
                   <audio controls className="w-full" src={c.audio} preload="metadata">
@@ -59,7 +59,7 @@ export function Corsi() {
                 </div>
               )}
               <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                <span className="text-[10px] uppercase tracking-[0.14em] text-ink/45">{c.size}</span>
+                <span className="text-[0.625rem] uppercase tracking-[0.14em] text-ink/45">{c.size}</span>
                 <Button
                   onClick={() => {
                     void download(c.file, c.filename, c.title);
@@ -86,14 +86,14 @@ export function Corsi() {
               <article className="flex items-center justify-between gap-6 bg-paper p-6 md:p-8" translate={localized ? "no" : undefined}>
                 <div>
                   <h3 className="font-display text-sm md:text-base">{m.title}</h3>
-                  <p className="mt-2 text-[12px] text-ink/55">{m.blurb}</p>
+                  <p className="mt-2 text-[0.75rem] text-ink/55">{m.blurb}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => {
                     void download(m.file, m.filename, m.title);
                   }}
-                  className="text-[10px] uppercase tracking-[0.16em] text-sage hover:text-ink"
+                  className="text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
                 >
                   {busy ? lingua.genera : "Scarica"}
                 </button>

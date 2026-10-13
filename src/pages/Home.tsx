@@ -37,7 +37,7 @@ export function Home() {
             </Reveal>
             <Reveal delay={300}>
               <div className="mt-10 bg-paper p-8">
-                <p className="text-[11px] font-medium uppercase tracking-[0.16em] text-ink">
+                <p className="text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-ink">
                   {brand.name}
                 </p>
                 <p className="mt-2 text-sm leading-relaxed text-ink/70">
@@ -95,7 +95,7 @@ export function Home() {
                     }`}
                   >
                     <p
-                      className={`text-[10px] uppercase tracking-[0.16em] ${
+                      className={`text-[0.625rem] uppercase tracking-[0.16em] ${
                         featured ? "text-on-ink/55" : "text-sage"
                       }`}
                     >
@@ -124,7 +124,7 @@ export function Home() {
             })}
             <Reveal delay={160}>
               <article className="flex h-full flex-col bg-ivory p-8 md:p-10">
-                <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
+                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
                 <h3 className="mt-4 font-display text-xl leading-snug text-ink">
                   {home.percorsi.itha.titolo}
                 </h3>
@@ -159,12 +159,12 @@ export function Home() {
             {home.visione.pilastri.map((pilastro, i) => (
               <Reveal key={pilastro.titolo} delay={i * 80}>
                 <article className="flex h-full flex-col bg-paper p-8 md:p-10">
-                  <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
+                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
                   <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{pilastro.testo}</p>
-                  <p className="mt-10 text-[10px] uppercase tracking-[0.16em] text-ink">
+                  <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">
                     {pilastro.etichetta}
                   </p>
                 </article>
@@ -177,7 +177,7 @@ export function Home() {
       <section className="bg-mist px-8 pb-24 pt-32 text-center md:pb-32 md:pt-40">
         <Reveal>
           <BrandLogo className="mx-auto h-16 w-16" />
-          <p className="mt-5 font-display text-[11px] uppercase leading-none tracking-[0.32em] text-ink">
+          <p className="mt-5 font-display text-[0.6875rem] uppercase leading-none tracking-[0.32em] text-ink">
             {brand.wordmark}
           </p>
         </Reveal>
@@ -187,10 +187,10 @@ export function Home() {
           </blockquote>
         </Reveal>
         <Reveal delay={160}>
-          <p className="mt-10 text-[10px] uppercase tracking-[0.22em] text-ink">{home.citazione.autore}</p>
+          <p className="mt-10 text-[0.625rem] uppercase tracking-[0.22em] text-ink">{home.citazione.autore}</p>
         </Reveal>
         <Reveal delay={220}>
-          <p className="mt-3 text-[9px] uppercase tracking-[0.16em] text-sage">{home.citazione.fonte}</p>
+          <p className="mt-3 text-[0.5625rem] uppercase tracking-[0.16em] text-sage">{home.citazione.fonte}</p>
         </Reveal>
       </section>
 

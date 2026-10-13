@@ -58,18 +58,18 @@ export function Riservata() {
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
       >
         <div className="mt-8 flex items-center gap-4">
-          <span className="bg-paper px-3 py-1.5 text-[10px] uppercase tracking-[0.16em]">Attivo</span>
+          <span className="bg-paper px-3 py-1.5 text-[0.625rem] uppercase tracking-[0.16em]">Attivo</span>
           <button
             type="button"
             onClick={() => void logout()}
-            className="text-[10px] uppercase tracking-[0.16em] text-sage hover:text-ink"
+            className="text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
           >
             Esci
           </button>
         </div>
       </PageHero>
 
-      <div className="sticky top-20 z-30 bg-ivory/90 px-5 py-4 backdrop-blur-md">
+      <div className="sticky top-[80px] z-30 bg-ivory/90 px-5 py-4 backdrop-blur-md">
         <div className="mx-auto flex max-w-3xl gap-2 overflow-x-auto">
           {(
             [
@@ -83,7 +83,7 @@ export function Riservata() {
               key={id}
               type="button"
               onClick={() => setTab(id)}
-              className={`whitespace-nowrap px-4 py-2 text-[11px] uppercase tracking-[0.14em] ${
+              className={`whitespace-nowrap px-4 py-2 text-[0.6875rem] uppercase tracking-[0.14em] ${
                 tab === id ? "bg-ink text-on-ink" : "bg-mist text-ink/60"
               }`}
             >
@@ -145,7 +145,7 @@ export function Riservata() {
                 <Reveal key={b.id} delay={i * 80}>
                   <article className="bg-paper p-8">
                     <div className="flex items-center justify-between">
-                      <p className="text-[11px] uppercase tracking-[0.16em] text-sage">{date}</p>
+                      <p className="text-[0.6875rem] uppercase tracking-[0.16em] text-sage">{date}</p>
                       <span className="bg-mist px-2 py-0.5 text-xs">{status}</span>
                     </div>
                     <h3 className="mt-3 font-display text-lg">{title}</h3>
@@ -158,19 +158,19 @@ export function Riservata() {
                       {b.phone ? ` · ${b.phone}` : ""}
                     </p>
                     {b.query ? <p className="mt-2 text-xs leading-relaxed text-ink/60">{b.query}</p> : null}
-                    <p className="mt-2 text-[10px] uppercase tracking-[0.14em] text-ink/45">
+                    <p className="mt-2 text-[0.625rem] uppercase tracking-[0.14em] text-ink/45">
                       {auth.riferimento} {b.id}
                     </p>
                     <div className="mt-4 flex flex-wrap gap-2">
-                      <span className="bg-mist px-2.5 py-1 text-[10px] uppercase tracking-wider">
+                      <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-wider">
                         Sessione €{b.consultPrice}
                       </span>
                       {b.pdf && (
-                        <span className="bg-mist px-2.5 py-1 text-[10px] uppercase tracking-wider">
+                        <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-wider">
                           {consulti.pdf.etichetta} +€{b.pdfPrice || consulti.pdf.prezzo}
                         </span>
                       )}
-                      <span className="bg-mist px-2.5 py-1 text-[10px] uppercase tracking-wider">
+                      <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-wider">
                         Totale €{b.total}
                       </span>
                     </div>
@@ -185,7 +185,7 @@ export function Riservata() {
                         {auth.recesso}
                       </Button>
                     ) : b.status === "completed" && recessoConsulti ? (
-                      <p className="mt-6 text-[12px] leading-relaxed text-ink/55">{recessoConsulti}</p>
+                      <p className="mt-6 text-[0.75rem] leading-relaxed text-ink/55">{recessoConsulti}</p>
                     ) : null}
                   </article>
                 </Reveal>
@@ -220,7 +220,7 @@ export function Riservata() {
               readings.map((item, i) => (
                 <Reveal key={item.id} delay={i * 60}>
                   <article className="bg-paper p-6">
-                    <p className="text-[10px] uppercase tracking-[0.14em] text-sage">{item.category}</p>
+                    <p className="text-[0.625rem] uppercase tracking-[0.14em] text-sage">{item.category}</p>
                     <p className="mt-3 text-sm leading-relaxed text-ink/75">{item.question}</p>
                   </article>
                 </Reveal>
@@ -237,7 +237,7 @@ export function Riservata() {
             {corsi.map((c, i) => (
               <Reveal key={c.id} delay={i * 80}>
                 <article className="bg-paper p-8" translate={localized ? "no" : undefined}>
-                  <p className="text-[9px] uppercase tracking-[0.16em] text-sage">{c.kicker}</p>
+                  <p className="text-[0.5625rem] uppercase tracking-[0.16em] text-sage">{c.kicker}</p>
                   <h3 className="mt-1 font-display">{c.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-ink/65">{c.blurb}</p>
                   <button
@@ -245,7 +245,7 @@ export function Riservata() {
                     onClick={() => {
                       void download(c.file, c.filename, c.title);
                     }}
-                    className="mt-4 inline-flex bg-ink px-4 py-2 text-[11px] uppercase tracking-[0.16em] text-on-ink"
+                    className="mt-4 inline-flex bg-ink px-4 py-2 text-[0.6875rem] uppercase tracking-[0.16em] text-on-ink"
                   >
                     {busy ? lingua.genera : "Scarica"}
                   </button>
@@ -265,14 +265,14 @@ export function Riservata() {
                 <article className="flex items-center justify-between bg-paper p-6" translate={localized ? "no" : undefined}>
                   <div>
                     <h3 className="font-display text-sm">{m.title}</h3>
-                    <p className="text-[11px] text-ink/55">{m.blurb}</p>
+                    <p className="text-[0.6875rem] text-ink/55">{m.blurb}</p>
                   </div>
                   <button
                     type="button"
                     onClick={() => {
                       void download(m.file, m.filename, m.title);
                     }}
-                    className="text-[10px] uppercase tracking-[0.16em] text-sage"
+                    className="text-[0.625rem] uppercase tracking-[0.16em] text-sage"
                   >
                     {busy ? lingua.genera : "Scarica"}
                   </button>

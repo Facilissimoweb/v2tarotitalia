@@ -14,7 +14,7 @@ export function ArcaniMinori() {
         cta={{ to: "/arcani", label: nav.arcaniMaggiori }}
         secondary={{ to: "/consulti", label: cta.consultoWhatsapp }}
         meta={
-          <p className="text-[11px] uppercase tracking-[0.2em] text-sage">{comingSoon}</p>
+          <p className="text-[0.6875rem] uppercase tracking-[0.2em] text-sage">{comingSoon}</p>
         }
       />
       <section className="px-6 pb-24 md:px-10 md:pb-32">

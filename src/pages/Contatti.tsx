@@ -33,7 +33,7 @@ export function Contatti() {
                 {brand.titolare}, {brand.ruolo.toLowerCase()}.
               </p>
               <p className="mt-10 text-sm leading-[1.9] text-ink/75">{brand.studioDiTeresa}</p>
-              <p className="mt-6 text-[10px] uppercase tracking-[0.16em] text-sage">{brand.coords}</p>
+              <p className="mt-6 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{brand.coords}</p>
             </article>
           </Reveal>
           <Reveal delay={100}>

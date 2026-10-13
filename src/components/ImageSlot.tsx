@@ -24,7 +24,7 @@ export function ImageSlot({ src, alt, caption, ratio = "portrait", className = "
           <img src={src} alt={alt} className="h-full w-full object-cover" />
         </div>
         {caption ? (
-          <figcaption className="mt-5 text-[10px] uppercase tracking-[0.2em] text-sage">
+          <figcaption className="mt-5 text-[0.625rem] uppercase tracking-[0.2em] text-sage">
             {caption}
           </figcaption>
         ) : null}

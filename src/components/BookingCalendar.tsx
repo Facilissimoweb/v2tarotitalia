@@ -66,7 +66,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
           <button
             type="button"
             disabled={prevDisabled}
-            className="px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-ink/45 hover:text-ink disabled:text-ink/15"
+            className="px-3 py-2 text-[0.625rem] uppercase tracking-[0.16em] text-ink/45 hover:text-ink disabled:text-ink/15"
             onClick={() => onDate(firstOpenDay(localIso(new Date(y, m - 2, 1))))}
             aria-label="Mese precedente"
           >
@@ -75,17 +75,17 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
           <p className="font-display text-lg capitalize text-ink">{MONTH.format(new Date(`${activeIso}T12:00:00`))}</p>
           <button
             type="button"
-            className="px-3 py-2 text-[10px] uppercase tracking-[0.16em] text-ink/45 hover:text-ink"
+            className="px-3 py-2 text-[0.625rem] uppercase tracking-[0.16em] text-ink/45 hover:text-ink"
             onClick={() => onDate(firstOpenDay(localIso(new Date(y, m, 1))))}
             aria-label="Mese successivo"
           >
             →
           </button>
         </div>
-        <p className="mb-3 text-[10px] uppercase tracking-[0.16em] text-sage">{consulti.calendario.giorno}</p>
+        <p className="mb-3 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{consulti.calendario.giorno}</p>
         <div className="grid grid-cols-7 gap-1">
           {headers.map((h) => (
-            <span key={h} className="py-1 text-center text-[9px] uppercase tracking-[0.14em] text-ink/40">
+            <span key={h} className="py-1 text-center text-[0.5625rem] uppercase tracking-[0.14em] text-ink/40">
               {h}
             </span>
           ))}
@@ -114,7 +114,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
           })}
         </div>
       </div>
-      <p className="mt-6 text-[10px] uppercase tracking-[0.16em] text-sage">{consulti.calendario.orario}</p>
+      <p className="mt-6 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{consulti.calendario.orario}</p>
       <div className="mt-2 grid grid-cols-4 gap-2 sm:grid-cols-7">
         {HOUR_SLOTS.map((hour) => {
           const available = hours.includes(hour);

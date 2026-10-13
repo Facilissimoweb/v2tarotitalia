@@ -43,7 +43,7 @@ export function LegalNotice({ kind, onClose }: Props) {
         <WidgetCloseButton onClick={onClose} />
         <div className="max-h-[min(90vh,48rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={title} titleId={titleId}>
-            <p className="text-center text-[12px] tracking-[0.04em] text-ink/50">
+            <p className="text-center text-[0.75rem] tracking-[0.04em] text-ink/50">
               <LegalCopy>{intestazione}</LegalCopy>
             </p>
             <LegalBody kind={kind} onClose={onClose} />
@@ -180,7 +180,7 @@ function VenditaBody() {
         );
       })}
       <section className="border-t border-ink/10 pt-8">
-        <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{vendita.assistenza.titolo}</p>
+        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{vendita.assistenza.titolo}</p>
         <p className="mt-4 text-sm leading-[1.9] text-ink/70">
           <LegalCopy>{vendita.assistenza.testo}</LegalCopy>
         </p>

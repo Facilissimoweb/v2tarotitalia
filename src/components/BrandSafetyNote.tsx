@@ -25,7 +25,7 @@ export function BrandSafetyNote() {
           {tutela.punti.map((punto, i) => (
             <Reveal key={punto.titolo} delay={i * 80}>
               <article className="flex h-full flex-col bg-paper p-8 md:p-10">
-                <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
+                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
                   {String(i + 1).padStart(2, "0")}
                 </p>
                 <h3 className="mt-4 font-display text-xl leading-snug text-ink">{punto.titolo}</h3>

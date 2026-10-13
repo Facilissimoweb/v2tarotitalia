@@ -52,6 +52,21 @@ export const siteContent = {
     genera: "Preparazione nella lingua scelta...",
   },
 
+  accessibilita: {
+    trigger: "Accessibilità",
+    titolo: "Facilitazione visiva",
+    testo: "Dimensione del testo",
+    aumenta: "Ingrandisci il testo",
+    riduci: "Riduci il testo",
+    contrasto: "Alto contrasto",
+    contrastoNota: "Testo nero su fondo bianco, bordi marcati.",
+    font: "Font ad alta leggibilità",
+    fontNota: "Atkinson Hyperlegible, pensato per facilitare la lettura.",
+    spaziatura: "Spaziatura del testo",
+    spaziaturaNota: "Più spazio tra righe, lettere e parole.",
+    ripristina: "Ripristina",
+  },
+
   comingSoon: "Archivio in costruzione",
 
   cta: {

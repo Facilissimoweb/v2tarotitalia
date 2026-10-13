@@ -17,7 +17,7 @@ const itemClass =
   "group relative flex h-10 w-10 items-center justify-center text-ink transition-colors duration-200 hover:text-sage sm:h-11 sm:w-11 md:h-12 md:w-12";
 
 const tipClass =
-  "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ink px-2.5 py-1 text-[9px] uppercase tracking-[0.16em] text-on-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
+  "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ink px-2.5 py-1 text-[0.5625rem] uppercase tracking-[0.16em] text-on-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
 
 type DockBarProps = {
   onItha?: () => void;

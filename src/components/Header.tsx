@@ -13,6 +13,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 import { useItha } from "../context/IthaContext.tsx";
 import { LanguageWidget } from "./LanguageWidget";
+import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { BrandLogo } from "./BrandLogo";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetBrandMark } from "./WidgetFrame";
@@ -21,13 +22,13 @@ const { brand, nav, itha } = siteContent;
 
 /** Tipografia menu hamburger (mobile / tablet). */
 const NAV_ITEM =
-  "font-body text-[13px] font-bold uppercase not-italic leading-none tracking-[0.22em]";
+  "font-body text-[0.8125rem] font-bold uppercase not-italic leading-none tracking-[0.22em]";
 const NAV_CHILD =
-  "font-body text-[11px] font-semibold uppercase not-italic leading-none tracking-[0.18em]";
+  "font-body text-[0.6875rem] font-semibold uppercase not-italic leading-none tracking-[0.18em]";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
-  `whitespace-nowrap text-[11px] uppercase tracking-[0.16em] transition-colors ${
+  `whitespace-nowrap text-[0.6875rem] uppercase tracking-[0.16em] transition-colors ${
     active ? "text-ink" : "text-ink/40 hover:text-ink"
   }`;
 
@@ -60,7 +61,7 @@ export function Header() {
     <>
       <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl">
         <nav
-          className="mx-auto hidden h-[6.75rem] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
+          className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
           aria-label="Principale"
         >
           <div className="flex items-center justify-evenly gap-6">
@@ -75,8 +76,8 @@ export function Header() {
             aria-label={brand.wordmark}
             translate="no"
           >
-            <BrandLogo className="h-10 w-10" />
-            <span className="mt-2 font-display text-[11px] uppercase leading-none tracking-[0.32em] text-ink">
+            <BrandLogo className="h-[40px] w-[40px]" />
+            <span className="mt-2 font-display text-[0.6875rem] uppercase leading-none tracking-[0.32em] text-ink">
               {brand.wordmark}
             </span>
           </NavLink>
@@ -89,17 +90,18 @@ export function Header() {
             </div>
             <div className="flex shrink-0 items-center">
               <LanguageWidget placement="nav" />
+              <AccessibilityTrigger />
               <AccountLink />
               <CartLink />
             </div>
           </div>
         </nav>
 
-        <div className="grid h-20 grid-cols-3 items-center px-3 xl:hidden">
+        <div className="grid h-[80px] grid-cols-[1fr_auto_1fr] items-center px-3 xl:hidden">
           <div className="flex items-center justify-start">
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center text-ink"
+              className="flex h-[40px] w-[40px] items-center justify-center text-ink"
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? nav.chiudi : nav.menu}
@@ -110,9 +112,10 @@ export function Header() {
             <LanguageWidget placement="nav" />
           </div>
           <NavLink to="/" className="justify-self-center" aria-label={brand.wordmark}>
-            <BrandLogo className="h-12 w-12" />
+            <BrandLogo className="h-[48px] w-[48px]" />
           </NavLink>
           <div className="flex items-center justify-end">
+            <AccessibilityTrigger />
             <AccountLink />
             <CartLink />
           </div>
@@ -198,7 +201,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
                 role="menuitem"
                 to={child.to}
                 className={({ isActive }) =>
-                  `block whitespace-nowrap text-[11px] uppercase tracking-[0.16em] ${
+                  `block whitespace-nowrap text-[0.6875rem] uppercase tracking-[0.16em] ${
                     isActive ? "text-ink" : "text-ink/45 hover:text-ink"
                   }`
                 }
@@ -226,6 +229,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
     >
       <div className="relative px-8 pb-8 pt-10">
         <div className="absolute right-4 top-4 flex items-center gap-2">
+          <AccessibilityTrigger />
           <AccountLink />
           <CartLink />
           <WidgetCloseButton placement="inline" onClick={onClose} />
@@ -309,7 +313,7 @@ function AccountLink() {
   return (
     <NavLink
       to={session ? "/riservata" : "/login"}
-      className="flex h-10 w-10 items-center justify-center text-ink/70 transition-colors hover:text-ink"
+      className="flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink"
       aria-label={session ? nav.riservata : nav.accedi}
     >
       <ProfileIcon />
@@ -321,7 +325,7 @@ function CartLink() {
   return (
     <NavLink
       to="/carrello"
-      className="flex h-10 w-10 items-center justify-center text-ink/70 transition-colors hover:text-ink"
+      className="flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink"
       aria-label={nav.carrello}
     >
       <BagIcon />

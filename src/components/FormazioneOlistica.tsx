@@ -21,7 +21,7 @@ function FormazioneCards() {
             decoding="async"
             className="pointer-events-none absolute -bottom-8 -right-10 -z-10 h-[120%] w-auto max-w-none opacity-40 mix-blend-soft-light"
           />
-          <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-ivory">{voce.badge}</p>
+          <p className="text-[0.625rem] font-medium uppercase tracking-[0.16em] text-ivory">{voce.badge}</p>
           <span
             className="mt-5 inline-block text-lg leading-none grayscale brightness-[1.65] contrast-110"
             aria-hidden
@@ -39,8 +39,8 @@ function FormazioneCards() {
 export function FormazioneOlisticaBody() {
   return (
     <div>
-      <p className="text-center text-[10px] uppercase tracking-[0.16em] text-sage">{percorsoEsteso.kicker}</p>
-      <p className="mt-4 text-center text-[10px] uppercase tracking-[0.16em] text-sage">{percorsoEsteso.badge}</p>
+      <p className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsoEsteso.kicker}</p>
+      <p className="mt-4 text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsoEsteso.badge}</p>
       <p className="mx-auto mt-5 max-w-2xl text-center text-sm leading-[1.85] text-ink/70">
         {percorsoEsteso.lead}
       </p>

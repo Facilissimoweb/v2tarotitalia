@@ -51,7 +51,7 @@ function ConsentRow({
 }) {
   return (
     <div className="flex flex-col gap-2">
-      <label className="flex items-start gap-3 text-[12px] leading-[1.7] text-ink/70">
+      <label className="flex items-start gap-3 text-[0.75rem] leading-[1.7] text-ink/70">
         <input
           type="checkbox"
           className="mt-0.5 shrink-0 accent-ink"
@@ -64,7 +64,7 @@ function ConsentRow({
       {onOpen && linkLabel ? (
         <button
           type="button"
-          className="ml-7 text-left text-[11px] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+          className="ml-7 text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
           onClick={onOpen}
         >
           {linkLabel}

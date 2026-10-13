@@ -233,7 +233,7 @@ export function IthaModal() {
 function Intro({ onContinue, onDevGranted }: { onContinue: () => void; onDevGranted: () => void }) {
   return (
     <div className="flex flex-col gap-8 text-left">
-      <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
+      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
       <h3 className="font-display text-3xl leading-tight text-ink">{itha.saluto}</h3>
       <p className="text-sm leading-[1.9] text-ink/75">{itha.intro}</p>
       <section>
@@ -249,7 +249,7 @@ function Intro({ onContinue, onDevGranted }: { onContinue: () => void; onDevGran
         <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.usoTesto}</p>
       </section>
       <aside className="border-l-2 border-sage bg-mist px-5 py-5">
-        <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-sage">{itha.presenteTitolo}</p>
+        <p className="text-[0.625rem] font-medium uppercase tracking-[0.16em] text-sage">{itha.presenteTitolo}</p>
         <p className="mt-3 font-display text-xl leading-snug text-ink">{itha.presenteTesto}</p>
       </aside>
       <p className="text-sm leading-[1.85] text-ink/70">{itha.zeroGratuita}</p>
@@ -275,7 +275,7 @@ function Hub({
   return (
     <div className="flex flex-col gap-8 text-left">
       <div className="flex items-center justify-between bg-mist px-5 py-4">
-        <p className="text-[10px] uppercase tracking-[0.16em] text-sage">{itha.credito}</p>
+        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{itha.credito}</p>
         <p className="font-display text-2xl">{credits}</p>
       </div>
       {credits < 1 && !isIthaDev() && !ITHA_CREDITS_UNLOCKED ? <p className="text-sm leading-[1.9] text-ink/70">{itha.creditoEsaurito}</p> : null}
@@ -288,7 +288,7 @@ function Hub({
       <button
         type="button"
         onClick={onArchive}
-        className="text-center text-[10px] uppercase tracking-[0.16em] text-sage hover:text-ink"
+        className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
       >
         {itha.archivio}
       </button>
@@ -400,7 +400,7 @@ function Draw({
             <Kicker>{itha.pescaTitolo}</Kicker>
             <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.pescaLead}</p>
           </div>
-          <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
+          <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
             {itha.pescaScelte} {picked.length}/3
           </p>
           <div className="flex flex-col gap-6">
@@ -408,7 +408,7 @@ function Draw({
               const titolo = itha.pescaFile.find((file) => file.id === row.suit)?.titolo ?? row.suit;
               return (
                 <section key={row.suit}>
-                  <p className="mb-3 text-[10px] uppercase tracking-[0.14em] text-sage">{titolo}</p>
+                  <p className="mb-3 text-[0.625rem] uppercase tracking-[0.14em] text-sage">{titolo}</p>
                   <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {row.cards.map((card) => {
                       const order = picked.findIndex((item) => item.id === card.id);
@@ -424,7 +424,7 @@ function Draw({
                         >
                           <IthaCardBack />
                           {selected ? (
-                            <span className="absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center bg-ivory text-[10px] text-ink">
+                            <span className="absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center bg-ivory text-[0.625rem] text-ink">
                               {order + 1}
                             </span>
                           ) : null}
@@ -445,12 +445,12 @@ function Draw({
             const pos = itha.posizioni.find((p) => p.id === card.position);
             return (
               <article key={card.id}>
-                <p className="mb-3 text-[10px] uppercase tracking-[0.14em] text-sage">{pos?.titolo}</p>
+                <p className="mb-3 text-[0.625rem] uppercase tracking-[0.14em] text-sage">{pos?.titolo}</p>
                 <div className="mx-auto w-36 sm:mx-0">
                   <IthaCardFace card={card} />
                 </div>
                 <p className="mt-3 font-display text-sm">{card.name}</p>
-                <p className="mt-1 text-[11px] leading-relaxed text-ink/55">{pos?.ruolo}</p>
+                <p className="mt-1 text-[0.6875rem] leading-relaxed text-ink/55">{pos?.ruolo}</p>
               </article>
             );
           })}
@@ -490,7 +490,7 @@ function Reading({
       {cards.map((section) =>
         section.card ? (
           <article key={section.pos.id} className="border-t border-ink/10 pt-6">
-            <p className="text-[10px] uppercase tracking-[0.14em] text-sage">{section.titolo}</p>
+            <p className="text-[0.625rem] uppercase tracking-[0.14em] text-sage">{section.titolo}</p>
             <div className="mt-4 grid gap-5 sm:grid-cols-[7.5rem_1fr] sm:items-start">
               <IthaCardFace card={section.card} />
               <div>
@@ -535,7 +535,7 @@ function Reading({
       <button
         type="button"
         onClick={onHub}
-        className="text-center text-[10px] uppercase tracking-[0.16em] text-sage hover:text-ink"
+        className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
       >
         {itha.credito}
       </button>
@@ -567,7 +567,7 @@ function Archive({
             }}
             className="bg-mist p-5 text-left"
           >
-            <p className="text-[10px] uppercase tracking-[0.14em] text-sage">{item.category}</p>
+            <p className="text-[0.625rem] uppercase tracking-[0.14em] text-sage">{item.category}</p>
             <p className="mt-2 text-sm leading-relaxed text-ink/75">{item.question}</p>
           </button>
         ))
@@ -596,13 +596,13 @@ function Recharge({
       </div>
       {itha.piani.map((piano) => (
         <article key={piano.id} className="bg-mist p-6">
-          <p className="text-[10px] uppercase tracking-[0.16em] text-sage">
+          <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
             {piano.crediti} · €{piano.prezzo}
           </p>
           <h3 className="mt-3 font-display text-xl">{piano.titolo}</h3>
           <p className="mt-3 text-sm leading-[1.85] text-ink/70">{piano.testo}</p>
-          <p className="mt-3 text-[11px] text-ink/55">{piano.paypal}</p>
-          {piano.rate ? <p className="mt-1 text-[11px] text-ink/55">{piano.rate}</p> : null}
+          <p className="mt-3 text-[0.6875rem] text-ink/55">{piano.paypal}</p>
+          {piano.rate ? <p className="mt-1 text-[0.6875rem] text-ink/55">{piano.rate}</p> : null}
           <div className="mt-5">
             <IthaPayPal planId={piano.id as IthaPlanId} onPaid={onPaid} />
           </div>

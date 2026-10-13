@@ -111,7 +111,7 @@ function CookieRow({
         <p className="mt-3 text-sm leading-relaxed text-ink/65">{text}</p>
       </div>
       {locked ? (
-        <span className="shrink-0 pt-1 text-[9px] uppercase tracking-[0.16em] text-sage">{lockedLabel}</span>
+        <span className="shrink-0 pt-1 text-[0.5625rem] uppercase tracking-[0.16em] text-sage">{lockedLabel}</span>
       ) : (
         <button
           type="button"

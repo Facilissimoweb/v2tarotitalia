@@ -25,6 +25,7 @@ import { Riservata } from "./pages/Riservata";
 import { NonTrovata } from "./pages/NonTrovata";
 import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
+import { AccessibilityPanel } from "./components/AccessibilityWidget";
 import { useSiteAccess } from "./lib/useSiteAccess";
 
 export default function App() {
@@ -68,6 +69,7 @@ export default function App() {
         <AuthModal />
         <RitualisticaModal />
         <StudioContactDock />
+        <AccessibilityPanel />
         <IthaModal />
         </IthaProvider>
         </LanguageProvider>

@@ -16,7 +16,7 @@ export function IthaLaunch() {
       className="fixed bottom-5 right-5 z-40 flex items-center gap-3 bg-ivory/95 px-4 py-3 text-ink shadow-[0_8px_24px_rgba(43,37,35,0.1)] ring-1 ring-ink/10 backdrop-blur-md transition-colors duration-200 hover:text-sage md:bottom-6 md:right-6"
     >
       <BrandLogo className="h-9 w-9" />
-      <span className="font-display text-[11px] uppercase tracking-[0.22em]">{itha.sticky}</span>
+      <span className="font-display text-[0.6875rem] uppercase tracking-[0.22em]">{itha.sticky}</span>
     </button>
   );
 }

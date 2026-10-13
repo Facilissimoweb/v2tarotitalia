@@ -92,7 +92,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
         <button
           type="button"
           onClick={() => setMode("login")}
-          className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
+          className={`px-4 py-2 text-[0.625rem] uppercase tracking-[0.16em] ${
             mode === "login" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
           }`}
         >
@@ -101,7 +101,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
         <button
           type="button"
           onClick={() => setMode("register")}
-          className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
+          className={`px-4 py-2 text-[0.625rem] uppercase tracking-[0.16em] ${
             mode === "register" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
           }`}
         >
@@ -110,7 +110,7 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
         <button
           type="button"
           onClick={() => setMode("magic")}
-          className={`px-4 py-2 text-[10px] uppercase tracking-[0.16em] ${
+          className={`px-4 py-2 text-[0.625rem] uppercase tracking-[0.16em] ${
             mode === "magic" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
           }`}
         >
@@ -195,7 +195,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-2">
-      <span className="text-[10px] uppercase tracking-[0.16em] text-sage">{label}</span>
+      <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{label}</span>
       <input
         type={type}
         required={required}

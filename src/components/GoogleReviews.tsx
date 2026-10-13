@@ -70,8 +70,8 @@ function ReviewCard({
       <div className="flex items-center gap-3">
         <Avatar author={author} />
         <div className="min-w-0 flex-1">
-          <p className="truncate font-display text-[15px] leading-tight text-ink">{author}</p>
-          <p className="mt-1 text-[10px] uppercase tracking-[0.16em] text-sage">{date}</p>
+          <p className="truncate font-display text-[0.9375rem] leading-tight text-ink">{author}</p>
+          <p className="mt-1 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{date}</p>
         </div>
         <GoogleMark className="h-[1.05rem] w-[1.05rem] shrink-0 self-start" />
       </div>
@@ -226,7 +226,7 @@ export function GoogleReviews() {
               href={recensioni.profiloUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 text-[11px] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist"
+              className="inline-flex items-center gap-2 px-5 py-3 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist"
             >
               <GoogleMark className="h-4 w-4" />
               {recensioni.cta}
