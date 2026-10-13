@@ -1,17 +1,12 @@
 import { useEffect, useRef } from "react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
-import { Button, Kicker } from "./Button";
-import { GoogleReviewsHeroLink } from "./PageHero";
+import { Button } from "./Button";
 import { Reveal } from "./Reveal";
 
 const { brand, cta, home } = siteContent;
 
 const titolo = home.titolo;
-
-type Props = {
-  onOpenFormazione: () => void;
-};
 
 /** Proporzioni dell'illustrazione di sfondo (verticale 9:16). */
 const ART_RATIO = 16 / 9;
@@ -35,7 +30,7 @@ const FLAME_Y = 0.657;
  *   rende lo scorrimento 1:1 con la pagina.
  * È l'unica hero del sito: le pagine interne non ne hanno (vedi `PageHero`).
  */
-export function HomeHero({ onOpenFormazione }: Props) {
+export function HomeHero() {
   const section = useRef<HTMLElement>(null);
   const track = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLDivElement>(null);
@@ -139,28 +134,22 @@ export function HomeHero({ onOpenFormazione }: Props) {
               <span className="block">
                 <BrandLogo
                   tone="hero"
-                  className="mx-auto h-[clamp(5rem,14svh,10rem)] w-[clamp(5rem,14svh,10rem)] drop-shadow-[0_0_34px_rgba(255,254,251,1)]"
+                  className="mx-auto h-[clamp(10rem,min(64vw,34svh),20rem)] w-[clamp(10rem,min(64vw,34svh),20rem)] drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
                 />
               </span>
             </Reveal>
 
-            <Reveal delay={80}>
-              <div className="mb-[clamp(0.75rem,2svh,1.25rem)] mt-[clamp(1rem,3svh,2rem)] flex items-center justify-center gap-3">
-                <span className="h-1.5 w-1.5 bg-sage" />
-                <Kicker>{home.kicker}</Kicker>
-              </div>
-            </Reveal>
-
             <Reveal delay={140}>
-              <h1 className="font-h1 text-[clamp(3.5rem,min(14vw,14svh),8.5rem)] leading-[1] text-ink [text-shadow:0_0_36px_rgba(255,254,251,0.95),0_0_72px_rgba(255,254,251,0.85)]">
+              <h1 className="mt-[clamp(1rem,3svh,2rem)] font-h1 text-[clamp(3.5rem,min(14vw,14svh),8.5rem)] leading-[1] text-ink [text-shadow:0_0_36px_rgba(255,254,251,0.95),0_0_72px_rgba(255,254,251,0.85)]">
                 {titolo}
               </h1>
             </Reveal>
 
             <Reveal delay={200}>
-              <p className="mx-auto mt-[clamp(0.75rem,2.4svh,1.75rem)] max-w-xl text-sm leading-relaxed text-ink/80">
-                {brand.slogan}
-              </p>
+              <div className="mx-auto mt-[clamp(0.75rem,2.4svh,1.75rem)] max-w-xl">
+                <p className="font-display text-base leading-snug text-ink md:text-lg">{brand.sottotitolo}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/80">{brand.descrizione}</p>
+              </div>
             </Reveal>
 
             <Reveal delay={280}>
@@ -174,18 +163,6 @@ export function HomeHero({ onOpenFormazione }: Props) {
               </div>
             </Reveal>
 
-            <Reveal delay={360}>
-              <div className="mt-[clamp(1rem,3.5svh,2.5rem)] flex flex-col items-center gap-5 border-t border-ink/15 pt-[clamp(0.75rem,2.5svh,1.5rem)] md:flex-row md:gap-10">
-                <button
-                  type="button"
-                  onClick={onOpenFormazione}
-                  className="inline-flex items-center gap-3 border-b border-ink/40 px-3 pb-1.5 pt-2 text-[11px] font-medium uppercase tracking-[0.2em] text-ink transition-colors duration-200 hover:border-sage hover:text-sage"
-                >
-                  {cta.formazioneOlistica}
-                </button>
-                <GoogleReviewsHeroLink href="#recensioni-google" label={home.recensioni.heroCta} onMedia={false} />
-              </div>
-            </Reveal>
           </div>
         </div>
       </div>

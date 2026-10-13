@@ -7,6 +7,7 @@ import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
 import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
+import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { ParallaxLayer } from "../components/ParallaxLayer";
 import { Reveal } from "../components/Reveal";
 const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
@@ -17,7 +18,7 @@ export function Home() {
 
   return (
     <div>
-      <HomeHero onOpenFormazione={() => setFormazioneOpen(true)} />
+      <HomeHero />
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">
@@ -45,10 +46,14 @@ export function Home() {
               </div>
             </Reveal>
             <Reveal delay={400}>
-              <div className="mt-10">
+              <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Button to="/chi-siamo" variant="ghost">
                   {cta.leggiChiSiamo} →
                 </Button>
+                <Button variant="ghost" onClick={() => setFormazioneOpen(true)}>
+                  {cta.formazioneOlistica}
+                </Button>
+                <GoogleReviewsHeroLink href="#recensioni-google" label={home.recensioni.heroCta} onMedia={false} />
               </div>
             </Reveal>
           </div>

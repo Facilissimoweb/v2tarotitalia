@@ -32,7 +32,6 @@ export function Footer() {
         <div translate="no">
           <BrandLogo className="mx-auto h-24 w-24 md:h-28 md:w-28" />
           <p className="mt-8 font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
-          <p className="mt-4 text-xs font-medium uppercase tracking-[0.2em] text-ink/70">{brand.name}</p>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed tracking-[0.02em] text-ink/80 md:text-[15px]">
           {brand.slogan}

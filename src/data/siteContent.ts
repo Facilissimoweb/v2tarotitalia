@@ -1,13 +1,18 @@
+const sottotitoloBrand = "Tarot Italia di Maria Teresa Rogani, operatore olistico";
+const descrizioneBrand = "Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata";
+const sloganBrand = `${sottotitoloBrand} • ${descrizioneBrand}`;
+
 export const siteContent = {
   brand: {
-    name: "Studio Olistico",
+    name: "Tarot Italia",
     wordmark: "Tarot Italia",
     logo: "/logo.png",
     logoHero: "/logo-hero.png?v=2",
     titolare: "M. Teresa Rogani",
     ruolo: "Operatrice olistica ed esoterica, cartomante e tarologa professionista",
-    slogan:
-      "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
+    sottotitolo: sottotitoloBrand,
+    descrizione: descrizioneBrand,
+    slogan: sloganBrand,
     studioDiTeresa:
       "Via Crispi 37, 62100 Macerata (MC), Marche, Italia — Riceve esclusivamente su appuntamento",
     deontologia:
@@ -55,7 +60,7 @@ export const siteContent = {
     chiama: "Chiama",
     telegram: "Telegram",
     esploraArcani: "Esplora i 22 Arcani",
-    formazioneOlistica: "Formazione Olistica di Teresa",
+    formazioneOlistica: "Formazione olistica",
     leggiChiSiamo: "Leggi Chi Siamo",
     scriviStudio: "Scrivi allo Studio",
     ritualistica: "Ritualistica",
@@ -66,7 +71,7 @@ export const siteContent = {
   home: {
     kicker: "Tarot Italia",
     titolo: "Tarot Italia",
-    lead: "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
+    lead: sloganBrand,
     ctaConsulto: "Prenota consulto",
     visione: {
       kicker: "Visione & Deontologia",
@@ -128,7 +133,7 @@ export const siteContent = {
         "https://www.google.com/maps/search/?api=1&query=Tarot%20Italia%2C%20Via%20Crispi%2037%2C%2062100%20Macerata",
     },
     passaggi: {
-      titolo: "Studio Olistico: Dal Matto al Mondo — I 22 Passaggi dell’Eroe",
+      titolo: "Dal Matto al Mondo — I 22 Passaggi dell’Eroe",
       testo: "Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. Scaricala dall’area corsi — l’archivio completo è in Area Riservata.",
       cta: "Vai ai corsi e alle dispense",
     },
@@ -163,7 +168,7 @@ export const siteContent = {
     soglia: {
       kicker: "Tarot Italia",
       titolo: "Coming Soon",
-      lead: "Tarot Italia • Studio Olistico di Maria Teresa Rogani • Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata",
+      lead: sloganBrand,
       sfondo: "/coming-soon.png",
     },
   },
@@ -263,7 +268,7 @@ export const siteContent = {
       teresa: {
         src: "/chi-siamo/teresa-ritratto.svg?v=3",
         alt: "Ritratto evocativo di M. Teresa Rogani, operatrice olistica ed esoterica, cartomante e tarologa professionista",
-        caption: "M. Teresa Rogani · Studio Olistico",
+        caption: "M. Teresa Rogani",
       },
       teresaHome: {
         src: "/chi-siamo/teresa-home.jpg?v=2",

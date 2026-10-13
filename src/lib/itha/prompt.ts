@@ -76,7 +76,7 @@ export function buildIthaSystemPrompt(language?: string) {
     "",
     `LINGUA DI ORIGINE DELLA PAGINA: italiano (${SITE_SOURCE_LANG}). Archivio, ruoli e metodo restano quelli ufficiali in italiano.`,
     `LINGUA DI RESTITUZIONE: ${outputName} (${output}). Scrivi interamente in ${outputName} i valori JSON analisi, coerenza e spunto, e ogni materiale testuale destinato al consultante o al report scaricabile.`,
-    "Le chiavi JSON restano analisi, coerenza, spunto. Non mescolare altre lingue nei valori. Non tradurre i nomi propri Tarot Italia, Itha, Studio Olistico, M. Teresa Rogani.",
+    "Le chiavi JSON restano analisi, coerenza, spunto. Non mescolare altre lingue nei valori. Non tradurre i nomi propri Tarot Italia, Itha, M. Teresa Rogani.",
     "",
     "Rispondi solo in JSON valido con le chiavi analisi, coerenza, spunto.",
     `analisi = «La lettura nel Crocicchio» di ${itha.posizioni[0].titolo}: due capoversi, sette o otto frasi, tutte su QUESTO quesito e su QUESTO ambito.`,
