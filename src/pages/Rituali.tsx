@@ -1,7 +1,7 @@
 import { siteContent } from "../data/siteContent";
 import { useRitualistica } from "../context/RitualisticaContext";
 import { Button, Kicker } from "../components/Button";
-import { PageHero } from "../components/PageHero";
+import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 
 const { brand, cta, collaboratori, pages, ritualistica } = siteContent;
@@ -12,17 +12,7 @@ export function Rituali() {
 
   return (
     <div>
-      <PageHero
-        kicker={pages.rituali.kicker}
-        title={pages.rituali.titolo}
-        lead={ritualistica.intro}
-        cta={{ label: cta.ritualistica, onClick: () => openRitualistica(), variant: "sage" }}
-        media={{
-          src: maura.immagine.src,
-          type: "image",
-          alt: maura.immagine.alt,
-        }}
-      />
+      <PageBanner title={pages.rituali.titolo} className="mb-10 md:mb-14" />
 
       <section className="px-6 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto max-w-3xl">

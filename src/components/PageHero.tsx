@@ -33,10 +33,11 @@ type Props = {
 };
 
 /**
- * Le pagine interne non hanno hero section: nessun logo, titolo visibile, testo o CTA in apertura.
- * Resta solo un H1 nascosto alla vista (`sr-only`) per SEO e screen reader, più un po' di spazio
+ * Intestazione minima per le pagine che non usano `PageBanner` (Blog, Arcani, Area riservata, ecc.).
+ * Resta un H1 nascosto alla vista (`sr-only`) per SEO e screen reader, più un po' di spazio
  * sotto l'header. Gli eventuali `children` (es. stato account in Area Riservata) restano visibili.
- * La hero vera e propria esiste solo in Home (`HomeHero`).
+ * La hero illustrata è solo in Home (`HomeHero`); Consulti, Ritualistica, Chi Siamo e Contatti
+ * usano il banner visibile `PageBanner`.
  */
 export function PageHero({ title, children }: Props) {
   return (

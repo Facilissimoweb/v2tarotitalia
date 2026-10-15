@@ -1,7 +1,7 @@
 import { siteContent } from "../data/siteContent";
 import { BrandSafetyNote } from "../components/BrandSafetyNote";
 import { Button, Kicker } from "../components/Button";
-import { PageHero } from "../components/PageHero";
+import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 import { getPhoneHref, whatsappChatHref } from "../lib/whatsapp";
 
@@ -10,17 +10,7 @@ const { brand, cta, pages } = siteContent;
 export function Contatti() {
   return (
     <div>
-      <PageHero
-        kicker={pages.contatti.kicker}
-        title={pages.contatti.titolo}
-        lead={brand.studioDiTeresa}
-        cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
-        media={{
-          src: siteContent.chiSiamo.immagini.studio.src,
-          type: "image",
-          alt: siteContent.chiSiamo.immagini.studio.alt,
-        }}
-      />
+      <PageBanner title={pages.contatti.titolo} className="mb-10 md:mb-14" />
 
       <section className="px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-4xl gap-10 md:grid-cols-2 md:gap-16">

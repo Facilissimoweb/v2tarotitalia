@@ -56,7 +56,7 @@ const FLAME_Y = 0.657;
  * - Logo, titolo e CTA stanno sopra, nel flusso normale: scorrono via e lasciano
  *   l'illustrazione libera. Uno spazio finale dimensionato sull'altezza dell'immagine
  *   rende lo scorrimento 1:1 con la pagina.
- * È l'unica hero del sito: le pagine interne non ne hanno (vedi `PageHero`).
+ * Hero della Home. Le pagine interne usano il banner compatto `PageBanner`.
  */
 export function HomeHero() {
   // Preferenza di sistema `prefers-reduced-motion`: nessuna animazione, contenuti subito visibili.

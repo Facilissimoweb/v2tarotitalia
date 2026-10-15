@@ -20,11 +20,11 @@ import { BookingCalendar } from "../components/BookingCalendar";
 import { Button, Kicker } from "../components/Button";
 import { ConsentFields } from "../components/ConsentFields";
 import { LegalNotice, type LegalKind } from "../components/LegalNotice";
-import { PageHero } from "../components/PageHero";
+import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 import { WidgetFrame } from "../components/WidgetFrame";
 
-const { consulti, auth } = siteContent;
+const { consulti, auth, nav } = siteContent;
 
 function initialDate() {
   return nextBookableDate();
@@ -172,23 +172,7 @@ export function Consulti() {
 
   return (
     <div>
-      <PageHero
-        kicker="Sessioni & booking diretto"
-        title={
-          <>
-            Consulti archetipici &
-            <br />
-            <span className="italic">divinazione evolutiva</span>
-          </>
-        }
-        lead={`Uno spazio di ascolto intimo e protetto a ${STUDIO.city} o per via auricolare. Tariffe fisse, protocollo WhatsApp vocale, report PDF su richiesta.`}
-        cta={{ href: "#prenota", label: siteContent.cta.consultoWhatsapp }}
-        media={{
-          src: siteContent.chiSiamo.immagini.simboli.src,
-          type: "image",
-          alt: siteContent.chiSiamo.immagini.simboli.alt,
-        }}
-      />
+      <PageBanner title={nav.consulti} className="mb-10 md:mb-14" />
 
       <div
         id="prenota"

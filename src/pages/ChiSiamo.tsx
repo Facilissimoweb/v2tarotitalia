@@ -3,10 +3,10 @@ import { siteContent } from "../data/siteContent";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { ImageSlot } from "../components/ImageSlot";
 import { Button, Kicker } from "../components/Button";
-import { PageHero } from "../components/PageHero";
+import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 
-const { brand, chiSiamo, collaboratori, cta } = siteContent;
+const { brand, chiSiamo, collaboratori } = siteContent;
 const { maura } = collaboratori;
 
 export function ChiSiamo() {
@@ -14,18 +14,7 @@ export function ChiSiamo() {
 
   return (
     <div>
-      <PageHero
-        kicker={chiSiamo.kicker}
-        title={chiSiamo.titolo}
-        lead={brand.slogan}
-        cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
-        media={{
-          src: chiSiamo.immagini.hero.src,
-          type: "image",
-          alt: chiSiamo.immagini.hero.alt,
-          objectPosition: "center center",
-        }}
-      />
+      <PageBanner title={chiSiamo.titolo} className="mb-10 md:mb-14" />
 
       <section className="px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:gap-24">
