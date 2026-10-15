@@ -581,6 +581,7 @@ export const siteContent = {
   },
 
   consulti: {
+    procedi: "Ci siamo quasi!",
     conferma: "Conferma e riserva la sessione",
     opzioni: [
       { id: "focus", titolo: "Consulto di 30 minuti", minuti: 30, prezzo: 40 },
@@ -593,7 +594,7 @@ export const siteContent = {
     avvisoConferma:
       "La prenotazione è registrata sul tuo account. Lo storico degli acquisti e le richieste di recesso restano disponibili in Area riservata.",
     accessoObbligatorio:
-      "Per finalizzare la prenotazione è necessario accedere o registrarsi. Lo storico degli acquisti e le richieste di recesso restano disponibili in Area riservata.",
+      "Per finalizzare la tua prenotazione è necessario accedere o registrarsi. Serve solo per darti un'area privata dove gestire il tuo consulto e ricevere i promemoria.",
     successoKicker: "Richiesta inviata",
     successoTitolo: "Prenotazione registrata",
     recapito: "Recapito telefonico *",
@@ -605,6 +606,11 @@ export const siteContent = {
   },
 
   auth: {
+    sogliaTitolo: "Benvenuta/o nel tuo spazio riservato",
+    sogliaLead:
+      "Per finalizzare la tua prenotazione è necessario accedere o registrarsi. Serve solo per darti un'area privata dove gestire il tuo consulto e ricevere i promemoria.",
+    giaDeiNostri: "Sei già dei nostri? Accedi qui",
+    primaVolta: "Prima volta qui? Registrati in un attimo",
     login: "Login",
     registrazione: "Registrazione",
     email: "Email",

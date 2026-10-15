@@ -7,6 +7,7 @@ import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { IthaDevGrant } from "../components/IthaDevGrant.tsx";
+import { BookingConfirm } from "../components/BookingConfirm";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { siteDateTime } from "../lib/locale";
@@ -94,6 +95,7 @@ export function Riservata() {
       </div>
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:px-10 md:py-20">
+        <BookingConfirm />
         {error ? <p className="mb-10 text-sm text-ink">{error}</p> : null}
         {tab === "acquisti" && (
           <div className="flex flex-col gap-10">

@@ -17,9 +17,11 @@ type Props = {
   onVendita?: () => void;
   onSuccess?: () => void;
   redirectTo?: string;
+  /** Percorsi accoglienza per chi arriva dalla prenotazione: Accedi / Registrati, senza link magico. */
+  soglia?: boolean;
 };
 
-export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSuccess, redirectTo }: Props) {
+export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSuccess, redirectTo, soglia = false }: Props) {
   const { login, register, requestMagicLink, loginWithGoogle } = useAuth();
   const [modeState, setModeState] = useState<Mode>("login");
   const mode = modeProp ?? modeState;
@@ -88,34 +90,30 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
 
   return (
     <form className="flex flex-col gap-8 text-left" onSubmit={(e) => void onSubmit(e)}>
-      <div className="flex flex-wrap justify-center gap-2">
+      <div className={`flex ${soglia ? "flex-col" : "flex-wrap justify-center"} gap-2`}>
         <button
           type="button"
           onClick={() => setMode("login")}
-          className={`px-4 py-2 text-[0.625rem] uppercase tracking-[0.16em] ${
-            mode === "login" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
-          }`}
+          className={soglia ? sogliaTab(mode === "login") : compactTab(mode === "login")}
         >
-          {auth.login}
+          {soglia ? auth.giaDeiNostri : auth.login}
         </button>
         <button
           type="button"
           onClick={() => setMode("register")}
-          className={`px-4 py-2 text-[0.625rem] uppercase tracking-[0.16em] ${
-            mode === "register" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
-          }`}
+          className={soglia ? sogliaTab(mode === "register") : compactTab(mode === "register")}
         >
-          {auth.registrazione}
+          {soglia ? auth.primaVolta : auth.registrazione}
         </button>
-        <button
-          type="button"
-          onClick={() => setMode("magic")}
-          className={`px-4 py-2 text-[0.625rem] uppercase tracking-[0.16em] ${
-            mode === "magic" ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
-          }`}
-        >
-          {auth.magicLink}
-        </button>
+        {soglia ? null : (
+          <button
+            type="button"
+            onClick={() => setMode("magic")}
+            className={compactTab(mode === "magic")}
+          >
+            {auth.magicLink}
+          </button>
+        )}
       </div>
 
       {mode === "register" ? (
@@ -174,6 +172,18 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
       </Button>
     </form>
   );
+}
+
+function compactTab(active: boolean) {
+  return `px-4 py-2 text-[0.625rem] uppercase tracking-[0.16em] ${
+    active ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
+  }`;
+}
+
+function sogliaTab(active: boolean) {
+  return `w-full px-4 py-3 text-sm leading-snug ${
+    active ? "bg-ink text-on-ink" : "bg-mist text-ink/70"
+  }`;
 }
 
 function Field({

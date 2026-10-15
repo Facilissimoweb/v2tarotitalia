@@ -4,34 +4,27 @@ import { consultTotal, REPORT_PDF_PRICE, STUDIO, TARIFFE, type TariffaId } from 
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import {
-  clearBookingDraft,
   emptyConsents,
-  hasRequiredConsents,
   nextBookableDate,
   readBookingDraft,
   slotsForDate,
   writeBookingDraft,
   type BookingMode,
-  type Consents,
 } from "../lib/storage";
 import { formatBookingDay } from "../lib/whatsapp";
-import { AuthForm } from "../components/AuthForm";
-import { BookingCalendar } from "../components/BookingCalendar";
 import { Button, Kicker } from "../components/Button";
-import { ConsentFields } from "../components/ConsentFields";
-import { LegalNotice, type LegalKind } from "../components/LegalNotice";
+import { BookingCalendar } from "../components/BookingCalendar";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
-import { WidgetFrame } from "../components/WidgetFrame";
 
-const { consulti, auth, nav } = siteContent;
+const { consulti, nav } = siteContent;
 
 function initialDate() {
   return nextBookableDate();
 }
 
 export function Consulti() {
-  const { addPurchase, session, ready } = useAuth();
+  const { session } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const start = initialDate();
@@ -39,17 +32,8 @@ export function Consulti() {
   const [mode, setMode] = useState<BookingMode>("remote");
   const [dateIso, setDateIso] = useState(start);
   const [slot, setSlot] = useState(() => slotsForDate(start)[0] ?? "09:00");
-  const [name, setName] = useState(session?.name ?? "");
-  const [phone, setPhone] = useState("");
-  const [birth, setBirth] = useState("");
-  const [query, setQuery] = useState("");
   const [pdf, setPdf] = useState(false);
-  const [consents, setConsents] = useState<Consents>(emptyConsents);
-  const [notice, setNotice] = useState<LegalKind | null>(null);
-  const [authMode, setAuthMode] = useState<"login" | "register" | "magic">("login");
   const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
-  const pendingLock = useRef(false);
   const restored = useRef(false);
 
   const option = consulti.opzioni.find((o) => o.id === type)!;
@@ -59,21 +43,16 @@ export function Consulti() {
   useEffect(() => {
     if (restored.current) return;
     const saved = readBookingDraft();
-    if (!saved) {
-      restored.current = true;
-      return;
-    }
     restored.current = true;
+    if (!saved) return;
     setType(saved.type);
     setMode(saved.mode);
-    setDateIso(saved.dateIso);
-    setSlot(saved.slot);
-    setName(saved.name);
-    setPhone(saved.phone);
-    setBirth(saved.birth ?? "");
-    setQuery(saved.query ?? "");
     setPdf(saved.pdf);
-    setConsents(saved.consents);
+    const hoursOnSavedDay = slotsForDate(saved.dateIso);
+    const date = hoursOnSavedDay.length ? saved.dateIso : nextBookableDate();
+    const hours = slotsForDate(date);
+    setDateIso(date);
+    setSlot(hours.includes(saved.slot) ? saved.slot : hours[0] ?? saved.slot);
   }, []);
 
   useEffect(() => {
@@ -81,16 +60,14 @@ export function Consulti() {
     if (tipo === "focus" || tipo === "deep") setType(tipo);
   }, [searchParams]);
 
-  useEffect(() => {
-    if (session?.name && !name) setName(session.name);
-    if (session?.consents && hasRequiredConsents(session.consents)) {
-      setConsents(session.consents);
-    }
-  }, [session, name]);
+  function chooseDate(iso: string) {
+    setDateIso(iso);
+    const hours = slotsForDate(iso);
+    if (hours.length && !hours.includes(slot)) setSlot(hours[0]);
+  }
 
-  useEffect(() => {
-    if (session) return;
-    if (!name.trim() && !phone.trim()) return;
+  function persistDraft() {
+    const saved = readBookingDraft();
     writeBookingDraft({
       type,
       minutes: option.minuti as 30 | 60,
@@ -101,73 +78,23 @@ export function Consulti() {
       mode,
       dateIso,
       slot,
-      name: name.trim(),
-      phone: phone.trim(),
-      birth: birth || undefined,
-      query: query.trim() || undefined,
-      consents,
+      name: saved?.name || session?.name || "",
+      phone: saved?.phone || "",
+      birth: saved?.birth,
+      query: saved?.query,
+      consents: saved?.consents ?? emptyConsents(),
     });
-  }, [session, type, option.minuti, option.prezzo, pdf, total, mode, dateIso, slot, name, phone, birth, query, consents]);
-
-  function chooseDate(iso: string) {
-    setDateIso(iso);
-    const hours = slotsForDate(iso);
-    if (hours.length && !hours.includes(slot)) setSlot(hours[0]);
   }
 
-  function draft() {
-    return {
-      type,
-      minutes: option.minuti as 30 | 60,
-      consultPrice: option.prezzo as 40 | 60 | 70,
-      pdf,
-      pdfPrice: (pdf ? REPORT_PDF_PRICE : 0) as 0 | 10,
-      total,
-      mode,
-      dateIso,
-      slot,
-      name: name.trim(),
-      phone: phone.trim(),
-      birth: birth || undefined,
-      query: query.trim() || undefined,
-    };
-  }
-
-  function persistDraft() {
-    writeBookingDraft({ ...draft(), consents });
-  }
-
-  async function confirm() {
-    const data = draft();
-    if (!data.name || !data.phone || !data.dateIso || !data.slot) return;
-    if (!slotsForDate(data.dateIso).includes(data.slot)) {
+  function proceed() {
+    if (!dateIso || !slot || !slotsForDate(dateIso).includes(slot)) {
       setError(consulti.orarioNonDisponibile);
       return;
     }
-    if (!session) {
-      persistDraft();
-      setError(auth.errori.accesso);
-      return;
-    }
-    if (!hasRequiredConsents(consents)) {
-      setError(auth.errori.consensi);
-      return;
-    }
-    if (pendingLock.current) return;
-    pendingLock.current = true;
-    setBusy(true);
+    persistDraft();
     setError(null);
-    const err = await addPurchase(data, consents);
-    if (err) {
-      pendingLock.current = false;
-      setBusy(false);
-      setError(err);
-      return;
-    }
-    clearBookingDraft();
-    pendingLock.current = false;
-    setBusy(false);
-    navigate("/riservata");
+    if (session) navigate("/riservata");
+    else navigate("/login", { state: { from: "/riservata" } });
   }
 
   return (
@@ -275,36 +202,6 @@ export function Consulti() {
         </Reveal>
 
         <Reveal>
-          <section className="bg-paper p-8 md:p-10">
-            <Kicker>04 · Coordinate del consultante</Kicker>
-            <div className="mt-8 flex flex-col gap-8">
-              <Field label="Nome completo *" value={name} onChange={setName} required placeholder="Es. Elena Silvestri" />
-              <Field
-                label={consulti.recapito}
-                value={phone}
-                onChange={setPhone}
-                required
-                type="tel"
-                placeholder="+39 340 000 0000"
-              />
-              <Field label="Data di nascita (facoltativa)" value={birth} onChange={setBirth} type="date" />
-              <label className="flex flex-col gap-1.5">
-                <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
-                  Quesito o intento della sessione
-                </span>
-                <textarea
-                  rows={3}
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  className="w-full border-0 border-b border-ink/20 bg-transparent py-2 text-sm outline-none focus:border-ink"
-                  placeholder="Descrivi brevemente l’argomento nodale..."
-                />
-              </label>
-            </div>
-          </section>
-        </Reveal>
-
-        <Reveal>
           <section>
             <div className="bg-mist p-8">
               <Row k="Sessione" v={`${option.titolo} (${option.minuti} min)`} />
@@ -316,47 +213,13 @@ export function Consulti() {
                 <span className="font-display text-xl">€{total}</span>
               </div>
             </div>
-            <p className="mt-8 bg-linen p-6 text-[0.75rem] leading-relaxed text-ink/75">{consulti.avvisoConferma}</p>
-            {session ? (
-              <>
-                <div className="mt-8">
-                  <ConsentFields
-                    consents={consents}
-                    onChange={setConsents}
-                    onPrivacy={() => setNotice("privacy")}
-                    onVendita={() => setNotice("vendita")}
-                  />
-                </div>
-                {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
-                <Button type="button" className="mt-8 w-full" disabled={busy} onClick={() => void confirm()}>
-                  {consulti.conferma}
-                </Button>
-              </>
-            ) : (
-              <div className="mt-8 bg-paper p-8 md:p-10">
-                <WidgetFrame
-                  title={authMode === "login" ? auth.login : authMode === "magic" ? auth.magicLink : auth.registrazione}
-                >
-                  {ready ? <p className="mb-8 text-center text-sm leading-[1.9] text-ink/70">{consulti.accessoObbligatorio}</p> : null}
-                  <AuthForm
-                    mode={authMode}
-                    onMode={setAuthMode}
-                    redirectTo="/consulti"
-                    onPrivacy={() => setNotice("privacy")}
-                    onVendita={() => setNotice("vendita")}
-                    onSuccess={() => {
-                      persistDraft();
-                      setError(null);
-                    }}
-                  />
-                </WidgetFrame>
-                {error ? <p className="mt-6 text-center text-sm text-ink">{error}</p> : null}
-              </div>
-            )}
+            {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
+            <Button type="button" className="mt-8 w-full" onClick={proceed}>
+              {consulti.procedi}
+            </Button>
           </section>
         </Reveal>
       </div>
-      <LegalNotice kind={notice} onClose={() => setNotice(null)} />
     </div>
   );
 }
@@ -367,35 +230,5 @@ function Row({ k, v }: { k: string; v: string }) {
       <span className="uppercase tracking-[0.14em] text-sage">{k}</span>
       <span className="text-right text-ink">{v}</span>
     </div>
-  );
-}
-
-function Field({
-  label,
-  value,
-  onChange,
-  required,
-  type = "text",
-  placeholder,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  required?: boolean;
-  type?: string;
-  placeholder?: string;
-}) {
-  return (
-    <label className="flex flex-col gap-1.5">
-      <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{label}</span>
-      <input
-        required={required}
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full border-0 border-b border-ink/20 bg-transparent py-2 text-sm outline-none focus:border-ink"
-      />
-    </label>
   );
 }
