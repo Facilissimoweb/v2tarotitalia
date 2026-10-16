@@ -99,6 +99,8 @@ export const siteContent = {
       kicker: "Visione & Deontologia",
       titolo: "Un Approccio Rigoroso, Empatico e Intuitivo",
       lead: "I tarocchi non sono predestinazione immutabile, ma una grammatica per svelare l’invisibile e risvegliare le tue decisioni più autentiche.",
+      espandi: "Un approccio rigoroso",
+      riduci: "Mostra meno",
       pilastri: [
         {
           titolo: "Introspezione non Dogmatica",

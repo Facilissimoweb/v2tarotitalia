@@ -22,6 +22,8 @@ type Props = {
   type?: "button" | "submit";
   onClick?: () => void;
   disabled?: boolean;
+  "aria-expanded"?: boolean;
+  "aria-controls"?: string;
 };
 
 export function Button({
@@ -34,6 +36,8 @@ export function Button({
   type = "button",
   onClick,
   disabled,
+  "aria-expanded": ariaExpanded,
+  "aria-controls": ariaControls,
 }: Props) {
   const cls = `${base} ${variants[variant]} ${className}`;
   if (to) {
@@ -57,7 +61,14 @@ export function Button({
     );
   }
   return (
-    <button type={type} className={cls} onClick={onClick} disabled={disabled}>
+    <button
+      type={type}
+      className={cls}
+      onClick={onClick}
+      disabled={disabled}
+      aria-expanded={ariaExpanded}
+      aria-controls={ariaControls}
+    >
       {children}
     </button>
   );
