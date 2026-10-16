@@ -8,7 +8,6 @@ import { GoogleReviews } from "../components/GoogleReviews";
 import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
 import { GoogleReviewsHeroLink } from "../components/PageHero";
-import { ParallaxLayer } from "../components/ParallaxLayer";
 import { Reveal } from "../components/Reveal";
 const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
 
@@ -68,17 +67,8 @@ export function Home() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-paper px-6 py-24 md:px-10 md:py-32">
-        <ParallaxLayer speed={0.12} className="opacity-40 mix-blend-multiply md:opacity-70">
-          <img
-            src="/consulti-sfondo.png"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            className="absolute -top-8 left-0 h-[40rem] w-auto max-w-none select-none md:-top-40 md:h-[56rem]"
-          />
-        </ParallaxLayer>
-        <div className="relative mx-auto max-w-6xl">
+      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{nav.consulti}</Kicker>
             <h2 className="mt-4 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
