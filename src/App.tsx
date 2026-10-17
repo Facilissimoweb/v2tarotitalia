@@ -23,6 +23,8 @@ import { Corsi } from "./pages/Corsi";
 import { Login } from "./pages/Login";
 import { Riservata } from "./pages/Riservata";
 import { NonTrovata } from "./pages/NonTrovata";
+import { Privacy } from "./pages/Privacy";
+import { TerminiDiServizio } from "./pages/TerminiDiServizio";
 import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
 import { AccessibilityPanel } from "./components/AccessibilityWidget";
@@ -61,6 +63,8 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/termini-di-servizio" element={<TerminiDiServizio />} />
               <Route path="*" element={<NonTrovata />} />
             </Route>
           </Routes>

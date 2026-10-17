@@ -80,10 +80,11 @@ function LegalBody({ kind, onClose }: { kind: LegalKind; onClose: () => void }) 
   }
 }
 
-function PrivacyBody() {
+/** Corpo dell’Informativa privacy (modale e pagina `/privacy`). */
+export function PrivacyBody({ className = "mt-8" }: { className?: string } = {}) {
   const { privacy } = legal;
   return (
-    <div className="mt-8 space-y-8 text-left">
+    <div className={`space-y-8 text-left ${className}`.trim()}>
       {privacy.intro.map((paragrafo) => (
         <p key={paragrafo} className="text-sm leading-[1.9] text-ink/70">
           <LegalCopy>{paragrafo}</LegalCopy>
@@ -146,27 +147,42 @@ function TutelaBody() {
   );
 }
 
-function VenditaBody() {
+/**
+ * Corpo delle Condizioni di vendita / Termini di servizio
+ * (modale e pagina `/termini-di-servizio`).
+ */
+export function VenditaBody({
+  className = "mt-8",
+  /** Su pagina pubblica: tutte le sezioni aperte per leggibilità e crawler. */
+  alwaysOpen = false,
+}: {
+  className?: string;
+  alwaysOpen?: boolean;
+} = {}) {
   const { vendita } = legal;
   const [open, setOpen] = useState<string>(vendita.sezioni[0].id);
 
   return (
-    <div className="mt-8 text-left">
+    <div className={`text-left ${className}`.trim()}>
       {vendita.sezioni.map((sezione) => {
-        const expanded = open === sezione.id;
+        const expanded = alwaysOpen || open === sezione.id;
         return (
           <section key={sezione.id} className="border-t border-ink/10">
-            <button
-              type="button"
-              className="flex w-full items-start justify-between gap-4 py-5 text-left"
-              aria-expanded={expanded}
-              onClick={() => setOpen(expanded ? "" : sezione.id)}
-            >
-              <h3 className="font-display text-lg leading-snug text-ink">{sezione.titolo}</h3>
-              <span className="mt-1 shrink-0 text-sage" aria-hidden>
-                {expanded ? "–" : "+"}
-              </span>
-            </button>
+            {alwaysOpen ? (
+              <h3 className="py-5 font-display text-lg leading-snug text-ink">{sezione.titolo}</h3>
+            ) : (
+              <button
+                type="button"
+                className="flex w-full items-start justify-between gap-4 py-5 text-left"
+                aria-expanded={expanded}
+                onClick={() => setOpen(expanded ? "" : sezione.id)}
+              >
+                <h3 className="font-display text-lg leading-snug text-ink">{sezione.titolo}</h3>
+                <span className="mt-1 shrink-0 text-sage" aria-hidden>
+                  {expanded ? "–" : "+"}
+                </span>
+              </button>
+            )}
             {expanded ? (
               <div className="space-y-4 pb-6">
                 {sezione.testi.map((paragrafo) => (

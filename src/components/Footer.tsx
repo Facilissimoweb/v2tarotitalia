@@ -82,15 +82,15 @@ export function Footer() {
             <button type="button" className="hover:text-ink" onClick={() => setNotice("tutela")}>
               {tutela.sezione}
             </button>
-            <button type="button" className="hover:text-ink" onClick={() => setNotice("privacy")}>
+            <NavLink to="/privacy" className="hover:text-ink">
               {legal.privacy.sezione}
-            </button>
+            </NavLink>
             <button type="button" className="hover:text-ink" onClick={() => setNotice("disclaimer")}>
               {legal.disclaimer.sezione}
             </button>
-            <button type="button" className="hover:text-ink" onClick={() => setNotice("vendita")}>
+            <NavLink to="/termini-di-servizio" className="hover:text-ink">
               {legal.vendita.sezione}
-            </button>
+            </NavLink>
           </div>
         </div>
 

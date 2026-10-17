@@ -13,6 +13,8 @@ export const STATIC_APP_PATHS = [
   "/corsi",
   "/login",
   "/riservata",
+  "/privacy",
+  "/termini-di-servizio",
 ] as const;
 
 export function normalizeAppPath(pathname: string) {

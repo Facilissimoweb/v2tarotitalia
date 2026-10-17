@@ -12,6 +12,8 @@
     { "source": "/corsi", "destination": "/index.html" },
     { "source": "/login", "destination": "/index.html" },
     { "source": "/riservata", "destination": "/index.html" },
+    { "source": "/privacy", "destination": "/index.html" },
+    { "source": "/termini-di-servizio", "destination": "/index.html" },
     { "source": "/arcani/il-matto", "destination": "/index.html" },
     { "source": "/arcani/il-bagatto", "destination": "/index.html" },
     { "source": "/arcani/la-papessa", "destination": "/index.html" },
