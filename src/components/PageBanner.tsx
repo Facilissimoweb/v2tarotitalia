@@ -22,7 +22,7 @@ export function PageBanner({ title, subtitle, className = "" }: Props) {
   return (
     <header
       data-page-top
-      className={`relative flex min-h-[200px] items-center justify-center overflow-hidden border-b border-stone-800 bg-stone-950 px-6 py-10 md:min-h-[240px] md:px-10 ${className}`.trim()}
+      className={`relative flex min-h-[240px] items-center justify-center overflow-hidden border-b border-stone-800 bg-stone-950 px-6 py-12 md:min-h-[300px] md:px-10 md:py-14 ${className}`.trim()}
     >
       {/* Bagliore radiale al centro */}
       <span
@@ -36,8 +36,8 @@ export function PageBanner({ title, subtitle, className = "" }: Props) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
-        <BrandLogo className="h-12 w-12 bg-ivory" />
-        <h1 className="mt-4 font-display text-2xl font-light leading-snug tracking-tight text-stone-100 md:text-4xl">
+        <BrandLogo className="h-20 w-20 bg-ivory md:h-28 md:w-28" />
+        <h1 className="mt-5 font-h1 text-3xl leading-snug text-stone-100 md:mt-6 md:text-5xl">
           {title}
         </h1>
         {subtitle ? <p className="mt-3 max-w-xl text-sm leading-relaxed text-stone-400">{subtitle}</p> : null}

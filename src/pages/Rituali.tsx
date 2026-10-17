@@ -4,7 +4,7 @@ import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 
-const { brand, cta, collaboratori, pages, ritualistica } = siteContent;
+const { brand, cta, collaboratori, nav, pages, ritualistica } = siteContent;
 const { maura } = collaboratori;
 
 export function Rituali() {
@@ -12,7 +12,7 @@ export function Rituali() {
 
   return (
     <div>
-      <PageBanner title={pages.rituali.titolo} className="mb-10 md:mb-14" />
+      <PageBanner title={nav.rituali} className="mb-10 md:mb-14" />
 
       <section className="px-6 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto max-w-3xl">

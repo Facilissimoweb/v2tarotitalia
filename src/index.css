@@ -10,7 +10,7 @@
   --color-moss: #5f6f5d;
   --color-on-ink: #f3efe8;
   --font-display: "Noto Serif", "Times New Roman", serif;
-  --font-h1: "Pirata One", "Noto Serif", "Times New Roman", serif;
+  --font-h1: "Blackletter DS", "Noto Serif", "Times New Roman", serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
   --radius-none: 0px;
   --radius-sm: 0px;
@@ -89,16 +89,31 @@
   }
 }
 
-/* Titoli H1: blackletter Pirata One (OFL). Peso unico, nessuna spaziatura tra lettere */
+/* Titoli H1: Blackletter DS (file locale). Peso unico, nessuna spaziatura tra lettere */
+@font-face {
+  font-family: "Blackletter DS";
+  src: url("/fonts/BlackletterDS.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @utility font-h1 {
   font-family: var(--font-h1);
   font-weight: 400;
   letter-spacing: 0;
 }
 
-/* Pirata One non ha il corsivo: niente obliquo sintetico nei titoli H1 */
+/* Blackletter DS non ha il corsivo: niente obliquo sintetico nei titoli H1 */
 .font-h1.italic,
 .font-h1 .italic {
+  font-style: normal;
+}
+
+h1 {
+  font-family: var(--font-h1);
+  font-weight: 400;
+  letter-spacing: 0;
   font-style: normal;
 }
 
