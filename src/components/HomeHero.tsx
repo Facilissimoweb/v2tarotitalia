@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
@@ -10,8 +9,6 @@ const titolo = home.titolo;
 
 /** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
 const heroBtn = "w-full xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.22em] 2xl:px-14 2xl:py-7 2xl:text-base";
-
-const VIDEO_SRC = "/videos/hero-sfondo.mp4";
 
 /* ───────── Animazioni (Motion) ───────── */
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -42,69 +39,21 @@ const tapPress = { scale: 0.97 };
 const FRAME_H = "calc(100svh - var(--hh))";
 
 /**
- * Hero della Home: solo video in loop come sfondo (nessun poster fisso).
- * Con prefers-reduced-motion il video resta fermo sul primo fotogramma.
+ * Hero della Home su fondo ivory, senza video né immagine di sfondo.
  * Le pagine interne usano `PageBanner`.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
-  const section = useRef<HTMLElement>(null);
-  const video = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const host = section.current;
-    const el = video.current;
-    if (!host || !el) return;
-    el.muted = true;
-    el.defaultMuted = true;
-    if (reduce) {
-      el.pause();
-      el.currentTime = 0;
-      return;
-    }
-    const play = () => {
-      void el.play().catch(() => {});
-    };
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) play();
-        else el.pause();
-      },
-      { threshold: 0.2 },
-    );
-    io.observe(host);
-    return () => io.disconnect();
-  }, [reduce]);
 
   return (
     <section
-      ref={section}
       data-home-hero
       className="relative isolate overflow-x-clip bg-ivory [--hh:80px] xl:[--hh:112px]"
     >
       <div
-        className="relative flex items-center justify-center overflow-hidden px-6 pb-32 pt-8 md:px-10"
+        className="relative flex items-center justify-center px-6 pb-32 pt-8 md:px-10"
         style={{ minHeight: FRAME_H }}
       >
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <video
-            ref={video}
-            className="h-full w-full object-cover object-[center_42%]"
-            autoPlay={!reduce}
-            muted
-            loop={!reduce}
-            playsInline
-            preload="auto"
-          >
-            <source src={VIDEO_SRC} type="video/mp4" />
-          </video>
-        </div>
-
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-[5] h-[clamp(5rem,16svh,9rem)] bg-gradient-to-t from-ivory via-ivory/70 to-transparent"
-        />
-
         <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-[clamp(1rem,3svh,4rem)] md:px-12">
           <span
             aria-hidden
