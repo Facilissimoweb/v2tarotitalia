@@ -39,7 +39,8 @@ const tapPress = { scale: 0.97 };
 const FRAME_H = "calc(100svh - var(--hh))";
 
 /**
- * Hero della Home su fondo ivory, senza video né immagine di sfondo.
+ * Hero della Home su fondo ivory.
+ * Su piccoli schermi: angelo a sinistra come marca d’acqua; da md in su solo ivory.
  * Le pagine interne usano `PageBanner`.
  */
 export function HomeHero() {
@@ -50,14 +51,26 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate overflow-x-clip bg-ivory [--hh:80px] xl:[--hh:112px]"
     >
+      {/* Angelo: solo mobile, fondo chiaro, un po’ a sinistra */}
       <div
-        className="relative flex items-center justify-center px-6 pb-32 pt-8 md:px-10"
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden md:hidden"
+      >
+        <img
+          src="/hero-angelo-light.png"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-[18%_center] opacity-[0.5]"
+        />
+      </div>
+
+      <div
+        className="relative z-10 flex items-center justify-center px-6 pb-32 pt-8 md:px-10"
         style={{ minHeight: FRAME_H }}
       >
         <div className="relative z-10 mx-auto w-full max-w-4xl px-6 py-[clamp(1rem,3svh,4rem)] md:px-12">
           <span
             aria-hidden
-            className="hero-glow pointer-events-none absolute -inset-x-[22%] -inset-y-[14%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(255,254,251,1)_0%,rgba(255,254,251,0.97)_48%,rgba(252,251,248,0.8)_70%,rgba(249,248,246,0)_100%)] blur-xl"
+            className="hero-glow pointer-events-none absolute -inset-x-[22%] -inset-y-[14%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(255,254,251,1)_0%,rgba(255,254,251,0.97)_48%,rgba(252,251,248,0.8)_70%,rgba(249,248,246,0)_100%)] opacity-40 blur-xl md:opacity-100"
           />
           <motion.div
             className="flex flex-col items-center text-center"
