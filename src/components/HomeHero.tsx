@@ -12,7 +12,6 @@ const titolo = home.titolo;
 const heroBtn = "w-full xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.22em] 2xl:px-14 2xl:py-7 2xl:text-base";
 
 const VIDEO_SRC = "/videos/hero-sfondo.mp4";
-const POSTER_SRC = "/hero-sfondo.webp";
 
 /* ───────── Animazioni (Motion) ───────── */
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -43,8 +42,9 @@ const tapPress = { scale: 0.97 };
 const FRAME_H = "calc(100svh - var(--hh))";
 
 /**
- * Hero della Home: video verticale in loop come sfondo, poster statico
- * se l’utente preferisce il movimento ridotto. Le pagine interne usano `PageBanner`.
+ * Hero della Home: solo video in loop come sfondo (nessun poster fisso).
+ * Con prefers-reduced-motion il video resta fermo sul primo fotogramma.
+ * Le pagine interne usano `PageBanner`.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -54,9 +54,14 @@ export function HomeHero() {
   useEffect(() => {
     const host = section.current;
     const el = video.current;
-    if (!host || !el || reduce) return;
+    if (!host || !el) return;
     el.muted = true;
     el.defaultMuted = true;
+    if (reduce) {
+      el.pause();
+      el.currentTime = 0;
+      return;
+    }
     const play = () => {
       void el.play().catch(() => {});
     };
@@ -82,22 +87,17 @@ export function HomeHero() {
         style={{ minHeight: FRAME_H }}
       >
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          {reduce ? (
-            <img src={POSTER_SRC} alt="" className="h-full w-full object-cover object-[center_42%]" />
-          ) : (
-            <video
-              ref={video}
-              className="h-full w-full object-cover object-[center_42%]"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster={POSTER_SRC}
-            >
-              <source src={VIDEO_SRC} type="video/mp4" />
-            </video>
-          )}
+          <video
+            ref={video}
+            className="h-full w-full object-cover object-[center_42%]"
+            autoPlay={!reduce}
+            muted
+            loop={!reduce}
+            playsInline
+            preload="auto"
+          >
+            <source src={VIDEO_SRC} type="video/mp4" />
+          </video>
         </div>
 
         <div
