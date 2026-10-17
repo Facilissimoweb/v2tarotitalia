@@ -5,6 +5,7 @@ import { emptyConsents, hasRequiredConsents, type Consents } from "../lib/storag
 import { isSupabaseConfigured } from "../lib/supabase";
 import { Button } from "./Button";
 import { ConsentFields } from "./ConsentFields";
+import { GoogleMark } from "./GoogleMark";
 
 const { auth } = siteContent;
 
@@ -162,9 +163,15 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
       {info ? <p className="text-sm text-ink/70">{info}</p> : null}
 
       {googleReady ? (
-        <Button type="button" variant="ghost" className="w-full" disabled={!ready || busy} onClick={() => void onGoogle()}>
-          {auth.google}
-        </Button>
+        <button
+          type="button"
+          disabled={!ready || busy}
+          onClick={() => void onGoogle()}
+          className="group flex w-full items-center justify-center gap-3 border-2 border-[#dadce0] bg-white px-6 py-4 text-[0.9375rem] font-medium normal-case tracking-normal text-[#3c4043] shadow-[0_2px_6px_rgba(60,64,67,0.18)] transition duration-200 hover:border-[#c6c6c6] hover:bg-[#f8f9fa] hover:shadow-[0_3px_10px_rgba(60,64,67,0.22)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4285F4] disabled:cursor-not-allowed disabled:opacity-45"
+        >
+          <GoogleMark className="h-6 w-6 shrink-0" />
+          <span className="font-sans">{auth.google}</span>
+        </button>
       ) : null}
 
       <Button type="submit" className="w-full" disabled={!ready || busy}>
