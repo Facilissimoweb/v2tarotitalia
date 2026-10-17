@@ -12,7 +12,11 @@ export type SupabaseEnv = {
 export function getSupabaseEnv(): SupabaseEnv {
   return {
     url: import.meta.env.VITE_SUPABASE_URL?.trim() ?? "",
-    anonKey: import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() ?? "",
+    // Preferisci la anon key; fallback alla publishable key (nuovo naming Supabase).
+    anonKey:
+      import.meta.env.VITE_SUPABASE_ANON_KEY?.trim() ||
+      import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY?.trim() ||
+      "",
     adminEmail: SUPABASE_ADMIN_EMAIL,
   };
 }

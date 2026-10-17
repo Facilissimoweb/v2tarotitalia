@@ -25,7 +25,11 @@ export function supabaseUrl() {
 }
 
 export function supabaseAnonKey() {
-  return readServerEnv("VITE_SUPABASE_ANON_KEY") || readServerEnv("SUPABASE_ANON_KEY");
+  return (
+    readServerEnv("VITE_SUPABASE_ANON_KEY") ||
+    readServerEnv("VITE_SUPABASE_PUBLISHABLE_KEY") ||
+    readServerEnv("SUPABASE_ANON_KEY")
+  );
 }
 
 export function supabaseServiceKey() {
