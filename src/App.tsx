@@ -45,6 +45,7 @@ export default function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route path="/chi-siamo" element={<ChiSiamo />} />
+              <Route path="/chi-sono" element={<Navigate to="/chi-siamo" replace />} />
               <Route path="/arcani" element={<Arcani />} />
               <Route path="/arcani/:slug" element={<ArcanoDetail />} />
               <Route path="/arcani-minori" element={<ArcaniMinori />} />

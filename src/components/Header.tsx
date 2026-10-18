@@ -313,6 +313,7 @@ function AccountLink() {
   return (
     <NavLink
       to={session ? "/riservata" : "/login"}
+      state={session ? undefined : { from: "/riservata" }}
       className="flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink"
       aria-label={session ? nav.riservata : nav.accedi}
     >

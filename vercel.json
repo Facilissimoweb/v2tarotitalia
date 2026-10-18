@@ -1,6 +1,7 @@
 {
   "redirects": [
-    { "source": "/rituali", "destination": "/percorsi", "permanent": true }
+    { "source": "/rituali", "destination": "/percorsi", "permanent": true },
+    { "source": "/chi-sono", "destination": "/chi-siamo", "permanent": true }
   ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },

@@ -20,6 +20,7 @@ import {
   type Session,
 } from "../lib/storage";
 import { draftToPurchase, purchaseToInsert, rowToPurchase, type PurchaseRow } from "../lib/purchases";
+import { safeInternalPath } from "../lib/siteRoutes";
 
 const { auth } = siteContent;
 
@@ -69,10 +70,11 @@ function mapUser(
 
 function authRedirectUrl(path?: string) {
   const origin = window.location.origin;
-  if (path?.startsWith("http")) return path;
-  if (path?.startsWith("/")) return `${origin}${path}`;
-  const here = `${window.location.pathname}${window.location.search}`;
-  return `${origin}${here.startsWith("/") ? here : "/riservata"}`;
+  const candidate =
+    path && (path.startsWith("/") || path.startsWith("http"))
+      ? path
+      : `${window.location.pathname}${window.location.search}`;
+  return `${origin}${safeInternalPath(candidate)}`;
 }
 
 function takePendingConsents(): Consents | null {

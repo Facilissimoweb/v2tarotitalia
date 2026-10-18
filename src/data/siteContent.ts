@@ -27,7 +27,7 @@ export const siteContent = {
 
   nav: {
     home: "Home",
-    chiSiamo: "Chi Siamo",
+    chiSiamo: "Chi Sono",
     tarocchi: "Tarocchi",
     arcaniMaggiori: "22 Arcani Maggiori",
     arcaniMinori: "Arcani Minori",
@@ -76,7 +76,7 @@ export const siteContent = {
     telegram: "Telegram",
     esploraArcani: "Esplora i 22 Arcani",
     formazioneOlistica: "Formazione olistica",
-    leggiChiSiamo: "Leggi Chi Siamo",
+    leggiChiSiamo: "Leggi Chi Sono",
     scriviStudio: "Scrivi allo Studio",
     percorsi: "Percorsi",
     prenotaPercorso: "Prenota questo percorso",
@@ -198,7 +198,7 @@ export const siteContent = {
   },
 
   chiSiamo: {
-    kicker: "Chi Siamo",
+    kicker: "Chi Sono",
     titolo: "Teresa & il Linguaggio dei Simboli",
     presentazione:
       "Benvenuti in Tarot Italia. Sono Teresa, operatrice olistica ed esoterica, cartomante e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine artistica con una decennale indagine negli archetipi della psiche e della tradizione esoterica. Ogni consulto è uno spazio protetto d’ascolto autentico, concepito per disvelare nodi interiori e restituire sovranità decisionale a chi siede al tavolo degli Arcani. Chiarezza e verità restano valori etici della pratica anche quando si comunicano aspetti complessi: l’incontro è intimo, sartoriale e rispettoso, lontano da linguaggi commerciali aggressivi.",
@@ -287,7 +287,7 @@ export const siteContent = {
     immagini: {
       hero: {
         src: "/chi-siamo/hero.jpg",
-        alt: "Chi Siamo",
+        alt: "Chi Sono",
       },
       teresa: {
         src: "/chi-siamo/teresa-ritratto.svg?v=3",

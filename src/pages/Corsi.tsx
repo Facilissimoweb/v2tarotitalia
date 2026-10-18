@@ -18,7 +18,11 @@ export function Corsi() {
         title="Area Corsi"
         lead="Dispense scaricabili e lezioni audio. I file sono aperti: l’Area Riservata conserva anche lo storico dei consulti e i materiali alchemici."
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
-        secondary={session ? { to: "/riservata", label: "Area riservata" } : { to: "/login", label: "Accedi" }}
+        secondary={
+          session
+            ? { to: "/riservata", label: siteContent.nav.riservata }
+            : { to: "/login", label: siteContent.nav.accedi }
+        }
       />
 
       <div className="mx-auto max-w-3xl px-6 pb-24 md:px-10 md:pb-32">
