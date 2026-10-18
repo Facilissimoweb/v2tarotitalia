@@ -196,10 +196,14 @@ export function VenditaBody({
         );
       })}
       <section className="border-t border-ink/10 pt-8">
-        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{vendita.assistenza.titolo}</p>
-        <p className="mt-4 text-sm leading-[1.9] text-ink/70">
-          <LegalCopy>{vendita.assistenza.testo}</LegalCopy>
-        </p>
+        <h3 className="font-display text-lg leading-snug text-ink">{vendita.assistenza.titolo}</h3>
+        <div className="mt-4 space-y-4">
+          {(vendita.assistenza.testi ?? [vendita.assistenza.testo]).map((paragrafo) => (
+            <p key={paragrafo} className="text-sm leading-[1.9] text-ink/70">
+              <LegalCopy>{paragrafo}</LegalCopy>
+            </p>
+          ))}
+        </div>
       </section>
     </div>
   );

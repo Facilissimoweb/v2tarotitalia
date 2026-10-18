@@ -622,7 +622,7 @@ export const siteContent = {
       adulto:
         "Confermo di avere un'età superiore ai 18 anni e che i servizi e i prodotti offerti da Tarot Italia sono rivolti esclusivamente a un pubblico adulto. (Obbligatorio)",
       rimborso:
-        "Accetto le Condizioni di Vendita e le Politiche di Rimborso. Prendo atto che i consulti decadono a prestazione completata, l'oggettistica segue il reso a 14 giorni (con trattenuta in caso di danneggiamento o segnalazione corriere entro 48h) e i prodotti digitali perdono il diritto di recesso all'avvio del download. (Obbligatorio)",
+        "Accetto i Termini e Condizioni. Prendo atto che, con l’avvio della prestazione, consulti e percorsi di armonizzazione comportano la perdita del diritto di recesso ai sensi dell’art. 59 Codice del Consumo; l’oggettistica segue il reso a 14 giorni (con eventuale trattenuta e segnalazione danni da trasporto entro 48h); i contenuti digitali perdono il diritto di recesso all’avvio del download o dell’accesso. (Obbligatorio)",
       leggiPrivacy: "Apri l’Informativa sulla Privacy e sui Cookie",
     },
     errori: {
@@ -702,42 +702,47 @@ export const siteContent = {
       ],
     },
     vendita: {
-      sezione: "Condizioni di Vendita e Rimborsi",
-      titolo: "Condizioni di Vendita, Recesso e Rimborsi",
-      intestazione: "www.tarotitalia.com • Condizioni di vendita",
-      leggi: "Leggi le Condizioni di Vendita e Rimborsi",
+      sezione: "Termini e Condizioni",
+      titolo: "Termini e Condizioni",
+      intestazione: "www.tarotitalia.com • Termini e Condizioni",
+      leggi: "Leggi i Termini e Condizioni",
       sezioni: [
         {
           id: "consulti",
-          titolo: "A. Consulti Tarologici (Servizi)",
+          titolo: "A. Consulti Tarologici e Percorsi di Armonizzazione (Servizi)",
           testi: [
-            "I consulti tarologici sono servizi di natura personalizzata, eseguiti su espressa richiesta della persona che si rivolge allo Studio.",
-            "Il diritto di recesso decade a prestazione completata: una volta erogato il consulto, il servizio si intende interamente eseguito.",
-            "L’assistenza preliminare alla prenotazione e al consulto avviene in via esclusiva tramite messaggio WhatsApp.",
+            "I consulti tarologici e i percorsi di armonizzazione sono servizi di natura personalizzata e intellettuale, eseguiti su espressa richiesta della persona che si rivolge a Tarot Italia.",
+            "Consenso all’esecuzione anticipata e perdita del recesso: Ai sensi dell’art. 59, comma 1, lett. a) del Decreto Legislativo 6 settembre 2005, n. 206 (Codice del Consumo), con la richiesta di prenotazione e l’avvio della prestazione (inclusa la sessione preliminare di contatto e l’inizio dell’elaborazione simbolica/analitica), il cliente acconsente espressamente all’esecuzione immediata del servizio prima dello scadere del termine di 14 giorni, prendendo atto e accettando che perderà il diritto di recesso una volta che il servizio sarà stato interamente eseguito o che la fase di lavorazione/consulenza avrà avuto inizio.",
+            "L’assistenza e il contatto preliminare alla prenotazione avvengono tramite i canali ufficiali indicati (messaggistica WhatsApp e contatto telefonico dedicato).",
           ],
         },
         {
           id: "oggettistica",
           titolo: "B. Oggettistica e Beni Fisici",
           testi: [
-            "Per i beni fisici è riconosciuto il diritto di recesso standard entro 14 giorni dalla ricezione. Le spese di reso restano a carico del cliente.",
-            "In caso di merce restituita danneggiata o usurata, Tarot Italia si riserva una trattenuta fino al 100% del valore.",
-            "Eventuali danni da trasporto devono essere segnalati con documentazione fotografica entro 48 ore dalla ricezione.",
+            "Per i beni fisici eventualmente commercializzati, è riconosciuto il diritto di recesso standard entro 14 giorni dalla ricezione, conformemente agli artt. 52 e ss. del Codice del Consumo. Le spese di reso restano a carico del cliente.",
+            "In caso di merce restituita danneggiata, usata o manipolata in modo diverso da quello necessario per stabilirne la natura, Tarot Italia si riserva il diritto di trattenere un importo fino al 100% del valore del bene.",
+            "Eventuali danni da trasporto devono essere segnalati con documentazione fotografica entro 48 ore dalla ricezione della merce.",
           ],
         },
         {
           id: "digitali",
           titolo: "C. Contenuti Digitali e Dispense (PDF)",
           testi: [
-            "I contenuti digitali e le dispense in PDF sono beni immateriali a fruizione immediata.",
-            "Il diritto di recesso si perde in modo irreversibile all’avvio del download o dell’accesso al contenuto, ai sensi dell’art. 59 del Codice del Consumo.",
+            "I contenuti digitali, i file e le dispense in formato PDF sono beni immateriali a fruizione immediata.",
+            "Ai sensi dell’art. 59, lett. o) del Codice del Consumo, il diritto di recesso si perde in modo irreversibile con il consenso espresso del consumatore all’avvio del download o dell’accesso anticipato al contenuto digitale.",
           ],
         },
       ],
       assistenza: {
-        titolo: "Assistenza ufficiale",
+        titolo: "D. Canali di Assistenza Ufficiale",
         testo:
-          "Non è prevista assistenza telefonica o via email. Ogni richiesta va inviata esclusivamente tramite messaggio WhatsApp al numero ufficiale: +39 379 103 82 53.",
+          "L’assistenza e il supporto agli utenti sono garantiti attraverso i canali ufficiali di Tarot Italia. Canale WhatsApp: +39 379 103 82 53. Contatto Telefonico: +39 379 103 82 53.",
+        testi: [
+          "L’assistenza e il supporto agli utenti sono garantiti attraverso i canali ufficiali di Tarot Italia.",
+          "Canale WhatsApp: +39 379 103 82 53",
+          "Contatto Telefonico: +39 379 103 82 53",
+        ],
       },
     },
     tutela: {
