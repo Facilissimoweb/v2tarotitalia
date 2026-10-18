@@ -80,8 +80,7 @@ export function buildRitualisticaMessage(input: {
   const { brand, consulti, ritualistica } = siteContent;
   const lines = [
     `Richiesta ritualistica — ${brand.wordmark}`,
-    `Intermediaria: ${brand.titolare} (Teresa)`,
-    "Percorso curato da: Maura",
+    `Curata da: ${brand.titolare} (Teresa)`,
     `Nome: ${input.name}`,
     `Recapito: ${input.phone}`,
   ];

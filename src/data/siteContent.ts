@@ -91,8 +91,8 @@ export const siteContent = {
       titolo: "Simbolismo visivo e tradizione esoterica locale",
       presentazione:
         "Benvenuti in Tarot Italia. Sono Teresa, operatrice olistica, esoterica e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine al linguaggio degli Arcani. Ogni consulto è uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirti piena sovranità decisionale. Opero con trasparenza, rigore ed etica, lontano da automatismi e logiche commerciali.",
-      collaborazione:
-        "Ad arricchire Tarot Italia c'è la collaborazione esterna con Maura, operatrice esoterica a Macerata specializzata in ritualistica. Radicata nel folklore e nelle tradizioni popolari marchigiane, Maura offre un supporto rituale serio, consapevole e integrato nel nostro codice deontologico.",
+      ritualistica:
+        "In Tarot Italia la ritualistica si radica nel folklore e nelle tradizioni popolari marchigiane: un supporto rituale serio, consapevole e integrato nel codice deontologico dello Studio, offerto con la stessa cura sartoriale dei consulti.",
     },
     ctaConsulto: "Prenota consulto",
     visione: {
@@ -312,37 +312,32 @@ export const siteContent = {
     },
   },
 
-  collaboratori: {
-    maura: {
-      nome: "Maura • Ritualista Esoterica",
-      sezione: "Folklore Tradizionale Marchigiano",
-      descrizione:
-        "Maura è collaboratrice esterna di Tarot Italia, basata a Macerata e specializzata in ritualistica. Nelle Marche, il ritualismo esoterico assume alcune peculiarità legate al folklore locale e a pratiche tradizionali tramandate da generazione in generazione.",
-      ritualiKicker: "Rituali",
-      rituali: [
-        "Rituali d'Amore e Attrazione",
-        "Legamenti d'Amore",
-        "Riti di Riconciliazione",
-        "Rafforzamento della Coppia",
-      ],
-      citazione:
-        "Questa ritualità di coppia agisce come mediatore tra il mondo spirituale e quello umano.",
-      immagine: {
-        src: "/chi-siamo/folklore-marche.svg?v=2",
-        alt: "Folklore tradizionale marchigiano — ritualità di coppia",
-        caption: "Folklore tradizionale marchigiano",
-      },
-    },
-  },
-
   ritualistica: {
     titoloWidget: "Consulenza ritualistica",
+    sezione: "Folklore Tradizionale Marchigiano",
+    titoloSezione: "Ritualistica · Tradizione popolare marchigiana",
+    descrizione:
+      "In Tarot Italia la ritualistica è curata direttamente da M. Teresa Rogani a Macerata. Nelle Marche, il ritualismo esoterico assume alcune peculiarità legate al folklore locale e a pratiche tradizionali tramandate da generazione in generazione.",
+    ritualiKicker: "Rituali",
+    elenco: [
+      "Rituali d'Amore e Attrazione",
+      "Legamenti d'Amore",
+      "Riti di Riconciliazione",
+      "Rafforzamento della Coppia",
+    ],
+    citazione:
+      "Questa ritualità di coppia agisce come mediatore tra il mondo spirituale e quello umano.",
+    immagine: {
+      src: "/chi-siamo/folklore-marche.svg?v=2",
+      alt: "Folklore tradizionale marchigiano — ritualità di coppia",
+      caption: "Folklore tradizionale marchigiano",
+    },
     mediazione:
-      "Maria Teresa Rogani (Teresa) funge da mediatrice e intermediaria per i percorsi di ritualistica curati da Maura, collaboratrice esterna di Tarot Italia a Macerata, specializzata in ritualistica.",
+      "I percorsi di ritualistica di Tarot Italia sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica a Macerata.",
     intro:
       "I percorsi di ritualistica si rivolgono a chi cerca uno spazio intimo, protetto e rispettoso, in ascolto della tradizione popolare marchigiana. La ritualità di coppia è proposta come mediatrice tra il mondo spirituale e quello umano: un incontro sartoriale, confidenziale, lontano da linguaggi commerciali aggressivi. Non sostituisce pareri medici, sanitari o legali.",
     chiacchierata:
-      "Ogni richiesta apre una chiacchierata preliminare con Teresa, in qualità di intermediaria per Maura. La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
+      "Ogni richiesta apre una chiacchierata preliminare con Teresa. La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
     inviaWhatsapp: "Invia la richiesta su WhatsApp",
     tornaScelta: "Torna alla richiesta",
     nome: "Nome completo",
@@ -760,7 +755,7 @@ export const siteContent = {
       intro:
         "Per proteggere chi si affida a Tarot Italia e l’identità professionale dello Studio, pubblichiamo questa nota ufficiale di sicurezza, tutela del marchio e prevenzione delle imitazioni.",
       sintesi:
-        "tarotitalia.com è l’unico canale ufficiale autorizzato. I professionisti e i collaboratori di Tarot Italia non sollecitano mai consulti o servizi tramite chat private o social.",
+        "tarotitalia.com è l’unico canale ufficiale autorizzato. I professionisti di Tarot Italia non sollecitano mai consulti o servizi tramite chat private o social.",
       punti: [
         {
           titolo: "Unicità del dominio",
@@ -775,7 +770,7 @@ export const siteContent = {
         {
           titolo: "Politica anti-contatti non sollecitati",
           testo:
-            "I professionisti e i collaboratori di Tarot Italia non contattano mai direttamente gli utenti di loro sponte tramite chat private o social per offrire consulti o servizi non richiesti. Qualsiasi proposta non preceduta da una richiesta esplicita dell’utente è da considerarsi estranea allo Studio.",
+            "I professionisti di Tarot Italia non contattano mai direttamente gli utenti di loro sponte tramite chat private o social per offrire consulti o servizi non richiesti. Qualsiasi proposta non preceduta da una richiesta esplicita dell’utente è da considerarsi estranea allo Studio.",
         },
         {
           titolo: "Segnalazioni",

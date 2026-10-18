@@ -6,8 +6,7 @@ import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 
-const { brand, chiSiamo, collaboratori, nav } = siteContent;
-const { maura } = collaboratori;
+const { brand, chiSiamo, nav, ritualistica } = siteContent;
 
 export function ChiSiamo() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
@@ -125,28 +124,28 @@ export function ChiSiamo() {
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.85fr)_1.15fr] md:gap-24">
           <ImageSlot
-            src={maura.immagine.src}
-            alt={maura.immagine.alt}
-            caption={maura.immagine.caption}
+            src={ritualistica.immagine.src}
+            alt={ritualistica.immagine.alt}
+            caption={ritualistica.immagine.caption}
             ratio="portrait"
           />
           <div className="md:pt-8">
             <Reveal>
-              <Kicker>{maura.sezione}</Kicker>
+              <Kicker>{ritualistica.sezione}</Kicker>
             </Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {maura.nome}
+                {ritualistica.titoloSezione}
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{maura.descrizione}</p>
+              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{ritualistica.descrizione}</p>
             </Reveal>
             <Reveal delay={300}>
-              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.2em] text-sage">{maura.ritualiKicker}</p>
+              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.2em] text-sage">{ritualistica.ritualiKicker}</p>
             </Reveal>
             <ul className="mt-6 space-y-4">
-              {maura.rituali.map((rito, i) => (
+              {ritualistica.elenco.map((rito, i) => (
                 <Reveal key={rito} as="li" delay={350 + i * 80} className="font-display text-lg text-ink">
                   {rito}
                 </Reveal>
@@ -154,7 +153,7 @@ export function ChiSiamo() {
             </ul>
             <Reveal delay={400}>
               <blockquote className="mt-16 max-w-lg border-l border-sage pl-8">
-                <p className="font-display text-xl italic leading-relaxed text-ink">«{maura.citazione}»</p>
+                <p className="font-display text-xl italic leading-relaxed text-ink">«{ritualistica.citazione}»</p>
               </blockquote>
             </Reveal>
           </div>
