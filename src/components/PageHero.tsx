@@ -36,7 +36,7 @@ type Props = {
  * Intestazione minima per le pagine che non usano `PageBanner` (Blog, Arcani, Area riservata, ecc.).
  * Resta un H1 nascosto alla vista (`sr-only`) per SEO e screen reader, più un po' di spazio
  * sotto l'header. Gli eventuali `children` (es. stato account in Area Riservata) restano visibili.
- * La hero illustrata è solo in Home (`HomeHero`); Consulti, Ritualistica, Chi Siamo e Contatti
+ * La hero illustrata è solo in Home (`HomeHero`); Consulti, Percorsi, Chi Siamo e Contatti
  * usano il banner visibile `PageBanner`.
  */
 export function PageHero({ title, children }: Props) {

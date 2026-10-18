@@ -1,13 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ConsentProvider } from "./context/ConsentContext";
-import { RitualisticaProvider } from "./context/RitualisticaContext";
+import { PercorsiProvider } from "./context/PercorsiContext";
 import { IthaProvider } from "./context/IthaContext.tsx";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
 import { AuthModal } from "./components/AuthModal";
-import { RitualisticaModal } from "./components/RitualisticaModal";
+import { PercorsiModal } from "./components/PercorsiModal";
 import { IthaModal } from "./components/IthaModal.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
@@ -15,7 +15,7 @@ import { ChiSiamo } from "./pages/ChiSiamo";
 import { Arcani, ArcanoDetail } from "./pages/Arcani";
 import { ArcaniMinori } from "./pages/ArcaniMinori";
 import { Consulti } from "./pages/Consulti";
-import { Rituali } from "./pages/Rituali";
+import { Percorsi } from "./pages/Percorsi";
 import { Blog } from "./pages/Blog";
 import { Contatti } from "./pages/Contatti";
 import { Carrello } from "./pages/Carrello";
@@ -37,7 +37,7 @@ export default function App() {
   return (
     <AuthProvider>
       <ConsentProvider>
-        <RitualisticaProvider>
+        <PercorsiProvider>
         <LanguageProvider>
         <IthaProvider>
         <BrowserRouter>
@@ -49,7 +49,8 @@ export default function App() {
               <Route path="/arcani/:slug" element={<ArcanoDetail />} />
               <Route path="/arcani-minori" element={<ArcaniMinori />} />
               <Route path="/consulti" element={<Consulti />} />
-              <Route path="/rituali" element={<Rituali />} />
+              <Route path="/percorsi" element={<Percorsi />} />
+              <Route path="/rituali" element={<Navigate to="/percorsi" replace />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contatti" element={<Contatti />} />
               <Route path="/carrello" element={<Carrello />} />
@@ -71,13 +72,13 @@ export default function App() {
         </BrowserRouter>
         <CookieBanner />
         <AuthModal />
-        <RitualisticaModal />
+        <PercorsiModal />
         <StudioContactDock />
         <AccessibilityPanel />
         <IthaModal />
         </IthaProvider>
         </LanguageProvider>
-        </RitualisticaProvider>
+        </PercorsiProvider>
       </ConsentProvider>
     </AuthProvider>
   );

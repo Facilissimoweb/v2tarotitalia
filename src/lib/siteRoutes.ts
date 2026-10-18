@@ -6,7 +6,7 @@ export const STATIC_APP_PATHS = [
   "/arcani",
   "/arcani-minori",
   "/consulti",
-  "/rituali",
+  "/percorsi",
   "/blog",
   "/contatti",
   "/carrello",

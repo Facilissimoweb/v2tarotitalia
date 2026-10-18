@@ -6,7 +6,7 @@ import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 
-const { brand, chiSiamo, nav, ritualistica } = siteContent;
+const { brand, chiSiamo, nav, percorsi } = siteContent;
 
 export function ChiSiamo() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
@@ -124,36 +124,36 @@ export function ChiSiamo() {
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.85fr)_1.15fr] md:gap-24">
           <ImageSlot
-            src={ritualistica.immagine.src}
-            alt={ritualistica.immagine.alt}
-            caption={ritualistica.immagine.caption}
+            src={percorsi.immagine.src}
+            alt={percorsi.immagine.alt}
+            caption={percorsi.immagine.caption}
             ratio="portrait"
           />
           <div className="md:pt-8">
             <Reveal>
-              <Kicker>{ritualistica.sezione}</Kicker>
+              <Kicker>{percorsi.sezione}</Kicker>
             </Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {ritualistica.titoloSezione}
+                {percorsi.titoloSezione}
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{ritualistica.descrizione}</p>
+              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{percorsi.descrizione}</p>
             </Reveal>
             <Reveal delay={300}>
-              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.2em] text-sage">{ritualistica.ritualiKicker}</p>
+              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.2em] text-sage">{percorsi.percorsiKicker}</p>
             </Reveal>
             <ul className="mt-6 space-y-4">
-              {ritualistica.elenco.map((rito, i) => (
-                <Reveal key={rito} as="li" delay={350 + i * 80} className="font-display text-lg text-ink">
-                  {rito}
+              {percorsi.elenco.map((voce, i) => (
+                <Reveal key={voce} as="li" delay={350 + i * 80} className="font-display text-lg text-ink">
+                  {voce}
                 </Reveal>
               ))}
             </ul>
             <Reveal delay={400}>
               <blockquote className="mt-16 max-w-lg border-l border-sage pl-8">
-                <p className="font-display text-xl italic leading-relaxed text-ink">«{ritualistica.citazione}»</p>
+                <p className="font-display text-xl italic leading-relaxed text-ink">«{percorsi.citazione}»</p>
               </blockquote>
             </Reveal>
           </div>

@@ -127,8 +127,8 @@ export function HomeHero() {
                 whileTap={reduce ? undefined : tapPress}
                 transition={spring}
               >
-                <Button to="/rituali" variant="paper" className={`${heroBtn} ring-1 ring-ink/15`}>
-                  {cta.ritualistica}
+                <Button to="/percorsi" variant="paper" className={`${heroBtn} ring-1 ring-ink/15`}>
+                  {cta.percorsi}
                 </Button>
               </motion.div>
             </motion.div>

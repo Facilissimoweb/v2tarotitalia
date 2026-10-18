@@ -1,11 +1,14 @@
 {
+  "redirects": [
+    { "source": "/rituali", "destination": "/percorsi", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/chi-siamo", "destination": "/index.html" },
     { "source": "/arcani", "destination": "/index.html" },
     { "source": "/arcani-minori", "destination": "/index.html" },
     { "source": "/consulti", "destination": "/index.html" },
-    { "source": "/rituali", "destination": "/index.html" },
+    { "source": "/percorsi", "destination": "/index.html" },
     { "source": "/blog", "destination": "/index.html" },
     { "source": "/contatti", "destination": "/index.html" },
     { "source": "/carrello", "destination": "/index.html" },

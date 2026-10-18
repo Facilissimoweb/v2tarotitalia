@@ -10,7 +10,7 @@ alwaysApply: true
 - Brand: **Tarot Italia**. Dicitura ufficiale: **Tarot Italia di Maria Teresa Rogani, operatore olistico** (la dicitura «Studio Olistico» non va più usata, né «Santuario»). Pagina principale: **Home**.
 - Titolare e Fondatrice: **M. Teresa Rogani** (Teresa in contesti confidenziali).
 - Ruolo: operatrice olistica ed esoterica, cartomante e tarologa professionista.
-- Brand individuale: la ritualistica e i percorsi sono curati da M. Teresa Rogani / Tarot Italia. Non citare collaborazioni esterne nel copy pubblico.
+- Brand individuale: i Percorsi di Armonizzazione sono curati da M. Teresa Rogani / Tarot Italia. Non citare collaborazioni esterne nel copy pubblico.
 - Formazione e deontologia si aggiornano solo in `src/data/siteContent.ts`, poi si riflettono nelle pagine.
 
 ## Contenuti (tassativo)

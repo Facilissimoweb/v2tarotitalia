@@ -71,20 +71,20 @@ export function buildRecessoMessage(purchase: Purchase, optionTitle: string) {
   return lines.filter(Boolean).join("\n");
 }
 
-export function buildRitualisticaMessage(input: {
+export function buildPercorsoMessage(input: {
   name: string;
   phone: string;
   tipo?: string;
   note?: string;
 }) {
-  const { brand, consulti, ritualistica } = siteContent;
+  const { brand, consulti, percorsi } = siteContent;
   const lines = [
-    `Richiesta ritualistica — ${brand.wordmark}`,
+    `Richiesta percorso — ${brand.wordmark}`,
     `Curata da: ${brand.titolare} (Teresa)`,
     `Nome: ${input.name}`,
     `Recapito: ${input.phone}`,
   ];
-  if (input.tipo) lines.push(`${ritualistica.tipologia}: ${input.tipo}`);
+  if (input.tipo) lines.push(`${percorsi.tipologia}: ${input.tipo}`);
   if (input.note) lines.push(`Nota: ${input.note}`);
   lines.push("");
   lines.push(consulti.avvisoConferma);

@@ -3,7 +3,7 @@ import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
 import { useItha } from "../context/IthaContext.tsx";
-import { useRitualistica } from "../context/RitualisticaContext";
+import { usePercorsi } from "../context/PercorsiContext";
 import { useFooterClearance } from "../lib/useFooterClearance";
 import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
@@ -73,8 +73,8 @@ export function StudioContactDock() {
   const { open: ithaOpen } = useItha();
   const { open: cookieOpen, ready, reopen } = useConsent();
   const { authOpen } = useAuth();
-  const { open: ritualOpen } = useRitualistica();
-  const hidden = !ready || cookieOpen || ithaOpen || authOpen || ritualOpen;
+  const { open: percorsiOpen } = usePercorsi();
+  const hidden = !ready || cookieOpen || ithaOpen || authOpen || percorsiOpen;
   return <ContactDock onCookies={reopen} hidden={hidden} />;
 }
 

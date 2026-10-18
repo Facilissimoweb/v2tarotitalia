@@ -1,22 +1,22 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
-import { useRitualistica } from "../context/RitualisticaContext";
+import { usePercorsi } from "../context/PercorsiContext";
 import { emptyConsents, hasRequiredConsents, type Consents } from "../lib/storage";
-import { buildRitualisticaMessage, whatsappHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
+import { buildPercorsoMessage, whatsappHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 import { AuthForm } from "./AuthForm";
 import { Button } from "./Button";
 import { ConsentFields } from "./ConsentFields";
 import { LegalNotice, type LegalKind } from "./LegalNotice";
 import { WidgetDialog } from "./WidgetDialog";
 
-const { brand, legal, ritualistica, consulti, auth, nav } = siteContent;
+const { brand, legal, percorsi, consulti, auth, nav } = siteContent;
 
 type Pane = "richiesta" | "accesso";
 
-export function RitualisticaModal() {
+export function PercorsiModal() {
   const { session } = useAuth();
-  const { open, tipoId, closeRitualistica } = useRitualistica();
+  const { open, tipoId, closePercorso } = usePercorsi();
   const [pane, setPane] = useState<Pane>("richiesta");
   const [legalKind, setLegalKind] = useState<LegalKind | null>(null);
   const [consents, setConsents] = useState<Consents>(emptyConsents);
@@ -27,7 +27,7 @@ export function RitualisticaModal() {
   const [sent, setSent] = useState(false);
   const waLink = useRef<HTMLAnchorElement>(null);
 
-  const tipo = ritualistica.tipologie.find((t) => t.id === tipoId);
+  const tipo = percorsi.tipologie.find((t) => t.id === tipoId);
   const ready = hasRequiredConsents(consents);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export function RitualisticaModal() {
     setNote("");
     setError(null);
     setSent(false);
-    closeRitualistica();
+    closePercorso();
   }
 
   function onSubmit(e: FormEvent) {
@@ -63,7 +63,7 @@ export function RitualisticaModal() {
     const displayName = name.trim() || session?.name || "";
     const recapito = phone.trim();
     if (!displayName || !recapito) return;
-    const message = buildRitualisticaMessage({
+    const message = buildPercorsoMessage({
       name: displayName,
       phone: recapito,
       tipo: tipo?.titolo,
@@ -78,18 +78,23 @@ export function RitualisticaModal() {
 
   return (
     <>
-      <WidgetDialog title={ritualistica.titoloWidget} onClose={resetAndClose} wide>
+      <WidgetDialog title={percorsi.titoloWidget} onClose={resetAndClose} wide>
         {sent ? (
           <div className="flex flex-col gap-6 text-left">
-            <p className="text-sm leading-[1.9] text-ink/75">{ritualistica.mediazione}</p>
-            <p className="text-sm leading-[1.9] text-ink/70">{ritualistica.chiacchierata}</p>
-            <Button href={whatsappHref(buildRitualisticaMessage({
-              name: name.trim() || session?.name || "",
-              phone: phone.trim(),
-              tipo: tipo?.titolo,
-              note: note.trim() || undefined,
-            }))} className="w-full">
-              {ritualistica.inviaWhatsapp}
+            <p className="text-sm leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
+            <p className="text-sm leading-[1.9] text-ink/70">{percorsi.chiacchierata}</p>
+            <Button
+              href={whatsappHref(
+                buildPercorsoMessage({
+                  name: name.trim() || session?.name || "",
+                  phone: phone.trim(),
+                  tipo: tipo?.titolo,
+                  note: note.trim() || undefined,
+                }),
+              )}
+              className="w-full"
+            >
+              {percorsi.inviaWhatsapp}
             </Button>
           </div>
         ) : pane === "accesso" ? (
@@ -106,24 +111,24 @@ export function RitualisticaModal() {
               onClick={() => setPane("richiesta")}
               className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
             >
-              {ritualistica.tornaScelta}
+              {percorsi.tornaScelta}
             </button>
           </div>
         ) : (
           <form className="flex flex-col gap-8 text-left" onSubmit={onSubmit}>
-            <p className="text-sm leading-[1.9] text-ink/75">{ritualistica.mediazione}</p>
+            <p className="text-sm leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
             {tipo ? (
               <p className="bg-mist p-5 text-sm leading-relaxed text-ink/75">
                 <span className="mb-2 block text-[0.625rem] uppercase tracking-[0.16em] text-sage">
-                  {ritualistica.tipologia}
+                  {percorsi.tipologia}
                 </span>
                 {tipo.titolo}
               </p>
             ) : null}
-            <p className="text-sm leading-[1.9] text-ink/70">{ritualistica.chiacchierata}</p>
+            <p className="text-sm leading-[1.9] text-ink/70">{percorsi.chiacchierata}</p>
 
             <section className="max-h-56 overflow-y-auto border-y border-ink/10 py-6">
-              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{ritualistica.legaleKicker}</p>
+              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.legaleKicker}</p>
               <p className="mt-4 text-xs leading-[1.9] text-ink/70">{brand.deontologia}</p>
               <p className="mt-6 font-display text-sm text-ink">{legal.disclaimer.heading}</p>
               {legal.disclaimer.paragrafi.map((p) => (
@@ -138,14 +143,14 @@ export function RitualisticaModal() {
                 onClick={() => setLegalKind("privacy")}
                 className="text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
               >
-                {ritualistica.privacyApri}
+                {percorsi.privacyApri}
               </button>
               <button
                 type="button"
                 onClick={() => setLegalKind("disclaimer")}
                 className="text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
               >
-                {ritualistica.disclaimerApri}
+                {percorsi.disclaimerApri}
               </button>
               <button
                 type="button"
@@ -164,7 +169,7 @@ export function RitualisticaModal() {
             />
 
             <label className="flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{ritualistica.nome} *</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.nome} *</span>
               <input
                 required
                 value={name}
@@ -173,7 +178,7 @@ export function RitualisticaModal() {
               />
             </label>
             <label className="flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{ritualistica.telefono} *</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.telefono} *</span>
               <input
                 required
                 type="tel"
@@ -183,7 +188,7 @@ export function RitualisticaModal() {
               />
             </label>
             <label className="flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{ritualistica.nota}</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.nota}</span>
               <textarea
                 rows={3}
                 value={note}
@@ -196,7 +201,7 @@ export function RitualisticaModal() {
 
             {session ? (
               <Button type="submit" className="w-full" disabled={!ready}>
-                {ritualistica.inviaWhatsapp}
+                {percorsi.inviaWhatsapp}
               </Button>
             ) : (
               <Button type="button" className="w-full" onClick={() => setPane("accesso")}>
@@ -206,7 +211,7 @@ export function RitualisticaModal() {
             <a
               ref={waLink}
               href={whatsappHref(
-                buildRitualisticaMessage({
+                buildPercorsoMessage({
                   name: name.trim() || session?.name || "",
                   phone: phone.trim(),
                   tipo: tipo?.titolo,
@@ -218,7 +223,7 @@ export function RitualisticaModal() {
               tabIndex={-1}
               aria-hidden
             >
-              {ritualistica.inviaWhatsapp}
+              {percorsi.inviaWhatsapp}
             </a>
             <p className="text-center text-[0.75rem] leading-relaxed text-ink/55">{consulti.accessoObbligatorio}</p>
             {!session ? (

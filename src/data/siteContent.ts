@@ -1,5 +1,5 @@
 const sottotitoloBrand = "Tarot Italia di Maria Teresa Rogani, operatore olistico";
-const descrizioneBrand = "Cartomanzia, Tarologia, Ritualistica e Tradizione Popolare a Macerata";
+const descrizioneBrand = "Cartomanzia, Tarologia e Percorsi di Armonizzazione a Macerata";
 const sloganBrand = `${sottotitoloBrand} • ${descrizioneBrand}`;
 
 export const siteContent = {
@@ -32,7 +32,7 @@ export const siteContent = {
     arcaniMaggiori: "22 Arcani Maggiori",
     arcaniMinori: "Arcani Minori",
     consulti: "Consulti",
-    rituali: "Ritualistica",
+    percorsi: "Percorsi",
     blog: "Blog",
     contatti: "Contatti",
     menu: "Menu",
@@ -78,8 +78,8 @@ export const siteContent = {
     formazioneOlistica: "Formazione olistica",
     leggiChiSiamo: "Leggi Chi Siamo",
     scriviStudio: "Scrivi allo Studio",
-    ritualistica: "Ritualistica",
-    prenotaRitualistica: "Chiacchierata preliminare",
+    percorsi: "Percorsi",
+    prenotaPercorso: "Prenota questo percorso",
     itha: "Itha",
   },
 
@@ -91,8 +91,8 @@ export const siteContent = {
       titolo: "Simbolismo visivo e tradizione esoterica locale",
       presentazione:
         "Benvenuti in Tarot Italia. Sono Teresa, operatrice olistica, esoterica e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine al linguaggio degli Arcani. Ogni consulto è uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirti piena sovranità decisionale. Opero con trasparenza, rigore ed etica, lontano da automatismi e logiche commerciali.",
-      ritualistica:
-        "In Tarot Italia la ritualistica si radica nel folklore e nelle tradizioni popolari marchigiane: un supporto rituale serio, consapevole e integrato nel codice deontologico dello Studio, offerto con la stessa cura sartoriale dei consulti.",
+      percorsi:
+        "I Percorsi di Armonizzazione e Consapevolezza offrono uno spazio di ascolto profondo, riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza promesse di forzature esterne.",
     },
     ctaConsulto: "Prenota consulto",
     visione: {
@@ -164,9 +164,9 @@ export const siteContent = {
   },
 
   pages: {
-    rituali: {
-      kicker: "Ritualistica",
-      titolo: "Folklore Tradizionale Marchigiano",
+    percorsi: {
+      kicker: "Percorsi",
+      titolo: "Percorsi di Armonizzazione e Consapevolezza",
     },
     blog: {
       kicker: "Blog",
@@ -312,32 +312,31 @@ export const siteContent = {
     },
   },
 
-  ritualistica: {
-    titoloWidget: "Consulenza ritualistica",
-    sezione: "Folklore Tradizionale Marchigiano",
-    titoloSezione: "Ritualistica · Tradizione popolare marchigiana",
+  percorsi: {
+    titoloWidget: "Prenota un percorso",
+    sezione: "Percorsi di Armonizzazione",
+    titoloSezione: "Percorsi di Armonizzazione e Consapevolezza",
     descrizione:
-      "In Tarot Italia la ritualistica è curata direttamente da M. Teresa Rogani a Macerata. Nelle Marche, il ritualismo esoterico assume alcune peculiarità legate al folklore locale e a pratiche tradizionali tramandate da generazione in generazione.",
-    ritualiKicker: "Rituali",
+      "Ogni legame umano vive di flussi, momenti di distanza e desideri di vicinanza. I percorsi di Tarot Italia offrono uno spazio di ascolto profondo, orientato ad accompagnare la persona nell’esplorazione dei propri vissuti, nel riallineamento simbolico e nell’evoluzione emotiva. L’obiettivo è coadiuvare la chiarezza, facilitare l’allentamento dei nodi comunicativi e sostenere la riscoperta di un flusso autentico e rispettoso delle parti.",
+    percorsiKicker: "I tre percorsi",
     elenco: [
-      "Rituali d'Amore e Attrazione",
-      "Legamenti d'Amore",
-      "Riti di Riconciliazione",
-      "Rafforzamento della Coppia",
+      "Armonizzazione d'Amore e Attrazione",
+      "Armonizzazione per la Riconciliazione",
+      "Armonizzazione della Coppia",
     ],
     citazione:
-      "Questa ritualità di coppia agisce come mediatore tra il mondo spirituale e quello umano.",
+      "Chiarezza, rispetto e crescita personale: la direzione resta tua.",
     immagine: {
       src: "/chi-siamo/folklore-marche.svg?v=2",
-      alt: "Folklore tradizionale marchigiano — ritualità di coppia",
-      caption: "Folklore tradizionale marchigiano",
+      alt: "Percorsi di armonizzazione e consapevolezza — Tarot Italia",
+      caption: "Percorsi di Armonizzazione",
     },
     mediazione:
-      "I percorsi di ritualistica di Tarot Italia sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica a Macerata.",
+      "I Percorsi di Armonizzazione di Tarot Italia sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica a Macerata.",
     intro:
-      "I percorsi di ritualistica si rivolgono a chi cerca uno spazio intimo, protetto e rispettoso, in ascolto della tradizione popolare marchigiana. La ritualità di coppia è proposta come mediatrice tra il mondo spirituale e quello umano: un incontro sartoriale, confidenziale, lontano da linguaggi commerciali aggressivi. Non sostituisce pareri medici, sanitari o legali.",
+      "I percorsi di armonizzazione e consapevolezza si rivolgono a chi cerca uno spazio intimo di riflessione per fare luce sulle dinamiche relazionali, sbloccare situazioni di stallo emotivo e ritrovare centratura. Si precisa che tali percorsi hanno una finalità esclusivamente simbolica, introspettiva e di crescita personale, e non costituiscono in alcun modo pareri o trattamenti medici, psicologici, sanitari, legali o finanziari.",
     chiacchierata:
-      "Ogni richiesta apre una chiacchierata preliminare con Teresa. La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
+      "Ogni richiesta apre una chiacchierata preliminare con Teresa. Per procedere è necessario l’accesso all’area riservata. La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
     inviaWhatsapp: "Invia la richiesta su WhatsApp",
     tornaScelta: "Torna alla richiesta",
     nome: "Nome completo",
@@ -349,28 +348,22 @@ export const siteContent = {
     disclaimerApri: "Apri il Disclaimer Legale",
     tipologie: [
       {
-        id: "amore",
-        titolo: "Rituali d'Amore e Attrazione",
+        id: "amore-attrazione",
+        titolo: "Armonizzazione d'Amore e Attrazione",
         testo:
-          "Un percorso di ritualità di coppia rivolto a chi desidera prendersi cura del sentire affettivo, con rispetto e chiarezza, nel solco del folklore tradizionale marchigiano.",
-      },
-      {
-        id: "legamenti",
-        titolo: "Legamenti d'Amore",
-        testo:
-          "Una pratica tradizionale di ritualità di coppia, proposta con deontologia e senza promesse di esito: lo sguardo resta sulla relazione e sulla responsabilità di chi si affida.",
+          "Un percorso pensato per riscoprire e rilanciare l’energia dell’attrazione reciproca, lavorando sulla propria presenza emotiva e sulla capacità di accogliere l’altro senza aspettative rigide. Ideale per sbloccare la stagnazione e riaprire i canali della complicità.",
       },
       {
         id: "riconciliazione",
-        titolo: "Riti di Riconciliazione",
+        titolo: "Armonizzazione per la Riconciliazione",
         testo:
-          "Uno spazio rituale per chi attraversa distanze o fratture affettive, in ascolto della tradizione locale e del dialogo tra sfera umana e spirituale.",
+          "Nei momenti di allontanamento o incomprensione, questo percorso offre un supporto simbolico e riflessivo per favorire il dialogo, smussare le rigidità e creare un terreno fertile per un eventuale riavvicinamento basato sul rispetto reciproco e sulla verità dei sentimenti.",
       },
       {
         id: "coppia",
-        titolo: "Rafforzamento della Coppia",
+        titolo: "Armonizzazione della Coppia",
         testo:
-          "Una ritualità pensata per sostenere il vincolo di coppia con cura sartoriale, nel rispetto delle persone coinvolte e della pratica pulita di Tarot Italia.",
+          "Un percorso dedicato a chi condivide già un cammino ma avverte la necessità di ritrovare la sintonia profonda, superare i cicli di tensione ripetitivi e ridare linfa e chiarezza alla visione comune del futuro.",
       },
     ],
   },
