@@ -1,6 +1,6 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
-import { BrandLogo } from "./BrandLogo";
+import { HeroLogo3D } from "./HeroLogo3D";
 import { Button } from "./Button";
 
 const { brand, cta, home } = siteContent;
@@ -18,10 +18,16 @@ const container: Variants = {
   show: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
 };
 
-/** Logo e titolo: dissolvenza con leggera sfocatura che si schiarisce. */
+/** Titolo: dissolvenza con leggera sfocatura che si schiarisce. */
 const blurIn: Variants = {
   hidden: { opacity: 0, filter: "blur(10px)" },
   show: { opacity: 1, filter: "blur(0px)", transition: { duration: 1, ease } },
+};
+
+/** Logo 3D: solo opacity — `filter` crea un containing block che taglia il cerchio. */
+const logoIn: Variants = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 1, ease } },
 };
 
 /** Sottotitolo, descrizione e pulsanti: dissolvenza con salita di 15 px. */
@@ -49,7 +55,7 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate overflow-x-clip bg-ivory [--hh:80px] xl:[--hh:112px]"
+      className="relative isolate bg-ivory [--hh:80px] xl:[--hh:112px]"
     >
       {/* Angelo: solo mobile, fondo chiaro, un po’ a sinistra */}
       <div
@@ -78,11 +84,11 @@ export function HomeHero() {
             initial={reduce ? false : "hidden"}
             animate="show"
           >
-            <motion.span className="block" variants={blurIn}>
-              <BrandLogo
-                tone="hero"
-                className="mx-auto h-[clamp(10rem,min(64vw,34svh),20rem)] w-[clamp(10rem,min(64vw,34svh),20rem)] drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
-              />
+            <motion.span
+              className="block h-[clamp(14rem,min(78vw,48svh),28rem)] w-[clamp(14rem,min(78vw,48svh),28rem)]"
+              variants={logoIn}
+            >
+              <HeroLogo3D className="h-full w-full" />
             </motion.span>
 
             <motion.h1

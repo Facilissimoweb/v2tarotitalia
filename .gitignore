@@ -4,3 +4,6 @@ dist
 *.local
 .vite
 .env
+
+# Eventuali asset 3D grezzi (il logo Hero è moneta nativa Three.js)
+public/logo-3d/
