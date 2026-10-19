@@ -14,11 +14,11 @@ function ScrollToTop() {
 
 export function Layout() {
   return (
-    <div className="flex min-h-dvh flex-col bg-ivory text-ink">
+    <div className="flex min-h-dvh flex-col overflow-x-hidden bg-ivory text-ink">
       <ScrollToTop />
       <LanguageSeo />
       <Header />
-      <main className="flex-1 pt-[80px] xl:pt-[112px]">
+      <main className="min-w-0 flex-1 overflow-x-hidden pt-[80px] xl:pt-[112px]">
         <Outlet />
       </main>
       <Footer />

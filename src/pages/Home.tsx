@@ -17,11 +17,11 @@ export function Home() {
   const [visioneOpen, setVisioneOpen] = useState(false);
 
   return (
-    <div>
+    <div className="w-full min-w-0 overflow-x-hidden">
       <HomeHero />
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-5xl items-center gap-16 md:grid-cols-2 md:gap-20">
+        <div className="mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>
               <Kicker>{nav.chiSiamo}</Kicker>
@@ -191,24 +191,26 @@ export function Home() {
         </div>
       </div>
 
-      <section className="bg-mist px-8 pb-24 pt-32 text-center md:pb-32 md:pt-40">
-        <Reveal>
-          <BrandLogo className="mx-auto h-16 w-16" />
-          <p className="mt-5 font-display text-[0.6875rem] uppercase leading-none tracking-[0.32em] text-ink">
-            {brand.wordmark}
-          </p>
-        </Reveal>
-        <Reveal delay={80}>
-          <blockquote className="mx-auto mt-10 max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
-            «{home.citazione.testo}»
-          </blockquote>
-        </Reveal>
-        <Reveal delay={160}>
-          <p className="mt-10 text-[0.625rem] uppercase tracking-[0.22em] text-ink">{home.citazione.autore}</p>
-        </Reveal>
-        <Reveal delay={220}>
-          <p className="mt-3 text-[0.5625rem] uppercase tracking-[0.16em] text-sage">{home.citazione.fonte}</p>
-        </Reveal>
+      <section className="bg-mist px-6 pb-24 pt-32 text-center md:px-10 md:pb-32 md:pt-40">
+        <div className="mx-auto w-full max-w-6xl">
+          <Reveal>
+            <BrandLogo className="mx-auto h-16 w-16" />
+            <p className="mt-5 font-display text-[0.6875rem] uppercase leading-none tracking-[0.32em] text-ink">
+              {brand.wordmark}
+            </p>
+          </Reveal>
+          <Reveal delay={80}>
+            <blockquote className="mx-auto mt-10 max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
+              «{home.citazione.testo}»
+            </blockquote>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mt-10 text-[0.625rem] uppercase tracking-[0.22em] text-ink">{home.citazione.autore}</p>
+          </Reveal>
+          <Reveal delay={220}>
+            <p className="mt-3 text-[0.5625rem] uppercase tracking-[0.16em] text-sage">{home.citazione.fonte}</p>
+          </Reveal>
+        </div>
       </section>
 
       <GoogleReviews />
