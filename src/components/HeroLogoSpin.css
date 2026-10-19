@@ -1,0 +1,28 @@
+/* Logo Hero: rotazione leggera sull’asse Y (CSS, niente WebGL) */
+.hero-logo-spin {
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  pointer-events: none;
+}
+
+.hero-logo-spin__coin {
+  display: block;
+  transform-style: preserve-3d;
+  will-change: transform;
+  animation: hero-logo-spin-y 7s linear infinite;
+}
+
+@keyframes hero-logo-spin-y {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-spin__coin {
+    animation: none;
+  }
+}

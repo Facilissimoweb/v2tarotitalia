@@ -7,7 +7,7 @@ export const siteContent = {
     name: "Tarot Italia",
     wordmark: "Tarot Italia",
     logo: "/logo.png",
-    logoHero: "/logo-hero.png?v=2",
+    logoHero: "/logo-hero.png",
     titolare: "M. Teresa Rogani",
     ruolo: "Operatrice olistica ed esoterica, cartomante e tarologa professionista",
     sottotitolo: sottotitoloBrand,

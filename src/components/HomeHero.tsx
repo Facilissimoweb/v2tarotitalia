@@ -1,7 +1,8 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
-import { HeroLogo3D } from "./HeroLogo3D";
+import { BrandLogo } from "./BrandLogo";
 import { Button } from "./Button";
+import "./HeroLogoSpin.css";
 
 const { brand, cta, home } = siteContent;
 
@@ -24,12 +25,6 @@ const blurIn: Variants = {
   show: { opacity: 1, filter: "blur(0px)", transition: { duration: 1, ease } },
 };
 
-/** Logo 3D: solo opacity — `filter` crea un containing block che taglia il cerchio. */
-const logoIn: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 1, ease } },
-};
-
 /** Sottotitolo, descrizione e pulsanti: dissolvenza con salita di 15 px. */
 const riseIn: Variants = {
   hidden: { opacity: 0, y: 15 },
@@ -45,9 +40,7 @@ const tapPress = { scale: 0.97 };
 const FRAME_H = "calc(100svh - var(--hh))";
 
 /**
- * Hero della Home su fondo ivory.
- * Su piccoli schermi: angelo a sinistra come marca d’acqua; da md in su solo ivory.
- * Le pagine interne usano `PageBanner`.
+ * Hero della Home su fondo ivory. Le pagine interne usano `PageBanner`.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -57,18 +50,6 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate bg-ivory [--hh:80px] xl:[--hh:112px]"
     >
-      {/* Angelo: solo mobile, fondo chiaro, un po’ a sinistra */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden md:hidden"
-      >
-        <img
-          src="/hero-angelo-light.png"
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover object-[18%_center] opacity-[0.5]"
-        />
-      </div>
-
       <div
         className="relative z-10 flex items-center justify-center px-6 pb-32 pt-8 md:px-10"
         style={{ minHeight: FRAME_H }}
@@ -84,11 +65,13 @@ export function HomeHero() {
             initial={reduce ? false : "hidden"}
             animate="show"
           >
-            <motion.span
-              className="block h-[clamp(14rem,min(78vw,48svh),28rem)] w-[clamp(14rem,min(78vw,48svh),28rem)]"
-              variants={logoIn}
-            >
-              <HeroLogo3D className="h-full w-full" />
+            <motion.span className="hero-logo-spin block" variants={blurIn}>
+              <span className="hero-logo-spin__coin mx-auto block w-fit">
+                <BrandLogo
+                  tone="hero"
+                  className="h-[clamp(10rem,min(64vw,34svh),20rem)] w-[clamp(10rem,min(64vw,34svh),20rem)] drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
+                />
+              </span>
             </motion.span>
 
             <motion.h1

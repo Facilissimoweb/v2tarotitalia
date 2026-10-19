@@ -5,5 +5,8 @@ dist
 .vite
 .env
 
-# Eventuali asset 3D grezzi (il logo Hero è moneta nativa Three.js)
+# Asset 3D grezzi (Meshy / GLB / OBJ) — non vanno in repo
 public/logo-3d/
+*.glb
+*.obj
+*.mtl
