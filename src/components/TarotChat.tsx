@@ -38,16 +38,20 @@ export function TarotChat() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      document.body.style.overflow = "";
+      return;
+    }
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") tarotChatUi.setOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    window.setTimeout(() => inputRef.current?.focus(), 40);
+    const focusTimer = window.setTimeout(() => inputRef.current?.focus(), 40);
     return () => {
-      document.body.style.overflow = prev;
+      window.clearTimeout(focusTimer);
+      document.body.style.overflow = prev || "";
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);

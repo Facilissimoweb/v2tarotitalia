@@ -71,14 +71,14 @@ export default function App() {
               <Route path="*" element={<NonTrovata />} />
             </Route>
           </Routes>
+          <CookieBanner />
+          <AuthModal />
+          <PercorsiModal />
+          <StudioContactDock />
+          <TarotChat />
+          <AccessibilityPanel />
+          <IthaModal />
         </BrowserRouter>
-        <CookieBanner />
-        <AuthModal />
-        <PercorsiModal />
-        <StudioContactDock />
-        <TarotChat />
-        <AccessibilityPanel />
-        <IthaModal />
         </IthaProvider>
         </LanguageProvider>
         </PercorsiProvider>

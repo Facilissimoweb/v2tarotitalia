@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import type { TarotChatActionId } from "../lib/tarotChat/actions";
 import { getPhoneHref, telegramHref, whatsappChatHref } from "../lib/whatsapp";
@@ -13,6 +12,12 @@ type Props = {
   actions: TarotChatActionId[];
 };
 
+type ActionLink = {
+  id: TarotChatActionId;
+  href: string;
+  external?: boolean;
+};
+
 /** Pulsanti CTA sotto i messaggi assistant (contatti e aree del sito). */
 export function TarotChatActions({ actions }: Props) {
   if (actions.length === 0) return null;
@@ -21,47 +26,32 @@ export function TarotChatActions({ actions }: Props) {
   const whatsapp = whatsappChatHref();
   const telegram = telegramHref();
 
+  const links: ActionLink[] = [];
+  for (const id of actions) {
+    if (id === "phone" && phone) links.push({ id, href: phone });
+    else if (id === "whatsapp" && whatsapp) links.push({ id, href: whatsapp, external: true });
+    else if (id === "telegram" && telegram) links.push({ id, href: telegram, external: true });
+    else if (id === "consulti") links.push({ id, href: "/consulti" });
+    else if (id === "percorsi") links.push({ id, href: "/percorsi" });
+  }
+
+  if (links.length === 0) return null;
+
   return (
     <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Azioni rapide">
-      {actions.map((id) => {
-        const label = copy.azioni[id];
-        if (id === "phone" && phone) {
-          return (
-            <a key={id} href={phone} className={btnClass}>
-              {label}
-            </a>
-          );
-        }
-        if (id === "whatsapp" && whatsapp) {
-          return (
-            <a key={id} href={whatsapp} target="_blank" rel="noopener noreferrer" className={btnClass}>
-              {label}
-            </a>
-          );
-        }
-        if (id === "telegram" && telegram) {
-          return (
-            <a key={id} href={telegram} target="_blank" rel="noopener noreferrer" className={btnClass}>
-              {label}
-            </a>
-          );
-        }
-        if (id === "consulti") {
-          return (
-            <Link key={id} to="/consulti" className={btnClass} onClick={() => tarotChatUi.setOpen(false)}>
-              {label}
-            </Link>
-          );
-        }
-        if (id === "percorsi") {
-          return (
-            <Link key={id} to="/percorsi" className={btnClass} onClick={() => tarotChatUi.setOpen(false)}>
-              {label}
-            </Link>
-          );
-        }
-        return null;
-      })}
+      {links.map(({ id, href, external }) => (
+        <a
+          key={id}
+          href={href}
+          className={btnClass}
+          {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          onClick={() => {
+            if (!external) tarotChatUi.setOpen(false);
+          }}
+        >
+          {copy.azioni[id]}
+        </a>
+      ))}
     </div>
   );
 }
