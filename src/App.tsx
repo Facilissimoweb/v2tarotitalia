@@ -28,6 +28,7 @@ import { TerminiDiServizio } from "./pages/TerminiDiServizio";
 import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
 import { AccessibilityPanel } from "./components/AccessibilityWidget";
+import { TarotChat } from "./components/TarotChat";
 import { useSiteAccess } from "./lib/useSiteAccess";
 
 export default function App() {
@@ -75,6 +76,7 @@ export default function App() {
         <AuthModal />
         <PercorsiModal />
         <StudioContactDock />
+        <TarotChat />
         <AccessibilityPanel />
         <IthaModal />
         </IthaProvider>

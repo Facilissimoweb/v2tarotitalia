@@ -56,6 +56,11 @@ function ithaApiPlugin(): Plugin {
             await handler(nodeReq, nodeRes);
             return;
           }
+          if (url === "/api/tarot-chat") {
+            const { default: handler } = await import("./api/tarot-chat.ts");
+            await handler(nodeReq, nodeRes);
+            return;
+          }
           next();
         } catch {
           const { siteContent } = await import("./src/data/siteContent.ts");

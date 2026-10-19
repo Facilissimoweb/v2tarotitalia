@@ -1,10 +1,11 @@
-import { type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
 import { useItha } from "../context/IthaContext.tsx";
 import { usePercorsi } from "../context/PercorsiContext";
 import { useFooterClearance } from "../lib/useFooterClearance";
+import { tarotChatUi } from "../lib/tarotChat/ui";
 import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
 const { brand, cta, nav } = siteContent;
@@ -74,7 +75,8 @@ export function StudioContactDock() {
   const { open: cookieOpen, ready, reopen } = useConsent();
   const { authOpen } = useAuth();
   const { open: percorsiOpen } = usePercorsi();
-  const hidden = !ready || cookieOpen || ithaOpen || authOpen || percorsiOpen;
+  const chatOpen = useSyncExternalStore(tarotChatUi.subscribe, tarotChatUi.getOpen, () => false);
+  const hidden = !ready || cookieOpen || ithaOpen || authOpen || percorsiOpen || chatOpen;
   return <ContactDock onCookies={reopen} hidden={hidden} />;
 }
 
