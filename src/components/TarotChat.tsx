@@ -1,13 +1,26 @@
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { siteContent } from "../data/siteContent";
+import { extractTarotChatActions } from "../lib/tarotChat/actions";
 import { sendTarotChat } from "../lib/tarotChat/client";
 import type { TarotChatMessage } from "../lib/tarotChat/types";
 import { tarotChatUi } from "../lib/tarotChat/ui";
+import { TarotChatActions } from "./TarotChatActions";
 import { WidgetBrandMark } from "./WidgetFrame";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 
 const { tarotChat: copy } = siteContent;
+
+const welcomeParsed = extractTarotChatActions(copy.benvenuto);
+const INITIAL_MESSAGES: TarotChatMessage[] = [
+  {
+    role: "assistant",
+    content: welcomeParsed.text,
+    actions: welcomeParsed.actions.length
+      ? welcomeParsed.actions
+      : ["consulti", "percorsi", "whatsapp"],
+  },
+];
 
 function useChatOpen() {
   return useSyncExternalStore(tarotChatUi.subscribe, tarotChatUi.getOpen, () => false);
@@ -19,9 +32,7 @@ export function TarotChat() {
   const titleId = useId();
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
-  const [messages, setMessages] = useState<TarotChatMessage[]>([
-    { role: "assistant", content: copy.benvenuto },
-  ]);
+  const [messages, setMessages] = useState<TarotChatMessage[]>(INITIAL_MESSAGES);
   const [draft, setDraft] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -57,8 +68,8 @@ export function TarotChat() {
     setLoading(true);
 
     try {
-      const reply = await sendTarotChat(nextMessages);
-      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
+      const { reply, actions } = await sendTarotChat(nextMessages);
+      setMessages((prev) => [...prev, { role: "assistant", content: reply, actions }]);
     } catch (err) {
       setError(err instanceof Error ? err.message : copy.erroreRete);
     } finally {
@@ -121,15 +132,18 @@ export function TarotChat() {
                       key={`${message.role}-${index}`}
                       className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                     >
-                      <p
-                        className={`max-w-[92%] whitespace-pre-wrap px-4 py-3 text-sm leading-relaxed ${
+                      <div
+                        className={`max-w-[92%] px-4 py-3 text-sm leading-relaxed ${
                           message.role === "user"
                             ? "bg-ink text-on-ink"
                             : "bg-mist text-ink ring-1 ring-ink/8"
                         }`}
                       >
-                        {message.content}
-                      </p>
+                        <p className="whitespace-pre-wrap">{message.content}</p>
+                        {message.role === "assistant" && message.actions?.length ? (
+                          <TarotChatActions actions={message.actions} />
+                        ) : null}
+                      </div>
                     </div>
                   ))}
                   {loading ? (

@@ -1,4 +1,5 @@
 import { siteContent } from "../../data/siteContent.ts";
+import { extractTarotChatActions } from "./actions.ts";
 import { tarotChatGroqApiKey, tarotChatGroqModels } from "./serverEnv.ts";
 import type { TarotChatMessage, TarotChatRequest } from "./types.ts";
 
@@ -18,7 +19,10 @@ function sanitizeMessages(raw: unknown): TarotChatMessage[] | null {
     if (typeof content !== "string") return null;
     const trimmed = content.trim().slice(0, MAX_CONTENT_CHARS);
     if (!trimmed) continue;
-    out.push({ role, content: trimmed });
+    // Storico pulito: niente marker CTA nei messaggi passati al modello.
+    const clean = role === "assistant" ? extractTarotChatActions(trimmed).text : trimmed;
+    if (!clean) continue;
+    out.push({ role, content: clean });
   }
   if (out.length === 0) return null;
   return out.slice(-MAX_MESSAGES);
@@ -45,7 +49,7 @@ async function callGroq(key: string, model: string, messages: TarotChatMessage[]
   };
   const reply = json.choices?.[0]?.message?.content?.trim() ?? "";
   if (!reply) throw new Error("empty");
-  return reply;
+  return extractTarotChatActions(reply);
 }
 
 export async function handleTarotChat(body: unknown): Promise<{ status: number; body: unknown }> {
@@ -65,8 +69,8 @@ export async function handleTarotChat(body: unknown): Promise<{ status: number; 
   let lastError: Error | null = null;
   for (const model of tarotChatGroqModels()) {
     try {
-      const reply = await callGroq(key, model, messages);
-      return { status: 200, body: { reply } };
+      const { text, actions } = await callGroq(key, model, messages);
+      return { status: 200, body: { reply: text, actions } };
     } catch (error) {
       lastError = error instanceof Error ? error : new Error("groq");
       if (lastError.message === "model") continue;
