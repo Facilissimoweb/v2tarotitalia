@@ -1,8 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useAuth } from "./AuthContext";
 import { loadIthaCredits, loadIthaReadings } from "../lib/itha/client.ts";
-import { grantDevCredits, isIthaDev, readDevReadings } from "../lib/itha/dev.ts";
-import { ithaDemoAccess } from "../lib/itha/types.ts";
 import type { IthaReading } from "../lib/itha/types.ts";
 
 type IthaContextValue = {
@@ -13,7 +11,6 @@ type IthaContextValue = {
   closeItha: () => void;
   refreshItha: () => Promise<void>;
   setCredits: (n: number) => void;
-  simulateCredits: () => number;
 };
 
 const IthaContext = createContext<IthaContextValue | null>(null);
@@ -25,7 +22,7 @@ export function IthaProvider({ children }: { children: ReactNode }) {
   const [readings, setReadings] = useState<IthaReading[]>([]);
 
   const refreshItha = useCallback(async () => {
-    if (!session && !isIthaDev() && !ithaDemoAccess()) {
+    if (!session) {
       setCredits(0);
       setReadings([]);
       return;
@@ -34,14 +31,6 @@ export function IthaProvider({ children }: { children: ReactNode }) {
     setCredits(nextCredits);
     setReadings(nextReadings);
   }, [session]);
-
-  const simulateCredits = useCallback(() => {
-    if (!isIthaDev()) return 0;
-    const next = grantDevCredits();
-    setCredits(next);
-    setReadings(readDevReadings());
-    return next;
-  }, []);
 
   useEffect(() => {
     void refreshItha();
@@ -56,9 +45,8 @@ export function IthaProvider({ children }: { children: ReactNode }) {
       closeItha: () => setOpen(false),
       refreshItha,
       setCredits,
-      simulateCredits,
     }),
-    [open, credits, readings, refreshItha, simulateCredits],
+    [open, credits, readings, refreshItha],
   );
 
   return <IthaContext.Provider value={value}>{children}</IthaContext.Provider>;

@@ -11,7 +11,7 @@ import {
   supabaseAnonKey,
   supabaseUrl,
 } from "./serverEnv.ts";
-import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, ithaDemoAccess, type IthaDecode, type IthaDecodeRequest } from "./types.ts";
+import type { IthaDecode, IthaDecodeRequest } from "./types.ts";
 
 const { itha } = siteContent;
 
@@ -52,18 +52,14 @@ export async function handleIthaDecode(token: string, raw: unknown): Promise<Han
   }
 }
 
-export async function handleIthaDevPreview(raw: unknown): Promise<HandlerResult> {
-  try {
-    return await runIthaDecode("", raw);
-  } catch {
-    return { status: 503, body: { error: itha.groqManca } };
-  }
+export async function handleIthaDevPreview(_raw: unknown): Promise<HandlerResult> {
+  return { status: 401, body: { error: itha.errori.sessione } };
 }
 
 async function runIthaDecode(token: string, raw: unknown): Promise<HandlerResult> {
   const body = normalizeDecodeRequest(raw);
   if (!body) return { status: 400, body: { error: itha.quesitoErrore } };
-  if (!token && !ithaDemoAccess()) return { status: 401, body: { error: itha.errori.sessione } };
+  if (!token) return { status: 401, body: { error: itha.errori.sessione } };
   if (!body.question.trim() || !body.category || body.cards.length === 0) {
     return { status: 400, body: { error: itha.quesitoErrore } };
   }
@@ -76,70 +72,57 @@ async function runIthaDecode(token: string, raw: unknown): Promise<HandlerResult
 
   const url = supabaseUrl();
   const anon = supabaseAnonKey();
-  const demo = ithaDemoAccess();
-  if ((!url || !anon) && !demo) return { status: 503, body: { error: itha.errori.sessione } };
+  if (!url || !anon) return { status: 503, body: { error: itha.errori.sessione } };
 
-  let user: AuthUser | null = null;
-  let sb: SupabaseClient | null = null;
-  if (url && anon && token) {
-    sb = createClient(url, anon, {
-      global: { headers: { Authorization: `Bearer ${token}` } },
-      auth: { persistSession: false, autoRefreshToken: false },
-    });
-    try {
-      const { data: userData, error: userError } = await sb.auth.getUser(token);
-      user = (userData.user as AuthUser | null) ?? null;
-      if ((userError || !user?.id) && !demo) return { status: 401, body: { error: itha.errori.sessione } };
-      if (userError || !user?.id) user = null;
-    } catch {
-      if (!demo) return { status: 401, body: { error: itha.errori.sessione } };
-      user = null;
-    }
-  } else if (!demo) {
+  const sb: SupabaseClient = createClient(url, anon, {
+    global: { headers: { Authorization: `Bearer ${token}` } },
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  let user: AuthUser;
+  try {
+    const { data: userData, error: userError } = await sb.auth.getUser(token);
+    const userId = userData.user?.id;
+    if (userError || !userId) return { status: 401, body: { error: itha.errori.sessione } };
+    user = { id: userId };
+  } catch {
     return { status: 401, body: { error: itha.errori.sessione } };
   }
 
-  let remaining = ITHA_UNLOCKED_BALANCE;
-  if (!ITHA_CREDITS_UNLOCKED) {
-    if (!sb) return { status: 402, body: { error: itha.errori.crediti } };
-    const consumed = await sb.rpc("consume_itha_credit");
-    if (consumed.error) {
-      return { status: 402, body: { error: itha.errori.crediti } };
-    }
-    remaining = Number(consumed.data ?? 0);
+  const consumed = await sb.rpc("consume_itha_credit");
+  if (consumed.error) {
+    return { status: 402, body: { error: itha.errori.crediti } };
   }
+  const remaining = Number(consumed.data ?? 0);
 
   const decode = await callGroq(key, body);
-  if (sb && user?.id) {
-    try {
-      const { data, error } = await sb
-        .from("itha_readings")
-        .insert({
-          user_id: user.id,
-          category: body.category,
-          question: body.question.trim(),
-          cards: body.cards,
-          analisi: decode.analisi,
-          coerenza: decode.coerenza,
-          spunto: decode.spunto,
-        })
-        .select("id, created_at")
-        .single();
-      if (!error && data) {
-        return {
-          status: 200,
-          body: {
-            id: data.id,
-            createdAt: data.created_at,
-            credits: remaining,
-            language: body.language,
-            decode,
-          },
-        };
-      }
-    } catch {
-      /* la lettura resta disponibile anche se l’archivio remoto non risponde */
+  try {
+    const { data, error } = await sb
+      .from("itha_readings")
+      .insert({
+        user_id: user.id,
+        category: body.category,
+        question: body.question.trim(),
+        cards: body.cards,
+        analisi: decode.analisi,
+        coerenza: decode.coerenza,
+        spunto: decode.spunto,
+      })
+      .select("id, created_at")
+      .single();
+    if (!error && data) {
+      return {
+        status: 200,
+        body: {
+          id: data.id,
+          createdAt: data.created_at,
+          credits: remaining,
+          language: body.language,
+          decode,
+        },
+      };
     }
+  } catch {
+    /* la lettura resta disponibile anche se l’archivio remoto non risponde */
   }
   return {
     status: 200,

@@ -7,14 +7,12 @@ import { useLanguage } from "../context/LanguageContext";
 import { requestIthaDecode } from "../lib/itha/client.ts";
 import { downloadIthaPdf } from "../lib/itha/pdf.ts";
 import { ithaCardSections } from "../lib/itha/prompt.ts";
-import { ITHA_CREDITS_UNLOCKED, ithaDemoAccess, type IthaPlanId, type IthaReading } from "../lib/itha/types.ts";
-import { isIthaDev } from "../lib/itha/dev.ts";
+import type { IthaPlanId, IthaReading } from "../lib/itha/types.ts";
 import { isIthaQuestionBlocked } from "../lib/itha/safety.ts";
 import { isSourceLanguage } from "../lib/language.ts";
 import { AuthForm } from "./AuthForm";
 import { Button, Kicker } from "./Button";
 import { IthaCardBack, IthaCardFace } from "./IthaCardFace.tsx";
-import { IthaDevGrant } from "./IthaDevGrant.tsx";
 import { IthaPayPal } from "./IthaPayPal.tsx";
 import { LegalNotice, type LegalKind } from "./LegalNotice";
 import { WidgetDialog } from "./WidgetDialog";
@@ -59,7 +57,7 @@ export function IthaModal() {
   }
 
   function canEnterHub() {
-    return Boolean(session) || isIthaDev() || ithaDemoAccess();
+    return Boolean(session);
   }
 
   function goHub() {
@@ -107,9 +105,12 @@ export function IthaModal() {
     } catch (e) {
       const message = e instanceof Error && e.message ? e.message : itha.errori.decodifica;
       setError(message);
-      if (message === itha.errori.sessione && !ithaDemoAccess()) {
+      if (message === itha.errori.sessione) {
         setPane("auth");
         openAuth();
+      }
+      if (message === itha.errori.crediti) {
+        setPane("recharge");
       }
     } finally {
       setBusy(false);
@@ -120,10 +121,7 @@ export function IthaModal() {
     <>
       <WidgetDialog title={itha.titoloWidget} onClose={onClose} xl>
         {pane === "intro" ? (
-          <Intro
-            onContinue={() => setPane(canEnterHub() ? "hub" : "auth")}
-            onDevGranted={() => setPane("hub")}
-          />
+          <Intro onContinue={() => setPane(canEnterHub() ? "hub" : "auth")} />
         ) : null}
         {pane === "auth" ? (
           <div className="flex flex-col gap-8 text-left">
@@ -137,18 +135,12 @@ export function IthaModal() {
                 setPane("hub");
               }}
             />
-            {ithaDemoAccess() ? (
-              <Button variant="ghost" className="w-full" onClick={() => setPane("hub")}>
-                {itha.prosegui}
-              </Button>
-            ) : null}
-            <IthaDevGrant onGranted={() => setPane("hub")} />
           </div>
         ) : null}
         {pane === "hub" ? (
           <Hub
             credits={credits}
-            onStart={() => (ITHA_CREDITS_UNLOCKED || isIthaDev() || credits > 0 ? setPane("category") : setPane("recharge"))}
+            onStart={() => (credits > 0 ? setPane("category") : setPane("recharge"))}
             onRecharge={() => setPane("recharge")}
             onArchive={() => setPane("archive")}
           />
@@ -198,7 +190,7 @@ export function IthaModal() {
             reading={reading}
             onNew={() => {
               resetFlow();
-              setPane(ITHA_CREDITS_UNLOCKED || isIthaDev() || credits > 0 ? "category" : "recharge");
+              setPane(credits > 0 ? "category" : "recharge");
             }}
             onHub={goHub}
           />
@@ -221,7 +213,6 @@ export function IthaModal() {
               setPane("hub");
             }}
             onBack={() => setPane("hub")}
-            onDevGranted={() => setPane("hub")}
           />
         ) : null}
       </WidgetDialog>
@@ -230,7 +221,7 @@ export function IthaModal() {
   );
 }
 
-function Intro({ onContinue, onDevGranted }: { onContinue: () => void; onDevGranted: () => void }) {
+function Intro({ onContinue }: { onContinue: () => void }) {
   return (
     <div className="flex flex-col gap-8 text-left">
       <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
@@ -256,7 +247,6 @@ function Intro({ onContinue, onDevGranted }: { onContinue: () => void; onDevGran
       <Button className="w-full" onClick={onContinue}>
         {itha.entra}
       </Button>
-      <IthaDevGrant onGranted={onDevGranted} />
     </div>
   );
 }
@@ -278,8 +268,8 @@ function Hub({
         <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{itha.credito}</p>
         <p className="font-display text-2xl">{credits}</p>
       </div>
-      {credits < 1 && !isIthaDev() && !ITHA_CREDITS_UNLOCKED ? <p className="text-sm leading-[1.9] text-ink/70">{itha.creditoEsaurito}</p> : null}
-      <Button className="w-full" onClick={onStart} disabled={!ITHA_CREDITS_UNLOCKED && !isIthaDev() && credits < 1}>
+      {credits < 1 ? <p className="text-sm leading-[1.9] text-ink/70">{itha.creditoEsaurito}</p> : null}
+      <Button className="w-full" onClick={onStart} disabled={credits < 1}>
         {itha.entra}
       </Button>
       <Button variant="ghost" className="w-full" onClick={onRecharge}>
@@ -292,7 +282,6 @@ function Hub({
       >
         {itha.archivio}
       </button>
-      <IthaDevGrant />
     </div>
   );
 }
@@ -579,15 +568,7 @@ function Archive({
   );
 }
 
-function Recharge({
-  onPaid,
-  onBack,
-  onDevGranted,
-}: {
-  onPaid: (credits: number) => void;
-  onBack: () => void;
-  onDevGranted: () => void;
-}) {
+function Recharge({ onPaid, onBack }: { onPaid: (credits: number) => void; onBack: () => void }) {
   return (
     <div className="flex flex-col gap-8 text-left">
       <div>
@@ -611,7 +592,6 @@ function Recharge({
       <Button variant="ghost" className="w-full" onClick={onBack}>
         {itha.prosegui}
       </Button>
-      <IthaDevGrant onGranted={onDevGranted} />
     </div>
   );
 }

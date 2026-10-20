@@ -1,20 +1,10 @@
 import { siteContent } from "../../data/siteContent.ts";
 import { getSupabaseClient } from "../supabase.ts";
-import {
-  buildLumiereFallback,
-  consumeDevCredit,
-  ITHA_DEV_PACK,
-  isIthaDev,
-  readingFromDevDecode,
-  readDevCredits,
-  readDevReadings,
-} from "./dev.ts";
 import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
-import { activeLanguage, isSourceLanguage } from "../language.ts";
-import { localizeOfficialTexts } from "../localizeClient.ts";
+import { activeLanguage } from "../language.ts";
 import { readJsonSafe } from "../readJsonSafe.ts";
 import { fetchWithTimeout, isGroqUnavailable, markGroqUnavailable } from "../remoteApi.ts";
-import { ITHA_CREDITS_UNLOCKED, ITHA_UNLOCKED_BALANCE, ithaDemoAccess, type IthaDecode, type IthaDecodeRequest, type IthaPlanId, type IthaReading } from "./types.ts";
+import type { IthaDecode, IthaDecodeRequest, IthaPlanId, IthaReading } from "./types.ts";
 import type { DrawnIthaCard } from "../../data/ithaMazzo.ts";
 
 type DecodeResponse = {
@@ -42,16 +32,13 @@ export async function requestIthaDecode(input: IthaDecodeRequest) {
   if (isIthaQuestionBlocked(payload.question)) {
     throw new Error(ithaEthicsMessage());
   }
-  const remote = await requestRemoteDecode(payload);
-  if (remote) return remote;
-  if (isIthaDev() || ithaDemoAccess()) {
-    return decodeInDev(payload);
-  }
-  throw new Error(siteContent.itha.groqManca);
+  return requestRemoteDecode(payload);
 }
 
 async function requestRemoteDecode(input: IthaDecodeRequest) {
-  if (isGroqUnavailable()) return null;
+  if (isGroqUnavailable()) {
+    throw new Error(siteContent.itha.groqManca);
+  }
   try {
     const response = await fetchWithTimeout("/api/itha-decode", {
       method: "POST",
@@ -60,41 +47,32 @@ async function requestRemoteDecode(input: IthaDecodeRequest) {
     });
     const json = await readJsonSafe<DecodeResponse>(response);
     if (response.ok && json?.decode && json.id) {
-      return json as { id: string; createdAt: string; credits: number; decode: IthaDecode };
+      return {
+        id: json.id,
+        createdAt: json.createdAt ?? new Date().toISOString(),
+        credits: Number(json.credits ?? 0),
+        decode: json.decode,
+      };
     }
-    if (response.status === 503) markGroqUnavailable();
-    return null;
-  } catch {
+    if (response.status === 401) {
+      throw new Error(json?.error || siteContent.itha.errori.sessione);
+    }
+    if (response.status === 402) {
+      throw new Error(json?.error || siteContent.itha.errori.crediti);
+    }
+    if (response.status === 422) {
+      throw new Error(json?.error || ithaEthicsMessage());
+    }
+    if (response.status === 503) {
+      markGroqUnavailable();
+      throw new Error(json?.error || siteContent.itha.groqManca);
+    }
+    throw new Error(json?.error || siteContent.itha.errori.decodifica);
+  } catch (error) {
+    if (error instanceof Error) throw error;
     markGroqUnavailable();
-    return null;
+    throw new Error(siteContent.itha.groqManca);
   }
-}
-
-async function decodeInDev(input: IthaDecodeRequest) {
-  if (isIthaQuestionBlocked(input.question)) {
-    throw new Error(ithaEthicsMessage());
-  }
-  const remaining = ITHA_CREDITS_UNLOCKED
-    ? ITHA_UNLOCKED_BALANCE
-    : consumeDevCredit() ?? (isIthaDev() ? ITHA_DEV_PACK : null);
-  if (remaining === null) throw new Error(siteContent.itha.errori.crediti);
-  let decode = buildLumiereFallback(input);
-  if (!isSourceLanguage(input.language) && !isGroqUnavailable()) {
-    try {
-      const localized = await localizeOfficialTexts(input.language, decode);
-      if (localized.analisi && localized.coerenza && localized.spunto) {
-        decode = {
-          analisi: localized.analisi,
-          coerenza: localized.coerenza,
-          spunto: localized.spunto,
-        };
-      }
-    } catch {
-      /* resta il testo ufficiale italiano */
-    }
-  }
-  const saved = readingFromDevDecode(input, decode, remaining);
-  return { id: saved.id, createdAt: saved.createdAt, credits: remaining, decode };
 }
 
 export async function createPaypalOrder(planId: IthaPlanId) {
@@ -104,7 +82,7 @@ export async function createPaypalOrder(planId: IthaPlanId) {
     body: JSON.stringify({ planId }),
   });
   const json = await readJsonSafe<{ id?: string; error?: string }>(response);
-  if (!response.ok || !json?.id) throw new Error(json?.error || "paypal");
+  if (!response.ok || !json?.id) throw new Error(json?.error || siteContent.itha.paypalManca);
   return json.id;
 }
 
@@ -115,33 +93,28 @@ export async function capturePaypalOrder(orderId: string) {
     body: JSON.stringify({ orderId }),
   });
   const json = await readJsonSafe<{ credits?: number; error?: string }>(response);
-  if (!response.ok) throw new Error(json?.error || "paypal");
+  if (!response.ok) throw new Error(json?.error || siteContent.itha.paypalOrdine);
   return json?.credits ?? 0;
 }
 
 export async function loadIthaCredits() {
-  if (ITHA_CREDITS_UNLOCKED) return ITHA_UNLOCKED_BALANCE;
   const sb = getSupabaseClient();
-  if (sb) {
-    const { data: auth } = await sb.auth.getUser();
-    if (auth.user) {
-      const { data } = await sb.from("profiles").select("itha_credits").eq("id", auth.user.id).maybeSingle();
-      return Number(data?.itha_credits ?? 0);
-    }
-  }
-  return isIthaDev() ? readDevCredits() : 0;
+  if (!sb) return 0;
+  const { data: auth } = await sb.auth.getUser();
+  if (!auth.user) return 0;
+  const { data } = await sb.from("profiles").select("itha_credits").eq("id", auth.user.id).maybeSingle();
+  return Number(data?.itha_credits ?? 0);
 }
 
 export async function loadIthaReadings(): Promise<IthaReading[]> {
-  const local = isIthaDev() ? readDevReadings() : [];
   const sb = getSupabaseClient();
-  if (!sb) return local;
+  if (!sb) return [];
   const { data, error } = await sb
     .from("itha_readings")
     .select("id, created_at, category, question, cards, analisi, coerenza, spunto")
     .order("created_at", { ascending: false });
-  if (error || !data) return local;
-  const remote = data.map((row) => ({
+  if (error || !data) return [];
+  return data.map((row) => ({
     id: row.id as string,
     createdAt: row.created_at as string,
     category: row.category as string,
@@ -153,6 +126,4 @@ export async function loadIthaReadings(): Promise<IthaReading[]> {
       spunto: row.spunto as string,
     },
   }));
-  const seen = new Set(local.map((item) => item.id));
-  return [...local, ...remote.filter((item) => item.id && !seen.has(item.id))];
 }

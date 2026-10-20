@@ -6,7 +6,6 @@ import { STUDIO, TARIFFE } from "../data/catalogo";
 import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
-import { IthaDevGrant } from "../components/IthaDevGrant.tsx";
 import { BookingConfirm } from "../components/BookingConfirm";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
@@ -215,7 +214,6 @@ export function Riservata() {
             <Reveal>
               <Button onClick={openItha}>{itha.entra}</Button>
             </Reveal>
-            <IthaDevGrant />
             {readings.length === 0 ? (
               <p className="text-sm leading-[1.9] text-ink/65">{itha.archivioVuoto}</p>
             ) : (

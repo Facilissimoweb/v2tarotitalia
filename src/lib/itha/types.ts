@@ -32,15 +32,6 @@ export type IthaDecodeRequest = {
   }>;
 };
 
-/** Bypass globale disattivato: i crediti restano quelli di profiles.itha_credits. */
-export const ITHA_CREDITS_UNLOCKED = false;
-export const ITHA_SESSION_UNLOCKED = false;
-export const ITHA_UNLOCKED_BALANCE = 999;
-
-export function ithaDemoAccess() {
-  return ITHA_CREDITS_UNLOCKED || ITHA_SESSION_UNLOCKED;
-}
-
 export const ITHA_PLAN_CREDITS: Record<IthaPlanId, { credits: number; amount: string }> = {
   singola: { credits: 1, amount: "5.00" },
   pacchetto3: { credits: 3, amount: "12.00" },

@@ -506,8 +506,6 @@ export const siteContent = {
       "Autenticazione PayPal non riuscita. Verifica Client ID, Secret e che PAYPAL_ENV corrisponda all’ambiente (sandbox o live).",
     paypalOrdine: "Il pagamento non è stato completato. Riprova oppure contatta lo Studio.",
     groqManca: "La decodifica non è disponibile in questo momento.",
-    devSimula: "🔑 [Dev] Simula crediti",
-    devNota: "Solo in locale: assegna 5 crediti di prova e bypassa PayPal.",
     bloccoEtico:
       "Il Crocicchio non elabora questo quesito. Itha resta entro il perimetro introspettivo e tarologico: non tratta ambiti medici o diagnostici, contenuti sessuali espliciti, autolesionismo, violenza, illecito o incitamento all’odio. Per salute fisica o psichica è necessario rivolgersi a professionisti abilitati. Formula una domanda sul campo interiore, relazionale o decisionale.",
     errori: {
