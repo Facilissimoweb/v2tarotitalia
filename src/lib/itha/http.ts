@@ -21,9 +21,17 @@ export function sendJson(res: NodeLikeRes, status: number, body: unknown) {
   res.end(JSON.stringify(body));
 }
 
+export function readHeader(req: NodeLikeReq, name: string) {
+  const target = name.toLowerCase();
+  for (const [key, value] of Object.entries(req.headers)) {
+    if (key.toLowerCase() !== target) continue;
+    return (Array.isArray(value) ? value[0] : value)?.trim() ?? "";
+  }
+  return "";
+}
+
 export function readBearer(req: NodeLikeReq) {
-  const raw = req.headers.authorization || req.headers.Authorization || "";
-  const header = Array.isArray(raw) ? raw[0] : raw;
+  const header = readHeader(req, "authorization");
   const match = header.match(/^Bearer\s+(.+)$/i);
   return match?.[1] ?? "";
 }

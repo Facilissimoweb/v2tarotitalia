@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { useAuth } from "./AuthContext";
 import { loadIthaCredits, loadIthaReadings } from "../lib/itha/client.ts";
-import { grantDevCredits, isIthaDev, readDevCredits, readDevReadings } from "../lib/itha/dev.ts";
+import { grantDevCredits, isIthaDev, readDevReadings } from "../lib/itha/dev.ts";
 import { ithaDemoAccess } from "../lib/itha/types.ts";
 import type { IthaReading } from "../lib/itha/types.ts";
 
@@ -31,7 +31,7 @@ export function IthaProvider({ children }: { children: ReactNode }) {
       return;
     }
     const [nextCredits, nextReadings] = await Promise.all([loadIthaCredits(), loadIthaReadings()]);
-    setCredits(isIthaDev() ? Math.max(nextCredits, readDevCredits()) : nextCredits);
+    setCredits(nextCredits);
     setReadings(nextReadings);
   }, [session]);
 

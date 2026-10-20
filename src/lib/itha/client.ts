@@ -121,13 +121,15 @@ export async function capturePaypalOrder(orderId: string) {
 
 export async function loadIthaCredits() {
   if (ITHA_CREDITS_UNLOCKED) return ITHA_UNLOCKED_BALANCE;
-  const local = isIthaDev() ? readDevCredits() : 0;
   const sb = getSupabaseClient();
-  if (!sb) return local;
-  const { data: auth } = await sb.auth.getUser();
-  if (!auth.user) return local;
-  const { data } = await sb.from("profiles").select("itha_credits").eq("id", auth.user.id).maybeSingle();
-  return Math.max(local, Number(data?.itha_credits ?? 0));
+  if (sb) {
+    const { data: auth } = await sb.auth.getUser();
+    if (auth.user) {
+      const { data } = await sb.from("profiles").select("itha_credits").eq("id", auth.user.id).maybeSingle();
+      return Number(data?.itha_credits ?? 0);
+    }
+  }
+  return isIthaDev() ? readDevCredits() : 0;
 }
 
 export async function loadIthaReadings(): Promise<IthaReading[]> {

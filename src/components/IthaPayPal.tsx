@@ -30,7 +30,8 @@ export function IthaPayPal({ planId, onPaid }: Props) {
   const paid = useRef(onPaid);
   paid.current = onPaid;
   const [error, setError] = useState<string | null>(null);
-  const clientId = import.meta.env.VITE_PAYPAL_CLIENT_ID?.trim() ?? "";
+  const rawClientId = import.meta.env.VITE_PAYPAL_CLIENT_ID?.trim() ?? "";
+  const clientId = !rawClientId || rawClientId === "sb" ? "" : rawClientId;
 
   useEffect(() => {
     if (!clientId || !host.current) return;

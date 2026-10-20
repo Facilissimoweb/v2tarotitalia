@@ -60,12 +60,16 @@ set search_path = public
 as $$
 declare remaining integer;
 begin
-  -- TEMP: test libero delle letture. Non scala il saldo.
-  -- Per ripristinare: scalare itha_credits di 1 e sollevare NO_CREDITS se il saldo è 0.
-  select coalesce(itha_credits, 999) into remaining
-  from public.profiles
-  where id = auth.uid();
-  return greatest(coalesce(remaining, 999), 999);
+  perform set_config('itha.credit_ok', '1', true);
+  update public.profiles
+  set itha_credits = itha_credits - 1
+  where id = auth.uid()
+    and itha_credits > 0
+  returning itha_credits into remaining;
+  if remaining is null then
+    raise exception 'NO_CREDITS';
+  end if;
+  return remaining;
 end;
 $$;
 
@@ -123,7 +127,28 @@ create policy "itha_orders_insert_own"
   to authenticated
   with check (auth.uid() = user_id or public.is_admin());
 
+create or replace function public.subtract_itha_credits(p_user uuid, p_credits integer)
+returns integer
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare remaining integer;
+begin
+  if p_credits is null or p_credits < 1 then
+    raise exception 'INVALID_CREDITS';
+  end if;
+  perform set_config('itha.credit_ok', '1', true);
+  update public.profiles
+  set itha_credits = greatest(itha_credits - p_credits, 0)
+  where id = p_user
+  returning itha_credits into remaining;
+  return coalesce(remaining, 0);
+end;
+$$;
+
 grant execute on function public.consume_itha_credit() to authenticated;
 grant execute on function public.add_itha_credits(uuid, integer) to service_role;
+grant execute on function public.subtract_itha_credits(uuid, integer) to service_role;
 grant select, insert on public.itha_readings to authenticated;
 grant select, insert on public.itha_orders to authenticated;

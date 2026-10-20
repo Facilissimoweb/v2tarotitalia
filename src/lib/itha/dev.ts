@@ -27,8 +27,10 @@ export function grantDevCredits(pack = ITHA_DEV_PACK) {
 }
 
 export function consumeDevCredit() {
-  if (isIthaDev()) return readDevCredits();
-  return null;
+  if (!isIthaDev()) return null;
+  const current = readDevCredits();
+  if (current < 1) return null;
+  return writeDevCredits(current - 1);
 }
 
 export function readDevReadings(): IthaReading[] {

@@ -502,6 +502,9 @@ export const siteContent = {
     pianiTitolo: "Piani di ricarica",
     pianiLead: "Circuito esclusivo PayPal. Nessuna formula gratuita.",
     paypalManca: "Il circuito PayPal non è ancora configurato. I crediti si attivano dopo il pagamento.",
+    paypalAuth:
+      "Autenticazione PayPal non riuscita. Verifica Client ID, Secret e che PAYPAL_ENV corrisponda all’ambiente (sandbox o live).",
+    paypalOrdine: "Il pagamento non è stato completato. Riprova oppure contatta lo Studio.",
     groqManca: "La decodifica non è disponibile in questo momento.",
     devSimula: "🔑 [Dev] Simula crediti",
     devNota: "Solo in locale: assegna 5 crediti di prova e bypassa PayPal.",

@@ -32,9 +32,9 @@ export type IthaDecodeRequest = {
   }>;
 };
 
-/** Temporaneo: test libero delle letture. Login e registrazione restano invariati. */
-export const ITHA_CREDITS_UNLOCKED = true;
-export const ITHA_SESSION_UNLOCKED = true;
+/** Bypass globale disattivato: i crediti restano quelli di profiles.itha_credits. */
+export const ITHA_CREDITS_UNLOCKED = false;
+export const ITHA_SESSION_UNLOCKED = false;
 export const ITHA_UNLOCKED_BALANCE = 999;
 
 export function ithaDemoAccess() {
