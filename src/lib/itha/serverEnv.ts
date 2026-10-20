@@ -1,6 +1,10 @@
 export function readServerEnv(name: string, fallback = "") {
   const env = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;
-  return (env?.[name] ?? fallback).trim().replace(/^["']|["']$/g, "");
+  return (env?.[name] ?? fallback)
+    .replace(/^\uFEFF/, "")
+    .trim()
+    .replace(/\r/g, "")
+    .replace(/^["']|["']$/g, "");
 }
 
 /** Llama 3.3 70B. Su Groq resta disponibile solo per i piani enterprise. */

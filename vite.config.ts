@@ -8,7 +8,8 @@ import { isKnownAppPath } from "./src/lib/siteRoutes.ts";
 
 function applyEnv(mode: string) {
   const env = loadEnv(mode, process.cwd(), "");
-  for (const [key, value] of Object.entries(env)) {
+  for (const [rawKey, value] of Object.entries(env)) {
+    const key = rawKey.replace(/^\uFEFF/, "");
     if (process.env[key] === undefined) process.env[key] = value;
   }
 }
@@ -23,9 +24,25 @@ function ithaApiPlugin(): Plugin {
           next();
           return;
         }
+        const nodeReq = req as IncomingMessage;
+        const nodeRes = res as ServerResponse;
+        const sendUnavailable = async () => {
+          try {
+            const { siteContent } = await import("./src/data/siteContent.ts");
+            if (!nodeRes.headersSent) {
+              nodeRes.statusCode = 503;
+              nodeRes.setHeader("Content-Type", "application/json; charset=utf-8");
+              nodeRes.end(JSON.stringify({ error: siteContent.itha.groqManca }));
+            }
+          } catch {
+            if (!nodeRes.headersSent) {
+              nodeRes.statusCode = 503;
+              nodeRes.setHeader("Content-Type", "application/json; charset=utf-8");
+              nodeRes.end(JSON.stringify({ error: "unavailable" }));
+            }
+          }
+        };
         try {
-          const nodeReq = req as IncomingMessage;
-          const nodeRes = res as ServerResponse;
           if (url === "/api/itha-decode") {
             const { default: handler } = await import("./api/itha-decode.ts");
             await handler(nodeReq, nodeRes);
@@ -67,11 +84,9 @@ function ithaApiPlugin(): Plugin {
             return;
           }
           next();
-        } catch {
-          const { siteContent } = await import("./src/data/siteContent.ts");
-          res.statusCode = 503;
-          res.setHeader("Content-Type", "application/json");
-          res.end(JSON.stringify({ error: siteContent.itha.groqManca }));
+        } catch (error) {
+          console.error("[itha-api]", url, error);
+          await sendUnavailable();
         }
       });
     },
@@ -135,10 +150,30 @@ function spaNotFoundPlugin(): Plugin {
 export default defineConfig(({ mode }) => {
   applyEnv(mode);
   return {
+    // Evita il configLoader native di Vite 8 su import relativi senza estensione.
+    configLoader: "bundle",
+    clearScreen: false,
     plugins: [react(), tailwindcss(), ithaApiPlugin(), spaNotFoundPlugin()],
     server: {
+      host: "127.0.0.1",
       port: 5173,
-      host: true,
+      strictPort: true,
+      hmr: {
+        overlay: true,
+      },
+      watch: {
+        // Su Windows riduce chiusure/HMR intermittenti con antivirus o sync cartelle.
+        awaitWriteFinish: { stabilityThreshold: 200, pollInterval: 100 },
+      },
+    },
+    preview: {
+      host: "127.0.0.1",
+      port: 4173,
+      strictPort: true,
+    },
+    optimizeDeps: {
+      // Evita freeze lunghi/ripetuti dell’optimizer in locale.
+      holdUntilCrawlEnd: false,
     },
   };
 });

@@ -1,4 +1,4 @@
-import { ARCANI } from "../data/arcani";
+import { ARCANI } from "../data/arcani.ts";
 
 export const STATIC_APP_PATHS = [
   "/",

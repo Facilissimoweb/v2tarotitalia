@@ -569,26 +569,76 @@ function Archive({
 }
 
 function Recharge({ onPaid, onBack }: { onPaid: (credits: number) => void; onBack: () => void }) {
+  const [selectedPlanId, setSelectedPlanId] = useState<IthaPlanId | "">("");
+  const [consensoRecesso, setConsensoRecesso] = useState(false);
+  const selected = itha.piani.find((piano) => piano.id === selectedPlanId);
+  const canPay = Boolean(selectedPlanId) && consensoRecesso;
+
   return (
     <div className="flex flex-col gap-8 text-left">
       <div>
         <Kicker>{itha.pianiTitolo}</Kicker>
         <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.pianiLead}</p>
       </div>
-      {itha.piani.map((piano) => (
-        <article key={piano.id} className="bg-mist p-6">
-          <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
-            {piano.crediti} · €{piano.prezzo}
+
+      <div className="grid gap-4" role="radiogroup" aria-label={itha.pianiTitolo}>
+        {itha.piani.map((piano) => {
+          const active = selectedPlanId === piano.id;
+          return (
+            <button
+              key={piano.id}
+              type="button"
+              role="radio"
+              aria-checked={active}
+              onClick={() => setSelectedPlanId(piano.id as IthaPlanId)}
+              className={`w-full border px-6 py-5 text-left transition ${
+                active ? "border-ink bg-paper" : "border-transparent bg-mist hover:border-ink/20"
+              }`}
+            >
+              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
+                {piano.crediti} · €{piano.prezzo}
+              </p>
+              <h3 className="mt-3 font-display text-xl">{piano.titolo}</h3>
+              <p className="mt-3 text-sm leading-[1.85] text-ink/70">{piano.testo}</p>
+              <p className="mt-3 text-[0.6875rem] text-ink/55">{piano.paypal}</p>
+              {piano.rate ? <p className="mt-1 text-[0.6875rem] text-ink/55">{piano.rate}</p> : null}
+              <p className="mt-4 text-[0.625rem] uppercase tracking-[0.14em] text-ink/55">
+                {active ? itha.pianoSelezionato : itha.pianoSeleziona}
+              </p>
+            </button>
+          );
+        })}
+      </div>
+
+      <label className="flex cursor-pointer items-start gap-3 bg-mist px-5 py-4">
+        <input
+          type="checkbox"
+          className="mt-1 h-4 w-4 shrink-0 accent-ink"
+          checked={consensoRecesso}
+          onChange={(event) => setConsensoRecesso(event.target.checked)}
+        />
+        <span className="text-[0.75rem] leading-[1.7] text-ink/75">{itha.paypalConsensoRecesso}</span>
+      </label>
+
+      <section className="border border-ink/10 px-6 py-6">
+        <Kicker>{itha.pianoPagaTitolo}</Kicker>
+        <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.pianoPagaLead}</p>
+        {selected ? (
+          <p className="mt-4 text-[0.75rem] uppercase tracking-[0.14em] text-sage">
+            {selected.titolo} · {selected.crediti} · €{selected.prezzo}
           </p>
-          <h3 className="mt-3 font-display text-xl">{piano.titolo}</h3>
-          <p className="mt-3 text-sm leading-[1.85] text-ink/70">{piano.testo}</p>
-          <p className="mt-3 text-[0.6875rem] text-ink/55">{piano.paypal}</p>
-          {piano.rate ? <p className="mt-1 text-[0.6875rem] text-ink/55">{piano.rate}</p> : null}
-          <div className="mt-5">
-            <IthaPayPal planId={piano.id as IthaPlanId} onPaid={onPaid} />
-          </div>
-        </article>
-      ))}
+        ) : null}
+        <div className="mt-5">
+          {canPay && selectedPlanId ? (
+            <IthaPayPal planId={selectedPlanId} onPaid={onPaid} enabled />
+          ) : (
+            <p className="text-[0.75rem] leading-relaxed text-ink/55">
+              {!selectedPlanId ? itha.pianoSeleziona : itha.paypalConsensoAttendi}
+            </p>
+          )}
+        </div>
+      </section>
+
       <Button variant="ghost" className="w-full" onClick={onBack}>
         {itha.prosegui}
       </Button>

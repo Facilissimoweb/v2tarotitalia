@@ -501,10 +501,19 @@ export const siteContent = {
     archivioVuoto: "Nessuna consultazione Itha è ancora conservata nel tuo archivio.",
     pianiTitolo: "Piani di ricarica",
     pianiLead: "Circuito esclusivo PayPal. Nessuna formula gratuita.",
+    pianoSeleziona: "Seleziona questo piano",
+    pianoSelezionato: "Piano selezionato",
+    pianoPagaTitolo: "Completa il pagamento",
+    pianoPagaLead: "Conferma il consenso e procedi con PayPal sul piano scelto.",
     paypalManca: "Il circuito PayPal non è ancora configurato. I crediti si attivano dopo il pagamento.",
     paypalAuth:
       "Autenticazione PayPal non riuscita. Verifica Client ID, Secret e che PAYPAL_ENV corrisponda all’ambiente (sandbox o live).",
     paypalOrdine: "Il pagamento non è stato completato. Riprova oppure contatta lo Studio.",
+    paypalSdkErrore:
+      "Il pulsante PayPal non si è avviato. Ricarica la pagina e verifica che VITE_PAYPAL_CLIENT_ID sia il Client ID Sandbox (o Live) dell’app REST, poi riavvia il server di sviluppo.",
+    paypalConsensoRecesso:
+      "Confermo di richiedere l’accesso immediato ai crediti Itha (contenuto digitale a fruizione immediata) e prendo atto che, ai sensi dell’art. 59, lett. o) del Codice del Consumo, perderò il diritto di recesso all’avvio dell’accesso al servizio. (Obbligatorio)",
+    paypalConsensoAttendi: "Per procedere al pagamento, conferma prima la presa d’atto sul diritto di recesso.",
     groqManca: "La decodifica non è disponibile in questo momento.",
     bloccoEtico:
       "Il Crocicchio non elabora questo quesito. Itha resta entro il perimetro introspettivo e tarologico: non tratta ambiti medici o diagnostici, contenuti sessuali espliciti, autolesionismo, violenza, illecito o incitamento all’odio. Per salute fisica o psichica è necessario rivolgersi a professionisti abilitati. Formula una domanda sul campo interiore, relazionale o decisionale.",

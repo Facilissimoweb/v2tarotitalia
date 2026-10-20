@@ -4,9 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
+    "dev:lan": "vite --host --port 5173 --strictPort",
+    "dev:clean": "node scripts/clean-vite-cache.mjs && vite --host 127.0.0.1 --port 5173 --strictPort --force",
     "build": "tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview --host 127.0.0.1 --port 4173 --strictPort"
   },
   "dependencies": {
     "@fontsource/atkinson-hyperlegible": "^5.3.0",
