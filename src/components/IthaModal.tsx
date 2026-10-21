@@ -42,6 +42,8 @@ export function IthaModal() {
   const [reading, setReading] = useState<IthaReading | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [rechargePlanId, setRechargePlanId] = useState<IthaPlanId | "">("");
+  const [rechargeConsenso, setRechargeConsenso] = useState(false);
 
   const category = itha.campi.find((c) => c.id === categoryId);
 
@@ -54,6 +56,8 @@ export function IthaModal() {
     setReading(null);
     setError(null);
     setBusy(false);
+    setRechargePlanId("");
+    setRechargeConsenso(false);
   }
 
   function canEnterHub() {
@@ -117,9 +121,37 @@ export function IthaModal() {
     }
   }
 
+  const rechargeSelected = itha.piani.find((piano) => piano.id === rechargePlanId);
+  const canPayRecharge = Boolean(rechargePlanId) && rechargeConsenso;
+
   return (
     <>
-      <WidgetDialog title={itha.titoloWidget} onClose={onClose} xl>
+      <WidgetDialog
+        title={itha.titoloWidget}
+        onClose={onClose}
+        xl
+        footer={
+          pane === "recharge" ? (
+            <RechargePayment
+              planId={rechargePlanId}
+              selectedTitle={
+                rechargeSelected
+                  ? `${rechargeSelected.titolo} · ${rechargeSelected.crediti} · €${rechargeSelected.prezzo}`
+                  : null
+              }
+              canPay={canPayRecharge}
+              enablePayLater={rechargePlanId === "pass5"}
+              onPaid={(next) => {
+                setCredits(next);
+                void refreshItha();
+                setRechargePlanId("");
+                setRechargeConsenso(false);
+                setPane("hub");
+              }}
+            />
+          ) : null
+        }
+      >
         {pane === "intro" ? (
           <Intro onContinue={() => setPane(canEnterHub() ? "hub" : "auth")} />
         ) : null}
@@ -141,7 +173,11 @@ export function IthaModal() {
           <Hub
             credits={credits}
             onStart={() => (credits > 0 ? setPane("category") : setPane("recharge"))}
-            onRecharge={() => setPane("recharge")}
+            onRecharge={() => {
+              setRechargePlanId("");
+              setRechargeConsenso(false);
+              setPane("recharge");
+            }}
             onArchive={() => setPane("archive")}
           />
         ) : null}
@@ -206,13 +242,16 @@ export function IthaModal() {
           />
         ) : null}
         {pane === "recharge" ? (
-          <Recharge
-            onPaid={(next) => {
-              setCredits(next);
-              void refreshItha();
+          <RechargePlans
+            selectedPlanId={rechargePlanId}
+            onSelectPlan={setRechargePlanId}
+            consensoRecesso={rechargeConsenso}
+            onConsenso={setRechargeConsenso}
+            onBack={() => {
+              setRechargePlanId("");
+              setRechargeConsenso(false);
               setPane("hub");
             }}
-            onBack={() => setPane("hub")}
           />
         ) : null}
       </WidgetDialog>
@@ -568,12 +607,19 @@ function Archive({
   );
 }
 
-function Recharge({ onPaid, onBack }: { onPaid: (credits: number) => void; onBack: () => void }) {
-  const [selectedPlanId, setSelectedPlanId] = useState<IthaPlanId | "">("");
-  const [consensoRecesso, setConsensoRecesso] = useState(false);
-  const selected = itha.piani.find((piano) => piano.id === selectedPlanId);
-  const canPay = Boolean(selectedPlanId) && consensoRecesso;
-
+function RechargePlans({
+  selectedPlanId,
+  onSelectPlan,
+  consensoRecesso,
+  onConsenso,
+  onBack,
+}: {
+  selectedPlanId: IthaPlanId | "";
+  onSelectPlan: (id: IthaPlanId) => void;
+  consensoRecesso: boolean;
+  onConsenso: (value: boolean) => void;
+  onBack: () => void;
+}) {
   return (
     <div className="flex flex-col gap-8 text-left">
       <div>
@@ -590,7 +636,7 @@ function Recharge({ onPaid, onBack }: { onPaid: (credits: number) => void; onBac
               type="button"
               role="radio"
               aria-checked={active}
-              onClick={() => setSelectedPlanId(piano.id as IthaPlanId)}
+              onClick={() => onSelectPlan(piano.id as IthaPlanId)}
               className={`w-full border px-6 py-5 text-left transition ${
                 active ? "border-ink bg-paper" : "border-transparent bg-mist hover:border-ink/20"
               }`}
@@ -615,33 +661,53 @@ function Recharge({ onPaid, onBack }: { onPaid: (credits: number) => void; onBac
           type="checkbox"
           className="mt-1 h-4 w-4 shrink-0 accent-ink"
           checked={consensoRecesso}
-          onChange={(event) => setConsensoRecesso(event.target.checked)}
+          onChange={(event) => onConsenso(event.target.checked)}
         />
         <span className="text-[0.75rem] leading-[1.7] text-ink/75">{itha.paypalConsensoRecesso}</span>
       </label>
 
-      <section className="border border-ink/10 px-6 py-6">
-        <Kicker>{itha.pianoPagaTitolo}</Kicker>
-        <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.pianoPagaLead}</p>
-        {selected ? (
-          <p className="mt-4 text-[0.75rem] uppercase tracking-[0.14em] text-sage">
-            {selected.titolo} · {selected.crediti} · €{selected.prezzo}
-          </p>
-        ) : null}
-        <div className="mt-5">
-          {canPay && selectedPlanId ? (
-            <IthaPayPal planId={selectedPlanId} onPaid={onPaid} enabled />
-          ) : (
-            <p className="text-[0.75rem] leading-relaxed text-ink/55">
-              {!selectedPlanId ? itha.pianoSeleziona : itha.paypalConsensoAttendi}
-            </p>
-          )}
-        </div>
-      </section>
-
       <Button variant="ghost" className="w-full" onClick={onBack}>
         {itha.prosegui}
       </Button>
+    </div>
+  );
+}
+
+function RechargePayment({
+  planId,
+  selectedTitle,
+  canPay,
+  enablePayLater,
+  onPaid,
+}: {
+  planId: IthaPlanId | "";
+  selectedTitle: string | null;
+  canPay: boolean;
+  enablePayLater: boolean;
+  onPaid: (credits: number) => void;
+}) {
+  return (
+    <div className="text-left">
+      <Kicker>{itha.pianoPagaTitolo}</Kicker>
+      <p className="mt-2 text-sm leading-[1.9] text-ink/70">{itha.pianoPagaLead}</p>
+      {selectedTitle ? (
+        <p className="mt-3 text-[0.75rem] uppercase tracking-[0.14em] text-sage">{selectedTitle}</p>
+      ) : null}
+      <div className="relative z-[200] mt-4 min-h-[3.5rem] overflow-visible">
+        {canPay && planId ? (
+          <IthaPayPal
+            key={`${planId}-${enablePayLater ? "later" : "std"}`}
+            planId={planId}
+            onPaid={onPaid}
+            enabled
+            enablePayLater={enablePayLater}
+          />
+        ) : (
+          <p className="text-[0.75rem] leading-relaxed text-ink/55">
+            {!planId ? itha.pianoSeleziona : itha.paypalConsensoAttendi}
+          </p>
+        )}
+      </div>
     </div>
   );
 }
