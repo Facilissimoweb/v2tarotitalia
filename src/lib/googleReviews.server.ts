@@ -18,9 +18,14 @@ type PlaceDetails = {
   };
 };
 
+function readEnv(name: string) {
+  const env = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;
+  return env?.[name]?.trim() ?? "";
+}
+
 export async function handleGoogleReviews(): Promise<{ status: number; body: GoogleReviewsPayload }> {
-  const key = process.env.GOOGLE_PLACES_API_KEY?.trim();
-  const placeId = process.env.GOOGLE_PLACE_ID?.trim();
+  const key = readEnv("GOOGLE_PLACES_API_KEY");
+  const placeId = readEnv("GOOGLE_PLACE_ID");
   if (!key || !placeId) {
     return { status: 200, body: emptyGoogleReviews() };
   }
