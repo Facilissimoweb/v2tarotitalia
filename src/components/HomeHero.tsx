@@ -16,25 +16,19 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const container: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.15, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
 };
 
-/** Titolo: dissolvenza con leggera sfocatura che si schiarisce. */
-const blurIn: Variants = {
-  hidden: { opacity: 0, filter: "blur(10px)" },
-  show: { opacity: 1, filter: "blur(0px)", transition: { duration: 1, ease } },
-};
-
-/** Sottotitolo, descrizione e pulsanti: dissolvenza con salita di 15 px. */
+/** Solo elementi sotto-LCP: dissolvenza con salita. Logo e H1 restano subito visibili. */
 const riseIn: Variants = {
-  hidden: { opacity: 0, y: 15 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.8, ease } },
+  hidden: { opacity: 0, y: 12 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 };
 
 /** Micro-interazioni dei pulsanti: molla morbida, bagliore sage discreto. */
-const spring = { type: "spring", stiffness: 300, damping: 20 } as const;
-const hoverGlow = { scale: 1.03, boxShadow: "0 0 28px rgba(122, 139, 120, 0.45)" };
-const tapPress = { scale: 0.97 };
+const spring = { type: "spring", stiffness: 280, damping: 22 } as const;
+const hoverGlow = { scale: 1.02, boxShadow: "0 0 24px rgba(122, 139, 120, 0.4)" };
+const tapPress = { scale: 0.98 };
 
 /** Altezza sotto l’header fisso (`Layout`: pt-[80px] / xl:pt-[112px]). */
 const FRAME_H = "calc(100svh - var(--hh))";
@@ -60,29 +54,27 @@ export function HomeHero() {
             aria-hidden
             className="hero-glow pointer-events-none absolute inset-0 -z-10 rounded-full bg-[radial-gradient(closest-side,rgba(255,254,251,1)_0%,rgba(255,254,251,0.97)_48%,rgba(252,251,248,0.8)_70%,rgba(249,248,246,0)_100%)] opacity-40 blur-xl md:opacity-100"
           />
-          <motion.div
-            className="flex w-full max-w-full flex-col items-center text-center"
-            variants={container}
-            initial={reduce ? false : "hidden"}
-            animate="show"
-          >
-            <motion.span className="hero-logo-spin block max-w-full" variants={blurIn}>
+          <div className="flex w-full max-w-full flex-col items-center text-center">
+            {/* LCP: logo e titolo senza opacity/blur iniziale */}
+            <span className="hero-logo-spin block max-w-full">
               <span className="hero-logo-spin__coin mx-auto block w-fit max-w-full">
                 <BrandLogo
                   tone="hero"
                   className="h-[clamp(7.5rem,min(52vw,28svh),18rem)] w-[clamp(7.5rem,min(52vw,28svh),18rem)] max-w-full drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
                 />
               </span>
-            </motion.span>
+            </span>
 
-            <motion.h1
-              variants={blurIn}
-              className="mt-6 max-w-full break-words font-h1 text-[clamp(2.5rem,min(11vw,12svh),7rem)] leading-[1.05] text-ink [text-shadow:0_0_36px_rgba(255,254,251,0.95),0_0_72px_rgba(255,254,251,0.85)] md:mt-8 xl:text-[clamp(4.5rem,min(8vw,12svh),9rem)]"
-            >
+            <h1 className="mt-6 max-w-full break-words font-h1 text-[clamp(2.5rem,min(11vw,12svh),7rem)] leading-[1.05] text-ink [text-shadow:0_0_36px_rgba(255,254,251,0.95),0_0_72px_rgba(255,254,251,0.85)] md:mt-8 xl:text-[clamp(4.5rem,min(8vw,12svh),9rem)]">
               {titolo}
-            </motion.h1>
+            </h1>
 
-            <div className="mx-auto mt-5 w-full max-w-xl md:mt-6 xl:max-w-3xl">
+            <motion.div
+              className="mx-auto mt-5 w-full max-w-xl md:mt-6 xl:max-w-3xl"
+              variants={container}
+              initial={reduce ? false : "hidden"}
+              animate="show"
+            >
               <motion.p
                 variants={riseIn}
                 className="font-display text-base leading-snug text-ink md:text-lg xl:text-[1.75rem] 2xl:text-3xl"
@@ -95,14 +87,17 @@ export function HomeHero() {
               >
                 {brand.descrizione}
               </motion.p>
-            </div>
+            </motion.div>
 
             <motion.div
-              variants={riseIn}
               className="mt-8 flex w-full max-w-full flex-wrap items-center justify-center gap-3 md:mt-10"
+              variants={container}
+              initial={reduce ? false : "hidden"}
+              animate="show"
             >
               <motion.div
                 className="w-full sm:w-auto"
+                variants={riseIn}
                 whileHover={reduce ? undefined : hoverGlow}
                 whileTap={reduce ? undefined : tapPress}
                 transition={spring}
@@ -113,6 +108,7 @@ export function HomeHero() {
               </motion.div>
               <motion.div
                 className="w-full sm:w-auto"
+                variants={riseIn}
                 whileHover={reduce ? undefined : hoverGlow}
                 whileTap={reduce ? undefined : tapPress}
                 transition={spring}
@@ -122,7 +118,7 @@ export function HomeHero() {
                 </Button>
               </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

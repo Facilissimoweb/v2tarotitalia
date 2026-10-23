@@ -8,8 +8,8 @@
 .hero-logo-spin__coin {
   display: block;
   transform-style: preserve-3d;
-  will-change: transform;
-  animation: hero-logo-spin-y 7s linear infinite;
+  /* Parte dopo LCP per non competere con paint iniziale / INP */
+  animation: hero-logo-spin-y 9s linear 1.8s infinite;
 }
 
 @keyframes hero-logo-spin-y {

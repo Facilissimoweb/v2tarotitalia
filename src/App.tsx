@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ConsentProvider } from "./context/ConsentContext";
@@ -7,27 +8,54 @@ import { LanguageProvider } from "./context/LanguageContext";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
 import { AuthModal } from "./components/AuthModal";
-import { PercorsiModal } from "./components/PercorsiModal";
-import { IthaModal } from "./components/IthaModal.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
-import { ChiSiamo } from "./pages/ChiSiamo";
-import { Arcani, ArcanoDetail } from "./pages/Arcani";
-import { ArcaniMinori } from "./pages/ArcaniMinori";
-import { Consulti } from "./pages/Consulti";
-import { Percorsi } from "./pages/Percorsi";
-import { Blog } from "./pages/Blog";
-import { Contatti } from "./pages/Contatti";
-import { Carrello } from "./pages/Carrello";
-import { Corsi } from "./pages/Corsi";
-import { Login } from "./pages/Login";
-import { Riservata } from "./pages/Riservata";
-import { NonTrovata } from "./pages/NonTrovata";
-import { Privacy } from "./pages/Privacy";
-import { TerminiDiServizio } from "./pages/TerminiDiServizio";
 import { StudioContactDock } from "./components/ContactDock";
-import { AccessibilityPanel } from "./components/AccessibilityWidget";
-import { TarotChat } from "./components/TarotChat";
+
+const PercorsiModal = lazy(() =>
+  import("./components/PercorsiModal").then((m) => ({ default: m.PercorsiModal })),
+);
+const IthaModal = lazy(() =>
+  import("./components/IthaModal.tsx").then((m) => ({ default: m.IthaModal })),
+);
+const AccessibilityPanel = lazy(() =>
+  import("./components/AccessibilityWidget").then((m) => ({ default: m.AccessibilityPanel })),
+);
+const TarotChat = lazy(() =>
+  import("./components/TarotChat").then((m) => ({ default: m.TarotChat })),
+);
+
+const ChiSiamo = lazy(() => import("./pages/ChiSiamo").then((m) => ({ default: m.ChiSiamo })));
+const Arcani = lazy(() => import("./pages/Arcani").then((m) => ({ default: m.Arcani })));
+const ArcanoDetail = lazy(() =>
+  import("./pages/Arcani").then((m) => ({ default: m.ArcanoDetail })),
+);
+const ArcaniMinori = lazy(() =>
+  import("./pages/ArcaniMinori").then((m) => ({ default: m.ArcaniMinori })),
+);
+const Consulti = lazy(() => import("./pages/Consulti").then((m) => ({ default: m.Consulti })));
+const Percorsi = lazy(() => import("./pages/Percorsi").then((m) => ({ default: m.Percorsi })));
+const Blog = lazy(() => import("./pages/Blog").then((m) => ({ default: m.Blog })));
+const Contatti = lazy(() => import("./pages/Contatti").then((m) => ({ default: m.Contatti })));
+const Carrello = lazy(() => import("./pages/Carrello").then((m) => ({ default: m.Carrello })));
+const Corsi = lazy(() => import("./pages/Corsi").then((m) => ({ default: m.Corsi })));
+const Login = lazy(() => import("./pages/Login").then((m) => ({ default: m.Login })));
+const Riservata = lazy(() => import("./pages/Riservata").then((m) => ({ default: m.Riservata })));
+const NonTrovata = lazy(() =>
+  import("./pages/NonTrovata").then((m) => ({ default: m.NonTrovata })),
+);
+const Privacy = lazy(() => import("./pages/Privacy").then((m) => ({ default: m.Privacy })));
+const TerminiDiServizio = lazy(() =>
+  import("./pages/TerminiDiServizio").then((m) => ({ default: m.TerminiDiServizio })),
+);
+
+function RouteFallback() {
+  return (
+    <div className="flex min-h-[40vh] items-center justify-center bg-ivory px-6 text-sm text-ink/60" aria-hidden>
+      …
+    </div>
+  );
+}
 
 export default function App() {
   return (
@@ -40,39 +68,141 @@ export default function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/chi-siamo" element={<ChiSiamo />} />
+              <Route
+                path="/chi-siamo"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <ChiSiamo />
+                  </Suspense>
+                }
+              />
               <Route path="/chi-sono" element={<Navigate to="/chi-siamo" replace />} />
-              <Route path="/arcani" element={<Arcani />} />
-              <Route path="/arcani/:slug" element={<ArcanoDetail />} />
-              <Route path="/arcani-minori" element={<ArcaniMinori />} />
-              <Route path="/consulti" element={<Consulti />} />
-              <Route path="/percorsi" element={<Percorsi />} />
+              <Route
+                path="/arcani"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Arcani />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/arcani/:slug"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <ArcanoDetail />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/arcani-minori"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <ArcaniMinori />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/consulti"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Consulti />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/percorsi"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Percorsi />
+                  </Suspense>
+                }
+              />
               <Route path="/rituali" element={<Navigate to="/percorsi" replace />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/contatti" element={<Contatti />} />
-              <Route path="/carrello" element={<Carrello />} />
-              <Route path="/corsi" element={<Corsi />} />
-              <Route path="/login" element={<Login />} />
+              <Route
+                path="/blog"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Blog />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/contatti"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Contatti />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/carrello"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Carrello />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/corsi"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Corsi />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Login />
+                  </Suspense>
+                }
+              />
               <Route
                 path="/riservata"
                 element={
                   <ProtectedRoute>
-                    <Riservata />
+                    <Suspense fallback={<RouteFallback />}>
+                      <Riservata />
+                    </Suspense>
                   </ProtectedRoute>
                 }
               />
-              <Route path="/privacy" element={<Privacy />} />
-              <Route path="/termini-di-servizio" element={<TerminiDiServizio />} />
-              <Route path="*" element={<NonTrovata />} />
+              <Route
+                path="/privacy"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Privacy />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/termini-di-servizio"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <TerminiDiServizio />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="*"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <NonTrovata />
+                  </Suspense>
+                }
+              />
             </Route>
           </Routes>
           <CookieBanner />
           <AuthModal />
-          <PercorsiModal />
           <StudioContactDock />
-          <TarotChat />
-          <AccessibilityPanel />
-          <IthaModal />
+          <Suspense fallback={null}>
+            <PercorsiModal />
+            <TarotChat />
+            <AccessibilityPanel />
+            <IthaModal />
+          </Suspense>
         </BrowserRouter>
         </IthaProvider>
         </LanguageProvider>

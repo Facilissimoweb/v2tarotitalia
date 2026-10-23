@@ -21,7 +21,13 @@ export function ImageSlot({ src, alt, caption, ratio = "portrait", className = "
     <Reveal className={className}>
       <figure>
         <div className={`overflow-hidden bg-mist ${ratios[ratio]}`}>
-          <img src={src} alt={alt} className="h-full w-full object-cover" />
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover"
+          />
         </div>
         {caption ? (
           <figcaption className="mt-5 text-[0.625rem] uppercase tracking-[0.2em] text-sage">
