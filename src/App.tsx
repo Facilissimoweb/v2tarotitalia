@@ -25,16 +25,11 @@ import { Riservata } from "./pages/Riservata";
 import { NonTrovata } from "./pages/NonTrovata";
 import { Privacy } from "./pages/Privacy";
 import { TerminiDiServizio } from "./pages/TerminiDiServizio";
-import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
 import { AccessibilityPanel } from "./components/AccessibilityWidget";
 import { TarotChat } from "./components/TarotChat";
-import { useSiteAccess } from "./lib/useSiteAccess";
 
 export default function App() {
-  const unlocked = useSiteAccess();
-  if (!unlocked) return <ComingSoon />;
-
   return (
     <AuthProvider>
       <ConsentProvider>
