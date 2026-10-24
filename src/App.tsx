@@ -10,7 +10,9 @@ import { CookieBanner } from "./components/CookieBanner";
 import { AuthModal } from "./components/AuthModal";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
+import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
+import { useSiteAccess } from "./lib/useSiteAccess";
 
 const PercorsiModal = lazy(() =>
   import("./components/PercorsiModal").then((m) => ({ default: m.PercorsiModal })),
@@ -58,6 +60,9 @@ function RouteFallback() {
 }
 
 export default function App() {
+  const unlocked = useSiteAccess();
+  if (!unlocked) return <ComingSoon />;
+
   return (
     <AuthProvider>
       <ConsentProvider>

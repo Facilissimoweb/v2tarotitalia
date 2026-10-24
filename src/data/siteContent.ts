@@ -189,7 +189,14 @@ export const siteContent = {
       titolo: "Questa pagina non è nel percorso",
       lead: "L’indirizzo che hai aperto non appartiene allo Studio. Niente è perduto: la Home resta aperta, con la stessa cura e la stessa chiarezza.",
     },
+    soglia: {
+      kicker: "Tarot Italia",
+      titolo: "Coming Soon",
+      lead: sloganBrand,
+      sfondo: "/coming-soon.png",
+    },
   },
+
 
   chiSiamo: {
     kicker: "Chi Sono",
