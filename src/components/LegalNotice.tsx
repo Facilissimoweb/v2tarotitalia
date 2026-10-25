@@ -107,10 +107,17 @@ export function PrivacyBody({ className = "mt-8" }: { className?: string } = {})
   );
 }
 
-function DisclaimerBody({ onClose }: { onClose: () => void }) {
+/** Corpo del Disclaimer legale (modale e pagina `/disclaimer`). */
+export function DisclaimerBody({
+  className = "mt-8",
+  onClose,
+}: {
+  className?: string;
+  onClose?: () => void;
+} = {}) {
   const { disclaimer } = legal;
   return (
-    <div className="mt-8 space-y-8 text-left">
+    <div className={`${className} space-y-8 text-left`}>
       <h3 className="text-center font-display text-base font-medium uppercase leading-relaxed tracking-[0.08em] text-ink">
         {disclaimer.heading}
       </h3>
@@ -119,11 +126,13 @@ function DisclaimerBody({ onClose }: { onClose: () => void }) {
           <LegalCopy>{paragrafo}</LegalCopy>
         </p>
       ))}
-      <div className="pt-4">
-        <Button variant="primary" className="w-full" onClick={onClose}>
-          {disclaimer.conferma}
-        </Button>
-      </div>
+      {onClose ? (
+        <div className="pt-4">
+          <Button variant="primary" className="w-full" onClick={onClose}>
+            {disclaimer.conferma}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 }

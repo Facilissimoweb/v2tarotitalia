@@ -1,7 +1,8 @@
 {
   "redirects": [
     { "source": "/rituali", "destination": "/percorsi", "permanent": true },
-    { "source": "/chi-siamo", "destination": "/chi-sono", "permanent": true }
+    { "source": "/chi-siamo", "destination": "/chi-sono", "permanent": true },
+    { "source": "/termini", "destination": "/termini-di-servizio", "permanent": true }
   ],
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
@@ -17,6 +18,7 @@
     { "source": "/login", "destination": "/index.html" },
     { "source": "/riservata", "destination": "/index.html" },
     { "source": "/privacy", "destination": "/index.html" },
+    { "source": "/disclaimer", "destination": "/index.html" },
     { "source": "/termini-di-servizio", "destination": "/index.html" },
     { "source": "/arcani/il-matto", "destination": "/index.html" },
     { "source": "/arcani/il-bagatto", "destination": "/index.html" },

@@ -47,6 +47,9 @@ const NonTrovata = lazy(() =>
   import("./pages/NonTrovata").then((m) => ({ default: m.NonTrovata })),
 );
 const Privacy = lazy(() => import("./pages/Privacy").then((m) => ({ default: m.Privacy })));
+const Disclaimer = lazy(() =>
+  import("./pages/Disclaimer").then((m) => ({ default: m.Disclaimer })),
+);
 const TerminiDiServizio = lazy(() =>
   import("./pages/TerminiDiServizio").then((m) => ({ default: m.TerminiDiServizio })),
 );
@@ -182,6 +185,14 @@ export default function App() {
                 }
               />
               <Route
+                path="/disclaimer"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Disclaimer />
+                  </Suspense>
+                }
+              />
+              <Route
                 path="/termini-di-servizio"
                 element={
                   <Suspense fallback={<RouteFallback />}>
@@ -189,6 +200,7 @@ export default function App() {
                   </Suspense>
                 }
               />
+              <Route path="/termini" element={<Navigate to="/termini-di-servizio" replace />} />
               <Route
                 path="*"
                 element={

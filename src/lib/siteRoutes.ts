@@ -15,6 +15,8 @@ export const STATIC_APP_PATHS = [
   "/login",
   "/riservata",
   "/privacy",
+  "/disclaimer",
+  "/termini",
   "/termini-di-servizio",
 ] as const;
 
