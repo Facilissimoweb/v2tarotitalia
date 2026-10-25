@@ -12,7 +12,7 @@ export function Carrello() {
         title={pages.carrello.titolo}
         lead={brand.slogan}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
-        secondary={{ to: "/chi-siamo", label: cta.leggiChiSiamo }}
+        secondary={{ to: "/chi-sono", label: cta.leggiChiSiamo }}
         meta={
           <p className="text-[0.6875rem] uppercase tracking-[0.2em] text-sage">{comingSoon}</p>
         }

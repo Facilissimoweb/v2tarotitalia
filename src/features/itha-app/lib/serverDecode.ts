@@ -1,8 +1,6 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
-import { siteContent } from "../../data/siteContent.ts";
-import { resolveOutputLanguage } from "../language.ts";
-import { buildIthaSystemPrompt, buildIthaUserPrompt } from "./prompt.ts";
-import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
+import { siteContent } from "../../../data/siteContent.ts";
+import { resolveOutputLanguage } from "../../../lib/language.ts";
 import {
   groqApiKey,
   groqModelPreference,
@@ -10,7 +8,9 @@ import {
   ITHA_GROQ_OSS_120B,
   supabaseAnonKey,
   supabaseUrl,
-} from "./serverEnv.ts";
+} from "../../../lib/serverEnv.ts";
+import { buildIthaSystemPrompt, buildIthaUserPrompt } from "./prompt.ts";
+import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
 import type { IthaDecode, IthaDecodeRequest } from "./types.ts";
 
 const { itha } = siteContent;
@@ -88,12 +88,6 @@ async function runIthaDecode(token: string, raw: unknown): Promise<HandlerResult
     return { status: 401, body: { error: itha.errori.sessione } };
   }
 
-  const consumed = await sb.rpc("consume_itha_credit");
-  if (consumed.error) {
-    return { status: 402, body: { error: itha.errori.crediti } };
-  }
-  const remaining = Number(consumed.data ?? 0);
-
   const decode = await callGroq(key, body);
   try {
     const { data, error } = await sb
@@ -115,7 +109,6 @@ async function runIthaDecode(token: string, raw: unknown): Promise<HandlerResult
         body: {
           id: data.id,
           createdAt: data.created_at,
-          credits: remaining,
           language: body.language,
           decode,
         },
@@ -129,7 +122,6 @@ async function runIthaDecode(token: string, raw: unknown): Promise<HandlerResult
     body: {
       id: crypto.randomUUID(),
       createdAt: new Date().toISOString(),
-      credits: remaining,
       language: body.language,
       decode,
     },

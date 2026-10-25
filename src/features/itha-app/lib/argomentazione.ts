@@ -1,5 +1,5 @@
-import { getIthaLama, type IthaLama } from "../../data/ithaLame.ts";
-import { siteContent } from "../../data/siteContent.ts";
+import { siteContent } from "../../../data/siteContent.ts";
+import { getIthaLama, type IthaLama } from "../data/ithaLame.ts";
 import type { IthaDecode, IthaDecodeRequest } from "./types.ts";
 
 type Theme = "casa" | "lavoro" | "progetto" | "soldi" | "famiglia" | "coppia" | "scelta" | "ostili" | "altro";

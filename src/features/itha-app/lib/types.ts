@@ -1,6 +1,4 @@
-import type { DrawnIthaCard, IthaPositionId } from "../../data/ithaMazzo.ts";
-
-export type IthaPlanId = "singola" | "pacchetto3" | "pass5";
+import type { DrawnIthaCard, IthaPositionId } from "../data/ithaMazzo.ts";
 
 export type IthaDecode = {
   analisi: string;
@@ -30,10 +28,4 @@ export type IthaDecodeRequest = {
     rank: string;
     position: IthaPositionId;
   }>;
-};
-
-export const ITHA_PLAN_CREDITS: Record<IthaPlanId, { credits: number; amount: string }> = {
-  singola: { credits: 1, amount: "5.00" },
-  pacchetto3: { credits: 3, amount: "12.00" },
-  pass5: { credits: 5, amount: "20.00" },
 };

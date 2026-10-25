@@ -1,5 +1,5 @@
 import { siteContent } from "../data/siteContent.ts";
-import { downloadLumiereDocument } from "./itha/pdf.ts";
+import { downloadLumiereDocument } from "../features/itha-app/lib/pdf.ts";
 import { activeLanguage, isSourceLanguage } from "./language";
 import { localizeOfficialTexts } from "./localizeClient";
 

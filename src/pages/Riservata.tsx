@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useItha } from "../context/IthaContext.tsx";
+import { useItha } from "../features/itha-app";
 import { STUDIO, TARIFFE } from "../data/catalogo";
 import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
 import { siteContent } from "../data/siteContent";
@@ -19,7 +19,7 @@ const { auth, consulti, itha, lingua, legal } = siteContent;
 
 export function Riservata() {
   const { session, purchases, logout, requestWithdrawal } = useAuth();
-  const { credits, readings, openItha } = useItha();
+  const { readings, openItha } = useItha();
   const { corsi, materiali, busy, localized, error, download } = useLocalizedCatalog();
   const [tab, setTab] = useState<Tab>("acquisti");
   const [withdrawId, setWithdrawId] = useState<string | null>(null);
@@ -74,7 +74,7 @@ export function Riservata() {
           {(
             [
               ["acquisti", `${auth.storico} (${purchases.length})`],
-              ["itha", `${itha.sticky} (${credits})`],
+              ["itha", `${itha.sticky} (${readings.length})`],
               ["corsi", `Corsi & dispense (${corsi.length})`],
               ["alchemici", "Materiali alchemici"],
             ] as const
@@ -203,12 +203,9 @@ export function Riservata() {
         {tab === "itha" && (
           <div className="flex flex-col gap-8">
             <Reveal>
-              <div className="flex items-center justify-between bg-mist px-6 py-5">
-                <div>
-                  <Kicker>{itha.kicker}</Kicker>
-                  <h2 className="mt-2 font-display text-xl">{itha.titoloWidget}</h2>
-                </div>
-                <p className="font-display text-3xl">{credits}</p>
+              <div className="bg-mist px-6 py-5">
+                <Kicker>{itha.kicker}</Kicker>
+                <h2 className="mt-2 font-display text-xl">{itha.titoloWidget}</h2>
               </div>
             </Reveal>
             <Reveal>

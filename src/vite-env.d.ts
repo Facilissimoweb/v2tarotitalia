@@ -7,7 +7,6 @@ interface ImportMetaEnv {
   readonly VITE_SUPABASE_PUBLISHABLE_KEY?: string;
   readonly VITE_WHATSAPP_NUMBER?: string;
   readonly VITE_TELEGRAM_URL?: string;
-  readonly VITE_PAYPAL_CLIENT_ID?: string;
   readonly VITE_SITE_GATE?: string;
   readonly VITE_SITE_ACCESS?: string;
 }

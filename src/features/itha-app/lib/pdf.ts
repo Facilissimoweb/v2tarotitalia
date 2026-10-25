@@ -1,8 +1,8 @@
-import { siteContent } from "../../data/siteContent.ts";
-import { activeLanguage, isLatinLanguage, isSourceLanguage } from "../language.ts";
-import { localizeOfficialTexts } from "../localizeClient.ts";
-import { siteDateTime } from "../locale.ts";
-import { getIthaCardImagePath, type DrawnIthaCard } from "../../data/ithaMazzo.ts";
+import { siteContent } from "../../../data/siteContent.ts";
+import { activeLanguage, isLatinLanguage, isSourceLanguage } from "../../../lib/language.ts";
+import { localizeOfficialTexts } from "../../../lib/localizeClient.ts";
+import { siteDateTime } from "../../../lib/locale.ts";
+import { getIthaCardImagePath, type DrawnIthaCard } from "../data/ithaMazzo.ts";
 import { ithaCardSvg } from "./cardArt.ts";
 import { ithaCardSections } from "./prompt.ts";
 import type { IthaReading } from "./types.ts";

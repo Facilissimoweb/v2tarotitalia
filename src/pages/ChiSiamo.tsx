@@ -69,6 +69,9 @@ export function ChiSiamo() {
               <p className="mt-6 font-display text-xl leading-relaxed text-ink md:text-2xl">
                 {brand.studioDiTeresa}
               </p>
+              <p className="mt-4 text-sm uppercase leading-relaxed tracking-[0.12em] text-ink/70">
+                {brand.identitaFiscale}
+              </p>
             </div>
           </Reveal>
         </div>

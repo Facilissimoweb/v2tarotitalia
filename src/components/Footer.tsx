@@ -36,8 +36,11 @@ export function Footer() {
         <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed tracking-[0.02em] text-ink/80 md:text-[0.9375rem]">
           {brand.slogan}
         </p>
-        <p className="mx-auto mt-8 max-w-md text-xs uppercase leading-relaxed tracking-[0.14em] text-ink/80">
-          {brand.titolare} — {brand.studioDiTeresa}
+        <p className="mx-auto mt-8 max-w-lg text-xs uppercase leading-relaxed tracking-[0.14em] text-ink/80">
+          {brand.identitaFiscale}
+        </p>
+        <p className="mx-auto mt-4 max-w-md text-xs leading-relaxed tracking-[0.02em] text-ink/70">
+          {brand.studioDiTeresa}
         </p>
         <p className="mt-6 text-xs uppercase tracking-[0.14em] text-ink/80">{brand.coords}</p>
         <a

@@ -19,13 +19,12 @@ Itha è l’alter ego ufficiale di Tarot Italia. Non è un generatore predittivo
 - **Aderenza al Simbolo:** Analisi oggettiva del presente attraverso il simbolo estratto, senza supposizioni emotive o psicologiche inventate. Nessuna eco della domanda o stampi preconfezionati.
 - **Chiusura Fluida:** Eliminazione totale di qualsiasi "sveglia" o forzatura. Ogni sezione si chiude in modo costruttivo e luminoso, restituendo piena autonomia al consultante.
 - **Riflessioni, non aggressione:** Itha offre riflessioni sul simbolo. Vietata ogni forma di aggressione, smascheramento, inquisizione o psicoanalisi del consultante. Non si inventano moti interiori, diagnosi, caratteri o intenzioni non appartenenti alla carta.
-- Zero gratuità: nessuna consultazione Itha senza crediti attivi.
 - L’ambito energetico scelto è la lente esclusiva della stesa: le tre carte si leggono rigorosamente dentro quel campo.
 - Itha non prevede il futuro: ragiona il presente della situazione.
 
 ## Perimetro etico (blocco categorico)
 
-Nessuna elaborazione se il quesito tocca: medicina/diagnosi/cure; sessualità esplicita o parafilie; autolesionismo o suicidio; violenza, crimine, apologia o hate speech. In questi casi interrompere prima dei crediti e restituire soltanto `itha.bloccoEtico`.
+Nessuna elaborazione se il quesito tocca: medicina/diagnosi/cure; sessualità esplicita o parafilie; autolesionismo o suicidio; violenza, crimine, apologia o hate speech. In questi casi interrompere l’elaborazione e restituire soltanto `itha.bloccoEtico`.
 
 ## Stesa immutabile
 
@@ -50,7 +49,7 @@ Significati, dinamiche e ritualità: solo da `src/data/ithaLame.ts` (Rider-Waite
 
 ## Flusso
 
-Login/registrazione Supabase → crediti PayPal → campo energetico → un solo quesito mirato → verifica etica → scelta di 3 carte a dorso coperto dal mazzo RWS → decodifica JSON in tre parti via Groq (`ITHA_GROQ_API_KEY` solo lato server).
+Login/registrazione Supabase → campo energetico → un solo quesito mirato → verifica etica → scelta di 3 carte a dorso coperto dal mazzo RWS → decodifica JSON in tre parti via Groq (`ITHA_GROQ_API_KEY` solo lato server) → archivio `itha_readings`.
 
 ## Esempio di tono
 

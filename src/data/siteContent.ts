@@ -8,13 +8,16 @@ export const siteContent = {
     wordmark: "Tarot Italia",
     logo: "/logo.png",
     logoHero: "/logo-hero.png",
-    titolare: "M. Teresa Rogani",
+    titolare: "Maria Teresa Rogani",
     ruolo: "Operatrice olistica ed esoterica, cartomante e tarologa professionista",
     sottotitolo: sottotitoloBrand,
     descrizione: descrizioneBrand,
     slogan: sloganBrand,
     studioDiTeresa:
-      "Via Crispi 37, 62100 Macerata (MC), Marche, Italia — Riceve esclusivamente su appuntamento",
+      "Via Crispi 37, 62100 Macerata (MC), Marche, Italia — Ricevo esclusivamente su appuntamento",
+    piva: "P.IVA 02136780430",
+    identitaFiscale:
+      "Maria Teresa Rogani · Tarot Italia · Macerata · Via Crispi 37 · P.IVA 02136780430",
     deontologia:
       "Attività disciplinata ai sensi della Legge 14 gennaio 2013, n. 4. Nessuna consulenza costituisce parere medico, sanitario o legale.",
     city: "Macerata",
@@ -27,7 +30,7 @@ export const siteContent = {
 
   nav: {
     home: "Home",
-    chiSiamo: "Chi Sono",
+    chiSiamo: "Chi sono",
     tarocchi: "Tarocchi",
     arcaniMaggiori: "22 Arcani Maggiori",
     arcaniMinori: "Arcani Minori",
@@ -76,8 +79,8 @@ export const siteContent = {
     telegram: "Telegram",
     esploraArcani: "Esplora i 22 Arcani",
     formazioneOlistica: "Formazione olistica",
-    leggiChiSiamo: "Leggi Chi Sono",
-    scriviStudio: "Scrivi allo Studio",
+    leggiChiSiamo: "Leggi Chi sono",
+    scriviStudio: "Scrivimi",
     percorsi: "Percorsi",
     prenotaPercorso: "Prenota questo percorso",
     itha: "Itha",
@@ -90,9 +93,9 @@ export const siteContent = {
     chiSiamo: {
       titolo: "Simbolismo visivo e tradizione esoterica locale",
       presentazione:
-        "Benvenuti in Tarot Italia. Sono Teresa, operatrice olistica, esoterica e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine al linguaggio degli Arcani. Ogni consulto è uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirti piena sovranità decisionale. Opero con trasparenza, rigore ed etica, lontano da automatismi e logiche commerciali.",
+        "Ti do il benvenuto in Tarot Italia. Sono Teresa, operatrice olistica, esoterica e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine al linguaggio degli Arcani. Ogni consulto è uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirti piena sovranità decisionale. Opero con trasparenza, rigore ed etica, lontano da automatismi e logiche commerciali.",
       percorsi:
-        "I Percorsi di Armonizzazione e Consapevolezza offrono uno spazio di ascolto profondo, riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza promesse di forzature esterne.",
+        "Nei Percorsi di Armonizzazione e Consapevolezza offro uno spazio di ascolto profondo, riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza promesse di forzature esterne.",
     },
     ctaConsulto: "Prenota consulto",
     visione: {
@@ -199,10 +202,10 @@ export const siteContent = {
 
 
   chiSiamo: {
-    kicker: "Chi Sono",
+    kicker: "Chi sono",
     titolo: "Teresa & il Linguaggio dei Simboli",
     presentazione:
-      "Benvenuti in Tarot Italia. Sono Teresa, operatrice olistica ed esoterica, cartomante e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine artistica con una decennale indagine negli archetipi della psiche e della tradizione esoterica. Ogni consulto è uno spazio protetto d’ascolto autentico, concepito per disvelare nodi interiori e restituire sovranità decisionale a chi siede al tavolo degli Arcani. Chiarezza e verità restano valori etici della pratica anche quando si comunicano aspetti complessi: l’incontro è intimo, sartoriale e rispettoso, lontano da linguaggi commerciali aggressivi.",
+      "Ti do il benvenuto in Tarot Italia. Sono Teresa, operatrice olistica ed esoterica, cartomante e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine artistica con una decennale indagine negli archetipi della psiche e della tradizione esoterica. Ogni consulto è uno spazio protetto d’ascolto autentico, concepito per disvelare nodi interiori e restituire sovranità decisionale a chi siede al tavolo degli Arcani. Chiarezza e verità restano valori etici della mia pratica anche quando comunico aspetti complessi: l’incontro è intimo, sartoriale e rispettoso, lontano da linguaggi commerciali aggressivi.",
     formazioneAccademica:
       "Accademia di Belle Arti di Macerata. Laureata in Tecniche della Comunicazione Visiva. Questa solida base permette di decodificare la grammatica visiva, cromatica e compositiva delle carte storiche non come mera superstizione, ma come linguaggio visivo archetipico che dialoga direttamente con la mente profonda.",
     citazione:
@@ -288,7 +291,7 @@ export const siteContent = {
     immagini: {
       hero: {
         src: "/chi-siamo/hero.jpg",
-        alt: "Chi Sono",
+        alt: "Chi sono",
       },
       teresa: {
         src: "/chi-siamo/teresa-ritratto.svg?v=3",
@@ -413,13 +416,8 @@ export const siteContent = {
           "Ogni lettura si chiude in modo fluido, aprendo una possibilità. La direzione è visibile; scelta e responsabilità restano unicamente di chi interroga.",
       },
     ],
-    zeroGratuita:
-      "Non esistono consultazioni gratuite. Il valore energetico del Crocicchio si preserva tramite crediti attivi, associati al profilo nell’area riservata.",
     entra: "Entra nel Crocicchio",
     prosegui: "Prosegui",
-    credito: "Crediti attivi",
-    creditoEsaurito: "I crediti sono esauriti. Per aprire il Crocicchio è necessaria una ricarica.",
-    ricarica: "Ricarica crediti",
     campoTitolo: "Campo energetico",
     campoLead: "Scegli l’ambito in cui si muove il nodo.",
     campi: [
@@ -500,59 +498,13 @@ export const siteContent = {
     nuova: "Nuova consultazione",
     archivio: "Archivio Itha",
     archivioVuoto: "Nessuna consultazione Itha è ancora conservata nel tuo archivio.",
-    pianiTitolo: "Piani di ricarica",
-    pianiLead: "Circuito esclusivo PayPal. Nessuna formula gratuita.",
-    pianoSeleziona: "Seleziona questo piano",
-    pianoSelezionato: "Piano selezionato",
-    pianoPagaTitolo: "Completa il pagamento",
-    pianoPagaLead: "Conferma il consenso e procedi con PayPal sul piano scelto.",
-    paypalManca: "Il circuito PayPal non è ancora configurato. I crediti si attivano dopo il pagamento.",
-    paypalAuth:
-      "Autenticazione PayPal non riuscita. Verifica Client ID, Secret e che PAYPAL_ENV corrisponda all’ambiente (sandbox o live).",
-    paypalOrdine: "Il pagamento non è stato completato. Riprova oppure contatta lo Studio.",
-    paypalSdkErrore:
-      "Il pulsante PayPal non si è avviato. Ricarica la pagina e verifica che VITE_PAYPAL_CLIENT_ID sia il Client ID Sandbox (o Live) dell’app REST, poi riavvia il server di sviluppo.",
-    paypalConsensoRecesso:
-      "Confermo di richiedere l’accesso immediato ai crediti Itha (contenuto digitale a fruizione immediata) e prendo atto che, ai sensi dell’art. 59, lett. o) del Codice del Consumo, perderò il diritto di recesso all’avvio dell’accesso al servizio. (Obbligatorio)",
-    paypalConsensoAttendi: "Per procedere al pagamento, conferma prima la presa d’atto sul diritto di recesso.",
     groqManca: "La decodifica non è disponibile in questo momento.",
     bloccoEtico:
       "Il Crocicchio non elabora questo quesito. Itha resta entro il perimetro introspettivo e tarologico: non tratta ambiti medici o diagnostici, contenuti sessuali espliciti, autolesionismo, violenza, illecito o incitamento all’odio. Per salute fisica o psichica è necessario rivolgersi a professionisti abilitati. Formula una domanda sul campo interiore, relazionale o decisionale.",
     errori: {
-      crediti: "Servono crediti attivi per aprire il Crocicchio.",
       sessione: "Accedi all’area riservata per consultare Itha.",
       decodifica: "La lettura non è stata completata. Riprova tra poco.",
     },
-    piani: [
-      {
-        id: "singola",
-        crediti: 1,
-        prezzo: 5,
-        titolo: "Consultazione Singola",
-        testo: "1 accesso immediato al Crocicchio.",
-        paypal: "PayPal Standard",
-        rate: "",
-      },
-      {
-        id: "pacchetto3",
-        crediti: 3,
-        prezzo: 12,
-        titolo: "Pacchetto 3 Consultazioni",
-        testo: "Consultazioni puntuali con l’alter ego.",
-        paypal: "PayPal Standard",
-        rate: "",
-      },
-      {
-        id: "pass5",
-        crediti: 5,
-        prezzo: 20,
-        titolo: "Pass 5 Consultazioni Approfondite",
-        testo:
-          "Ideale per indagini approfondite, monitoraggio delle dinamiche nel tempo e salvataggio nell’archivio protetto.",
-        paypal: "PayPal / Disponibile Paga in 3 rate",
-        rate: "Paga in 3 rate da €6,66 (senza interessi).",
-      },
-    ],
   },
 
   tarotChat: {
@@ -606,9 +558,9 @@ export const siteContent = {
 - Per i percorsi di armonizzazione: chiarisci che costo e struttura variano e si definiscono su misura in base all’entità e alla profondità del cammino personale. Non inventare pacchetti o listini. Usa [[CTA:consulti]] e/o [[CTA:percorsi]] quando rimandi alle pagine.
 
 6) Identità e ruolo di Teresa (divieto assoluto di termini psicologici)
-- Se chiedono chi è Teresa o quale sia il suo ruolo: basati sulla pagina Chi Sono del sito. Teresa lavora con la tarologia evolutiva, i simboli e la comunicazione visiva (formazione all’Accademia di Belle Arti).
+- Se chiedono chi è Teresa o quale sia il suo ruolo: basati sulla pagina Chi sono del sito. Teresa lavora con la tarologia evolutiva, i simboli e la comunicazione visiva (formazione all’Accademia di Belle Arti).
 - È assolutamente vietato associare la figura o il lavoro di Teresa a termini psicologici, terapeutici o clinici (es. terapia, psicologo, psicoterapeuta, diagnosi, cura clinica).
-- Dirotta sempre alla lettura della pagina Chi Sono (/chi-sono) o al contatto diretto con Teresa (+39 379 103 82 53). Usa [[CTA:whatsapp,phone]] quando inviti al contatto; non inventare biografie, titoli o metodi non presenti sul sito.
+- Dirotta sempre alla lettura della pagina Chi sono (/chi-sono) o al contatto diretto con Teresa (+39 379 103 82 53). Usa [[CTA:whatsapp,phone]] quando inviti al contatto; non inventare biografie, titoli o metodi non presenti sul sito.
 
 7) Call to action (CTA) e chiusura
 - Ogni volta che la conversazione tocca un nodo emotivo profondo o un dubbio relazionale complesso (lecito e rispettoso), proponi con naturalezza il passaggio all’azione: prenotazione di un consulto, accesso ai percorsi di armonizzazione, oppure contatto telefonico/WhatsApp diretto con Teresa (+39 379 103 82 53).
@@ -681,7 +633,7 @@ export const siteContent = {
     sogliaTitolo: "Benvenuta/o nel tuo spazio riservato",
     sogliaLead:
       "Per finalizzare la tua prenotazione è necessario accedere o registrarsi. Serve solo per darti un'area privata dove gestire il tuo consulto e ricevere i promemoria.",
-    giaDeiNostri: "Sei già dei nostri? Accedi qui",
+    giaDeiNostri: "Hai già un account? Accedi qui",
     primaVolta: "Prima volta qui? Registrati in un attimo",
     login: "Login",
     registrazione: "Registrazione",
@@ -734,52 +686,52 @@ export const siteContent = {
       titolo: "Informativa sulla privacy",
       intestazione: "www.tarotitalia.com • Tarot Italia",
       intro: [
-        "Il sito web www.tarotitalia.com è di proprietà di Tarot Italia, che è un titolare del trattamento dei tuoi dati personali.",
-        "Abbiamo adottato questa Informativa sulla privacy, che determina come elaboriamo le informazioni raccolte da tarotitalia.com, che fornisce anche i motivi per cui dobbiamo raccogliere determinati dati personali su di te. Pertanto, devi leggere questa Informativa sulla privacy prima di utilizzare il sito web tarotitalia.com.",
-        "Ci prendiamo cura dei tuoi dati personali e ci impegniamo a garantirne la riservatezza e la sicurezza.",
+        "Il sito web www.tarotitalia.com è gestito da Maria Teresa Rogani — Tarot Italia (P.IVA 02136780430), titolare del trattamento dei tuoi dati personali.",
+        "Ho adottato questa Informativa sulla privacy per chiarire come elaboro le informazioni raccolte su tarotitalia.com e i motivi per cui posso dover raccogliere determinati dati personali. Ti invito a leggerla prima di utilizzare il sito.",
+        "Mi prendo cura dei tuoi dati personali e mi impegno a garantirne la riservatezza e la sicurezza.",
       ],
       sezioni: [
         {
           icon: "shield",
-          titolo: "Informazioni personali che raccogliamo:",
+          titolo: "Informazioni personali che raccolgo:",
           testo:
-            'Quando visiti tarotitalia.com, raccogliamo automaticamente determinate informazioni sul tuo dispositivo, tra cui informazioni sul tuo browser web, indirizzo IP, fuso orario e alcuni dei cookie installati sul tuo dispositivo. Inoltre, mentre navighi sul Sito, raccogliamo informazioni sulle singole pagine web o prodotti che visualizzi, quali siti web o termini di ricerca ti hanno indirizzato al Sito e come interagisci con il Sito. Ci riferiamo a queste informazioni raccolte automaticamente come "Informazioni sul dispositivo". Inoltre, potremmo raccogliere i dati personali che ci fornisci (inclusi, ma non limitati a, Nome, Cognome, Indirizzo, informazioni di pagamento, ecc.) durante la registrazione per poter adempiere all\'accordo.',
+            'Quando visiti tarotitalia.com, raccolgo automaticamente determinate informazioni sul tuo dispositivo, tra cui informazioni sul browser web, indirizzo IP, fuso orario e alcuni dei cookie installati sul dispositivo. Inoltre, mentre navighi sul Sito, raccolgo informazioni sulle pagine o prodotti che visualizzi, su quali siti o termini di ricerca ti hanno indirizzato al Sito e su come interagisci con esso. Mi riferisco a queste informazioni raccolte automaticamente come "Informazioni sul dispositivo". Inoltre, posso raccogliere i dati personali che mi fornisci (inclusi, ma non limitati a, nome, cognome, indirizzo, informazioni di pagamento, ecc.) durante la registrazione, per adempiere all\'accordo.',
         },
         {
           icon: "settings",
-          titolo: "Perché elaboriamo i tuoi dati?",
+          titolo: "Perché elaboro i tuoi dati?",
           testo:
-            "La nostra massima priorità è la sicurezza dei dati dei clienti e, in quanto tale, potremmo elaborare solo dati utente minimi, solo nella misura in cui è assolutamente necessario per mantenere il sito web. Le informazioni raccolte automaticamente vengono utilizzate solo per identificare potenziali casi di abuso e stabilire informazioni statistiche sull'utilizzo del sito web. Queste informazioni statistiche non vengono altrimenti aggregate in modo tale da identificare un particolare utente del sistema. Puoi visitare il sito web senza dirci chi sei o rivelare alcuna informazione, tramite la quale qualcuno potrebbe identificarti come un individuo specifico e identificabile. Se, tuttavia, desideri utilizzare alcune delle funzionalità del sito web o desideri ricevere la nostra newsletter o fornire altri dettagli compilando un modulo, puoi fornirci dati personali, come la tua e-mail, nome, cognome, città di residenza, organizzazione, numero di telefono. Puoi scegliere di non fornirci i tuoi dati personali, ma in tal caso potresti non essere in grado di sfruttare alcune delle funzionalità del sito web. Ad esempio, non sarai in grado di ricevere la nostra Newsletter o di contattarci direttamente dal sito web. Gli utenti che non sono certi su quali informazioni siano obbligatorie sono invitati a contattarci tramite info@tarotitalia.com .",
+            "La massima priorità è la sicurezza dei dati di chi mi contatta: posso elaborare solo dati utente minimi, nella misura assolutamente necessaria per mantenere il sito. Le informazioni raccolte automaticamente servono a identificare potenziali abusi e a elaborare statistiche sull'utilizzo del sito, senza aggregarle in modo da identificare un particolare utente. Puoi visitare il sito senza dirmi chi sei né rivelare informazioni che permettano di identificarti. Se desideri usare alcune funzionalità, ricevere aggiornamenti o compilare un modulo, puoi fornirmi dati personali (e-mail, nome, cognome, città, organizzazione, telefono). Puoi scegliere di non fornirli, ma in tal caso potresti non poter usare alcune funzionalità (ad esempio newsletter o contatto diretto dal sito). Per dubbi su quali dati siano obbligatori, scrivi a info@tarotitalia.com.",
         },
         {
           icon: "gavel",
           titolo: "I tuoi diritti:",
           testo:
-            "Se sei un residente europeo, hai i seguenti diritti relativi ai tuoi dati personali: Il diritto di essere informato. Il diritto di accesso. Il diritto di rettifica. Il diritto di cancellazione. Il diritto di limitare il trattamento. Il diritto alla portabilità dei dati. Il diritto di opposizione. Diritti in relazione al processo decisionale automatizzato e alla profilazione. Se desideri esercitare questo diritto, ti preghiamo di contattarci tramite le informazioni di contatto riportate di seguito. Inoltre, se sei un residente europeo, ti informiamo che stiamo elaborando le tue informazioni per adempiere ai contratti che potremmo avere con te (ad esempio, se effettui un ordine tramite il Sito) o altrimenti per perseguire i nostri legittimi interessi commerciali elencati sopra. Inoltre, tieni presente che le tue informazioni potrebbero essere trasferite al di fuori dell'Europa, inclusi Canada e Stati Uniti.",
+            "Se sei residente in Europa, hai i seguenti diritti relativi ai tuoi dati personali: diritto di essere informato, di accesso, di rettifica, di cancellazione, di limitare il trattamento, alla portabilità, di opposizione, nonché diritti in relazione al processo decisionale automatizzato e alla profilazione. Per esercitarli, contattami con i riferimenti sotto. Se sei residente in Europa, ti informo che elaboro le tue informazioni per adempiere a contratti eventualmente in essere (ad esempio un ordine tramite il Sito) o per perseguire i legittimi interessi professionali indicati sopra. Le tue informazioni potrebbero essere trasferite fuori dall'Europa, inclusi Canada e Stati Uniti.",
         },
         {
           icon: "link",
           titolo: "Collegamenti ad altri siti Web:",
           testo:
-            "Il nostro sito Web potrebbe contenere collegamenti ad altri siti Web che non sono di nostra proprietà o controllati da noi. Tieni presente che non siamo responsabili per tali altri siti Web o per le pratiche sulla privacy di terze parti. Ti invitiamo a prestare attenzione quando lasci il nostro sito Web e a leggere le dichiarazioni sulla privacy di ciascun sito Web che potrebbe raccogliere informazioni personali.",
+            "Il sito può contenere collegamenti ad altri siti Web che non sono di mia proprietà né da me controllati. Non sono responsabile di tali siti né delle pratiche sulla privacy di terze parti. Ti invito a prestare attenzione quando lasci tarotitalia.com e a leggere le informative di ciascun sito che potrebbe raccogliere informazioni personali.",
         },
         {
           icon: "lock",
           titolo: "Sicurezza delle informazioni:",
           testo:
-            "Proteggiamo le informazioni che fornisci su server informatici in un ambiente controllato e sicuro, protetto da accessi, usi o divulgazioni non autorizzati. Manteniamo ragionevoli misure di sicurezza amministrative, tecniche e fisiche per proteggere da accessi, usi, modifiche e divulgazioni non autorizzati di dati personali sotto il nostro controllo e la nostra custodia. Tuttavia, non è possibile garantire alcuna trasmissione di dati tramite Internet o rete wireless.",
+            "Proteggo le informazioni che mi fornisci su server in un ambiente controllato e sicuro, protetto da accessi, usi o divulgazioni non autorizzati. Mantengo misure di sicurezza amministrative, tecniche e fisiche ragionevoli per proteggere i dati personali sotto il mio controllo. Nessuna trasmissione via Internet o rete wireless può tuttavia essere garantita al cento per cento.",
         },
         {
           icon: "policy",
           titolo: "Divulgazione legale:",
           testo:
-            "Divulgheremo qualsiasi informazione che raccogliamo, utilizziamo o riceviamo se richiesto o consentito dalla legge, ad esempio per ottemperare a una citazione in giudizio o a un procedimento legale simile, e quando riteniamo in buona fede che la divulgazione sia necessaria per proteggere i nostri diritti, proteggere la tua sicurezza o la sicurezza di altri, indagare su frodi o rispondere a una richiesta governativa.",
+            "Divulgo informazioni raccolte, utilizzate o ricevute se richiesto o consentito dalla legge (ad esempio per una citazione o un procedimento analogo), e quando ritengo in buona fede che la divulgazione sia necessaria per proteggere i miei diritti, la tua sicurezza o quella di altri, indagare su frodi o rispondere a una richiesta dell'autorità.",
         },
         {
           icon: "mail",
           titolo: "Informazioni di contatto:",
           testo:
-            "Se desideri contattarci per saperne di più su questa Politica o desideri contattarci in merito a qualsiasi questione relativa ai diritti individuali e alle tue Informazioni personali, puoi inviare un'e-mail a info@tarotitalia.com",
+            "Per saperne di più su questa Informativa o per questioni relative ai diritti individuali e alle tue informazioni personali, puoi scrivere a info@tarotitalia.com. Titolare: Maria Teresa Rogani · Tarot Italia · Macerata · Via Crispi 37 · P.IVA 02136780430.",
         },
       ],
     },
@@ -833,29 +785,29 @@ export const siteContent = {
       intestazione: "www.tarotitalia.com • Tutela del marchio e anti-phishing",
       kicker: "Trasparenza",
       intro:
-        "Per proteggere chi si affida a Tarot Italia e l’identità professionale dello Studio, pubblichiamo questa nota ufficiale di sicurezza, tutela del marchio e prevenzione delle imitazioni.",
+        "Per proteggere chi si affida a Tarot Italia e la mia identità professionale, pubblico questa nota ufficiale di sicurezza, tutela del marchio e prevenzione delle imitazioni.",
       sintesi:
-        "tarotitalia.com è l’unico canale ufficiale autorizzato. I professionisti di Tarot Italia non sollecitano mai consulti o servizi tramite chat private o social.",
+        "tarotitalia.com è l’unico canale ufficiale autorizzato. Non sollecito mai consulti o servizi tramite chat private o social non richiesti.",
       punti: [
         {
           titolo: "Unicità del dominio",
           testo:
-            "Si ricorda che tarotitalia.com è l’unico canale ufficiale autorizzato per i servizi di Tarot Italia. Ogni altra pagina, profilo o indirizzo che ne imiti il nome non è riconosciuto dallo Studio.",
+            "tarotitalia.com è l’unico canale ufficiale autorizzato per i servizi di Tarot Italia. Ogni altra pagina, profilo o indirizzo che ne imiti il nome non è riconosciuto da me.",
         },
         {
           titolo: "Tutela del marchio",
           testo:
-            "Il marchio «Tarot Italia» è protetto a tutela della qualità e dell’identità professionale dei servizi offerti. L’uso non autorizzato del nome, del logo o dell’immagine dello Studio è contrario a questa tutela.",
+            "Il marchio «Tarot Italia» è protetto a tutela della qualità e della mia identità professionale. L’uso non autorizzato del nome, del logo o della mia immagine è contrario a questa tutela.",
         },
         {
           titolo: "Politica anti-contatti non sollecitati",
           testo:
-            "I professionisti di Tarot Italia non contattano mai direttamente gli utenti di loro sponte tramite chat private o social per offrire consulti o servizi non richiesti. Qualsiasi proposta non preceduta da una richiesta esplicita dell’utente è da considerarsi estranea allo Studio.",
+            "Non contatto mai di mia sponte gli utenti tramite chat private o social per offrire consulti o servizi non richiesti. Qualsiasi proposta non preceduta da una richiesta esplicita è da considerarsi estranea a Tarot Italia.",
         },
         {
           titolo: "Segnalazioni",
           testo:
-            "Invitiamo gli utenti a segnalare qualsiasi tentativo di imitazione o contatto sospetto scrivendo esclusivamente all’indirizzo email ufficiale: info@tarotitalia.com.",
+            "Ti invito a segnalare qualsiasi tentativo di imitazione o contatto sospetto scrivendo esclusivamente all’indirizzo email ufficiale: info@tarotitalia.com.",
         },
       ],
       apri: "Apri la nota ufficiale di sicurezza",

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { siteContent } from "../data/siteContent";
-import { useItha } from "../context/IthaContext.tsx";
 import { BrandLogo } from "../components/BrandLogo";
 import { Button, Kicker } from "../components/Button";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
@@ -9,10 +8,9 @@ import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
 import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
-const { brand, chiSiamo, cta, home, itha, nav } = siteContent;
+const { brand, chiSiamo, cta, home, nav } = siteContent;
 
 export function Home() {
-  const { openItha } = useItha();
   const [formazioneOpen, setFormazioneOpen] = useState(false);
   const [visioneOpen, setVisioneOpen] = useState(false);
 
@@ -48,7 +46,7 @@ export function Home() {
             </Reveal>
             <Reveal delay={400}>
               <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                <Button to="/chi-siamo" variant="ghost">
+                <Button to="/chi-sono" variant="ghost">
                   {cta.leggiChiSiamo} →
                 </Button>
                 <Button variant="ghost" onClick={() => setFormazioneOpen(true)}>
@@ -75,7 +73,7 @@ export function Home() {
               {home.percorsi.titolo}
             </h2>
           </Reveal>
-          <div className="mt-14 grid gap-8 lg:grid-cols-3">
+          <div className="mt-14 grid gap-8 md:grid-cols-2">
             {home.percorsi.letture.map((lettura, i) => {
               const featured = lettura.id === "deep";
               return (
@@ -113,22 +111,6 @@ export function Home() {
                 </Reveal>
               );
             })}
-            <Reveal delay={160}>
-              <article className="flex h-full flex-col bg-ivory p-8 md:p-10">
-                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
-                <h3 className="mt-4 font-display text-xl leading-snug text-ink">
-                  {home.percorsi.itha.titolo}
-                </h3>
-                <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">
-                  {home.percorsi.itha.testo}
-                </p>
-                <div className="mt-10">
-                  <Button variant="ghost" className="w-full" onClick={openItha}>
-                    {home.percorsi.itha.cta}
-                  </Button>
-                </div>
-              </article>
-            </Reveal>
           </div>
 
           <Reveal delay={240}>

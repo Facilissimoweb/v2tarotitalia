@@ -1,4 +1,4 @@
-import { sendJson, type NodeLikeReq, type NodeLikeRes } from "../src/lib/itha/http.ts";
+import { sendJson, type NodeLikeReq, type NodeLikeRes } from "../src/lib/http.ts";
 import { emptyGoogleReviews } from "../src/lib/googleReviews.ts";
 import { handleGoogleReviews } from "../src/lib/googleReviews.server.ts";
 

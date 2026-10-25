@@ -1,4 +1,4 @@
-import { readServerEnv } from "../itha/serverEnv.ts";
+import { readServerEnv } from "../serverEnv.ts";
 
 /** Modello di default per Tarot Chat (piano developer Groq). */
 export const TAROT_CHAT_GROQ_MODEL = "llama-3.3-70b-versatile";

@@ -39,35 +39,3 @@ export function supabaseAnonKey() {
 export function supabaseServiceKey() {
   return readServerEnv("SUPABASE_SERVICE_ROLE_KEY");
 }
-
-const PLACEHOLDER_PAYPAL_IDS = new Set(["", "sb", "your_client_id"]);
-const PLACEHOLDER_PAYPAL_SECRETS = new Set(["", "tuo_secret_paypal_qui", "your_secret", "your_paypal_secret"]);
-
-export function paypalClientId() {
-  const id = readServerEnv("PAYPAL_CLIENT_ID") || readServerEnv("VITE_PAYPAL_CLIENT_ID");
-  return PLACEHOLDER_PAYPAL_IDS.has(id) ? "" : id;
-}
-
-export function paypalSecret() {
-  const secret = readServerEnv("PAYPAL_CLIENT_SECRET");
-  return PLACEHOLDER_PAYPAL_SECRETS.has(secret) ? "" : secret;
-}
-
-export function paypalEnv() {
-  const env = readServerEnv("PAYPAL_ENV", "sandbox").toLowerCase();
-  return env === "live" ? "live" : "sandbox";
-}
-
-export function paypalBaseUrl() {
-  return paypalEnv() === "live" ? "https://api-m.paypal.com" : "https://api-m.sandbox.paypal.com";
-}
-
-/** True solo se Client ID e Secret sono valorizzati (niente placeholder). */
-export function paypalCredentialsReady() {
-  return Boolean(paypalClientId() && paypalSecret());
-}
-
-/** ID webhook dalla dashboard PayPal (Webhooks → Webhook ID). Solo server. */
-export function paypalWebhookId() {
-  return readServerEnv("PAYPAL_WEBHOOK_ID");
-}

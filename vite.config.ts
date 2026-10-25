@@ -58,21 +58,6 @@ function ithaApiPlugin(): Plugin {
             await handler(nodeReq, nodeRes);
             return;
           }
-          if (url === "/api/paypal-create-order") {
-            const { default: handler } = await import("./api/paypal-create-order.ts");
-            await handler(nodeReq, nodeRes);
-            return;
-          }
-          if (url === "/api/paypal-capture-order") {
-            const { default: handler } = await import("./api/paypal-capture-order.ts");
-            await handler(nodeReq, nodeRes);
-            return;
-          }
-          if (url === "/api/paypal-webhook") {
-            const { default: handler } = await import("./api/paypal-webhook.ts");
-            await handler(nodeReq, nodeRes);
-            return;
-          }
           if (url === "/api/google-reviews") {
             const { default: handler } = await import("./api/google-reviews.ts");
             await handler(nodeReq, nodeRes);

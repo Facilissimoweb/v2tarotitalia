@@ -1,4 +1,4 @@
-import { ARCANI } from "./arcani.ts";
+import { ARCANI } from "../../../data/arcani.ts";
 
 export type IthaSuit = "maggiori" | "bastoni" | "coppe" | "spade" | "pentacoli";
 

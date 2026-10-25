@@ -1,5 +1,5 @@
-import { siteContent } from "../../data/siteContent.ts";
-import { languageName, resolveOutputLanguage, SITE_SOURCE_LANG } from "../language.ts";
+import { siteContent } from "../data/siteContent.ts";
+import { languageName, resolveOutputLanguage, SITE_SOURCE_LANG } from "./language.ts";
 import { groqApiKey, groqModelPreference, ITHA_GROQ_LLAMA_70B, ITHA_GROQ_OSS_120B } from "./serverEnv.ts";
 
 export type LocalizeTexts = Record<string, string>;

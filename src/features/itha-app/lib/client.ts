@@ -1,17 +1,16 @@
-import { siteContent } from "../../data/siteContent.ts";
-import { getSupabaseClient } from "../supabase.ts";
+import { siteContent } from "../../../data/siteContent.ts";
+import { getSupabaseClient } from "../../../lib/supabase.ts";
+import { activeLanguage } from "../../../lib/language.ts";
+import { readJsonSafe } from "../../../lib/readJsonSafe.ts";
+import { fetchWithTimeout, isGroqUnavailable, markGroqUnavailable } from "../../../lib/remoteApi.ts";
+import type { DrawnIthaCard } from "../data/ithaMazzo.ts";
 import { isIthaQuestionBlocked, ithaEthicsMessage } from "./safety.ts";
-import { activeLanguage } from "../language.ts";
-import { readJsonSafe } from "../readJsonSafe.ts";
-import { fetchWithTimeout, isGroqUnavailable, markGroqUnavailable } from "../remoteApi.ts";
-import type { IthaDecode, IthaDecodeRequest, IthaPlanId, IthaReading } from "./types.ts";
-import type { DrawnIthaCard } from "../../data/ithaMazzo.ts";
+import type { IthaDecode, IthaDecodeRequest, IthaReading } from "./types.ts";
 
 type DecodeResponse = {
   error?: string;
   id?: string;
   createdAt?: string;
-  credits?: number;
   decode?: IthaDecode;
 };
 
@@ -50,15 +49,11 @@ async function requestRemoteDecode(input: IthaDecodeRequest) {
       return {
         id: json.id,
         createdAt: json.createdAt ?? new Date().toISOString(),
-        credits: Number(json.credits ?? 0),
         decode: json.decode,
       };
     }
     if (response.status === 401) {
       throw new Error(json?.error || siteContent.itha.errori.sessione);
-    }
-    if (response.status === 402) {
-      throw new Error(json?.error || siteContent.itha.errori.crediti);
     }
     if (response.status === 422) {
       throw new Error(json?.error || ithaEthicsMessage());
@@ -73,37 +68,6 @@ async function requestRemoteDecode(input: IthaDecodeRequest) {
     markGroqUnavailable();
     throw new Error(siteContent.itha.groqManca);
   }
-}
-
-export async function createPaypalOrder(planId: IthaPlanId) {
-  const response = await fetch("/api/paypal-create-order", {
-    method: "POST",
-    headers: await authHeaders(),
-    body: JSON.stringify({ planId }),
-  });
-  const json = await readJsonSafe<{ id?: string; error?: string }>(response);
-  if (!response.ok || !json?.id) throw new Error(json?.error || siteContent.itha.paypalManca);
-  return json.id;
-}
-
-export async function capturePaypalOrder(orderId: string) {
-  const response = await fetch("/api/paypal-capture-order", {
-    method: "POST",
-    headers: await authHeaders(),
-    body: JSON.stringify({ orderId }),
-  });
-  const json = await readJsonSafe<{ credits?: number; error?: string }>(response);
-  if (!response.ok) throw new Error(json?.error || siteContent.itha.paypalOrdine);
-  return json?.credits ?? 0;
-}
-
-export async function loadIthaCredits() {
-  const sb = getSupabaseClient();
-  if (!sb) return 0;
-  const { data: auth } = await sb.auth.getUser();
-  if (!auth.user) return 0;
-  const { data } = await sb.from("profiles").select("itha_credits").eq("id", auth.user.id).maybeSingle();
-  return Number(data?.itha_credits ?? 0);
 }
 
 export async function loadIthaReadings(): Promise<IthaReading[]> {

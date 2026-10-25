@@ -11,14 +11,13 @@ import {
   type NavItem,
 } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
-import { useItha } from "../context/IthaContext.tsx";
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { BrandLogo } from "./BrandLogo";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetBrandMark } from "./WidgetFrame";
 
-const { brand, nav, itha } = siteContent;
+const { brand, nav } = siteContent;
 
 /** Tipografia menu hamburger (mobile / tablet). */
 const NAV_ITEM =
@@ -217,8 +216,6 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
 }
 
 function MobileDrawer({ onClose }: { onClose: () => void }) {
-  const { openItha } = useItha();
-
   return (
     <div
       id="menu-mobile"
@@ -281,28 +278,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       </nav>
 
       <div className="shrink-0 bg-ivory border-t border-ink/10 px-8 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        <button
-          type="button"
-          className="flex w-full flex-col items-center bg-ink px-4 py-4 text-center text-ivory"
-          aria-label={`${nav.itha}. ${itha.drawerLead}`}
-          onClick={() => {
-            onClose();
-            openItha();
-          }}
-        >
-          <span className="mb-3 flex h-10 w-10 items-center justify-center bg-sage/25 text-sage" aria-hidden>
-            <IthaAppGlyph />
-          </span>
-          <span className={`block ${NAV_ITEM}`}>
-            {nav.itha}
-          </span>
-          <span className={`mt-2 block ${NAV_CHILD} leading-snug text-ivory/70`}>
-            {itha.drawerLead}
-          </span>
-        </button>
-        <div className="mt-1 border-t border-ink/10 pt-1">
-          <LanguageWidget placement="drawer" />
-        </div>
+        <LanguageWidget placement="drawer" />
       </div>
     </div>
   );
@@ -365,18 +341,6 @@ function CloseIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
       <path d="M6 6 L18 18 M18 6 L6 18" />
-    </svg>
-  );
-}
-
-/** Glifo delle tre lame: distingue Itha dalle voci di navigazione. */
-function IthaAppGlyph() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-      <rect x="2.2" y="5.2" width="8.2" height="13.2" stroke="currentColor" strokeWidth="1.2" />
-      <rect x="7" y="3.4" width="8.2" height="13.2" stroke="currentColor" strokeWidth="1.2" />
-      <rect x="11.8" y="5.2" width="8.2" height="13.2" stroke="currentColor" strokeWidth="1.2" />
-      <path d="M11 2.2 V4.4 M9.9 3.3 H12.1" stroke="currentColor" strokeWidth="1.1" />
     </svg>
   );
 }

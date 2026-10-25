@@ -7,7 +7,7 @@ type Props = {
   titleId?: string;
   onClose?: () => void;
   children: ReactNode;
-  /** Contenuto fuori dallo scroll (es. pulsanti PayPal): evita overflow che blocca gli iframe. */
+  /** Contenuto fuori dallo scroll del pannello. */
   footer?: ReactNode;
   wide?: boolean;
   xl?: boolean;

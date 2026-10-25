@@ -1,4 +1,4 @@
-import { siteContent } from "../../data/siteContent.ts";
+import { siteContent } from "../../../data/siteContent.ts";
 
 function normalize(text: string) {
   return text

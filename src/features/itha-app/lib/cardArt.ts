@@ -1,5 +1,5 @@
-import { ARCANI } from "../../data/arcani.ts";
-import type { IthaCard, IthaSuit } from "../../data/ithaMazzo.ts";
+import { ARCANI } from "../../../data/arcani.ts";
+import type { IthaCard, IthaSuit } from "../data/ithaMazzo.ts";
 
 const IVORY = "#F9F8F6";
 const INK = "#2B2523";

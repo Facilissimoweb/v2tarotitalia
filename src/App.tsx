@@ -3,7 +3,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ConsentProvider } from "./context/ConsentContext";
 import { PercorsiProvider } from "./context/PercorsiContext";
-import { IthaProvider } from "./context/IthaContext.tsx";
+import { IthaProvider } from "./features/itha-app/context/IthaContext.tsx";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
@@ -18,7 +18,7 @@ const PercorsiModal = lazy(() =>
   import("./components/PercorsiModal").then((m) => ({ default: m.PercorsiModal })),
 );
 const IthaModal = lazy(() =>
-  import("./components/IthaModal.tsx").then((m) => ({ default: m.IthaModal })),
+  import("./features/itha-app/components/IthaModal.tsx").then((m) => ({ default: m.IthaModal })),
 );
 const AccessibilityPanel = lazy(() =>
   import("./components/AccessibilityWidget").then((m) => ({ default: m.AccessibilityPanel })),
@@ -74,14 +74,14 @@ export default function App() {
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
               <Route
-                path="/chi-siamo"
+                path="/chi-sono"
                 element={
                   <Suspense fallback={<RouteFallback />}>
                     <ChiSiamo />
                   </Suspense>
                 }
               />
-              <Route path="/chi-sono" element={<Navigate to="/chi-siamo" replace />} />
+              <Route path="/chi-siamo" element={<Navigate to="/chi-sono" replace />} />
               <Route
                 path="/arcani"
                 element={

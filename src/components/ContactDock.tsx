@@ -2,7 +2,7 @@ import { useSyncExternalStore, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
-import { useItha } from "../context/IthaContext.tsx";
+import { useItha } from "../features/itha-app";
 import { usePercorsi } from "../context/PercorsiContext";
 import { useFooterClearance } from "../lib/useFooterClearance";
 import { tarotChatUi } from "../lib/tarotChat/ui";
@@ -69,7 +69,7 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
   );
 }
 
-/** Barra contatti dello Studio: nasconde il dock quando un overlay è aperto. */
+/** Barra contatti: nasconde il dock quando un overlay è aperto. */
 export function StudioContactDock() {
   const { open: ithaOpen } = useItha();
   const { open: cookieOpen, ready, reopen } = useConsent();

@@ -1,6 +1,6 @@
-import { formatIthaLama, getIthaLama } from "../../data/ithaLame.ts";
-import { siteContent } from "../../data/siteContent.ts";
-import { languageName, resolveOutputLanguage, SITE_SOURCE_LANG } from "../language.ts";
+import { siteContent } from "../../../data/siteContent.ts";
+import { languageName, resolveOutputLanguage, SITE_SOURCE_LANG } from "../../../lib/language.ts";
+import { formatIthaLama, getIthaLama } from "../data/ithaLame.ts";
 import type { IthaDecodeRequest, IthaReading } from "./types.ts";
 
 const { itha, brand } = siteContent;

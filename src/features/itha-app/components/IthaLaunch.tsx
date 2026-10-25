@@ -1,6 +1,6 @@
-import { siteContent } from "../data/siteContent.ts";
+import { siteContent } from "../../../data/siteContent.ts";
+import { BrandLogo } from "../../../components/BrandLogo.tsx";
 import { useItha } from "../context/IthaContext.tsx";
-import { BrandLogo } from "./BrandLogo.tsx";
 
 const { itha } = siteContent;
 

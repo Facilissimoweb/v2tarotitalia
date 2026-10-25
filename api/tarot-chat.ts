@@ -1,5 +1,5 @@
 import { handleTarotChat } from "../src/lib/tarotChat/serverChat.ts";
-import { readJsonBody, sendJson, type NodeLikeReq, type NodeLikeRes } from "../src/lib/itha/http.ts";
+import { readJsonBody, sendJson, type NodeLikeReq, type NodeLikeRes } from "../src/lib/http.ts";
 import { siteContent } from "../src/data/siteContent.ts";
 
 export default async function handler(req: NodeLikeReq, res: NodeLikeRes) {

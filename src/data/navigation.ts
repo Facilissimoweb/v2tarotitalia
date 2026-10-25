@@ -24,16 +24,16 @@ const tarocchi: NavBranch = {
 };
 
 const home: NavLeaf = { to: "/", label: nav.home, end: true };
-const chiSiamo: NavLeaf = { to: "/chi-siamo", label: nav.chiSiamo };
+const chiSono: NavLeaf = { to: "/chi-sono", label: nav.chiSiamo };
 const consulti: NavLeaf = { to: "/consulti", label: nav.consulti };
 const percorsi: NavLeaf = { to: "/percorsi", label: nav.percorsi };
 const blog: NavLeaf = { to: "/blog", label: nav.blog };
 const contatti: NavLeaf = { to: "/contatti", label: nav.contatti };
 
-export const NAV_LEADING: NavItem[] = [home, chiSiamo, consulti, tarocchi];
+export const NAV_LEADING: NavItem[] = [home, chiSono, consulti, tarocchi];
 export const NAV_TRAILING: NavItem[] = [percorsi, blog, contatti];
 
-export const MAIN_NAV: NavItem[] = [home, chiSiamo, consulti, percorsi, blog, contatti, tarocchi];
+export const MAIN_NAV: NavItem[] = [home, chiSono, consulti, percorsi, blog, contatti, tarocchi];
 
 export function isNavBranch(item: NavItem): item is NavBranch {
   return "children" in item;

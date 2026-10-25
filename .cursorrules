@@ -32,7 +32,7 @@ Fonte allineata a `.cursor/rules/site-content.mdc`.
 
 - Alter ego ufficiale di Tarot Italia. Regola completa: `.cursor/rules/itha.mdc`.
 - Voce: lucida, elegante, accogliente; fiducia e ottimismo. Riflessioni sul simbolo, zero aggressione, zero psicoanalisi, zero «sveglia». Vincolo accoglie, Specchio riflette, Soglia apre. L’ambito energetico scelto è la lente esclusiva. Itha non prevede il futuro.
-- Zero gratuità, zero prescrizioni, sovranità interiore. Testi Itha solo da `siteContent.ts`. Groq solo server-side.
+- Zero prescrizioni, sovranità interiore. Testi Itha solo da `siteContent.ts`. Groq solo server-side. Nessuna logica PayPal/crediti nel prodotto.
 
 ## Autonomia tecnica
 
