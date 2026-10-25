@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
+import { mapAuthError } from "../lib/authErrors";
 import { getSupabaseClient, isSupabaseConfigured } from "../lib/supabase";
 import {
   canRequestWithdrawal,
@@ -124,7 +125,7 @@ async function persistBooking(userId: string, purchase: Purchase) {
   const bookings = await sb.from("bookings").insert(row);
   if (!bookings.error) return null;
   const purchases = await sb.from("purchases").insert(row);
-  return purchases.error?.message ?? bookings.error.message;
+  return mapAuthError(purchases.error ?? bookings.error, auth.errori.servizio);
 }
 
 async function persistCancellation(userId: string, id: string) {
@@ -135,7 +136,7 @@ async function persistCancellation(userId: string, id: string) {
   if (!bookings.error && bookings.data && bookings.data.length > 0) return null;
   const purchases = await sb.from("purchases").update(payload).eq("id", id).eq("user_id", userId).select("id");
   if (!purchases.error && purchases.data && purchases.data.length > 0) return null;
-  return purchases.error?.message ?? bookings.error?.message ?? siteContent.auth.errori.servizio;
+  return mapAuthError(purchases.error ?? bookings.error, auth.errori.servizio);
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -218,7 +219,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const sb = getSupabaseClient();
         if (sb) {
           const { data, error } = await sb.auth.signInWithPassword({ email: e, password });
-          if (error || !data.user) return error?.message || auth.errori.credenziali;
+          if (error || !data.user) return mapAuthError(error, auth.errori.credenziali);
           const next = mapUser(data.user, consents);
           if (!next) return auth.errori.credenziali;
           await persistConsents(next.id, next.email, next.name, consents);
@@ -250,7 +251,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             password,
             options: { data: { display_name: display }, emailRedirectTo: authRedirectUrl(redirectTo) },
           });
-          if (error) return error.message;
+          if (error) return mapAuthError(error);
           if (!data.session || !data.user) return "verify";
           const next = mapUser(data.user, consents);
           if (!next) return auth.errori.credenziali;
@@ -275,7 +276,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
         if (error) {
           clearPendingConsents();
-          return error.message;
+          return mapAuthError(error);
         }
         return "verify";
       },
@@ -290,7 +291,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
         if (error) {
           clearPendingConsents();
-          return error.message;
+          return mapAuthError(error, auth.errori.oauth);
         }
         return null;
       },

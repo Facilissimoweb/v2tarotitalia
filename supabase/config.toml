@@ -1,0 +1,6 @@
+# Tarot Italia — Supabase local / CLI config (functions)
+# Full project config can be pulled later with: supabase link && supabase config pull
+
+[functions.send-welcome-email]
+# Database Webhooks do not send a user JWT; auth is via WELCOME_EMAIL_WEBHOOK_SECRET.
+verify_jwt = false

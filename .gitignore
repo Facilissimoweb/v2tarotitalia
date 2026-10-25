@@ -5,6 +5,9 @@ dist
 .vite
 .env
 
+# Supabase CLI local cache
+supabase/.temp/
+
 # Asset 3D grezzi (Meshy / GLB / OBJ) — non vanno in repo
 public/logo-3d/
 *.glb

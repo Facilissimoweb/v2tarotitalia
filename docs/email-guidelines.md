@@ -3,7 +3,8 @@
 **Master blueprint** for all transactional and marketing emails from Tarot Italia (`tarotitalia.com`).  
 Align every template with this document before shipping. Site copy and identity remain governed by `src/data/siteContent.ts` and `.cursor/rules/site-content.mdc`; this file covers **email-only** structure, voice, and HTML constraints.
 
-**Production welcome template:** [`docs/email-welcome.html`](email-welcome.html) (Zoho Mail–ready).
+**Production welcome template:** [`docs/email-welcome.html`](email-welcome.html) (Zoho Mail–ready).  
+**Automated delivery (Edge Function + webhook):** [`docs/README-email-automation.md`](README-email-automation.md).
 
 ---
 
