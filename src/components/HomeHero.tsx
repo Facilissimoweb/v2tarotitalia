@@ -7,6 +7,8 @@ import { ChromaticImage } from "./ui/chromatic-image";
 const { brand, cta, home } = siteContent;
 
 const titolo = home.titolo;
+/** Split ufficiale "Tarot Italia" → a capo solo su mobile. */
+const [titoloLead = titolo, titoloTrail = ""] = titolo.split(/\s+/, 2);
 const HERO_IMAGE = "/hero-home.jpg";
 
 /** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
@@ -76,9 +78,17 @@ export function HomeHero() {
               className="mx-auto h-[clamp(7.5rem,min(52vw,28svh),18rem)] w-[clamp(7.5rem,min(52vw,28svh),18rem)] max-w-full drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
             />
 
-            {/* 1 · Titolo */}
-            <h1 className="mt-10 max-w-full break-words font-h1 text-[clamp(3.25rem,min(15vw,18svh),8.5rem)] font-bold leading-[1.02] text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14 xl:text-[clamp(5.75rem,min(11vw,18svh),11.5rem)]">
-              {titolo}
+            {/* 1 · Titolo: su mobile "Tarot" / "Italia" a capo; "Italia" più ampia in orizzontale */}
+            <h1 className="mt-10 max-w-full font-h1 text-[clamp(3.25rem,min(15vw,18svh),8.5rem)] font-bold leading-[1.05] text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14 md:leading-[1.02] xl:text-[clamp(5.75rem,min(11vw,18svh),11.5rem)]">
+              <span className="block md:inline">{titoloLead}</span>
+              {titoloTrail ? (
+                <>
+                  <span className="hidden md:inline"> </span>
+                  <span className="mt-1 block w-full text-[1.12em] tracking-[0.2em] md:mt-0 md:inline md:w-auto md:text-[1em] md:tracking-normal">
+                    {titoloTrail}
+                  </span>
+                </>
+              ) : null}
             </h1>
 
             {/* Separatore sotto il titolo */}
