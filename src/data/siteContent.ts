@@ -291,7 +291,7 @@ export const siteContent = {
     },
     immagini: {
       hero: {
-        src: "/chi-siamo/hero.jpg",
+        src: "/chi-siamo/hero-chromatic.jpg",
         alt: "Chi sono",
       },
       teresa: {

@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { siteContent } from "../data/siteContent";
+import { ChiSiamoHero } from "../components/ChiSiamoHero";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { ImageSlot } from "../components/ImageSlot";
 import { Button, Kicker } from "../components/Button";
-import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 
-const { brand, chiSiamo, nav, percorsi } = siteContent;
+const { brand, chiSiamo, percorsi } = siteContent;
 
 export function ChiSiamo() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
 
   return (
     <div>
-      <PageBanner title={nav.chiSiamo} className="mb-10 md:mb-14" />
+      <ChiSiamoHero />
 
       <section className="px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:gap-24">
