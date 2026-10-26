@@ -38,7 +38,7 @@ const AUTH_KEY = "tarot-italia-auth";
 const BOOKINGS_KEY = "tarot-italia-bookings";
 
 export const DEMO_ACCOUNT = {
-  email: "membro@tarotitalia.it",
+  email: "demo@tarotitalia.com",
   password: "santuario",
   name: "Lorenzo",
   since: "2024",

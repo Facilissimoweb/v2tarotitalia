@@ -23,8 +23,9 @@ export const siteContent = {
     city: "Macerata",
     region: "Marche, Italia",
     coords: "43° 18′ 01″ N / 13° 27′ 12″ E",
-    email: "sanctuary@tarotitalia.it",
+    email: "info@tarotitalia.com",
     adminEmail: "info@tarotitalia.com",
+    emailPersonale: "mariateresarogani@gmail.com",
     whatsapp: "+39 379 103 82 53",
   },
 

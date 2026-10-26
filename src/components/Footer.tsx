@@ -49,6 +49,12 @@ export function Footer() {
         >
           {brand.email}
         </a>
+        <a
+          href={`mailto:${brand.emailPersonale}`}
+          className="mt-3 block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4"
+        >
+          {brand.emailPersonale}
+        </a>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row [text-shadow:none]">
           <Button href={whatsappChatHref()}>{siteContent.cta.whatsappRapido}</Button>
           <Button href={getPhoneHref()} variant="ghost">

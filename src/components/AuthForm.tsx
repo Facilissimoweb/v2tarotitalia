@@ -6,6 +6,7 @@ import { isSupabaseConfigured } from "../lib/supabase";
 import { Button } from "./Button";
 import { ConsentFields } from "./ConsentFields";
 import { GoogleMark } from "./GoogleMark";
+import { LegalCopy } from "./LegalNotice";
 
 const { auth } = siteContent;
 
@@ -159,8 +160,16 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
         onVendita={onVendita}
       />
 
-      {error ? <p className="text-sm text-ink">{error}</p> : null}
-      {info ? <p className="text-sm text-ink/70">{info}</p> : null}
+      {error ? (
+        <p className="text-sm text-ink">
+          <LegalCopy>{error}</LegalCopy>
+        </p>
+      ) : null}
+      {info ? (
+        <p className="text-sm text-ink/70">
+          <LegalCopy>{info}</LegalCopy>
+        </p>
+      ) : null}
 
       {googleReady ? (
         <button

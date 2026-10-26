@@ -37,10 +37,10 @@ export function Contatti() {
                 {brand.email}
               </a>
               <a
-                href={`mailto:${brand.adminEmail}`}
+                href={`mailto:${brand.emailPersonale}`}
                 className="mt-4 block font-display text-xl italic text-ink underline decoration-sage/40 underline-offset-4"
               >
-                {brand.adminEmail}
+                {brand.emailPersonale}
               </a>
               <p className="mt-10 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
