@@ -784,7 +784,8 @@ export const siteContent = {
           icon: "mail" as const,
           titolo: "Informazioni di contatto",
           testi: [
-            "Per saperne di più su questa Informativa o per questioni relative ai diritti individuali e alle tue informazioni personali, puoi scrivere a info@tarotitalia.com.",
+            "Per saperne di più su questa Informativa o per questioni relative ai diritti individuali e alle tue informazioni personali, puoi scrivere a info@tarotitalia.com oppure mariateresarogani@gmail.com.",
+            "Per qualsiasi comunicazione o richiesta di cancellazione dati puoi contattare il Titolare agli indirizzi email: info@tarotitalia.com oppure mariateresarogani@gmail.com.",
             "Titolare: Maria Teresa Rogani · Tarot Italia · Macerata · Via Crispi 37 · P.IVA 02136780430.",
           ],
         },

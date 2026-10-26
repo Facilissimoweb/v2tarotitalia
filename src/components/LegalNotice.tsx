@@ -232,7 +232,7 @@ export function VenditaBody({
 }
 
 const TOKEN =
-  /(\[[^\]]+\]\(https?:\/\/[^)\s]+\)|www\.tarotitalia\.com|info@tarotitalia\.com|tarotitalia\.com|\+39 379 103 82 53)/g;
+  /(\[[^\]]+\]\(https?:\/\/[^)\s]+\)|www\.tarotitalia\.com|info@tarotitalia\.com|mariateresarogani@gmail\.com|tarotitalia\.com|\+39 379 103 82 53)/g;
 
 export function LegalCopy({ children }: { children: string }) {
   const nodes: ReactNode[] = [];
