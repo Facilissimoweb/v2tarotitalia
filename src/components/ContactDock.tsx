@@ -5,6 +5,7 @@ import { useConsent } from "../context/ConsentContext";
 import { usePercorsi } from "../context/PercorsiContext";
 import { useFooterClearance } from "../lib/useFooterClearance";
 import { tarotChatUi } from "../lib/tarotChat/ui";
+import { mailtoHref, openMailto } from "../lib/mailto";
 import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
 const { brand, cta, nav } = siteContent;
@@ -41,7 +42,7 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
       style={{ bottom: `calc(${lift}px + ${inset})` }}
     >
       <nav className={dockClass} aria-label={nav.contatti}>
-        <DockLink href={`mailto:${brand.email}`} label={cta.scriviStudio}>
+        <DockLink href={mailtoHref(brand.email)} label={cta.scriviStudio} mailto>
           <MailIcon />
         </DockLink>
         {tel ? (
@@ -83,16 +84,33 @@ function DockLink({
   label,
   ariaLabel,
   extra,
+  mailto = false,
   children,
 }: {
   href: string;
   label: string;
   ariaLabel?: string;
   extra?: { target?: string; rel?: string };
+  mailto?: boolean;
   children: ReactNode;
 }) {
   return (
-    <a href={href} className={itemClass} aria-label={ariaLabel ?? label} {...extra}>
+    <a
+      href={href}
+      className={`${itemClass} pointer-events-auto relative z-10`}
+      aria-label={ariaLabel ?? label}
+      translate={mailto ? "no" : undefined}
+      {...extra}
+      onClick={
+        mailto
+          ? (event) => {
+              event.preventDefault();
+              event.stopPropagation();
+              openMailto(href);
+            }
+          : undefined
+      }
+    >
       {children}
       <span className={tipClass}>{label}</span>
     </a>

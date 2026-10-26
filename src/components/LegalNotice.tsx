@@ -1,6 +1,7 @@
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button } from "./Button";
+import { MailToLink } from "./MailToLink";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetFrame } from "./WidgetFrame";
 import { WHATSAPP_ANCHOR, whatsappChatHref } from "../lib/whatsapp";
@@ -257,13 +258,13 @@ export function LegalCopy({ children }: { children: string }) {
       );
     } else if (token.includes("@")) {
       nodes.push(
-        <a
+        <MailToLink
           key={`${token}-${match.index}`}
-          href={`mailto:${token}`}
-          className="underline decoration-sage/40 underline-offset-4 hover:text-ink"
+          email={token}
+          className="underline decoration-sage/40 underline-offset-4 hover:text-ink hover:underline"
         >
           {token}
-        </a>,
+        </MailToLink>,
       );
     } else if (token.startsWith("+39")) {
       nodes.push(

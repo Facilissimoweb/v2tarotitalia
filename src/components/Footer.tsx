@@ -7,6 +7,7 @@ import { BrandLogo } from "./BrandLogo";
 import { Button } from "./Button";
 import { LanguageWidget } from "./LanguageWidget";
 import { LegalCopy, LegalNotice, type LegalKind } from "./LegalNotice";
+import { MailToLink } from "./MailToLink";
 import { getPhoneHref, whatsappChatHref } from "../lib/whatsapp";
 
 const { brand, cookies, legal } = siteContent;
@@ -43,18 +44,12 @@ export function Footer() {
           {brand.studioDiTeresa}
         </p>
         <p className="mt-6 text-xs uppercase tracking-[0.14em] text-ink/80">{brand.coords}</p>
-        <a
-          href={`mailto:${brand.email}`}
-          className="mt-6 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4"
+        <MailToLink
+          email={brand.email}
+          className="mt-6 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4 hover:underline"
         >
           {brand.email}
-        </a>
-        <a
-          href={`mailto:${brand.emailPersonale}`}
-          className="mt-3 block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4"
-        >
-          {brand.emailPersonale}
-        </a>
+        </MailToLink>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row [text-shadow:none]">
           <Button href={whatsappChatHref()}>{siteContent.cta.whatsappRapido}</Button>
           <Button href={getPhoneHref()} variant="ghost">
@@ -81,12 +76,12 @@ export function Footer() {
           <p className="mt-5 text-[0.9375rem] leading-[1.9] text-ink/85">
             <LegalCopy>{tutela.sintesi}</LegalCopy>
           </p>
-          <a
-            href={`mailto:${brand.adminEmail}`}
-            className="mt-5 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4"
+          <MailToLink
+            email={brand.adminEmail}
+            className="mt-5 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4 hover:underline"
           >
             {brand.adminEmail}
-          </a>
+          </MailToLink>
           <div className="mt-10 flex flex-col items-center gap-5 text-xs font-medium uppercase tracking-[0.14em] text-ink/80">
             <button type="button" className="hover:text-ink" onClick={() => setNotice("tutela")}>
               {tutela.sezione}

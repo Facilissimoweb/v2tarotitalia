@@ -1,6 +1,7 @@
 import { siteContent } from "../data/siteContent";
 import { BrandSafetyNote } from "../components/BrandSafetyNote";
 import { Button, Kicker } from "../components/Button";
+import { MailToLink } from "../components/MailToLink";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 import { getPhoneHref, whatsappChatHref } from "../lib/whatsapp";
@@ -30,18 +31,12 @@ export function Contatti() {
           <Reveal delay={100}>
             <article className="bg-mist px-8 py-12 md:px-10 md:py-16">
               <Kicker>{pages.contatti.kicker}</Kicker>
-              <a
-                href={`mailto:${brand.email}`}
-                className="mt-8 block font-display text-xl italic text-ink underline decoration-sage/40 underline-offset-4"
+              <MailToLink
+                email={brand.email}
+                className="mt-8 block font-display text-xl italic text-ink underline decoration-sage/40 underline-offset-4 hover:underline"
               >
                 {brand.email}
-              </a>
-              <a
-                href={`mailto:${brand.emailPersonale}`}
-                className="mt-4 block font-display text-xl italic text-ink underline decoration-sage/40 underline-offset-4"
-              >
-                {brand.emailPersonale}
-              </a>
+              </MailToLink>
               <p className="mt-10 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Button href={whatsappChatHref()}>{cta.whatsappRapido}</Button>

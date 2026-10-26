@@ -1,6 +1,7 @@
 import { siteContent } from "../data/siteContent";
 import { Kicker } from "./Button";
 import { LegalCopy } from "./LegalNotice";
+import { MailToLink } from "./MailToLink";
 import { Reveal } from "./Reveal";
 
 const { brand, legal } = siteContent;
@@ -38,12 +39,12 @@ export function BrandSafetyNote() {
         </div>
         <Reveal delay={320}>
           <p className="mt-12 text-center text-sm leading-[1.9] text-ink/65">
-            <a
-              href={`mailto:${brand.adminEmail}`}
-              className="font-display text-lg italic text-ink underline decoration-sage/40 underline-offset-4"
+            <MailToLink
+              email={brand.adminEmail}
+              className="font-display text-lg italic text-ink underline decoration-sage/40 underline-offset-4 hover:underline"
             >
               {brand.adminEmail}
-            </a>
+            </MailToLink>
           </p>
         </Reveal>
       </div>
