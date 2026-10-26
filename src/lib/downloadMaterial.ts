@@ -1,9 +1,9 @@
 import { siteContent } from "../data/siteContent.ts";
-import { downloadLumiereDocument } from "../features/itha-app/lib/pdf.ts";
+import { downloadLumiereDocument } from "./lumiereDocument.ts";
 import { activeLanguage, isSourceLanguage } from "./language";
 import { localizeOfficialTexts } from "./localizeClient";
 
-const { itha } = siteContent;
+const pdfFooter = siteContent.brand.identitaFiscale;
 
 export async function downloadLocalizedFile(
   file: string,
@@ -20,20 +20,20 @@ export async function downloadLocalizedFile(
       body: italian,
       filename,
       language: target,
-      footer: itha.pdfFooter,
+      footer: pdfFooter,
     });
     return;
   }
   const localized = await localizeOfficialTexts(target, {
     title,
     body: italian,
-    footer: itha.pdfFooter,
+    footer: pdfFooter,
   });
   await downloadLumiereDocument({
     title: localized.title || title,
     body: localized.body || italian,
     filename,
     language: target,
-    footer: localized.footer || itha.pdfFooter,
+    footer: localized.footer || pdfFooter,
   });
 }

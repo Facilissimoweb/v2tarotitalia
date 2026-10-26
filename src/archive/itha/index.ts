@@ -1,5 +1,6 @@
 /**
- * Itha · Crocicchio di Ecate — feature isolata.
+ * Itha · Crocicchio di Ecate — ARCHIVIO (non montato nell’app pubblica).
+ * Vedi README.md in questa cartella.
  *
  * Pubblico per l’host (sito Tarot Italia): provider, UI di lancio/modale, hook.
  * Il resto (deck, decode, PDF, Supabase readings) resta interno alla feature.

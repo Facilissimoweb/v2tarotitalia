@@ -3,7 +3,6 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { ConsentProvider } from "./context/ConsentContext";
 import { PercorsiProvider } from "./context/PercorsiContext";
-import { IthaProvider } from "./features/itha-app/context/IthaContext.tsx";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Layout } from "./components/Layout";
 import { CookieBanner } from "./components/CookieBanner";
@@ -16,9 +15,6 @@ import { useSiteAccess } from "./lib/useSiteAccess";
 
 const PercorsiModal = lazy(() =>
   import("./components/PercorsiModal").then((m) => ({ default: m.PercorsiModal })),
-);
-const IthaModal = lazy(() =>
-  import("./features/itha-app/components/IthaModal.tsx").then((m) => ({ default: m.IthaModal })),
 );
 const AccessibilityPanel = lazy(() =>
   import("./components/AccessibilityWidget").then((m) => ({ default: m.AccessibilityPanel })),
@@ -71,7 +67,6 @@ export default function App() {
       <ConsentProvider>
         <PercorsiProvider>
         <LanguageProvider>
-        <IthaProvider>
         <BrowserRouter>
           <Routes>
             <Route element={<Layout />}>
@@ -218,10 +213,8 @@ export default function App() {
             <PercorsiModal />
             <TarotChat />
             <AccessibilityPanel />
-            <IthaModal />
           </Suspense>
         </BrowserRouter>
-        </IthaProvider>
         </LanguageProvider>
         </PercorsiProvider>
       </ConsentProvider>

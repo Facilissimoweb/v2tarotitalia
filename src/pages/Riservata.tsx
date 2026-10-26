@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useItha } from "../features/itha-app";
 import { STUDIO, TARIFFE } from "../data/catalogo";
 import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
 import { siteContent } from "../data/siteContent";
@@ -13,13 +12,12 @@ import { siteDateTime } from "../lib/locale";
 import { canRequestWithdrawal, type PurchaseStatus } from "../lib/storage";
 import { buildRecessoMessage, openWhatsApp } from "../lib/whatsapp";
 
-type Tab = "acquisti" | "corsi" | "alchemici" | "itha";
+type Tab = "acquisti" | "corsi" | "alchemici";
 
-const { auth, consulti, itha, lingua, legal } = siteContent;
+const { auth, consulti, lingua, legal } = siteContent;
 
 export function Riservata() {
   const { session, purchases, logout, requestWithdrawal } = useAuth();
-  const { readings, openItha } = useItha();
   const { corsi, materiali, busy, localized, error, download } = useLocalizedCatalog();
   const [tab, setTab] = useState<Tab>("acquisti");
   const [withdrawId, setWithdrawId] = useState<string | null>(null);
@@ -74,7 +72,6 @@ export function Riservata() {
           {(
             [
               ["acquisti", `${auth.storico} (${purchases.length})`],
-              ["itha", `${itha.sticky} (${readings.length})`],
               ["corsi", `Corsi & dispense (${corsi.length})`],
               ["alchemici", "Materiali alchemici"],
             ] as const
@@ -197,32 +194,6 @@ export function Riservata() {
                 {siteContent.cta.consultoWhatsapp}
               </Button>
             </Reveal>
-          </div>
-        )}
-
-        {tab === "itha" && (
-          <div className="flex flex-col gap-8">
-            <Reveal>
-              <div className="bg-mist px-6 py-5">
-                <Kicker>{itha.kicker}</Kicker>
-                <h2 className="mt-2 font-display text-xl">{itha.titoloWidget}</h2>
-              </div>
-            </Reveal>
-            <Reveal>
-              <Button onClick={openItha}>{itha.entra}</Button>
-            </Reveal>
-            {readings.length === 0 ? (
-              <p className="text-sm leading-[1.9] text-ink/65">{itha.archivioVuoto}</p>
-            ) : (
-              readings.map((item, i) => (
-                <Reveal key={item.id} delay={i * 60}>
-                  <article className="bg-paper p-6">
-                    <p className="text-[0.625rem] uppercase tracking-[0.14em] text-sage">{item.category}</p>
-                    <p className="mt-3 text-sm leading-relaxed text-ink/75">{item.question}</p>
-                  </article>
-                </Reveal>
-              ))
-            )}
           </div>
         )}
 

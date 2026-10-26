@@ -1,4 +1,4 @@
-import { handleIthaDecode } from "../src/features/itha-app/lib/serverDecode.ts";
+import { handleIthaDecode } from "../src/archive/itha/lib/serverDecode.ts";
 import { readBearer, readJsonBody, sendJson, type NodeLikeReq, type NodeLikeRes } from "../src/lib/http.ts";
 import { siteContent } from "../src/data/siteContent.ts";
 
