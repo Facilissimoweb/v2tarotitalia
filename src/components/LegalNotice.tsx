@@ -98,9 +98,22 @@ export function PrivacyBody({ className = "mt-8" }: { className?: string } = {})
             </span>
             <span>{sezione.titolo}</span>
           </h3>
-          <p className="mt-4 text-sm leading-[1.9] text-ink/70">
-            <LegalCopy>{sezione.testo}</LegalCopy>
-          </p>
+          <div className="mt-4 space-y-4">
+            {sezione.testi.map((paragrafo) => (
+              <p key={paragrafo.slice(0, 64)} className="text-sm leading-[1.9] text-ink/70">
+                <LegalCopy>{paragrafo}</LegalCopy>
+              </p>
+            ))}
+            {"elenchi" in sezione && sezione.elenchi ? (
+              <ul className="list-disc space-y-2 pl-5 text-sm leading-[1.9] text-ink/70">
+                {sezione.elenchi.map((voce) => (
+                  <li key={voce}>
+                    <LegalCopy>{voce}</LegalCopy>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
         </section>
       ))}
     </div>
@@ -218,7 +231,8 @@ export function VenditaBody({
   );
 }
 
-const TOKEN = /(www\.tarotitalia\.com|info@tarotitalia\.com|tarotitalia\.com|\+39 379 103 82 53)/g;
+const TOKEN =
+  /(\[[^\]]+\]\(https?:\/\/[^)\s]+\)|www\.tarotitalia\.com|info@tarotitalia\.com|tarotitalia\.com|\+39 379 103 82 53)/g;
 
 export function LegalCopy({ children }: { children: string }) {
   const nodes: ReactNode[] = [];
@@ -228,7 +242,20 @@ export function LegalCopy({ children }: { children: string }) {
   while ((match = re.exec(children))) {
     if (match.index > last) nodes.push(children.slice(last, match.index));
     const token = match[0];
-    if (token.includes("@")) {
+    const md = token.match(/^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/);
+    if (md) {
+      nodes.push(
+        <a
+          key={`${md[2]}-${match.index}`}
+          href={md[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-sage/40 underline-offset-4 hover:text-ink"
+        >
+          {md[1]}
+        </a>,
+      );
+    } else if (token.includes("@")) {
       nodes.push(
         <a
           key={`${token}-${match.index}`}
