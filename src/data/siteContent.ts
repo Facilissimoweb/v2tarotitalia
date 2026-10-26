@@ -305,7 +305,7 @@ export const siteContent = {
         caption: "M. Teresa Rogani",
       },
       studio: {
-        src: "/chi-siamo/studio-macerata.svg?v=2",
+        src: "/chi-siamo/studio-board.jpg?v=1",
         alt: "Studio di M. Teresa Rogani in Via Crispi 37 a Macerata",
         caption: "Via Crispi 37 · Macerata",
       },
