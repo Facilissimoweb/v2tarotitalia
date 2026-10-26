@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
@@ -9,7 +10,9 @@ const { brand, cta, home } = siteContent;
 const titolo = home.titolo;
 /** Split ufficiale "Tarot Italia" → a capo solo su mobile. */
 const [titoloLead = titolo, titoloTrail = ""] = titolo.split(/\s+/, 2);
-const HERO_IMAGE = "/hero-home.jpg";
+const HERO_IMAGE_DESKTOP = "/hero-home.jpg";
+const HERO_IMAGE_MOBILE = "/hero-home-mobile.jpg";
+const MOBILE_HERO_MQ = "(max-width: 767px)";
 
 /** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
 const heroBtn = "w-full xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.22em] 2xl:px-14 2xl:py-7 2xl:text-base";
@@ -49,6 +52,19 @@ function HeroRule() {
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
+  const [heroSrc, setHeroSrc] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia(MOBILE_HERO_MQ).matches
+      ? HERO_IMAGE_MOBILE
+      : HERO_IMAGE_DESKTOP,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia(MOBILE_HERO_MQ);
+    const sync = () => setHeroSrc(mq.matches ? HERO_IMAGE_MOBILE : HERO_IMAGE_DESKTOP);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   return (
     <section
@@ -56,7 +72,7 @@ export function HomeHero() {
       className="relative isolate overflow-x-hidden bg-mist text-white [--hh:80px] xl:[--hh:112px]"
     >
       <ChromaticImage
-        src={HERO_IMAGE}
+        src={heroSrc}
         alt={brand.wordmark}
         backgroundColor="#efece7"
         zoom={0.1}
