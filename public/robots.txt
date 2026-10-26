@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Allow: /privacy.html
+
+Sitemap: https://www.tarotitalia.com/privacy.html

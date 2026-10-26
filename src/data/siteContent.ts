@@ -714,27 +714,27 @@ export const siteContent = {
           icon: "link" as const,
           titolo: "2. Quali dati raccolgo tramite Google OAuth e Scopi (Scopes) utilizzati",
           testi: [
-            "Quando accedi tramite il servizio di autenticazione Google OAuth, l’applicazione richiede esclusivamente l’accesso ai dati non sensibili del tuo profilo, in rigorosa conformità con gli scopi (scopes) standard di Google:",
+            "Quando accedi tramite il servizio di autenticazione Google OAuth, l’applicazione richiede esclusivamente l’accesso ai dati non sensibili del tuo profilo. Gli scopes richiesti sono letteralmente i seguenti:",
           ],
           elenchi: [
             "openid: per autenticare in modo sicuro la tua identità.",
-            "…/auth/userinfo.profile: per ottenere il tuo nome, cognome e immagine del profilo (se disponibile).",
-            "…/auth/userinfo.email: per ottenere il tuo indirizzo email principale.",
+            "https://www.googleapis.com/auth/userinfo.profile (equivalente a .../auth/userinfo.profile): per ottenere il tuo nome, cognome e immagine del profilo (se disponibile).",
+            "https://www.googleapis.com/auth/userinfo.email (equivalente a .../auth/userinfo.email): per ottenere il tuo indirizzo email principale.",
           ],
         },
         {
           icon: "settings" as const,
-          titolo: "3. Come utilizzo questi dati (Scopo del trattamento e Limited Use)",
+          titolo: "3. Come utilizzo questi dati (Scopo del trattamento e Limited Use Requirements)",
           testi: [
-            "Utilizzo l’indirizzo email e il nome unicamente per creare il tuo account personale sulla piattaforma Tarot Italia, autenticare i tuoi accessi successivi e inviarti notifiche di servizio strettamente correlate all’uso dell’applicazione.",
-            "L’uso e il trasferimento da parte di Tarot Italia ad altre applicazioni delle informazioni ricevute dalle API di Google avverranno nel pieno rispetto della [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), incluse le limitazioni relative ai requisiti di «Uso Limitato» (Limited Use Requirements). I dati non saranno mai venduti a terzi, né utilizzati per scopi pubblicitari, di tracciamento o di profilazione commerciale.",
+            "Utilizzo l’indirizzo email e il nome unicamente per creare il tuo account personale sulla piattaforma Tarot Italia, autenticare i tuoi accessi successivi e inviarti notifiche di servizio strettamente correlate all’uso dell’applicazione. Non utilizzo i dati Google per pubblicità, tracciamento o profilazione commerciale.",
+            "L’uso e il trasferimento da parte di Tarot Italia ad altre applicazioni delle informazioni ricevute dalle API di Google avverranno nel pieno rispetto della [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), incluse le limitazioni relative ai requisiti di «Uso Limitato» (Limited Use Requirements).",
           ],
         },
         {
           icon: "policy" as const,
-          titolo: "4. Condivisione e trasferimento dei dati",
+          titolo: "4. Condivisione e trasferimento dei dati — divieto di cessione e profilazione",
           testi: [
-            "Non vendo, scambio o trasferisco in alcun modo a terze parti i dati personali ottenuti tramite Google OAuth. Questi dati non vengono utilizzati per finalità di tracciamento pubblicitario o profilazione commerciale.",
+            "Non vendo, non scambio e non trasferisco in alcun modo a terze parti i dati personali ottenuti tramite Google OAuth. Questi dati non vengono utilizzati per finalità di tracciamento pubblicitario o profilazione commerciale.",
           ],
         },
         {
@@ -742,7 +742,9 @@ export const siteContent = {
           titolo: "5. Conservazione e Procedura di Cancellazione dei dati (Data Deletion)",
           testi: [
             "Periodo di conservazione: i dati del tuo account Google saranno conservati fino a quando manterrai attivo il tuo account sulla piattaforma.",
-            "Procedura di cancellazione: puoi richiedere la cancellazione immediata e definitiva del tuo account e di tutti i dati associati in qualsiasi momento inviando un’email a info@tarotitalia.com oppure tramite la funzione dedicata all’interno delle impostazioni dell’app. Puoi inoltre revocare l’accesso di Tarot Italia direttamente dalla gestione del tuo account Google (Sezione Sicurezza > App di terze parti con accesso all’account).",
+            "Procedura di cancellazione via email: puoi richiedere la cancellazione immediata e definitiva del tuo account e di tutti i dati associati inviando un’email a info@tarotitalia.com oppure mariateresarogani@gmail.com, oppure tramite la funzione dedicata nelle impostazioni dell’app.",
+            "Revoca autonoma da Account Google: puoi revocare l’accesso di Tarot Italia dalla gestione del tuo Account Google (Sezione Sicurezza > App di terze parti con accesso all’account / Security → Third-party apps with account access).",
+            "Per qualsiasi comunicazione o richiesta di cancellazione dati puoi contattare il Titolare agli indirizzi email: info@tarotitalia.com oppure mariateresarogani@gmail.com.",
           ],
         },
         {

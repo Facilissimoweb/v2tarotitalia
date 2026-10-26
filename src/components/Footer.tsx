@@ -85,9 +85,9 @@ export function Footer() {
             <button type="button" className="hover:text-ink" onClick={() => setNotice("tutela")}>
               {tutela.sezione}
             </button>
-            <NavLink to="/privacy" className="hover:text-ink">
+            <a href="https://www.tarotitalia.com/privacy.html" className="hover:text-ink">
               {legal.privacy.sezione}
-            </NavLink>
+            </a>
             <button type="button" className="hover:text-ink" onClick={() => setNotice("disclaimer")}>
               {legal.disclaimer.sezione}
             </button>

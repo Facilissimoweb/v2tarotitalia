@@ -22,6 +22,7 @@ export function ConsentFields({ consents, onChange, onPrivacy, onVendita }: Prop
         onChange={() => toggle("privacy")}
         label={auth.consensi.privacyCookie}
         linkLabel={auth.consensi.leggiPrivacy}
+        href="https://www.tarotitalia.com/privacy.html"
         onOpen={onPrivacy}
       />
       <ConsentRow checked={consents.adult} onChange={() => toggle("adult")} label={auth.consensi.adulto} />
@@ -41,12 +42,14 @@ function ConsentRow({
   onChange,
   label,
   linkLabel,
+  href,
   onOpen,
 }: {
   checked: boolean;
   onChange: () => void;
   label: string;
   linkLabel?: string;
+  href?: string;
   onOpen?: () => void;
 }) {
   return (
@@ -61,7 +64,16 @@ function ConsentRow({
         />
         <span>{label}</span>
       </label>
-      {onOpen && linkLabel ? (
+      {linkLabel && href ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-7 text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+        >
+          {linkLabel}
+        </a>
+      ) : onOpen && linkLabel ? (
         <button
           type="button"
           className="ml-7 text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
