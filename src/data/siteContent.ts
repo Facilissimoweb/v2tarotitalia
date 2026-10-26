@@ -695,7 +695,7 @@ export const siteContent = {
     sitoUrl: "https://www.tarotitalia.com",
     privacy: {
       sezione: "Informativa sulla privacy",
-      titolo: "Informativa sulla privacy",
+      titolo: "Informativa sulla privacy di Tarot Italia",
       intestazione: "www.tarotitalia.com • Tarot Italia",
       intro: [
         "Il sito web www.tarotitalia.com è gestito da Maria Teresa Rogani — Tarot Italia (P.IVA 02136780430), titolare del trattamento dei tuoi dati personali.",
@@ -705,9 +705,39 @@ export const siteContent = {
       sezioni: [
         {
           icon: "shield",
-          titolo: "Informazioni personali che raccolgo:",
+          titolo: "1. Informazioni personali che raccolgo:",
           testo:
             'Quando visiti tarotitalia.com, raccolgo automaticamente determinate informazioni sul tuo dispositivo, tra cui informazioni sul browser web, indirizzo IP, fuso orario e alcuni dei cookie installati sul dispositivo. Inoltre, mentre navighi sul Sito, raccolgo informazioni sulle pagine o prodotti che visualizzi, su quali siti o termini di ricerca ti hanno indirizzato al Sito e su come interagisci con esso. Mi riferisco a queste informazioni raccolte automaticamente come "Informazioni sul dispositivo". Inoltre, posso raccogliere i dati personali che mi fornisci (inclusi, ma non limitati a, nome, cognome, indirizzo, informazioni di pagamento, ecc.) durante la registrazione, per adempiere all\'accordo.',
+        },
+        {
+          icon: "link",
+          titolo: "2. Quali dati raccolgo tramite Google OAuth:",
+          testo:
+            "Quando accedi tramite Google, raccolgo le seguenti informazioni fornite dal tuo account Google: il tuo nome, il tuo indirizzo email e la tua immagine del profilo (se disponibile).",
+        },
+        {
+          icon: "settings",
+          titolo: "3. Come utilizzo questi dati (Scopo del trattamento):",
+          testo:
+            "Utilizzo l’indirizzo email e il nome unicamente per creare il tuo account personale sulla piattaforma Tarot Italia, autenticare i tuoi accessi successivi e inviarti notifiche di servizio strettamente correlate all’uso dell’applicazione.",
+        },
+        {
+          icon: "policy",
+          titolo: "4. Condivisione e trasferimento dei dati:",
+          testo:
+            "Non vendo, scambio o trasferisco in alcun modo a terze parti i dati personali ottenuti tramite Google OAuth. Questi dati non vengono utilizzati per finalità di tracciamento pubblicitario o profilazione commerciale.",
+        },
+        {
+          icon: "lock",
+          titolo: "5. Conservazione e cancellazione dei dati:",
+          testo:
+            "I dati del tuo account Google saranno conservati fino a quando manterrai attivo il tuo account sulla piattaforma. Puoi richiedere la cancellazione immediata e definitiva del tuo account e di tutti i dati associati inviando un’email a info@tarotitalia.com o tramite la funzione dedicata all’interno dell’app.",
+        },
+        {
+          icon: "gavel",
+          titolo: "6. Conformità alla policy sui dati degli utenti di Google:",
+          testo:
+            'L’uso delle informazioni ricevute dalle API di Google da parte di Tarot Italia avverrà nel pieno rispetto della Google API Services User Data Policy, incluse le limitazioni relative ai requisiti di «Uso Limitato» (Limited Use requirements).',
         },
         {
           icon: "settings",
@@ -719,7 +749,7 @@ export const siteContent = {
           icon: "gavel",
           titolo: "I tuoi diritti:",
           testo:
-            "Se sei residente in Europa, hai i seguenti diritti relativi ai tuoi dati personali: diritto di essere informato, di accesso, di rettifica, di cancellazione, di limitare il trattamento, alla portabilità, di opposizione, nonché diritti in relazione al processo decisionale automatizzato e alla profilazione. Per esercitarli, contattami con i riferimenti sotto. Se sei residente in Europa, ti informo che elaboro le tue informazioni per adempiere a contratti eventualmente in essere (ad esempio un ordine tramite il Sito) o per perseguire i legittimi interessi professionali indicati sopra. Le tue informazioni potrebbero essere trasferite fuori dall'Europa, inclusi Canada e Stati Uniti.",
+            "Se sei residente in Europa, hai i seguenti diritti relativi ai tuoi dati personali: diritto di essere informato, di accesso, di rettifica, di cancellazione, di limitare il trattamento, alla portabilità, di opposizione, nonché diritti in relazione al processo decisionale automatizzato e alla profilazione. Per esercitarli, contattami con i riferimenti sotto. Se sei residente in Europa, ti informo che elaboro le tue informazioni per adempiere a contratti eventualmente in essere (ad esempio un ordine tramite il Sito) o per perseguire i legittimi interessi professionali indicati sopra. Le tue informazioni potrebbero essere trasferite fuori Europa, inclusi Canada e Stati Uniti.",
         },
         {
           icon: "link",
