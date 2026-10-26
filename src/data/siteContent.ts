@@ -705,39 +705,39 @@ export const siteContent = {
       sezioni: [
         {
           icon: "shield",
-          titolo: "1. Informazioni personali che raccolgo:",
+          titolo: "1. Informazioni personali che raccolgo",
           testo:
             'Quando visiti tarotitalia.com, raccolgo automaticamente determinate informazioni sul tuo dispositivo, tra cui informazioni sul browser web, indirizzo IP, fuso orario e alcuni dei cookie installati sul dispositivo. Inoltre, mentre navighi sul Sito, raccolgo informazioni sulle pagine o prodotti che visualizzi, su quali siti o termini di ricerca ti hanno indirizzato al Sito e su come interagisci con esso. Mi riferisco a queste informazioni raccolte automaticamente come "Informazioni sul dispositivo". Inoltre, posso raccogliere i dati personali che mi fornisci (inclusi, ma non limitati a, nome, cognome, indirizzo, informazioni di pagamento, ecc.) durante la registrazione, per adempiere all\'accordo.',
         },
         {
           icon: "link",
-          titolo: "2. Quali dati raccolgo tramite Google OAuth:",
+          titolo: "2. Quali dati raccolgo tramite Google OAuth",
           testo:
             "Quando accedi tramite Google, raccolgo le seguenti informazioni fornite dal tuo account Google: il tuo nome, il tuo indirizzo email e la tua immagine del profilo (se disponibile).",
         },
         {
           icon: "settings",
-          titolo: "3. Come utilizzo questi dati (Scopo del trattamento):",
+          titolo: "3. Come utilizzo questi dati (Scopo del trattamento)",
           testo:
             "Utilizzo l’indirizzo email e il nome unicamente per creare il tuo account personale sulla piattaforma Tarot Italia, autenticare i tuoi accessi successivi e inviarti notifiche di servizio strettamente correlate all’uso dell’applicazione.",
         },
         {
           icon: "policy",
-          titolo: "4. Condivisione e trasferimento dei dati:",
+          titolo: "4. Condivisione e trasferimento dei dati",
           testo:
             "Non vendo, scambio o trasferisco in alcun modo a terze parti i dati personali ottenuti tramite Google OAuth. Questi dati non vengono utilizzati per finalità di tracciamento pubblicitario o profilazione commerciale.",
         },
         {
           icon: "lock",
-          titolo: "5. Conservazione e cancellazione dei dati:",
+          titolo: "5. Conservazione e cancellazione dei dati",
           testo:
             "I dati del tuo account Google saranno conservati fino a quando manterrai attivo il tuo account sulla piattaforma. Puoi richiedere la cancellazione immediata e definitiva del tuo account e di tutti i dati associati inviando un’email a info@tarotitalia.com o tramite la funzione dedicata all’interno dell’app.",
         },
         {
           icon: "gavel",
-          titolo: "6. Conformità alla policy sui dati degli utenti di Google:",
+          titolo: "6. Conformità alla policy sui dati degli utenti di Google",
           testo:
-            'L’uso delle informazioni ricevute dalle API di Google da parte di Tarot Italia avverrà nel pieno rispetto della Google API Services User Data Policy, incluse le limitazioni relative ai requisiti di «Uso Limitato» (Limited Use requirements).',
+            "L’uso delle informazioni ricevute dalle API di Google da parte di Tarot Italia avverrà nel pieno rispetto della Google API Services User Data Policy, incluse le limitazioni relative ai requisiti di «Uso Limitato» (Limited Use requirements).",
         },
         {
           icon: "settings",
@@ -747,31 +747,31 @@ export const siteContent = {
         },
         {
           icon: "gavel",
-          titolo: "I tuoi diritti:",
+          titolo: "I tuoi diritti",
           testo:
             "Se sei residente in Europa, hai i seguenti diritti relativi ai tuoi dati personali: diritto di essere informato, di accesso, di rettifica, di cancellazione, di limitare il trattamento, alla portabilità, di opposizione, nonché diritti in relazione al processo decisionale automatizzato e alla profilazione. Per esercitarli, contattami con i riferimenti sotto. Se sei residente in Europa, ti informo che elaboro le tue informazioni per adempiere a contratti eventualmente in essere (ad esempio un ordine tramite il Sito) o per perseguire i legittimi interessi professionali indicati sopra. Le tue informazioni potrebbero essere trasferite fuori Europa, inclusi Canada e Stati Uniti.",
         },
         {
           icon: "link",
-          titolo: "Collegamenti ad altri siti Web:",
+          titolo: "Collegamenti ad altri siti Web",
           testo:
             "Il sito può contenere collegamenti ad altri siti Web che non sono di mia proprietà né da me controllati. Non sono responsabile di tali siti né delle pratiche sulla privacy di terze parti. Ti invito a prestare attenzione quando lasci tarotitalia.com e a leggere le informative di ciascun sito che potrebbe raccogliere informazioni personali.",
         },
         {
           icon: "lock",
-          titolo: "Sicurezza delle informazioni:",
+          titolo: "Sicurezza delle informazioni",
           testo:
             "Proteggo le informazioni che mi fornisci su server in un ambiente controllato e sicuro, protetto da accessi, usi o divulgazioni non autorizzati. Mantengo misure di sicurezza amministrative, tecniche e fisiche ragionevoli per proteggere i dati personali sotto il mio controllo. Nessuna trasmissione via Internet o rete wireless può tuttavia essere garantita al cento per cento.",
         },
         {
           icon: "policy",
-          titolo: "Divulgazione legale:",
+          titolo: "Divulgazione legale",
           testo:
             "Divulgo informazioni raccolte, utilizzate o ricevute se richiesto o consentito dalla legge (ad esempio per una citazione o un procedimento analogo), e quando ritengo in buona fede che la divulgazione sia necessaria per proteggere i miei diritti, la tua sicurezza o quella di altri, indagare su frodi o rispondere a una richiesta dell'autorità.",
         },
         {
           icon: "mail",
-          titolo: "Informazioni di contatto:",
+          titolo: "Informazioni di contatto",
           testo:
             "Per saperne di più su questa Informativa o per questioni relative ai diritti individuali e alle tue informazioni personali, puoi scrivere a info@tarotitalia.com. Titolare: Maria Teresa Rogani · Tarot Italia · Macerata · Via Crispi 37 · P.IVA 02136780430.",
         },
@@ -869,5 +869,14 @@ export const siteContent = {
     },
   },
 } as const;
+
+/** Testo completo (markdown) per Google OAuth Verification — stesso contenuto di `legal.privacy`. */
+export const privacyPolicyContent = [
+  `# ${siteContent.legal.privacy.titolo}`,
+  "",
+  ...siteContent.legal.privacy.intro,
+  "",
+  ...siteContent.legal.privacy.sezioni.flatMap((sezione) => [`## ${sezione.titolo}`, sezione.testo, ""]),
+].join("\n");
 
 export type SiteContent = typeof siteContent;
