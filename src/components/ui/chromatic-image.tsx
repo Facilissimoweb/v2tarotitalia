@@ -245,19 +245,79 @@ export function ChromaticImage({
       frame = requestAnimationFrame(render);
     };
 
-    const updatePointer = (event: PointerEvent) => {
+    /** Pointer attivo al tocco (touch/pen); null = solo hover mouse. */
+    let activePointerId: number | null = null;
+    let releaseTimer: number | null = null;
+
+    const setPointerFromEvent = (event: PointerEvent) => {
       const bounds = container.getBoundingClientRect();
-      pointerTarget.x = (event.clientX - bounds.left) / bounds.width;
-      pointerTarget.y = 1 - (event.clientY - bounds.top) / bounds.height;
+      const width = bounds.width || 1;
+      const height = bounds.height || 1;
+      pointerTarget.x = Math.min(1, Math.max(0, (event.clientX - bounds.left) / width));
+      pointerTarget.y = Math.min(1, Math.max(0, 1 - (event.clientY - bounds.top) / height));
+    };
+
+    const clearReleaseTimer = () => {
+      if (releaseTimer !== null) {
+        window.clearTimeout(releaseTimer);
+        releaseTimer = null;
+      }
+    };
+
+    const engagePointer = (event: PointerEvent) => {
+      clearReleaseTimer();
+      setPointerFromEvent(event);
       progressTarget = 1;
       requestRender();
     };
 
-    const resetPointer = () => {
-      pointerTarget.x = 0.5;
-      pointerTarget.y = 0.5;
-      progressTarget = 0;
-      requestRender();
+    /** Rilascio soft: il tap resta visibile un attimo, poi progress scende via approach(). */
+    const softRelease = () => {
+      clearReleaseTimer();
+      releaseTimer = window.setTimeout(() => {
+        pointerTarget.x = 0.5;
+        pointerTarget.y = 0.5;
+        progressTarget = 0;
+        requestRender();
+        releaseTimer = null;
+      }, 220);
+    };
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      activePointerId = event.pointerId;
+      engagePointer(event);
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      // Mouse: hover continuo. Touch/pen: solo mentre il dito è premuto su questo elemento.
+      if (event.pointerType === "mouse") {
+        engagePointer(event);
+        return;
+      }
+      if (activePointerId === event.pointerId) {
+        engagePointer(event);
+      }
+    };
+
+    const onPointerUp = (event: PointerEvent) => {
+      if (activePointerId !== event.pointerId) return;
+      activePointerId = null;
+      setPointerFromEvent(event);
+      softRelease();
+    };
+
+    const onPointerCancel = (event: PointerEvent) => {
+      if (activePointerId !== event.pointerId) return;
+      activePointerId = null;
+      softRelease();
+    };
+
+    /** Solo mouse: lasciare l’area = fade out. Touch usa pointerup/cancel. */
+    const onPointerLeave = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      activePointerId = null;
+      softRelease();
     };
 
     const image = new Image();
@@ -286,17 +346,26 @@ export function ChromaticImage({
       requestRender();
     });
     resizeObserver.observe(container);
-    container.addEventListener("pointermove", updatePointer, { passive: true });
-    container.addEventListener("pointerleave", resetPointer, { passive: true });
+    // Passive: nessun preventDefault → lo scroll della pagina resta libero su mobile.
+    const passive = { passive: true } as const;
+    container.addEventListener("pointerdown", onPointerDown, passive);
+    container.addEventListener("pointermove", onPointerMove, passive);
+    container.addEventListener("pointerup", onPointerUp, passive);
+    container.addEventListener("pointercancel", onPointerCancel, passive);
+    container.addEventListener("pointerleave", onPointerLeave, passive);
     resize();
     requestRender();
 
     return () => {
       disposed = true;
+      clearReleaseTimer();
       cancelAnimationFrame(frame);
       resizeObserver.disconnect();
-      container.removeEventListener("pointermove", updatePointer);
-      container.removeEventListener("pointerleave", resetPointer);
+      container.removeEventListener("pointerdown", onPointerDown);
+      container.removeEventListener("pointermove", onPointerMove);
+      container.removeEventListener("pointerup", onPointerUp);
+      container.removeEventListener("pointercancel", onPointerCancel);
+      container.removeEventListener("pointerleave", onPointerLeave);
       canvas.style.transform = "";
       gl.deleteTexture(texture);
       gl.deleteBuffer(buffer);
@@ -310,7 +379,7 @@ export function ChromaticImage({
     <div
       ref={containerRef}
       className={cn(
-        "relative isolate overflow-hidden bg-neutral-100 dark:bg-neutral-900",
+        "relative isolate overflow-hidden bg-neutral-100 touch-pan-y dark:bg-neutral-900",
         className,
       )}
     >
