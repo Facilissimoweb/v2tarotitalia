@@ -57,7 +57,7 @@ export function ChiSiamo() {
             src={chiSiamo.immagini.studio.src}
             alt={chiSiamo.immagini.studio.alt}
             caption={chiSiamo.immagini.studio.caption}
-            ratio="portrait"
+            fit="contain"
             className="mx-auto w-full max-w-md md:max-w-lg"
           />
           <Reveal>

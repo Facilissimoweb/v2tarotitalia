@@ -13,20 +13,33 @@ type Props = {
   alt: string;
   caption?: string;
   ratio?: Ratio;
+  /** `contain` mostra l’immagine intera (senza ritaglio); default `cover`. */
+  fit?: "cover" | "contain";
   className?: string;
 };
 
-export function ImageSlot({ src, alt, caption, ratio = "portrait", className = "" }: Props) {
+export function ImageSlot({
+  src,
+  alt,
+  caption,
+  ratio = "portrait",
+  fit = "cover",
+  className = "",
+}: Props) {
+  const contain = fit === "contain";
+
   return (
     <Reveal className={className}>
       <figure>
-        <div className={`overflow-hidden bg-mist ${ratios[ratio]}`}>
+        <div className={`overflow-hidden bg-mist ${contain ? "" : ratios[ratio]}`}>
           <img
             src={src}
             alt={alt}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover"
+            className={
+              contain ? "block h-auto w-full object-contain" : "h-full w-full object-cover"
+            }
           />
         </div>
         {caption ? (
