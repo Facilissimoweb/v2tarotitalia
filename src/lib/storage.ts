@@ -3,7 +3,13 @@ import { SITE_LOCALE } from "./locale";
 
 export type BookingMode = "studio" | "remote";
 
-export type PurchaseStatus = "pending" | "pending_whatsapp" | "confirmed" | "completed" | "cancelled";
+export type PurchaseStatus =
+  | "pending"
+  | "pending_payment"
+  | "pending_whatsapp"
+  | "confirmed"
+  | "completed"
+  | "cancelled";
 
 export type Consents = {
   privacy: boolean;

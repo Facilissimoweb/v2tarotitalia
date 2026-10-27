@@ -608,6 +608,11 @@ export const siteContent = {
   consulti: {
     procedi: "Ci siamo quasi!",
     conferma: "Conferma e riserva la sessione",
+    pagaStripe: "Paga e riserva la sessione",
+    checkoutOk: "Pagamento ricevuto. La sessione è riservata. Ti ho scritto anche via email.",
+    checkoutCancel: "Il pagamento non è stato completato. Lo slot è di nuovo disponibile.",
+    slotOccupato: "Questo orario è appena stato riservato. Scegline un altro.",
+    pagamentoManca: "Il pagamento non è ancora attivo. Riprova tra poco, oppure scrivimi a info@tarotitalia.com.",
     opzioni: [
       { id: "focus", titolo: "Consulto di 30 minuti", minuti: 30, prezzo: 40 },
       { id: "deep", titolo: "Consulto di 1 ora", minuti: 60, prezzo: 60 },
@@ -617,7 +622,7 @@ export const siteContent = {
       prezzo: 10,
     },
     avvisoConferma:
-      "La prenotazione è registrata sul tuo account. Lo storico degli acquisti e le richieste di recesso restano disponibili in Area riservata.",
+      "Dopo il pagamento su Stripe la sessione è riservata sul tuo account. Lo storico e le richieste di recesso restano in Area riservata. Riceverai conferma via email.",
     accessoObbligatorio:
       "Per finalizzare la tua prenotazione è necessario accedere o registrarsi. Serve solo per darti un'area privata dove gestire il tuo consulto e ricevere i promemoria.",
     successoKicker: "Richiesta inviata",
@@ -684,6 +689,7 @@ export const siteContent = {
     storico: "Storico acquisti",
     stati: {
       pending: "In attesa",
+      pending_payment: "In attesa del pagamento",
       pending_whatsapp: "In attesa di conferma manuale via WhatsApp",
       confirmed: "Confermata",
       completed: "Completata",

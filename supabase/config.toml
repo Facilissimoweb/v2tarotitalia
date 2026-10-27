@@ -4,3 +4,9 @@
 [functions.send-welcome-email]
 # Database Webhooks do not send a user JWT; auth is via WELCOME_EMAIL_WEBHOOK_SECRET.
 verify_jwt = false
+
+[functions.create-checkout]
+verify_jwt = true
+
+[functions.stripe-webhook]
+verify_jwt = false

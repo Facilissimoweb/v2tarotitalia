@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { STUDIO, TARIFFE } from "../data/catalogo";
 import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
@@ -9,7 +9,8 @@ import { BookingConfirm } from "../components/BookingConfirm";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { siteDateTime } from "../lib/locale";
-import { canRequestWithdrawal, type PurchaseStatus } from "../lib/storage";
+import { canRequestWithdrawal, clearBookingDraft, type PurchaseStatus } from "../lib/storage";
+import { cancelPendingCheckout } from "../lib/stripeCheckout";
 import { buildRecessoMessage, openWhatsApp } from "../lib/whatsapp";
 
 type Tab = "acquisti" | "corsi" | "alchemici";
@@ -17,12 +18,26 @@ type Tab = "acquisti" | "corsi" | "alchemici";
 const { auth, consulti, lingua, legal } = siteContent;
 
 export function Riservata() {
-  const { session, purchases, logout, requestWithdrawal } = useAuth();
+  const { session, purchases, logout, requestWithdrawal, refreshPurchases } = useAuth();
+  const [searchParams] = useSearchParams();
+  const checkout = searchParams.get("checkout");
   const { corsi, materiali, busy, localized, error, download } = useLocalizedCatalog();
   const [tab, setTab] = useState<Tab>("acquisti");
   const [withdrawId, setWithdrawId] = useState<string | null>(null);
   const [withdrawError, setWithdrawError] = useState<string | null>(null);
   const [withdrawn, setWithdrawn] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (checkout === "ok") {
+      clearBookingDraft();
+      sessionStorage.removeItem("tarot-italia-checkout-booking");
+      void refreshPurchases();
+      return;
+    }
+    if (checkout !== "cancel") return;
+    const id = searchParams.get("booking") || sessionStorage.getItem("tarot-italia-checkout-booking");
+    if (id) void cancelPendingCheckout(id);
+  }, [checkout, searchParams, refreshPurchases]);
 
   const recessoConsulti = legal.vendita.sezioni.find((sezione) => sezione.id === "consulti")?.testi[1];
   const recessoDigitali = legal.vendita.sezioni.find((sezione) => sezione.id === "digitali")?.testi[1];
@@ -91,6 +106,12 @@ export function Riservata() {
       </div>
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:px-10 md:py-20">
+        {checkout === "ok" ? (
+          <p className="mb-10 bg-mist p-5 text-sm leading-relaxed text-ink">{consulti.checkoutOk}</p>
+        ) : null}
+        {checkout === "cancel" ? (
+          <p className="mb-10 bg-mist p-5 text-sm leading-relaxed text-ink">{consulti.checkoutCancel}</p>
+        ) : null}
         <BookingConfirm />
         {error ? <p className="mb-10 text-sm text-ink">{error}</p> : null}
         {tab === "acquisti" && (

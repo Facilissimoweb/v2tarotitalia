@@ -3,7 +3,6 @@ import { STUDIO } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import {
-  clearBookingDraft,
   emptyConsents,
   hasRequiredConsents,
   readBookingDraft,
@@ -11,6 +10,7 @@ import {
   writeBookingDraft,
   type Consents,
 } from "../lib/storage";
+import { startStripeCheckout } from "../lib/stripeCheckout";
 import { formatBookingDay } from "../lib/whatsapp";
 import { Button, Kicker } from "./Button";
 import { ConsentFields } from "./ConsentFields";
@@ -20,8 +20,8 @@ const { auth, consulti } = siteContent;
 
 /** Riepilogo e conferma finale della prenotazione, nell’Area riservata. */
 export function BookingConfirm() {
-  const { addPurchase, session } = useAuth();
-  const [draft, setDraft] = useState(() => readBookingDraft());
+  const { session } = useAuth();
+  const [draft] = useState(() => readBookingDraft());
   const [name, setName] = useState(() => draft?.name || session?.name || "");
   const [phone, setPhone] = useState(() => draft?.phone || "");
   const [consents, setConsents] = useState<Consents>(
@@ -54,14 +54,21 @@ export function BookingConfirm() {
     setError(null);
     const payload = { ...draft, name: name.trim(), phone: phone.trim() };
     writeBookingDraft({ ...payload, consents });
-    const err = await addPurchase(payload, consents);
+    const result = await startStripeCheckout(payload, consents);
     setBusy(false);
-    if (err) {
-      setError(err);
+    if (result.error === "slotOccupato") {
+      setError(consulti.slotOccupato);
       return;
     }
-    clearBookingDraft();
-    setDraft(null);
+    if (result.error === "pagamentoManca") {
+      setError(consulti.pagamentoManca);
+      return;
+    }
+    if (result.error || !result.url) {
+      setError(result.detail || auth.errori.servizio);
+      return;
+    }
+    window.location.assign(result.url);
   }
 
   return (
@@ -97,7 +104,7 @@ export function BookingConfirm() {
 
       {error ? <p className="mt-4 text-sm text-ink">{error}</p> : null}
       <Button type="button" className="mt-8 w-full" disabled={busy} onClick={() => void confirm()}>
-        {consulti.conferma}
+        {consulti.pagaStripe}
       </Button>
       <LegalNotice kind={notice} onClose={() => setNotice(null)} />
     </section>

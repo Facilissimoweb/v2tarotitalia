@@ -11,6 +11,7 @@ import {
   writeBookingDraft,
   type BookingMode,
 } from "../lib/storage";
+import { fetchOccupiedSlots, isOccupied } from "../lib/occupiedSlots";
 import { formatBookingDay } from "../lib/whatsapp";
 import { Button, Kicker } from "../components/Button";
 import { BookingCalendar } from "../components/BookingCalendar";
@@ -86,9 +87,14 @@ export function Consulti() {
     });
   }
 
-  function proceed() {
+  async function proceed() {
     if (!dateIso || !slot || !slotsForDate(dateIso).includes(slot)) {
       setError(consulti.orarioNonDisponibile);
+      return;
+    }
+    const taken = await fetchOccupiedSlots(dateIso, dateIso);
+    if (isOccupied(taken, dateIso, slot)) {
+      setError(consulti.slotOccupato);
       return;
     }
     persistDraft();
@@ -214,7 +220,7 @@ export function Consulti() {
               </div>
             </div>
             {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
-            <Button type="button" className="mt-8 w-full" onClick={proceed}>
+            <Button type="button" className="mt-8 w-full" onClick={() => void proceed()}>
               {consulti.procedi}
             </Button>
           </section>

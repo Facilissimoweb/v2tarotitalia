@@ -49,6 +49,7 @@ type AuthContextValue = {
   logout: () => Promise<void>;
   addPurchase: (draft: PurchaseDraft, consents?: Consents) => Promise<string | null>;
   requestWithdrawal: (id: string) => Promise<string | null>;
+  refreshPurchases: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -318,6 +319,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         writePurchases(next);
         setPurchases(next);
         return null;
+      },
+      refreshPurchases: async () => {
+        if (!session) return;
+        const list = isSupabaseConfigured() ? await loadRemotePurchases(session.id) : readPurchases();
+        setPurchases(list);
+        writePurchases(list);
       },
       requestWithdrawal: async (id) => {
         const current = session;

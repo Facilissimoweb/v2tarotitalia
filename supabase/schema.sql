@@ -40,11 +40,13 @@ create table if not exists public.bookings (
   birth date,
   query text,
   status text not null default 'pending_whatsapp'
-    check (status in ('pending', 'pending_whatsapp', 'confirmed', 'completed', 'cancelled')),
+    check (status in ('pending', 'pending_payment', 'pending_whatsapp', 'confirmed', 'completed', 'cancelled')),
   consent_privacy boolean not null default false,
   consent_adult boolean not null default false,
   consent_refund boolean not null default false,
   whatsapp_sent_at timestamptz,
+  stripe_checkout_session_id text,
+  stripe_payment_intent_id text,
   created_at timestamptz not null default now()
 );
 
@@ -53,6 +55,14 @@ create index if not exists bookings_user_id_created_at_idx
 
 create index if not exists bookings_session_date_slot_idx
   on public.bookings (session_date, slot);
+
+create unique index if not exists bookings_active_slot_unique
+  on public.bookings (session_date, slot)
+  where status <> 'cancelled';
+
+create unique index if not exists bookings_stripe_session_unique
+  on public.bookings (stripe_checkout_session_id)
+  where stripe_checkout_session_id is not null;
 
 -- ---------------------------------------------------------------------------
 -- Acquisti (tabella legacy, allineata)
@@ -90,7 +100,7 @@ begin
   alter table public.purchases drop constraint if exists purchases_status_check;
   alter table public.purchases
     add constraint purchases_status_check
-    check (status in ('pending', 'pending_whatsapp', 'confirmed', 'completed', 'cancelled'));
+    check (status in ('pending', 'pending_payment', 'pending_whatsapp', 'confirmed', 'completed', 'cancelled'));
 exception
   when duplicate_object then null;
 end $$;
@@ -209,7 +219,7 @@ create policy "bookings_update_own_cancel"
   to authenticated
   using (
     auth.uid() = user_id
-    and status in ('pending', 'pending_whatsapp', 'confirmed')
+    and status in ('pending', 'pending_payment', 'pending_whatsapp', 'confirmed')
   )
   with check (
     auth.uid() = user_id
@@ -255,6 +265,22 @@ grant select on public.bookings to authenticated;
 grant update on public.bookings to authenticated;
 grant select, insert on public.purchases to authenticated;
 grant update on public.purchases to authenticated;
+
+create or replace function public.occupied_slots(from_date date, to_date date)
+returns table (session_date date, slot text)
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select b.session_date, b.slot
+  from public.bookings b
+  where b.status <> 'cancelled'
+    and b.session_date between from_date and to_date;
+$$;
+
+revoke all on function public.occupied_slots(date, date) from public;
+grant execute on function public.occupied_slots(date, date) to anon, authenticated;
 
 -- Copia eventuale storico da purchases verso bookings
 insert into public.bookings (

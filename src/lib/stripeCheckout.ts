@@ -1,0 +1,39 @@
+import { getSupabaseClient, isSupabaseConfigured } from "./supabase";
+import type { Consents, PurchaseDraft } from "./storage";
+
+export async function startStripeCheckout(draft: PurchaseDraft, consents: Consents) {
+  if (!isSupabaseConfigured()) {
+    return { error: "pagamentoManca" as const };
+  }
+  const sb = getSupabaseClient();
+  if (!sb) return { error: "pagamentoManca" as const };
+
+  const { data, error } = await sb.functions.invoke("create-checkout", {
+    body: { ...draft, consents },
+  });
+
+  if (error) {
+    const msg = [error.message, typeof data === "object" && data && "error" in data ? String((data as { error?: string }).error) : ""]
+      .filter(Boolean)
+      .join(" ");
+    if (msg.includes("409") || /riservato/i.test(msg)) return { error: "slotOccupato" as const };
+    return { error: "servizio" as const, detail: error.message };
+  }
+
+  const payload = data as { url?: string; bookingId?: string; error?: string } | null;
+  if (payload?.error) {
+    if (/riservato/i.test(payload.error)) return { error: "slotOccupato" as const, detail: payload.error };
+    return { error: "servizio" as const, detail: payload.error };
+  }
+  if (!payload?.url) return { error: "servizio" as const };
+
+  if (payload.bookingId) sessionStorage.setItem("tarot-italia-checkout-booking", payload.bookingId);
+  return { url: payload.url };
+}
+
+export async function cancelPendingCheckout(bookingId: string) {
+  const sb = getSupabaseClient();
+  if (!sb) return;
+  await sb.from("bookings").update({ status: "cancelled" }).eq("id", bookingId).eq("status", "pending_payment");
+  sessionStorage.removeItem("tarot-italia-checkout-booking");
+}

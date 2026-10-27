@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { siteDateTime } from "../lib/locale";
+import { fetchOccupiedSlots, isOccupied, type OccupiedSlot } from "../lib/occupiedSlots";
 import { HOUR_SLOTS, localIso, slotsForDate } from "../lib/storage";
 
 const { consulti } = siteContent;
@@ -15,13 +16,13 @@ type Props = {
   onSlot: (slot: string) => void;
 };
 
-function firstOpenDay(iso: string) {
+function firstOpenDay(iso: string, occupied: OccupiedSlot[]) {
   const [y, m] = iso.split("-").map(Number);
   const today = localIso();
   const last = new Date(y, m, 0).getDate();
   for (let d = 1; d <= last; d++) {
     const candidate = localIso(new Date(y, m - 1, d));
-    if (candidate >= today && slotsForDate(candidate).length > 0) return candidate;
+    if (candidate >= today && openHours(candidate, occupied).length > 0) return candidate;
   }
   return iso;
 }
@@ -42,11 +43,23 @@ function monthCells(iso: string) {
   });
 }
 
+function openHours(iso: string, occupied: OccupiedSlot[]) {
+  return slotsForDate(iso).filter((hour) => !isOccupied(occupied, iso, hour));
+}
+
+function monthRange(iso: string) {
+  const [y, m] = iso.split("-").map(Number);
+  const from = localIso(new Date(y, m - 1, 1));
+  const to = localIso(new Date(y, m, 0));
+  return { from, to };
+}
+
 export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
   const today = localIso();
   const activeIso = dateIso || today;
   const cells = useMemo(() => monthCells(activeIso), [activeIso]);
-  const hours = slotsForDate(activeIso);
+  const [occupied, setOccupied] = useState<OccupiedSlot[]>([]);
+  const hours = openHours(activeIso, occupied);
   const [y, m] = activeIso.split("-").map(Number);
   const prevMonthLast = localIso(new Date(y, m - 1, 0));
   const prevDisabled = prevMonthLast < today;
@@ -59,6 +72,17 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
     });
   }, []);
 
+  useEffect(() => {
+    const { from, to } = monthRange(activeIso);
+    let alive = true;
+    void fetchOccupiedSlots(from, to).then((list) => {
+      if (alive) setOccupied(list);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [activeIso]);
+
   return (
     <div>
       <div className="bg-paper p-6">
@@ -67,7 +91,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
             type="button"
             disabled={prevDisabled}
             className="px-3 py-2 text-[0.625rem] uppercase tracking-[0.16em] text-ink/45 hover:text-ink disabled:text-ink/15"
-            onClick={() => onDate(firstOpenDay(localIso(new Date(y, m - 2, 1))))}
+            onClick={() => onDate(firstOpenDay(localIso(new Date(y, m - 2, 1)), occupied))}
             aria-label="Mese precedente"
           >
             ←
@@ -76,7 +100,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
           <button
             type="button"
             className="px-3 py-2 text-[0.625rem] uppercase tracking-[0.16em] text-ink/45 hover:text-ink"
-            onClick={() => onDate(firstOpenDay(localIso(new Date(y, m, 1))))}
+            onClick={() => onDate(firstOpenDay(localIso(new Date(y, m, 1)), occupied))}
             aria-label="Mese successivo"
           >
             →
@@ -90,7 +114,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
             </span>
           ))}
           {cells.map((cell) => {
-            const disabled = cell.iso < today || slotsForDate(cell.iso).length === 0;
+            const disabled = cell.iso < today || openHours(cell.iso, occupied).length === 0;
             const selected = cell.iso === dateIso;
             return (
               <button
