@@ -15,6 +15,20 @@ ZOHO_PASSWORD=...
 
 Non usare prefisso `VITE_`: le chiavi restano solo lato server.
 
+## Email di conferma (cliente)
+
+Template HTML: `docs/email-booking-confirm.html`  
+Popolamento: `supabase/functions/stripe-webhook/bookingConfirmHtml.ts`  
+Invio: `stripe-webhook` su `checkout.session.completed`, via Zoho SMTP (`smtp.zoho.eu:465`, da `info@tarotitalia.com`).
+
+Segnaposto: `{{user_name}}` `{{user_email}}` `{{session_title}}` `{{session_mode}}` `{{booking_date}}` `{{booking_time}}` `{{booking_id}}` `{{transaction_id}}` `{{amount}}` `{{phone}}` `{{riservata_url}}` `{{whatsapp_url}}` `{{support_email}}`
+
+Dopo una modifica al template, allineare il file `.ts` e ridistribuire:
+
+```bash
+supabase functions deploy stripe-webhook
+```
+
 ## Deploy
 
 ```bash

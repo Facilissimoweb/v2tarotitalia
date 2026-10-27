@@ -18,7 +18,9 @@ export function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const pending = Boolean(readBookingDraft());
-  const from = safeInternalPath((location.state as { from?: string } | null)?.from ?? "/riservata");
+  const from = safeInternalPath(
+    (location.state as { from?: string } | null)?.from ?? (pending ? "/carrello" : "/riservata"),
+  );
   const [mode, setMode] = useState<"login" | "register" | "magic">("login");
   const [legal, setLegal] = useState<LegalKind | null>(null);
 

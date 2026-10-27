@@ -13,6 +13,7 @@ import {
   readPendingConsents,
   readPurchases,
   readSession,
+  samePurchaseSnapshot,
   writePendingConsents,
   writePurchases,
   writeSession,
@@ -152,10 +153,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (next) writeSession(next);
     else clearSession();
     if (list) {
-      setPurchases(list);
+      setPurchases((prev) => (samePurchaseSnapshot(prev, list) ? prev : list));
       writePurchases(list);
     }
   }, []);
+
+  const sessionId = session?.id;
+
+  const refreshPurchases = useCallback(async () => {
+    if (!sessionId) return;
+    const list = isSupabaseConfigured() ? await loadRemotePurchases(sessionId) : readPurchases();
+    discardSettledBookingDraft(list);
+    setPurchases((prev) => (samePurchaseSnapshot(prev, list) ? prev : list));
+    writePurchases(list);
+  }, [sessionId]);
 
   useEffect(() => {
     let unsub: (() => void) | undefined;
@@ -318,9 +329,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (isSupabaseConfigured()) {
           const err = await persistBooking(current.id, purchase);
           if (err) return err;
-          const list = await loadRemotePurchases(current.id);
-          setPurchases(list);
-          writePurchases(list);
+          await refreshPurchases();
           return null;
         }
         const next = [purchase, ...readPurchases()];
@@ -328,13 +337,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setPurchases(next);
         return null;
       },
-      refreshPurchases: async () => {
-        if (!session) return;
-        const list = isSupabaseConfigured() ? await loadRemotePurchases(session.id) : readPurchases();
-        discardSettledBookingDraft(list);
-        setPurchases(list);
-        writePurchases(list);
-      },
+      refreshPurchases,
       requestWithdrawal: async (id) => {
         const current = session;
         if (!current) return auth.errori.accesso;
@@ -357,7 +360,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return null;
       },
     }),
-    [session, ready, purchases, authOpen, applySession],
+    [session, ready, purchases, authOpen, applySession, refreshPurchases],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

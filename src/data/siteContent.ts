@@ -187,6 +187,9 @@ export const siteContent = {
     carrello: {
       kicker: "Carrello",
       titolo: "Carrello",
+      lead: "Qui restano le selezioni in attesa di pagamento. Lo storico accoglie solo gli acquisti confermati.",
+      vuoto: "Il carrello è vuoto. Puoi scegliere un consulto e tornare qui per finalizzare.",
+      rimuovi: "Rimuovi",
     },
     nonTrovata: {
       kicker: "Tarot Italia",
@@ -691,6 +694,10 @@ export const siteContent = {
     magicInviato:
       "Controlla la casella di posta: il link magico apre il tuo spazio riservato su Tarot Italia. Se non lo vedi subito, guarda anche nello spam.",
     storico: "Storico acquisti",
+    corsiDispense: "Corsi e dispense",
+    materialiAlchemici: "Materiali alchemici",
+    archivioAperto: "Da uno storico confermato puoi aprire corsi, dispense e materiali alchemici.",
+    archivioChiuso: "Corsi, dispense e materiali alchemici si aprono dopo un acquisto confermato.",
     stati: {
       pending: "In attesa",
       pending_payment: "In attesa del pagamento",

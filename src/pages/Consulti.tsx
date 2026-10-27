@@ -99,8 +99,8 @@ export function Consulti() {
     }
     persistDraft();
     setError(null);
-    if (session) navigate("/riservata");
-    else navigate("/login", { state: { from: "/riservata" } });
+    if (session) navigate("/carrello");
+    else navigate("/login", { state: { from: "/carrello" } });
   }
 
   return (

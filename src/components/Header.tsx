@@ -11,6 +11,7 @@ import {
   type NavItem,
 } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
+import { cartItemCount } from "../lib/storage";
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { BrandLogo } from "./BrandLogo";
@@ -299,13 +300,20 @@ function AccountLink() {
 }
 
 function CartLink() {
+  const { purchases } = useAuth();
+  const count = cartItemCount(purchases);
   return (
     <NavLink
       to="/carrello"
-      className="flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink"
+      className="relative flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink"
       aria-label={nav.carrello}
     >
       <BagIcon />
+      {count > 0 ? (
+        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ink px-1 text-center text-[0.5625rem] leading-4 text-on-ink">
+          {count}
+        </span>
+      ) : null}
     </NavLink>
   );
 }

@@ -77,13 +77,42 @@ export function canRequestRefund(purchase: Purchase) {
   return purchase.status === "confirmed" && Boolean(purchase.stripePaymentIntentId);
 }
 
+/** Acquisto già pagato: unico contenuto dello Storico. */
+export function isPaidPurchase(purchase: Purchase) {
+  if (purchase.status === "cancelled") return false;
+  return purchase.status === "confirmed" || purchase.status === "completed" || Boolean(purchase.paidAt);
+}
+
+/** Selezione ancora da pagare: vive nel Carrello, non nello Storico. */
+export function isCartPurchase(purchase: Purchase) {
+  return purchase.status === "pending_payment" || purchase.status === "pending" || purchase.status === "pending_whatsapp";
+}
+
+export function samePurchaseSnapshot(a: Purchase[], b: Purchase[]) {
+  if (a === b) return true;
+  if (a.length !== b.length) return false;
+  return a.every((item, index) => {
+    const other = b[index];
+    return (
+      item.id === other.id &&
+      item.status === other.status &&
+      item.paidAt === other.paidAt &&
+      item.stripePaymentIntentId === other.stripePaymentIntentId &&
+      item.stripeAmountTotal === other.stripeAmountTotal
+    );
+  });
+}
+
+export function cartItemCount(purchases: Purchase[]) {
+  const pending = purchases.filter(isCartPurchase);
+  const draft = readBookingDraft();
+  if (!draft || draftMatchesSettled(purchases)) return pending.length;
+  if (pending.some((item) => sameBookingSlot(item, draft))) return pending.length;
+  return pending.length + 1;
+}
+
 export function isSettledPurchase(purchase: Purchase) {
-  return (
-    Boolean(purchase.paidAt) ||
-    purchase.status === "confirmed" ||
-    purchase.status === "completed" ||
-    purchase.status === "pending_payment"
-  );
+  return isPaidPurchase(purchase) || purchase.status === "pending_payment";
 }
 
 export function sameBookingSlot(a: { dateIso: string; slot: string }, b: { dateIso: string; slot: string }) {

@@ -6,6 +6,7 @@
 import Stripe from "https://esm.sh/stripe@17.4.0?target=deno";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import nodemailer from "npm:nodemailer@6.9.16";
+import { fillBookingConfirmHtml, fillBookingConfirmText } from "./bookingConfirmHtml.ts";
 
 const FROM_ADDRESS = "info@tarotitalia.com";
 const FROM_NAME = "Maria Teresa Rogani · Tarot Italia";
@@ -89,7 +90,11 @@ Deno.serve(async (req) => {
     const customerEmail =
       session.customer_email || session.customer_details?.email || (await emailForUser(admin, row.user_id));
     try {
-      await sendBookingMails(row, customerEmail);
+      await sendBookingMails(row, {
+        customerEmail,
+        transactionId: paidFields.stripe_payment_intent_id || session.id,
+        amountCents: typeof session.amount_total === "number" ? session.amount_total : null,
+      });
     } catch (error) {
       console.error("booking mail", error);
     }
@@ -170,7 +175,10 @@ async function emailForUser(
   return data.user?.email ?? null;
 }
 
-async function sendBookingMails(row: Record<string, unknown>, customerEmail: string | null) {
+async function sendBookingMails(
+  row: Record<string, unknown>,
+  extras: { customerEmail: string | null; transactionId: string; amountCents: number | null },
+) {
   const zohoUser = Deno.env.get("ZOHO_EMAIL")?.trim();
   const zohoPass = Deno.env.get("ZOHO_PASSWORD");
   if (!zohoUser || !zohoPass) {
@@ -180,44 +188,84 @@ async function sendBookingMails(row: Record<string, unknown>, customerEmail: str
 
   const host = Deno.env.get("ZOHO_SMTP_HOST")?.trim() || "smtp.zoho.eu";
   const port = Number(Deno.env.get("ZOHO_SMTP_PORT") || "465");
+  const site = (Deno.env.get("SITE_URL")?.trim() || "https://www.tarotitalia.com").replace(/\/$/, "");
   const day = String(row.session_date ?? "");
   const slot = String(row.slot ?? "");
-  const name = String(row.guest_name ?? "");
+  const name = String(row.guest_name ?? "").trim() || "Gentile";
   const phone = String(row.phone ?? "");
-  const title = row.consult_type === "deep" ? "Consulto di 1 ora" : "Consulto di 30 minuti";
+  const titleBase = row.consult_type === "deep" ? "Consulto di 1 ora" : "Consulto di 30 minuti";
+  const title = row.pdf_report ? `${titleBase} · Report di sintesi in PDF inviato via WhatsApp` : titleBase;
   const mode = row.mode === "remote" ? "Chiamata vocale WhatsApp" : "In studio a Macerata";
-  const total = String(row.total_price ?? "");
-  const text = [
-    `Prenotazione confermata — Tarot Italia`,
+  const euros =
+    extras.amountCents != null && extras.amountCents >= 0
+      ? extras.amountCents / 100
+      : Number(row.total_price ?? 0);
+  const amount = Number.isFinite(euros)
+    ? euros.toLocaleString("it-IT", { minimumFractionDigits: 0, maximumFractionDigits: 2 })
+    : String(row.total_price ?? "");
+  const bookingId = String(row.id ?? "");
+  const vars = {
+    user_name: name,
+    user_email: extras.customerEmail ?? "",
+    session_title: title,
+    session_mode: mode,
+    booking_date: formatBookingDate(day),
+    booking_time: slot,
+    booking_id: bookingId,
+    transaction_id: extras.transactionId || "—",
+    amount,
+    phone,
+    riservata_url: `${site}/riservata`,
+    whatsapp_url: "https://wa.me/393791038253",
+    support_email: FROM_ADDRESS,
+  };
+  const htmlVars = {
+    ...vars,
+    user_name: escapeHtml(vars.user_name),
+    user_email: escapeHtml(vars.user_email),
+    session_title: escapeHtml(vars.session_title),
+    session_mode: escapeHtml(vars.session_mode),
+    booking_date: escapeHtml(vars.booking_date),
+    booking_time: escapeHtml(vars.booking_time),
+    booking_id: escapeHtml(vars.booking_id),
+    transaction_id: escapeHtml(vars.transaction_id),
+    amount: escapeHtml(vars.amount),
+    phone: escapeHtml(vars.phone),
+    riservata_url: escapeHtml(vars.riservata_url),
+    whatsapp_url: escapeHtml(vars.whatsapp_url),
+    support_email: escapeHtml(vars.support_email),
+  };
+  const html = fillBookingConfirmHtml(htmlVars);
+  const text = fillBookingConfirmText(vars);
+  const studioText = [
+    `Nuova prenotazione confermata — Tarot Italia`,
     `Nome: ${name}`,
+    `Email: ${extras.customerEmail ?? "—"}`,
     `Recapito: ${phone}`,
     `Sessione: ${title}`,
-    `Quando: ${day} · ${slot}`,
+    `Quando: ${vars.booking_date} · ${slot}`,
     `Modalità: ${mode}`,
-    `Totale: €${total}`,
+    `Totale: €${amount}`,
+    `Riferimento: ${bookingId}`,
+    `Transazione: ${extras.transactionId || "—"}`,
   ].join("\n");
-
-  const html = `<div style="font-family:Georgia,serif;color:#2B2523;background:#F9F8F6;padding:28px">
-  <p>Tarot Italia</p>
-  <h1 style="font-weight:400">Prenotazione confermata</h1>
-  <p>${escapeHtml(name)} · ${escapeHtml(phone)}</p>
-  <p>${escapeHtml(title)}<br>${escapeHtml(day)} · ${escapeHtml(slot)}<br>${escapeHtml(mode)}<br>Totale €${escapeHtml(total)}</p>
-  <p>A presto,<br>Maria Teresa Rogani</p>
-</div>`;
 
   const transporter = nodemailer.createTransport({
     host,
     port,
     secure: port === 465,
     auth: { user: zohoUser, pass: zohoPass },
+    connectionTimeout: 20_000,
+    greetingTimeout: 20_000,
+    socketTimeout: 30_000,
   });
 
-  if (customerEmail) {
+  if (extras.customerEmail) {
     await transporter.sendMail({
       from: `"${FROM_NAME}" <${FROM_ADDRESS}>`,
       replyTo: FROM_ADDRESS,
-      to: customerEmail,
-      subject: `Prenotazione confermata — ${day} · ${slot}`,
+      to: extras.customerEmail,
+      subject: `Pagamento ricevuto — ${vars.booking_date} · ${slot}`,
       text,
       html,
     });
@@ -225,14 +273,34 @@ async function sendBookingMails(row: Record<string, unknown>, customerEmail: str
 
   await transporter.sendMail({
     from: `"${FROM_NAME}" <${FROM_ADDRESS}>`,
-    replyTo: customerEmail || FROM_ADDRESS,
+    replyTo: extras.customerEmail || FROM_ADDRESS,
     to: STUDIO,
-    subject: `Nuova prenotazione — ${name} · ${day} ${slot}`,
-    text,
-    html,
+    subject: `Nuova prenotazione — ${name} · ${vars.booking_date} ${slot}`,
+    text: studioText,
+    html: `<div style="font-family:Georgia,serif;color:#2B2523;background:#F9F8F6;padding:28px"><p>${escapeHtml(studioText).replaceAll("\n", "<br>")}</p></div>`,
   });
 
   await transporter.close();
+}
+
+function formatBookingDate(iso: string) {
+  const [year, month, day] = iso.split("-").map(Number);
+  const months = [
+    "gennaio",
+    "febbraio",
+    "marzo",
+    "aprile",
+    "maggio",
+    "giugno",
+    "luglio",
+    "agosto",
+    "settembre",
+    "ottobre",
+    "novembre",
+    "dicembre",
+  ];
+  if (!year || !month || !day || month < 1 || month > 12) return iso;
+  return `${day} ${months[month - 1]} ${year}`;
 }
 
 function escapeHtml(value: string) {
