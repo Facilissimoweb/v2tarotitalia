@@ -6,6 +6,7 @@ import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
+import { RiservataProfile } from "../components/RiservataProfile";
 import { siteDateTime } from "../lib/locale";
 import {
   canRequestRefund,
@@ -18,13 +19,13 @@ import {
 import { cancelPendingCheckout, requestStripeRefund, syncPaidCheckout } from "../lib/stripeCheckout";
 import { buildRecessoMessage, openWhatsApp, whatsappHref } from "../lib/whatsapp";
 
-const TABS = ["acquisti", "corsi", "alchemici"] as const;
+const TABS = ["acquisti", "corsi", "alchemici", "profilo"] as const;
 type Tab = (typeof TABS)[number];
 
 const { auth, consulti, lingua, legal, nav } = siteContent;
 
 function parseTab(value: string | null): Tab {
-  if (value === "corsi" || value === "alchemici") return value;
+  if (value === "corsi" || value === "alchemici" || value === "profilo") return value;
   return "acquisti";
 }
 
@@ -193,6 +194,7 @@ export function Riservata() {
               ["acquisti", `${auth.storico} (${paid.length})`],
               ["corsi", auth.corsiDispense],
               ["alchemici", auth.materialiAlchemici],
+              ["profilo", auth.profilo],
             ] as const
           ).map(([id, label]) => (
             <button
@@ -340,6 +342,8 @@ export function Riservata() {
             )}
           </div>
         ) : null}
+
+        {tab === "profilo" ? <RiservataProfile /> : null}
       </section>
     </div>
   );

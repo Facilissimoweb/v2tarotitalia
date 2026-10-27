@@ -54,11 +54,14 @@ export const DEMO_ACCOUNT = {
   since: "2024",
 };
 
+export type AuthProviderKind = "email" | "google";
+
 export type Session = {
   id: string;
   email: string;
   name: string;
   consents: Consents;
+  provider: AuthProviderKind;
 };
 
 export function emptyConsents(): Consents {
@@ -190,6 +193,7 @@ export function readSession(): Session | null {
       email: parsed.email,
       name: parsed.name,
       consents: parsed.consents ?? emptyConsents(),
+      provider: parsed.provider === "google" ? "google" : "email",
     };
   } catch {
     return null;

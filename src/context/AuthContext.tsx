@@ -1,6 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import type { User } from "@supabase/supabase-js";
 import { siteContent } from "../data/siteContent";
 import { mapAuthError } from "../lib/authErrors";
+import { providerFromUser } from "../lib/authProfile";
 import { getSupabaseClient, isSupabaseConfigured } from "../lib/supabase";
 import {
   canRequestWithdrawal,
@@ -52,14 +54,13 @@ type AuthContextValue = {
   addPurchase: (draft: PurchaseDraft, consents?: Consents) => Promise<string | null>;
   requestWithdrawal: (id: string) => Promise<string | null>;
   refreshPurchases: () => Promise<void>;
+  updateProfile: (name: string) => Promise<string | null>;
+  updatePassword: (password: string, confirm: string) => Promise<string | null>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-function mapUser(
-  user: { id: string; email?: string | null; user_metadata?: Record<string, unknown> } | null,
-  consents: Consents,
-): Session | null {
+function mapUser(user: User | null, consents: Consents): Session | null {
   if (!user?.email) return null;
   const metaName = typeof user.user_metadata?.display_name === "string" ? user.user_metadata.display_name : "";
   const googleName = typeof user.user_metadata?.full_name === "string" ? user.user_metadata.full_name : "";
@@ -69,6 +70,7 @@ function mapUser(
     email: user.email,
     name,
     consents,
+    provider: providerFromUser(user),
   };
 }
 
@@ -168,6 +170,43 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     writePurchases(list);
   }, [sessionId]);
 
+  const updateProfile = useCallback(
+    async (name: string) => {
+      const current = session;
+      if (!current) return auth.errori.accesso;
+      const display = name.trim();
+      if (!display) return auth.errori.generico;
+      const sb = getSupabaseClient();
+      if (sb) {
+        const { data, error } = await sb.auth.updateUser({ data: { display_name: display } });
+        if (error) return mapAuthError(error, auth.errori.servizio);
+        await persistConsents(current.id, current.email, display, current.consents);
+        const next = data.user ? mapUser(data.user, current.consents) : { ...current, name: display };
+        if (next) applySession(next);
+        return null;
+      }
+      applySession({ ...current, name: display });
+      return null;
+    },
+    [session, applySession],
+  );
+
+  const updatePassword = useCallback(
+    async (password: string, confirm: string) => {
+      const current = session;
+      if (!current) return auth.errori.accesso;
+      if (current.provider === "google") return auth.accountGoogle;
+      if (password.length < 6) return auth.errori.passwordDebole;
+      if (password !== confirm) return auth.errori.password;
+      const sb = getSupabaseClient();
+      if (!sb) return auth.errori.servizio;
+      const { error } = await sb.auth.updateUser({ password });
+      if (error) return mapAuthError(error, auth.errori.servizio);
+      return null;
+    },
+    [session],
+  );
+
   useEffect(() => {
     let unsub: (() => void) | undefined;
     const boot = async () => {
@@ -256,6 +295,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           email: e,
           name: e === DEMO_ACCOUNT.email ? DEMO_ACCOUNT.name : e.split("@")[0],
           consents,
+          provider: "email",
         };
         applySession(next, readPurchases());
         return null;
@@ -280,7 +320,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           return null;
         }
         if (!e.includes("@") || password.length < 6) return auth.errori.credenziali;
-        const next: Session = { id: e, email: e, name: display, consents };
+        const next: Session = { id: e, email: e, name: display, consents, provider: "email" };
         applySession(next, readPurchases());
         return null;
       },
@@ -338,6 +378,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return null;
       },
       refreshPurchases,
+      updateProfile,
+      updatePassword,
       requestWithdrawal: async (id) => {
         const current = session;
         if (!current) return auth.errori.accesso;
@@ -360,7 +402,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return null;
       },
     }),
-    [session, ready, purchases, authOpen, applySession, refreshPurchases],
+    [session, ready, purchases, authOpen, applySession, refreshPurchases, updateProfile, updatePassword],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

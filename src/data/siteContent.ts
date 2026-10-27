@@ -694,6 +694,15 @@ export const siteContent = {
     magicInviato:
       "Controlla la casella di posta: il link magico apre il tuo spazio riservato su Tarot Italia. Se non lo vedi subito, guarda anche nello spam.",
     storico: "Storico acquisti",
+    profilo: "Profilo",
+    accessoEmail: "Accesso con email e password",
+    accessoGoogle: "Accesso con Google",
+    accountGoogle:
+      "Questo spazio è collegato a Google. Nome e password si gestiscono dall’account Google.",
+    salvaProfilo: "Salva i dati",
+    nuovaPassword: "Nuova password",
+    profiloAggiornato: "Ho aggiornato i tuoi dati.",
+    passwordAggiornata: "Ho aggiornato la password.",
     corsiDispense: "Corsi e dispense",
     materialiAlchemici: "Materiali alchemici",
     archivioAperto: "Da uno storico confermato puoi aprire corsi, dispense e materiali alchemici.",
