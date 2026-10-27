@@ -46,6 +46,19 @@ export async function requestStripeRefund(bookingId: string) {
   return { ok: true as const };
 }
 
+export async function syncPaidCheckout(bookingId: string) {
+  if (!isSupabaseConfigured()) return { error: "servizio" as const };
+  const sb = getSupabaseClient();
+  if (!sb) return { error: "servizio" as const };
+  const { data, error } = await sb.functions.invoke("sync-checkout", {
+    body: { bookingId },
+  });
+  if (error) return { error: "servizio" as const, detail: error.message };
+  const payload = data as { ok?: boolean; status?: string; error?: string } | null;
+  if (payload?.error) return { error: "servizio" as const, detail: payload.error };
+  return { ok: true as const, status: payload?.status };
+}
+
 export async function cancelPendingCheckout(bookingId: string) {
   const sb = getSupabaseClient();
   if (!sb) return;

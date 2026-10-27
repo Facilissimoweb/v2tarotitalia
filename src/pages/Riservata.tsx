@@ -16,7 +16,7 @@ import {
   draftMatchesSettled,
   type PurchaseStatus,
 } from "../lib/storage";
-import { cancelPendingCheckout, requestStripeRefund } from "../lib/stripeCheckout";
+import { cancelPendingCheckout, requestStripeRefund, syncPaidCheckout } from "../lib/stripeCheckout";
 import { buildRecessoMessage, openWhatsApp, whatsappHref } from "../lib/whatsapp";
 
 type Tab = "acquisti" | "corsi" | "alchemici";
@@ -37,18 +37,40 @@ export function Riservata() {
   const [withdrawError, setWithdrawError] = useState<string | null>(null);
   const [withdrawn, setWithdrawn] = useState<string | null>(null);
   const confirmTries = useRef(0);
+  const syncedPending = useRef(new Set<string>());
 
   useEffect(() => {
     void refreshPurchases();
   }, [refreshPurchases]);
 
   useEffect(() => {
+    const pending = purchases.filter(
+      (item) =>
+        item.status === "pending_payment" &&
+        item.stripeCheckoutSessionId &&
+        !syncedPending.current.has(item.id),
+    );
+    if (!pending.length) return;
+    void (async () => {
+      for (const item of pending) {
+        syncedPending.current.add(item.id);
+        await syncPaidCheckout(item.id);
+      }
+      await refreshPurchases();
+    })();
+  }, [purchases, refreshPurchases]);
+
+  useEffect(() => {
     if (checkout === "ok") {
       discardSettledBookingDraft();
+      const paidId = checkoutBooking || sessionStorage.getItem("tarot-italia-checkout-booking");
       sessionStorage.removeItem("tarot-italia-checkout-booking");
       setTab("acquisti");
       confirmTries.current = 0;
-      void refreshPurchases();
+      void (async () => {
+        if (paidId) await syncPaidCheckout(paidId);
+        await refreshPurchases();
+      })();
       return;
     }
     if (checkout !== "cancel") return;

@@ -55,22 +55,35 @@ Deno.serve(async (req) => {
       return new Response("ok", { status: 200 });
     }
 
-    const confirmed = await admin
+    const paidFields = {
+      status: "confirmed",
+      stripe_checkout_session_id: session.id,
+      stripe_payment_intent_id:
+        typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
+      stripe_amount_total: typeof session.amount_total === "number" ? session.amount_total : null,
+      paid_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+    let confirmed = await admin
       .from("bookings")
-      .update({
-        status: "confirmed",
-        stripe_checkout_session_id: session.id,
-        stripe_payment_intent_id:
-          typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
-        stripe_amount_total: typeof session.amount_total === "number" ? session.amount_total : null,
-        paid_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      })
+      .update(paidFields)
       .eq("id", bookingId)
       .in("status", ["pending_payment", "pending", "pending_whatsapp", "cancelled"]);
     if (confirmed.error) {
-      console.error("booking confirm", confirmed.error);
-      return new Response("ok", { status: 200 });
+      console.error("booking confirm full", confirmed.error);
+      confirmed = await admin
+        .from("bookings")
+        .update({
+          status: "confirmed",
+          stripe_checkout_session_id: session.id,
+          stripe_payment_intent_id: paidFields.stripe_payment_intent_id,
+        })
+        .eq("id", bookingId)
+        .in("status", ["pending_payment", "pending", "pending_whatsapp", "cancelled"]);
+      if (confirmed.error) {
+        console.error("booking confirm", confirmed.error);
+        return new Response("ok", { status: 200 });
+      }
     }
 
     const customerEmail =
