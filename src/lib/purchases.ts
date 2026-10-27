@@ -25,6 +25,8 @@ export type PurchaseRow = {
   created_at: string;
   stripe_payment_intent_id?: string | null;
   stripe_checkout_session_id?: string | null;
+  stripe_amount_total?: number | string | null;
+  paid_at?: string | null;
 };
 
 export function draftToPurchase(draft: PurchaseDraft, consents: Consents): Purchase {
@@ -81,6 +83,8 @@ export function rowToPurchase(row: PurchaseRow): Purchase {
     status: (row.status as PurchaseStatus) || "pending",
     stripePaymentIntentId: row.stripe_payment_intent_id || undefined,
     stripeCheckoutSessionId: row.stripe_checkout_session_id || undefined,
+    stripeAmountTotal: row.stripe_amount_total != null ? Number(row.stripe_amount_total) : undefined,
+    paidAt: row.paid_at || undefined,
     consents: {
       privacy: row.consent_privacy,
       adult: row.consent_adult,

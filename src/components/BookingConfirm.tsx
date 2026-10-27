@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { STUDIO } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import {
+  discardSettledBookingDraft,
+  draftMatchesSettled,
   emptyConsents,
   hasRequiredConsents,
   readBookingDraft,
@@ -20,8 +23,13 @@ const { auth, consulti } = siteContent;
 
 /** Riepilogo e conferma finale della prenotazione, nell’Area riservata. */
 export function BookingConfirm() {
-  const { session } = useAuth();
-  const [draft] = useState(() => readBookingDraft());
+  const { session, purchases } = useAuth();
+  const [searchParams] = useSearchParams();
+  const checkout = searchParams.get("checkout");
+  const paidReturn = checkout === "ok" || checkout === "cancel";
+  if (paidReturn) discardSettledBookingDraft();
+  if (draftMatchesSettled(purchases)) discardSettledBookingDraft(purchases);
+  const draft = paidReturn || draftMatchesSettled(purchases) ? null : readBookingDraft();
   const [name, setName] = useState(() => draft?.name || session?.name || "");
   const [phone, setPhone] = useState(() => draft?.phone || "");
   const [consents, setConsents] = useState<Consents>(

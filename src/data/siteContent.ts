@@ -655,6 +655,7 @@ export const siteContent = {
     adminEmail: "info@tarotitalia.com",
     riferimento: "Riferimento",
     recesso: "Richiedi recesso",
+    recedi: "Recedi",
     recessoInviato: "Richiesta di recesso inviata. L’assistenza prosegue via WhatsApp.",
     rimborso: "Annulla e richiedi rimborso",
     rimborsoInviato: "Rimborso avviato. Lo slot è di nuovo disponibile. Stripe accredita l’importo sulla carta usata.",

@@ -47,7 +47,10 @@ create table if not exists public.bookings (
   whatsapp_sent_at timestamptz,
   stripe_checkout_session_id text,
   stripe_payment_intent_id text,
-  created_at timestamptz not null default now()
+  stripe_amount_total integer,
+  paid_at timestamptz,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
 );
 
 create index if not exists bookings_user_id_created_at_idx

@@ -62,6 +62,9 @@ Deno.serve(async (req) => {
         stripe_checkout_session_id: session.id,
         stripe_payment_intent_id:
           typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
+        stripe_amount_total: typeof session.amount_total === "number" ? session.amount_total : null,
+        paid_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
       })
       .eq("id", bookingId)
       .in("status", ["pending_payment", "pending", "pending_whatsapp", "cancelled"]);

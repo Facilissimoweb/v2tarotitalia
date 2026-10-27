@@ -37,6 +37,8 @@ export type Purchase = {
   consents: Consents;
   stripePaymentIntentId?: string;
   stripeCheckoutSessionId?: string;
+  stripeAmountTotal?: number;
+  paidAt?: string;
 };
 
 /** Bozza di prenotazione prima di autenticazione e salvataggio. */
@@ -73,6 +75,37 @@ export function canRequestWithdrawal(status: PurchaseStatus) {
 
 export function canRequestRefund(purchase: Purchase) {
   return purchase.status === "confirmed" && Boolean(purchase.stripePaymentIntentId);
+}
+
+export function isSettledPurchase(purchase: Purchase) {
+  return (
+    Boolean(purchase.paidAt) ||
+    purchase.status === "confirmed" ||
+    purchase.status === "completed" ||
+    purchase.status === "pending_payment"
+  );
+}
+
+export function sameBookingSlot(a: { dateIso: string; slot: string }, b: { dateIso: string; slot: string }) {
+  return a.dateIso.slice(0, 10) === b.dateIso.slice(0, 10) && a.slot.trim() === b.slot.trim();
+}
+
+export function draftMatchesSettled(purchases: Purchase[]) {
+  const draft = readBookingDraft();
+  if (!draft) return false;
+  return purchases.some((item) => isSettledPurchase(item) && sameBookingSlot(item, draft));
+}
+
+/** Dopo un pagamento la bozza in sessionStorage non deve più aprire il form. */
+export function discardSettledBookingDraft(purchases: Purchase[] = []) {
+  if (typeof window !== "undefined") {
+    const checkout = new URLSearchParams(window.location.search).get("checkout");
+    if (checkout === "ok" || checkout === "cancel") {
+      clearBookingDraft();
+      return;
+    }
+  }
+  if (draftMatchesSettled(purchases)) clearBookingDraft();
 }
 
 const PENDING_CONSENTS_KEY = "tarot-italia-pending-consents";
@@ -165,6 +198,8 @@ function asPurchase(raw: Record<string, unknown>): Purchase {
     status: (raw.status as PurchaseStatus) ?? "pending_whatsapp",
     stripePaymentIntentId: raw.stripePaymentIntentId ? String(raw.stripePaymentIntentId) : undefined,
     stripeCheckoutSessionId: raw.stripeCheckoutSessionId ? String(raw.stripeCheckoutSessionId) : undefined,
+    stripeAmountTotal: raw.stripeAmountTotal != null ? Number(raw.stripeAmountTotal) : undefined,
+    paidAt: raw.paidAt ? String(raw.paidAt) : undefined,
     consents: (raw.consents as Consents) ?? emptyConsents(),
   };
 }

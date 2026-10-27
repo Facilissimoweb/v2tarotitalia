@@ -142,7 +142,7 @@ Deno.serve(async (req) => {
       customer_email: user.email,
       client_reference_id: bookingId,
       expires_at: Math.floor(Date.now() / 1000) + HOLD_SECONDS,
-      success_url: `${siteUrl}/riservata?checkout=ok&access=${gate}`,
+      success_url: `${siteUrl}/riservata?checkout=ok&booking=${bookingId}&access=${gate}`,
       cancel_url: `${siteUrl}/riservata?checkout=cancel&booking=${bookingId}&access=${gate}`,
       metadata: { booking_id: bookingId, user_id: user.id },
       line_items: lineItems,

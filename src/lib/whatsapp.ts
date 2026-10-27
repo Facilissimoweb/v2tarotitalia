@@ -64,10 +64,17 @@ export function buildRecessoMessage(purchase: Purchase, optionTitle: string) {
     `Data: ${formatBookingDay(purchase.dateIso)}`,
     `Orario: ${purchase.slot}`,
     `${siteContent.auth.riferimento}: ${purchase.id}`,
-    "",
-    venditaConsulti?.testi[1] ?? "",
-    siteContent.legal.vendita.assistenza.testo,
   ];
+  const paid =
+    purchase.stripeAmountTotal != null && purchase.stripeAmountTotal > 0
+      ? `€${(purchase.stripeAmountTotal / 100).toFixed(0)}`
+      : `€${purchase.total}`;
+  lines.push(`Importo: ${paid}`);
+  if (purchase.stripeCheckoutSessionId) lines.push(`Transazione: ${purchase.stripeCheckoutSessionId}`);
+  if (purchase.stripePaymentIntentId) lines.push(`Pagamento: ${purchase.stripePaymentIntentId}`);
+  lines.push("");
+  lines.push(venditaConsulti?.testi[1] ?? "");
+  lines.push(siteContent.legal.vendita.assistenza.testo);
   return lines.filter(Boolean).join("\n");
 }
 

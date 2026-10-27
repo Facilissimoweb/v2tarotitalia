@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { STUDIO, TARIFFE } from "../data/catalogo";
@@ -9,9 +9,15 @@ import { BookingConfirm } from "../components/BookingConfirm";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { siteDateTime } from "../lib/locale";
-import { canRequestRefund, canRequestWithdrawal, clearBookingDraft, type PurchaseStatus } from "../lib/storage";
+import {
+  canRequestRefund,
+  canRequestWithdrawal,
+  discardSettledBookingDraft,
+  draftMatchesSettled,
+  type PurchaseStatus,
+} from "../lib/storage";
 import { cancelPendingCheckout, requestStripeRefund } from "../lib/stripeCheckout";
-import { buildRecessoMessage, openWhatsApp } from "../lib/whatsapp";
+import { buildRecessoMessage, openWhatsApp, whatsappHref } from "../lib/whatsapp";
 
 type Tab = "acquisti" | "corsi" | "alchemici";
 
@@ -21,25 +27,49 @@ export function Riservata() {
   const { session, purchases, logout, requestWithdrawal, refreshPurchases } = useAuth();
   const [searchParams] = useSearchParams();
   const checkout = searchParams.get("checkout");
+  const checkoutBooking = searchParams.get("booking");
+  if (checkout === "ok" || checkout === "cancel") discardSettledBookingDraft();
+  discardSettledBookingDraft(purchases);
+  const showPayForm = checkout !== "ok" && checkout !== "cancel" && !draftMatchesSettled(purchases);
   const { corsi, materiali, busy, localized, error, download } = useLocalizedCatalog();
   const [tab, setTab] = useState<Tab>("acquisti");
   const [withdrawId, setWithdrawId] = useState<string | null>(null);
   const [withdrawError, setWithdrawError] = useState<string | null>(null);
   const [withdrawn, setWithdrawn] = useState<string | null>(null);
+  const confirmTries = useRef(0);
+
+  useEffect(() => {
+    void refreshPurchases();
+  }, [refreshPurchases]);
 
   useEffect(() => {
     if (checkout === "ok") {
-      clearBookingDraft();
+      discardSettledBookingDraft();
       sessionStorage.removeItem("tarot-italia-checkout-booking");
       setTab("acquisti");
+      confirmTries.current = 0;
       void refreshPurchases();
-      const again = window.setTimeout(() => void refreshPurchases(), 1600);
-      return () => window.clearTimeout(again);
+      return;
     }
     if (checkout !== "cancel") return;
-    const id = searchParams.get("booking") || sessionStorage.getItem("tarot-italia-checkout-booking");
+    const id = checkoutBooking || sessionStorage.getItem("tarot-italia-checkout-booking");
     if (id) void cancelPendingCheckout(id);
-  }, [checkout, searchParams, refreshPurchases]);
+  }, [checkout, checkoutBooking, refreshPurchases]);
+
+  useEffect(() => {
+    if (checkout !== "ok") return;
+    const ready = purchases.some(
+      (item) =>
+        (checkoutBooking ? item.id === checkoutBooking : true) &&
+        (item.status === "confirmed" || item.status === "completed"),
+    );
+    if (ready || confirmTries.current >= 8) return;
+    const timer = window.setTimeout(() => {
+      confirmTries.current += 1;
+      void refreshPurchases();
+    }, 1200);
+    return () => window.clearTimeout(timer);
+  }, [checkout, checkoutBooking, purchases, refreshPurchases]);
 
   const recessoConsulti = legal.vendita.sezioni.find((sezione) => sezione.id === "consulti")?.testi[1];
   const recessoDigitali = legal.vendita.sezioni.find((sezione) => sezione.id === "digitali")?.testi[1];
@@ -129,7 +159,7 @@ export function Riservata() {
         {checkout === "cancel" ? (
           <p className="mb-10 bg-mist p-5 text-sm leading-relaxed text-ink">{consulti.checkoutCancel}</p>
         ) : null}
-        <BookingConfirm />
+        {showPayForm ? <BookingConfirm /> : null}
         {error ? <p className="mb-10 text-sm text-ink">{error}</p> : null}
         {tab === "acquisti" && (
           <div className="flex flex-col gap-10">
@@ -148,7 +178,7 @@ export function Riservata() {
             </Reveal>
             {withdrawError ? <p className="text-sm text-ink">{withdrawError}</p> : null}
             {withdrawn ? <p className="text-sm text-ink/70">{withdrawn}</p> : null}
-            {purchases.length === 0 && (
+            {purchases.length === 0 && checkout !== "ok" && (
               <Reveal delay={100}>
                 <p className="bg-mist p-5 text-sm text-ink/65">
                   Nessun acquisto registrato.{" "}
@@ -177,10 +207,18 @@ export function Riservata() {
                   }).format(new Date(b.createdAt));
               const status = auth.stati[b.status as PurchaseStatus];
               const refundable = canRequestRefund(b);
-              const withdrawable = !refundable && canRequestWithdrawal(b.status);
+              const recedi = b.status === "confirmed";
+              const withdrawable = !recedi && canRequestWithdrawal(b.status);
+              const paidEuro =
+                b.stripeAmountTotal != null && b.stripeAmountTotal > 0
+                  ? Math.round(b.stripeAmountTotal / 100)
+                  : b.total;
+              const justPaid =
+                checkout === "ok" &&
+                (checkoutBooking ? b.id === checkoutBooking : recedi && i === 0);
               return (
                 <Reveal key={b.id} delay={i * 80}>
-                  <article className="bg-paper p-8">
+                  <article className={`bg-paper p-8 ${justPaid ? "ring-1 ring-ink" : ""}`}>
                     <div className="flex items-center justify-between">
                       <p className="text-[0.6875rem] uppercase tracking-[0.16em] text-sage">{date}</p>
                       <span className="bg-mist px-2 py-0.5 text-xs">{status}</span>
@@ -208,29 +246,37 @@ export function Riservata() {
                         </span>
                       )}
                       <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-wider">
-                        Totale €{b.total}
+                        Totale €{paidEuro}
                       </span>
                     </div>
-                    {refundable ? (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        className="mt-6"
-                        disabled={withdrawId === b.id}
-                        onClick={() => void onRimborso(b.id)}
-                      >
-                        {auth.rimborso}
-                      </Button>
-                    ) : withdrawable ? (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        className="mt-6"
-                        disabled={withdrawId === b.id}
-                        onClick={() => void onRecesso(b.id, title)}
-                      >
-                        {auth.recesso}
-                      </Button>
+                    {recedi || refundable || withdrawable ? (
+                      <div className="mt-6 flex flex-wrap gap-3">
+                        {recedi ? (
+                          <Button variant="ghost" href={whatsappHref(buildRecessoMessage(b, title))}>
+                            {auth.recedi}
+                          </Button>
+                        ) : null}
+                        {refundable ? (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            disabled={withdrawId === b.id}
+                            onClick={() => void onRimborso(b.id)}
+                          >
+                            {auth.rimborso}
+                          </Button>
+                        ) : null}
+                        {withdrawable ? (
+                          <Button
+                            type="button"
+                            variant="ghost"
+                            disabled={withdrawId === b.id}
+                            onClick={() => void onRecesso(b.id, title)}
+                          >
+                            {auth.recesso}
+                          </Button>
+                        ) : null}
+                      </div>
                     ) : b.status === "completed" && recessoConsulti ? (
                       <p className="mt-6 text-[0.75rem] leading-relaxed text-ink/55">{recessoConsulti}</p>
                     ) : null}

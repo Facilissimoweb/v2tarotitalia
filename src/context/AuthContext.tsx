@@ -6,6 +6,7 @@ import {
   canRequestWithdrawal,
   clearPendingConsents,
   clearSession,
+  discardSettledBookingDraft,
   DEMO_ACCOUNT,
   emptyConsents,
   hasRequiredConsents,
@@ -178,7 +179,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (pending && hasRequiredConsents(pending)) {
           void persistConsents(mapped.id, mapped.email, mapped.name, pending);
         }
-        setPurchases(await loadRemotePurchases(mapped.id));
+        const list = await loadRemotePurchases(mapped.id);
+        discardSettledBookingDraft(list);
+        setPurchases(list);
+        writePurchases(list);
       } else {
         setPurchases([]);
       }
@@ -193,7 +197,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (incoming && hasRequiredConsents(incoming)) {
             void persistConsents(mappedNext.id, mappedNext.email, mappedNext.name, incoming);
           }
-          void loadRemotePurchases(mappedNext.id).then(setPurchases);
+          void loadRemotePurchases(mappedNext.id).then((list) => {
+            discardSettledBookingDraft(list);
+            setPurchases(list);
+            writePurchases(list);
+          });
         } else {
           clearSession();
           setPurchases([]);
@@ -323,6 +331,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       refreshPurchases: async () => {
         if (!session) return;
         const list = isSupabaseConfigured() ? await loadRemotePurchases(session.id) : readPurchases();
+        discardSettledBookingDraft(list);
         setPurchases(list);
         writePurchases(list);
       },
