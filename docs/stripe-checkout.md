@@ -21,12 +21,13 @@ Non usare prefisso `VITE_`: le chiavi restano solo lato server.
 supabase db push
 supabase functions deploy create-checkout
 supabase functions deploy stripe-webhook
+supabase functions deploy request-refund
 ```
 
 ## Webhook Dashboard Stripe (test)
 
 Endpoint: `https://zaaunvkyhxezhvjmmafx.supabase.co/functions/v1/stripe-webhook`
 
-Eventi: `checkout.session.completed`, `checkout.session.expired`
+Eventi: `checkout.session.completed`, `checkout.session.expired`, `charge.refunded`
 
 `verify_jwt` della function è `false`: autentica Stripe con `STRIPE_WEBHOOK_SECRET`.

@@ -656,6 +656,9 @@ export const siteContent = {
     riferimento: "Riferimento",
     recesso: "Richiedi recesso",
     recessoInviato: "Richiesta di recesso inviata. L’assistenza prosegue via WhatsApp.",
+    rimborso: "Annulla e richiedi rimborso",
+    rimborsoInviato: "Rimborso avviato. Lo slot è di nuovo disponibile. Stripe accredita l’importo sulla carta usata.",
+    rimborsoManca: "Non riesco ad avviare il rimborso. Riprova tra poco, oppure scrivimi a info@tarotitalia.com.",
     caricamento: "Sto preparando il tuo spazio riservato…",
     consensi: {
       privacyCookie:

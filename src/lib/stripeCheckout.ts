@@ -9,7 +9,7 @@ export async function startStripeCheckout(draft: PurchaseDraft, consents: Consen
   if (!sb) return { error: "pagamentoManca" as const };
 
   const { data, error } = await sb.functions.invoke("create-checkout", {
-    body: { ...draft, consents },
+    body: { ...draft, consents, returnOrigin: window.location.origin },
   });
 
   if (error) {
@@ -29,6 +29,21 @@ export async function startStripeCheckout(draft: PurchaseDraft, consents: Consen
 
   if (payload.bookingId) sessionStorage.setItem("tarot-italia-checkout-booking", payload.bookingId);
   return { url: payload.url };
+}
+
+export async function requestStripeRefund(bookingId: string) {
+  if (!isSupabaseConfigured()) return { error: "rimborsoManca" as const };
+  const sb = getSupabaseClient();
+  if (!sb) return { error: "rimborsoManca" as const };
+
+  const { data, error } = await sb.functions.invoke("request-refund", {
+    body: { bookingId },
+  });
+  if (error) return { error: "rimborsoManca" as const, detail: error.message };
+  const payload = data as { ok?: boolean; error?: string } | null;
+  if (payload?.error) return { error: "rimborsoManca" as const, detail: payload.error };
+  if (!payload?.ok) return { error: "rimborsoManca" as const };
+  return { ok: true as const };
 }
 
 export async function cancelPendingCheckout(bookingId: string) {

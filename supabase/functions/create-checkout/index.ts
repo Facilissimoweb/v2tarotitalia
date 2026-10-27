@@ -25,6 +25,7 @@ type Body = {
   birth?: string;
   query?: string;
   consents?: { privacy?: boolean; adult?: boolean; refund?: boolean };
+  returnOrigin?: string;
 };
 
 Deno.serve(async (req) => {
@@ -36,7 +37,6 @@ Deno.serve(async (req) => {
   const stripeKey = Deno.env.get("STRIPE_SECRET_KEY")?.trim();
   const supabaseUrl = Deno.env.get("SUPABASE_URL")?.trim();
   const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")?.trim();
-  const siteUrl = (Deno.env.get("SITE_URL")?.trim() || "https://www.tarotitalia.com").replace(/\/$/, "");
   if (!stripeKey || !supabaseUrl || !serviceKey) {
     return json({ error: "Servizio di pagamento non configurato." }, 503);
   }
@@ -58,6 +58,9 @@ Deno.serve(async (req) => {
   } catch {
     return json({ error: "Richiesta non valida." }, 400);
   }
+
+  const siteUrl = resolveSiteUrl(body.returnOrigin);
+  const gate = encodeURIComponent(Deno.env.get("SITE_ACCESS")?.trim() || "tarot2026");
 
   const catalog = body.type === "deep" ? DEEP : body.type === "focus" ? FOCUS : null;
   if (!catalog) return json({ error: "Tipo di consulto non valido." }, 400);
@@ -139,8 +142,8 @@ Deno.serve(async (req) => {
       customer_email: user.email,
       client_reference_id: bookingId,
       expires_at: Math.floor(Date.now() / 1000) + HOLD_SECONDS,
-      success_url: `${siteUrl}/riservata?checkout=ok`,
-      cancel_url: `${siteUrl}/riservata?checkout=cancel&booking=${bookingId}`,
+      success_url: `${siteUrl}/riservata?checkout=ok&access=${gate}`,
+      cancel_url: `${siteUrl}/riservata?checkout=cancel&booking=${bookingId}&access=${gate}`,
       metadata: { booking_id: bookingId, user_id: user.id },
       line_items: lineItems,
     });
@@ -161,6 +164,28 @@ Deno.serve(async (req) => {
     return json({ error: "Il pagamento non è partito. Riprova tra poco." }, 502);
   }
 });
+
+function resolveSiteUrl(requested?: string) {
+  const fallback = (Deno.env.get("SITE_URL")?.trim() || "https://www.tarotitalia.com").replace(/\/$/, "");
+  const allowed = new Set([
+    fallback,
+    "https://www.tarotitalia.com",
+    "https://tarotitalia.com",
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+    "http://127.0.0.1:4173",
+    "http://localhost:4173",
+  ]);
+  const raw = (requested ?? "").trim().replace(/\/$/, "");
+  if (!raw) return fallback;
+  try {
+    const origin = new URL(raw).origin;
+    if (allowed.has(origin)) return origin;
+  } catch {
+    /* origin non valido: si usa SITE_URL */
+  }
+  return fallback;
+}
 
 function cors() {
   return {

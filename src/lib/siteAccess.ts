@@ -38,6 +38,12 @@ function queryAccess() {
   return new URLSearchParams(window.location.search).get(QUERY_KEY);
 }
 
+/** Ritorno da Stripe Checkout: sblocca la soglia e resta in Area riservata. */
+function isCheckoutReturn() {
+  const checkout = new URLSearchParams(window.location.search).get("checkout");
+  return checkout === "ok" || checkout === "cancel";
+}
+
 function stripAccessParam() {
   const url = new URL(window.location.href);
   if (!url.searchParams.has(QUERY_KEY)) return;
@@ -51,6 +57,10 @@ export function isSiteUnlocked() {
   const token = accessToken();
   const fromQuery = queryAccess();
   if (fromQuery && fromQuery === token) {
+    writeStoredToken(token);
+    return true;
+  }
+  if (isCheckoutReturn()) {
     writeStoredToken(token);
     return true;
   }

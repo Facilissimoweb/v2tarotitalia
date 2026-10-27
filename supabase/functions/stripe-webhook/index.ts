@@ -91,8 +91,59 @@ Deno.serve(async (req) => {
     }
   }
 
+  if (event.type === "charge.refunded") {
+    const charge = event.data.object as Stripe.Charge;
+    if (charge.refunded) {
+      await releaseBookingAfterRefund(admin, stripe, charge);
+    }
+  }
+
   return new Response("ok", { status: 200 });
 });
+
+async function releaseBookingAfterRefund(
+  admin: ReturnType<typeof createClient>,
+  stripe: Stripe,
+  charge: Stripe.Charge,
+) {
+  const paymentIntent =
+    typeof charge.payment_intent === "string" ? charge.payment_intent : charge.payment_intent?.id ?? null;
+
+  if (paymentIntent) {
+    const byIntent = await admin
+      .from("bookings")
+      .update({ status: "cancelled" })
+      .eq("stripe_payment_intent_id", paymentIntent)
+      .in("status", ["pending_payment", "pending", "pending_whatsapp", "confirmed"])
+      .select("id");
+    if (byIntent.error) {
+      console.error("refund cancel by intent", byIntent.error);
+    }
+    if (byIntent.data && byIntent.data.length > 0) return;
+  }
+
+  if (!paymentIntent) return;
+
+  try {
+    const sessions = await stripe.checkout.sessions.list({ payment_intent: paymentIntent, limit: 1 });
+    const session = sessions.data[0];
+    if (!session) return;
+    const bookingId = session.metadata?.booking_id || session.client_reference_id;
+    const query = admin
+      .from("bookings")
+      .update({ status: "cancelled" })
+      .in("status", ["pending_payment", "pending", "pending_whatsapp", "confirmed"]);
+    if (bookingId) {
+      await query.eq("id", bookingId);
+      return;
+    }
+    if (session.id) {
+      await query.eq("stripe_checkout_session_id", session.id);
+    }
+  } catch (error) {
+    console.error("refund lookup", error);
+  }
+}
 
 async function emailForUser(
   admin: ReturnType<typeof createClient>,

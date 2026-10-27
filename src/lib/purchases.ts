@@ -23,6 +23,8 @@ export type PurchaseRow = {
   consent_adult: boolean;
   consent_refund: boolean;
   created_at: string;
+  stripe_payment_intent_id?: string | null;
+  stripe_checkout_session_id?: string | null;
 };
 
 export function draftToPurchase(draft: PurchaseDraft, consents: Consents): Purchase {
@@ -77,6 +79,8 @@ export function rowToPurchase(row: PurchaseRow): Purchase {
     birth: row.birth ?? undefined,
     query: row.query ?? undefined,
     status: (row.status as PurchaseStatus) || "pending",
+    stripePaymentIntentId: row.stripe_payment_intent_id || undefined,
+    stripeCheckoutSessionId: row.stripe_checkout_session_id || undefined,
     consents: {
       privacy: row.consent_privacy,
       adult: row.consent_adult,

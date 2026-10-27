@@ -35,6 +35,8 @@ export type Purchase = {
   query?: string;
   status: PurchaseStatus;
   consents: Consents;
+  stripePaymentIntentId?: string;
+  stripeCheckoutSessionId?: string;
 };
 
 /** Bozza di prenotazione prima di autenticazione e salvataggio. */
@@ -67,6 +69,10 @@ export function hasRequiredConsents(consents: Consents | undefined) {
 
 export function canRequestWithdrawal(status: PurchaseStatus) {
   return status === "pending" || status === "pending_whatsapp" || status === "confirmed";
+}
+
+export function canRequestRefund(purchase: Purchase) {
+  return purchase.status === "confirmed" && Boolean(purchase.stripePaymentIntentId);
 }
 
 const PENDING_CONSENTS_KEY = "tarot-italia-pending-consents";
@@ -157,6 +163,8 @@ function asPurchase(raw: Record<string, unknown>): Purchase {
     birth: raw.birth ? String(raw.birth) : undefined,
     query: raw.query ? String(raw.query) : undefined,
     status: (raw.status as PurchaseStatus) ?? "pending_whatsapp",
+    stripePaymentIntentId: raw.stripePaymentIntentId ? String(raw.stripePaymentIntentId) : undefined,
+    stripeCheckoutSessionId: raw.stripeCheckoutSessionId ? String(raw.stripeCheckoutSessionId) : undefined,
     consents: (raw.consents as Consents) ?? emptyConsents(),
   };
 }

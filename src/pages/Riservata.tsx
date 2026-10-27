@@ -9,8 +9,8 @@ import { BookingConfirm } from "../components/BookingConfirm";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { siteDateTime } from "../lib/locale";
-import { canRequestWithdrawal, clearBookingDraft, type PurchaseStatus } from "../lib/storage";
-import { cancelPendingCheckout } from "../lib/stripeCheckout";
+import { canRequestRefund, canRequestWithdrawal, clearBookingDraft, type PurchaseStatus } from "../lib/storage";
+import { cancelPendingCheckout, requestStripeRefund } from "../lib/stripeCheckout";
 import { buildRecessoMessage, openWhatsApp } from "../lib/whatsapp";
 
 type Tab = "acquisti" | "corsi" | "alchemici";
@@ -31,8 +31,10 @@ export function Riservata() {
     if (checkout === "ok") {
       clearBookingDraft();
       sessionStorage.removeItem("tarot-italia-checkout-booking");
+      setTab("acquisti");
       void refreshPurchases();
-      return;
+      const again = window.setTimeout(() => void refreshPurchases(), 1600);
+      return () => window.clearTimeout(again);
     }
     if (checkout !== "cancel") return;
     const id = searchParams.get("booking") || sessionStorage.getItem("tarot-italia-checkout-booking");
@@ -56,6 +58,21 @@ export function Riservata() {
     const purchase = purchases.find((item) => item.id === id);
     if (purchase) openWhatsApp(buildRecessoMessage({ ...purchase, status: "cancelled" }, optionTitle));
     setWithdrawn(auth.recessoInviato);
+  }
+
+  async function onRimborso(id: string) {
+    if (withdrawId) return;
+    setWithdrawError(null);
+    setWithdrawn(null);
+    setWithdrawId(id);
+    const result = await requestStripeRefund(id);
+    setWithdrawId(null);
+    if (result.error) {
+      setWithdrawError(result.detail || auth.rimborsoManca);
+      return;
+    }
+    await refreshPurchases();
+    setWithdrawn(auth.rimborsoInviato);
   }
 
   return (
@@ -159,7 +176,8 @@ export function Riservata() {
                     year: "numeric",
                   }).format(new Date(b.createdAt));
               const status = auth.stati[b.status as PurchaseStatus];
-              const withdrawable = canRequestWithdrawal(b.status);
+              const refundable = canRequestRefund(b);
+              const withdrawable = !refundable && canRequestWithdrawal(b.status);
               return (
                 <Reveal key={b.id} delay={i * 80}>
                   <article className="bg-paper p-8">
@@ -193,7 +211,17 @@ export function Riservata() {
                         Totale €{b.total}
                       </span>
                     </div>
-                    {withdrawable ? (
+                    {refundable ? (
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        className="mt-6"
+                        disabled={withdrawId === b.id}
+                        onClick={() => void onRimborso(b.id)}
+                      >
+                        {auth.rimborso}
+                      </Button>
+                    ) : withdrawable ? (
                       <Button
                         type="button"
                         variant="ghost"
