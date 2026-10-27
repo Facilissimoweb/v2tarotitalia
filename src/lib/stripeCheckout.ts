@@ -1,3 +1,4 @@
+import { resolveBookingMode } from "./bookingRules";
 import { getSupabaseClient, isSupabaseConfigured } from "./supabase";
 import type { Consents, PurchaseDraft } from "./storage";
 
@@ -9,7 +10,12 @@ export async function startStripeCheckout(draft: PurchaseDraft, consents: Consen
   if (!sb) return { error: "pagamentoManca" as const };
 
   const { data, error } = await sb.functions.invoke("create-checkout", {
-    body: { ...draft, consents, returnOrigin: window.location.origin },
+    body: {
+      ...draft,
+      mode: resolveBookingMode(draft.mode, draft.slot),
+      consents,
+      returnOrigin: window.location.origin,
+    },
   });
 
   if (error) {

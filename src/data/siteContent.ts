@@ -632,6 +632,9 @@ export const siteContent = {
     successoTitolo: "Prenotazione registrata",
     recapito: "Recapito telefonico *",
     orarioNonDisponibile: "Seleziona una fascia oraria disponibile.",
+    seraOnline: "Dalle ore 19:00 i consulti avvengono esclusivamente online, via chiamata vocale WhatsApp.",
+    seraOnlineBreve: "online",
+    studioSeraChiuso: "Dalle ore 19:00 lo studio è chiuso. La sessione resta online.",
     calendario: {
       giorno: "Giorno",
       orario: "Fascia oraria",

@@ -13,6 +13,7 @@ import {
   writeBookingDraft,
   type Consents,
 } from "../lib/storage";
+import { isEveningSlot, resolveBookingMode, sessionModeLabel } from "../lib/bookingRules";
 import { startStripeCheckout } from "../lib/stripeCheckout";
 import { formatBookingDay } from "../lib/whatsapp";
 import { Button, Kicker } from "./Button";
@@ -60,7 +61,12 @@ export function BookingConfirm() {
     }
     setBusy(true);
     setError(null);
-    const payload = { ...draft, name: name.trim(), phone: phone.trim() };
+    const payload = {
+      ...draft,
+      mode: resolveBookingMode(draft.mode, draft.slot),
+      name: name.trim(),
+      phone: phone.trim(),
+    };
     writeBookingDraft({ ...payload, consents });
     const result = await startStripeCheckout(payload, consents);
     setBusy(false);
@@ -87,7 +93,7 @@ export function BookingConfirm() {
 
       <div className="mt-8 bg-mist p-6">
         <Row k="Sessione" v={`${option?.titolo ?? draft.type} (${draft.minutes} min)`} />
-        <Row k="Erogazione" v={draft.mode === "remote" ? "Chiamata vocale WhatsApp" : `In studio a ${STUDIO.city}`} />
+        <Row k="Erogazione" v={sessionModeLabel(draft.mode, draft.slot, STUDIO.city)} />
         <Row k="Data & ora" v={`${dayLabel} — ${draft.slot}`} />
         {draft.pdf ? <Row k={consulti.pdf.etichetta} v={`€${draft.pdfPrice || consulti.pdf.prezzo}`} /> : null}
         <div className="mt-3 flex items-center justify-between">
@@ -95,6 +101,9 @@ export function BookingConfirm() {
           <span className="font-display text-xl">€{draft.total}</span>
         </div>
       </div>
+      {isEveningSlot(draft.slot) ? (
+        <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink/65">{consulti.seraOnline}</p>
+      ) : null}
 
       <div className="mt-8 flex flex-col gap-8">
         <Field label="Nome completo *" value={name} onChange={setName} />

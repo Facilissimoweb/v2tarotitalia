@@ -5,6 +5,8 @@
  */
 import Stripe from "https://esm.sh/stripe@17.4.0?target=deno";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { resolveBookingMode } from "../_shared/bookingRules.ts";
+import { fulfillPaidBooking } from "../stripe-webhook/fulfillPaidBooking.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -38,7 +40,7 @@ Deno.serve(async (req) => {
 
   const { data: row } = await admin
     .from("bookings")
-    .select("id, user_id, status, stripe_checkout_session_id")
+    .select("*")
     .eq("id", bookingId)
     .eq("user_id", user.id)
     .maybeSingle();
@@ -61,26 +63,48 @@ Deno.serve(async (req) => {
   const paid = session.payment_status === "paid" || session.status === "complete";
   if (!paid) return json({ ok: true, status: row.status }, 200);
 
+  const paymentIntent =
+    typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null;
   const confirmed = await admin
     .from("bookings")
     .update({
       status: "confirmed",
+      mode: resolveBookingMode(String(row.mode ?? "remote"), String(row.slot ?? "")),
       stripe_checkout_session_id: session.id,
-      stripe_payment_intent_id:
-        typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
+      stripe_payment_intent_id: paymentIntent,
       stripe_amount_total: typeof session.amount_total === "number" ? session.amount_total : null,
       paid_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
     })
     .eq("id", row.id)
-    .eq("status", "pending_payment");
+    .eq("status", "pending_payment")
+    .select("*");
   if (confirmed.error) {
     console.error("sync confirm", confirmed.error);
     return json({ error: "Non riesco ad aggiornare la prenotazione." }, 500);
   }
+  const booked = confirmed.data?.[0];
+  if (booked) {
+    const customerEmail =
+      session.customer_email || session.customer_details?.email || (await emailForUser(admin, row.user_id));
+    await fulfillPaidBooking(booked, {
+      customerEmail,
+      transactionId: paymentIntent || session.id,
+      amountCents: typeof session.amount_total === "number" ? session.amount_total : null,
+    });
+  }
 
   return json({ ok: true, status: "confirmed" }, 200);
 });
+
+async function emailForUser(
+  admin: ReturnType<typeof createClient>,
+  userId: string | null,
+): Promise<string | null> {
+  if (!userId) return null;
+  const { data } = await admin.auth.admin.getUserById(userId);
+  return data.user?.email ?? null;
+}
 
 function cors() {
   return {

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { siteDateTime } from "../lib/locale";
 import { fetchOccupiedSlots, isOccupied, type OccupiedSlot } from "../lib/occupiedSlots";
+import { isEveningSlot } from "../lib/bookingRules";
 import { HOUR_SLOTS, localIso, slotsForDate } from "../lib/storage";
 
 const { consulti } = siteContent;
@@ -157,10 +158,16 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
               }`}
             >
               {hour}
+              {isEveningSlot(hour) ? (
+                <span className="mt-1 block text-[0.5rem] uppercase tracking-[0.12em] opacity-70">
+                  {consulti.seraOnlineBreve}
+                </span>
+              ) : null}
             </button>
           );
         })}
       </div>
+      <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink/65">{consulti.seraOnline}</p>
     </div>
   );
 }

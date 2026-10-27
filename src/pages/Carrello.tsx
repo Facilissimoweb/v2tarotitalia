@@ -14,6 +14,7 @@ import {
   writeBookingDraft,
   type Purchase,
 } from "../lib/storage";
+import { sessionModeLabel } from "../lib/bookingRules";
 import { cancelPendingCheckout } from "../lib/stripeCheckout";
 import { formatBookingDay } from "../lib/whatsapp";
 import { useMemo, useState } from "react";
@@ -141,7 +142,8 @@ function DraftSummary() {
       <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{nav.carrello}</p>
       <h2 className="mt-3 font-display text-xl">{option?.titolo ?? draft.type}</h2>
       <p className="mt-2 text-sm text-ink/65">
-        {formatBookingDay(draft.dateIso)} · {draft.slot} · €{draft.total}
+        {formatBookingDay(draft.dateIso)} · {draft.slot} · {sessionModeLabel(draft.mode, draft.slot, STUDIO.city)} · €
+        {draft.total}
       </p>
     </div>
   );
@@ -172,7 +174,7 @@ function PendingCard({
       <h3 className="mt-3 font-display text-lg">{title}</h3>
       <p className="mt-1 text-xs text-ink/60">
         {purchase.minutes} minuti ·{" "}
-        {purchase.mode === "remote" ? "Chiamata vocale WhatsApp" : `In studio a ${STUDIO.city}`}
+        {sessionModeLabel(purchase.mode, purchase.slot, STUDIO.city)}
         {purchase.slot ? ` · Ore ${purchase.slot}` : ""}
       </p>
       <p className="mt-4 text-[0.625rem] uppercase tracking-[0.14em] text-ink/45">

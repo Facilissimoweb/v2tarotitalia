@@ -16,6 +16,7 @@ import {
   type Purchase,
   type PurchaseStatus,
 } from "../lib/storage";
+import { sessionModeLabel } from "../lib/bookingRules";
 import { cancelPendingCheckout, requestStripeRefund, syncPaidCheckout } from "../lib/stripeCheckout";
 import { buildRecessoMessage, openWhatsApp, whatsappHref } from "../lib/whatsapp";
 
@@ -401,7 +402,7 @@ function PaidCard({
       </div>
       <h3 className="mt-3 font-display text-lg">{title}</h3>
       <p className="mt-1 text-xs text-ink/60">
-        {b.minutes} minuti · {b.mode === "remote" ? "Chiamata vocale WhatsApp" : `In studio a ${STUDIO.city}`}
+        {b.minutes} minuti · {sessionModeLabel(b.mode, b.slot, STUDIO.city)}
         {b.slot ? ` · Ore ${b.slot}` : ""}
       </p>
       <p className="mt-3 text-xs leading-relaxed text-ink/65">

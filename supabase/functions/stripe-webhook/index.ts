@@ -1,16 +1,13 @@
 /**
- * Webhook Stripe: conferma o libera lo slot; invia le mail.
+ * Webhook Stripe: conferma o libera lo slot; mail, Calendar e WhatsApp.
  * verify_jwt = false. Secrets: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET,
- * SUPABASE_SERVICE_ROLE_KEY, ZOHO_EMAIL, ZOHO_PASSWORD
+ * SUPABASE_SERVICE_ROLE_KEY, ZOHO_EMAIL, ZOHO_PASSWORD,
+ * Google Calendar OAuth o service account, WHATSAPP_TOKEN, WHATSAPP_PHONE_NUMBER_ID
  */
 import Stripe from "https://esm.sh/stripe@17.4.0?target=deno";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
-import nodemailer from "npm:nodemailer@6.9.16";
-import { fillBookingConfirmHtml, fillBookingConfirmText } from "./bookingConfirmHtml.ts";
-
-const FROM_ADDRESS = "info@tarotitalia.com";
-const FROM_NAME = "Maria Teresa Rogani · Tarot Italia";
-const STUDIO = "info@tarotitalia.com";
+import { resolveBookingMode } from "../_shared/bookingRules.ts";
+import { fulfillPaidBooking } from "./fulfillPaidBooking.ts";
 
 Deno.serve(async (req) => {
   if (req.method !== "POST") {
@@ -58,6 +55,7 @@ Deno.serve(async (req) => {
 
     const paidFields = {
       status: "confirmed",
+      mode: resolveBookingMode(String(row.mode ?? "remote"), String(row.slot ?? "")),
       stripe_checkout_session_id: session.id,
       stripe_payment_intent_id:
         typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null,
@@ -69,35 +67,36 @@ Deno.serve(async (req) => {
       .from("bookings")
       .update(paidFields)
       .eq("id", bookingId)
-      .in("status", ["pending_payment", "pending", "pending_whatsapp", "cancelled"]);
+      .in("status", ["pending_payment", "pending", "pending_whatsapp", "cancelled"])
+      .select("*");
     if (confirmed.error) {
       console.error("booking confirm full", confirmed.error);
       confirmed = await admin
         .from("bookings")
         .update({
           status: "confirmed",
+          mode: paidFields.mode,
           stripe_checkout_session_id: session.id,
           stripe_payment_intent_id: paidFields.stripe_payment_intent_id,
         })
         .eq("id", bookingId)
-        .in("status", ["pending_payment", "pending", "pending_whatsapp", "cancelled"]);
+        .in("status", ["pending_payment", "pending", "pending_whatsapp", "cancelled"])
+        .select("*");
       if (confirmed.error) {
         console.error("booking confirm", confirmed.error);
         return new Response("ok", { status: 200 });
       }
     }
+    const booked = confirmed.data?.[0];
+    if (!booked) return new Response("ok", { status: 200 });
 
     const customerEmail =
       session.customer_email || session.customer_details?.email || (await emailForUser(admin, row.user_id));
-    try {
-      await sendBookingMails(row, {
-        customerEmail,
-        transactionId: paidFields.stripe_payment_intent_id || session.id,
-        amountCents: typeof session.amount_total === "number" ? session.amount_total : null,
-      });
-    } catch (error) {
-      console.error("booking mail", error);
-    }
+    await fulfillPaidBooking(booked, {
+      customerEmail,
+      transactionId: paidFields.stripe_payment_intent_id || session.id,
+      amountCents: typeof session.amount_total === "number" ? session.amount_total : null,
+    });
   }
 
   if (event.type === "checkout.session.expired") {
@@ -173,140 +172,4 @@ async function emailForUser(
   if (!userId) return null;
   const { data } = await admin.auth.admin.getUserById(userId);
   return data.user?.email ?? null;
-}
-
-async function sendBookingMails(
-  row: Record<string, unknown>,
-  extras: { customerEmail: string | null; transactionId: string; amountCents: number | null },
-) {
-  const zohoUser = Deno.env.get("ZOHO_EMAIL")?.trim();
-  const zohoPass = Deno.env.get("ZOHO_PASSWORD");
-  if (!zohoUser || !zohoPass) {
-    console.error("Missing ZOHO secrets — booking mail skipped");
-    return;
-  }
-
-  const host = Deno.env.get("ZOHO_SMTP_HOST")?.trim() || "smtp.zoho.eu";
-  const port = Number(Deno.env.get("ZOHO_SMTP_PORT") || "465");
-  const site = (Deno.env.get("SITE_URL")?.trim() || "https://www.tarotitalia.com").replace(/\/$/, "");
-  const day = String(row.session_date ?? "");
-  const slot = String(row.slot ?? "");
-  const name = String(row.guest_name ?? "").trim() || "Gentile";
-  const phone = String(row.phone ?? "");
-  const titleBase = row.consult_type === "deep" ? "Consulto di 1 ora" : "Consulto di 30 minuti";
-  const title = row.pdf_report ? `${titleBase} · Report di sintesi in PDF inviato via WhatsApp` : titleBase;
-  const mode = row.mode === "remote" ? "Chiamata vocale WhatsApp" : "In studio a Macerata";
-  const euros =
-    extras.amountCents != null && extras.amountCents >= 0
-      ? extras.amountCents / 100
-      : Number(row.total_price ?? 0);
-  const amount = Number.isFinite(euros)
-    ? euros.toLocaleString("it-IT", { minimumFractionDigits: 0, maximumFractionDigits: 2 })
-    : String(row.total_price ?? "");
-  const bookingId = String(row.id ?? "");
-  const vars = {
-    user_name: name,
-    user_email: extras.customerEmail ?? "",
-    session_title: title,
-    session_mode: mode,
-    booking_date: formatBookingDate(day),
-    booking_time: slot,
-    booking_id: bookingId,
-    transaction_id: extras.transactionId || "—",
-    amount,
-    phone,
-    riservata_url: `${site}/riservata`,
-    whatsapp_url: "https://wa.me/393791038253",
-    support_email: FROM_ADDRESS,
-  };
-  const htmlVars = {
-    ...vars,
-    user_name: escapeHtml(vars.user_name),
-    user_email: escapeHtml(vars.user_email),
-    session_title: escapeHtml(vars.session_title),
-    session_mode: escapeHtml(vars.session_mode),
-    booking_date: escapeHtml(vars.booking_date),
-    booking_time: escapeHtml(vars.booking_time),
-    booking_id: escapeHtml(vars.booking_id),
-    transaction_id: escapeHtml(vars.transaction_id),
-    amount: escapeHtml(vars.amount),
-    phone: escapeHtml(vars.phone),
-    riservata_url: escapeHtml(vars.riservata_url),
-    whatsapp_url: escapeHtml(vars.whatsapp_url),
-    support_email: escapeHtml(vars.support_email),
-  };
-  const html = fillBookingConfirmHtml(htmlVars);
-  const text = fillBookingConfirmText(vars);
-  const studioText = [
-    `Nuova prenotazione confermata — Tarot Italia`,
-    `Nome: ${name}`,
-    `Email: ${extras.customerEmail ?? "—"}`,
-    `Recapito: ${phone}`,
-    `Sessione: ${title}`,
-    `Quando: ${vars.booking_date} · ${slot}`,
-    `Modalità: ${mode}`,
-    `Totale: €${amount}`,
-    `Riferimento: ${bookingId}`,
-    `Transazione: ${extras.transactionId || "—"}`,
-  ].join("\n");
-
-  const transporter = nodemailer.createTransport({
-    host,
-    port,
-    secure: port === 465,
-    auth: { user: zohoUser, pass: zohoPass },
-    connectionTimeout: 20_000,
-    greetingTimeout: 20_000,
-    socketTimeout: 30_000,
-  });
-
-  if (extras.customerEmail) {
-    await transporter.sendMail({
-      from: `"${FROM_NAME}" <${FROM_ADDRESS}>`,
-      replyTo: FROM_ADDRESS,
-      to: extras.customerEmail,
-      subject: `Pagamento ricevuto — ${vars.booking_date} · ${slot}`,
-      text,
-      html,
-    });
-  }
-
-  await transporter.sendMail({
-    from: `"${FROM_NAME}" <${FROM_ADDRESS}>`,
-    replyTo: extras.customerEmail || FROM_ADDRESS,
-    to: STUDIO,
-    subject: `Nuova prenotazione — ${name} · ${vars.booking_date} ${slot}`,
-    text: studioText,
-    html: `<div style="font-family:Georgia,serif;color:#2B2523;background:#F9F8F6;padding:28px"><p>${escapeHtml(studioText).replaceAll("\n", "<br>")}</p></div>`,
-  });
-
-  await transporter.close();
-}
-
-function formatBookingDate(iso: string) {
-  const [year, month, day] = iso.split("-").map(Number);
-  const months = [
-    "gennaio",
-    "febbraio",
-    "marzo",
-    "aprile",
-    "maggio",
-    "giugno",
-    "luglio",
-    "agosto",
-    "settembre",
-    "ottobre",
-    "novembre",
-    "dicembre",
-  ];
-  if (!year || !month || !day || month < 1 || month > 12) return iso;
-  return `${day} ${months[month - 1]} ${year}`;
-}
-
-function escapeHtml(value: string) {
-  return value
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
 }

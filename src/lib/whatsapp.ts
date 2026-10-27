@@ -1,4 +1,5 @@
 import { siteContent } from "../data/siteContent";
+import { sessionModeLabel } from "./bookingRules";
 import { siteDateTime } from "./locale";
 import { STUDIO } from "../data/catalogo";
 import type { Purchase, PurchaseDraft } from "./storage";
@@ -45,7 +46,7 @@ export function buildWhatsAppMessage(draft: PurchaseDraft, optionTitle: string) 
     `Consulto: ${optionTitle} (${draft.minutes} min) — €${draft.consultPrice}`,
     `Data: ${formatBookingDay(draft.dateIso)}`,
     `Orario: ${draft.slot}`,
-    `Modalità: ${draft.mode === "remote" ? "Chiamata vocale WhatsApp" : `In studio a ${STUDIO.city}`}`,
+    `Modalità: ${sessionModeLabel(draft.mode, draft.slot, STUDIO.city)}`,
     `Totale: €${draft.total}`,
   ];
   if (draft.pdf) lines.push(`${consulti.pdf.etichetta} (+€${consulti.pdf.prezzo})`);

@@ -11,6 +11,7 @@ import {
   writeBookingDraft,
   type BookingMode,
 } from "../lib/storage";
+import { isEveningSlot, resolveBookingMode, sessionModeLabel } from "../lib/bookingRules";
 import { fetchOccupiedSlots, isOccupied } from "../lib/occupiedSlots";
 import { formatBookingDay } from "../lib/whatsapp";
 import { Button, Kicker } from "../components/Button";
@@ -40,6 +41,8 @@ export function Consulti() {
   const option = consulti.opzioni.find((o) => o.id === type)!;
   const total = consultTotal(option.prezzo, pdf);
   const dayLabel = formatBookingDay(dateIso);
+  const evening = isEveningSlot(slot);
+  const meeting = resolveBookingMode(mode, slot);
 
   useEffect(() => {
     if (restored.current) return;
@@ -47,13 +50,14 @@ export function Consulti() {
     restored.current = true;
     if (!saved) return;
     setType(saved.type);
-    setMode(saved.mode);
     setPdf(saved.pdf);
     const hoursOnSavedDay = slotsForDate(saved.dateIso);
     const date = hoursOnSavedDay.length ? saved.dateIso : nextBookableDate();
     const hours = slotsForDate(date);
     setDateIso(date);
-    setSlot(hours.includes(saved.slot) ? saved.slot : hours[0] ?? saved.slot);
+    const nextSlot = hours.includes(saved.slot) ? saved.slot : hours[0] ?? saved.slot;
+    setSlot(nextSlot);
+    setMode(resolveBookingMode(saved.mode, nextSlot));
   }, []);
 
   useEffect(() => {
@@ -64,7 +68,14 @@ export function Consulti() {
   function chooseDate(iso: string) {
     setDateIso(iso);
     const hours = slotsForDate(iso);
-    if (hours.length && !hours.includes(slot)) setSlot(hours[0]);
+    const nextSlot = hours.length && !hours.includes(slot) ? hours[0] : slot;
+    if (nextSlot !== slot) setSlot(nextSlot);
+    setMode((current) => resolveBookingMode(current, nextSlot));
+  }
+
+  function chooseSlot(hour: string) {
+    setSlot(hour);
+    setMode((current) => resolveBookingMode(current, hour));
   }
 
   function persistDraft() {
@@ -76,7 +87,7 @@ export function Consulti() {
       pdf,
       pdfPrice: (pdf ? REPORT_PDF_PRICE : 0) as 0 | 10,
       total,
-      mode,
+      mode: resolveBookingMode(mode, slot),
       dateIso,
       slot,
       name: saved?.name || session?.name || "",
@@ -169,26 +180,34 @@ export function Consulti() {
             <div className="mt-8 grid grid-cols-2 gap-4">
               <button
                 type="button"
-                onClick={() => setMode("studio")}
-                className={`p-4 text-left ${mode === "studio" ? "bg-ink text-on-ink" : "bg-mist text-ink"}`}
+                disabled={evening}
+                onClick={() => {
+                  if (!evening) setMode("studio");
+                }}
+                className={`p-4 text-left ${
+                  meeting === "studio" ? "bg-ink text-on-ink" : "bg-mist text-ink"
+                } ${evening ? "cursor-not-allowed opacity-40" : ""}`}
               >
                 <p className="font-display">In studio</p>
-                <p className={`mt-1 text-[0.625rem] ${mode === "studio" ? "text-on-ink/70" : "text-ink/50"}`}>
+                <p className={`mt-1 text-[0.625rem] ${meeting === "studio" ? "text-on-ink/70" : "text-ink/50"}`}>
                   {STUDIO.city} centro
                 </p>
               </button>
               <button
                 type="button"
                 onClick={() => setMode("remote")}
-                className={`p-4 text-left ${mode === "remote" ? "bg-ink text-on-ink" : "bg-mist text-ink"}`}
+                className={`p-4 text-left ${meeting === "remote" ? "bg-ink text-on-ink" : "bg-mist text-ink"}`}
               >
                 <p className="font-display">A distanza</p>
-                <p className={`mt-1 text-[0.625rem] ${mode === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>
+                <p className={`mt-1 text-[0.625rem] ${meeting === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>
                   Audio WhatsApp
                 </p>
               </button>
             </div>
-            {mode === "remote" ? (
+            <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink/65">
+              {evening ? consulti.studioSeraChiuso : consulti.seraOnline}
+            </p>
+            {meeting === "remote" ? (
               <p className="mt-8 bg-linen p-8 text-[0.75rem] leading-relaxed text-ink/70">{STUDIO.whatsappNote}</p>
             ) : (
               <p className="mt-8 bg-mist p-8 text-[0.75rem] leading-relaxed text-ink/70">
@@ -202,7 +221,7 @@ export function Consulti() {
           <section>
             <Kicker>03 · Calendario</Kicker>
             <div className="mt-8">
-              <BookingCalendar dateIso={dateIso} slot={slot} onDate={chooseDate} onSlot={setSlot} />
+              <BookingCalendar dateIso={dateIso} slot={slot} onDate={chooseDate} onSlot={chooseSlot} />
             </div>
           </section>
         </Reveal>
@@ -211,7 +230,7 @@ export function Consulti() {
           <section>
             <div className="bg-mist p-8">
               <Row k="Sessione" v={`${option.titolo} (${option.minuti} min)`} />
-              <Row k="Erogazione" v={mode === "remote" ? "Chiamata vocale WhatsApp" : `In studio a ${STUDIO.city}`} />
+              <Row k="Erogazione" v={sessionModeLabel(meeting, slot, STUDIO.city)} />
               <Row k="Data & ora" v={`${dayLabel} — ${slot}`} />
               {pdf ? <Row k={consulti.pdf.etichetta} v={`€${consulti.pdf.prezzo}`} /> : null}
               <div className="mt-3 flex items-center justify-between">

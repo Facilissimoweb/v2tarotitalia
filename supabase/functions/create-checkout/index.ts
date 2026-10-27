@@ -4,6 +4,7 @@
  */
 import Stripe from "https://esm.sh/stripe@17.4.0?target=deno";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
+import { resolveBookingMode, sessionModeLabel } from "../_shared/bookingRules.ts";
 
 const FOCUS = { type: "focus", minutes: 30, price: 40, title: "Consulto di 30 minuti" };
 const DEEP = { type: "deep", minutes: 60, price: 60, title: "Consulto di 1 ora" };
@@ -70,6 +71,7 @@ Deno.serve(async (req) => {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(body.dateIso ?? "") || !/^\d{2}:\d{2}$/.test(body.slot ?? "")) {
     return json({ error: "Seleziona una fascia oraria disponibile." }, 400);
   }
+  const mode = resolveBookingMode(body.mode, body.slot ?? "");
   const name = (body.name ?? "").trim();
   const phone = (body.phone ?? "").trim();
   if (!name || !phone) return json({ error: "Indica nome e recapito." }, 400);
@@ -90,7 +92,7 @@ Deno.serve(async (req) => {
     pdf_report: pdf,
     pdf_price: pdf ? PDF_PRICE : 0,
     total_price: total,
-    mode: body.mode,
+    mode,
     session_date: body.dateIso,
     slot: body.slot,
     guest_name: name,
@@ -120,7 +122,7 @@ Deno.serve(async (req) => {
         unit_amount: catalog.price * 100,
         product_data: {
           name: `Tarot Italia — ${catalog.title}`,
-          description: `${body.dateIso} · ${body.slot} · ${body.mode === "remote" ? "WhatsApp" : "In studio"}`,
+          description: `${body.dateIso} · ${body.slot} · ${sessionModeLabel(mode, body.slot ?? "")}`,
         },
       },
     },
