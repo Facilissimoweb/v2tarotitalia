@@ -10,7 +10,7 @@ const { brand, cta, home } = siteContent;
 const titolo = home.titolo;
 /** Split ufficiale "Tarot Italia" → a capo solo su mobile. */
 const [titoloLead = titolo, titoloTrail = ""] = titolo.split(/\s+/, 2);
-const HERO_IMAGE_DESKTOP = "/hero-home.jpg";
+const HERO_IMAGE_DESKTOP = "/hero-home.webp";
 const HERO_IMAGE_MOBILE = "/hero-home-mobile.jpg";
 const MOBILE_HERO_MQ = "(max-width: 767px)";
 
