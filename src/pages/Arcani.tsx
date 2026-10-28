@@ -54,12 +54,7 @@ export function ArcanoDetail() {
       <PageHero
         kicker={`Arcano ${arcano.roman} · ${arcano.french}`}
         title={arcano.name}
-        lead={
-          <>
-            <span className="mb-4 block font-display text-lg italic text-sage">{arcano.subtitle}</span>
-            {arcano.essence}
-          </>
-        }
+        lead={arcano.subtitle}
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/arcani", label: "Tutti i 22 Arcani" }}
       />
@@ -70,6 +65,9 @@ export function ArcanoDetail() {
           </div>
         </Reveal>
         <div>
+          <Reveal>
+            <p className="mb-10 font-display text-lg leading-relaxed text-ink/80">{arcano.essence}</p>
+          </Reveal>
           <div className="grid gap-8 md:grid-cols-2">
             <Reveal>
               <article className="bg-mist p-8">

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { GoogleMark, GoogleStars } from "./GoogleMark";
+import { PageBanner } from "./PageBanner";
 
 export type HeroCta = {
   to?: string;
@@ -10,7 +11,7 @@ export type HeroCta = {
   accent?: "google";
 };
 
-/** Sfondo della hero interna (non più usato: le pagine interne non hanno hero). */
+/** Sfondo della hero interna (non più usato: le pagine interne non hanno hero illustrata). */
 export type HeroMedia = {
   src: string;
   type?: "image";
@@ -22,7 +23,7 @@ type Props = {
   kicker: string;
   title: ReactNode;
   lead: ReactNode;
-  /** Ignorati: le pagine interne non hanno più hero, logo, immagine di sfondo né CTA. */
+  /** Ignorati: le pagine interne mostrano solo titolo e sottotitolo. */
   cta?: HeroCta | null;
   beforeCta?: HeroCta;
   secondary?: HeroCta;
@@ -33,18 +34,24 @@ type Props = {
 };
 
 /**
- * Intestazione minima per le pagine che non usano `PageBanner` (Blog, Arcani, Area riservata, ecc.).
- * Resta un H1 nascosto alla vista (`sr-only`) per SEO e screen reader, più un po' di spazio
- * sotto l'header. Gli eventuali `children` (es. stato account in Area Riservata) restano visibili.
- * La hero illustrata è solo in Home (`HomeHero`); Consulti, Percorsi, Chi Sono e Contatti
- * usano il banner visibile `PageBanner`.
+ * Intestazione delle pagine che non usano `PageBanner` in modo esplicito
+ * (Blog, Arcani, Area riservata, ecc.): titolo e sottotitolo (`lead`).
+ * Eventuali `children` restano sotto, fuori dalla hero.
  */
-export function PageHero({ title, children }: Props) {
+export function PageHero({ title, lead, children }: Props) {
   return (
-    <div data-page-top className="px-6 pt-10 md:px-10 md:pt-14">
-      <h1 className="sr-only">{title}</h1>
-      {children ? <div className="mx-auto flex w-full max-w-3xl justify-center">{children}</div> : null}
-    </div>
+    <>
+      <PageBanner
+        title={title}
+        subtitle={lead}
+        className={children ? "mb-0 pb-6 md:pb-8" : "mb-10 md:mb-14"}
+      />
+      {children ? (
+        <div className="mx-auto flex w-full max-w-3xl justify-center px-6 pb-10 md:px-10 md:pb-14">
+          {children}
+        </div>
+      ) : null}
+    </>
   );
 }
 

@@ -8,8 +8,6 @@ import { ChromaticImage } from "./ui/chromatic-image";
 const { brand, cta, home } = siteContent;
 
 const titolo = home.titolo;
-/** Split ufficiale "Tarot Italia" → a capo solo su mobile. */
-const [titoloLead = titolo, titoloTrail = ""] = titolo.split(/\s+/, 2);
 const HERO_IMAGE_DESKTOP = "/hero-home.webp";
 const HERO_IMAGE_MOBILE = "/hero-home-mobile.jpg";
 const MOBILE_HERO_MQ = "(max-width: 767px)";
@@ -87,24 +85,15 @@ export function HomeHero() {
           className="pointer-events-none relative z-10 flex items-center justify-center px-6 pb-24 pt-12 md:px-10 md:pb-32 md:pt-16"
           style={{ minHeight: FRAME_H }}
         >
-          <div className="pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-6 text-center text-white md:max-w-4xl md:py-10">
+          <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-6 text-center text-white md:max-w-4xl md:py-10">
             {/* Logo: immobile */}
             <BrandLogo
               tone="hero"
               className="mx-auto h-[clamp(7.5rem,min(52vw,28svh),18rem)] w-[clamp(7.5rem,min(52vw,28svh),18rem)] max-w-full drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
             />
 
-            {/* 1 · Titolo: su mobile "Tarot" / "Italia" a capo; "Italia" più ampia in orizzontale */}
-            <h1 className="mt-10 max-w-full font-h1 text-[clamp(3.25rem,min(15vw,18svh),8.5rem)] leading-[1.05] text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14 md:leading-[1.02] xl:text-[clamp(5.75rem,min(11vw,18svh),11.5rem)]">
-              <span className="block md:inline">{titoloLead}</span>
-              {titoloTrail ? (
-                <>
-                  <span className="hidden md:inline"> </span>
-                  <span className="mt-1 block w-full text-[1.12em] md:mt-0 md:inline md:w-auto md:text-[1em]">
-                    {titoloTrail}
-                  </span>
-                </>
-              ) : null}
+            <h1 className="mt-10 w-full font-h1 text-h1-home text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14">
+              {titolo}
             </h1>
 
             {/* Separatore sotto il titolo */}

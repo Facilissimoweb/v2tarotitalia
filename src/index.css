@@ -108,6 +108,28 @@
   letter-spacing: 0;
 }
 
+/* H1 pagine interne: ampia su smartphone, a capo naturale. */
+@utility text-h1 {
+  font-size: clamp(4.75rem, 2.35rem + 10.5vw, 7.25rem);
+  line-height: 1.05;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+/* H1 Home: una sola riga; la misura riempie la colonna hero senza andare a capo. */
+@utility home-hero-copy {
+  container-type: inline-size;
+}
+
+@utility text-h1-home {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  white-space: nowrap;
+  line-height: 1.05;
+  font-size: clamp(2.15rem, calc(100cqi / 3.42), 11.5rem);
+}
+
 /* Blagkine non ha il corsivo: niente obliquo sintetico nei titoli H1 */
 .font-h1.italic,
 .font-h1 .italic {
