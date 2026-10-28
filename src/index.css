@@ -321,20 +321,20 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   word-spacing: 0.12em;
 }
 
-/* Barra contatti: sigillo a pillola (struttura esoterica, arancio al posto del rosso). */
+/* Barra contatti: illustrazione a sfondo, icone in sfere. */
 .esoteric-badge-btn {
   --ember: var(--color-ember);
   --ember-hot: var(--color-ember-hot);
   isolation: isolate;
   position: relative;
   overflow: visible;
-  background-color: var(--color-ink);
-  color: var(--ember);
-  border: 3px solid var(--ember);
+  background-color: var(--color-ember);
+  color: #fff;
+  border: 2px solid var(--ember);
   border-radius: 9999px;
   box-shadow:
-    inset 0 0 20px rgb(232 92 18 / 0.25),
-    0 0 25px rgb(232 92 18 / 0.3);
+    0 10px 28px rgb(43 37 35 / 0.28),
+    0 0 22px rgb(232 92 18 / 0.28);
   transition:
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
@@ -347,35 +347,34 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   inset: 0;
   z-index: 0;
   border-radius: inherit;
-  background: var(--ember);
-  opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.esoteric-badge-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  opacity: 0.18;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
-}
-
-.esoteric-badge-btn:hover::before,
-.esoteric-badge-btn:focus-within::before {
-  opacity: 0.18;
+  background-color: var(--color-ember);
+  background-image: url("/dock-fondo.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .esoteric-badge-btn:hover,
 .esoteric-badge-btn:focus-within {
   border-color: var(--ember-hot);
   box-shadow:
-    inset 0 0 30px rgb(232 92 18 / 0.4),
-    0 0 40px rgb(232 92 18 / 0.55);
+    0 14px 32px rgb(43 37 35 / 0.32),
+    0 0 32px rgb(232 92 18 / 0.42);
   transform: translateY(-2px);
+}
+
+.dock-sphere {
+  border-radius: 9999px;
+  background-color: var(--color-ink);
+  color: #fff;
+  box-shadow: 0 2px 8px rgb(43 37 35 / 0.4);
+}
+
+.dock-sphere:hover,
+.dock-sphere:focus-visible {
+  background-color: #1a1615;
+  color: #fff;
 }
 
 .esoteric-badge-btn:active {

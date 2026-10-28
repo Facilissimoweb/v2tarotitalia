@@ -10,12 +10,12 @@ import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from ".
 
 const { brand, cta, nav } = siteContent;
 
-/** Barra-sigillo: struttura a pillola, bordo e alone arancio. */
+/** Barra-sigillo: illustrazione a sfondo, icone bianche in sfere nere. */
 const dockClass =
-  "esoteric-badge-btn pointer-events-auto flex items-center justify-center gap-1.5 px-4 py-2 sm:gap-2 sm:px-5 sm:py-2.5 md:gap-2.5 md:px-6 md:py-3";
+  "esoteric-badge-btn pointer-events-auto flex w-[min(36rem,calc(100vw-1.5rem))] items-center justify-center gap-2 px-5 py-2 sm:gap-2.5 sm:px-8 sm:py-2.5 md:gap-3 md:px-10 md:py-3";
 
 const itemClass =
-  "group relative z-[1] flex h-12 w-12 items-center justify-center text-ember transition-colors duration-200 hover:text-ember-hot sm:h-[3.25rem] sm:w-[3.25rem] md:h-14 md:w-14";
+  "dock-sphere group relative z-[1] flex h-11 w-11 items-center justify-center text-white transition-transform duration-200 hover:scale-105 sm:h-12 sm:w-12 md:h-[3.15rem] md:w-[3.15rem]";
 
 const tipClass =
   "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ivory px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
