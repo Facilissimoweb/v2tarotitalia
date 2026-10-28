@@ -44,9 +44,21 @@ function HeroRule() {
   );
 }
 
+/** Ornamento vettoriale (LINEA A) sotto il titolo della Hero Home. */
+function HeroOrnament() {
+  return (
+    <img
+      src="/linea-hero.svg"
+      alt=""
+      aria-hidden
+      className="mx-auto block h-[clamp(2.15rem,6.5vw,3.15rem)] w-auto max-w-[min(22rem,78%)] object-contain drop-shadow-[0_1px_10px_rgba(43,37,35,0.45)]"
+    />
+  );
+}
+
 /**
  * Hero Home: ChromaticImage + gerarchia tipografica ariosa
- * (titolo → regola → sottotitolo → regola → descrizione). Logo fermo.
+ * (titolo → ornamento → sottotitolo → regola → descrizione). Logo fermo.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -104,9 +116,9 @@ export function HomeHero() {
             {titolo}
           </h1>
 
-            {/* Separatore sotto il titolo */}
+            {/* Ornamento LINEA A sotto il titolo */}
             <div className="mt-8 w-full md:mt-10">
-              <HeroRule />
+              <HeroOrnament />
             </div>
 
             <motion.div
