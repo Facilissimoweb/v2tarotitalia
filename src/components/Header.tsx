@@ -59,6 +59,10 @@ export function Header() {
 
   return (
     <>
+      <div
+        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-[#E85C12]"
+        aria-hidden
+      />
       <header className="site-chrome fixed inset-x-0 top-0 z-50 border-b border-ink/5 backdrop-blur-xl">
         <nav
           className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
