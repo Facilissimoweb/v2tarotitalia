@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
@@ -8,11 +7,8 @@ import { ChromaticImage } from "./ui/chromatic-image";
 const { brand, cta, home } = siteContent;
 
 const titolo = home.titolo;
-const HERO_IMAGE_DESKTOP = "/hero-home.webp";
-const HERO_IMAGE_MOBILE = "/A.jpg";
-const HERO_BG_DESKTOP = "#efece7";
-const HERO_BG_MOBILE = "#e85c12";
-const MOBILE_HERO_MQ = "(max-width: 767px)";
+const HERO_IMAGE = "/A.jpg";
+const HERO_BG = "#e85c12";
 
 /** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
 const heroBtn = "w-full xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.2em] 2xl:px-14 2xl:py-7 2xl:text-base";
@@ -66,24 +62,11 @@ export function HomeHero() {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
   const bgY = useTransform(scrollY, [0, 1200], [0, reduce ? 0 : 220]);
-  const [heroSrc, setHeroSrc] = useState(() =>
-    typeof window !== "undefined" && window.matchMedia(MOBILE_HERO_MQ).matches
-      ? HERO_IMAGE_MOBILE
-      : HERO_IMAGE_DESKTOP,
-  );
-
-  useEffect(() => {
-    const mq = window.matchMedia(MOBILE_HERO_MQ);
-    const sync = () => setHeroSrc(mq.matches ? HERO_IMAGE_MOBILE : HERO_IMAGE_DESKTOP);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
 
   return (
     <section
       data-home-hero
-      className="relative isolate overflow-hidden bg-mist text-white [--hh:80px] xl:[--hh:112px]"
+      className="relative isolate overflow-hidden bg-[#e85c12] text-white [--hh:80px] xl:[--hh:112px]"
     >
       <motion.div
         className="absolute inset-x-0 -top-[18%] z-0 h-[140%] will-change-transform"
@@ -91,9 +74,9 @@ export function HomeHero() {
         aria-hidden
       >
         <ChromaticImage
-          src={heroSrc}
+          src={HERO_IMAGE}
           alt=""
-          backgroundColor={heroSrc === HERO_IMAGE_MOBILE ? HERO_BG_MOBILE : HERO_BG_DESKTOP}
+          backgroundColor={HERO_BG}
           zoom={0.1}
           displacement={0.03}
           chromaticShift={0.012}
@@ -102,7 +85,14 @@ export function HomeHero() {
         />
       </motion.div>
 
-      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ink/45 via-ink/25 to-ink/55" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(232_92_18_/_0.08)_0%,rgb(232_92_18_/_0.28)_48%,rgb(232_92_18_/_0.62)_100%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#e85c12]/50 via-[#e85c12]/18 to-[#c94a0e]/58"
+      />
 
       <div
         className="pointer-events-none relative z-10 flex items-center justify-center px-6 pb-24 pt-12 md:px-10 md:pb-32 md:pt-16"
