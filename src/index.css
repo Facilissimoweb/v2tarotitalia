@@ -378,15 +378,12 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   overflow: visible;
   background-color: var(--color-ember);
   color: #fff;
-  border: 2px solid var(--ember);
+  border: 3px solid var(--color-ink);
   border-radius: 9999px;
-  box-shadow:
-    0 10px 28px rgb(43 37 35 / 0.28),
-    0 0 22px rgb(232 92 18 / 0.28);
+  box-shadow: 0 10px 28px rgb(43 37 35 / 0.32);
   transition:
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .esoteric-badge-btn::before {
@@ -405,10 +402,8 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
 .esoteric-badge-btn:hover,
 .esoteric-badge-btn:focus-within {
-  border-color: var(--ember-hot);
-  box-shadow:
-    0 14px 32px rgb(43 37 35 / 0.32),
-    0 0 32px rgb(232 92 18 / 0.42);
+  border-color: var(--color-ink);
+  box-shadow: 0 14px 32px rgb(43 37 35 / 0.4);
   transform: translateY(-2px);
 }
 
