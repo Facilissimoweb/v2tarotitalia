@@ -59,7 +59,7 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-ink/5 bg-ivory/95 backdrop-blur-xl">
+      <header className="site-chrome fixed inset-x-0 top-0 z-50 border-b border-ink/5 backdrop-blur-xl">
         <nav
           className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
           aria-label="Principale"

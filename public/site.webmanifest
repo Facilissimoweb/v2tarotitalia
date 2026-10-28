@@ -1,0 +1,19 @@
+{
+  "name": "Tarot Italia di Maria Teresa Rogani, operatore olistico",
+  "short_name": "Tarot Italia",
+  "description": "Cartomanzia, Tarologia e Percorsi di Armonizzazione a Macerata",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#E85C12",
+  "theme_color": "#E85C12",
+  "lang": "it-IT",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "any",
+      "purpose": "any"
+    }
+  ]
+}

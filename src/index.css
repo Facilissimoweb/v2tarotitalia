@@ -29,6 +29,7 @@
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    background-color: #e85c12;
   }
 
   html.translated-ltr,
@@ -319,6 +320,15 @@ html[data-a11y-spacing="on"] :where(p, li, dd, dt, blockquote, figcaption, td, t
 html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   line-height: 1.5;
   word-spacing: 0.12em;
+}
+
+/* Fascia arancio sotto status bar / notch (iOS Safari e Android). */
+.site-chrome {
+  padding-top: env(safe-area-inset-top, 0px);
+  background-color: rgb(249 248 246 / 0.95);
+  background-image: linear-gradient(#e85c12, #e85c12);
+  background-repeat: no-repeat;
+  background-size: 100% env(safe-area-inset-top, 0px);
 }
 
 /* Barra contatti: illustrazione a sfondo, icone in sfere. */
