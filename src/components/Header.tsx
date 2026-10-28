@@ -28,9 +28,13 @@ const NAV_CHILD =
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
-  `whitespace-nowrap text-[0.6875rem] uppercase tracking-[0.16em] transition-colors ${
-    active ? "text-ink" : "text-ink/40 hover:text-ink"
+  `whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.16em] transition-colors ${
+    active ? "text-ember" : "text-ember/80 hover:text-ember"
   }`;
+
+/** Icone della barra: ember, più grandi, coerenti. */
+const NAV_ICON_BTN =
+  "flex h-12 w-12 shrink-0 items-center justify-center text-ember transition-colors hover:text-ember-hot [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem]";
 
 export function Header() {
   const { pathname } = useLocation();
@@ -60,10 +64,10 @@ export function Header() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-[#E85C12]"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-black"
         aria-hidden
       />
-      <header className="site-chrome fixed inset-x-0 top-0 z-50 border-b border-ink/5 backdrop-blur-xl">
+      <header className="site-chrome fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black">
         <nav
           className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
           aria-label="Principale"
@@ -81,7 +85,7 @@ export function Header() {
             translate="no"
           >
             <BrandLogo className="h-[52px] w-[52px]" />
-            <span className="mt-1 font-h1 text-[1.85rem] leading-none text-ink xl:text-[2.05rem]">
+            <span className="mt-1 font-h1 text-[1.85rem] leading-none text-ember xl:text-[2.05rem]">
               {brand.wordmark}
             </span>
           </NavLink>
@@ -94,18 +98,22 @@ export function Header() {
             </div>
             <div className="flex shrink-0 items-center">
               <LanguageWidget placement="nav" />
-              <AccessibilityTrigger />
-              <AccountLink />
-              <CartLink />
+              <AccessibilityTrigger className={NAV_ICON_BTN} />
+              <AccountLink className={NAV_ICON_BTN} />
+              <CartLink className={NAV_ICON_BTN} />
             </div>
           </div>
         </nav>
 
         <div className="grid h-[80px] grid-cols-[1fr_auto_1fr] items-center px-3 xl:hidden">
-          <div className="flex items-center justify-start">
+          <div aria-hidden className="min-h-12" />
+          <NavLink to="/" className="justify-self-center" aria-label={brand.wordmark}>
+            <BrandLogo className="h-[68px] w-[68px]" />
+          </NavLink>
+          <div className="flex items-center justify-end">
             <button
               type="button"
-              className="flex h-[40px] w-[40px] items-center justify-center text-ink"
+              className={NAV_ICON_BTN}
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? nav.chiudi : nav.menu}
@@ -113,15 +121,8 @@ export function Header() {
             >
               {open ? <CloseIcon /> : <MenuIcon />}
             </button>
-            <LanguageWidget placement="nav" />
-          </div>
-          <NavLink to="/" className="justify-self-center" aria-label={brand.wordmark}>
-            <BrandLogo className="h-[68px] w-[68px]" />
-          </NavLink>
-          <div className="flex items-center justify-end">
-            <AccessibilityTrigger />
-            <AccountLink />
-            <CartLink />
+            <AccountLink className={NAV_ICON_BTN} />
+            <CartLink className={NAV_ICON_BTN} />
           </div>
         </div>
       </header>
@@ -289,13 +290,13 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
   );
 }
 
-function AccountLink() {
+function AccountLink({ className = "flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink" }: { className?: string }) {
   const { session } = useAuth();
   return (
     <NavLink
       to={session ? "/riservata" : "/login"}
       state={session ? undefined : { from: "/riservata" }}
-      className="flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink"
+      className={className}
       aria-label={session ? nav.riservata : nav.accedi}
     >
       <ProfileIcon />
@@ -303,18 +304,18 @@ function AccountLink() {
   );
 }
 
-function CartLink() {
+function CartLink({ className = "relative flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink" }: { className?: string }) {
   const { purchases } = useAuth();
   const count = cartItemCount(purchases);
   return (
     <NavLink
       to="/carrello"
-      className="relative flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink"
+      className={`relative ${className}`}
       aria-label={nav.carrello}
     >
       <BagIcon />
       {count > 0 ? (
-        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ink px-1 text-center text-[0.625rem] leading-4 text-on-ink">
+        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-white">
           {count}
         </span>
       ) : null}

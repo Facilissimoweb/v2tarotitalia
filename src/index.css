@@ -111,14 +111,14 @@
   letter-spacing: 0;
 }
 
-/* Navbar/footer: ritaglio lieve, l’anello nero esterno resta intero. */
+/* Ritaglio del file: l’anello nero del sigillo arriva a filo della sfera. */
 @utility logo-flush {
-  transform: scale(1.12);
+  transform: scale(1.18);
   transform-origin: center;
 }
 
 @utility logo-flush-hero {
-  transform: scale(1.3);
+  transform: scale(1.32);
   transform-origin: center;
 }
 
@@ -170,6 +170,30 @@ h2 {
 h3 {
   font-family: var(--font-h3);
   font-weight: 400;
+}
+
+/* Desktop: testi chiave più pesanti, senza aste sottili. */
+@media (min-width: 1280px) {
+  html body {
+    font-weight: 600;
+  }
+
+  html body h2,
+  html body h3,
+  html body .font-display {
+    font-weight: 700;
+  }
+
+  html body p,
+  html body li,
+  html body dt,
+  html body dd {
+    font-weight: 600;
+  }
+
+  html body .label-kicker {
+    font-weight: 700;
+  }
 }
 
 @utility label-kicker {
@@ -366,7 +390,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 /* Area notch: padding. Il colore nativo resta a theme-color / manifest. */
 .site-chrome {
   padding-top: env(safe-area-inset-top, 0px);
-  background-color: rgb(249 248 246 / 0.95);
+  background-color: #000000;
 }
 
 /* Barra contatti: illustrazione a sfondo, icone in sfere. */

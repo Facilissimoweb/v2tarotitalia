@@ -56,7 +56,7 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate overflow-hidden bg-ember text-white [--hh:80px] xl:[--hh:112px]"
+      className="relative isolate overflow-hidden bg-ember text-black [--hh:80px] xl:[--hh:112px]"
     >
       <motion.div
         className="absolute inset-x-0 -top-[18%] z-0 h-[140%] will-change-transform"
@@ -88,10 +88,10 @@ export function HomeHero() {
         className="pointer-events-none relative z-10 flex items-start justify-center px-6 pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))] pt-3 md:px-10 md:pb-40 md:pt-5"
         style={{ minHeight: FRAME_H }}
       >
-        <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-1 text-center text-white md:max-w-4xl md:py-2">
+        <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-1 text-center text-black md:max-w-4xl md:py-2">
           <BrandLogo
             tone="hero"
-            className="logo-hero-ring mx-auto h-[clamp(6.75rem,min(40vw,23svh),13.25rem)] w-[clamp(6.75rem,min(40vw,23svh),13.25rem)] max-w-full drop-shadow-[0_0_22px_rgba(255,254,251,0.65)]"
+            className="mx-auto h-[clamp(6.75rem,min(40vw,23svh),13.25rem)] w-[clamp(6.75rem,min(40vw,23svh),13.25rem)] max-w-full"
           />
 
           <h1 className="mt-3 w-full font-h1 text-h1-home text-black [text-shadow:0_1px_18px_rgba(255,254,251,0.35)] md:mt-5">
@@ -106,14 +106,14 @@ export function HomeHero() {
             >
               <motion.p
                 variants={riseIn}
-                className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-white/90 md:mt-3 md:text-xs"
+                className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-black md:mt-3 md:text-xs xl:font-bold"
               >
                 {home.copyright}
               </motion.p>
 
               <motion.p
                 variants={riseIn}
-                className="mt-2 font-display text-3xl font-normal leading-tight text-white [text-shadow:0_2px_22px_rgba(43,37,35,0.45)] md:mt-3 md:text-5xl xl:text-6xl"
+                className="mt-2 font-display text-3xl font-normal leading-tight text-black [text-shadow:0_1px_18px_rgba(255,254,251,0.35)] md:mt-3 md:text-5xl xl:text-6xl xl:font-bold"
               >
                 {home.firma}
               </motion.p>
@@ -124,7 +124,7 @@ export function HomeHero() {
 
               <motion.p
                 variants={riseIn}
-                className="mt-4 font-display text-xl font-normal leading-snug text-white [text-shadow:0_1px_16px_rgba(43,37,35,0.4)] md:mt-5 md:text-2xl xl:text-3xl"
+                className="mt-4 font-display text-xl font-normal leading-snug text-black [text-shadow:0_1px_18px_rgba(255,254,251,0.35)] md:mt-5 md:text-2xl xl:text-3xl xl:font-bold"
               >
                 {home.competenze}
               </motion.p>

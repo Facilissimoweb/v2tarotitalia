@@ -35,7 +35,10 @@ export function AccessibilityTrigger({ className = "" }: TriggerProps) {
   return (
     <button
       type="button"
-      className={`flex h-[40px] w-[40px] shrink-0 items-center justify-center text-ink/70 transition-colors hover:text-ink ${className}`}
+      className={
+        className ||
+        "flex h-[40px] w-[40px] shrink-0 items-center justify-center text-ink/70 transition-colors hover:text-ink"
+      }
       aria-label={copy.trigger}
       aria-haspopup="dialog"
       aria-expanded={open}

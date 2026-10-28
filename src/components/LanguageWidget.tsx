@@ -67,7 +67,7 @@ export function LanguageWidget({ placement }: Props) {
         type="button"
         className={
           compact
-            ? "flex h-[40px] w-[40px] shrink-0 items-center justify-center text-ink/70 transition-colors hover:text-ink"
+            ? "flex h-12 w-12 shrink-0 items-center justify-center text-ember transition-colors hover:text-ember-hot"
             : drawer
               ? "flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em] text-ink/55 hover:text-ink"
               : "inline-flex items-center gap-2 uppercase tracking-[0.16em] hover:text-white"
@@ -80,7 +80,7 @@ export function LanguageWidget({ placement }: Props) {
       >
         <LanguageFlag
           code={language}
-          className={compact ? "h-[1.05rem] w-[1.55rem]" : drawer ? "h-5 w-7" : "h-4 w-6"}
+          className={compact ? "h-[1.35rem] w-8" : drawer ? "h-5 w-7" : "h-4 w-6"}
         />
         {compact ? (
           <span className="sr-only">{selectedLabel}</span>
