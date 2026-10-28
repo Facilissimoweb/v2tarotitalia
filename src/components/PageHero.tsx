@@ -60,7 +60,7 @@ export function GoogleReviewsHeroLink({
   return (
     <a
       href={href}
-      className={`relative inline-flex w-full items-center justify-center gap-2.5 bg-paper px-5 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-ink transition-colors duration-200 hover:bg-mist sm:w-auto ${
+      className={`relative inline-flex w-full items-center justify-center gap-2.5 bg-paper px-5 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-ink transition-colors duration-200 hover:bg-mist sm:w-auto ${
         onMedia ? "ring-1 ring-ivory" : "ring-1 ring-ink/10"
       }`}
     >

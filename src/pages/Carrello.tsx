@@ -177,7 +177,7 @@ function PendingCard({
         {sessionModeLabel(purchase.mode, purchase.slot, STUDIO.city)}
         {purchase.slot ? ` · Ore ${purchase.slot}` : ""}
       </p>
-      <p className="mt-4 text-[0.625rem] uppercase tracking-[0.14em] text-ink/45">
+      <p className="mt-4 text-[0.625rem] uppercase tracking-[0.16em] text-ink/45">
         {auth.riferimento} {purchase.id}
       </p>
       <div className="mt-6 flex flex-wrap gap-3">

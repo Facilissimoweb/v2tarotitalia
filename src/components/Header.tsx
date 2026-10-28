@@ -22,9 +22,9 @@ const { brand, nav } = siteContent;
 
 /** Tipografia menu hamburger (mobile / tablet). */
 const NAV_ITEM =
-  "font-body text-[0.8125rem] font-bold uppercase not-italic leading-none tracking-[0.22em]";
+  "font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em]";
 const NAV_CHILD =
-  "font-body text-[0.6875rem] font-semibold uppercase not-italic leading-none tracking-[0.18em]";
+  "font-body text-[0.6875rem] font-medium uppercase not-italic leading-none tracking-[0.16em]";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
@@ -77,7 +77,7 @@ export function Header() {
             translate="no"
           >
             <BrandLogo className="h-[40px] w-[40px]" />
-            <span className="mt-2 font-display text-[0.6875rem] uppercase leading-none tracking-[0.32em] text-ink">
+            <span className="mt-2 font-display text-[0.6875rem] uppercase leading-none tracking-[0.16em] text-ink">
               {brand.wordmark}
             </span>
           </NavLink>
@@ -310,7 +310,7 @@ function CartLink() {
     >
       <BagIcon />
       {count > 0 ? (
-        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ink px-1 text-center text-[0.5625rem] leading-4 text-on-ink">
+        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ink px-1 text-center text-[0.625rem] leading-4 text-on-ink">
           {count}
         </span>
       ) : null}

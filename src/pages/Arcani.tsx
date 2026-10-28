@@ -30,7 +30,7 @@ export function Arcani() {
                 </div>
                 <p className="mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{a.roman}</p>
                 <p className="mt-1 font-display text-base text-ink">{a.name}</p>
-                <p className="mt-1 text-[0.625rem] uppercase tracking-[0.12em] text-ink/50">{a.subtitle}</p>
+                <p className="mt-1 text-[0.625rem] uppercase tracking-[0.16em] text-ink/50">{a.subtitle}</p>
               </Link>
             </Reveal>
           ))}
@@ -73,13 +73,13 @@ export function ArcanoDetail() {
           <div className="grid gap-8 md:grid-cols-2">
             <Reveal>
               <article className="bg-mist p-8">
-                <p className="text-[0.625rem] uppercase tracking-[0.18em] text-sage">Dritto</p>
+                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">Dritto</p>
                 <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.upright}</p>
               </article>
             </Reveal>
             <Reveal delay={100}>
               <article className="bg-mist p-8">
-                <p className="text-[0.625rem] uppercase tracking-[0.18em] text-sage">Rovescio</p>
+                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">Rovescio</p>
                 <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.reversed}</p>
               </article>
             </Reveal>

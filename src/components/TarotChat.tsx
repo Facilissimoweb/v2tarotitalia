@@ -117,7 +117,7 @@ export function TarotChat() {
                   <WidgetBrandMark size="sm" />
                   <h2
                     id={titleId}
-                    className="mt-5 text-center font-display text-xl font-light tracking-tight text-ink md:text-2xl"
+                    className="mt-5 text-center font-display text-xl text-ink md:text-2xl"
                   >
                     {copy.titolo}
                   </h2>
@@ -189,7 +189,7 @@ export function TarotChat() {
                     <button
                       type="submit"
                       disabled={loading || !draft.trim()}
-                      className="shrink-0 bg-ink px-4 py-2.5 text-[0.625rem] font-medium uppercase tracking-[0.16em] text-on-ink transition-opacity disabled:opacity-40"
+                      className="shrink-0 bg-ink px-4 py-2.5 text-[0.625rem] font-medium uppercase tracking-[0.2em] text-on-ink transition-opacity disabled:opacity-40"
                     >
                       {copy.invia}
                     </button>

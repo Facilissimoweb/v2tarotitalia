@@ -151,7 +151,7 @@ export function Consulti() {
                       </div>
                       <div className="text-right">
                         <p className="font-display text-xl">€{opt.prezzo}</p>
-                        <p className="text-[0.5625rem] uppercase tracking-[0.14em] text-sage">Onnicomprensivo</p>
+                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">Onnicomprensivo</p>
                       </div>
                     </div>
                     <p className="mt-3 bg-mist p-3 text-[0.6875rem] leading-relaxed text-ink/65">{t.summary}</p>
@@ -252,7 +252,7 @@ export function Consulti() {
 function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex items-center justify-between gap-4 py-1.5 text-xs">
-      <span className="uppercase tracking-[0.14em] text-sage">{k}</span>
+      <span className="uppercase tracking-[0.16em] text-sage">{k}</span>
       <span className="text-right text-ink">{v}</span>
     </div>
   );

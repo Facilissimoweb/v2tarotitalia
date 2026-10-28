@@ -110,7 +110,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
         <p className="mb-3 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{consulti.calendario.giorno}</p>
         <div className="grid grid-cols-7 gap-1">
           {headers.map((h) => (
-            <span key={h} className="py-1 text-center text-[0.5625rem] uppercase tracking-[0.14em] text-ink/40">
+            <span key={h} className="py-1 text-center text-[0.625rem] uppercase tracking-[0.16em] text-ink/40">
               {h}
             </span>
           ))}
@@ -149,7 +149,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
               type="button"
               disabled={!available}
               onClick={() => onSlot(hour)}
-              className={`py-3 text-xs tracking-wide ${
+              className={`py-3 text-xs ${
                 slot === hour && available
                   ? "bg-ink text-on-ink"
                   : available
@@ -159,7 +159,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
             >
               {hour}
               {isEveningSlot(hour) ? (
-                <span className="mt-1 block text-[0.5rem] uppercase tracking-[0.12em] opacity-70">
+                <span className="mt-1 block text-[0.625rem] uppercase tracking-[0.16em] opacity-70">
                   {consulti.seraOnlineBreve}
                 </span>
               ) : null}

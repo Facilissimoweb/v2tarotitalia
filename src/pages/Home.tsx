@@ -177,7 +177,7 @@ export function Home() {
         <div className="mx-auto w-full max-w-6xl">
           <Reveal>
             <BrandLogo className="mx-auto h-16 w-16" />
-            <p className="mt-5 font-display text-[0.6875rem] uppercase leading-none tracking-[0.32em] text-ink">
+            <p className="mt-5 font-display text-[0.6875rem] uppercase leading-none tracking-[0.16em] text-ink">
               {brand.wordmark}
             </p>
           </Reveal>
@@ -187,10 +187,10 @@ export function Home() {
             </blockquote>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-10 text-[0.625rem] uppercase tracking-[0.22em] text-ink">{home.citazione.autore}</p>
+            <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">{home.citazione.autore}</p>
           </Reveal>
           <Reveal delay={220}>
-            <p className="mt-3 text-[0.5625rem] uppercase tracking-[0.16em] text-sage">{home.citazione.fonte}</p>
+            <p className="mt-3 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{home.citazione.fonte}</p>
           </Reveal>
         </div>
       </section>

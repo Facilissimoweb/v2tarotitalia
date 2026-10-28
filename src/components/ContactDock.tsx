@@ -18,7 +18,7 @@ const itemClass =
   "group relative flex h-12 w-12 items-center justify-center text-on-ink transition-colors duration-200 hover:text-[#d4c4a8] sm:h-[3.25rem] sm:w-[3.25rem] md:h-14 md:w-14";
 
 const tipClass =
-  "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ivory px-2.5 py-1 text-[0.5625rem] uppercase tracking-[0.16em] text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
+  "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ivory px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
 
 const iconSize = 22;
 

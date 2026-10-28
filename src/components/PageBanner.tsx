@@ -37,7 +37,7 @@ export function PageBanner({ title, subtitle, className = "" }: Props) {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <BrandLogo className="h-20 w-20 bg-ivory md:h-28 md:w-28" />
-        <h1 className="mt-5 font-h1 text-3xl leading-snug text-stone-100 md:mt-6 md:text-5xl">
+        <h1 className="mt-5 font-h1 text-3xl leading-snug text-on-ink md:mt-6 md:text-5xl">
           {title}
         </h1>
         {subtitle ? <p className="mt-3 max-w-xl text-sm leading-relaxed text-stone-400">{subtitle}</p> : null}

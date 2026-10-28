@@ -15,7 +15,7 @@ const HERO_IMAGE_MOBILE = "/hero-home-mobile.jpg";
 const MOBILE_HERO_MQ = "(max-width: 767px)";
 
 /** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
-const heroBtn = "w-full xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.22em] 2xl:px-14 2xl:py-7 2xl:text-base";
+const heroBtn = "w-full xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.2em] 2xl:px-14 2xl:py-7 2xl:text-base";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -95,12 +95,12 @@ export function HomeHero() {
             />
 
             {/* 1 · Titolo: su mobile "Tarot" / "Italia" a capo; "Italia" più ampia in orizzontale */}
-            <h1 className="mt-10 max-w-full font-h1 text-[clamp(3.25rem,min(15vw,18svh),8.5rem)] font-bold leading-[1.05] text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14 md:leading-[1.02] xl:text-[clamp(5.75rem,min(11vw,18svh),11.5rem)]">
+            <h1 className="mt-10 max-w-full font-h1 text-[clamp(3.25rem,min(15vw,18svh),8.5rem)] leading-[1.05] text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14 md:leading-[1.02] xl:text-[clamp(5.75rem,min(11vw,18svh),11.5rem)]">
               <span className="block md:inline">{titoloLead}</span>
               {titoloTrail ? (
                 <>
                   <span className="hidden md:inline"> </span>
-                  <span className="mt-1 block w-full text-[1.12em] tracking-[0.2em] md:mt-0 md:inline md:w-auto md:text-[1em] md:tracking-normal">
+                  <span className="mt-1 block w-full text-[1.12em] md:mt-0 md:inline md:w-auto md:text-[1em]">
                     {titoloTrail}
                   </span>
                 </>
@@ -121,7 +121,7 @@ export function HomeHero() {
               {/* 2 · Sottotitolo ufficiale */}
               <motion.p
                 variants={riseIn}
-                className="mt-8 font-display text-base font-semibold leading-relaxed text-white md:mt-10 md:text-lg xl:text-[1.5rem] 2xl:text-2xl"
+                className="mt-8 font-display text-base leading-relaxed text-white md:mt-10 md:text-lg xl:text-[1.5rem] 2xl:text-2xl"
               >
                 {brand.sottotitolo}
               </motion.p>
@@ -134,7 +134,7 @@ export function HomeHero() {
               {/* 3 · Descrizione / competenze */}
               <motion.p
                 variants={riseIn}
-                className="mt-8 text-sm font-medium leading-[1.85] tracking-[0.02em] text-white/90 md:mt-10 md:text-base xl:text-lg 2xl:text-xl"
+                className="mt-8 text-sm font-medium leading-[1.85] text-white/90 md:mt-10 md:text-base xl:text-lg 2xl:text-xl"
               >
                 {brand.descrizione}
               </motion.p>

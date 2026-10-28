@@ -32,18 +32,18 @@ export function Footer() {
       <div className="relative [text-shadow:0_0_10px_var(--color-mist)]">
         <div translate="no">
           <BrandLogo className="mx-auto h-24 w-24 md:h-28 md:w-28" />
-          <p className="mt-8 font-display text-lg tracking-[0.2em] text-ink">{brand.wordmark.toUpperCase()}</p>
+          <p className="mt-8 font-display text-lg tracking-[0.16em] text-ink">{brand.wordmark.toUpperCase()}</p>
         </div>
-        <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed tracking-[0.02em] text-ink/80 md:text-[0.9375rem]">
+        <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-ink/80 md:text-[0.9375rem]">
           {brand.slogan}
         </p>
-        <p className="mx-auto mt-8 max-w-lg text-xs uppercase leading-relaxed tracking-[0.14em] text-ink/80">
+        <p className="mx-auto mt-8 max-w-lg text-xs uppercase leading-relaxed tracking-[0.16em] text-ink/80">
           {brand.identitaFiscale}
         </p>
-        <p className="mx-auto mt-4 max-w-md text-xs leading-relaxed tracking-[0.02em] text-ink/70">
+        <p className="mx-auto mt-4 max-w-md text-xs leading-relaxed text-ink/70">
           {brand.studioDiTeresa}
         </p>
-        <p className="mt-6 text-xs uppercase tracking-[0.14em] text-ink/80">{brand.coords}</p>
+        <p className="mt-6 text-xs uppercase tracking-[0.16em] text-ink/80">{brand.coords}</p>
         <MailToLink
           email={brand.email}
           className="mt-6 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4 hover:underline"
@@ -56,23 +56,23 @@ export function Footer() {
             {siteContent.cta.chiama}
           </Button>
         </div>
-        <div className="mx-auto mt-14 flex max-w-xl flex-wrap justify-center gap-x-8 gap-y-4 text-xs font-medium uppercase tracking-[0.14em] text-ink/80">
+        <div className="mx-auto mt-14 flex max-w-xl flex-wrap justify-center gap-x-8 gap-y-4 text-xs font-medium uppercase tracking-[0.16em] text-ink/80">
           {links.map((item) => (
             <NavLink key={item.to} to={item.to} end={item.end} className="hover:text-ink">
               {item.label}
             </NavLink>
           ))}
           <LanguageWidget placement="footer" />
-          <button type="button" className="uppercase tracking-[0.14em] hover:text-ink" onClick={reopen}>
+          <button type="button" className="uppercase tracking-[0.16em] hover:text-ink" onClick={reopen}>
             {cookies.gestisci}
           </button>
         </div>
-        <p className="mx-auto mt-12 max-w-lg text-[0.6875rem] uppercase leading-relaxed tracking-[0.12em] text-ink/70">
+        <p className="mx-auto mt-12 max-w-lg text-[0.6875rem] uppercase leading-relaxed tracking-[0.16em] text-ink/70">
           {brand.deontologia}
         </p>
 
         <div className="mx-auto mt-16 max-w-xl border-t border-ink/10 pt-14 text-center">
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-ink/70">{tutela.kicker}</p>
+          <p className="text-xs font-medium uppercase tracking-[0.16em] text-ink/70">{tutela.kicker}</p>
           <p className="mt-5 text-[0.9375rem] leading-[1.9] text-ink/85">
             <LegalCopy>{tutela.sintesi}</LegalCopy>
           </p>
@@ -82,7 +82,7 @@ export function Footer() {
           >
             {brand.adminEmail}
           </MailToLink>
-          <div className="mt-10 flex flex-col items-center gap-5 text-xs font-medium uppercase tracking-[0.14em] text-ink/80">
+          <div className="mt-10 flex flex-col items-center gap-5 text-xs font-medium uppercase tracking-[0.16em] text-ink/80">
             <button type="button" className="hover:text-ink" onClick={() => setNotice("tutela")}>
               {tutela.sezione}
             </button>

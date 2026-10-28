@@ -44,7 +44,7 @@ export function ChiSiamo() {
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <blockquote className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-2xl font-light italic leading-relaxed text-ink md:text-3xl">
+            <p className="font-display text-2xl italic leading-relaxed text-ink md:text-3xl">
               «{chiSiamo.citazione}»
             </p>
           </blockquote>
@@ -70,7 +70,7 @@ export function ChiSiamo() {
               <p className="mt-6 font-display text-xl leading-relaxed text-ink md:text-2xl">
                 {brand.studioDiTeresa}
               </p>
-              <p className="mt-4 text-sm uppercase leading-relaxed tracking-[0.12em] text-ink/70">
+              <p className="mt-4 text-sm uppercase leading-relaxed tracking-[0.16em] text-ink/70">
                 {brand.identitaFiscale}
               </p>
             </div>
@@ -146,7 +146,7 @@ export function ChiSiamo() {
               <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{percorsi.descrizione}</p>
             </Reveal>
             <Reveal delay={300}>
-              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.2em] text-sage">{percorsi.percorsiKicker}</p>
+              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.percorsiKicker}</p>
             </Reveal>
             <ul className="mt-6 space-y-4">
               {percorsi.elenco.map((voce, i) => (

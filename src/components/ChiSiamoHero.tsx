@@ -50,7 +50,7 @@ export function ChiSiamoHero() {
               className="mx-auto h-[clamp(5.5rem,min(40vw,22svh),12rem)] w-[clamp(5.5rem,min(40vw,22svh),12rem)] max-w-full drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
             />
 
-            <h1 className="mt-10 max-w-full break-words font-h1 text-[clamp(2.75rem,min(12vw,14svh),6.5rem)] font-bold leading-[1.05] text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14 xl:text-[clamp(4.5rem,min(9vw,14svh),9rem)]">
+            <h1 className="mt-10 max-w-full break-words font-h1 text-[clamp(2.75rem,min(12vw,14svh),6.5rem)] leading-[1.05] text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14 xl:text-[clamp(4.5rem,min(9vw,14svh),9rem)]">
               {nav.chiSiamo}
             </h1>
 
@@ -58,7 +58,7 @@ export function ChiSiamoHero() {
               <HeroRule />
             </div>
 
-            <p className="mt-8 font-display text-base font-semibold leading-relaxed text-white md:mt-10 md:text-lg xl:text-[1.5rem]">
+            <p className="mt-8 font-display text-base leading-relaxed text-white md:mt-10 md:text-lg xl:text-[1.5rem]">
               {chiSiamo.titolo}
             </p>
 
@@ -66,7 +66,7 @@ export function ChiSiamoHero() {
               <HeroRule />
             </div>
 
-            <p className="mt-8 max-w-2xl text-sm font-medium leading-[1.85] tracking-[0.02em] text-white/90 md:mt-10 md:text-base xl:text-lg">
+            <p className="mt-8 max-w-2xl text-sm font-medium leading-[1.85] text-white/90 md:mt-10 md:text-base xl:text-lg">
               {brand.sottotitolo}
             </p>
           </div>

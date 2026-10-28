@@ -42,7 +42,7 @@ export function Percorsi() {
             {percorsi.tipologie.map((tipo, i) => (
               <Reveal key={tipo.id} delay={i * 90}>
                 <article className="flex h-full flex-col border border-ink/10 bg-paper px-8 py-10 md:px-9 md:py-12">
-                  <p className="text-[0.625rem] uppercase tracking-[0.18em] text-sage">
+                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
                     {String(i + 1).padStart(2, "0")}
                   </p>
                   <h3 className="mt-5 font-display text-xl leading-snug text-ink md:text-[1.35rem]">

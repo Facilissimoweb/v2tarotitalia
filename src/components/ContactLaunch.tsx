@@ -24,7 +24,7 @@ export function ContactLaunch({ raised = false }: Props) {
       {tel ? (
         <a href={tel} className={actionClass} aria-label={`${cta.chiama} ${siteContent.brand.whatsapp}`}>
           <PhoneIcon />
-          <span className="font-display text-[0.6875rem] uppercase tracking-[0.22em]">{cta.chiama}</span>
+          <span className="font-display text-[0.6875rem] uppercase tracking-[0.16em]">{cta.chiama}</span>
         </a>
       ) : null}
       <a
@@ -34,7 +34,7 @@ export function ContactLaunch({ raised = false }: Props) {
         aria-label={`${cta.whatsappRapido} ${siteContent.brand.whatsapp}`}
       >
         <WhatsAppIcon />
-        <span className="font-display text-[0.6875rem] uppercase tracking-[0.22em]">{cta.whatsappRapido}</span>
+        <span className="font-display text-[0.6875rem] uppercase tracking-[0.16em]">{cta.whatsappRapido}</span>
       </a>
     </div>
   );

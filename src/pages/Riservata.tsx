@@ -206,7 +206,7 @@ export function Riservata() {
               aria-selected={tab === id}
               aria-controls={`pannello-${id}`}
               onClick={() => openTab(id)}
-              className={`whitespace-nowrap px-4 py-2 text-[0.6875rem] uppercase tracking-[0.14em] ${
+              className={`whitespace-nowrap px-4 py-2 text-[0.6875rem] uppercase tracking-[0.16em] ${
                 tab === id ? "bg-ink text-on-ink" : "bg-mist text-ink/60"
               }`}
             >
@@ -289,7 +289,7 @@ export function Riservata() {
             ) : (
               corsi.map((c) => (
                 <article key={c.id} className="bg-paper p-8" translate={localized ? "no" : undefined}>
-                  <p className="text-[0.5625rem] uppercase tracking-[0.16em] text-sage">{c.kicker}</p>
+                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{c.kicker}</p>
                   <h3 className="mt-1 font-display">{c.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-ink/65">{c.blurb}</p>
                   <button
@@ -297,7 +297,7 @@ export function Riservata() {
                     onClick={() => {
                       void download(c.file, c.filename, c.title);
                     }}
-                    className="mt-4 inline-flex bg-ink px-4 py-2 text-[0.6875rem] uppercase tracking-[0.16em] text-on-ink"
+                    className="mt-4 inline-flex bg-ink px-4 py-2 text-[0.6875rem] uppercase tracking-[0.2em] text-on-ink"
                   >
                     {busy ? lingua.genera : "Scarica"}
                   </button>
@@ -410,17 +410,17 @@ function PaidCard({
         {b.phone ? ` · ${b.phone}` : ""}
       </p>
       {b.query ? <p className="mt-2 text-xs leading-relaxed text-ink/60">{b.query}</p> : null}
-      <p className="mt-2 text-[0.625rem] uppercase tracking-[0.14em] text-ink/45">
+      <p className="mt-2 text-[0.625rem] uppercase tracking-[0.16em] text-ink/45">
         {auth.riferimento} {b.id}
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
-        <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-wider">Sessione €{b.consultPrice}</span>
+        <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em]">Sessione €{b.consultPrice}</span>
         {b.pdf ? (
-          <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-wider">
+          <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em]">
             {consulti.pdf.etichetta} +€{b.pdfPrice || consulti.pdf.prezzo}
           </span>
         ) : null}
-        <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-wider">Totale €{paidEuro}</span>
+        <span className="bg-mist px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em]">Totale €{paidEuro}</span>
       </div>
       {recedi || refundable || withdrawable ? (
         <div className="mt-6 flex flex-wrap gap-3">

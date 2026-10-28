@@ -22,7 +22,7 @@ export function Disclaimer() {
 
       <section className="px-6 pb-24 md:px-10 md:pb-32">
         <article className="mx-auto max-w-3xl bg-paper px-8 py-12 md:px-12 md:py-16">
-          <p className="text-center text-[0.75rem] tracking-[0.04em] text-ink/50">
+          <p className="text-center text-[0.75rem] text-ink/50">
             <LegalCopy>{disclaimer.intestazione}</LegalCopy>
           </p>
           <DisclaimerBody className="mt-10" />

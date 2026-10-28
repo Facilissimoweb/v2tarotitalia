@@ -44,10 +44,10 @@ export function Corsi() {
           {corsi.map((c, i) => (
             <Reveal key={c.id} delay={i * 100}>
             <article className="bg-paper p-8 md:p-10" translate={localized ? "no" : undefined}>
-              <p className="text-[0.5625rem] uppercase tracking-[0.18em] text-sage">{c.kicker}</p>
+              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{c.kicker}</p>
               <div className="mt-4 flex items-start justify-between gap-4">
                 <h2 className="font-display text-xl leading-snug md:text-2xl">{c.title}</h2>
-                <span className="shrink-0 bg-mist px-3 py-1.5 text-[0.625rem] uppercase tracking-wider">
+                <span className="shrink-0 bg-mist px-3 py-1.5 text-[0.625rem] uppercase tracking-[0.16em]">
                   {c.pages}
                 </span>
               </div>
@@ -63,7 +63,7 @@ export function Corsi() {
                 </div>
               )}
               <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-                <span className="text-[0.625rem] uppercase tracking-[0.14em] text-ink/45">{c.size}</span>
+                <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ink/45">{c.size}</span>
                 <Button
                   onClick={() => {
                     void download(c.file, c.filename, c.title);

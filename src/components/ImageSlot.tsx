@@ -43,7 +43,7 @@ export function ImageSlot({
           />
         </div>
         {caption ? (
-          <figcaption className="mt-5 text-[0.625rem] uppercase tracking-[0.2em] text-sage">
+          <figcaption className="mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-sage">
             {caption}
           </figcaption>
         ) : null}

@@ -88,7 +88,7 @@ export function BookingConfirm() {
   return (
     <section className="mb-16 bg-paper p-8 md:p-10">
       <Kicker>{auth.sogliaTitolo}</Kicker>
-      <h2 className="mt-4 font-display text-2xl font-light leading-snug text-ink">{consulti.conferma}</h2>
+      <h2 className="mt-4 font-display text-2xl leading-snug text-ink">{consulti.conferma}</h2>
       <p className="mt-4 text-sm leading-[1.9] text-ink/70">{consulti.avvisoConferma}</p>
 
       <div className="mt-8 bg-mist p-6">
@@ -131,7 +131,7 @@ export function BookingConfirm() {
 function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex items-center justify-between gap-4 py-1.5 text-xs">
-      <span className="uppercase tracking-[0.14em] text-sage">{k}</span>
+      <span className="uppercase tracking-[0.16em] text-sage">{k}</span>
       <span className="text-right text-ink">{v}</span>
     </div>
   );

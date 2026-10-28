@@ -44,7 +44,7 @@ export function LegalNotice({ kind, onClose }: Props) {
         <WidgetCloseButton onClick={onClose} />
         <div className="max-h-[min(90vh,48rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={title} titleId={titleId}>
-            <p className="text-center text-[0.75rem] tracking-[0.04em] text-ink/50">
+            <p className="text-center text-[0.75rem] text-ink/50">
               <LegalCopy>{intestazione}</LegalCopy>
             </p>
             <LegalBody kind={kind} onClose={onClose} />
@@ -132,7 +132,7 @@ export function DisclaimerBody({
   const { disclaimer } = legal;
   return (
     <div className={`${className} space-y-8 text-left`}>
-      <h3 className="text-center font-display text-base font-medium uppercase leading-relaxed tracking-[0.08em] text-ink">
+      <h3 className="text-center font-display text-base uppercase leading-relaxed tracking-[0.16em] text-ink">
         {disclaimer.heading}
       </h3>
       {disclaimer.paragrafi.map((paragrafo) => (

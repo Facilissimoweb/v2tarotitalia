@@ -10,7 +10,9 @@
   --color-moss: #5f6f5d;
   --color-on-ink: #f3efe8;
   --font-display: "Noto Serif", "Times New Roman", serif;
-  --font-h1: "Blackletter DS", "Noto Serif", "Times New Roman", serif;
+  --font-h1: "Blagkine", "Noto Serif", "Times New Roman", serif;
+  --font-h2: var(--font-display);
+  --font-h3: var(--font-display);
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
   --radius-none: 0px;
   --radius-sm: 0px;
@@ -91,10 +93,10 @@
   }
 }
 
-/* Titoli H1: Blackletter DS (file locale). Peso unico, nessuna spaziatura tra lettere */
+/* Titoli H1: Blagkine (file locale). Peso unico, nessuna spaziatura tra lettere */
 @font-face {
-  font-family: "Blackletter DS";
-  src: url("/fonts/BlackletterDS.ttf") format("truetype");
+  font-family: "Blagkine";
+  src: url("/fonts/Blagkine.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -106,7 +108,7 @@
   letter-spacing: 0;
 }
 
-/* Blackletter DS non ha il corsivo: niente obliquo sintetico nei titoli H1 */
+/* Blagkine non ha il corsivo: niente obliquo sintetico nei titoli H1 */
 .font-h1.italic,
 .font-h1 .italic {
   font-style: normal;
@@ -119,10 +121,20 @@ h1 {
   font-style: normal;
 }
 
+h2 {
+  font-family: var(--font-h2);
+  font-weight: 400;
+}
+
+h3 {
+  font-family: var(--font-h3);
+  font-weight: 400;
+}
+
 @utility label-kicker {
   font-family: var(--font-body);
   font-size: 0.625rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 500;
   color: var(--color-sage);
@@ -235,6 +247,13 @@ html[data-a11y-contrast="on"] :focus-visible {
 html[data-a11y-font="on"],
 html[data-a11y-font="on"] * {
   font-family: "Atkinson Hyperlegible", Verdana, sans-serif;
+}
+
+html[data-a11y-font="on"] h1,
+html[data-a11y-font="on"] .font-h1,
+html[data-a11y-font="on"] .font-h1 * {
+  font-family: var(--font-h1);
+  font-weight: 400;
 }
 
 html[data-a11y-font="on"] :where(p, li, dd, dt, blockquote, figcaption, label, td, th, input, textarea) {

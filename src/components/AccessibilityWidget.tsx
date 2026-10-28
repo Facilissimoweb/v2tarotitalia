@@ -127,7 +127,7 @@ export function AccessibilityPanel() {
       <WidgetCloseButton onClick={closePanel} />
       <div className="px-6 pb-6 pt-8">
         <WidgetBrandMark size="sm" />
-        <h2 id={titleId} className="mt-4 text-center font-display text-xl font-light leading-snug text-ink">
+        <h2 id={titleId} className="mt-4 text-center font-display text-xl leading-snug text-ink">
           {copy.titolo}
         </h2>
 

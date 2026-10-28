@@ -11,7 +11,7 @@ type MarkProps = {
 /** Logo ufficiale + scritta Tarot Italia. Obbligatorio in testa a ogni widget o modale. */
 export function WidgetBrandMark({ size = "md" }: MarkProps) {
   const logo = size === "sm" ? "mx-auto h-12 w-12" : "mx-auto h-14 w-14";
-  const word = size === "sm" ? "mt-3 text-[0.625rem] tracking-[0.28em]" : "mt-3.5 text-[0.6875rem] tracking-[0.32em]";
+  const word = size === "sm" ? "mt-3 text-[0.625rem] tracking-[0.16em]" : "mt-3.5 text-[0.6875rem] tracking-[0.16em]";
   return (
     <div data-widget-brand className="text-center">
       <BrandLogo className={logo} />
@@ -33,7 +33,7 @@ export function WidgetFrame({ title, titleId, children }: Props) {
       <WidgetBrandMark />
       <h2
         id={titleId}
-        className="mt-6 text-center font-display text-2xl font-light leading-snug tracking-tight text-ink md:text-3xl"
+        className="mt-6 text-center font-display text-2xl leading-snug text-ink md:text-3xl"
       >
         {title}
       </h2>
