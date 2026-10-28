@@ -33,8 +33,10 @@ const desktopLinkClass = (active: boolean) =>
   }`;
 
 /** Icone della barra: ember, più grandi, coerenti. */
-const NAV_ICON_BTN =
-  "flex h-12 w-12 shrink-0 items-center justify-center text-ember transition-colors hover:text-ember-hot [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem]";
+const NAV_ICON_CORE =
+  "flex h-12 shrink-0 items-center justify-center text-ember transition-colors hover:text-ember-hot [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
+const NAV_ICON_BTN = `${NAV_ICON_CORE} w-12`;
+const NAV_ICON_LEFT = `${NAV_ICON_CORE} w-9`;
 
 export function Header() {
   const { pathname } = useLocation();
@@ -64,10 +66,10 @@ export function Header() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-black"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-ink"
         aria-hidden
       />
-      <header className="site-chrome fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black">
+      <header className="site-chrome fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink">
         <nav
           className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
           aria-label="Principale"
@@ -105,12 +107,21 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="grid h-[80px] grid-cols-[1fr_auto_1fr] items-center px-3 xl:hidden">
-          <div aria-hidden className="min-h-12" />
-          <NavLink to="/" className="justify-self-center" aria-label={brand.wordmark}>
+        <div className="relative flex h-[80px] w-full items-center justify-between px-3 xl:hidden">
+          <div className="relative z-10 flex items-center">
+            <LanguageWidget placement="nav" className="w-9" />
+            <CartLink className={NAV_ICON_LEFT} />
+            <AccessibilityTrigger className={NAV_ICON_LEFT} />
+          </div>
+          <NavLink
+            to="/"
+            className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2"
+            aria-label={brand.wordmark}
+          >
             <BrandLogo className="h-[68px] w-[68px]" />
           </NavLink>
-          <div className="flex items-center justify-end">
+          <div className="relative z-10 flex items-center">
+            <AccountLink className={NAV_ICON_BTN} />
             <button
               type="button"
               className={NAV_ICON_BTN}
@@ -121,8 +132,6 @@ export function Header() {
             >
               {open ? <CloseIcon /> : <MenuIcon />}
             </button>
-            <AccountLink className={NAV_ICON_BTN} />
-            <CartLink className={NAV_ICON_BTN} />
           </div>
         </div>
       </header>
@@ -325,7 +334,7 @@ function CartLink({ className = "relative flex h-[40px] w-[40px] items-center ju
 
 function ProfileIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
       <circle cx="12" cy="12" r="8.25" />
       <circle cx="12" cy="10" r="2.4" />
       <path d="M7.2 17.6 C8 15.4 9.7 14.3 12 14.3 C14.3 14.3 16 15.4 16.8 17.6" />
@@ -335,7 +344,7 @@ function ProfileIcon() {
 
 function BagIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round">
       <path d="M6 8 H18 L19.2 20 H4.8 Z" />
       <path d="M9 8 V7.2 C9 5.1 10.4 3.8 12 3.8 C13.6 3.8 15 5.1 15 7.2 V8" />
     </svg>
@@ -344,7 +353,7 @@ function BagIcon() {
 
 function MenuIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round">
       <path d="M4 7 H20 M4 12 H20 M4 17 H20" />
     </svg>
   );
@@ -352,7 +361,7 @@ function MenuIcon() {
 
 function CloseIcon() {
   return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round">
       <path d="M6 6 L18 18 M18 6 L6 18" />
     </svg>
   );

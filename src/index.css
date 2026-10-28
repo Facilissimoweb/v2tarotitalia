@@ -118,7 +118,7 @@
 }
 
 @utility logo-flush-hero {
-  transform: scale(1.32);
+  transform: scale(1.12);
   transform-origin: center;
 }
 
@@ -146,7 +146,7 @@
   max-width: 100%;
   white-space: nowrap;
   line-height: 1.05;
-  font-size: clamp(2.15rem, calc(100cqi / 4.6), 8.5rem);
+  font-size: clamp(2.15rem, calc(100cqi / 3.42), 11.5rem);
 }
 
 /* Blagkine non ha il corsivo: niente obliquo sintetico nei titoli H1 */
@@ -390,7 +390,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 /* Area notch: padding. Il colore nativo resta a theme-color / manifest. */
 .site-chrome {
   padding-top: env(safe-area-inset-top, 0px);
-  background-color: #000000;
+  background-color: #2b2523;
 }
 
 /* Barra contatti: illustrazione a sfondo, icone in sfere. */

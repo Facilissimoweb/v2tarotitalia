@@ -11,6 +11,7 @@ const { lingua, nav } = siteContent;
 
 type Props = {
   placement: "nav" | "footer" | "drawer";
+  className?: string;
 };
 
 function matchesQuery(query: string, label: string, name: string, code: string) {
@@ -19,7 +20,7 @@ function matchesQuery(query: string, label: string, name: string, code: string) 
   return hay.includes(query);
 }
 
-export function LanguageWidget({ placement }: Props) {
+export function LanguageWidget({ placement, className = "" }: Props) {
   const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -67,7 +68,7 @@ export function LanguageWidget({ placement }: Props) {
         type="button"
         className={
           compact
-            ? "flex h-12 w-12 shrink-0 items-center justify-center text-ember transition-colors hover:text-ember-hot"
+            ? `flex h-12 ${className || "w-12"} shrink-0 items-center justify-center text-ember transition-colors hover:text-ember-hot`
             : drawer
               ? "flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em] text-ink/55 hover:text-ink"
               : "inline-flex items-center gap-2 uppercase tracking-[0.16em] hover:text-white"
