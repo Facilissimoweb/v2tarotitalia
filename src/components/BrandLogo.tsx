@@ -9,7 +9,7 @@ type Props = {
   tone?: BrandLogoTone;
 };
 
-/** Sigillo ufficiale, sempre ritagliato in cerchio. */
+/** Sigillo ufficiale, ritagliato a filo del cerchio (senza margine vuoto del file). */
 export function BrandLogo({ className = "", tone = "mark" }: Props) {
   const src = tone === "hero" ? brand.logoHero : brand.logo;
   const hero = tone === "hero";
@@ -23,7 +23,7 @@ export function BrandLogo({ className = "", tone = "mark" }: Props) {
         decoding={hero ? "sync" : "async"}
         fetchPriority={hero ? "high" : "auto"}
         loading={hero ? "eager" : "lazy"}
-        className="h-full w-full object-cover"
+        className={`${hero ? "logo-flush-hero" : "logo-flush"} h-full w-full object-cover`}
       />
     </span>
   );

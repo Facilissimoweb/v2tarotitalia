@@ -13,7 +13,12 @@ export function ChiSiamo() {
 
   return (
     <div>
-      <PageBanner title={nav.chiSiamo} subtitle={chiSiamo.titolo} className="mb-10 md:mb-14" />
+      <PageBanner
+        title={nav.chiSiamo}
+        subtitle={chiSiamo.titolo}
+        background={chiSiamo.immagini.hero}
+        className="mb-10 md:mb-14"
+      />
 
       <section className="px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:gap-24">

@@ -76,8 +76,8 @@ export function Header() {
             aria-label={brand.wordmark}
             translate="no"
           >
-            <BrandLogo className="h-[40px] w-[40px]" />
-            <span className="mt-2 font-display text-[0.6875rem] uppercase leading-none tracking-[0.16em] text-ink">
+            <BrandLogo className="h-[52px] w-[52px]" />
+            <span className="mt-1.5 font-display text-[0.6875rem] uppercase leading-none tracking-[0.16em] text-ink">
               {brand.wordmark}
             </span>
           </NavLink>
@@ -112,7 +112,7 @@ export function Header() {
             <LanguageWidget placement="nav" />
           </div>
           <NavLink to="/" className="justify-self-center" aria-label={brand.wordmark}>
-            <BrandLogo className="h-[48px] w-[48px]" />
+            <BrandLogo className="h-[68px] w-[68px]" />
           </NavLink>
           <div className="flex items-center justify-end">
             <AccessibilityTrigger />

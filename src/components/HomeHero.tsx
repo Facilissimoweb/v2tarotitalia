@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
 import { Button } from "./Button";
@@ -50,6 +50,8 @@ function HeroRule() {
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 1200], [0, reduce ? 0 : 220]);
   const [heroSrc, setHeroSrc] = useState(() =>
     typeof window !== "undefined" && window.matchMedia(MOBILE_HERO_MQ).matches
       ? HERO_IMAGE_MOBILE
@@ -67,34 +69,40 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate overflow-x-hidden bg-mist text-white [--hh:80px] xl:[--hh:112px]"
+      className="relative isolate overflow-hidden bg-mist text-white [--hh:80px] xl:[--hh:112px]"
     >
-      <ChromaticImage
-        src={heroSrc}
-        alt={brand.wordmark}
-        backgroundColor="#efece7"
-        zoom={0.1}
-        displacement={0.03}
-        chromaticShift={0.012}
-        tilt={0.12}
-        className="w-full"
+      <motion.div
+        className="absolute inset-x-0 -top-[18%] z-0 h-[140%] will-change-transform"
+        style={reduce ? undefined : { y: bgY }}
+        aria-hidden
       >
-        <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ink/45 via-ink/25 to-ink/55" />
+        <ChromaticImage
+          src={heroSrc}
+          alt=""
+          backgroundColor="#efece7"
+          zoom={0.1}
+          displacement={0.03}
+          chromaticShift={0.012}
+          tilt={0.12}
+          className="h-full w-full"
+        />
+      </motion.div>
 
-        <div
-          className="pointer-events-none relative z-10 flex items-center justify-center px-6 pb-24 pt-12 md:px-10 md:pb-32 md:pt-16"
-          style={{ minHeight: FRAME_H }}
-        >
-          <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-6 text-center text-white md:max-w-4xl md:py-10">
-            {/* Logo: immobile */}
-            <BrandLogo
-              tone="hero"
-              className="mx-auto h-[clamp(7.5rem,min(52vw,28svh),18rem)] w-[clamp(7.5rem,min(52vw,28svh),18rem)] max-w-full drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
-            />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ink/45 via-ink/25 to-ink/55" />
 
-            <h1 className="mt-10 w-full font-h1 text-h1-home text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14">
-              {titolo}
-            </h1>
+      <div
+        className="pointer-events-none relative z-10 flex items-center justify-center px-6 pb-24 pt-12 md:px-10 md:pb-32 md:pt-16"
+        style={{ minHeight: FRAME_H }}
+      >
+        <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-6 text-center text-white md:max-w-4xl md:py-10">
+          <BrandLogo
+            tone="hero"
+            className="mx-auto h-[clamp(8.25rem,min(56vw,32svh),19rem)] w-[clamp(8.25rem,min(56vw,32svh),19rem)] max-w-full drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
+          />
+
+          <h1 className="mt-10 w-full font-h1 text-h1-home text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14">
+            {titolo}
+          </h1>
 
             {/* Separatore sotto il titolo */}
             <div className="mt-8 w-full md:mt-10">
@@ -161,7 +169,6 @@ export function HomeHero() {
             </motion.div>
           </div>
         </div>
-      </ChromaticImage>
     </section>
   );
 }

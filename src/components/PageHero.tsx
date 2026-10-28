@@ -11,7 +11,7 @@ export type HeroCta = {
   accent?: "google";
 };
 
-/** Sfondo della hero interna (non più usato: le pagine interne non hanno hero illustrata). */
+/** Sfondo fotografico opzionale della hero interna. */
 export type HeroMedia = {
   src: string;
   type?: "image";
@@ -23,7 +23,7 @@ type Props = {
   kicker: string;
   title: ReactNode;
   lead: ReactNode;
-  /** Ignorati: le pagine interne mostrano solo titolo e sottotitolo. */
+  /** Ignorati: le pagine interne mostrano logo, titolo e sottotitolo. */
   cta?: HeroCta | null;
   beforeCta?: HeroCta;
   secondary?: HeroCta;
@@ -35,15 +35,20 @@ type Props = {
 
 /**
  * Intestazione delle pagine che non usano `PageBanner` in modo esplicito
- * (Blog, Arcani, Area riservata, ecc.): titolo e sottotitolo (`lead`).
- * Eventuali `children` restano sotto, fuori dalla hero.
+ * (Blog, Arcani, Area riservata, ecc.): logo, titolo e sottotitolo (`lead`).
+ * `media` diventa lo sfondo fotografico. Eventuali `children` restano sotto.
  */
-export function PageHero({ title, lead, children }: Props) {
+export function PageHero({ title, lead, media, children }: Props) {
   return (
     <>
       <PageBanner
         title={title}
         subtitle={lead}
+        background={
+          media?.src
+            ? { src: media.src, alt: media.alt, position: media.objectPosition }
+            : undefined
+        }
         className={children ? "mb-0 pb-6 md:pb-8" : "mb-10 md:mb-14"}
       />
       {children ? (
