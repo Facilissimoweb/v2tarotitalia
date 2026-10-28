@@ -146,7 +146,7 @@
   max-width: 100%;
   white-space: nowrap;
   line-height: 1.05;
-  font-size: clamp(2.15rem, calc(100cqi / 3.42), 11.5rem);
+  font-size: clamp(2.15rem, calc(100cqi / 4.6), 8.5rem);
 }
 
 /* Blagkine non ha il corsivo: niente obliquo sintetico nei titoli H1 */

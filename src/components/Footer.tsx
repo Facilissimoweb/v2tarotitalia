@@ -19,80 +19,71 @@ export function Footer() {
   const [notice, setNotice] = useState<LegalKind | null>(null);
 
   return (
-    <footer data-site-footer className="relative mt-auto overflow-hidden bg-mist px-6 py-20 text-center md:px-10 md:py-28">
-      {/* Fondo: incisione in filigrana, sfumata verso l'alto nel colore del footer */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-y-0 left-1/2 aspect-[9/16] -translate-x-1/2 bg-[url('/footer-sfondo.png')] bg-cover bg-center opacity-[0.12] mix-blend-multiply md:opacity-[0.17] [mask-image:linear-gradient(to_right,transparent,#000_22%,#000_78%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,#000_22%,#000_78%,transparent)]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-mist to-transparent"
-      />
-      <div className="relative [text-shadow:0_0_10px_var(--color-mist)]">
+    <footer data-site-footer className="relative mt-auto overflow-hidden bg-ember px-6 py-20 text-center text-white md:px-10 md:py-28">
+      <div className="relative">
         <div translate="no">
-          <BrandLogo className="mx-auto h-24 w-24 md:h-28 md:w-28" />
-          <p className="mt-8 font-display text-lg tracking-[0.16em] text-ink">{brand.wordmark.toUpperCase()}</p>
+          <BrandLogo tone="hero" className="logo-hero-ring mx-auto h-24 w-24 md:h-28 md:w-28" />
+          <p className="mt-8 font-display text-lg tracking-[0.16em] text-white">{brand.wordmark.toUpperCase()}</p>
         </div>
-        <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-ink/80 md:text-[0.9375rem]">
+        <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-white/90 md:text-[0.9375rem]">
           {brand.slogan}
         </p>
-        <p className="mx-auto mt-8 max-w-lg text-xs uppercase leading-relaxed tracking-[0.16em] text-ink/80">
+        <p className="mx-auto mt-8 max-w-lg text-xs uppercase leading-relaxed tracking-[0.16em] text-white/85">
           {brand.identitaFiscale}
         </p>
-        <p className="mx-auto mt-4 max-w-md text-xs leading-relaxed text-ink/70">
+        <p className="mx-auto mt-4 max-w-md text-xs leading-relaxed text-white/80">
           {brand.studioDiTeresa}
         </p>
-        <p className="mt-6 text-xs uppercase tracking-[0.16em] text-ink/80">{brand.coords}</p>
+        <p className="mt-6 text-xs uppercase tracking-[0.16em] text-white/85">{brand.coords}</p>
         <MailToLink
           email={brand.email}
-          className="mt-6 inline-block font-display text-sm italic text-ink underline decoration-ember-soft/50 underline-offset-4 hover:underline"
+          className="mt-6 inline-block font-display text-sm italic text-white underline decoration-white/50 underline-offset-4 hover:underline"
         >
           {brand.email}
         </MailToLink>
-        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row [text-shadow:none]">
+        <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button href={whatsappChatHref()}>{siteContent.cta.whatsappRapido}</Button>
-          <Button href={getPhoneHref()} variant="ghost">
+          <Button href={getPhoneHref()} variant="paper">
             {siteContent.cta.chiama}
           </Button>
         </div>
-        <div className="mx-auto mt-14 flex max-w-xl flex-wrap justify-center gap-x-8 gap-y-4 text-xs font-medium uppercase tracking-[0.16em] text-ink/80">
+        <div className="mx-auto mt-14 flex max-w-xl flex-wrap justify-center gap-x-8 gap-y-4 text-xs font-semibold uppercase tracking-[0.16em] text-white/85">
           {links.map((item) => (
-            <NavLink key={item.to} to={item.to} end={item.end} className="hover:text-ink">
+            <NavLink key={item.to} to={item.to} end={item.end} className="hover:text-white">
               {item.label}
             </NavLink>
           ))}
           <LanguageWidget placement="footer" />
-          <button type="button" className="uppercase tracking-[0.16em] hover:text-ink" onClick={reopen}>
+          <button type="button" className="uppercase tracking-[0.16em] hover:text-white" onClick={reopen}>
             {cookies.gestisci}
           </button>
         </div>
-        <p className="mx-auto mt-12 max-w-lg text-[0.6875rem] uppercase leading-relaxed tracking-[0.16em] text-ink/70">
+        <p className="mx-auto mt-12 max-w-lg text-[0.6875rem] uppercase leading-relaxed tracking-[0.16em] text-white/75">
           {brand.deontologia}
         </p>
 
-        <div className="mx-auto mt-16 max-w-xl border-t border-ink/10 pt-14 text-center">
-          <p className="text-xs font-medium uppercase tracking-[0.16em] text-ink/70">{tutela.kicker}</p>
-          <p className="mt-5 text-[0.9375rem] leading-[1.9] text-ink/85">
+        <div className="mx-auto mt-16 max-w-xl border-t border-white/20 pt-14 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/75">{tutela.kicker}</p>
+          <p className="mt-5 text-[0.9375rem] leading-[1.9] text-white/90">
             <LegalCopy>{tutela.sintesi}</LegalCopy>
           </p>
           <MailToLink
             email={brand.adminEmail}
-            className="mt-5 inline-block font-display text-sm italic text-ink underline decoration-ember-soft/50 underline-offset-4 hover:underline"
+            className="mt-5 inline-block font-display text-sm italic text-white underline decoration-white/50 underline-offset-4 hover:underline"
           >
             {brand.adminEmail}
           </MailToLink>
-          <div className="mt-10 flex flex-col items-center gap-5 text-xs font-medium uppercase tracking-[0.16em] text-ink/80">
-            <button type="button" className="hover:text-ink" onClick={() => setNotice("tutela")}>
+          <div className="mt-10 flex flex-col items-center gap-5 text-xs font-semibold uppercase tracking-[0.16em] text-white/85">
+            <button type="button" className="hover:text-white" onClick={() => setNotice("tutela")}>
               {tutela.sezione}
             </button>
-            <a href="https://www.tarotitalia.com/privacy.html" className="hover:text-ink">
+            <a href="https://www.tarotitalia.com/privacy.html" className="hover:text-white">
               {legal.privacy.sezione}
             </a>
-            <button type="button" className="hover:text-ink" onClick={() => setNotice("disclaimer")}>
+            <button type="button" className="hover:text-white" onClick={() => setNotice("disclaimer")}>
               {legal.disclaimer.sezione}
             </button>
-            <NavLink to="/termini-di-servizio" className="hover:text-ink">
+            <NavLink to="/termini-di-servizio" className="hover:text-white">
               {legal.vendita.sezione}
             </NavLink>
           </div>

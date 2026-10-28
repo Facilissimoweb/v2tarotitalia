@@ -4,7 +4,7 @@ import { BrandLogo } from "./BrandLogo";
 import { Button } from "./Button";
 import { ChromaticImage } from "./ui/chromatic-image";
 
-const { brand, cta, home } = siteContent;
+const { cta, home } = siteContent;
 
 const titolo = home.titolo;
 const HERO_IMAGE = "/A.jpg";
@@ -42,21 +42,9 @@ function HeroRule() {
   );
 }
 
-/** Ornamento vettoriale (LINEA A) sotto il titolo della Hero Home. */
-function HeroOrnament() {
-  return (
-    <img
-      src="/linea-hero.svg"
-      alt=""
-      aria-hidden
-      className="mx-auto block h-[clamp(2.15rem,6.5vw,3.15rem)] w-auto max-w-[min(22rem,78%)] object-contain drop-shadow-[0_1px_10px_rgba(43,37,35,0.45)]"
-    />
-  );
-}
-
 /**
- * Hero Home: ChromaticImage + gerarchia tipografica ariosa
- * (titolo → ornamento → sottotitolo → regola → descrizione). Logo fermo.
+ * Hero Home: ChromaticImage + gerarchia
+ * (logo → titolo → copyright → firma → regola → competenze). Logo fermo.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -87,31 +75,26 @@ export function HomeHero() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(232_92_18_/_0.08)_0%,rgb(232_92_18_/_0.28)_48%,rgb(232_92_18_/_0.62)_100%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(232_92_18_/_0.25)_0%,rgb(232_92_18_/_0.48)_43%,rgb(201_74_14_/_0.78)_100%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ember/50 via-ember/18 to-ember-deep/58"
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ember/70 via-ember/38 to-ember-deep/74"
       />
 
       <div
-        className="pointer-events-none relative z-10 flex items-center justify-center px-6 pb-24 pt-12 md:px-10 md:pb-32 md:pt-16"
+        className="pointer-events-none relative z-10 flex items-start justify-center px-6 pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))] pt-3 md:px-10 md:pb-40 md:pt-5"
         style={{ minHeight: FRAME_H }}
       >
-        <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-6 text-center text-white md:max-w-4xl md:py-10">
+        <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-1 text-center text-white md:max-w-4xl md:py-2">
           <BrandLogo
             tone="hero"
-            className="logo-hero-ring mx-auto h-[clamp(6.75rem,min(40vw,23svh),13.25rem)] w-[clamp(6.75rem,min(40vw,23svh),13.25rem)] max-w-full drop-shadow-[0_0_22px_rgba(255,254,251,0.65)]"
+            className="logo-hero-ring mx-auto h-[clamp(4.25rem,min(20vw,11svh),7.5rem)] w-[clamp(4.25rem,min(20vw,11svh),7.5rem)] max-w-full drop-shadow-[0_0_22px_rgba(255,254,251,0.65)]"
           />
 
-          <h1 className="mt-9 w-full font-h1 text-h1-home text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-12">
+          <h1 className="mt-3 w-full font-h1 text-h1-home text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-5">
             {titolo}
           </h1>
-
-            {/* Ornamento LINEA A sotto il titolo */}
-            <div className="mt-8 w-full md:mt-10">
-              <HeroOrnament />
-            </div>
 
             <motion.div
               className="mx-auto w-full max-w-2xl xl:max-w-3xl"
@@ -119,31 +102,35 @@ export function HomeHero() {
               initial={reduce ? false : "hidden"}
               animate="show"
             >
-              {/* 2 · Sottotitolo ufficiale */}
               <motion.p
                 variants={riseIn}
-                className="mt-8 font-display text-base leading-relaxed text-white md:mt-10 md:text-lg xl:text-[1.5rem] 2xl:text-2xl"
+                className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-white/90 md:mt-3 md:text-xs"
               >
-                {brand.sottotitolo}
+                {home.copyright}
               </motion.p>
 
-              {/* Separatore sotto il sottotitolo */}
-              <motion.div variants={riseIn} className="mt-8 md:mt-10">
+              <motion.p
+                variants={riseIn}
+                className="mt-2 font-display text-3xl font-normal leading-tight text-white [text-shadow:0_2px_22px_rgba(43,37,35,0.45)] md:mt-3 md:text-5xl xl:text-6xl"
+              >
+                {home.firma}
+              </motion.p>
+
+              <motion.div variants={riseIn} className="mt-4 md:mt-5">
                 <HeroRule />
               </motion.div>
 
-              {/* 3 · Descrizione / competenze */}
               <motion.p
                 variants={riseIn}
-                className="mt-8 text-sm font-medium leading-[1.85] text-white/90 md:mt-10 md:text-base xl:text-lg 2xl:text-xl"
+                className="mt-4 text-sm font-medium leading-[1.85] text-white/90 md:mt-5 md:text-base xl:text-lg 2xl:text-xl"
               >
-                {brand.descrizione}
+                {home.competenze}
               </motion.p>
             </motion.div>
 
             {/* CTA */}
             <motion.div
-              className="mt-12 flex w-full max-w-full flex-wrap items-center justify-center gap-4 md:mt-16"
+              className="mt-6 flex w-full max-w-full flex-wrap items-center justify-center gap-3 md:mt-8 md:gap-4"
               variants={container}
               initial={reduce ? false : "hidden"}
               animate="show"
