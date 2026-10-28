@@ -9,7 +9,9 @@ const { brand, cta, home } = siteContent;
 
 const titolo = home.titolo;
 const HERO_IMAGE_DESKTOP = "/hero-home.webp";
-const HERO_IMAGE_MOBILE = "/hero-home-mobile.jpg";
+const HERO_IMAGE_MOBILE = "/A.jpg";
+const HERO_BG_DESKTOP = "#efece7";
+const HERO_BG_MOBILE = "#e85c12";
 const MOBILE_HERO_MQ = "(max-width: 767px)";
 
 /** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
@@ -91,7 +93,7 @@ export function HomeHero() {
         <ChromaticImage
           src={heroSrc}
           alt=""
-          backgroundColor="#efece7"
+          backgroundColor={heroSrc === HERO_IMAGE_MOBILE ? HERO_BG_MOBILE : HERO_BG_DESKTOP}
           zoom={0.1}
           displacement={0.03}
           chromaticShift={0.012}
