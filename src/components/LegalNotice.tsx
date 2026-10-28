@@ -44,7 +44,7 @@ export function LegalNotice({ kind, onClose }: Props) {
         <WidgetCloseButton onClick={onClose} />
         <div className="max-h-[min(90vh,48rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={title} titleId={titleId}>
-            <p className="text-center text-[0.75rem] text-ink/50">
+            <p className="text-center text-[0.75rem] text-ember-soft">
               <LegalCopy>{intestazione}</LegalCopy>
             </p>
             <LegalBody kind={kind} onClose={onClose} />
@@ -94,7 +94,7 @@ export function PrivacyBody({ className = "mt-8" }: { className?: string } = {})
       {privacy.sezioni.map((sezione) => (
         <section key={sezione.titolo} className="border-t border-ink/10 pt-8">
           <h3 className="flex items-start gap-3 font-display text-lg leading-snug text-ink">
-            <span className="mt-1 shrink-0 text-sage">
+            <span className="mt-1 shrink-0 text-ember-soft">
               <LegalIcon name={sezione.icon} />
             </span>
             <span>{sezione.titolo}</span>
@@ -201,7 +201,7 @@ export function VenditaBody({
                 onClick={() => setOpen(expanded ? "" : sezione.id)}
               >
                 <h3 className="font-display text-lg leading-snug text-ink">{sezione.titolo}</h3>
-                <span className="mt-1 shrink-0 text-sage" aria-hidden>
+                <span className="mt-1 shrink-0 text-ember-soft" aria-hidden>
                   {expanded ? "–" : "+"}
                 </span>
               </button>
@@ -251,7 +251,7 @@ export function LegalCopy({ children }: { children: string }) {
           href={md[2]}
           target="_blank"
           rel="noopener noreferrer"
-          className="underline decoration-sage/40 underline-offset-4 hover:text-ink"
+          className="underline decoration-ember-soft/50 underline-offset-4 hover:text-ink"
         >
           {md[1]}
         </a>,
@@ -261,7 +261,7 @@ export function LegalCopy({ children }: { children: string }) {
         <MailToLink
           key={`${token}-${match.index}`}
           email={token}
-          className="underline decoration-sage/40 underline-offset-4 hover:text-ink hover:underline"
+          className="underline decoration-ember-soft/50 underline-offset-4 hover:text-ink hover:underline"
         >
           {token}
         </MailToLink>,
@@ -272,7 +272,7 @@ export function LegalCopy({ children }: { children: string }) {
           key={`${token}-${match.index}`}
           href={whatsappChatHref()}
           {...WHATSAPP_ANCHOR}
-          className="underline decoration-sage/40 underline-offset-4 hover:text-ink"
+          className="underline decoration-ember-soft/50 underline-offset-4 hover:text-ink"
         >
           {token}
         </a>,
@@ -282,7 +282,7 @@ export function LegalCopy({ children }: { children: string }) {
         <a
           key={`${token}-${match.index}`}
           href={legal.sitoUrl}
-          className="underline decoration-sage/40 underline-offset-4 hover:text-ink"
+          className="underline decoration-ember-soft/50 underline-offset-4 hover:text-ink"
         >
           {token}
         </a>,

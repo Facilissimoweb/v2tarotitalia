@@ -25,7 +25,7 @@ export function Contatti() {
               </p>
               <p className="mt-10 text-sm leading-[1.9] text-ink/75">{brand.studioDiTeresa}</p>
               <p className="mt-4 text-sm leading-[1.9] text-ink/75">{brand.identitaFiscale}</p>
-              <p className="mt-6 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{brand.coords}</p>
+              <p className="mt-6 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{brand.coords}</p>
             </article>
           </Reveal>
           <Reveal delay={100}>
@@ -33,7 +33,7 @@ export function Contatti() {
               <Kicker>{pages.contatti.kicker}</Kicker>
               <MailToLink
                 email={brand.email}
-                className="mt-8 block font-display text-xl italic text-ink underline decoration-sage/40 underline-offset-4 hover:underline"
+                className="mt-8 block font-display text-xl italic text-ink underline decoration-ember-soft/50 underline-offset-4 hover:underline"
               >
                 {brand.email}
               </MailToLink>

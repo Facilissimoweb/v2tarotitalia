@@ -27,7 +27,7 @@ alwaysApply: true
 
 ## Estetica Lumiere
 
-- Palette: ivory `#F9F8F6`, ink `#2B2523` (marrone scuro/terroso), sage `#7A8B78`.
+- Palette: ivory `#F9F8F6`, ink `#2B2523` (grafite/terroso), ember `#E85C12` (accento dalla hero), ember-soft `#C99A7A` (kicker, meta, filetti al posto del sage). Sage/oliva non si usa. Ember pieno è sigillo; l’arancio pastello è la voce secondaria.
 - Stile: pulito, leggibile, whitespace generoso, attenzione sartoriale. Raggio 0px, tipografia Noto Serif + Inter.
 - Hero con CTA primaria su tutte le pagine, esclusi eventuali articoli del blog.
 - Animazioni (React): sobrie, fluide e ipnotiche (parallassi sottili, transizioni morbide); accompagnano l’introspezione senza distrarre.

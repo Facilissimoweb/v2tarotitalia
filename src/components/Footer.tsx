@@ -46,7 +46,7 @@ export function Footer() {
         <p className="mt-6 text-xs uppercase tracking-[0.16em] text-ink/80">{brand.coords}</p>
         <MailToLink
           email={brand.email}
-          className="mt-6 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4 hover:underline"
+          className="mt-6 inline-block font-display text-sm italic text-ink underline decoration-ember-soft/50 underline-offset-4 hover:underline"
         >
           {brand.email}
         </MailToLink>
@@ -78,7 +78,7 @@ export function Footer() {
           </p>
           <MailToLink
             email={brand.adminEmail}
-            className="mt-5 inline-block font-display text-sm italic text-ink underline decoration-sage/40 underline-offset-4 hover:underline"
+            className="mt-5 inline-block font-display text-sm italic text-ink underline decoration-ember-soft/50 underline-offset-4 hover:underline"
           >
             {brand.adminEmail}
           </MailToLink>

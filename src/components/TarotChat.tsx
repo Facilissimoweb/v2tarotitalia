@@ -85,7 +85,7 @@ export function TarotChat() {
     <>
       <button
         type="button"
-        className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-14 w-14 items-center justify-center bg-ink text-on-ink shadow-[0_12px_28px_rgba(43,37,35,0.28)] ring-1 ring-ink/20 transition-colors hover:bg-ink/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))]"
+        className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-14 w-14 items-center justify-center bg-ink text-on-ink shadow-[0_12px_28px_rgba(43,37,35,0.28)] ring-1 ring-ink/20 transition-colors hover:bg-ink/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))]"
         aria-label={copy.trigger}
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -151,7 +151,7 @@ export function TarotChat() {
                     </div>
                   ))}
                   {loading ? (
-                    <p className="text-center text-xs uppercase tracking-[0.16em] text-ink/50">
+                    <p className="text-center text-xs uppercase tracking-[0.16em] text-ember-soft">
                       {copy.inAttesa}
                     </p>
                   ) : null}

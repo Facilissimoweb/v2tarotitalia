@@ -28,9 +28,9 @@ function Stars({ value }: { value: number }) {
 }
 
 const AVATAR_TONES = [
-  "bg-sage text-on-ink",
-  "bg-moss text-on-ink",
   "bg-ink text-on-ink",
+  "bg-ember text-ivory",
+  "bg-ember-deep text-ivory",
 ] as const;
 
 function initialOf(author: string) {
@@ -71,7 +71,7 @@ function ReviewCard({
         <Avatar author={author} />
         <div className="min-w-0 flex-1">
           <p className="truncate font-display text-[0.9375rem] leading-tight text-ink">{author}</p>
-          <p className="mt-1 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{date}</p>
+          <p className="mt-1 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{date}</p>
         </div>
         <GoogleMark className="h-[1.05rem] w-[1.05rem] shrink-0 self-start" />
       </div>

@@ -10,7 +10,7 @@ function FormazioneCards() {
       {percorsoEsteso.voci.map((voce) => (
         <article
           key={voce.titolo}
-          className="relative isolate flex h-full flex-col overflow-hidden bg-sage p-8 ring-1 ring-ivory/25 transition-colors duration-300 hover:ring-ivory/40"
+          className="relative isolate flex h-full flex-col overflow-hidden bg-ink p-8 ring-1 ring-ivory/25 transition-colors duration-300 hover:ring-ember/40"
         >
           {/* Ornamento floreale come sfondo della card: dietro al testo, ancorato a destra */}
           <img
@@ -39,8 +39,8 @@ function FormazioneCards() {
 export function FormazioneOlisticaBody() {
   return (
     <div>
-      <p className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsoEsteso.kicker}</p>
-      <p className="mt-4 text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsoEsteso.badge}</p>
+      <p className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsoEsteso.kicker}</p>
+      <p className="mt-4 text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsoEsteso.badge}</p>
       <p className="mx-auto mt-5 max-w-2xl text-center text-sm leading-[1.85] text-ink/70">
         {percorsoEsteso.lead}
       </p>

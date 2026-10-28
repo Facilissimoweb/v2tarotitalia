@@ -86,16 +86,16 @@ export function RiservataProfile() {
       </div>
 
       <article className="bg-paper p-8">
-        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
+        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
           {provider === "google" ? auth.accessoGoogle : auth.accessoEmail}
         </p>
         <dl className="mt-6 flex flex-col gap-5">
           <div>
-            <dt className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{auth.nome}</dt>
+            <dt className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{auth.nome}</dt>
             <dd className="mt-1 font-display text-lg text-ink">{session.name}</dd>
           </div>
           <div>
-            <dt className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{auth.email}</dt>
+            <dt className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{auth.email}</dt>
             <dd className="mt-1 text-sm text-ink">{session.email}</dd>
           </div>
         </dl>
@@ -108,7 +108,7 @@ export function RiservataProfile() {
           <article className="bg-paper p-8">
             <Kicker>{auth.nome}</Kicker>
             <label className="mt-6 flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{auth.nome}</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{auth.nome}</span>
               <input
                 type="text"
                 value={name}
@@ -125,7 +125,7 @@ export function RiservataProfile() {
           <article className="bg-paper p-8">
             <Kicker>{auth.password}</Kicker>
             <label className="mt-6 flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{auth.nuovaPassword}</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{auth.nuovaPassword}</span>
               <input
                 type="password"
                 value={password}
@@ -136,7 +136,7 @@ export function RiservataProfile() {
               />
             </label>
             <label className="mt-6 flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{auth.confermaPassword}</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{auth.confermaPassword}</span>
               <input
                 type="password"
                 value={confirm}

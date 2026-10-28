@@ -15,7 +15,7 @@ const dockClass =
   "esoteric-badge-btn pointer-events-auto flex items-center justify-center gap-1.5 px-4 py-2 sm:gap-2 sm:px-5 sm:py-2.5 md:gap-2.5 md:px-6 md:py-3";
 
 const itemClass =
-  "group relative z-[1] flex h-12 w-12 items-center justify-center text-[#e85c12] transition-colors duration-200 hover:text-[#f07828] sm:h-[3.25rem] sm:w-[3.25rem] md:h-14 md:w-14";
+  "group relative z-[1] flex h-12 w-12 items-center justify-center text-ember transition-colors duration-200 hover:text-ember-hot sm:h-[3.25rem] sm:w-[3.25rem] md:h-14 md:w-14";
 
 const tipClass =
   "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ivory px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";

@@ -126,7 +126,7 @@ export function Consulti() {
           <section>
             <div className="mb-8 flex justify-between">
               <Kicker>01 · Seleziona il percorso</Kicker>
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">Tariffa fissa</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Tariffa fissa</span>
             </div>
             <div className="grid gap-6">
               {consulti.opzioni.map((opt) => {
@@ -145,13 +145,13 @@ export function Consulti() {
                     />
                     <div className="flex justify-between gap-4">
                       <div>
-                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{t.kicker}</p>
+                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{t.kicker}</p>
                         <p className="font-display text-lg">{opt.titolo}</p>
                         <p className="text-xs text-ink/55">Durata: {opt.minuti} minuti</p>
                       </div>
                       <div className="text-right">
                         <p className="font-display text-xl">€{opt.prezzo}</p>
-                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">Onnicomprensivo</p>
+                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Onnicomprensivo</p>
                       </div>
                     </div>
                     <p className="mt-3 bg-mist p-3 text-[0.6875rem] leading-relaxed text-ink/65">{t.summary}</p>
@@ -252,7 +252,7 @@ export function Consulti() {
 function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex items-center justify-between gap-4 py-1.5 text-xs">
-      <span className="uppercase tracking-[0.16em] text-sage">{k}</span>
+      <span className="uppercase tracking-[0.16em] text-ember-soft">{k}</span>
       <span className="text-right text-ink">{v}</span>
     </div>
   );

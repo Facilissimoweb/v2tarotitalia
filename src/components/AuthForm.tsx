@@ -221,7 +221,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-2">
-      <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{label}</span>
+      <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{label}</span>
       <input
         type={type}
         required={required}

@@ -66,7 +66,7 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate overflow-hidden bg-[#e85c12] text-white [--hh:80px] xl:[--hh:112px]"
+      className="relative isolate overflow-hidden bg-ember text-white [--hh:80px] xl:[--hh:112px]"
     >
       <motion.div
         className="absolute inset-x-0 -top-[18%] z-0 h-[140%] will-change-transform"
@@ -91,7 +91,7 @@ export function HomeHero() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#e85c12]/50 via-[#e85c12]/18 to-[#c94a0e]/58"
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ember/50 via-ember/18 to-ember-deep/58"
       />
 
       <div

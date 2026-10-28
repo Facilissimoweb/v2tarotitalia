@@ -74,7 +74,7 @@ export function Carrello() {
               <button
                 type="button"
                 onClick={removeDraft}
-                className="mb-16 text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+                className="mb-16 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
               >
                 {pages.carrello.rimuovi}
               </button>
@@ -93,7 +93,7 @@ export function Carrello() {
               <button
                 type="button"
                 onClick={removeDraft}
-                className="mt-6 block text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+                className="mt-6 block text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
               >
                 {pages.carrello.rimuovi}
               </button>
@@ -139,7 +139,7 @@ function DraftSummary() {
   const option = consulti.opzioni.find((o) => o.id === draft.type);
   return (
     <div>
-      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{nav.carrello}</p>
+      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{nav.carrello}</p>
       <h2 className="mt-3 font-display text-xl">{option?.titolo ?? draft.type}</h2>
       <p className="mt-2 text-sm text-ink/65">
         {formatBookingDay(draft.dateIso)} · {draft.slot} · {sessionModeLabel(draft.mode, draft.slot, STUDIO.city)} · €
@@ -166,7 +166,7 @@ function PendingCard({
   return (
     <article className="mb-8 bg-paper p-8">
       <div className="flex items-center justify-between">
-        <p className="text-[0.6875rem] uppercase tracking-[0.16em] text-sage">
+        <p className="text-[0.6875rem] uppercase tracking-[0.16em] text-ember-soft">
           {purchase.dateIso ? formatBookingDay(purchase.dateIso) : ""}
         </p>
         <span className="bg-mist px-2 py-0.5 text-xs">{auth.stati[purchase.status]}</span>
@@ -197,7 +197,7 @@ function PendingCard({
         <button
           type="button"
           onClick={onRemove}
-          className="text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+          className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
         >
           {pages.carrello.rimuovi}
         </button>

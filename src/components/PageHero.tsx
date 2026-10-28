@@ -7,7 +7,7 @@ export type HeroCta = {
   href?: string;
   label: string;
   onClick?: () => void;
-  variant?: "primary" | "sage" | "ghost" | "paper";
+  variant?: "primary" | "ghost" | "paper";
   accent?: "google";
 };
 

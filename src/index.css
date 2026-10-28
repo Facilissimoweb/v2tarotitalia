@@ -3,11 +3,13 @@
 @theme {
   --color-ivory: #f9f8f6;
   --color-ink: #2b2523;
-  --color-sage: #7a8b78;
+  --color-ember: #e85c12;
+  --color-ember-hot: #f07828;
+  --color-ember-deep: #c94a0e;
+  --color-ember-soft: #c99a7a;
   --color-paper: #ffffff;
   --color-mist: #efece7;
   --color-linen: #e7e2da;
-  --color-moss: #5f6f5d;
   --color-on-ink: #f3efe8;
   --font-display: "Noto Serif", "Times New Roman", serif;
   --font-h1: "Blagkine", "Noto Serif", "Times New Roman", serif;
@@ -175,7 +177,7 @@ h3 {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   font-weight: 500;
-  color: var(--color-sage);
+  color: var(--color-ember-soft);
 }
 
 @layer utilities {
@@ -253,8 +255,10 @@ html[data-a11y-contrast="on"] {
   --color-mist: #f0f0f0;
   --color-linen: #d4d4d4;
   --color-ink: #000000;
-  --color-sage: #2c4a2a;
-  --color-moss: #1c321a;
+  --color-ember: #b33e08;
+  --color-ember-hot: #c44a0e;
+  --color-ember-deep: #8a2e06;
+  --color-ember-soft: #9a5a32;
   --color-on-ink: #ffffff;
 }
 
@@ -319,12 +323,12 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
 /* Barra contatti: sigillo a pillola (struttura esoterica, arancio al posto del rosso). */
 .esoteric-badge-btn {
-  --ember: #e85c12;
-  --ember-hot: #f07828;
+  --ember: var(--color-ember);
+  --ember-hot: var(--color-ember-hot);
   isolation: isolate;
   position: relative;
   overflow: visible;
-  background-color: #0d0d10;
+  background-color: var(--color-ink);
   color: var(--ember);
   border: 3px solid var(--ember);
   border-radius: 9999px;

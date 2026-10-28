@@ -85,7 +85,7 @@ export function Home() {
                   >
                     <p
                       className={`text-[0.625rem] uppercase tracking-[0.16em] ${
-                        featured ? "text-on-ink/55" : "text-sage"
+                        featured ? "text-on-ink/55" : "text-ember-soft"
                       }`}
                     >
                       {lettura.meta}
@@ -101,7 +101,7 @@ export function Home() {
                     <div className="mt-10">
                       <Button
                         to={`/consulti?tipo=${lettura.id}`}
-                        variant={featured ? "paper" : "sage"}
+                        variant={featured ? "paper" : "ghost"}
                         className="w-full"
                       >
                         {lettura.cta}
@@ -156,7 +156,7 @@ export function Home() {
                 {home.visione.pilastri.map((pilastro, i) => (
                   <Reveal key={pilastro.titolo} delay={i * 80}>
                     <article className="flex h-full flex-col bg-paper p-8 md:p-10">
-                      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
+                      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                         {String(i + 1).padStart(2, "0")}
                       </p>
                       <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
@@ -190,7 +190,7 @@ export function Home() {
             <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">{home.citazione.autore}</p>
           </Reveal>
           <Reveal delay={220}>
-            <p className="mt-3 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{home.citazione.fonte}</p>
+            <p className="mt-3 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{home.citazione.fonte}</p>
           </Reveal>
         </div>
       </section>

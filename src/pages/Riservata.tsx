@@ -181,7 +181,7 @@ export function Riservata() {
           <button
             type="button"
             onClick={() => void logout()}
-            className="text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+            className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
           >
             Esci
           </button>
@@ -289,7 +289,7 @@ export function Riservata() {
             ) : (
               corsi.map((c) => (
                 <article key={c.id} className="bg-paper p-8" translate={localized ? "no" : undefined}>
-                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{c.kicker}</p>
+                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{c.kicker}</p>
                   <h3 className="mt-1 font-display">{c.title}</h3>
                   <p className="mt-2 text-xs leading-relaxed text-ink/65">{c.blurb}</p>
                   <button
@@ -334,7 +334,7 @@ export function Riservata() {
                     onClick={() => {
                       void download(m.file, m.filename, m.title);
                     }}
-                    className="text-[0.625rem] uppercase tracking-[0.16em] text-sage"
+                    className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft"
                   >
                     {busy ? lingua.genera : "Scarica"}
                   </button>
@@ -397,7 +397,7 @@ function PaidCard({
   return (
     <article className={`bg-paper p-8 ${justPaid ? "ring-1 ring-ink" : ""}`}>
       <div className="flex items-center justify-between">
-        <p className="text-[0.6875rem] uppercase tracking-[0.16em] text-sage">{date}</p>
+        <p className="text-[0.6875rem] uppercase tracking-[0.16em] text-ember-soft">{date}</p>
         <span className="bg-mist px-2 py-0.5 text-xs">{status}</span>
       </div>
       <h3 className="mt-3 font-display text-lg">{title}</h3>

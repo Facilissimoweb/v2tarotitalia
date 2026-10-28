@@ -28,9 +28,9 @@ export function Arcani() {
                 <div className="aspect-[2/3] bg-mist">
                   <ArcanoArt arcano={a} />
                 </div>
-                <p className="mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{a.roman}</p>
+                <p className="mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{a.roman}</p>
                 <p className="mt-1 font-display text-base text-ink">{a.name}</p>
-                <p className="mt-1 text-[0.625rem] uppercase tracking-[0.16em] text-ink/50">{a.subtitle}</p>
+                <p className="mt-1 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{a.subtitle}</p>
               </Link>
             </Reveal>
           ))}
@@ -71,13 +71,13 @@ export function ArcanoDetail() {
           <div className="grid gap-8 md:grid-cols-2">
             <Reveal>
               <article className="bg-mist p-8">
-                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">Dritto</p>
+                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Dritto</p>
                 <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.upright}</p>
               </article>
             </Reveal>
             <Reveal delay={100}>
               <article className="bg-mist p-8">
-                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">Rovescio</p>
+                <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Rovescio</p>
                 <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.reversed}</p>
               </article>
             </Reveal>
@@ -108,7 +108,7 @@ export function ArcanoDetail() {
           </Reveal>
           <Reveal delay={400}>
             <div className="mt-8">
-              <Link to="/arcani" className="text-[0.6875rem] uppercase tracking-[0.16em] text-sage">
+              <Link to="/arcani" className="text-[0.6875rem] uppercase tracking-[0.16em] text-ember-soft">
                 Torna alla griglia
               </Link>
             </div>

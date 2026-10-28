@@ -6,7 +6,7 @@ import { tarotChatUi } from "../lib/tarotChat/ui";
 const { tarotChat: copy } = siteContent;
 
 const btnClass =
-  "inline-flex min-h-11 items-center justify-center px-3.5 py-2 text-[0.625rem] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-ink/15 transition-colors hover:bg-ink hover:text-on-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage";
+  "inline-flex min-h-11 items-center justify-center px-3.5 py-2 text-[0.625rem] font-medium uppercase tracking-[0.2em] text-ink ring-1 ring-ink/15 transition-colors hover:bg-ink hover:text-on-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember";
 
 type Props = {
   actions: TarotChatActionId[];

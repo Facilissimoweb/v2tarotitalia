@@ -151,7 +151,7 @@ export function ChiSiamo() {
               <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{percorsi.descrizione}</p>
             </Reveal>
             <Reveal delay={300}>
-              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.percorsiKicker}</p>
+              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsi.percorsiKicker}</p>
             </Reveal>
             <ul className="mt-6 space-y-4">
               {percorsi.elenco.map((voce, i) => (
@@ -161,7 +161,7 @@ export function ChiSiamo() {
               ))}
             </ul>
             <Reveal delay={400}>
-              <blockquote className="mt-16 max-w-lg border-l border-sage pl-8">
+              <blockquote className="mt-16 max-w-lg border-l border-ember-soft pl-8">
                 <p className="font-display text-xl italic leading-relaxed text-ink">«{percorsi.citazione}»</p>
               </blockquote>
             </Reveal>

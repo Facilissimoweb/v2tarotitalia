@@ -166,7 +166,7 @@ export function LanguageWidget({ placement }: Props) {
                   ))}
                 </ul>
                 {active ? (
-                  <p className="shrink-0 px-7 pb-6 text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage md:px-12">
+                  <p className="shrink-0 px-7 pb-6 text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft md:px-12">
                     {active.label}
                   </p>
                 ) : null}

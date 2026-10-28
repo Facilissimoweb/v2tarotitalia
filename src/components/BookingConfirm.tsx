@@ -131,7 +131,7 @@ export function BookingConfirm() {
 function Row({ k, v }: { k: string; v: string }) {
   return (
     <div className="flex items-center justify-between gap-4 py-1.5 text-xs">
-      <span className="uppercase tracking-[0.16em] text-sage">{k}</span>
+      <span className="uppercase tracking-[0.16em] text-ember-soft">{k}</span>
       <span className="text-right text-ink">{v}</span>
     </div>
   );
@@ -150,7 +150,7 @@ function Field({
 }) {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{label}</span>
+      <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{label}</span>
       <input
         required
         type={type}

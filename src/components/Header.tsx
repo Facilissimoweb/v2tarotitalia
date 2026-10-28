@@ -181,7 +181,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
         onClick={() => setPinned((v) => !v)}
       >
         {item.label}
-        <span aria-hidden className="text-sage">
+        <span aria-hidden className="text-ember-soft">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.2">
             <path d="M1.5 2.5 L4 5.5 L6.5 2.5" />
           </svg>

@@ -10,7 +10,7 @@ type Props = {
 };
 
 const mark =
-  "flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink text-ivory shadow-[0_8px_18px_rgba(43,37,35,0.28)] ring-2 ring-ink transition-[transform,background-color] duration-200 hover:scale-[1.05] hover:bg-moss focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage";
+  "flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink text-ivory shadow-[0_8px_18px_rgba(43,37,35,0.28)] ring-2 ring-ink transition-[transform,background-color] duration-200 hover:scale-[1.05] hover:bg-ember focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember";
 
 /** Chiusura uniforme di widget e modali: cerchio ink, X ivory marcata, tap 48px. */
 export function WidgetCloseButton({ onClick, placement = "panel", className = "" }: Props) {

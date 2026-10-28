@@ -6,8 +6,7 @@ const base =
   "inline-flex items-center justify-center gap-2 px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
 
 const variants = {
-  primary: "bg-ink text-on-ink hover:bg-moss",
-  sage: "bg-sage text-ivory hover:bg-moss",
+  primary: "bg-ink text-on-ink hover:bg-ember",
   ghost: "bg-transparent text-ink ring-1 ring-ink/15 hover:bg-mist",
   paper: "bg-paper text-ink hover:bg-mist",
 };

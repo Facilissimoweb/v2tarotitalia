@@ -109,7 +109,7 @@ export function PercorsiModal() {
             <button
               type="button"
               onClick={() => setPane("richiesta")}
-              className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+              className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
             >
               {percorsi.tornaScelta}
             </button>
@@ -119,7 +119,7 @@ export function PercorsiModal() {
             <p className="text-sm leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
             {tipo ? (
               <p className="bg-mist p-5 text-sm leading-relaxed text-ink/75">
-                <span className="mb-2 block text-[0.625rem] uppercase tracking-[0.16em] text-sage">
+                <span className="mb-2 block text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                   {percorsi.tipologia}
                 </span>
                 {tipo.titolo}
@@ -128,7 +128,7 @@ export function PercorsiModal() {
             <p className="text-sm leading-[1.9] text-ink/70">{percorsi.chiacchierata}</p>
 
             <section className="max-h-56 overflow-y-auto border-y border-ink/10 py-6">
-              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.legaleKicker}</p>
+              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsi.legaleKicker}</p>
               <p className="mt-4 text-xs leading-[1.9] text-ink/70">{brand.deontologia}</p>
               <p className="mt-6 font-display text-sm text-ink">{legal.disclaimer.heading}</p>
               {legal.disclaimer.paragrafi.map((p) => (
@@ -141,21 +141,21 @@ export function PercorsiModal() {
               <button
                 type="button"
                 onClick={() => setLegalKind("privacy")}
-                className="text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+                className="text-left text-[0.6875rem] underline decoration-ember-soft/50 underline-offset-4 hover:text-ink"
               >
                 {percorsi.privacyApri}
               </button>
               <button
                 type="button"
                 onClick={() => setLegalKind("disclaimer")}
-                className="text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+                className="text-left text-[0.6875rem] underline decoration-ember-soft/50 underline-offset-4 hover:text-ink"
               >
                 {percorsi.disclaimerApri}
               </button>
               <button
                 type="button"
                 onClick={() => setLegalKind("vendita")}
-                className="text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+                className="text-left text-[0.6875rem] underline decoration-ember-soft/50 underline-offset-4 hover:text-ink"
               >
                 {legal.vendita.leggi}
               </button>
@@ -169,7 +169,7 @@ export function PercorsiModal() {
             />
 
             <label className="flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.nome} *</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsi.nome} *</span>
               <input
                 required
                 value={name}
@@ -178,7 +178,7 @@ export function PercorsiModal() {
               />
             </label>
             <label className="flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.telefono} *</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsi.telefono} *</span>
               <input
                 required
                 type="tel"
@@ -188,7 +188,7 @@ export function PercorsiModal() {
               />
             </label>
             <label className="flex flex-col gap-1.5">
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{percorsi.nota}</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsi.nota}</span>
               <textarea
                 rows={3}
                 value={note}
@@ -230,7 +230,7 @@ export function PercorsiModal() {
               <button
                 type="button"
                 onClick={() => setPane("accesso")}
-                className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+                className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
               >
                 {nav.accedi} · {auth.registrazione}
               </button>

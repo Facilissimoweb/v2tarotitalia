@@ -69,14 +69,14 @@ function ConsentRow({
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="ml-7 text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+          className="ml-7 text-left text-[0.6875rem] underline decoration-ember-soft/50 underline-offset-4 hover:text-ink"
         >
           {linkLabel}
         </a>
       ) : onOpen && linkLabel ? (
         <button
           type="button"
-          className="ml-7 text-left text-[0.6875rem] underline decoration-sage/40 underline-offset-4 hover:text-ink"
+          className="ml-7 text-left text-[0.6875rem] underline decoration-ember-soft/50 underline-offset-4 hover:text-ink"
           onClick={onOpen}
         >
           {linkLabel}

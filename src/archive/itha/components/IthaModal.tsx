@@ -195,7 +195,7 @@ export function IthaModal() {
 function Intro({ onContinue }: { onContinue: () => void }) {
   return (
     <div className="flex flex-col gap-8 text-left">
-      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{itha.kicker}</p>
+      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{itha.kicker}</p>
       <h3 className="font-display text-3xl leading-tight text-ink">{itha.saluto}</h3>
       <p className="text-sm leading-[1.9] text-ink/75">{itha.intro}</p>
       <section>
@@ -210,8 +210,8 @@ function Intro({ onContinue }: { onContinue: () => void }) {
         <Kicker>{itha.usoTitolo}</Kicker>
         <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.usoTesto}</p>
       </section>
-      <aside className="border-l-2 border-sage bg-mist px-5 py-5">
-        <p className="text-[0.625rem] font-medium uppercase tracking-[0.16em] text-sage">{itha.presenteTitolo}</p>
+      <aside className="border-l-2 border-ember-soft bg-mist px-5 py-5">
+        <p className="text-[0.625rem] font-medium uppercase tracking-[0.16em] text-ember-soft">{itha.presenteTitolo}</p>
         <p className="mt-3 font-display text-xl leading-snug text-ink">{itha.presenteTesto}</p>
       </aside>
       <Button className="w-full" onClick={onContinue}>
@@ -230,7 +230,7 @@ function Hub({ onStart, onArchive }: { onStart: () => void; onArchive: () => voi
       <button
         type="button"
         onClick={onArchive}
-        className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+        className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
       >
         {itha.archivio}
       </button>
@@ -341,7 +341,7 @@ function Draw({
             <Kicker>{itha.pescaTitolo}</Kicker>
             <p className="mt-3 text-sm leading-[1.9] text-ink/70">{itha.pescaLead}</p>
           </div>
-          <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">
+          <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
             {itha.pescaScelte} {picked.length}/3
           </p>
           <div className="flex flex-col gap-6">
@@ -349,7 +349,7 @@ function Draw({
               const titolo = itha.pescaFile.find((file) => file.id === row.suit)?.titolo ?? row.suit;
               return (
                 <section key={row.suit}>
-                  <p className="mb-3 text-[0.625rem] uppercase tracking-[0.14em] text-sage">{titolo}</p>
+                  <p className="mb-3 text-[0.625rem] uppercase tracking-[0.14em] text-ember-soft">{titolo}</p>
                   <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto overscroll-x-contain pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {row.cards.map((card) => {
                       const order = picked.findIndex((item) => item.id === card.id);
@@ -361,7 +361,7 @@ function Draw({
                           onClick={() => toggle(card)}
                           aria-pressed={selected}
                           aria-label={itha.pescaDorso}
-                          className={`relative w-[4.75rem] shrink-0 snap-start ${selected ? "ring-2 ring-sage" : ""}`}
+                          className={`relative w-[4.75rem] shrink-0 snap-start ${selected ? "ring-2 ring-ember-soft" : ""}`}
                         >
                           <IthaCardBack />
                           {selected ? (
@@ -386,7 +386,7 @@ function Draw({
             const pos = itha.posizioni.find((p) => p.id === card.position);
             return (
               <article key={card.id}>
-                <p className="mb-3 text-[0.625rem] uppercase tracking-[0.14em] text-sage">{pos?.titolo}</p>
+                <p className="mb-3 text-[0.625rem] uppercase tracking-[0.14em] text-ember-soft">{pos?.titolo}</p>
                 <div className="mx-auto w-36 sm:mx-0">
                   <IthaCardFace card={card} />
                 </div>
@@ -431,7 +431,7 @@ function Reading({
       {cards.map((section) =>
         section.card ? (
           <article key={section.pos.id} className="border-t border-ink/10 pt-6">
-            <p className="text-[0.625rem] uppercase tracking-[0.14em] text-sage">{section.titolo}</p>
+            <p className="text-[0.625rem] uppercase tracking-[0.14em] text-ember-soft">{section.titolo}</p>
             <div className="mt-4 grid gap-5 sm:grid-cols-[7.5rem_1fr] sm:items-start">
               <IthaCardFace card={section.card} />
               <div>
@@ -476,7 +476,7 @@ function Reading({
       <button
         type="button"
         onClick={onHub}
-        className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+        className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
       >
         {itha.prosegui}
       </button>
@@ -508,7 +508,7 @@ function Archive({
             }}
             className="bg-mist p-5 text-left"
           >
-            <p className="text-[0.625rem] uppercase tracking-[0.14em] text-sage">{item.category}</p>
+            <p className="text-[0.625rem] uppercase tracking-[0.14em] text-ember-soft">{item.category}</p>
             <p className="mt-2 text-sm leading-relaxed text-ink/75">{item.question}</p>
           </button>
         ))

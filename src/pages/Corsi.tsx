@@ -28,7 +28,7 @@ export function Corsi() {
       <div className="mx-auto max-w-3xl px-6 pb-24 md:px-10 md:pb-32">
         {!session && (
           <Reveal>
-            <p className="mb-16 text-sm text-sage">
+            <p className="mb-16 text-sm text-ember-soft">
               Hai già un accesso?{" "}
               <Link className="underline underline-offset-4" to="/login">
                 Entra
@@ -44,7 +44,7 @@ export function Corsi() {
           {corsi.map((c, i) => (
             <Reveal key={c.id} delay={i * 100}>
             <article className="bg-paper p-8 md:p-10" translate={localized ? "no" : undefined}>
-              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-sage">{c.kicker}</p>
+              <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{c.kicker}</p>
               <div className="mt-4 flex items-start justify-between gap-4">
                 <h2 className="font-display text-xl leading-snug md:text-2xl">{c.title}</h2>
                 <span className="shrink-0 bg-mist px-3 py-1.5 text-[0.625rem] uppercase tracking-[0.16em]">
@@ -54,7 +54,7 @@ export function Corsi() {
               <p className="mt-5 text-sm leading-[1.75] text-ink/70">{c.blurb}</p>
               {c.kind === "audio" && c.audio && (
                 <div className="mt-8 bg-mist p-6">
-                  <p className="mb-4 text-[0.625rem] uppercase tracking-[0.16em] text-sage">
+                  <p className="mb-4 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                     Anteprima — Lezione 01 · Il velo di Maya
                   </p>
                   <audio controls className="w-full" src={c.audio} preload="metadata">
@@ -97,7 +97,7 @@ export function Corsi() {
                   onClick={() => {
                     void download(m.file, m.filename, m.title);
                   }}
-                  className="text-[0.625rem] uppercase tracking-[0.16em] text-sage hover:text-ink"
+                  className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
                 >
                   {busy ? lingua.genera : "Scarica"}
                 </button>

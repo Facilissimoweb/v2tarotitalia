@@ -107,7 +107,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
             →
           </button>
         </div>
-        <p className="mb-3 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{consulti.calendario.giorno}</p>
+        <p className="mb-3 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{consulti.calendario.giorno}</p>
         <div className="grid grid-cols-7 gap-1">
           {headers.map((h) => (
             <span key={h} className="py-1 text-center text-[0.625rem] uppercase tracking-[0.16em] text-ink/40">
@@ -125,7 +125,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
                 onClick={() => onDate(cell.iso)}
                 className={`h-10 text-sm ${
                   selected
-                    ? "bg-ink text-on-ink"
+                    ? "bg-ember text-ivory"
                     : disabled
                       ? "text-ink/20"
                       : cell.outside
@@ -139,7 +139,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
           })}
         </div>
       </div>
-      <p className="mt-6 text-[0.625rem] uppercase tracking-[0.16em] text-sage">{consulti.calendario.orario}</p>
+      <p className="mt-6 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{consulti.calendario.orario}</p>
       <div className="mt-2 grid grid-cols-4 gap-2 sm:grid-cols-7">
         {HOUR_SLOTS.map((hour) => {
           const available = hours.includes(hour);
