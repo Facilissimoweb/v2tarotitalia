@@ -85,7 +85,7 @@ export function TarotChat() {
     <>
       <button
         type="button"
-        className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-14 w-14 items-center justify-center bg-ink text-on-ink shadow-[0_12px_28px_rgba(43,37,35,0.28)] ring-1 ring-ink/20 transition-colors hover:bg-ink/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))]"
+        className="fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-[4.25rem] w-[5.9rem] items-center justify-center bg-transparent p-0 transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))] md:h-[4.5rem] md:w-[6.25rem]"
         aria-label={copy.trigger}
         aria-haspopup="dialog"
         aria-expanded={open}
@@ -206,14 +206,14 @@ export function TarotChat() {
 
 function ChatIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M5 7.5h14v8.5H9.5L5 19.5V7.5Z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path d="M8.5 11h7M8.5 13.5h4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
+    <img
+      src="/chat-icon.png"
+      alt=""
+      width={96}
+      height={69}
+      draggable={false}
+      aria-hidden="true"
+      className="h-full w-full object-contain"
+    />
   );
 }
