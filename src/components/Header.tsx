@@ -77,7 +77,7 @@ export function Header() {
             translate="no"
           >
             <BrandLogo className="h-[52px] w-[52px]" />
-            <span className="mt-1.5 font-display text-[0.6875rem] uppercase leading-none tracking-[0.16em] text-ink">
+            <span className="mt-1 font-h1 text-[1.85rem] leading-none text-ink xl:text-[2.05rem]">
               {brand.wordmark}
             </span>
           </NavLink>

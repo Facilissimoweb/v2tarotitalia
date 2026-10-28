@@ -97,7 +97,7 @@ export function HomeHero() {
         <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-6 text-center text-white md:max-w-4xl md:py-10">
           <BrandLogo
             tone="hero"
-            className="mx-auto h-[clamp(8.25rem,min(56vw,32svh),19rem)] w-[clamp(8.25rem,min(56vw,32svh),19rem)] max-w-full drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
+            className="logo-hero-ring mx-auto h-[clamp(8.25rem,min(56vw,32svh),19rem)] w-[clamp(8.25rem,min(56vw,32svh),19rem)] max-w-full drop-shadow-[0_0_40px_rgba(255,254,251,1)]"
           />
 
           <h1 className="mt-10 w-full font-h1 text-h1-home text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-14">

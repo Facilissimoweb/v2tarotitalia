@@ -34,7 +34,7 @@ export function ComingSoon() {
         <div className="absolute inset-0 bg-gradient-to-b from-ink/55 via-ink/40 to-ink/75" />
       </div>
       <div className="relative z-10 flex max-w-xl flex-col items-center py-24 text-center [text-shadow:0_1px_18px_rgba(0,0,0,0.45)]">
-        <BrandLogo tone="hero" className="mx-auto h-32 w-32 md:h-40 md:w-40 lg:h-44 lg:w-44" />
+        <BrandLogo tone="hero" className="logo-hero-ring mx-auto h-32 w-32 md:h-40 md:w-40 lg:h-44 lg:w-44" />
         <div className="mt-10 flex items-center justify-center gap-3 [&_.label-kicker]:text-white">
           <span className="h-1.5 w-1.5 bg-white" />
           <Kicker>{copy.kicker}</Kicker>
