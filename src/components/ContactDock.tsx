@@ -10,12 +10,12 @@ import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from ".
 
 const { brand, cta, nav } = siteContent;
 
-/** Barra scura a contrasto: icone chiaro/avorio, tasti ampi per il mobile. */
+/** Barra-sigillo: struttura a pillola, bordo e alone arancio. */
 const dockClass =
-  "pointer-events-auto flex items-center justify-center gap-1.5 bg-ink/95 px-3 py-2.5 shadow-[0_10px_28px_rgba(43,37,35,0.35)] ring-1 ring-on-ink/20 backdrop-blur-md sm:gap-2 sm:px-4 sm:py-3 md:gap-2.5 md:px-5";
+  "esoteric-badge-btn pointer-events-auto flex items-center justify-center gap-1.5 px-4 py-2 sm:gap-2 sm:px-5 sm:py-2.5 md:gap-2.5 md:px-6 md:py-3";
 
 const itemClass =
-  "group relative flex h-12 w-12 items-center justify-center text-on-ink transition-colors duration-200 hover:text-[#d4c4a8] sm:h-[3.25rem] sm:w-[3.25rem] md:h-14 md:w-14";
+  "group relative z-[1] flex h-12 w-12 items-center justify-center text-[#e85c12] transition-colors duration-200 hover:text-[#f07828] sm:h-[3.25rem] sm:w-[3.25rem] md:h-14 md:w-14";
 
 const tipClass =
   "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ivory px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
