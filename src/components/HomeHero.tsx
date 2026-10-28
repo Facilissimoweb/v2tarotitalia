@@ -32,19 +32,21 @@ const tapPress = { scale: 0.98 };
 /** Altezza sotto l’header fisso (`Layout`: pt-[80px] / xl:pt-[112px]). */
 const FRAME_H = "calc(100svh - var(--hh))";
 
-/** Linea orizzontale sottile a gradiente — separatore Lumiere. */
-function HeroRule() {
+/** Ornamento vettoriale (LINEA A) sotto la firma. */
+function HeroOrnament() {
   return (
-    <span
+    <img
+      src="/linea-hero.svg"
+      alt=""
       aria-hidden
-      className="mx-auto block h-px w-[min(12rem,42%)] bg-gradient-to-r from-transparent via-white/55 to-transparent md:w-[min(16rem,36%)]"
+      className="mx-auto block h-[clamp(2.15rem,6.5vw,3.15rem)] w-auto max-w-[min(22rem,78%)] object-contain drop-shadow-[0_1px_10px_rgba(43,37,35,0.45)]"
     />
   );
 }
 
 /**
  * Hero Home: ChromaticImage + gerarchia
- * (logo → titolo → copyright → firma → regola → competenze). Logo fermo.
+ * (logo → titolo → copyright → firma → ornamento → competenze). Logo fermo.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -89,10 +91,10 @@ export function HomeHero() {
         <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-1 text-center text-white md:max-w-4xl md:py-2">
           <BrandLogo
             tone="hero"
-            className="logo-hero-ring mx-auto h-[clamp(4.25rem,min(20vw,11svh),7.5rem)] w-[clamp(4.25rem,min(20vw,11svh),7.5rem)] max-w-full drop-shadow-[0_0_22px_rgba(255,254,251,0.65)]"
+            className="logo-hero-ring mx-auto h-[clamp(6.75rem,min(40vw,23svh),13.25rem)] w-[clamp(6.75rem,min(40vw,23svh),13.25rem)] max-w-full drop-shadow-[0_0_22px_rgba(255,254,251,0.65)]"
           />
 
-          <h1 className="mt-3 w-full font-h1 text-h1-home text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)] md:mt-5">
+          <h1 className="mt-3 w-full font-h1 text-h1-home text-black [text-shadow:0_1px_18px_rgba(255,254,251,0.35)] md:mt-5">
             {titolo}
           </h1>
 
@@ -117,12 +119,12 @@ export function HomeHero() {
               </motion.p>
 
               <motion.div variants={riseIn} className="mt-4 md:mt-5">
-                <HeroRule />
+                <HeroOrnament />
               </motion.div>
 
               <motion.p
                 variants={riseIn}
-                className="mt-4 text-sm font-medium leading-[1.85] text-white/90 md:mt-5 md:text-base xl:text-lg 2xl:text-xl"
+                className="mt-4 font-display text-xl font-normal leading-snug text-white [text-shadow:0_1px_16px_rgba(43,37,35,0.4)] md:mt-5 md:text-2xl xl:text-3xl"
               >
                 {home.competenze}
               </motion.p>
