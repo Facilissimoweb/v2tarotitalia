@@ -249,6 +249,47 @@ h3 {
   }
 }
 
+/* Icona chat: ogni tanto due colpi di remo, poi pausa. */
+@keyframes chat-icon-row {
+  0%,
+  72%,
+  100% {
+    transform: rotate(0deg);
+  }
+  76% {
+    transform: rotate(-16deg) translate3d(-2px, 3px, 0);
+  }
+  80% {
+    transform: rotate(12deg) translate3d(2px, -2px, 0);
+  }
+  84% {
+    transform: rotate(-14deg) translate3d(-2px, 3px, 0);
+  }
+  88% {
+    transform: rotate(8deg) translate3d(1px, -1px, 0);
+  }
+  92% {
+    transform: rotate(0deg);
+  }
+}
+
+.chat-icon-row {
+  transform-origin: 55% 60%;
+  animation: chat-icon-row 11s ease-in-out -7s infinite;
+}
+
+.chat-icon-row:hover,
+.chat-icon-row:focus-visible,
+.chat-icon-row[data-paused="true"] {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-icon-row {
+    animation: none;
+  }
+}
+
 /* Alto contrasto: nero su bianco, accenti scuri, testi senza velature, bordi marcati. */
 html[data-a11y-contrast="on"] {
   --color-ivory: #ffffff;
