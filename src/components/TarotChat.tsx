@@ -85,7 +85,7 @@ export function TarotChat() {
     <>
       <button
         type="button"
-        className="chat-icon-row fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-[6.25rem] w-[5.25rem] items-center justify-center bg-transparent p-0 transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))] md:h-[7rem] md:w-[5.75rem]"
+        className="chat-icon-row fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-[4.25rem] w-[3.6rem] items-center justify-center bg-transparent p-0 transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))] md:h-[4.75rem] md:w-[4rem]"
         data-paused={open ? "true" : undefined}
         aria-label={copy.trigger}
         aria-haspopup="dialog"
@@ -214,7 +214,7 @@ function ChatIcon() {
       height={244}
       draggable={false}
       aria-hidden="true"
-      className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
+      className="h-full w-full object-contain drop-shadow-[0_1px_5px_rgba(0,0,0,0.35)]"
     />
   );
 }

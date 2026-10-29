@@ -42,6 +42,13 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
       style={{ bottom: `calc(${lift}px + ${inset})` }}
     >
       <nav className={dockClass} aria-label={nav.contatti}>
+        <img
+          src="/dock-fondo-2.webp"
+          alt=""
+          aria-hidden
+          draggable={false}
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full rounded-[inherit] object-cover"
+        />
         <DockLink href={mailtoHref(brand.email)} label={cta.scriviStudio} mailto>
           <MailIcon />
         </DockLink>

@@ -453,8 +453,8 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   --ember-hot: var(--color-ember-hot);
   isolation: isolate;
   position: relative;
-  overflow: visible;
-  background-color: var(--color-ember);
+  overflow: hidden;
+  background-color: #0d2a0a;
   color: #fff;
   border: 3px solid var(--color-ink);
   border-radius: 9999px;
@@ -471,8 +471,8 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   z-index: 0;
   border-radius: inherit;
   pointer-events: none;
-  background-color: var(--color-ember);
-  background-image: url("/dock-fondo.webp");
+  background-color: #0d2a0a;
+  background-image: url("/dock-fondo-2.webp");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -487,15 +487,15 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
 .dock-sphere {
   border-radius: 9999px;
-  background-color: var(--color-ink);
-  color: #fff;
-  box-shadow: 0 2px 8px rgb(43 37 35 / 0.4);
+  background-color: #3dcc4a;
+  color: #0d2a0a;
+  box-shadow: 0 2px 8px rgb(8 30 8 / 0.45);
 }
 
 .dock-sphere:hover,
 .dock-sphere:focus-visible {
-  background-color: #1a1615;
-  color: #fff;
+  background-color: #4ddc5a;
+  color: #0d2a0a;
 }
 
 .esoteric-badge-btn:active {
