@@ -6,9 +6,9 @@ export const siteContent = {
   brand: {
     name: "Tarot Italia",
     wordmark: "Tarot Italia",
-    logo: "/logo-medallion.webp",
-    logoHero: "/medaglione-3.webp",
-    logoNav: "/logo-nav-256.webp",
+    logo: "/medaglione-4.webp",
+    logoHero: "/medaglione-4.webp",
+    logoNav: "/logo-nav-4-256.webp",
     titolare: "Maria Teresa Rogani",
     ruolo: "Operatrice olistica ed esoterica, cartomante e tarologa professionista",
     sottotitolo: sottotitoloBrand,
