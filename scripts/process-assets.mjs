@@ -50,6 +50,7 @@ const logoOut = join(pub, "logo-medallion.webp");
 await cropCoin(join(pub, "logo-metal.webp"), logoOut);
 await cropCoin(join(pub, "medaglione-1-src.png"), join(pub, "medaglione-1.webp"));
 await cropCoin(join(pub, "medaglione-2-src.png"), join(pub, "medaglione-2.webp"));
+await cropCoin(join(pub, "medaglione-3-src.png"), join(pub, "medaglione-3.webp"));
 
 const chatIn = join(pub, "chat-icon-src.png");
 const chatOut = join(pub, "chat-icon.png");
@@ -112,4 +113,5 @@ await sharp(px, { raw: { width: w, height: h, channels: 4 } })
   .toFile(chatOut);
 
 console.log("wrote", logoOut, "and", chatOut, "chat", maxX - minX + 1, "x", maxY - minY + 1);
+
 

@@ -29,12 +29,12 @@ const NAV_CHILD =
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
   `whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.16em] transition-colors ${
-    active ? "text-[#FBE3C4]" : "text-[#EBC49C] hover:text-[#FBE3C4]"
+    active ? "text-[#E8FFE0]" : "text-[#C9EEBF] hover:text-[#E8FFE0]"
   }`;
 
 /** Icone della barra: rame, più grandi, coerenti. */
 const NAV_ICON_CORE =
-  "flex h-12 shrink-0 items-center justify-center text-[#C0804F] transition-colors hover:text-[#E0A674] [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
+  "flex h-12 shrink-0 items-center justify-center text-[#6FD87A] transition-colors hover:text-[#A0F0A6] [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `${NAV_ICON_CORE} w-12`;
 const NAV_ICON_LEFT = `${NAV_ICON_CORE} w-9`;
 
@@ -66,7 +66,7 @@ export function Header() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-[#1a110c]"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-[#0b1f0c]"
         aria-hidden
       />
       <header className="site-chrome nav-bronze fixed inset-x-0 top-0 z-50 border-b">
