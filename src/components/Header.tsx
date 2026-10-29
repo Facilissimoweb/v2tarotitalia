@@ -71,7 +71,7 @@ export function Header() {
       />
       <header className="site-chrome nav-bronze fixed inset-x-0 top-0 z-50 border-b">
         <nav
-          className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
+          className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-6 px-6 2xl:gap-x-8 2xl:px-16 xl:grid"
           aria-label="Principale"
         >
           <div className="flex items-center justify-evenly gap-6">
@@ -89,13 +89,13 @@ export function Header() {
             <span className="nav-logo-glow">
               <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[52px] w-[52px]" />
             </span>
-            <span className="mt-1 font-h1 text-[1.85rem] leading-none text-[#EDE4D4] xl:text-[2.05rem]">
+            <span className="mt-1 font-h1 text-[1.2rem] leading-none text-[#EDE4D4] xl:text-[1.3rem]">
               {brand.wordmark}
             </span>
           </NavLink>
 
-          <div className="flex min-w-0 items-center justify-between gap-6">
-            <div className="flex flex-1 items-center justify-evenly gap-6">
+          <div className="flex min-w-0 items-center justify-between gap-4 2xl:gap-6">
+            <div className="flex flex-1 items-center justify-evenly gap-5 2xl:gap-6">
               {NAV_TRAILING.map((item) => (
                 <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}

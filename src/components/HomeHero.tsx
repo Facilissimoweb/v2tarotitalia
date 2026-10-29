@@ -11,7 +11,7 @@ const HERO_IMAGE = "/A.jpg";
 const HERO_BG = "#111111";
 
 /** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
-const heroBtn = "w-full xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.2em] 2xl:px-14 2xl:py-7 2xl:text-base";
+const heroBtn = "w-full xl:px-10 xl:py-5 xl:text-xs xl:tracking-[0.2em] 2xl:px-11 2xl:py-5 2xl:text-[0.8125rem]";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -113,7 +113,7 @@ export function HomeHero() {
           <BrandLogo
             tone="hero"
             finish="metal"
-            className="relative z-[1] mx-auto h-[clamp(8rem,min(48vw,28svh),15.75rem)] w-[clamp(8rem,min(48vw,28svh),15.75rem)] max-w-full"
+            className="relative z-[1] mx-auto h-[clamp(8rem,min(48vw,26svh),12.5rem)] w-[clamp(8rem,min(48vw,26svh),12.5rem)] max-w-full"
           />
 
           <h1 className="relative z-[1] mt-3 w-full font-h1 text-h1-home text-h1-metal md:mt-5">
@@ -135,7 +135,7 @@ export function HomeHero() {
 
               <motion.p
                 variants={riseIn}
-                className="mt-2 font-display text-3xl font-normal leading-tight text-[#EDE4D4] [text-shadow:0_2px_16px_rgba(0,0,0,0.88),0_0_36px_rgba(0,0,0,0.55)] md:mt-3 md:text-5xl xl:text-6xl xl:font-bold"
+                className="mt-2 font-display text-2xl font-normal leading-tight text-[#EDE4D4] [text-shadow:0_2px_16px_rgba(0,0,0,0.88),0_0_36px_rgba(0,0,0,0.55)] md:mt-3 md:text-3xl xl:text-[2.375rem] xl:font-semibold"
               >
                 {home.competenze}
               </motion.p>
@@ -146,7 +146,7 @@ export function HomeHero() {
 
               <motion.p
                 variants={riseIn}
-                className="mt-4 font-display text-xl font-normal leading-snug text-[#E0D4C4] [text-shadow:0_2px_16px_rgba(0,0,0,0.86),0_0_32px_rgba(0,0,0,0.5)] md:mt-5 md:text-2xl xl:text-3xl xl:font-bold"
+                className="mt-4 font-display text-lg font-normal leading-snug text-[#E0D4C4] [text-shadow:0_2px_16px_rgba(0,0,0,0.86),0_0_32px_rgba(0,0,0,0.5)] md:mt-5 md:text-xl xl:text-2xl xl:font-semibold"
               >
                 {home.firma}
               </motion.p>

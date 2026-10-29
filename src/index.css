@@ -13,11 +13,11 @@
   --color-mist: #efece7;
   --color-linen: #e7e2da;
   --color-on-ink: #f3efe8;
-  --font-display: "Noto Serif", "Times New Roman", serif;
-  --font-h1: "Blagkine", "Noto Serif", "Times New Roman", serif;
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-h1: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-h2: var(--font-display);
   --font-h3: var(--font-display);
-  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --radius-none: 0px;
   --radius-sm: 0px;
   --radius-md: 0px;
@@ -98,19 +98,11 @@
   }
 }
 
-/* Titoli H1: Blagkine (file locale). Peso unico, nessuna spaziatura tra lettere */
-@font-face {
-  font-family: "Blagkine";
-  src: url("/fonts/Blagkine.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* Titoli H1: Outfit ExtraBold, geometrica come Olline/Mograph. */
 @utility font-h1 {
   font-family: var(--font-h1);
-  font-weight: 400;
-  letter-spacing: 0;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 /* Ritaglio del file: l’anello nero del sigillo arriva a filo della sfera. */
@@ -234,8 +226,8 @@
 
 /* H1 pagine interne: ampia su smartphone, a capo naturale. */
 @utility text-h1 {
-  font-size: clamp(4.75rem, 2.35rem + 10.5vw, 7.25rem);
-  line-height: 1.05;
+  font-size: clamp(2.5rem, 1.4rem + 4.2vw, 4.75rem);
+  line-height: 1.08;
   text-wrap: balance;
   overflow-wrap: break-word;
 }
@@ -251,10 +243,10 @@
   max-width: 100%;
   white-space: nowrap;
   line-height: 1.05;
-  font-size: clamp(2.65rem, calc(100cqi / 3.32), 12.5rem);
+  font-size: clamp(2.4rem, calc(100cqi / 6.4), 5.25rem);
 }
 
-/* Blagkine non ha il corsivo: niente obliquo sintetico nei titoli H1 */
+/* Niente obliquo sintetico nei titoli H1 */
 .font-h1.italic,
 .font-h1 .italic {
   font-style: normal;
@@ -262,42 +254,42 @@
 
 h1 {
   font-family: var(--font-h1);
-  font-weight: 400;
-  letter-spacing: 0;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   font-style: normal;
 }
 
 h2 {
   font-family: var(--font-h2);
-  font-weight: 400;
+  font-weight: 600;
 }
 
 h3 {
   font-family: var(--font-h3);
-  font-weight: 400;
+  font-weight: 600;
 }
 
-/* Desktop: testi chiave più pesanti, senza aste sottili. */
+/* Desktop: titoli pieni, corpo medio. */
 @media (min-width: 1280px) {
   html body {
-    font-weight: 600;
+    font-weight: 500;
   }
 
   html body h2,
   html body h3,
   html body .font-display {
-    font-weight: 700;
+    font-weight: 600;
   }
 
   html body p,
   html body li,
   html body dt,
   html body dd {
-    font-weight: 600;
+    font-weight: 500;
   }
 
   html body .label-kicker {
-    font-weight: 700;
+    font-weight: 600;
   }
 }
 
