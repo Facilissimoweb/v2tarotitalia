@@ -134,23 +134,29 @@
     0 10px 24px rgb(0 0 0 / 0.4);
 }
 
-/* Titolo Hero: argento cromato, rilievo metallico. */
+/* Titolo Hero: rame/bronzo 3D, rilievo metallico. */
 @utility text-h1-metal {
-  color: #d4d4d4;
+  color: #c47a38;
   background-image: linear-gradient(
     180deg,
-    #ffffff 0%,
-    #e8e8e8 20%,
-    #c0c0c0 46%,
-    #7a7a7a 72%,
-    #d8d8d8 100%
+    #f3d4ae 0%,
+    #e3b06c 14%,
+    #d08a42 32%,
+    #c06a28 50%,
+    #8b3d12 74%,
+    #5a220a 88%,
+    #c9843c 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   filter:
-    drop-shadow(0 2px 0 rgb(16 16 16 / 0.6))
-    drop-shadow(0 8px 16px rgb(0 0 0 / 0.42));
+    drop-shadow(0 -1px 0 rgb(255 236 208 / 0.7))
+    drop-shadow(0 1px 0 rgb(92 36 10 / 0.85))
+    drop-shadow(0 2px 0 rgb(58 22 6 / 0.75))
+    drop-shadow(0 4px 0 rgb(28 10 4 / 0.55))
+    drop-shadow(0 10px 18px rgb(0 0 0 / 0.5))
+    drop-shadow(0 2px 10px rgb(196 122 56 / 0.28));
 }
 
 /* Navbar: lamina carbone. */
