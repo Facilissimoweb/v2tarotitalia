@@ -79,11 +79,19 @@ export function HomeHero() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(17_17_17_/_0.08)_0%,rgb(17_17_17_/_0.18)_55%,rgb(8_8_8_/_0.48)_100%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[#E85C12] mix-blend-color opacity-[0.62]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#111111]/32 via-transparent to-[#080808]/52"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[#E85C12]/20 mix-blend-multiply"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(232_92_18_/_0.1)_0%,transparent_52%,rgb(18_8_4_/_0.46)_100%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#3a140c]/34 via-transparent to-[#120704]/50"
       />
 
       <div
@@ -94,7 +102,7 @@ export function HomeHero() {
           <BrandLogo
             tone="hero"
             finish="metal"
-            className="mx-auto h-[clamp(6.75rem,min(40vw,23svh),13.25rem)] w-[clamp(6.75rem,min(40vw,23svh),13.25rem)] max-w-full"
+            className="mx-auto h-[clamp(8rem,min(48vw,28svh),15.75rem)] w-[clamp(8rem,min(48vw,28svh),15.75rem)] max-w-full"
           />
 
           <h1 className="mt-3 w-full font-h1 text-h1-home text-h1-metal md:mt-5">

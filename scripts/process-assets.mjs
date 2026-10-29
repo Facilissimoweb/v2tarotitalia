@@ -7,14 +7,40 @@ const pub = join(root, "public");
 
 const logoIn = join(pub, "logo-metal.webp");
 const logoOut = join(pub, "logo-medallion.webp");
-const logoMeta = await sharp(logoIn).metadata();
-const size = Math.min(logoMeta.width ?? 1024, logoMeta.height ?? 1024);
-const r = size / 2 - 1;
+const { data: logoPx, info: logoInfo } = await sharp(logoIn)
+  .ensureAlpha()
+  .raw()
+  .toBuffer({ resolveWithObject: true });
+const lw = logoInfo.width;
+const lh = logoInfo.height;
+const lcx = (lw - 1) / 2;
+const lcy = (lh - 1) / 2;
+let metalR = 0;
+for (let y = 0; y < lh; y += 1) {
+  for (let x = 0; x < lw; x += 1) {
+    const i = (y * lw + x) * 4;
+    const lum = (logoPx[i] + logoPx[i + 1] + logoPx[i + 2]) / 3;
+    if (logoPx[i + 3] > 20 && lum > 22) {
+      const dist = Math.hypot(x - lcx, y - lcy);
+      if (dist > metalR) metalR = dist;
+    }
+  }
+}
+const cropR = Math.max(8, metalR - 2);
+const cropSize = Math.round(cropR * 2);
+const cropLeft = Math.max(0, Math.round(lcx - cropR));
+const cropTop = Math.max(0, Math.round(lcy - cropR));
 const circle = Buffer.from(
-  `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="white"/></svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" width="${cropSize}" height="${cropSize}"><circle cx="${cropSize / 2}" cy="${cropSize / 2}" r="${cropSize / 2 - 0.5}" fill="white"/></svg>`,
 );
 await sharp(logoIn)
-  .resize(size, size, { fit: "cover" })
+  .extract({
+    left: cropLeft,
+    top: cropTop,
+    width: Math.min(cropSize, lw - cropLeft),
+    height: Math.min(cropSize, lh - cropTop),
+  })
+  .resize(cropSize, cropSize, { fit: "cover" })
   .ensureAlpha()
   .composite([{ input: circle, blend: "dest-in" }])
   .webp({ quality: 92 })
