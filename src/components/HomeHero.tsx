@@ -26,7 +26,7 @@ const riseIn: Variants = {
 };
 
 const spring = { type: "spring", stiffness: 280, damping: 22 } as const;
-const hoverGlow = { scale: 1.02, boxShadow: "0 0 22px rgba(61, 204, 74, 0.32)" };
+const hoverGlow = { scale: 1.02, boxShadow: "0 0 22px rgba(215, 247, 19, 0.38)" };
 const tapPress = { scale: 0.98 };
 
 /** Altezza sotto l’header fisso (`Layout`: pt-[80px] / xl:pt-[112px]). */
@@ -79,11 +79,11 @@ export function HomeHero() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[#2E9E3F] mix-blend-color opacity-[0.42]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[#8B5E34] mix-blend-color opacity-[0.5]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[#2E9E3F]/16 mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[#704214]/16 mix-blend-multiply"
       />
       <div
         aria-hidden
@@ -166,7 +166,7 @@ export function HomeHero() {
                 whileTap={reduce ? undefined : tapPress}
                 transition={spring}
               >
-                <Button to="/consulti" className={`${heroBtn} !bg-[#0d2a0a] !text-[#EDE4D4] hover:!bg-[#143a12]`}>
+                <Button to="/consulti" className={`${heroBtn} !bg-[#d7f713] !text-[#141210] hover:!bg-[#e4fb4a]`}>
                   {home.ctaConsulto} <span aria-hidden>→</span>
                 </Button>
               </motion.div>
@@ -177,7 +177,10 @@ export function HomeHero() {
                 whileTap={reduce ? undefined : tapPress}
                 transition={spring}
               >
-                <Button to="/percorsi" className={`${heroBtn} !bg-[#cde8c4] !text-[#0d2a0a] hover:!bg-[#bcdcb2]`}>
+                <Button
+                  to="/percorsi"
+                  className={`${heroBtn} !bg-transparent !text-[#EDE4D4] ring-1 ring-inset ring-[#EDE4D4] transition-[color,box-shadow] hover:!bg-transparent hover:!text-[#d7f713] hover:ring-[#d7f713]`}
+                >
                   {cta.percorsi}
                 </Button>
               </motion.div>

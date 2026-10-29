@@ -6,9 +6,9 @@ const base =
   "inline-flex items-center justify-center gap-2 px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
 
 const variants = {
-  primary: "bg-ink text-on-ink hover:bg-ember",
-  ghost: "bg-ember text-white hover:bg-ember-hot",
-  ember: "bg-ember-deep text-white ring-2 ring-white/70 hover:bg-ember-hot",
+  primary: "bg-ink text-on-ink hover:bg-[#3a3430]",
+  ghost: "bg-transparent text-ink ring-1 ring-inset ring-ink hover:bg-ink hover:text-on-ink",
+  ember: "bg-lime text-graphite hover:bg-[#e4fb4a]",
   paper: "bg-paper text-ink hover:bg-mist",
 };
 

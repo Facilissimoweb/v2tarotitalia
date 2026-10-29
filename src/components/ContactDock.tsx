@@ -15,7 +15,7 @@ const dockClass =
   "esoteric-badge-btn pointer-events-auto flex w-[min(36rem,calc(100vw-1.5rem))] items-center justify-center gap-2 px-5 py-2 sm:gap-2.5 sm:px-8 sm:py-2.5 md:gap-3 md:px-10 md:py-3";
 
 const itemClass =
-  "dock-sphere group relative z-[1] flex h-11 w-11 items-center justify-center text-white transition-transform duration-200 hover:scale-105 sm:h-12 sm:w-12 md:h-[3.15rem] md:w-[3.15rem]";
+  "dock-sphere group relative z-[1] flex h-11 w-11 items-center justify-center transition-transform duration-200 hover:scale-105 sm:h-12 sm:w-12 md:h-[3.15rem] md:w-[3.15rem]";
 
 const tipClass =
   "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ivory px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
@@ -47,7 +47,7 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
           alt=""
           aria-hidden
           draggable={false}
-          className="pointer-events-none absolute inset-0 z-0 h-full w-full rounded-[inherit] object-cover"
+          className="dock-fondo pointer-events-none absolute inset-0 z-0 h-full w-full rounded-[inherit] object-cover"
         />
         <DockLink href={mailtoHref(brand.email)} label={cta.scriviStudio} mailto>
           <MailIcon />

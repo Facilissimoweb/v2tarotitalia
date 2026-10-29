@@ -29,12 +29,12 @@ const NAV_CHILD =
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
   `whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.16em] transition-colors ${
-    active ? "text-[#E8FFE0]" : "text-[#C9EEBF] hover:text-[#E8FFE0]"
+    active ? "text-[#d7f713]" : "text-[#EDE4D4] hover:text-[#d7f713]"
   }`;
 
-/** Icone della barra: rame, più grandi, coerenti. */
+/** Icone della barra: crema con hover lime, più grandi, coerenti. */
 const NAV_ICON_CORE =
-  "flex h-12 shrink-0 items-center justify-center text-[#6FD87A] transition-colors hover:text-[#A0F0A6] [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
+  "flex h-12 shrink-0 items-center justify-center text-[#EDE4D4] transition-colors hover:text-[#d7f713] [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `${NAV_ICON_CORE} w-12`;
 const NAV_ICON_LEFT = `${NAV_ICON_CORE} w-9`;
 
@@ -66,7 +66,7 @@ export function Header() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-[#0b1f0c]"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-[#141210]"
         aria-hidden
       />
       <header className="site-chrome nav-bronze fixed inset-x-0 top-0 z-50 border-b">
@@ -86,7 +86,9 @@ export function Header() {
             aria-label={brand.wordmark}
             translate="no"
           >
-            <BrandLogo tone="nav" finish="metal" className="h-[52px] w-[52px]" />
+            <span className="nav-logo-glow">
+              <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[52px] w-[52px]" />
+            </span>
             <span className="mt-1 font-h1 text-[1.85rem] leading-none text-[#EDE4D4] xl:text-[2.05rem]">
               {brand.wordmark}
             </span>
@@ -118,7 +120,9 @@ export function Header() {
             className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2"
             aria-label={brand.wordmark}
           >
-            <BrandLogo tone="nav" finish="metal" className="h-[68px] w-[68px]" />
+            <span className="nav-logo-glow">
+              <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[68px] w-[68px]" />
+            </span>
           </NavLink>
           <div className="relative z-10 flex items-center">
             <AccountLink className={NAV_ICON_BTN} />

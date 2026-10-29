@@ -3,10 +3,12 @@
 @theme {
   --color-ivory: #f9f8f6;
   --color-ink: #2b2523;
-  --color-ember: #2e9e3f;
-  --color-ember-hot: #3dcc4a;
-  --color-ember-deep: #1f7a32;
-  --color-ember-soft: #8fbd86;
+  --color-ember: #8b5e34;
+  --color-ember-hot: #a8733f;
+  --color-ember-deep: #5e3f22;
+  --color-ember-soft: #c9a87a;
+  --color-lime: #d7f713;
+  --color-graphite: #141210;
   --color-paper: #ffffff;
   --color-mist: #efece7;
   --color-linen: #e7e2da;
@@ -134,9 +136,9 @@
     0 10px 24px rgb(0 0 0 / 0.4);
 }
 
-/* Titolo Hero: tricolore italiano con riflesso metallico 3D. */
+/* Titolo Hero: tricolore invecchiato con riflesso metallico 3D. */
 @utility text-h1-metal {
-  color: #009246;
+  color: #3f7d4e;
   background-image:
     linear-gradient(
       180deg,
@@ -148,12 +150,12 @@
     ),
     linear-gradient(
       90deg,
-      #009246 0%,
-      #009246 31%,
-      #f1f2f1 36%,
-      #f1f2f1 64%,
-      #ce2b37 69%,
-      #ce2b37 100%
+      #3f7d4e 0%,
+      #3f7d4e 31%,
+      #efe6d2 36%,
+      #efe6d2 64%,
+      #b3453e 69%,
+      #b3453e 100%
     );
   -webkit-background-clip: text;
   background-clip: text;
@@ -168,18 +170,58 @@
     drop-shadow(0 0 22px rgb(0 0 0 / 0.45));
 }
 
-/* Navbar: lamina bronzo spazzolato. */
+/* Navbar: grafite con filetto neon lime. */
 @utility nav-bronze {
-  background-color: #0b1f0c;
+  background-color: #141210;
   background-image:
-    radial-gradient(ellipse 52% 190% at 50% 50%, #4fae58 0%, #357f3d 22%, #1f4f24 48%, #0f2a12 76%, #081608 100%),
-    linear-gradient(180deg, rgb(214 255 200 / 0.1) 0%, transparent 38%, rgb(0 0 0 / 0.22) 100%);
+    radial-gradient(ellipse 52% 190% at 50% 50%, #3a3430 0%, #2b2523 22%, #1f1b19 48%, #171412 76%, #100e0d 100%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.08) 0%, transparent 38%, rgb(0 0 0 / 0.22) 100%);
   border-bottom-color: #d7f713;
   box-shadow:
-    inset 0 1px 0 rgb(206 255 196 / 0.22),
+    inset 0 1px 0 rgb(255 255 255 / 0.14),
     0 1px 3px rgb(215 247 19 / 0.95),
     0 2px 10px rgb(215 247 19 / 0.8),
     0 4px 26px rgb(215 247 19 / 0.45);
+}
+
+/* Footer: grafite con filetto neon lime in alto, speculare alla navbar. */
+@utility footer-graphite {
+  background-color: #141210;
+  background-image:
+    radial-gradient(ellipse 60% 70% at 50% 0%, #2b2523 0%, #1f1b19 40%, #141210 75%, #100e0d 100%);
+  border-top: 1px solid #d7f713;
+  box-shadow:
+    0 -1px 3px rgb(215 247 19 / 0.95),
+    0 -2px 10px rgb(215 247 19 / 0.8),
+    0 -4px 26px rgb(215 247 19 / 0.45);
+}
+
+/* Logo navbar: luce lime diffusa alle spalle del medaglione. */
+.nav-logo-glow {
+  position: relative;
+  display: inline-flex;
+  isolation: isolate;
+}
+
+.nav-logo-glow::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 260%;
+  height: 260%;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgb(215 247 19 / 0.34) 0%,
+    rgb(215 247 19 / 0.16) 28%,
+    rgb(215 247 19 / 0.05) 52%,
+    transparent 70%
+  );
+  filter: blur(6px);
 }
 
 /* Lastre della Hero: A.jpg in scala di grigi. */
@@ -384,10 +426,10 @@ html[data-a11y-contrast="on"] {
   --color-mist: #f0f0f0;
   --color-linen: #d4d4d4;
   --color-ink: #000000;
-  --color-ember: #1f6a2a;
-  --color-ember-hot: #257a32;
-  --color-ember-deep: #164d1f;
-  --color-ember-soft: #3f6e3c;
+  --color-ember: #6a4423;
+  --color-ember-hot: #7a4f29;
+  --color-ember-deep: #4d3018;
+  --color-ember-soft: #6e5236;
   --color-on-ink: #ffffff;
 }
 
@@ -462,11 +504,14 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   isolation: isolate;
   position: relative;
   overflow: hidden;
-  background-color: #0d2a0a;
+  background-color: #141210;
   color: #fff;
-  border: 3px solid var(--color-ink);
+  border: 1px solid #d7f713;
   border-radius: 9999px;
-  box-shadow: 0 10px 28px rgb(43 37 35 / 0.32);
+  box-shadow:
+    0 0 2px rgb(215 247 19 / 0.9),
+    0 0 10px rgb(215 247 19 / 0.45),
+    0 10px 28px rgb(0 0 0 / 0.45);
   transition:
     box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -479,31 +524,39 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   z-index: 0;
   border-radius: inherit;
   pointer-events: none;
-  background-color: #0d2a0a;
-  background-image: url("/dock-fondo-2.webp");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #141210;
+}
+
+/* Illustrazione di fondo virata in seppia. */
+.dock-fondo {
+  filter: grayscale(1) sepia(0.7) brightness(0.62) contrast(1.05);
+  opacity: 0.85;
 }
 
 .esoteric-badge-btn:hover,
 .esoteric-badge-btn:focus-within {
-  border-color: var(--color-ink);
-  box-shadow: 0 14px 32px rgb(43 37 35 / 0.4);
+  box-shadow:
+    0 0 3px rgb(215 247 19 / 1),
+    0 0 16px rgb(215 247 19 / 0.6),
+    0 14px 32px rgb(0 0 0 / 0.5);
   transform: translateY(-2px);
 }
 
 .dock-sphere {
   border-radius: 9999px;
-  background-color: #3dcc4a;
-  color: #0d2a0a;
-  box-shadow: 0 2px 8px rgb(8 30 8 / 0.45);
+  background-color: #ede4d4;
+  color: #141210;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.45);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .dock-sphere:hover,
 .dock-sphere:focus-visible {
-  background-color: #4ddc5a;
-  color: #0d2a0a;
+  background-color: #d7f713;
+  color: #141210;
 }
 
 .esoteric-badge-btn:active {
@@ -577,7 +630,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   width: min(120vw, 62rem);
   height: 80%;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at 50% 0%, rgb(190 255 170 / 0.38) 0%, rgb(61 204 74 / 0.16) 34%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgb(232 208 160 / 0.4) 0%, rgb(176 132 84 / 0.18) 34%, transparent 70%);
   animation: hero-rays-breathe 9s ease-in-out infinite;
 }
 
@@ -585,11 +638,11 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 22% 38%, rgb(220 255 200 / 0.22) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 71% 26%, rgb(220 255 200 / 0.2) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 58% 62%, rgb(220 255 200 / 0.16) 0 1px, transparent 2.5px),
-    radial-gradient(circle at 34% 74%, rgb(220 255 200 / 0.18) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 84% 70%, rgb(220 255 200 / 0.14) 0 1px, transparent 2.5px);
+    radial-gradient(circle at 22% 38%, rgb(236 214 172 / 0.22) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 71% 26%, rgb(236 214 172 / 0.2) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 58% 62%, rgb(236 214 172 / 0.16) 0 1px, transparent 2.5px),
+    radial-gradient(circle at 34% 74%, rgb(236 214 172 / 0.18) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 84% 70%, rgb(236 214 172 / 0.14) 0 1px, transparent 2.5px);
   animation: hero-rays-dust 16s ease-in-out infinite alternate;
 }
 
