@@ -30,7 +30,7 @@ export function BrandLogo({ className = "", tone = "mark", finish = "ivory" }: P
         decoding={hero ? "sync" : "async"}
         fetchPriority={hero ? "high" : "auto"}
         loading={hero ? "eager" : "lazy"}
-        className="h-full w-full rounded-full object-cover"
+        className={`h-full w-full rounded-full ${tone === "nav" ? "object-contain object-center" : "object-cover"}`}
       />
     </span>
   );
