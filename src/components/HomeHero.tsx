@@ -94,6 +94,13 @@ export function HomeHero() {
         className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#140805]/36 via-transparent to-[#080402]/46"
       />
 
+      <div aria-hidden className="hero-rays z-[2]">
+        <div className="hero-rays__halo" />
+        <div className="hero-rays__beams" />
+        <div className="hero-rays__beams--b" />
+        <div className="hero-rays__dust" />
+      </div>
+
       <div
         className="pointer-events-none relative z-10 flex items-start justify-center px-6 pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))] pt-3 md:px-10 md:pb-40 md:pt-5"
         style={{ minHeight: FRAME_H }}
