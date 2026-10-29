@@ -166,12 +166,12 @@
   background-image:
     radial-gradient(ellipse 52% 190% at 50% 50%, #4fae58 0%, #357f3d 22%, #1f4f24 48%, #0f2a12 76%, #081608 100%),
     linear-gradient(180deg, rgb(214 255 200 / 0.1) 0%, transparent 38%, rgb(0 0 0 / 0.22) 100%);
-  border-bottom-color: #7dff8a;
+  border-bottom-color: #d7f713;
   box-shadow:
     inset 0 1px 0 rgb(206 255 196 / 0.22),
-    0 1px 3px rgb(125 255 138 / 0.95),
-    0 2px 10px rgb(61 204 74 / 0.85),
-    0 4px 26px rgb(61 204 74 / 0.5);
+    0 1px 3px rgb(215 247 19 / 0.95),
+    0 2px 10px rgb(215 247 19 / 0.8),
+    0 4px 26px rgb(215 247 19 / 0.45);
 }
 
 /* Lastre della Hero: A.jpg in scala di grigi. */
@@ -538,12 +538,12 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   margin-left: min(-95%, -30rem);
   background: repeating-conic-gradient(
     from 168deg at 50% 0%,
-    rgb(190 255 170 / 0.5) 0deg,
-    rgb(190 255 170 / 0) 2.6deg,
-    rgb(190 255 170 / 0) 5.4deg,
-    rgb(150 240 140 / 0.3) 7deg,
-    rgb(150 240 140 / 0) 9.4deg,
-    rgb(190 255 170 / 0) 13deg
+    rgb(215 247 19 / 0.5) 0deg,
+    rgb(215 247 19 / 0) 2.6deg,
+    rgb(215 247 19 / 0) 5.4deg,
+    rgb(215 247 19 / 0.3) 7deg,
+    rgb(215 247 19 / 0) 9.4deg,
+    rgb(215 247 19 / 0) 13deg
   );
   animation: hero-rays-sway 22s ease-in-out infinite alternate;
 }
@@ -552,12 +552,12 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   margin-left: min(-95%, -30rem);
   background: repeating-conic-gradient(
     from 176deg at 50% 0%,
-    rgb(214 255 190 / 0.4) 0deg,
-    rgb(214 255 190 / 0) 1.8deg,
-    rgb(214 255 190 / 0) 8deg,
-    rgb(120 220 120 / 0.28) 9.5deg,
-    rgb(120 220 120 / 0) 12deg,
-    rgb(214 255 190 / 0) 17deg
+    rgb(232 252 96 / 0.4) 0deg,
+    rgb(232 252 96 / 0) 1.8deg,
+    rgb(232 252 96 / 0) 8deg,
+    rgb(215 247 19 / 0.28) 9.5deg,
+    rgb(215 247 19 / 0) 12deg,
+    rgb(232 252 96 / 0) 17deg
   );
   animation: hero-rays-sway-b 31s ease-in-out infinite alternate;
 }
