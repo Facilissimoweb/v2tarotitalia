@@ -85,7 +85,7 @@ export function TarotChat() {
     <>
       <button
         type="button"
-        className="chat-icon-row fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-[5.5rem] w-[6.75rem] items-center justify-center bg-transparent p-0 transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))] md:h-[6rem] md:w-[7.5rem]"
+        className="chat-icon-row fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-[6.25rem] w-[5.25rem] items-center justify-center bg-transparent p-0 transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))] md:h-[7rem] md:w-[5.75rem]"
         data-paused={open ? "true" : undefined}
         aria-label={copy.trigger}
         aria-haspopup="dialog"
@@ -208,10 +208,10 @@ export function TarotChat() {
 function ChatIcon() {
   return (
     <img
-      src="/chat-icon.png"
+      src="/chat-mouth.png"
       alt=""
-      width={256}
-      height={180}
+      width={208}
+      height={244}
       draggable={false}
       aria-hidden="true"
       className="h-full w-full object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
