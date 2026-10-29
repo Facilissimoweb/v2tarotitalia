@@ -155,8 +155,9 @@
     drop-shadow(0 1px 0 rgb(92 36 10 / 0.85))
     drop-shadow(0 2px 0 rgb(58 22 6 / 0.75))
     drop-shadow(0 4px 0 rgb(28 10 4 / 0.55))
-    drop-shadow(0 10px 18px rgb(0 0 0 / 0.5))
-    drop-shadow(0 2px 10px rgb(196 122 56 / 0.28));
+    drop-shadow(0 3px 8px rgb(0 0 0 / 0.85))
+    drop-shadow(0 12px 28px rgb(0 0 0 / 0.72))
+    drop-shadow(0 0 22px rgb(0 0 0 / 0.45));
 }
 
 /* Navbar: lamina carbone. */
@@ -170,7 +171,7 @@
   display: block;
   height: 100%;
   width: 100%;
-  filter: grayscale(1) brightness(0.82) contrast(1.12);
+  filter: grayscale(1) brightness(0.84) contrast(1.12);
 }
 
 /* H1 pagine interne: ampia su smartphone, a capo naturale. */

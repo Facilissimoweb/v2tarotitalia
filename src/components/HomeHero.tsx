@@ -26,7 +26,7 @@ const riseIn: Variants = {
 };
 
 const spring = { type: "spring", stiffness: 280, damping: 22 } as const;
-const hoverGlow = { scale: 1.02, boxShadow: "0 0 22px rgba(220, 220, 220, 0.22)" };
+const hoverGlow = { scale: 1.02, boxShadow: "0 0 22px rgba(201, 154, 122, 0.32)" };
 const tapPress = { scale: 0.98 };
 
 /** Altezza sotto l’header fisso (`Layout`: pt-[80px] / xl:pt-[112px]). */
@@ -39,7 +39,7 @@ function HeroOrnament() {
       src="/linea-hero.svg"
       alt=""
       aria-hidden
-      className="mx-auto block h-[clamp(2.15rem,6.5vw,3.15rem)] w-auto max-w-[min(22rem,78%)] object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
+      className="mx-auto block h-[clamp(2.15rem,6.5vw,3.15rem)] w-auto max-w-[min(22rem,78%)] object-contain drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]"
     />
   );
 }
@@ -79,52 +79,56 @@ export function HomeHero() {
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[#E85C12] mix-blend-color opacity-[0.62]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[#E85C12] mix-blend-color opacity-[0.42]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[#E85C12]/20 mix-blend-multiply"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[#E85C12]/16 mix-blend-multiply"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(232_92_18_/_0.1)_0%,transparent_52%,rgb(18_8_4_/_0.46)_100%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(8_4_2_/_0.18)_0%,rgb(10_5_3_/_0.12)_50%,rgb(6_3_2_/_0.4)_100%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#3a140c]/34 via-transparent to-[#120704]/50"
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#140805]/36 via-transparent to-[#080402]/46"
       />
 
       <div
         className="pointer-events-none relative z-10 flex items-start justify-center px-6 pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))] pt-3 md:px-10 md:pb-40 md:pt-5"
         style={{ minHeight: FRAME_H }}
       >
-        <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-1 text-center text-[#d8d8d8] md:max-w-4xl md:py-2">
+        <div className="home-hero-copy pointer-events-auto relative mx-auto flex w-full max-w-3xl flex-col items-center py-1 text-center text-[#EDE4D4] md:max-w-4xl md:py-2">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-[-18%] inset-y-[-6%] z-0 bg-[radial-gradient(ellipse_at_center,rgb(0_0_0_/_0.28)_0%,rgb(0_0_0_/_0.12)_52%,transparent_78%)]"
+          />
           <BrandLogo
             tone="hero"
             finish="metal"
-            className="mx-auto h-[clamp(8rem,min(48vw,28svh),15.75rem)] w-[clamp(8rem,min(48vw,28svh),15.75rem)] max-w-full"
+            className="relative z-[1] mx-auto h-[clamp(8rem,min(48vw,28svh),15.75rem)] w-[clamp(8rem,min(48vw,28svh),15.75rem)] max-w-full"
           />
 
-          <h1 className="mt-3 w-full font-h1 text-h1-home text-h1-metal md:mt-5">
+          <h1 className="relative z-[1] mt-3 w-full font-h1 text-h1-home text-h1-metal md:mt-5">
             {titolo}
           </h1>
 
             <motion.div
-              className="mx-auto w-full max-w-2xl xl:max-w-3xl"
+              className="relative z-[1] mx-auto w-full max-w-2xl xl:max-w-3xl"
               variants={container}
               initial={reduce ? false : "hidden"}
               animate="show"
             >
               <motion.p
                 variants={riseIn}
-                className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#c8c8c8] md:mt-3 md:text-xs xl:font-bold"
+                className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#C9BBA8] [text-shadow:0_1px_10px_rgba(0,0,0,0.85),0_0_24px_rgba(0,0,0,0.55)] md:mt-3 md:text-xs xl:font-bold"
               >
                 {home.copyright}
               </motion.p>
 
               <motion.p
                 variants={riseIn}
-                className="mt-2 font-display text-3xl font-normal leading-tight text-[#e8e8e8] [text-shadow:0_2px_18px_rgba(0,0,0,0.45)] md:mt-3 md:text-5xl xl:text-6xl xl:font-bold"
+                className="mt-2 font-display text-3xl font-normal leading-tight text-[#EDE4D4] [text-shadow:0_2px_16px_rgba(0,0,0,0.88),0_0_36px_rgba(0,0,0,0.55)] md:mt-3 md:text-5xl xl:text-6xl xl:font-bold"
               >
                 {home.firma}
               </motion.p>
@@ -135,7 +139,7 @@ export function HomeHero() {
 
               <motion.p
                 variants={riseIn}
-                className="mt-4 font-display text-xl font-normal leading-snug text-[#c8c8c8] [text-shadow:0_1px_14px_rgba(0,0,0,0.4)] md:mt-5 md:text-2xl xl:text-3xl xl:font-bold"
+                className="mt-4 font-display text-xl font-normal leading-snug text-[#E0D4C4] [text-shadow:0_2px_16px_rgba(0,0,0,0.86),0_0_32px_rgba(0,0,0,0.5)] md:mt-5 md:text-2xl xl:text-3xl xl:font-bold"
               >
                 {home.competenze}
               </motion.p>
@@ -143,7 +147,7 @@ export function HomeHero() {
 
             {/* CTA */}
             <motion.div
-              className="mt-6 flex w-full max-w-full flex-wrap items-center justify-center gap-3 md:mt-8 md:gap-4"
+              className="relative z-[1] mt-6 flex w-full max-w-full flex-wrap items-center justify-center gap-3 md:mt-8 md:gap-4"
               variants={container}
               initial={reduce ? false : "hidden"}
               animate="show"
@@ -155,7 +159,7 @@ export function HomeHero() {
                 whileTap={reduce ? undefined : tapPress}
                 transition={spring}
               >
-                <Button to="/consulti" className={heroBtn}>
+                <Button to="/consulti" className={`${heroBtn} !bg-[#241f1c] !text-[#EDE4D4] hover:!bg-ink`}>
                   {home.ctaConsulto} <span aria-hidden>→</span>
                 </Button>
               </motion.div>
@@ -166,7 +170,7 @@ export function HomeHero() {
                 whileTap={reduce ? undefined : tapPress}
                 transition={spring}
               >
-                <Button to="/percorsi" variant="paper" className={`${heroBtn} bg-white text-ink`}>
+                <Button to="/percorsi" className={`${heroBtn} !bg-[#E6D4B8] !text-ink hover:!bg-[#dcc9a8]`}>
                   {cta.percorsi}
                 </Button>
               </motion.div>
