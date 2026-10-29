@@ -51,26 +51,49 @@ await cropCoin(join(pub, "logo-metal.webp"), logoOut);
 await cropCoin(join(pub, "medaglione-1-src.png"), join(pub, "medaglione-1.webp"));
 await cropCoin(join(pub, "medaglione-2-src.png"), join(pub, "medaglione-2.webp"));
 
-const chatIn = join(pub, "chat-icon.webp");
+const chatIn = join(pub, "chat-icon-src.png");
 const chatOut = join(pub, "chat-icon.png");
 const { data, info } = await sharp(chatIn).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
 const px = Buffer.from(data);
-for (let i = 0; i < px.length; i += 4) {
-  const min = Math.min(px[i], px[i + 1], px[i + 2]);
-  const max = Math.max(px[i], px[i + 1], px[i + 2]);
-  if (min > 242 && max - min < 18) {
-    px[i + 3] = 0;
-  } else if (min > 226 && max - min < 24) {
-    px[i + 3] = Math.round(px[i + 3] * ((242 - min) / 16));
-  }
+const w = info.width;
+const h = info.height;
+function isBg(i) {
+  return Math.max(px[i], px[i + 1], px[i + 2]) < 28;
 }
-let minX = info.width;
-let minY = info.height;
+const seen = new Uint8Array(w * h);
+const q = [];
+function tryPush(x, y) {
+  if (x < 0 || y < 0 || x >= w || y >= h) return;
+  const idx = y * w + x;
+  if (seen[idx]) return;
+  seen[idx] = 1;
+  if (isBg(idx * 4)) q.push(idx);
+}
+for (let x = 0; x < w; x += 1) {
+  tryPush(x, 0);
+  tryPush(x, h - 1);
+}
+for (let y = 0; y < h; y += 1) {
+  tryPush(0, y);
+  tryPush(w - 1, y);
+}
+while (q.length) {
+  const idx = q.pop();
+  px[idx * 4 + 3] = 0;
+  const x = idx % w;
+  const y = (idx / w) | 0;
+  tryPush(x - 1, y);
+  tryPush(x + 1, y);
+  tryPush(x, y - 1);
+  tryPush(x, y + 1);
+}
+let minX = w;
+let minY = h;
 let maxX = 0;
 let maxY = 0;
-for (let y = 0; y < info.height; y += 1) {
-  for (let x = 0; x < info.width; x += 1) {
-    if (px[(y * info.width + x) * 4 + 3] > 8) {
+for (let y = 0; y < h; y += 1) {
+  for (let x = 0; x < w; x += 1) {
+    if (px[(y * w + x) * 4 + 3] > 8) {
       if (x < minX) minX = x;
       if (y < minY) minY = y;
       if (x > maxX) maxX = x;
@@ -78,12 +101,12 @@ for (let y = 0; y < info.height; y += 1) {
     }
   }
 }
-const pad = 12;
+const pad = 8;
 minX = Math.max(0, minX - pad);
 minY = Math.max(0, minY - pad);
-maxX = Math.min(info.width - 1, maxX + pad);
-maxY = Math.min(info.height - 1, maxY + pad);
-await sharp(px, { raw: { width: info.width, height: info.height, channels: 4 } })
+maxX = Math.min(w - 1, maxX + pad);
+maxY = Math.min(h - 1, maxY + pad);
+await sharp(px, { raw: { width: w, height: h, channels: 4 } })
   .extract({ left: minX, top: minY, width: maxX - minX + 1, height: maxY - minY + 1 })
   .png()
   .toFile(chatOut);
