@@ -2,7 +2,7 @@ import { siteContent } from "../data/siteContent";
 
 const { brand } = siteContent;
 
-export type BrandLogoTone = "mark" | "hero";
+export type BrandLogoTone = "mark" | "hero" | "nav";
 export type BrandLogoFinish = "ivory" | "metal";
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
 
 /** Medaglione ufficiale. Finish metal: ombra di distacco sulle superfici scure. */
 export function BrandLogo({ className = "", tone = "mark", finish = "ivory" }: Props) {
-  const src = tone === "hero" ? brand.logoHero : brand.logo;
+  const src = tone === "hero" ? brand.logoHero : tone === "nav" ? brand.logoNav : brand.logo;
   const hero = tone === "hero";
   const metal = finish === "metal";
   return (

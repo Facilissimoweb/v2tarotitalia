@@ -86,7 +86,7 @@ export function Header() {
             aria-label={brand.wordmark}
             translate="no"
           >
-            <BrandLogo finish="metal" className="h-[52px] w-[52px]" />
+            <BrandLogo tone="nav" finish="metal" className="h-[52px] w-[52px]" />
             <span className="mt-1 font-h1 text-[1.85rem] leading-none text-[#EDE4D4] xl:text-[2.05rem]">
               {brand.wordmark}
             </span>
@@ -118,7 +118,7 @@ export function Header() {
             className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2"
             aria-label={brand.wordmark}
           >
-            <BrandLogo finish="metal" className="h-[68px] w-[68px]" />
+            <BrandLogo tone="nav" finish="metal" className="h-[68px] w-[68px]" />
           </NavLink>
           <div className="relative z-10 flex items-center">
             <AccountLink className={NAV_ICON_BTN} />
