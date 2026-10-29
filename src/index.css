@@ -29,7 +29,7 @@
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
-    background-color: #e85c12;
+    background-color: #111111;
   }
 
   html.translated-ltr,
@@ -118,13 +118,53 @@
 }
 
 @utility logo-flush-hero {
-  transform: scale(1.12);
+  transform: scale(1.18);
   transform-origin: center;
 }
 
-/* Anello bianco sottilissimo: stacco del sigillo sulle hero. */
+/* Distacco 2px: ombra, non un secondo anello bianco (l’anello è p-[3px] su BrandLogo). */
 @utility logo-hero-ring {
-  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.92);
+  box-shadow: 0 2px 2px rgb(43 37 35 / 0.32);
+}
+
+/* Distacco del medaglione fotografico sulle superfici scure. */
+@utility logo-medallion {
+  box-shadow:
+    0 2px 2px rgb(0 0 0 / 0.45),
+    0 10px 24px rgb(0 0 0 / 0.4);
+}
+
+/* Titolo Hero: argento cromato, rilievo metallico. */
+@utility text-h1-metal {
+  color: #d4d4d4;
+  background-image: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e8e8e8 20%,
+    #c0c0c0 46%,
+    #7a7a7a 72%,
+    #d8d8d8 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter:
+    drop-shadow(0 2px 0 rgb(16 16 16 / 0.6))
+    drop-shadow(0 8px 16px rgb(0 0 0 / 0.42));
+}
+
+/* Navbar: lamina carbone. */
+@utility nav-bronze {
+  background-image: linear-gradient(180deg, #2c2c2c 0%, #161616 48%, #0e0e0e 100%);
+  border-bottom-color: rgb(255 255 255 / 0.08);
+}
+
+/* Lastre della Hero: A.jpg in scala di grigi. */
+@utility hero-bronze-plate {
+  display: block;
+  height: 100%;
+  width: 100%;
+  filter: grayscale(1) brightness(0.82) contrast(1.12);
 }
 
 /* H1 pagine interne: ampia su smartphone, a capo naturale. */
@@ -146,7 +186,7 @@
   max-width: 100%;
   white-space: nowrap;
   line-height: 1.05;
-  font-size: clamp(2.15rem, calc(100cqi / 3.42), 11.5rem);
+  font-size: clamp(2.65rem, calc(100cqi / 3.32), 12.5rem);
 }
 
 /* Blagkine non ha il corsivo: niente obliquo sintetico nei titoli H1 */
@@ -390,7 +430,6 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 /* Area notch: padding. Il colore nativo resta a theme-color / manifest. */
 .site-chrome {
   padding-top: env(safe-area-inset-top, 0px);
-  background-color: #2b2523;
 }
 
 /* Barra contatti: illustrazione a sfondo, icone in sfere. */

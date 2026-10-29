@@ -63,9 +63,7 @@ export function PageBanner({ title, subtitle, background, className = "" }: Prop
       >
         <BrandLogo
           tone={onMedia ? "hero" : "mark"}
-          className={`logo-hero-ring h-[5.5rem] w-[5.5rem] md:h-[6.75rem] md:w-[6.75rem] ${
-            onMedia ? "drop-shadow-[0_0_28px_rgba(255,254,251,0.85)]" : ""
-          }`.trim()}
+          className="logo-hero-ring h-[5.5rem] w-[5.5rem] md:h-[6.75rem] md:w-[6.75rem]"
         />
         <h1 className={`mt-8 font-h1 text-h1 md:mt-10 ${onMedia ? "text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)]" : "text-ink"}`}>
           {title}

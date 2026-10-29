@@ -8,7 +8,7 @@ const { cta, home } = siteContent;
 
 const titolo = home.titolo;
 const HERO_IMAGE = "/A.jpg";
-const HERO_BG = "#e85c12";
+const HERO_BG = "#111111";
 
 /** Pulsanti della Hero: più grandi solo da desktop (xl), invariati altrove. */
 const heroBtn = "w-full xl:px-12 xl:py-6 xl:text-sm xl:tracking-[0.2em] 2xl:px-14 2xl:py-7 2xl:text-base";
@@ -26,7 +26,7 @@ const riseIn: Variants = {
 };
 
 const spring = { type: "spring", stiffness: 280, damping: 22 } as const;
-const hoverGlow = { scale: 1.02, boxShadow: "0 0 24px rgba(249, 248, 246, 0.35)" };
+const hoverGlow = { scale: 1.02, boxShadow: "0 0 22px rgba(220, 220, 220, 0.22)" };
 const tapPress = { scale: 0.98 };
 
 /** Altezza sotto l’header fisso (`Layout`: pt-[80px] / xl:pt-[112px]). */
@@ -39,7 +39,7 @@ function HeroOrnament() {
       src="/linea-hero.svg"
       alt=""
       aria-hidden
-      className="mx-auto block h-[clamp(2.15rem,6.5vw,3.15rem)] w-auto max-w-[min(22rem,78%)] object-contain drop-shadow-[0_1px_10px_rgba(43,37,35,0.45)]"
+      className="mx-auto block h-[clamp(2.15rem,6.5vw,3.15rem)] w-auto max-w-[min(22rem,78%)] object-contain drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
     />
   );
 }
@@ -56,45 +56,48 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate overflow-hidden bg-ember text-black [--hh:80px] xl:[--hh:112px]"
+      className="relative isolate overflow-hidden bg-[#111111] text-on-ink [--hh:80px] xl:[--hh:112px]"
     >
       <motion.div
         className="absolute inset-x-0 -top-[18%] z-0 h-[140%] will-change-transform"
         style={reduce ? undefined : { y: bgY }}
         aria-hidden
       >
-        <ChromaticImage
-          src={HERO_IMAGE}
-          alt=""
-          backgroundColor={HERO_BG}
-          zoom={0.1}
-          displacement={0.03}
-          chromaticShift={0.012}
-          tilt={0.12}
-          className="h-full w-full"
-        />
+        <div className="hero-bronze-plate h-full w-full">
+          <ChromaticImage
+            src={HERO_IMAGE}
+            alt=""
+            backgroundColor={HERO_BG}
+            zoom={0.1}
+            displacement={0.03}
+            chromaticShift={0.012}
+            tilt={0.12}
+            className="h-full w-full bg-[#111111]"
+          />
+        </div>
       </motion.div>
 
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(232_92_18_/_0.25)_0%,rgb(232_92_18_/_0.48)_43%,rgb(201_74_14_/_0.78)_100%)]"
+        className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,rgb(17_17_17_/_0.08)_0%,rgb(17_17_17_/_0.18)_55%,rgb(8_8_8_/_0.48)_100%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-ember/70 via-ember/38 to-ember-deep/74"
+        className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-b from-[#111111]/32 via-transparent to-[#080808]/52"
       />
 
       <div
         className="pointer-events-none relative z-10 flex items-start justify-center px-6 pb-[calc(8.5rem+env(safe-area-inset-bottom,0px))] pt-3 md:px-10 md:pb-40 md:pt-5"
         style={{ minHeight: FRAME_H }}
       >
-        <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-1 text-center text-white md:max-w-4xl md:py-2">
+        <div className="home-hero-copy pointer-events-auto mx-auto flex w-full max-w-3xl flex-col items-center py-1 text-center text-[#d8d8d8] md:max-w-4xl md:py-2">
           <BrandLogo
             tone="hero"
+            finish="metal"
             className="mx-auto h-[clamp(6.75rem,min(40vw,23svh),13.25rem)] w-[clamp(6.75rem,min(40vw,23svh),13.25rem)] max-w-full"
           />
 
-          <h1 className="mt-3 w-full font-h1 text-h1-home text-black [text-shadow:0_1px_18px_rgba(255,254,251,0.35)] md:mt-5">
+          <h1 className="mt-3 w-full font-h1 text-h1-home text-h1-metal md:mt-5">
             {titolo}
           </h1>
 
@@ -106,14 +109,14 @@ export function HomeHero() {
             >
               <motion.p
                 variants={riseIn}
-                className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-white md:mt-3 md:text-xs xl:font-bold"
+                className="mt-2 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-[#c8c8c8] md:mt-3 md:text-xs xl:font-bold"
               >
                 {home.copyright}
               </motion.p>
 
               <motion.p
                 variants={riseIn}
-                className="mt-2 font-display text-3xl font-normal leading-tight text-white [text-shadow:0_2px_22px_rgba(43,37,35,0.45)] md:mt-3 md:text-5xl xl:text-6xl xl:font-bold"
+                className="mt-2 font-display text-3xl font-normal leading-tight text-[#e8e8e8] [text-shadow:0_2px_18px_rgba(0,0,0,0.45)] md:mt-3 md:text-5xl xl:text-6xl xl:font-bold"
               >
                 {home.firma}
               </motion.p>
@@ -124,7 +127,7 @@ export function HomeHero() {
 
               <motion.p
                 variants={riseIn}
-                className="mt-4 font-display text-xl font-normal leading-snug text-white [text-shadow:0_1px_16px_rgba(43,37,35,0.4)] md:mt-5 md:text-2xl xl:text-3xl xl:font-bold"
+                className="mt-4 font-display text-xl font-normal leading-snug text-[#c8c8c8] [text-shadow:0_1px_14px_rgba(0,0,0,0.4)] md:mt-5 md:text-2xl xl:text-3xl xl:font-bold"
               >
                 {home.competenze}
               </motion.p>
@@ -155,7 +158,7 @@ export function HomeHero() {
                 whileTap={reduce ? undefined : tapPress}
                 transition={spring}
               >
-                <Button to="/percorsi" variant="paper" className={`${heroBtn} ring-1 ring-white/25`}>
+                <Button to="/percorsi" variant="paper" className={`${heroBtn} bg-white text-ink`}>
                   {cta.percorsi}
                 </Button>
               </motion.div>

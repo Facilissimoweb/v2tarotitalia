@@ -29,12 +29,12 @@ const NAV_CHILD =
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
   `whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.16em] transition-colors ${
-    active ? "text-ember" : "text-ember/80 hover:text-ember"
+    active ? "text-white" : "text-white/80 hover:text-white"
   }`;
 
-/** Icone della barra: ember, più grandi, coerenti. */
+/** Icone della barra: rame, più grandi, coerenti. */
 const NAV_ICON_CORE =
-  "flex h-12 shrink-0 items-center justify-center text-ember transition-colors hover:text-ember-hot [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
+  "flex h-12 shrink-0 items-center justify-center text-white transition-colors hover:text-white/80 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `${NAV_ICON_CORE} w-12`;
 const NAV_ICON_LEFT = `${NAV_ICON_CORE} w-9`;
 
@@ -66,10 +66,10 @@ export function Header() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-ink"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-[#0e0e0e]"
         aria-hidden
       />
-      <header className="site-chrome fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink">
+      <header className="site-chrome nav-bronze fixed inset-x-0 top-0 z-50 border-b">
         <nav
           className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-8 px-8 2xl:px-16 xl:grid"
           aria-label="Principale"
@@ -86,8 +86,8 @@ export function Header() {
             aria-label={brand.wordmark}
             translate="no"
           >
-            <BrandLogo className="h-[52px] w-[52px]" />
-            <span className="mt-1 font-h1 text-[1.85rem] leading-none text-ember xl:text-[2.05rem]">
+            <BrandLogo finish="metal" className="h-[52px] w-[52px]" />
+            <span className="mt-1 font-h1 text-[1.85rem] leading-none text-[#d8d8d8] xl:text-[2.05rem]">
               {brand.wordmark}
             </span>
           </NavLink>
@@ -118,7 +118,7 @@ export function Header() {
             className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2"
             aria-label={brand.wordmark}
           >
-            <BrandLogo className="h-[68px] w-[68px]" />
+            <BrandLogo finish="metal" className="h-[68px] w-[68px]" />
           </NavLink>
           <div className="relative z-10 flex items-center">
             <AccountLink className={NAV_ICON_BTN} />
