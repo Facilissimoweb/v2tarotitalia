@@ -92,7 +92,7 @@ export const siteContent = {
     kicker: "Tarot Italia",
     titolo: "Tarot Italia",
     copyright: "© Tarot Italia",
-    firma: "M. Teresa Rogani",
+    firma: "di M. Teresa Rogani",
     competenze: "Cartomanzia, Tarologia e Armonizzazioni.",
     lead: sloganBrand,
     chiSiamo: {

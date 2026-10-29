@@ -134,27 +134,35 @@
     0 10px 24px rgb(0 0 0 / 0.4);
 }
 
-/* Titolo Hero: rame/bronzo 3D, rilievo metallico. */
+/* Titolo Hero: tricolore italiano con riflesso metallico 3D. */
 @utility text-h1-metal {
-  color: #2e9e3f;
-  background-image: linear-gradient(
-    180deg,
-    #dcf7cc 0%,
-    #a6e68e 14%,
-    #62c95c 32%,
-    #2e9e3f 50%,
-    #166a2a 74%,
-    #0a3c17 88%,
-    #52c45c 100%
-  );
+  color: #009246;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.55) 0%,
+      rgb(255 255 255 / 0.12) 30%,
+      rgb(0 0 0 / 0) 52%,
+      rgb(0 0 0 / 0.32) 86%,
+      rgb(255 255 255 / 0.18) 100%
+    ),
+    linear-gradient(
+      90deg,
+      #009246 0%,
+      #009246 31%,
+      #f1f2f1 36%,
+      #f1f2f1 64%,
+      #ce2b37 69%,
+      #ce2b37 100%
+    );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   filter:
-    drop-shadow(0 -1px 0 rgb(226 255 214 / 0.7))
-    drop-shadow(0 1px 0 rgb(12 62 24 / 0.85))
-    drop-shadow(0 2px 0 rgb(8 42 16 / 0.75))
-    drop-shadow(0 4px 0 rgb(4 22 8 / 0.55))
+    drop-shadow(0 -1px 0 rgb(255 255 255 / 0.6))
+    drop-shadow(0 1px 0 rgb(30 30 30 / 0.85))
+    drop-shadow(0 2px 0 rgb(20 20 20 / 0.75))
+    drop-shadow(0 4px 0 rgb(10 10 10 / 0.55))
     drop-shadow(0 3px 8px rgb(0 0 0 / 0.85))
     drop-shadow(0 12px 28px rgb(0 0 0 / 0.72))
     drop-shadow(0 0 22px rgb(0 0 0 / 0.45));

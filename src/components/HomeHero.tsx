@@ -46,7 +46,7 @@ function HeroOrnament() {
 
 /**
  * Hero Home: ChromaticImage + gerarchia
- * (logo → titolo → copyright → firma → ornamento → competenze). Logo fermo.
+ * (logo → titolo → copyright → competenze → ornamento → firma). Logo fermo.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -137,7 +137,7 @@ export function HomeHero() {
                 variants={riseIn}
                 className="mt-2 font-display text-3xl font-normal leading-tight text-[#EDE4D4] [text-shadow:0_2px_16px_rgba(0,0,0,0.88),0_0_36px_rgba(0,0,0,0.55)] md:mt-3 md:text-5xl xl:text-6xl xl:font-bold"
               >
-                {home.firma}
+                {home.competenze}
               </motion.p>
 
               <motion.div variants={riseIn} className="mt-4 md:mt-5">
@@ -148,7 +148,7 @@ export function HomeHero() {
                 variants={riseIn}
                 className="mt-4 font-display text-xl font-normal leading-snug text-[#E0D4C4] [text-shadow:0_2px_16px_rgba(0,0,0,0.86),0_0_32px_rgba(0,0,0,0.5)] md:mt-5 md:text-2xl xl:text-3xl xl:font-bold"
               >
-                {home.competenze}
+                {home.firma}
               </motion.p>
             </motion.div>
 
