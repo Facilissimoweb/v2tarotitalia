@@ -66,7 +66,7 @@ export function Header() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-white/70 backdrop-blur-[20px]"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-white/90 backdrop-blur-[56px]"
         aria-hidden
       />
       <header className="site-chrome nav-bronze fixed inset-x-0 top-0 z-50 border-b">

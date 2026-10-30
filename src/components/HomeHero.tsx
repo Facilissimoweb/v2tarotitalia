@@ -1,6 +1,7 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
+import { BrandLogo } from "./BrandLogo";
 
 const { home, nav, pages } = siteContent;
 
@@ -60,7 +61,7 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate flex min-h-0 flex-col overflow-hidden bg-ivory text-ink xl:min-h-[calc(100svh-112px)]"
     >
-      <div className="relative flex min-h-0 flex-1 flex-col justify-center px-6 pb-8 pt-6 md:px-10 md:pb-10 md:pt-8 xl:px-16 xl:pb-8 2xl:px-20">
+      <div className="relative flex min-h-0 flex-1 flex-col justify-center px-6 pb-8 pt-20 md:px-10 md:pb-10 md:pt-14 xl:px-16 xl:pb-8 xl:pt-10 2xl:px-20">
         <motion.div
           className="mx-auto grid w-full max-w-[96rem] items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.95fr)] lg:gap-6 xl:gap-10"
           variants={container}
@@ -68,13 +69,17 @@ export function HomeHero() {
           animate="show"
         >
           <div className="hero-editorial-stage relative min-w-0">
+            <motion.div variants={riseIn} className="lg:hidden">
+              <BrandLogo tone="hero" className="hero-logo-mobile" />
+            </motion.div>
             <motion.h1
               variants={riseIn}
               className="font-h1 text-h1-editorial text-[#111111]"
             >
               {precedenti.map((parola) => (
-                <span key={parola} className="block">
-                  {parola}
+                <span key={parola} className="relative isolate block w-fit">
+                  <span aria-hidden className="hero-tarot-bar" />
+                  <span className="relative z-[1]">{parola}</span>
                 </span>
               ))}
               <span className="mt-[0.08em] block text-[0.52em] font-extrabold leading-[0.88] tracking-[-0.045em] text-[#111111]/40">
@@ -117,24 +122,28 @@ export function HomeHero() {
 
           <motion.div
             variants={riseIn}
-            className="relative z-[1] mx-auto flex w-full max-w-md items-center justify-center overflow-visible py-4 lg:mx-0 lg:max-w-none lg:py-0"
+            className="relative z-[2] mx-auto flex w-full max-w-md items-center justify-center overflow-visible py-4 lg:mx-0 lg:max-w-none lg:py-0"
           >
             <span
               aria-hidden
-              className="hero-drop-t pointer-events-none absolute -right-8 bottom-[-18%] select-none xl:-right-16 xl:bottom-[-22%]"
+              className="hero-drop-t pointer-events-none absolute -right-8 bottom-[-18%] z-0 select-none xl:-right-16 xl:bottom-[-22%]"
             >
               {titolo.charAt(0)}
             </span>
+            <BrandLogo
+              tone="hero"
+              className="hero-logo-on-t hidden lg:flex"
+            />
             <p
               aria-hidden
-              className="pointer-events-none absolute right-0 top-1/2 hidden origin-center translate-x-1/2 -translate-y-1/2 rotate-90 text-[0.5625rem] font-semibold uppercase tracking-[0.32em] text-ink/35 xl:block"
+              className="pointer-events-none absolute right-0 top-1/2 z-[1] hidden origin-center translate-x-1/2 -translate-y-1/2 rotate-90 text-[0.5625rem] font-semibold uppercase tracking-[0.32em] text-ink/35 xl:block"
             >
               {home.copyright}
             </p>
             <img
               src="/angelo-hero.webp"
               alt=""
-              className="hero-angelo relative z-[1] lg:-translate-x-[6%]"
+              className="hero-angelo relative z-[2] lg:-translate-x-[6%]"
             />
           </motion.div>
         </motion.div>
