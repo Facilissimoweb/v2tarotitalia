@@ -93,6 +93,8 @@ export const siteContent = {
     titolo: "Tarot Italia",
     copyright: "© Tarot Italia",
     firma: "di M. Teresa Rogani",
+    benvenuto:
+      "Benvenuti in Tarot Italia! Uno spazio dedicato a chi vuole scoprire, approfondire e vivere il mondo dei tarocchi e delle arti divinatorie.",
     competenze: "Cartomanzia, Tarologia e Armonizzazioni.",
     lead: sloganBrand,
     chiSiamo: {

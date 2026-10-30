@@ -162,18 +162,14 @@
     drop-shadow(0 0 22px rgb(0 0 0 / 0.45));
 }
 
-/* Navbar: grafite con filetto neon lime. */
+/* Navbar: grafite pulita, senza fascia neon. */
 @utility nav-bronze {
   background-color: #141210;
   background-image:
     radial-gradient(ellipse 52% 190% at 50% 50%, #3a3430 0%, #2b2523 22%, #1f1b19 48%, #171412 76%, #100e0d 100%),
     linear-gradient(180deg, rgb(255 255 255 / 0.08) 0%, transparent 38%, rgb(0 0 0 / 0.22) 100%);
-  border-bottom-color: #d7f713;
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.14),
-    0 1px 3px rgb(215 247 19 / 0.95),
-    0 2px 10px rgb(215 247 19 / 0.8),
-    0 4px 26px rgb(215 247 19 / 0.45);
+  border-bottom-color: rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
 }
 
 /* Footer: grafite con filetto neon lime in alto, speculare alla navbar. */
@@ -232,9 +228,24 @@
   overflow-wrap: break-word;
 }
 
-/* H1 Home: una sola riga; la misura riempie la colonna hero senza andare a capo. */
+/* H1 Home: display editoriale, ExtraBold, tracking stretto. */
 @utility home-hero-copy {
   container-type: inline-size;
+}
+
+@utility hero-editorial-stage {
+  container-type: inline-size;
+}
+
+@utility text-h1-editorial {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.82;
+  text-transform: uppercase;
+  font-size: clamp(3.35rem, 18cqi, 9.5rem);
 }
 
 @utility text-h1-home {
@@ -244,6 +255,34 @@
   white-space: nowrap;
   line-height: 1.05;
   font-size: clamp(2.4rem, calc(100cqi / 6.4), 5.25rem);
+}
+
+.hero-drop-t {
+  font-family: var(--font-h1);
+  font-weight: 800;
+  letter-spacing: -0.08em;
+  line-height: 0.68;
+  text-transform: uppercase;
+  color: rgb(17 17 17 / 0.18);
+  font-size: clamp(12rem, 36vw, 28rem);
+}
+
+.hero-angelo {
+  display: block;
+  height: clamp(19.5rem, 62vw, 26rem);
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+  opacity: 1;
+}
+
+@media (min-width: 1024px) {
+  .hero-angelo {
+    height: clamp(16rem, 48vw, 26rem);
+  }
 }
 
 /* Niente obliquo sintetico nei titoli H1 */
