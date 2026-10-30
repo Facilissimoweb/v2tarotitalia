@@ -19,18 +19,52 @@ const { comingSoon, nav, pages } = siteContent;
 export function ArcaniMinori() {
   return (
     <div>
-      <PageHero
-        kicker={pages.arcaniMinori.kicker}
-        title={pages.arcaniMinori.titolo}
-        lead={pages.arcaniMinori.lead}
-        cta={{ to: "/arcani", label: nav.arcaniMaggiori }}
-        secondary={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
-      />
-      <div className="mx-auto max-w-6xl space-y-24 px-6 pb-24 md:space-y-32 md:px-10 md:pb-32">
+      <div className="[&_[data-page-hero]]:mb-0">
+        <PageHero
+          kicker={pages.arcaniMinori.kicker}
+          title={pages.arcaniMinori.titolo}
+          lead={pages.arcaniMinori.lead}
+          cta={{ to: "/arcani", label: nav.arcaniMaggiori }}
+          secondary={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
+        />
+      </div>
+      <nav
+        aria-label={nav.arcaniMinori}
+        className="relative z-[2] grid grid-cols-1 border-t border-[#111111] sm:grid-cols-2 xl:grid-cols-4"
+      >
+        {SEMI_MINORI.map((seme, i) => (
+          <a
+            key={seme.id}
+            href={`#${seme.id}`}
+            className="group flex min-h-[9.25rem] flex-col border-white/10 bg-[#111111] px-6 py-6 text-on-ink transition-colors max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:border-r xl:px-8 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
+          >
+            <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-[#d7f713]">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <span className="mt-5 text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-[#d7f713]">
+              {seme.nome}
+            </span>
+            <span className="mt-3 line-clamp-2 flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55">
+              {seme.essenza}
+            </span>
+            <span
+              aria-hidden
+              className="mt-5 text-[0.8125rem] text-[#d7f713] transition-transform group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </a>
+        ))}
+      </nav>
+      <div className="mx-auto max-w-6xl space-y-24 px-6 pb-24 pt-16 md:space-y-32 md:px-10 md:pb-32 md:pt-24">
         {SEMI_MINORI.map((seme) => {
           const lame = lameDelSeme(seme.id);
           return (
-            <section key={seme.id} id={seme.id}>
+            <section
+              key={seme.id}
+              id={seme.id}
+              className="scroll-mt-[calc(80px+env(safe-area-inset-top,0px)+12px)] xl:scroll-mt-[calc(112px+env(safe-area-inset-top,0px)+12px)]"
+            >
               <Reveal>
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                   {seme.elemento} · {seme.francese}

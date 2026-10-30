@@ -86,6 +86,7 @@ export const siteContent = {
     percorsi: "Percorsi",
     prenotaPercorso: "Prenota questo percorso",
     itha: "Itha",
+    tornaSu: "Torna su",
   },
 
   home: {
@@ -185,6 +186,10 @@ export const siteContent = {
     contatti: {
       kicker: "Contatti",
       titolo: "Contatti",
+    },
+    arcani: {
+      abbinamenti: "Abbinamenti e Sinergie",
+      abbinamentoInStudio: "Abbinamento in fase di studio e archiviazione",
     },
     arcaniMinori: {
       kicker: "Tarocchi",

@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { ARCANI, getArcanoBySlug } from "../data/arcani";
 import { siteContent } from "../data/siteContent";
+import { ArcanoAbbinamenti } from "../components/ArcanoAbbinamenti";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button } from "../components/Button";
 import { PageHero } from "../components/PageHero";
@@ -58,7 +59,7 @@ export function ArcanoDetail() {
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/arcani", label: "Tutti i 22 Arcani" }}
       />
-      <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-24 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-32">
+      <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-4 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-8">
         <Reveal>
           <div className="bg-paper p-6">
             <ArcanoArt arcano={arcano} />
@@ -114,6 +115,9 @@ export function ArcanoDetail() {
             </div>
           </Reveal>
         </div>
+      </div>
+      <div className="mx-auto max-w-5xl px-6 pb-24 md:px-10 md:pb-32">
+        <ArcanoAbbinamenti slug={arcano.slug} />
       </div>
     </div>
   );

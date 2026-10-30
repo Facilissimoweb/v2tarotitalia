@@ -5,10 +5,17 @@ import { Footer } from "./Footer";
 import { LanguageSeo } from "./LanguageSeo";
 
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      const id = decodeURIComponent(hash.replace(/^#/, ""));
+      const frame = window.requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ block: "start" });
+      });
+      return () => window.cancelAnimationFrame(frame);
+    }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 }
 

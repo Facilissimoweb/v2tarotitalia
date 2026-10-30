@@ -11,6 +11,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
+import { BackToTop } from "./components/BackToTop";
 import { useSiteAccess } from "./lib/useSiteAccess";
 
 const PercorsiModal = lazy(() =>
@@ -220,6 +221,7 @@ export default function App() {
           <CookieBanner />
           <AuthModal />
           <StudioContactDock />
+          <BackToTop />
           <Suspense fallback={null}>
             <PercorsiModal />
             <TarotChat />
