@@ -19,7 +19,7 @@ function ithaApiPlugin(): Plugin {
     name: "itha-api",
     configureServer(server: ViteDevServer) {
       server.middlewares.use(async (req, res, next) => {
-        const url = req.url?.split("?")[0] ?? "";
+        const url = (req.url?.split("?")[0] ?? "").replace(/\.tsx?$/, "");
         if (!url.startsWith("/api/")) {
           next();
           return;
@@ -65,6 +65,11 @@ function ithaApiPlugin(): Plugin {
           }
           if (url === "/api/tarot-chat") {
             const { default: handler } = await import("./api/tarot-chat.ts");
+            await handler(nodeReq, nodeRes);
+            return;
+          }
+          if (url === "/api/substack-feed") {
+            const { default: handler } = await import("./api/substack-feed.ts");
             await handler(nodeReq, nodeRes);
             return;
           }

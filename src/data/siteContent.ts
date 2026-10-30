@@ -182,6 +182,11 @@ export const siteContent = {
     blog: {
       kicker: "Blog",
       titolo: "Blog",
+      caricamento: "Sto aprendo l’archivio…",
+      errore: "L’archivio non è raggiungibile in questo momento. Riprova tra poco.",
+      vuoto: "Nessun articolo è ancora in archivio.",
+      leggi: "Leggi l’articolo",
+      suSubstack: "Apri su Substack",
     },
     contatti: {
       kicker: "Contatti",

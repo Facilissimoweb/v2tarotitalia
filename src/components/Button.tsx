@@ -22,6 +22,8 @@ type Props = {
   type?: "button" | "submit";
   onClick?: () => void;
   disabled?: boolean;
+  target?: string;
+  rel?: string;
   "aria-expanded"?: boolean;
   "aria-controls"?: string;
 };
@@ -36,6 +38,8 @@ export function Button({
   type = "button",
   onClick,
   disabled,
+  target,
+  rel,
   "aria-expanded": ariaExpanded,
   "aria-controls": ariaControls,
 }: Props) {
@@ -54,6 +58,8 @@ export function Button({
         href={href}
         className={cls}
         {...(whatsapp ? WHATSAPP_ANCHOR : {})}
+        {...(target ? { target } : {})}
+        {...(rel ? { rel } : {})}
         {...(download !== undefined ? { download: download === true ? true : download } : {})}
       >
         {children}
