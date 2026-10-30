@@ -309,9 +309,9 @@ export const siteContent = {
         caption: "M. Teresa Rogani",
       },
       teresaHome: {
-        src: "/chi-siamo/teresa-home.jpg?v=2",
-        alt: "Ritratto di M. Teresa Rogani con due carte dei tarocchi",
-        caption: "M. Teresa Rogani",
+        src: "/chi-siamo/chi-sono-home.webp?v=2",
+        alt: "Incisione: angelo con tromba tra le nubi e tre putti",
+        caption: "Tarot Italia",
       },
       studio: {
         src: "/chi-siamo/studio-board.jpg?v=1",

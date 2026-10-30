@@ -15,6 +15,8 @@ type Props = {
   ratio?: Ratio;
   /** `contain` mostra l’immagine intera (senza ritaglio); default `cover`. */
   fit?: "cover" | "contain";
+  /** Mantiene il box del ratio anche con `contain`, senza ritagliare. */
+  framed?: boolean;
   className?: string;
 };
 
@@ -24,21 +26,31 @@ export function ImageSlot({
   caption,
   ratio = "portrait",
   fit = "cover",
+  framed = false,
   className = "",
 }: Props) {
   const contain = fit === "contain";
+  const lockBox = !contain || framed;
 
   return (
     <Reveal className={className}>
       <figure>
-        <div className={`overflow-hidden bg-mist ${contain ? "" : ratios[ratio]}`}>
+        <div
+          className={`overflow-hidden ${framed ? "bg-[#111111]" : "bg-mist"} ${
+            lockBox ? ratios[ratio] : ""
+          }`}
+        >
           <img
             src={src}
             alt={alt}
             loading="lazy"
             decoding="async"
             className={
-              contain ? "block h-auto w-full object-contain" : "h-full w-full object-cover"
+              contain
+                ? lockBox
+                  ? "h-full w-full object-contain object-center"
+                  : "block h-auto w-full object-contain"
+                : "h-full w-full object-cover"
             }
           />
         </div>

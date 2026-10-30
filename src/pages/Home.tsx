@@ -61,6 +61,8 @@ export function Home() {
             alt={chiSiamo.immagini.teresaHome.alt}
             caption={chiSiamo.immagini.teresaHome.caption}
             ratio="portrait"
+            fit="contain"
+            framed
           />
         </div>
       </section>
