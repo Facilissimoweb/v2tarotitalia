@@ -1,4 +1,5 @@
 import { ARCANI } from "../data/arcani.ts";
+import { ARCANI_MINORI } from "../data/arcaniMinori.ts";
 
 export const STATIC_APP_PATHS = [
   "/",
@@ -27,7 +28,11 @@ export function normalizeAppPath(pathname: string) {
 }
 
 export function knownAppPaths() {
-  return [...STATIC_APP_PATHS, ...ARCANI.map((item) => `/arcani/${item.slug}`)];
+  return [
+    ...STATIC_APP_PATHS,
+    ...ARCANI.map((item) => `/arcani/${item.slug}`),
+    ...ARCANI_MINORI.map((item) => `/arcani-minori/${item.slug}`),
+  ];
 }
 
 export function isKnownAppPath(pathname: string) {

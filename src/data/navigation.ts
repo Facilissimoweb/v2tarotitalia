@@ -44,5 +44,5 @@ export function flattenNav(items: NavItem[]): NavLeaf[] {
 }
 
 export function isTarocchiPath(pathname: string) {
-  return pathname === "/arcani" || pathname.startsWith("/arcani/") || pathname === "/arcani-minori";
+  return pathname === "/arcani" || pathname.startsWith("/arcani/") || pathname.startsWith("/arcani-minori");
 }

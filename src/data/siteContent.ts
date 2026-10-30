@@ -189,6 +189,7 @@ export const siteContent = {
     arcaniMinori: {
       kicker: "Tarocchi",
       titolo: "Arcani Minori",
+      lead: "I 56 arcani minori del mazzo marsigliese: la trama quotidiana, l'esperienza pratica e lo sviluppo dell'azione attraverso i quattro semi della materia e del sentire.",
     },
     carrello: {
       kicker: "Carrello",

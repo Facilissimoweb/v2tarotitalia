@@ -31,6 +31,9 @@ const ArcanoDetail = lazy(() =>
 const ArcaniMinori = lazy(() =>
   import("./pages/ArcaniMinori").then((m) => ({ default: m.ArcaniMinori })),
 );
+const ArcanoMinoreDetail = lazy(() =>
+  import("./pages/ArcaniMinori").then((m) => ({ default: m.ArcanoMinoreDetail })),
+);
 const Consulti = lazy(() => import("./pages/Consulti").then((m) => ({ default: m.Consulti })));
 const Percorsi = lazy(() => import("./pages/Percorsi").then((m) => ({ default: m.Percorsi })));
 const Blog = lazy(() => import("./pages/Blog").then((m) => ({ default: m.Blog })));
@@ -101,6 +104,14 @@ export default function App() {
                 element={
                   <Suspense fallback={<RouteFallback />}>
                     <ArcaniMinori />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/arcani-minori/:slug"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <ArcanoMinoreDetail />
                   </Suspense>
                 }
               />
