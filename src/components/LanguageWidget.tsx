@@ -68,7 +68,7 @@ export function LanguageWidget({ placement, className = "" }: Props) {
         type="button"
         className={
           compact
-            ? `flex h-12 ${className || "w-12"} shrink-0 items-center justify-center text-[#EDE4D4] transition-colors hover:text-[#d7f713]`
+            ? `flex h-12 ${className || "w-12"} shrink-0 items-center justify-center text-[#111111] transition-colors hover:text-[#111111]/70`
             : drawer
               ? "flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em] text-ink/55 hover:text-ink"
               : "inline-flex items-center gap-2 uppercase tracking-[0.16em] hover:text-white"

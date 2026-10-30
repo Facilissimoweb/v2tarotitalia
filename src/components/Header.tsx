@@ -29,12 +29,12 @@ const NAV_CHILD =
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
   `whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.16em] transition-colors ${
-    active ? "text-[#d7f713]" : "text-[#EDE4D4] hover:text-[#d7f713]"
+    active ? "text-[#111111]" : "text-[#111111] hover:text-[#111111]/70"
   }`;
 
-/** Icone della barra: crema con hover lime, più grandi, coerenti. */
+/** Icone della barra: nero su vetro bianco. */
 const NAV_ICON_CORE =
-  "flex h-12 shrink-0 items-center justify-center text-[#EDE4D4] transition-colors hover:text-[#d7f713] [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
+  "flex h-12 shrink-0 items-center justify-center text-[#111111] transition-colors hover:text-[#111111]/70 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `${NAV_ICON_CORE} w-12`;
 const NAV_ICON_LEFT = `${NAV_ICON_CORE} w-9`;
 
@@ -66,7 +66,7 @@ export function Header() {
   return (
     <>
       <div
-        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-[#141210]"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] bg-white/70 backdrop-blur-[20px]"
         aria-hidden
       />
       <header className="site-chrome nav-bronze fixed inset-x-0 top-0 z-50 border-b">
@@ -89,7 +89,7 @@ export function Header() {
             <span className="nav-logo-glow">
               <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[52px] w-[52px]" />
             </span>
-            <span className="mt-1 font-h1 text-[1.2rem] leading-none text-[#EDE4D4] xl:text-[1.3rem]">
+            <span className="mt-1 font-h1 text-[1.2rem] leading-none text-[#111111] xl:text-[1.3rem]">
               {brand.wordmark}
             </span>
           </NavLink>
@@ -199,7 +199,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
         onClick={() => setPinned((v) => !v)}
       >
         {item.label}
-        <span aria-hidden className="text-ember-soft">
+        <span aria-hidden className="text-[#111111]">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.2">
             <path d="M1.5 2.5 L4 5.5 L6.5 2.5" />
           </svg>

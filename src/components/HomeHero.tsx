@@ -77,7 +77,7 @@ export function HomeHero() {
                   {parola}
                 </span>
               ))}
-              <span className="block text-[#111111]/40">
+              <span className="mt-[0.08em] block text-[0.52em] font-extrabold leading-[0.88] tracking-[-0.045em] text-[#111111]/40">
                 {ultima}
                 <span aria-hidden>.</span>
               </span>
