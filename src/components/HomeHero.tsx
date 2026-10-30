@@ -132,7 +132,7 @@ export function HomeHero() {
             </span>
             <BrandLogo
               tone="hero"
-              className="hero-logo-on-t hidden lg:flex"
+              className="hero-logo-on-t z-[3] hidden lg:flex"
             />
             <p
               aria-hidden
@@ -162,7 +162,7 @@ export function HomeHero() {
             <span className="mt-5 text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-[#d7f713]">
               {azione.titolo}
             </span>
-            <span className="mt-3 line-clamp-2 flex-1 text-[0.75rem] font-medium leading-relaxed text-on-ink/55">
+            <span className="mt-3 line-clamp-2 flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55">
               {azione.testo}
             </span>
             <span

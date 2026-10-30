@@ -19,6 +19,7 @@ import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav } = siteContent;
+const [marcaTarot, marcaItalia] = brand.wordmark.split(/\s+/);
 
 /** Tipografia menu hamburger (mobile / tablet). */
 const NAV_ITEM =
@@ -117,11 +118,18 @@ export function Header() {
           </div>
           <NavLink
             to="/"
-            className="absolute left-1/2 top-1/2 z-[1] -translate-x-1/2 -translate-y-1/2"
+            className="absolute left-1/2 top-1/2 z-[1] flex -translate-x-1/2 -translate-y-1/2 items-center gap-3"
             aria-label={brand.wordmark}
+            translate="no"
           >
+            <span className="hidden font-h1 text-[1.05rem] font-extrabold uppercase leading-none tracking-[-0.04em] text-[#111111] md:inline lg:text-[1.15rem]">
+              {marcaTarot}
+            </span>
             <span className="nav-logo-glow">
               <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[68px] w-[68px]" />
+            </span>
+            <span className="hidden font-h1 text-[1.05rem] font-extrabold uppercase leading-none tracking-[-0.04em] text-[#111111] md:inline lg:text-[1.15rem]">
+              {marcaItalia}
             </span>
           </NavLink>
           <div className="relative z-10 flex items-center">

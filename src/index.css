@@ -176,19 +176,16 @@
   -webkit-backdrop-filter: blur(56px) saturate(160%);
 }
 
-/* Footer: grafite con filetto neon lime in alto, speculare alla navbar. */
+/* Footer: grafite morbido, senza contrasto di nero puro. */
 @utility footer-graphite {
-  background-color: #141210;
+  background-color: #1c1a18;
   background-image:
-    radial-gradient(ellipse 60% 70% at 50% 0%, #2b2523 0%, #1f1b19 40%, #141210 75%, #100e0d 100%);
-  border-top: 1px solid #d7f713;
-  box-shadow:
-    0 -1px 3px rgb(215 247 19 / 0.95),
-    0 -2px 10px rgb(215 247 19 / 0.8),
-    0 -4px 26px rgb(215 247 19 / 0.45);
+    radial-gradient(ellipse 70% 80% at 50% 0%, #2e2a27 0%, #23201e 42%, #1c1a18 100%);
+  border-top: 1px solid rgb(255 255 255 / 0.06);
+  box-shadow: none;
 }
 
-/* Logo navbar: luce lime diffusa alle spalle del medaglione. */
+/* Logo navbar: alone neutro, senza lime. */
 .nav-logo-glow {
   position: relative;
   display: inline-flex;
@@ -201,19 +198,19 @@
   left: 50%;
   top: 50%;
   z-index: 0;
-  width: 260%;
-  height: 260%;
+  width: 240%;
+  height: 240%;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
   pointer-events: none;
   background: radial-gradient(
     circle,
-    rgb(215 247 19 / 0.34) 0%,
-    rgb(215 247 19 / 0.16) 28%,
-    rgb(215 247 19 / 0.05) 52%,
-    transparent 70%
+    rgb(255 255 255 / 0.55) 0%,
+    rgb(249 248 246 / 0.22) 34%,
+    rgb(249 248 246 / 0.06) 58%,
+    transparent 74%
   );
-  filter: blur(6px);
+  filter: blur(8px);
 }
 
 /* Lastre della Hero: A.jpg in scala di grigi. */
@@ -285,14 +282,14 @@
 
 .hero-logo-mobile {
   display: block;
-  width: 5.25rem;
-  height: 5.25rem;
-  margin-bottom: 1.25rem;
+  width: 7.5rem;
+  height: 7.5rem;
+  margin-bottom: 1.35rem;
 }
 
 .hero-logo-on-t {
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   width: 7.25rem;
   height: 7.25rem;
   left: 52%;
