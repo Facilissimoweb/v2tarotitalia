@@ -21,11 +21,12 @@ import { WidgetBrandMark } from "./WidgetFrame";
 const { brand, nav } = siteContent;
 const [marcaTarot, marcaItalia] = brand.wordmark.split(/\s+/);
 
-/** Tipografia menu hamburger (mobile / tablet). */
+/** Tipografia menu hamburger (mobile / tablet): nero pieno, peso e tracking editoriali. */
 const NAV_ITEM =
-  "font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em]";
+  "font-body text-[0.9375rem] font-bold uppercase not-italic leading-none tracking-[0.2em] text-black";
 const NAV_CHILD =
-  "font-body text-[0.6875rem] font-medium uppercase not-italic leading-none tracking-[0.16em]";
+  "font-body text-[0.8125rem] font-bold uppercase not-italic leading-none tracking-[0.18em] text-black";
+const NAV_ACTIVE = "bg-[#d7f713] text-black";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
@@ -261,23 +262,21 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
         <WidgetBrandMark size="sm" />
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-8 pb-4" aria-label="Principale">
+      <nav className="flex-1 overflow-y-auto pb-6" aria-label="Principale">
         <div className="flex flex-col text-center">
           {MAIN_NAV.map((item) =>
             isNavBranch(item) ? (
               <div key={item.label} className="border-t border-ink/10">
-                <p className={`py-6 ${NAV_ITEM} text-ink`}>
+                <p className={`px-8 py-7 ${NAV_ITEM}`}>
                   {item.label}
                 </p>
-                <ul className="pb-4">
+                <ul className="pb-3">
                   {item.children.map((child) => (
                     <li key={child.to}>
                       <NavLink
                         to={child.to}
                         className={({ isActive }) =>
-                          `block py-4 ${NAV_CHILD} ${
-                            isActive ? "text-ink" : "text-ink/40"
-                          }`
+                          `block px-8 py-5 ${NAV_CHILD} ${isActive ? NAV_ACTIVE : ""}`
                         }
                       >
                         {child.label}
@@ -292,8 +291,8 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                 to={item.to}
                 end={item.end}
                 className={({ isActive }) =>
-                  `border-t border-ink/10 py-6 ${NAV_ITEM} ${
-                    isActive ? "text-ink" : "text-ink/45"
+                  `block border-t border-ink/10 px-8 py-7 ${NAV_ITEM} ${
+                    isActive ? NAV_ACTIVE : ""
                   }`
                 }
               >
