@@ -81,23 +81,9 @@ export function TarotChat() {
     }
   }
 
-  return (
-    <>
-      <button
-        type="button"
-        className="chat-icon-row fixed bottom-[calc(5.75rem+env(safe-area-inset-bottom))] right-3 z-[45] flex h-[4.25rem] w-[3.6rem] items-center justify-center bg-transparent p-0 transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember sm:right-4 md:bottom-[calc(6.5rem+env(safe-area-inset-bottom))] md:h-[4.75rem] md:w-[4rem]"
-        data-paused={open ? "true" : undefined}
-        aria-label={copy.trigger}
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        aria-controls={open ? "tarot-chat-panel" : undefined}
-        onClick={() => tarotChatUi.toggle()}
-      >
-        <ChatIcon />
-      </button>
+  if (!open) return null;
 
-      {open
-        ? createPortal(
+  return createPortal(
             <div
               className="fixed inset-0 z-[70] flex items-end justify-center bg-ink/35 p-0 sm:items-center sm:p-4"
               role="presentation"
@@ -198,23 +184,6 @@ export function TarotChat() {
                 </form>
               </div>
             </div>,
-            document.body,
-          )
-        : null}
-    </>
-  );
-}
-
-function ChatIcon() {
-  return (
-    <img
-      src="/chat-mouth.png"
-      alt=""
-      width={208}
-      height={244}
-      draggable={false}
-      aria-hidden="true"
-      className="h-full w-full object-contain drop-shadow-[0_1px_5px_rgba(0,0,0,0.35)]"
-    />
+    document.body,
   );
 }

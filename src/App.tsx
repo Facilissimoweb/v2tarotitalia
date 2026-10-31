@@ -11,7 +11,6 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
-import { BackToTop } from "./components/BackToTop";
 import { useSiteAccess } from "./lib/useSiteAccess";
 
 const PercorsiModal = lazy(() =>
@@ -23,8 +22,8 @@ const AccessibilityPanel = lazy(() =>
 const TarotChat = lazy(() =>
   import("./components/TarotChat").then((m) => ({ default: m.TarotChat })),
 );
-const ShopLaunch = lazy(() =>
-  import("./components/ShopLaunch").then((m) => ({ default: m.ShopLaunch })),
+const UtilityCapsule = lazy(() =>
+  import("./components/UtilityCapsule").then((m) => ({ default: m.UtilityCapsule })),
 );
 
 const ChiSiamo = lazy(() => import("./pages/ChiSiamo").then((m) => ({ default: m.ChiSiamo })));
@@ -225,11 +224,10 @@ export default function App() {
           <CookieBanner />
           <AuthModal />
           <StudioContactDock />
-          <BackToTop />
           <Suspense fallback={null}>
             <PercorsiModal />
+            <UtilityCapsule />
             <TarotChat />
-            <ShopLaunch />
             <AccessibilityPanel />
           </Suspense>
         </BrowserRouter>
