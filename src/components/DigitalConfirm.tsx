@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { emptyConsents, hasRequiredConsents, type Consents } from "../lib/storage";
 import {
-  clearDigitalDraft,
-  discardSettledDigitalDraft,
-  readDigitalDraft,
+  removeDigitalDraft,
   writeDigitalDraft,
+  type DigitalDraft,
 } from "../lib/digitalOrders";
 import { startDigitalCheckout } from "../lib/stripeCheckout";
 import { Button, Kicker } from "./Button";
@@ -17,18 +15,12 @@ import { LegalNotice, type LegalKind } from "./LegalNotice";
 const { auth, consulti, pages } = siteContent;
 const copy = pages.corsi;
 
-export function DigitalConfirm() {
-  const { session, digitalOrders, ownsDigital } = useAuth();
-  const [searchParams] = useSearchParams();
-  const checkout = searchParams.get("checkout");
-  const paidReturn = checkout === "ok" || checkout === "cancel";
-  if (paidReturn) discardSettledDigitalDraft();
-  discardSettledDigitalDraft(digitalOrders);
-  const draft = paidReturn ? null : readDigitalDraft();
-  const [name, setName] = useState(() => draft?.name || session?.name || "");
+export function DigitalConfirm({ draft }: { draft: DigitalDraft }) {
+  const { session, ownsDigital } = useAuth();
+  const [name, setName] = useState(() => draft.name || session?.name || "");
   const [phone, setPhone] = useState(() => draft?.phone || "");
   const [consents, setConsents] = useState<Consents>(
-    () => (session?.consents && hasRequiredConsents(session.consents) ? session.consents : draft?.consents ?? emptyConsents()),
+    () => (session?.consents && hasRequiredConsents(session.consents) ? session.consents : draft.consents ?? emptyConsents()),
   );
 
   useEffect(() => {
@@ -46,9 +38,8 @@ export function DigitalConfirm() {
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  if (!draft) return null;
   if (ownsDigital(draft.productId)) {
-    clearDigitalDraft();
+    removeDigitalDraft(draft.productId);
     return (
       <p className="mb-10 bg-mist p-5 text-sm leading-relaxed text-ink">
         {copy.giaTuo}

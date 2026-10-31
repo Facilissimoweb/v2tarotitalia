@@ -13,7 +13,7 @@ import {
 import { useAuth } from "../context/AuthContext";
 import { cartItemCount, readBookingDraft } from "../lib/storage";
 import { loginHref, rememberAuthReturn } from "../lib/authReturn";
-import { isCartDigital, isPaidDigital, readDigitalDraft } from "../lib/digitalOrders";
+import { isCartDigital, isPaidDigital, readDigitalDrafts } from "../lib/digitalOrders";
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { BrandLogo } from "./BrandLogo";
@@ -323,7 +323,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
 
 function AccountLink({ className = "flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink" }: { className?: string }) {
   const { session } = useAuth();
-  const checkoutIntent = Boolean(readDigitalDraft() || readBookingDraft());
+  const checkoutIntent = Boolean(readDigitalDrafts().length || readBookingDraft());
   const guestTo = checkoutIntent ? loginHref("/carrello") : "/login";
   return (
     <NavLink
@@ -343,14 +343,12 @@ function AccountLink({ className = "flex h-[40px] w-[40px] items-center justify-
 function CartLink({ className = "relative flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink" }: { className?: string }) {
   const { purchases, digitalOrders } = useAuth();
   const pendingDigital = digitalOrders.filter(isCartDigital);
-  const digitalDraft = readDigitalDraft();
-  const extra =
-    pendingDigital.length +
-    (digitalDraft &&
-    !pendingDigital.some((order) => order.productId === digitalDraft.productId) &&
-    !digitalOrders.some((order) => order.productId === digitalDraft.productId && isPaidDigital(order))
-      ? 1
-      : 0);
+  const digitalDrafts = readDigitalDrafts().filter(
+    (item) =>
+      !pendingDigital.some((order) => order.productId === item.productId) &&
+      !digitalOrders.some((order) => order.productId === item.productId && isPaidDigital(order)),
+  );
+  const extra = pendingDigital.length + digitalDrafts.length;
   const count = cartItemCount(purchases, extra);
   return (
     <NavLink

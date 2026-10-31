@@ -12,8 +12,8 @@ import {
 } from "../data/productRegistry";
 import type { DigitalProductId } from "../data/catalogo";
 import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
-import { loginPath } from "../lib/authReturn";
-import { draftFromProduct, writeDigitalDraft } from "../lib/digitalOrders";
+import { rememberAuthReturn } from "../lib/authReturn";
+import { addDigitalDraft, draftFromProduct } from "../lib/digitalOrders";
 import { useAuth } from "../context/AuthContext";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
@@ -50,9 +50,9 @@ export function Shop() {
   function buy(productId: DigitalProductId) {
     const draft = draftFromProduct(productId, session?.name ?? "");
     if (!draft) return;
-    writeDigitalDraft(draft);
-    if (session) navigate("/carrello");
-    else navigate(loginPath("/carrello"), { state: { from: "/carrello" } });
+    addDigitalDraft(draft);
+    rememberAuthReturn("/carrello");
+    navigate("/carrello");
   }
 
   return (

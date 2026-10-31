@@ -79,22 +79,56 @@ function readDraftRaw() {
   }
 }
 
-export function readDigitalDraft(): DigitalDraft | null {
+function isDraft(value: unknown): value is DigitalDraft {
+  if (!value || typeof value !== "object") return false;
+  const item = value as DigitalDraft;
+  return isDigitalProductId(item.productId);
+}
+
+function parseDrafts(raw: string | null): DigitalDraft[] {
+  if (!raw) return [];
+  const parsed = JSON.parse(raw) as unknown;
+  if (Array.isArray(parsed)) return parsed.filter(isDraft);
+  return isDraft(parsed) ? [parsed] : [];
+}
+
+export function readDigitalDrafts(): DigitalDraft[] {
   try {
-    const raw = readDraftRaw();
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as DigitalDraft;
-    if (!parsed || !isDigitalProductId(parsed.productId)) return null;
-    return parsed;
+    return parseDrafts(readDraftRaw());
   } catch {
-    return null;
+    return [];
   }
 }
 
-export function writeDigitalDraft(draft: DigitalDraft) {
-  const raw = JSON.stringify(draft);
+export function readDigitalDraft(): DigitalDraft | null {
+  return readDigitalDrafts()[0] ?? null;
+}
+
+function persistDrafts(drafts: DigitalDraft[]) {
+  if (drafts.length === 0) {
+    clearDigitalDraft();
+    return;
+  }
+  const raw = JSON.stringify(drafts);
   localStorage.setItem(DIGITAL_DRAFT_KEY, raw);
   sessionStorage.removeItem(DIGITAL_DRAFT_KEY);
+}
+
+/** Aggiorna o aggiunge uno SKU senza cancellare gli altri. */
+export function writeDigitalDraft(draft: DigitalDraft) {
+  const drafts = readDigitalDrafts();
+  const index = drafts.findIndex((item) => item.productId === draft.productId);
+  if (index >= 0) drafts[index] = { ...drafts[index], ...draft };
+  else drafts.push(draft);
+  persistDrafts(drafts);
+}
+
+export function addDigitalDraft(draft: DigitalDraft) {
+  writeDigitalDraft(draft);
+}
+
+export function removeDigitalDraft(productId: DigitalProductId) {
+  persistDrafts(readDigitalDrafts().filter((item) => item.productId !== productId));
 }
 
 export function clearDigitalDraft() {
@@ -103,8 +137,8 @@ export function clearDigitalDraft() {
 }
 
 export function ensureDigitalDraft(productId: DigitalProductId, name = "", phone = "") {
-  const current = readDigitalDraft();
-  if (current?.productId === productId) {
+  const current = readDigitalDrafts().find((item) => item.productId === productId);
+  if (current) {
     if ((name && !current.name) || (phone && !current.phone)) {
       writeDigitalDraft({
         ...current,
@@ -112,7 +146,7 @@ export function ensureDigitalDraft(productId: DigitalProductId, name = "", phone
         phone: current.phone || phone,
       });
     }
-    return readDigitalDraft();
+    return readDigitalDrafts().find((item) => item.productId === productId) ?? current;
   }
   const draft = draftFromProduct(productId, name, phone);
   if (draft) writeDigitalDraft(draft);
@@ -198,16 +232,8 @@ export function writeLocalDigitalOrders(orders: DigitalOrder[]) {
 }
 
 export function discardSettledDigitalDraft(orders: DigitalOrder[] = []) {
-  if (typeof window !== "undefined") {
-    const checkout = new URLSearchParams(window.location.search).get("checkout");
-    if (checkout === "ok" || checkout === "cancel") {
-      clearDigitalDraft();
-      return;
-    }
-  }
-  const draft = readDigitalDraft();
-  if (!draft) return;
-  if (orders.some((order) => order.productId === draft.productId && isPaidDigital(order))) {
-    clearDigitalDraft();
-  }
+  const remaining = readDigitalDrafts().filter(
+    (draft) => !orders.some((order) => order.productId === draft.productId && isPaidDigital(order)),
+  );
+  persistDrafts(remaining);
 }

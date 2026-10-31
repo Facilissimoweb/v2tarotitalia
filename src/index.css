@@ -649,12 +649,15 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   overflow: visible;
 }
 
-.dock-sphere:hover,
-.dock-sphere:focus-visible,
 .dock-sphere[data-raised] {
   background-color: transparent;
   box-shadow: none;
   color: #111111;
+}
+
+.dock-sphere:focus-visible {
+  outline: 2px solid #d7f713;
+  outline-offset: 2px;
 }
 
 .dock-sphere[data-raised] .dock-icon {
@@ -712,8 +715,6 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
     transition: none;
   }
 
-  .dock-sphere:hover,
-  .dock-sphere:focus-visible,
   .dock-sphere[data-raised] {
     background-color: #d7f713;
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.45);

@@ -17,11 +17,12 @@ import {
   type Purchase,
 } from "../lib/storage";
 import {
-  clearDigitalDraft,
   isCartDigital,
   isPaidDigital,
-  readDigitalDraft,
+  readDigitalDrafts,
+  removeDigitalDraft,
   writeDigitalDraft,
+  type DigitalDraft,
   type DigitalOrder,
 } from "../lib/digitalOrders";
 import { sessionModeLabel } from "../lib/bookingRules";
@@ -40,19 +41,19 @@ export function Carrello() {
     if (!saved || draftMatchesSettled(purchases)) return null;
     return saved;
   }, [purchases, tick]);
-  const digitalDraft = useMemo(() => {
+  const digitalDrafts = useMemo(() => {
     void tick;
-    const saved = readDigitalDraft();
-    if (!saved) return null;
-    if (digitalOrders.some((order) => order.productId === saved.productId && isPaidDigital(order))) return null;
-    return saved;
+    return readDigitalDrafts().filter(
+      (item) => !digitalOrders.some((order) => order.productId === item.productId && isPaidDigital(order)),
+    );
   }, [digitalOrders, tick]);
   const pending = purchases.filter(isCartPurchase);
   const pendingVisible = pending.filter((item) => !draft || !sameBookingSlot(item, draft));
   const pendingDigital = digitalOrders.filter(
-    (order) => isCartDigital(order) && (!digitalDraft || order.productId !== digitalDraft.productId),
+    (order) =>
+      isCartDigital(order) && !digitalDrafts.some((item) => item.productId === order.productId),
   );
-  const empty = !draft && !digitalDraft && pendingVisible.length === 0 && pendingDigital.length === 0;
+  const empty = !draft && digitalDrafts.length === 0 && pendingVisible.length === 0 && pendingDigital.length === 0;
 
   async function removePending(id: string) {
     await cancelPendingCheckout(id);
@@ -69,8 +70,8 @@ export function Carrello() {
     setTick((n) => n + 1);
   }
 
-  function removeDigital() {
-    clearDigitalDraft();
+  function removeDigital(productId: DigitalDraft["productId"]) {
+    removeDigitalDraft(productId);
     setTick((n) => n + 1);
   }
 
@@ -101,39 +102,43 @@ export function Carrello() {
           </div>
         ) : null}
 
-        {digitalDraft ? (
+        {digitalDrafts.map((item) =>
           session ? (
-            <div>
-              <DigitalConfirm />
+            <div key={item.productId}>
+              <DigitalConfirm draft={item} />
               <button
                 type="button"
-                onClick={removeDigital}
+                onClick={() => removeDigital(item.productId)}
                 className="mb-16 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
               >
                 {pages.carrello.rimuovi}
               </button>
             </div>
           ) : (
-            <article className="mb-10 bg-paper p-8">
-              <DigitalDraftSummary />
-              <p className="mt-6 text-sm leading-[1.9] text-ink/70">{auth.sogliaLead}</p>
-              <Link
-                to={loginHref("/carrello")}
-                state={{ from: "/carrello" }}
-                onClick={() => rememberAuthReturn("/carrello")}
-                className="mt-8 inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
-              >
-                {nav.accedi}
-              </Link>
+            <article key={item.productId} className="mb-10 bg-paper p-8">
+              <DigitalDraftSummary draft={item} />
               <button
                 type="button"
-                onClick={removeDigital}
+                onClick={() => removeDigital(item.productId)}
                 className="mt-6 block text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft hover:text-ink"
               >
                 {pages.carrello.rimuovi}
               </button>
             </article>
-          )
+          ),
+        )}
+        {!session && digitalDrafts.length > 0 ? (
+          <div className="mb-10 bg-paper p-8">
+            <p className="text-sm leading-[1.9] text-ink/70">{auth.sogliaLead}</p>
+            <Link
+              to={loginHref("/carrello")}
+              state={{ from: "/carrello" }}
+              onClick={() => rememberAuthReturn("/carrello")}
+              className="mt-8 inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
+            >
+              {nav.accedi}
+            </Link>
+          </div>
         ) : null}
 
         {draft ? (
@@ -224,9 +229,7 @@ export function Carrello() {
   );
 }
 
-function DigitalDraftSummary() {
-  const draft = readDigitalDraft();
-  if (!draft) return null;
+function DigitalDraftSummary({ draft }: { draft: DigitalDraft }) {
   return (
     <div>
       <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{pages.corsi.kicker}</p>

@@ -1,4 +1,4 @@
-import { readDigitalDraft } from "./digitalOrders";
+import { readDigitalDrafts } from "./digitalOrders";
 import { safeInternalPath } from "./siteRoutes";
 import { readBookingDraft } from "./storage";
 
@@ -26,7 +26,7 @@ export function clearAuthReturn() {
 }
 
 export function hasCheckoutIntent() {
-  return Boolean(readDigitalDraft() || readBookingDraft());
+  return Boolean(readDigitalDrafts().length || readBookingDraft());
 }
 
 /** Dove far atterrare dopo login/registrazione/OAuth, senza perdere il carrello. */

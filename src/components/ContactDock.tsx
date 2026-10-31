@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
@@ -44,15 +44,34 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
     });
   }, []);
 
+  const restNow = useCallback(() => {
+    window.clearTimeout(leaveTimer.current);
+    setOrb((current) => ({ ...current, on: false, travel: false }));
+    navRef.current?.querySelectorAll("[data-dock-item]").forEach((node) => {
+      node.removeAttribute("data-raised");
+    });
+  }, []);
+
   const rest = useCallback(() => {
     window.clearTimeout(leaveTimer.current);
-    leaveTimer.current = window.setTimeout(() => {
-      setOrb((current) => ({ ...current, on: false, travel: false }));
-      navRef.current?.querySelectorAll("[data-dock-item]").forEach((node) => {
-        node.removeAttribute("data-raised");
-      });
-    }, 140);
-  }, []);
+    leaveTimer.current = window.setTimeout(restNow, 140);
+  }, [restNow]);
+
+  useEffect(() => {
+    if (!hidden) return;
+    restNow();
+  }, [hidden, restNow]);
+
+  useEffect(() => () => restNow(), [restNow]);
+
+  const openCookies = useCallback(
+    (el: HTMLElement) => {
+      restNow();
+      el.blur();
+      onCookies?.();
+    },
+    [onCookies, restNow],
+  );
 
   if (hidden) return null;
 
@@ -111,9 +130,12 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
             className={itemClass}
             data-dock-item=""
             aria-label={siteContent.cookies.gestisci}
-            onClick={onCookies}
+            onPointerDown={() => restNow()}
+            onClick={(event) => openCookies(event.currentTarget)}
             onPointerEnter={(event) => activate(event.currentTarget)}
-            onFocus={(event) => activate(event.currentTarget)}
+            onFocus={(event) => {
+              if (event.currentTarget.matches(":focus-visible")) activate(event.currentTarget);
+            }}
           >
             <span className="dock-icon">
               <CookieIcon />
@@ -159,7 +181,9 @@ function DockLink({
       translate={mailto ? "no" : undefined}
       {...extra}
       onPointerEnter={(event) => onActivate(event.currentTarget)}
-      onFocus={(event) => onActivate(event.currentTarget)}
+      onFocus={(event) => {
+        if (event.currentTarget.matches(":focus-visible")) onActivate(event.currentTarget);
+      }}
       onClick={
         mailto
           ? (event) => {
