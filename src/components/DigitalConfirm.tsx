@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
@@ -30,6 +30,18 @@ export function DigitalConfirm() {
   const [consents, setConsents] = useState<Consents>(
     () => (session?.consents && hasRequiredConsents(session.consents) ? session.consents : draft?.consents ?? emptyConsents()),
   );
+
+  useEffect(() => {
+    if (!session) return;
+    setName((current) => current || session.name || "");
+    setConsents((current) =>
+      hasRequiredConsents(current)
+        ? current
+        : session.consents && hasRequiredConsents(session.consents)
+          ? session.consents
+          : current,
+    );
+  }, [session]);
   const [notice, setNotice] = useState<LegalKind | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);

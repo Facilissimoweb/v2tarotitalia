@@ -71,9 +71,17 @@ export function draftFromProduct(productId: DigitalProductId, name = "", phone =
   };
 }
 
+function readDraftRaw() {
+  try {
+    return localStorage.getItem(DIGITAL_DRAFT_KEY) ?? sessionStorage.getItem(DIGITAL_DRAFT_KEY);
+  } catch {
+    return null;
+  }
+}
+
 export function readDigitalDraft(): DigitalDraft | null {
   try {
-    const raw = sessionStorage.getItem(DIGITAL_DRAFT_KEY);
+    const raw = readDraftRaw();
     if (!raw) return null;
     const parsed = JSON.parse(raw) as DigitalDraft;
     if (!parsed || !isDigitalProductId(parsed.productId)) return null;
@@ -84,11 +92,31 @@ export function readDigitalDraft(): DigitalDraft | null {
 }
 
 export function writeDigitalDraft(draft: DigitalDraft) {
-  sessionStorage.setItem(DIGITAL_DRAFT_KEY, JSON.stringify(draft));
+  const raw = JSON.stringify(draft);
+  localStorage.setItem(DIGITAL_DRAFT_KEY, raw);
+  sessionStorage.removeItem(DIGITAL_DRAFT_KEY);
 }
 
 export function clearDigitalDraft() {
+  localStorage.removeItem(DIGITAL_DRAFT_KEY);
   sessionStorage.removeItem(DIGITAL_DRAFT_KEY);
+}
+
+export function ensureDigitalDraft(productId: DigitalProductId, name = "", phone = "") {
+  const current = readDigitalDraft();
+  if (current?.productId === productId) {
+    if ((name && !current.name) || (phone && !current.phone)) {
+      writeDigitalDraft({
+        ...current,
+        name: current.name || name,
+        phone: current.phone || phone,
+      });
+    }
+    return readDigitalDraft();
+  }
+  const draft = draftFromProduct(productId, name, phone);
+  if (draft) writeDigitalDraft(draft);
+  return draft;
 }
 
 export function rememberDigitalCheckout(orderId: string) {

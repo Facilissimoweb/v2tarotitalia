@@ -11,7 +11,8 @@ import {
   type NavItem,
 } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
-import { cartItemCount } from "../lib/storage";
+import { cartItemCount, readBookingDraft } from "../lib/storage";
+import { loginHref, rememberAuthReturn } from "../lib/authReturn";
 import { isCartDigital, isPaidDigital, readDigitalDraft } from "../lib/digitalOrders";
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
@@ -321,10 +322,15 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
 
 function AccountLink({ className = "flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink" }: { className?: string }) {
   const { session } = useAuth();
+  const checkoutIntent = Boolean(readDigitalDraft() || readBookingDraft());
+  const guestTo = checkoutIntent ? loginHref("/carrello") : "/login";
   return (
     <NavLink
-      to={session ? "/riservata" : "/login"}
-      state={session ? undefined : { from: "/riservata" }}
+      to={session ? "/riservata" : guestTo}
+      state={session ? undefined : { from: checkoutIntent ? "/carrello" : "/riservata" }}
+      onClick={() => {
+        if (!session && checkoutIntent) rememberAuthReturn("/carrello");
+      }}
       className={className}
       aria-label={session ? nav.riservata : nav.accedi}
     >

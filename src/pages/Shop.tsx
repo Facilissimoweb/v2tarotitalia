@@ -12,6 +12,7 @@ import {
 } from "../data/productRegistry";
 import type { DigitalProductId } from "../data/catalogo";
 import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
+import { loginPath } from "../lib/authReturn";
 import { draftFromProduct, writeDigitalDraft } from "../lib/digitalOrders";
 import { useAuth } from "../context/AuthContext";
 import { PageHero } from "../components/PageHero";
@@ -51,7 +52,7 @@ export function Shop() {
     if (!draft) return;
     writeDigitalDraft(draft);
     if (session) navigate("/carrello");
-    else navigate("/login", { state: { from: "/carrello" } });
+    else navigate(loginPath("/carrello"), { state: { from: "/carrello" } });
   }
 
   return (

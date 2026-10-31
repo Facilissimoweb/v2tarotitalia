@@ -13,6 +13,7 @@ import {
 } from "../lib/storage";
 import { isEveningSlot, resolveBookingMode, sessionModeLabel } from "../lib/bookingRules";
 import { fetchOccupiedSlots, isOccupied } from "../lib/occupiedSlots";
+import { loginPath } from "../lib/authReturn";
 import { formatBookingDay } from "../lib/whatsapp";
 import { Button, Kicker } from "../components/Button";
 import { BookingCalendar } from "../components/BookingCalendar";
@@ -111,7 +112,7 @@ export function Consulti() {
     persistDraft();
     setError(null);
     if (session) navigate("/carrello");
-    else navigate("/login", { state: { from: "/carrello" } });
+    else navigate(loginPath("/carrello"), { state: { from: "/carrello" } });
   }
 
   return (

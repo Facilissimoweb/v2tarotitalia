@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { loginHref, rememberAuthReturn } from "../lib/authReturn";
 import { siteContent } from "../data/siteContent";
 import { STUDIO, TARIFFE } from "../data/catalogo";
 import { useAuth } from "../context/AuthContext";
@@ -117,8 +118,9 @@ export function Carrello() {
               <DigitalDraftSummary />
               <p className="mt-6 text-sm leading-[1.9] text-ink/70">{auth.sogliaLead}</p>
               <Link
-                to="/login"
+                to={loginHref("/carrello")}
                 state={{ from: "/carrello" }}
+                onClick={() => rememberAuthReturn("/carrello")}
                 className="mt-8 inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
               >
                 {nav.accedi}
@@ -151,8 +153,9 @@ export function Carrello() {
               <DraftSummary />
               <p className="mt-6 text-sm leading-[1.9] text-ink/70">{auth.sogliaLead}</p>
               <Link
-                to="/login"
+                to={loginHref("/carrello")}
                 state={{ from: "/carrello" }}
+                onClick={() => rememberAuthReturn("/carrello")}
                 className="mt-8 inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
               >
                 {nav.accedi}
@@ -266,8 +269,9 @@ function PendingDigitalCard({
           </Button>
         ) : (
           <Link
-            to="/login"
+            to={loginHref("/carrello")}
             state={{ from: "/carrello" }}
+            onClick={() => rememberAuthReturn("/carrello")}
             className="inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
           >
             {pages.corsi.paga}
@@ -339,8 +343,9 @@ function PendingCard({
           </Button>
         ) : (
           <Link
-            to="/login"
+            to={loginHref("/carrello")}
             state={{ from: "/carrello" }}
+            onClick={() => rememberAuthReturn("/carrello")}
             className="inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
           >
             {consulti.pagaStripe}

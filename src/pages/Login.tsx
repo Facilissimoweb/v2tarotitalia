@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { siteContent } from "../data/siteContent";
-import { readBookingDraft } from "../lib/storage";
-import { safeInternalPath } from "../lib/siteRoutes";
+import { clearAuthReturn, hasCheckoutIntent, resolvePostAuthPath } from "../lib/authReturn";
 import { PageBanner } from "../components/PageBanner";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
@@ -17,14 +16,22 @@ export function Login() {
   const { session } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const pending = Boolean(readBookingDraft());
-  const from = safeInternalPath(
-    (location.state as { from?: string } | null)?.from ?? (pending ? "/carrello" : "/riservata"),
-  );
+  const fromQuery = new URLSearchParams(location.search).get("from");
+  const fromState = (location.state as { from?: string } | null)?.from;
+  const from = resolvePostAuthPath(fromState ?? fromQuery);
+  const pending = hasCheckoutIntent();
   const [mode, setMode] = useState<"login" | "register" | "magic">("login");
   const [legal, setLegal] = useState<LegalKind | null>(null);
 
-  if (session) return <Navigate to={from} replace />;
+  function goAfterAuth() {
+    clearAuthReturn();
+    navigate(from, { replace: true });
+  }
+
+  if (session) {
+    clearAuthReturn();
+    return <Navigate to={from} replace />;
+  }
 
   const form = (
     <AuthForm
@@ -34,7 +41,7 @@ export function Login() {
       redirectTo={from}
       onPrivacy={() => setLegal("privacy")}
       onVendita={() => setLegal("vendita")}
-      onSuccess={() => navigate(from, { replace: true })}
+      onSuccess={goAfterAuth}
     />
   );
 
