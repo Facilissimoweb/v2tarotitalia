@@ -5,6 +5,8 @@ import { clearAuthReturn, readAuthReturn, resolvePostAuthPath } from "../lib/aut
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { LanguageSeo } from "./LanguageSeo";
+import { PageSpeechSkipLink } from "./PageSpeech";
+import { pageSpeech } from "../lib/pageSpeech";
 
 function PostAuthBounce() {
   const { session, ready } = useAuth();
@@ -28,6 +30,9 @@ function PostAuthBounce() {
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
+    pageSpeech.stop();
+  }, [pathname]);
+  useEffect(() => {
     if (hash) {
       const id = decodeURIComponent(hash.replace(/^#/, ""));
       const frame = window.requestAnimationFrame(() => {
@@ -43,6 +48,7 @@ function ScrollToTop() {
 export function Layout() {
   return (
     <div className="flex min-h-dvh flex-col overflow-x-hidden bg-ivory text-ink">
+      <PageSpeechSkipLink />
       <ScrollToTop />
       <PostAuthBounce />
       <LanguageSeo />

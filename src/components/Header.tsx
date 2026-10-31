@@ -16,6 +16,7 @@ import { loginHref, rememberAuthReturn } from "../lib/authReturn";
 import { isCartDigital, isPaidDigital, readDigitalDrafts } from "../lib/digitalOrders";
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
+import { PageSpeechTrigger } from "./PageSpeech";
 import { BrandLogo } from "./BrandLogo";
 import { ShopIcon } from "./ShopIcon";
 import { WidgetCloseButton } from "./WidgetCloseButton";
@@ -107,6 +108,7 @@ export function Header() {
             </div>
             <div className="flex shrink-0 items-center">
               <LanguageWidget placement="nav" />
+              <PageSpeechTrigger className={NAV_ICON_BTN} />
               <AccessibilityTrigger className={NAV_ICON_BTN} />
               <AccountLink className={NAV_ICON_BTN} />
               <CartLink className={NAV_ICON_BTN} />
@@ -264,6 +266,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
     >
       <div className="relative px-8 pb-8 pt-10">
         <div className="absolute right-4 top-4 flex items-center gap-2">
+          <PageSpeechTrigger />
           <AccessibilityTrigger />
           <AccountLink />
           <CartLink />

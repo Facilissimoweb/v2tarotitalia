@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { siteContent } from "../data/siteContent";
 import { a11y, isDefault, SIZE_STEPS, useAccessibility } from "../lib/accessibility";
 import { Button } from "./Button";
+import { PageSpeechControls } from "./PageSpeech";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetBrandMark } from "./WidgetFrame";
 
@@ -163,6 +164,8 @@ export function AccessibilityPanel() {
             </button>
           </div>
         </div>
+
+        <PageSpeechControls />
 
         <div className="mt-5">
           <Switch checked={contrast} label={copy.contrasto} note={copy.contrastoNota} onToggle={() => a11y.toggle("contrast")} />
