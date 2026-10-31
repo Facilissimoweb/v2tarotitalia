@@ -6,6 +6,7 @@ export type NavLeaf = {
   to: string;
   label: string;
   end?: boolean;
+  icon?: "shop";
 };
 
 export type NavBranch = {
@@ -27,13 +28,14 @@ const home: NavLeaf = { to: "/", label: nav.home, end: true };
 const chiSono: NavLeaf = { to: "/chi-sono", label: nav.chiSiamo };
 const consulti: NavLeaf = { to: "/consulti", label: nav.consulti };
 const percorsi: NavLeaf = { to: "/percorsi", label: nav.percorsi };
+const shop: NavLeaf = { to: "/shop", label: nav.shop, icon: "shop" };
 const blog: NavLeaf = { to: "/blog", label: nav.blog };
 const contatti: NavLeaf = { to: "/contatti", label: nav.contatti };
 
 export const NAV_LEADING: NavItem[] = [home, chiSono, consulti, tarocchi];
-export const NAV_TRAILING: NavItem[] = [percorsi, blog, contatti];
+export const NAV_TRAILING: NavItem[] = [percorsi, shop, blog, contatti];
 
-export const MAIN_NAV: NavItem[] = [home, chiSono, consulti, percorsi, blog, contatti, tarocchi];
+export const MAIN_NAV: NavItem[] = [home, chiSono, consulti, percorsi, shop, blog, contatti, tarocchi];
 
 export function isNavBranch(item: NavItem): item is NavBranch {
   return "children" in item;

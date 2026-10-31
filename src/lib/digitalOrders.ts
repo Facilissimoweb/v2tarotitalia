@@ -1,5 +1,4 @@
-import type { DigitalProductId } from "../data/catalogo";
-import { digitalProductById } from "../data/catalogo";
+import { DIGITAL_PRODUCT_IDS, digitalProductById, type DigitalProductId } from "../data/catalogo";
 import type { Consents, PurchaseStatus } from "./storage";
 import { emptyConsents } from "./storage";
 
@@ -55,7 +54,7 @@ const DIGITAL_ORDERS_KEY = "tarot-italia-digital-orders";
 const CHECKOUT_ORDER_KEY = "tarot-italia-checkout-order";
 
 export function isDigitalProductId(id: string): id is DigitalProductId {
-  return id === "trattato" || id === "velo" || id === "taccuino" || id === "alchemici";
+  return (DIGITAL_PRODUCT_IDS as readonly string[]).includes(id);
 }
 
 export function draftFromProduct(productId: DigitalProductId, name = "", phone = ""): DigitalDraft | null {

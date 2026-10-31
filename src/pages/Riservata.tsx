@@ -291,7 +291,7 @@ export function Riservata() {
                   {cta.consultoWhatsapp}
                 </Link>
                 {" · "}
-                <Link to="/corsi" className="underline underline-offset-4">
+                <Link to="/shop" className="underline underline-offset-4">
                   {pages.corsi.titolo}
                 </Link>
                 .
@@ -317,7 +317,7 @@ export function Riservata() {
               <Button to="/consulti" variant="ghost">
                 {cta.consultoWhatsapp}
               </Button>
-              <Button to="/corsi" variant="ghost">
+              <Button to="/shop" variant="ghost">
                 {cta.acquista}
               </Button>
             </div>
@@ -337,7 +337,7 @@ export function Riservata() {
                 return (
                   <p className="bg-mist p-5 text-sm leading-relaxed text-ink/70">
                     {auth.archivioChiuso}{" "}
-                    <Link className="underline underline-offset-4" to="/corsi">
+                    <Link className="underline underline-offset-4" to="/shop">
                       {pages.corsi.titolo}
                     </Link>
                   </p>
@@ -366,7 +366,7 @@ export function Riservata() {
                 return (
                   <p className="bg-mist p-5 text-sm leading-relaxed text-ink/70">
                     {auth.archivioChiuso}{" "}
-                    <Link className="underline underline-offset-4" to="/corsi">
+                    <Link className="underline underline-offset-4" to="/shop">
                       {pages.corsi.titolo}
                     </Link>
                   </p>
@@ -581,7 +581,7 @@ function DigitalArchiveCard({
       ) : (
         <div className="mt-6">
           <p className="mb-4 text-sm leading-relaxed text-ink/70">{pages.corsi.sbloccaDopo}</p>
-          <Button to="/corsi">{cta.acquista}</Button>
+          <Button to="/shop">{cta.acquista}</Button>
         </div>
       )}
     </article>

@@ -23,6 +23,9 @@ const AccessibilityPanel = lazy(() =>
 const TarotChat = lazy(() =>
   import("./components/TarotChat").then((m) => ({ default: m.TarotChat })),
 );
+const ShopLaunch = lazy(() =>
+  import("./components/ShopLaunch").then((m) => ({ default: m.ShopLaunch })),
+);
 
 const ChiSiamo = lazy(() => import("./pages/ChiSiamo").then((m) => ({ default: m.ChiSiamo })));
 const Arcani = lazy(() => import("./pages/Arcani").then((m) => ({ default: m.Arcani })));
@@ -40,7 +43,7 @@ const Percorsi = lazy(() => import("./pages/Percorsi").then((m) => ({ default: m
 const Blog = lazy(() => import("./pages/Blog").then((m) => ({ default: m.Blog })));
 const Contatti = lazy(() => import("./pages/Contatti").then((m) => ({ default: m.Contatti })));
 const Carrello = lazy(() => import("./pages/Carrello").then((m) => ({ default: m.Carrello })));
-const Corsi = lazy(() => import("./pages/Corsi").then((m) => ({ default: m.Corsi })));
+const Shop = lazy(() => import("./pages/Shop").then((m) => ({ default: m.Shop })));
 const Login = lazy(() => import("./pages/Login").then((m) => ({ default: m.Login })));
 const Riservata = lazy(() => import("./pages/Riservata").then((m) => ({ default: m.Riservata })));
 const NonTrovata = lazy(() =>
@@ -158,13 +161,14 @@ export default function App() {
                 }
               />
               <Route
-                path="/corsi"
+                path="/shop"
                 element={
                   <Suspense fallback={<RouteFallback />}>
-                    <Corsi />
+                    <Shop />
                   </Suspense>
                 }
               />
+              <Route path="/corsi" element={<Navigate to="/shop" replace />} />
               <Route
                 path="/login"
                 element={
@@ -225,6 +229,7 @@ export default function App() {
           <Suspense fallback={null}>
             <PercorsiModal />
             <TarotChat />
+            <ShopLaunch />
             <AccessibilityPanel />
           </Suspense>
         </BrowserRouter>

@@ -93,7 +93,7 @@ export function Carrello() {
             <p className="text-sm leading-[1.9] text-ink/70">{pages.carrello.vuoto}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button to="/consulti">{siteContent.cta.consultoWhatsapp}</Button>
-              <Button to="/corsi" variant="ghost">
+              <Button to="/shop" variant="ghost">
                 {siteContent.cta.acquista}
               </Button>
             </div>

@@ -13,6 +13,7 @@ export const STATIC_APP_PATHS = [
   "/contatti",
   "/carrello",
   "/corsi",
+  "/shop",
   "/login",
   "/riservata",
   "/privacy",

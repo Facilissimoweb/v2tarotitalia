@@ -214,7 +214,7 @@ export function Home() {
           </Reveal>
           <Reveal delay={300}>
             <div className="mt-10">
-              <Button to="/corsi">{home.passaggi.cta}</Button>
+              <Button to="/shop">{home.passaggi.cta}</Button>
             </div>
           </Reveal>
         </div>

@@ -38,6 +38,7 @@ export const siteContent = {
     arcaniMinori: "Arcani Minori",
     consulti: "Consulti",
     percorsi: "Percorsi",
+    shop: "Shop",
     blog: "Blog",
     contatti: "Contatti",
     menu: "Menu",
@@ -89,6 +90,7 @@ export const siteContent = {
     tornaSu: "Torna su",
     acquista: "Acquista",
     scarica: "Scarica",
+    shop: "Shop",
   },
 
   home: {
@@ -257,6 +259,28 @@ export const siteContent = {
           formato: "Tre PDF",
         },
       ],
+    },
+    shop: {
+      kicker: "Shop",
+      titolo: "Shop",
+      lead: "Dispense, lezioni, strumenti di studio e consulti. I titoli digitali si sbloccano dopo il pagamento, nello stesso spazio riservato dei consulti.",
+      accesso: "Hai già un accesso? Entra per vedere i titoli già sbloccati.",
+      trigger: "Apri lo Shop",
+      filtri: {
+        etichetta: "Categoria",
+        tutti: "Tutti",
+        dispense: "Dispense",
+        masterclass: "Masterclass",
+        materiali: "Materiali alchemici",
+        consulto: "Consulti",
+      },
+      ordine: {
+        etichetta: "Ordine",
+        newest: "Novità",
+        priceAsc: "Prezzo crescente",
+        priceDesc: "Prezzo decrescente",
+      },
+      vuoto: "Nessun titolo in questa selezione.",
     },
     carrello: {
       kicker: "Carrello",
@@ -606,6 +630,7 @@ export const siteContent = {
       telegram: "Telegram",
       consulti: "Area Consulti",
       percorsi: "Area Percorsi",
+      shop: "Shop",
     },
     systemPrompt: `Sei l’assistente virtuale di Tarot Italia, uno spazio di riflessione simbolica, tarologia evolutiva e consapevolezza relazionale (Tarot Italia di Maria Teresa Rogani, operatore olistico — Macerata).
 
@@ -633,6 +658,7 @@ export const siteContent = {
 5) Rigido divieto di inventare prezzi e informazioni sui servizi
 - Non inventare MAI prezzi, tariffe, formati o dettagli economici di consulti o percorsi.
 - Per i consulti: i prezzi ufficiali sono esclusivamente quelli delle sezioni dedicate del sito. Rimanda sempre alla consultazione diretta delle pagine ufficiali (/consulti) senza citare cifre di memoria.
+- Per corsi, dispense e materiali: rimanda allo Shop (/shop) senza citare cifre di memoria. Usa [[CTA:shop]].
 - Per i percorsi di armonizzazione: chiarisci che costo e struttura variano e si definiscono su misura in base all’entità e alla profondità del cammino personale. Non inventare pacchetti o listini. Usa [[CTA:consulti]] e/o [[CTA:percorsi]] quando rimandi alle pagine.
 
 6) Identità e ruolo di Teresa (divieto assoluto di termini psicologici)
@@ -651,8 +677,8 @@ export const siteContent = {
 
 9) Marker azioni (obbligatorio quando inviti a contattare o prenotare)
 - Alla fine della risposta, su una riga isolata, appendi ESATTAMENTE un marker tra:
-  [[CTA:phone]] [[CTA:whatsapp]] [[CTA:telegram]] [[CTA:consulti]] [[CTA:percorsi]]
-  oppure combinazioni: [[CTA:whatsapp,phone,consulti]] [[CTA:percorsi,consulti]] [[CTA:consulti,percorsi,whatsapp,phone]]
+  [[CTA:phone]] [[CTA:whatsapp]] [[CTA:telegram]] [[CTA:consulti]] [[CTA:percorsi]] [[CTA:shop]]
+  oppure combinazioni: [[CTA:whatsapp,phone,consulti]] [[CTA:percorsi,consulti]] [[CTA:shop,consulti]] [[CTA:consulti,percorsi,whatsapp,phone]]
 - Il marker non va spiegato all’utente: è solo per l’interfaccia. Non inventare altri id.`,
   },
 

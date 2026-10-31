@@ -33,6 +33,7 @@ export function TarotChatActions({ actions }: Props) {
     else if (id === "telegram" && telegram) links.push({ id, href: telegram, external: true });
     else if (id === "consulti") links.push({ id, href: "/consulti" });
     else if (id === "percorsi") links.push({ id, href: "/percorsi" });
+    else if (id === "shop") links.push({ id, href: "/shop" });
   }
 
   if (links.length === 0) return null;
