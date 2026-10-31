@@ -21,7 +21,8 @@ let state: State = { ...DEFAULT };
 const listeners = new Set<() => void>();
 let queue: string[] = [];
 let index = 0;
-let current: SpeechSynthesisUtterance | null = null;
+/** Chrome: senza un riferimento vivo l’utterance viene raccolta e la voce si interrompe. */
+const hold: { utterance: SpeechSynthesisUtterance | null } = { utterance: null };
 let voicesReady = false;
 
 function emit() {
@@ -132,7 +133,7 @@ function speakNext() {
   const engine = synth();
   if (!engine) return;
   if (index >= queue.length) {
-    current = null;
+    hold.utterance = null;
     commit({ status: "idle", message: "none" });
     return;
   }
@@ -152,14 +153,14 @@ function speakNext() {
   };
   utterance.onerror = (event) => {
     if (event.error === "interrupted" || event.error === "canceled") return;
-    current = null;
+    hold.utterance = null;
     queue = [];
     index = 0;
     commit({ status: "idle", message: "none" });
   };
 
-  current = utterance;
-  engine.speak(utterance);
+  hold.utterance = utterance;
+  engine.speak(hold.utterance);
 }
 
 function ensureVoices() {
@@ -217,7 +218,7 @@ export const pageSpeech = {
       if (engine.paused) engine.resume();
       engine.cancel();
     }
-    current = null;
+    hold.utterance = null;
     queue = [];
     index = 0;
     if (state.status === "unsupported") return;
