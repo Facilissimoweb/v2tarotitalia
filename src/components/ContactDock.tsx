@@ -1,4 +1,4 @@
-import { useSyncExternalStore, type ReactNode } from "react";
+import { useCallback, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
@@ -10,17 +10,11 @@ import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from ".
 
 const { brand, cta, nav } = siteContent;
 
-/** Barra-sigillo: illustrazione a sfondo, icone bianche in sfere nere. */
 const dockClass =
   "esoteric-badge-btn pointer-events-auto flex w-[min(36rem,calc(100vw-1.5rem))] items-center justify-center gap-2 px-5 py-2 sm:gap-2.5 sm:px-8 sm:py-2.5 md:gap-3 md:px-10 md:py-3";
 
 const itemClass =
-  "dock-sphere group relative z-[1] flex h-11 w-11 items-center justify-center transition-transform duration-200 hover:scale-105 sm:h-12 sm:w-12 md:h-[3.15rem] md:w-[3.15rem]";
-
-const tipClass =
-  "pointer-events-none absolute bottom-[calc(100%+0.55rem)] left-1/2 hidden -translate-x-1/2 whitespace-nowrap bg-ivory px-2.5 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ink opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block";
-
-const iconSize = 22;
+  "dock-sphere relative z-[2] grid h-11 w-11 place-items-center sm:h-12 sm:w-12 md:h-[3.15rem] md:w-[3.15rem]";
 
 type DockBarProps = {
   onCookies?: () => void;
@@ -33,6 +27,32 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
   const wa = whatsappChatHref();
   const telegram = telegramHref();
   const inset = "max(1.25rem, env(safe-area-inset-bottom))";
+  const navRef = useRef<HTMLElement>(null);
+  const [orb, setOrb] = useState({ x: 0, on: false, travel: false });
+  const leaveTimer = useRef<number>(0);
+
+  const activate = useCallback((el: EventTarget | null) => {
+    const nav = navRef.current;
+    if (!(el instanceof HTMLElement) || !nav) return;
+    window.clearTimeout(leaveTimer.current);
+    const bar = nav.getBoundingClientRect();
+    const item = el.getBoundingClientRect();
+    const x = item.left - bar.left + item.width / 2;
+    setOrb((prev) => ({ x, on: true, travel: prev.on }));
+    nav.querySelectorAll("[data-dock-item]").forEach((node) => {
+      node.toggleAttribute("data-raised", node === el);
+    });
+  }, []);
+
+  const rest = useCallback(() => {
+    window.clearTimeout(leaveTimer.current);
+    leaveTimer.current = window.setTimeout(() => {
+      setOrb((current) => ({ ...current, on: false, travel: false }));
+      navRef.current?.querySelectorAll("[data-dock-item]").forEach((node) => {
+        node.removeAttribute("data-raised");
+      });
+    }, 140);
+  }, []);
 
   if (hidden) return null;
 
@@ -41,34 +61,63 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
       className="pointer-events-none fixed inset-x-0 z-40 flex justify-center px-3 sm:px-4"
       style={{ bottom: `calc(${lift}px + ${inset})` }}
     >
-      <nav className={dockClass} aria-label={nav.contatti}>
-        <img
-          src="/dock-fondo-2.webp"
-          alt=""
+      <nav
+        ref={navRef}
+        className={dockClass}
+        aria-label={nav.contatti}
+        style={{
+          ["--dock-notch-x" as string]: `${orb.x}px`,
+          ["--dock-notch-r" as string]: orb.on ? "1.85rem" : "0px",
+        }}
+        onPointerLeave={rest}
+        onBlur={(event) => {
+          if (!event.currentTarget.contains(event.relatedTarget as Node | null)) rest();
+        }}
+      >
+        <div className="dock-skin pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[inherit]" />
+        <span
+          className={`dock-fluid-orb${orb.travel ? "" : " is-jump"}`}
+          style={{ left: orb.x, opacity: orb.on ? 1 : 0 }}
           aria-hidden
-          draggable={false}
-          className="dock-fondo pointer-events-none absolute inset-0 z-0 h-full w-full rounded-[inherit] object-cover"
         />
-        <DockLink href={mailtoHref(brand.email)} label={cta.scriviStudio} mailto>
+        <DockLink href={mailtoHref(brand.email)} label={cta.scriviStudio} mailto onActivate={activate}>
           <MailIcon />
         </DockLink>
         {tel ? (
-          <DockLink href={tel} label={cta.chiama} ariaLabel={`${cta.chiama} ${brand.whatsapp}`}>
+          <DockLink
+            href={tel}
+            label={`${cta.chiama} ${brand.whatsapp}`}
+            onActivate={activate}
+          >
             <PhoneIcon />
           </DockLink>
         ) : null}
-        <DockLink href={wa} label={cta.whatsappRapido} ariaLabel={`${cta.whatsappRapido} ${brand.whatsapp}`} extra={WHATSAPP_ANCHOR}>
+        <DockLink
+          href={wa}
+          label={`${cta.whatsappRapido} ${brand.whatsapp}`}
+          extra={WHATSAPP_ANCHOR}
+          onActivate={activate}
+        >
           <WhatsAppIcon />
         </DockLink>
         {telegram ? (
-          <DockLink href={telegram} label={cta.telegram} extra={WHATSAPP_ANCHOR}>
+          <DockLink href={telegram} label={cta.telegram} extra={WHATSAPP_ANCHOR} onActivate={activate}>
             <TelegramIcon />
           </DockLink>
         ) : null}
         {onCookies ? (
-          <button type="button" className={itemClass} aria-label={siteContent.cookies.gestisci} onClick={onCookies}>
-            <CookieIcon />
-            <span className={tipClass}>{siteContent.cookies.gestisci}</span>
+          <button
+            type="button"
+            className={itemClass}
+            data-dock-item=""
+            aria-label={siteContent.cookies.gestisci}
+            onClick={onCookies}
+            onPointerEnter={(event) => activate(event.currentTarget)}
+            onFocus={(event) => activate(event.currentTarget)}
+          >
+            <span className="dock-icon">
+              <CookieIcon />
+            </span>
           </button>
         ) : null}
       </nav>
@@ -89,25 +138,28 @@ export function StudioContactDock() {
 function DockLink({
   href,
   label,
-  ariaLabel,
   extra,
   mailto = false,
+  onActivate,
   children,
 }: {
   href: string;
   label: string;
-  ariaLabel?: string;
   extra?: { target?: string; rel?: string };
   mailto?: boolean;
+  onActivate: (el: EventTarget | null) => void;
   children: ReactNode;
 }) {
   return (
     <a
       href={href}
       className={`${itemClass} pointer-events-auto relative z-10`}
-      aria-label={ariaLabel ?? label}
+      data-dock-item=""
+      aria-label={label}
       translate={mailto ? "no" : undefined}
       {...extra}
+      onPointerEnter={(event) => onActivate(event.currentTarget)}
+      onFocus={(event) => onActivate(event.currentTarget)}
       onClick={
         mailto
           ? (event) => {
@@ -118,28 +170,27 @@ function DockLink({
           : undefined
       }
     >
-      {children}
-      <span className={tipClass}>{label}</span>
+      <span className="dock-icon">{children}</span>
     </a>
   );
 }
 
 function MailIcon() {
   return (
-    <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <rect x="4" y="6.5" width="16" height="11" stroke="currentColor" strokeWidth="1.5" />
-      <path d="m5 8 7 5.5L19 8" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3.25" y="5.25" width="17.5" height="13.5" stroke="currentColor" strokeWidth="1.6" />
+      <path d="m4.4 7.1 7.6 5.4 7.6-5.4" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
     </svg>
   );
 }
 
 function PhoneIcon() {
   return (
-    <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M7.2 3.8h3.1l.9 2.3-1.7 1.2a12.2 12.2 0 0 0 6.2 6.2l1.2-1.7 2.3.9v3.1c0 .7-.5 1.3-1.2 1.4-7.3.9-13.3-5.1-12.4-12.4.1-.7.7-1.2 1.4-1.2Z"
+        d="M7.4 3.7h3l.85 2.25-1.65 1.15a11.6 11.6 0 0 0 5.9 5.9l1.15-1.65 2.25.85v3c0 .7-.5 1.25-1.18 1.35-7 0.85-12.7-4.85-11.85-11.85.1-.68.65-1.2 1.35-1.2Z"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.6"
         strokeLinejoin="round"
       />
     </svg>
@@ -148,15 +199,15 @@ function PhoneIcon() {
 
 function WhatsAppIcon() {
   return (
-    <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M12 4.4a7.6 7.6 0 0 0-6.5 11.5L4.6 19.4l3.6-.9A7.6 7.6 0 1 0 12 4.4Z"
+        d="M12 3.9a8.1 8.1 0 0 0-6.95 12.25L4 20.2l4.15-1A8.1 8.1 0 1 0 12 3.9Z"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.6"
         strokeLinejoin="round"
       />
       <path
-        d="M9.3 9.2c.2-.5.4-.5.7-.5h.6c.2 0 .4.1.5.4l.6 1.4c.1.2 0 .4-.1.6l-.4.5c-.1.2 0 .4.2.6.4.5.9 1 1.5 1.4.2.1.4.2.6 0l.5-.4c.2-.2.4-.2.6-.1l1.4.6c.3.1.4.3.4.5v.6c0 .3 0 .5-.5.7-1.4.6-3.6.2-5.5-1.7-1.7-1.7-2.2-3.8-1.6-5.2Z"
+        d="M9.15 8.95c.2-.5.4-.5.7-.5h.55c.2 0 .4.1.5.4l.55 1.35c.1.2 0 .4-.1.55l-.4.5c-.1.2 0 .4.2.6.4.5.95 1 1.55 1.4.2.15.4.2.6 0l.5-.4c.2-.2.4-.2.55-.1l1.35.55c.3.1.4.3.4.5v.55c0 .3 0 .5-.5.7-1.4.6-3.7.2-5.65-1.75-1.7-1.7-2.2-3.9-1.55-5.35Z"
         fill="currentColor"
       />
     </svg>
@@ -165,11 +216,11 @@ function WhatsAppIcon() {
 
 function TelegramIcon() {
   return (
-    <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
       <path
-        d="M4.6 11.6 19.2 5.4l-3.4 13.2-4.4-4.1-3.3 3.2.7-5.2 8.4-6.5"
+        d="M5.2 11.55 18.8 5.7l-3.2 12.4-4.15-3.85-3.1 3 .65-4.9 7.9-6.1"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="1.6"
         strokeLinejoin="round"
       />
     </svg>
@@ -178,8 +229,8 @@ function TelegramIcon() {
 
 function CookieIcon() {
   return (
-    <svg width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="7.25" stroke="currentColor" strokeWidth="1.5" />
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="7.25" stroke="currentColor" strokeWidth="1.6" />
       <circle cx="9.2" cy="10.2" r="1.1" fill="currentColor" />
       <circle cx="13.6" cy="13" r="1" fill="currentColor" />
       <circle cx="10.2" cy="15.2" r="0.85" fill="currentColor" />

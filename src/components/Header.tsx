@@ -17,6 +17,7 @@ import { isCartDigital, isPaidDigital, readDigitalDraft } from "../lib/digitalOr
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { BrandLogo } from "./BrandLogo";
+import { ShopIcon } from "./ShopIcon";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetBrandMark } from "./WidgetFrame";
 
@@ -166,7 +167,7 @@ function DesktopNavEntry({ item }: { item: NavItem }) {
         `${desktopLinkClass(isActive)}${item.icon ? " inline-flex items-center gap-1.5" : ""}`
       }
     >
-      {item.icon === "shop" ? <ShopNavIcon /> : null}
+      {item.icon === "shop" ? <ShopIcon size={14} /> : null}
       {item.label}
     </NavLink>
   );
@@ -305,7 +306,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                   }${item.icon ? " inline-flex w-full items-center justify-center gap-2" : ""}`
                 }
               >
-                {item.icon === "shop" ? <ShopNavIcon /> : null}
+                {item.icon === "shop" ? <ShopIcon size={16} /> : null}
                 {item.label}
               </NavLink>
             ),
@@ -373,17 +374,6 @@ function ProfileIcon() {
       <circle cx="12" cy="12" r="8.25" />
       <circle cx="12" cy="10" r="2.4" />
       <path d="M7.2 17.6 C8 15.4 9.7 14.3 12 14.3 C14.3 14.3 16 15.4 16.8 17.6" />
-    </svg>
-  );
-}
-
-function ShopNavIcon() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-      <rect x="3.5" y="4.5" width="7" height="7" />
-      <rect x="13.5" y="4.5" width="7" height="7" />
-      <rect x="3.5" y="14.5" width="7" height="7" />
-      <rect x="13.5" y="14.5" width="7" height="7" />
     </svg>
   );
 }

@@ -27,7 +27,7 @@ export function CookieSettingsLaunch() {
 
 function CookieIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="block">
       <circle cx="12" cy="12" r="7.25" stroke="currentColor" strokeWidth="1.4" />
       <circle cx="9.2" cy="10.2" r="1" fill="currentColor" />
       <circle cx="13.6" cy="13" r="0.9" fill="currentColor" />
