@@ -12,6 +12,7 @@ import {
 } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
 import { cartItemCount } from "../lib/storage";
+import { isCartDigital, isPaidDigital, readDigitalDraft } from "../lib/digitalOrders";
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { BrandLogo } from "./BrandLogo";
@@ -325,8 +326,17 @@ function AccountLink({ className = "flex h-[40px] w-[40px] items-center justify-
 }
 
 function CartLink({ className = "relative flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink" }: { className?: string }) {
-  const { purchases } = useAuth();
-  const count = cartItemCount(purchases);
+  const { purchases, digitalOrders } = useAuth();
+  const pendingDigital = digitalOrders.filter(isCartDigital);
+  const digitalDraft = readDigitalDraft();
+  const extra =
+    pendingDigital.length +
+    (digitalDraft &&
+    !pendingDigital.some((order) => order.productId === digitalDraft.productId) &&
+    !digitalOrders.some((order) => order.productId === digitalDraft.productId && isPaidDigital(order))
+      ? 1
+      : 0);
+  const count = cartItemCount(purchases, extra);
   return (
     <NavLink
       to="/carrello"

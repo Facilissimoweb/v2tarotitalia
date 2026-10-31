@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { STUDIO, TARIFFE } from "../data/catalogo";
+import { STUDIO, TARIFFE, type DigitalProduct } from "../data/catalogo";
 import { useLocalizedCatalog } from "../lib/useLocalizedCatalog";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { PageHero } from "../components/PageHero";
+import { ProtectedAudio } from "../components/ProtectedAudio";
 import { RiservataProfile } from "../components/RiservataProfile";
 import { siteDateTime } from "../lib/locale";
 import {
@@ -16,14 +17,26 @@ import {
   type Purchase,
   type PurchaseStatus,
 } from "../lib/storage";
+import {
+  discardSettledDigitalDraft,
+  isCartDigital,
+  isPaidDigital,
+  type DigitalOrder,
+} from "../lib/digitalOrders";
 import { sessionModeLabel } from "../lib/bookingRules";
-import { cancelPendingCheckout, requestStripeRefund, syncPaidCheckout } from "../lib/stripeCheckout";
+import {
+  cancelPendingCheckout,
+  cancelPendingDigitalCheckout,
+  requestStripeRefund,
+  syncPaidCheckout,
+  syncPaidDigitalOrder,
+} from "../lib/stripeCheckout";
 import { buildRecessoMessage, openWhatsApp, whatsappHref } from "../lib/whatsapp";
 
 const TABS = ["acquisti", "corsi", "alchemici", "profilo"] as const;
 type Tab = (typeof TABS)[number];
 
-const { auth, consulti, lingua, legal, nav } = siteContent;
+const { auth, consulti, lingua, legal, nav, pages, cta } = siteContent;
 
 function parseTab(value: string | null): Tab {
   if (value === "corsi" || value === "alchemici" || value === "profilo") return value;
@@ -31,12 +44,13 @@ function parseTab(value: string | null): Tab {
 }
 
 export function Riservata() {
-  const { session, purchases, logout, requestWithdrawal, refreshPurchases } = useAuth();
+  const { session, purchases, digitalOrders, ownsDigital, logout, requestWithdrawal, refreshPurchases } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const checkout = searchParams.get("checkout");
   const checkoutBooking = searchParams.get("booking");
+  const checkoutOrder = searchParams.get("order");
   const tab = parseTab(searchParams.get("sezione"));
-  const { corsi, materiali, busy, localized, error, download } = useLocalizedCatalog();
+  const { products, corsi, busy, localized, error, download } = useLocalizedCatalog();
   const [withdrawId, setWithdrawId] = useState<string | null>(null);
   const [withdrawError, setWithdrawError] = useState<string | null>(null);
   const [withdrawn, setWithdrawn] = useState<string | null>(null);
@@ -47,11 +61,12 @@ export function Riservata() {
   const skipScroll = useRef(true);
 
   const paid = purchases.filter(isPaidPurchase);
-  const archiveOpen = paid.length > 0;
+  const paidDigital = digitalOrders.filter(isPaidDigital);
 
   useEffect(() => {
     discardSettledBookingDraft(purchases);
-  }, [purchases, checkout]);
+    discardSettledDigitalDraft(digitalOrders);
+  }, [purchases, digitalOrders, checkout]);
 
   useEffect(() => {
     void refreshPurchases();
@@ -64,15 +79,23 @@ export function Riservata() {
         item.stripeCheckoutSessionId &&
         !syncedPending.current.has(item.id),
     );
-    if (!pending.length) return;
+    const pendingDigital = digitalOrders.filter(
+      (item) =>
+        (isCartDigital(item) || isPaidDigital(item)) && !syncedPending.current.has(item.id),
+    );
+    if (!pending.length && !pendingDigital.length) return;
     void (async () => {
       for (const item of pending) {
         syncedPending.current.add(item.id);
         await syncPaidCheckout(item.id);
       }
+      for (const item of pendingDigital) {
+        syncedPending.current.add(item.id);
+        await syncPaidDigitalOrder(item.id);
+      }
       await refreshPurchases();
     })();
-  }, [purchases, refreshPurchases]);
+  }, [purchases, digitalOrders, refreshPurchases]);
 
   useEffect(() => {
     if (checkout === "ok") {
@@ -80,37 +103,47 @@ export function Riservata() {
         landedCheckout.current = true;
         setSearchParams((prev) => {
           const params = new URLSearchParams(prev);
-          params.delete("sezione");
+          if (checkoutOrder) params.set("sezione", "corsi");
+          else params.delete("sezione");
           return params;
         }, { replace: true });
       }
       const paidId = checkoutBooking || sessionStorage.getItem("tarot-italia-checkout-booking");
+      const orderId = checkoutOrder || sessionStorage.getItem("tarot-italia-checkout-order");
       sessionStorage.removeItem("tarot-italia-checkout-booking");
+      sessionStorage.removeItem("tarot-italia-checkout-order");
       confirmTries.current = 0;
       void (async () => {
         if (paidId) await syncPaidCheckout(paidId);
+        if (orderId) await syncPaidDigitalOrder(orderId);
         await refreshPurchases();
       })();
       return;
     }
     if (checkout !== "cancel") return;
     const id = checkoutBooking || sessionStorage.getItem("tarot-italia-checkout-booking");
+    const orderId = checkoutOrder || sessionStorage.getItem("tarot-italia-checkout-order");
     if (id) void cancelPendingCheckout(id);
-  }, [checkout, checkoutBooking, refreshPurchases, setSearchParams]);
+    if (orderId) void cancelPendingDigitalCheckout(orderId);
+  }, [checkout, checkoutBooking, checkoutOrder, refreshPurchases, setSearchParams]);
 
   useEffect(() => {
     if (checkout !== "ok") return;
-    const ready = purchases.some(
-      (item) =>
-        (checkoutBooking ? item.id === checkoutBooking : true) && isPaidPurchase(item),
-    );
+    const ready =
+      purchases.some(
+        (item) =>
+          (checkoutBooking ? item.id === checkoutBooking : true) && isPaidPurchase(item),
+      ) ||
+      digitalOrders.some(
+        (item) => (checkoutOrder ? item.id === checkoutOrder : true) && isPaidDigital(item),
+      );
     if (ready || confirmTries.current >= 8) return;
     const timer = window.setTimeout(() => {
       confirmTries.current += 1;
       void refreshPurchases();
     }, 1200);
     return () => window.clearTimeout(timer);
-  }, [checkout, checkoutBooking, purchases, refreshPurchases]);
+  }, [checkout, checkoutBooking, checkoutOrder, purchases, digitalOrders, refreshPurchases]);
 
   useEffect(() => {
     if (skipScroll.current) {
@@ -228,10 +261,14 @@ export function Riservata() {
         {tab === "acquisti" ? (
           <div className="flex flex-col gap-10">
             {checkout === "ok" ? (
-              <p className="bg-mist p-5 text-sm leading-relaxed text-ink">{consulti.checkoutOk}</p>
+              <p className="bg-mist p-5 text-sm leading-relaxed text-ink">
+                {checkoutOrder ? pages.corsi.checkoutOk : consulti.checkoutOk}
+              </p>
             ) : null}
             {checkout === "cancel" ? (
-              <p className="bg-mist p-5 text-sm leading-relaxed text-ink">{consulti.checkoutCancel}</p>
+              <p className="bg-mist p-5 text-sm leading-relaxed text-ink">
+                {checkoutOrder ? pages.corsi.checkoutCancel : consulti.checkoutCancel}
+              </p>
             ) : null}
             <div>
               <Kicker>{auth.storico}</Kicker>
@@ -247,15 +284,22 @@ export function Riservata() {
             </div>
             {withdrawError ? <p className="text-sm text-ink">{withdrawError}</p> : null}
             {withdrawn ? <p className="text-sm text-ink/70">{withdrawn}</p> : null}
-            {paid.length === 0 && checkout !== "ok" ? (
+            {paid.length === 0 && paidDigital.length === 0 && checkout !== "ok" ? (
               <p className="bg-mist p-5 text-sm text-ink/65">
                 Nessun acquisto registrato.{" "}
                 <Link to="/consulti" className="underline underline-offset-4">
-                  {siteContent.cta.consultoWhatsapp}
+                  {cta.consultoWhatsapp}
+                </Link>
+                {" · "}
+                <Link to="/corsi" className="underline underline-offset-4">
+                  {pages.corsi.titolo}
                 </Link>
                 .
               </p>
             ) : null}
+            {paidDigital.map((order) => (
+              <PaidDigitalCard key={order.id} order={order} highlighted={checkout === "ok" && checkoutOrder === order.id} />
+            ))}
             {paid.map((b, i) => (
               <PaidCard
                 key={b.id}
@@ -269,78 +313,75 @@ export function Riservata() {
                 onRimborso={onRimborso}
               />
             ))}
-            <Button to="/consulti" variant="ghost">
-              {siteContent.cta.consultoWhatsapp}
-            </Button>
+            <div className="flex flex-wrap gap-3">
+              <Button to="/consulti" variant="ghost">
+                {cta.consultoWhatsapp}
+              </Button>
+              <Button to="/corsi" variant="ghost">
+                {cta.acquista}
+              </Button>
+            </div>
           </div>
         ) : null}
 
         {tab === "corsi" ? (
           <div className="flex flex-col gap-8">
-            <Kicker>Percorsi & dispense digitali</Kicker>
-            {!archiveOpen ? (
-              <p className="bg-mist p-5 text-sm leading-relaxed text-ink/70">
-                {auth.archivioChiuso}{" "}
-                <Link to="/consulti" className="underline underline-offset-4">
-                  {siteContent.cta.consultoWhatsapp}
-                </Link>
-                .
-              </p>
-            ) : (
-              corsi.map((c) => (
-                <article key={c.id} className="bg-paper p-8" translate={localized ? "no" : undefined}>
-                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{c.kicker}</p>
-                  <h3 className="mt-1 font-display">{c.title}</h3>
-                  <p className="mt-2 text-xs leading-relaxed text-ink/65">{c.blurb}</p>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      void download(c.file, c.filename, c.title);
-                    }}
-                    className="mt-4 inline-flex bg-ink px-4 py-2 text-[0.6875rem] uppercase tracking-[0.2em] text-on-ink"
-                  >
-                    {busy ? lingua.genera : "Scarica"}
-                  </button>
-                </article>
-              ))
-            )}
+            {checkout === "ok" && checkoutOrder ? (
+              <p className="bg-mist p-5 text-sm leading-relaxed text-ink">{pages.corsi.checkoutOk}</p>
+            ) : null}
+            <Kicker>{auth.corsiDispense}</Kicker>
+            <p className="text-sm leading-[1.9] text-ink/70">{auth.archivioAperto}</p>
+            {(() => {
+              const ownedCorsi = corsi.filter((product) => ownsDigital(product.id));
+              if (ownedCorsi.length === 0) {
+                return (
+                  <p className="bg-mist p-5 text-sm leading-relaxed text-ink/70">
+                    {auth.archivioChiuso}{" "}
+                    <Link className="underline underline-offset-4" to="/corsi">
+                      {pages.corsi.titolo}
+                    </Link>
+                  </p>
+                );
+              }
+              return ownedCorsi.map((product) => (
+                <DigitalArchiveCard
+                  key={product.id}
+                  product={product}
+                  owned={ownsDigital(product.id)}
+                  busy={busy}
+                  localized={localized}
+                  onDownload={download}
+                />
+              ));
+            })()}
           </div>
         ) : null}
 
         {tab === "alchemici" ? (
           <div className="flex flex-col gap-6">
-            <Kicker>Risorse complementari</Kicker>
-            {!archiveOpen ? (
-              <p className="bg-mist p-5 text-sm leading-relaxed text-ink/70">
-                {auth.archivioChiuso}{" "}
-                <Link to="/consulti" className="underline underline-offset-4">
-                  {siteContent.cta.consultoWhatsapp}
-                </Link>
-                .
-              </p>
-            ) : (
-              materiali.map((m) => (
-                <article
-                  key={m.id}
-                  className="flex items-center justify-between bg-paper p-6"
-                  translate={localized ? "no" : undefined}
-                >
-                  <div>
-                    <h3 className="font-display text-sm">{m.title}</h3>
-                    <p className="text-[0.6875rem] text-ink/55">{m.blurb}</p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      void download(m.file, m.filename, m.title);
-                    }}
-                    className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft"
-                  >
-                    {busy ? lingua.genera : "Scarica"}
-                  </button>
-                </article>
-              ))
-            )}
+            <Kicker>{auth.materialiAlchemici}</Kicker>
+            {(() => {
+              const bundle = products.find((item) => item.id === "alchemici");
+              if (!bundle || !ownsDigital("alchemici")) {
+                return (
+                  <p className="bg-mist p-5 text-sm leading-relaxed text-ink/70">
+                    {auth.archivioChiuso}{" "}
+                    <Link className="underline underline-offset-4" to="/corsi">
+                      {pages.corsi.titolo}
+                    </Link>
+                  </p>
+                );
+              }
+              return (
+                <DigitalArchiveCard
+                  product={bundle}
+                  owned={ownsDigital("alchemici")}
+                  busy={busy}
+                  localized={localized}
+                  onDownload={download}
+                />
+              );
+            })()}
           </div>
         ) : null}
 
@@ -462,6 +503,87 @@ function PaidCard({
           {auth.materialiAlchemici}
         </Link>
       </div>
+    </article>
+  );
+}
+
+function PaidDigitalCard({ order, highlighted }: { order: DigitalOrder; highlighted: boolean }) {
+  const date = siteDateTime({
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(order.paidAt || order.createdAt));
+  return (
+    <article className={`bg-paper p-8 ${highlighted ? "ring-1 ring-ink" : ""}`}>
+      <div className="flex items-center justify-between gap-4">
+        <p className="text-[0.6875rem] uppercase tracking-[0.16em] text-ember-soft">{pages.corsi.kicker}</p>
+        <span className="bg-mist px-2 py-0.5 text-xs">{auth.stati[order.status]}</span>
+      </div>
+      <h3 className="mt-3 font-display text-lg">{order.title}</h3>
+      <p className="mt-1 text-xs text-ink/60">
+        {date} · {order.format} · €{order.price}
+      </p>
+      <p className="mt-4 text-[0.625rem] uppercase tracking-[0.16em] text-ink/45">
+        {auth.riferimento} {order.id}
+      </p>
+      <div className="mt-6">
+        <Button to={order.productId === "alchemici" ? "/riservata?sezione=alchemici" : "/riservata?sezione=corsi"}>
+          {cta.scarica}
+        </Button>
+      </div>
+    </article>
+  );
+}
+
+function DigitalArchiveCard({
+  product,
+  owned,
+  busy,
+  localized,
+  onDownload,
+}: {
+  product: DigitalProduct;
+  owned: boolean;
+  busy: boolean;
+  localized: boolean;
+  onDownload: (productId: DigitalProduct["id"], assetId: string, filename: string, title?: string) => Promise<void>;
+}) {
+  return (
+    <article className="bg-paper p-8" translate={localized ? "no" : undefined}>
+      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{product.kicker}</p>
+      <div className="mt-2 flex items-start justify-between gap-4">
+        <h3 className="font-display">{product.title}</h3>
+        <span className="shrink-0 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
+          {owned ? pages.corsi.posseduto : `€${product.price}`}
+        </span>
+      </div>
+      <p className="mt-2 text-xs leading-relaxed text-ink/65">{product.blurb}</p>
+      {owned && product.audio ? (
+        <div className="mt-6">
+          <ProtectedAudio productId={product.id} assetId={product.audio} label={product.title} />
+        </div>
+      ) : null}
+      {owned ? (
+        <div className="mt-4 flex flex-col gap-3">
+          {product.assets.map((asset) => (
+            <button
+              key={asset.id}
+              type="button"
+              onClick={() => {
+                void onDownload(product.id, asset.id, asset.filename, asset.title);
+              }}
+              className="inline-flex bg-ink px-4 py-2 text-[0.6875rem] uppercase tracking-[0.2em] text-on-ink"
+            >
+              {busy ? lingua.genera : `${cta.scarica} · ${asset.title}`}
+            </button>
+          ))}
+        </div>
+      ) : (
+        <div className="mt-6">
+          <p className="mb-4 text-sm leading-relaxed text-ink/70">{pages.corsi.sbloccaDopo}</p>
+          <Button to="/corsi">{cta.acquista}</Button>
+        </div>
+      )}
     </article>
   );
 }

@@ -1,63 +1,61 @@
 import { useEffect, useState } from "react";
-import { CORSI, MATERIALI } from "../data/catalogo";
+import { digitalCatalog, type DigitalProduct, type DigitalProductId } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { useLanguage } from "../context/LanguageContext";
-import { downloadLocalizedFile } from "./downloadMaterial";
+import { DigitalDownloadError } from "./digitalDownload";
+import { downloadProtectedDigital } from "./downloadMaterial";
 import { activeLanguage, isSourceLanguage } from "./language";
 import { localizeOfficialTexts } from "./localizeClient";
 
 export function useLocalizedCatalog() {
   const { language } = useLanguage();
-  const [corsi, setCorsi] = useState(CORSI);
-  const [materiali, setMateriali] = useState(MATERIALI);
+  const source = digitalCatalog();
+  const [products, setProducts] = useState<DigitalProduct[]>(source);
   const [busy, setBusy] = useState(false);
   const [localized, setLocalized] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const nextSource = digitalCatalog();
     if (isSourceLanguage(language)) {
-      setCorsi(CORSI);
-      setMateriali(MATERIALI);
+      setProducts(nextSource);
       setLocalized(false);
       return;
     }
     let cancelled = false;
     setLocalized(false);
     const texts: Record<string, string> = {};
-    for (const course of CORSI) {
-      texts[`${course.id}.kicker`] = course.kicker;
-      texts[`${course.id}.title`] = course.title;
-      texts[`${course.id}.blurb`] = course.blurb;
-    }
-    for (const item of MATERIALI) {
+    for (const item of nextSource) {
+      texts[`${item.id}.kicker`] = item.kicker;
       texts[`${item.id}.title`] = item.title;
       texts[`${item.id}.blurb`] = item.blurb;
+      texts[`${item.id}.format`] = item.format;
+      item.assets.forEach((asset, index) => {
+        texts[`${item.id}.asset.${index}`] = asset.title;
+      });
     }
     setBusy(true);
     void localizeOfficialTexts(language, texts)
       .then((next) => {
         if (cancelled) return;
-        setCorsi(
-          CORSI.map((course) => ({
-            ...course,
-            kicker: next[`${course.id}.kicker`] ?? course.kicker,
-            title: next[`${course.id}.title`] ?? course.title,
-            blurb: next[`${course.id}.blurb`] ?? course.blurb,
-          })),
-        );
-        setMateriali(
-          MATERIALI.map((item) => ({
+        setProducts(
+          nextSource.map((item) => ({
             ...item,
+            kicker: next[`${item.id}.kicker`] ?? item.kicker,
             title: next[`${item.id}.title`] ?? item.title,
             blurb: next[`${item.id}.blurb`] ?? item.blurb,
+            format: next[`${item.id}.format`] ?? item.format,
+            assets: item.assets.map((asset, index) => ({
+              ...asset,
+              title: next[`${item.id}.asset.${index}`] ?? asset.title,
+            })),
           })),
         );
         setLocalized(Object.keys(texts).some((key) => next[key] && next[key] !== texts[key]));
       })
       .catch(() => {
         if (!cancelled) {
-          setCorsi(CORSI);
-          setMateriali(MATERIALI);
+          setProducts(nextSource);
           setLocalized(false);
         }
       })
@@ -69,17 +67,24 @@ export function useLocalizedCatalog() {
     };
   }, [language]);
 
-  async function download(file: string, filename: string, title?: string) {
+  async function download(productId: DigitalProductId, assetId: string, filename: string, title?: string) {
     setBusy(true);
     setError(null);
     try {
-      await downloadLocalizedFile(file, filename, { language: activeLanguage(language), title });
-    } catch {
-      setError(siteContent.itha.groqManca);
+      await downloadProtectedDigital(productId, assetId, filename, { language: activeLanguage(language), title });
+    } catch (error) {
+      setError(
+        error instanceof DigitalDownloadError && error.status === 403
+          ? siteContent.pages.corsi.sbloccaDopo
+          : siteContent.auth.errori.generico,
+      );
     } finally {
       setBusy(false);
     }
   }
 
-  return { corsi, materiali, language, busy, localized, error, download };
+  const corsi = products.filter((item) => item.id !== "alchemici");
+  const materiali = products.find((item) => item.id === "alchemici")?.assets ?? [];
+
+  return { products, corsi, materiali, language, busy, localized, error, download };
 }

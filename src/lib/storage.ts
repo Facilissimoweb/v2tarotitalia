@@ -106,12 +106,14 @@ export function samePurchaseSnapshot(a: Purchase[], b: Purchase[]) {
   });
 }
 
-export function cartItemCount(purchases: Purchase[]) {
+export function cartItemCount(purchases: Purchase[], extra = 0) {
   const pending = purchases.filter(isCartPurchase);
   const draft = readBookingDraft();
-  if (!draft || draftMatchesSettled(purchases)) return pending.length;
-  if (pending.some((item) => sameBookingSlot(item, draft))) return pending.length;
-  return pending.length + 1;
+  let n = pending.length;
+  if (draft && !draftMatchesSettled(purchases) && !pending.some((item) => sameBookingSlot(item, draft))) {
+    n += 1;
+  }
+  return n + extra;
 }
 
 export function isSettledPurchase(purchase: Purchase) {

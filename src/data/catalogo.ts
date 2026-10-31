@@ -33,69 +33,123 @@ export function consultTotal(price: number, pdf: boolean) {
   return pdf ? price + REPORT_PDF_PRICE : price;
 }
 
-export const CORSI = [
-  {
-    id: "trattato",
-    kicker: "Volume accademico",
-    title: "Trattato degli Arcani Maggiori — Volume I",
-    pages: "142 pag.",
-    size: "PDF · 24 pagine di estratto",
-    file: "/corsi/trattato-arcani-maggiori.txt",
-    filename: "Trattato_Arcani_Maggiori_I.txt",
-    blurb:
-      "Edizione annotata: simbologie ermetiche, geometrie auree e le 22 chiavi iconologiche del mazzo marsigliese.",
-    kind: "pdf" as const,
-  },
-  {
-    id: "ermeneutica",
-    kicker: "Masterclass audio + teoria",
-    title: "L'Ermeneutica della Luce & Ombra",
-    pages: "6 lezioni",
-    size: "Audio + PDF · 18 min anteprima",
-    file: "/corsi/ermeneutica-luce-ombra.txt",
-    filename: "Masterclass_Luce_Ombra.txt",
-    audio: "/corsi/lezione-01-velo-di-maya.wav",
-    blurb:
-      "Sei lezioni sul chiaroscuro oracolare, registrate in acustica raccolta. Anteprima: Il velo di Maya.",
-    kind: "audio" as const,
-  },
-  {
-    id: "taccuino",
-    kicker: "Prontuario pratico",
-    title: "Taccuino di Studio Macerata",
-    pages: "Schemi",
-    size: "Tavole grafiche",
-    file: "/corsi/taccuino-studio-macerata.txt",
-    filename: "Taccuino_Studio_Macerata.txt",
-    blurb:
-      "Diagrammi per stese a 5 e 7 carte: Croce Celtica e Tridente d'Ermete, da tenere sul tavolo di lettura.",
-    kind: "schemi" as const,
-  },
-];
+export type DigitalProductId = "trattato" | "velo" | "taccuino" | "alchemici";
 
-export const MATERIALI = [
-  {
-    id: "lunare",
-    title: "Calendario Lunare & Transiti",
-    blurb: "Fasi e finestre propizie per la lettura.",
-    file: "/corsi/calendario-lunare.txt",
-    filename: "Calendario_Lunare.txt",
-  },
-  {
-    id: "griglia",
-    title: "Griglia di Purificazione del Mazzo",
-    blurb: "Schema in geometria sacra, stampabile.",
-    file: "/corsi/griglia-purificazione.txt",
-    filename: "Griglia_Purificazione.txt",
-  },
-  {
-    id: "glossario",
-    title: "Glossario dei Simboli Ermetici",
-    blurb: "Oltre 120 elementi iconografici spiegati.",
-    file: "/corsi/glossario-ermetico.txt",
-    filename: "Glossario_Ermetico.txt",
-  },
-];
+export type DigitalAsset = {
+  id: string;
+  filename: string;
+  title: string;
+};
+
+export type DigitalProduct = {
+  id: DigitalProductId;
+  kicker: string;
+  title: string;
+  blurb: string;
+  price: number;
+  format: string;
+  audio?: string;
+  assets: DigitalAsset[];
+};
+
+const ASSETS: Record<DigitalProductId, DigitalAsset[]> = {
+  trattato: [
+    {
+      id: "trattato-arcani-maggiori",
+      filename: "Trattato-Arcani-Maggiori-Tarot-Italia.pdf",
+      title: "Trattato degli Arcani Maggiori",
+    },
+  ],
+  velo: [
+    {
+      id: "ermeneutica-luce-ombra",
+      filename: "Il-Velo-di-Maya-Tarot-Italia.pdf",
+      title: "Il Velo di Maya — teoria",
+    },
+  ],
+  taccuino: [
+    {
+      id: "taccuino-studio-macerata",
+      filename: "Taccuino-di-Studio-Tarot-Italia.pdf",
+      title: "Taccuino di studio",
+    },
+  ],
+  alchemici: [
+    {
+      id: "calendario-lunare",
+      filename: "Calendario-Lunare-Tarot-Italia.pdf",
+      title: "Calendario lunare",
+    },
+    {
+      id: "griglia-purificazione",
+      filename: "Griglia-Purificazione-Mazzo-Tarot-Italia.pdf",
+      title: "Griglia di purificazione del mazzo",
+    },
+    {
+      id: "glossario-ermetico",
+      filename: "Glossario-Simboli-Ermetici-Tarot-Italia.pdf",
+      title: "Glossario dei simboli ermetici",
+    },
+  ],
+};
+
+const VELO_AUDIO = "lezione-01-velo-di-maya";
+
+export const DIGITAL_PRODUCT_IDS: DigitalProductId[] = ["trattato", "velo", "taccuino", "alchemici"];
+
+export function digitalCatalog(): DigitalProduct[] {
+  return siteContent.pages.corsi.prodotti.map((item) => {
+    const id = item.id as DigitalProductId;
+    return {
+      id,
+      kicker: item.kicker,
+      title: item.titolo,
+      blurb: item.blurb,
+      price: item.prezzo,
+      format: item.formato,
+      audio: id === "velo" ? VELO_AUDIO : undefined,
+      assets: ASSETS[id],
+    };
+  });
+}
+
+export function digitalProductById(id: string): DigitalProduct | undefined {
+  return digitalCatalog().find((item) => item.id === id);
+}
+
+export function digitalAssetBelongsTo(productId: DigitalProductId, assetId: string) {
+  const product = digitalProductById(productId);
+  if (!product || !assetId) return false;
+  if (product.audio === assetId) return true;
+  return product.assets.some((asset) => asset.id === assetId);
+}
+
+export const DIGITAL_PRICES: Record<DigitalProductId, number> = Object.fromEntries(
+  siteContent.pages.corsi.prodotti.map((item) => [item.id, item.prezzo]),
+) as Record<DigitalProductId, number>;
+
+/** Vetrina shop (copy in siteContent; i file restano sul proxy autenticato). */
+export const CORSI = digitalCatalog()
+  .filter((item) => item.id !== "alchemici")
+  .map((item) => ({
+    id: item.id,
+    kicker: item.kicker,
+    title: item.title,
+    blurb: item.blurb,
+    pages: item.format,
+    size: item.format,
+    assetId: item.assets[0]?.id ?? "",
+    filename: item.assets[0]?.filename ?? "",
+    audio: item.audio,
+  }));
+
+export const MATERIALI = ASSETS.alchemici.map((asset) => ({
+  id: asset.id,
+  title: asset.title,
+  blurb: "",
+  assetId: asset.id,
+  filename: asset.filename,
+}));
 
 export const STUDIO = {
   name: siteContent.brand.name,

@@ -25,6 +25,17 @@ import {
   type Session,
 } from "../lib/storage";
 import { draftToPurchase, purchaseToInsert, rowToPurchase, type PurchaseRow } from "../lib/purchases";
+import {
+  discardSettledDigitalDraft,
+  ownedProductIds,
+  readLocalDigitalOrders,
+  rowToDigitalOrder,
+  sameDigitalSnapshot,
+  writeLocalDigitalOrders,
+  type DigitalOrder,
+  type DigitalOrderRow,
+} from "../lib/digitalOrders";
+import type { DigitalProductId } from "../data/catalogo";
 import { safeInternalPath } from "../lib/siteRoutes";
 
 const { auth } = siteContent;
@@ -33,6 +44,8 @@ type AuthContextValue = {
   session: Session | null;
   ready: boolean;
   purchases: Purchase[];
+  digitalOrders: DigitalOrder[];
+  ownsDigital: (id: DigitalProductId) => boolean;
   authOpen: boolean;
   openAuth: () => void;
   closeAuth: () => void;
@@ -123,6 +136,18 @@ async function loadRemotePurchases(userId: string): Promise<Purchase[]> {
   return (data as PurchaseRow[]).map(rowToPurchase);
 }
 
+async function loadRemoteDigitalOrders(userId: string): Promise<DigitalOrder[]> {
+  const sb = getSupabaseClient();
+  if (!sb) return [];
+  const { data, error } = await sb
+    .from("digital_orders")
+    .select("*")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false });
+  if (error || !data) return [];
+  return (data as DigitalOrderRow[]).map(rowToDigitalOrder).filter((order): order is DigitalOrder => order !== null);
+}
+
 async function persistBooking(userId: string, purchase: Purchase) {
   const sb = getSupabaseClient();
   if (!sb) return null;
@@ -147,6 +172,7 @@ async function persistCancellation(userId: string, id: string) {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [purchases, setPurchases] = useState<Purchase[]>([]);
+  const [digitalOrders, setDigitalOrders] = useState<DigitalOrder[]>([]);
   const [ready, setReady] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
 
@@ -162,13 +188,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const sessionId = session?.id;
 
+  const applyDigital = useCallback((list: DigitalOrder[]) => {
+    discardSettledDigitalDraft(list);
+    setDigitalOrders((prev) => (sameDigitalSnapshot(prev, list) ? prev : list));
+    writeLocalDigitalOrders(list);
+  }, []);
+
   const refreshPurchases = useCallback(async () => {
     if (!sessionId) return;
     const list = isSupabaseConfigured() ? await loadRemotePurchases(sessionId) : readPurchases();
     discardSettledBookingDraft(list);
     setPurchases((prev) => (samePurchaseSnapshot(prev, list) ? prev : list));
     writePurchases(list);
-  }, [sessionId]);
+    const digital = isSupabaseConfigured() ? await loadRemoteDigitalOrders(sessionId) : readLocalDigitalOrders();
+    applyDigital(digital);
+  }, [sessionId, applyDigital]);
 
   const updateProfile = useCallback(
     async (name: string) => {
@@ -214,6 +248,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!sb) {
         setSession(readSession());
         setPurchases(readPurchases());
+        setDigitalOrders(readLocalDigitalOrders());
         setReady(true);
         return;
       }
@@ -233,8 +268,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         discardSettledBookingDraft(list);
         setPurchases(list);
         writePurchases(list);
+        const digital = await loadRemoteDigitalOrders(mapped.id);
+        discardSettledDigitalDraft(digital);
+        setDigitalOrders(digital);
+        writeLocalDigitalOrders(digital);
       } else {
         setPurchases([]);
+        setDigitalOrders([]);
       }
       const { data: listener } = sb.auth.onAuthStateChange((_event, nextSession) => {
         const current = readSession();
@@ -252,9 +292,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setPurchases(list);
             writePurchases(list);
           });
+          void loadRemoteDigitalOrders(mappedNext.id).then((list) => {
+            discardSettledDigitalDraft(list);
+            setDigitalOrders(list);
+            writeLocalDigitalOrders(list);
+          });
         } else {
           clearSession();
           setPurchases([]);
+          setDigitalOrders([]);
         }
       });
       unsub = () => listener.subscription.unsubscribe();
@@ -269,6 +315,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       session,
       ready,
       purchases,
+      digitalOrders,
+      ownsDigital: (id) => ownedProductIds(digitalOrders).has(id),
       authOpen,
       openAuth: () => setAuthOpen(true),
       closeAuth: () => setAuthOpen(false),
@@ -284,6 +332,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           await persistConsents(next.id, next.email, next.name, consents);
           const list = await loadRemotePurchases(next.id);
           applySession(next, list);
+          applyDigital(await loadRemoteDigitalOrders(next.id));
           return null;
         }
         const ok =
@@ -298,6 +347,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           provider: "email",
         };
         applySession(next, readPurchases());
+        applyDigital(readLocalDigitalOrders());
         return null;
       },
       register: async (email, password, consents, name, redirectTo) => {
@@ -317,11 +367,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (!next) return auth.errori.credenziali;
           await persistConsents(next.id, next.email, display, consents);
           applySession({ ...next, name: display }, []);
+          applyDigital([]);
           return null;
         }
         if (!e.includes("@") || password.length < 6) return auth.errori.credenziali;
         const next: Session = { id: e, email: e, name: display, consents, provider: "email" };
         applySession(next, readPurchases());
+        applyDigital(readLocalDigitalOrders());
         return null;
       },
       requestMagicLink: async (email, consents, redirectTo) => {
@@ -359,6 +411,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const sb = getSupabaseClient();
         if (sb) await sb.auth.signOut();
         applySession(null, []);
+        applyDigital([]);
       },
       addPurchase: async (draft, consents) => {
         const current = session;
@@ -402,7 +455,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return null;
       },
     }),
-    [session, ready, purchases, authOpen, applySession, refreshPurchases, updateProfile, updatePassword],
+    [session, ready, purchases, digitalOrders, authOpen, applySession, applyDigital, refreshPurchases, updateProfile, updatePassword],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

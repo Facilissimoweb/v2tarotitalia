@@ -7,6 +7,7 @@ import Stripe from "https://esm.sh/stripe@17.4.0?target=deno";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 import { resolveBookingMode } from "../_shared/bookingRules.ts";
 import { fulfillPaidBooking } from "../stripe-webhook/fulfillPaidBooking.ts";
+import { deliverDigitalOrder } from "../stripe-webhook/deliverDigitalOrder.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -30,11 +31,18 @@ Deno.serve(async (req) => {
   if (userErr || !user?.id) return json({ error: "Sessione non valida." }, 401);
 
   let bookingId = "";
+  let orderId = "";
+  let kind = "";
   try {
-    const body = (await req.json()) as { bookingId?: string };
+    const body = (await req.json()) as { bookingId?: string; orderId?: string; kind?: string };
     bookingId = (body.bookingId ?? "").trim();
+    orderId = (body.orderId ?? "").trim();
+    kind = (body.kind ?? "").trim();
   } catch {
     return json({ error: "Richiesta non valida." }, 400);
+  }
+  if (kind === "digital" || orderId) {
+    return await syncDigital(admin, stripeKey, user.id, orderId);
   }
   if (!bookingId) return json({ error: "Prenotazione mancante." }, 400);
 
@@ -96,6 +104,77 @@ Deno.serve(async (req) => {
 
   return json({ ok: true, status: "confirmed" }, 200);
 });
+
+async function syncDigital(
+  admin: ReturnType<typeof createClient>,
+  stripeKey: string,
+  userId: string,
+  orderId: string,
+) {
+  if (!orderId) return json({ error: "Ordine mancante." }, 400);
+  const { data: row } = await admin
+    .from("digital_orders")
+    .select("*")
+    .eq("id", orderId)
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (!row) return json({ error: "Ordine non trovato." }, 404);
+  if (row.status === "confirmed" || row.status === "completed") {
+    try {
+      await deliverDigitalOrder(admin, row.id);
+    } catch (error) {
+      console.error("digital delivery", error);
+    }
+    return json({ ok: true, status: row.status }, 200);
+  }
+  if (row.status !== "pending_payment" || !row.stripe_checkout_session_id) {
+    return json({ ok: true, status: row.status }, 200);
+  }
+
+  const stripe = new Stripe(stripeKey, { apiVersion: "2024-11-20.acacia" });
+  let session: Stripe.Checkout.Session;
+  try {
+    session = await stripe.checkout.sessions.retrieve(row.stripe_checkout_session_id);
+  } catch (error) {
+    console.error("stripe retrieve digital", error);
+    return json({ error: "Non riesco a verificare il pagamento su Stripe." }, 502);
+  }
+
+  const paid = session.payment_status === "paid" || session.status === "complete";
+  if (!paid) return json({ ok: true, status: row.status }, 200);
+
+  const paymentIntent =
+    typeof session.payment_intent === "string" ? session.payment_intent : session.payment_intent?.id ?? null;
+  const confirmed = await admin
+    .from("digital_orders")
+    .update({
+      status: "confirmed",
+      stripe_checkout_session_id: session.id,
+      stripe_payment_intent_id: paymentIntent,
+      stripe_amount_total: typeof session.amount_total === "number" ? session.amount_total : null,
+      paid_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", row.id)
+    .eq("status", "pending_payment")
+    .select("id");
+  if (confirmed.error) {
+    console.error("sync digital confirm", confirmed.error);
+    return json({ error: "Non riesco ad aggiornare l’ordine." }, 500);
+  }
+  const customerEmail =
+    session.customer_email || session.customer_details?.email || (await emailForUser(admin, userId));
+  try {
+    await deliverDigitalOrder(admin, row.id, {
+      customerEmail,
+      transactionId: paymentIntent || session.id,
+      amountCents: typeof session.amount_total === "number" ? session.amount_total : null,
+    });
+  } catch (error) {
+    console.error("digital delivery", error);
+  }
+  return json({ ok: true, status: "confirmed" }, 200);
+}
 
 async function emailForUser(
   admin: ReturnType<typeof createClient>,

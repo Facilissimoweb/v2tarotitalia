@@ -87,6 +87,8 @@ export const siteContent = {
     prenotaPercorso: "Prenota questo percorso",
     itha: "Itha",
     tornaSu: "Torna su",
+    acquista: "Acquista",
+    scarica: "Scarica",
   },
 
   home: {
@@ -169,7 +171,7 @@ export const siteContent = {
     },
     passaggi: {
       titolo: "Dal Matto al Mondo — I 22 Passaggi dell’Eroe",
-      testo: "Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. Scaricala dall’area corsi — l’archivio completo è in Area Riservata.",
+      testo: "Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. I titoli si sbloccano dopo l’acquisto, nello stesso spazio riservato dei consulti.",
       cta: "Vai ai corsi e alle dispense",
     },
   },
@@ -201,11 +203,66 @@ export const siteContent = {
       titolo: "Arcani Minori",
       lead: "I 56 arcani minori del mazzo marsigliese: la trama quotidiana, l'esperienza pratica e lo sviluppo dell'azione attraverso i quattro semi della materia e del sentire.",
     },
+    corsi: {
+      kicker: "Corsi e dispense",
+      titolo: "Corsi, Dispense & Materiali Alchemici",
+      lead: "Dispense, lezioni e strumenti di studio. Ogni titolo si sblocca dopo il pagamento, nello stesso spazio riservato dei consulti.",
+      accesso: "Hai già un accesso? Entra per vedere i titoli già sbloccati.",
+      prodotto: "Titolo",
+      formatoLabel: "Formato",
+      totale: "Totale",
+      nome: "Nome completo *",
+      conferma: "Conferma l’acquisto",
+      paga: "Paga e sblocca il download",
+      avviso:
+        "Dopo il pagamento su Stripe il file si sblocca in Area riservata. Lo storico e le richieste di recesso restano lì. Riceverai conferma via email.",
+      checkoutOk: "Pagamento ricevuto. Il titolo è sbloccato e pronto al download.",
+      checkoutCancel: "Il pagamento non è stato completato. Il titolo resta in vetrina, pronto per un nuovo acquisto.",
+      posseduto: "Sbloccato",
+      giaTuo: "Questo titolo è già nel tuo archivio.",
+      sbloccaDopo: "Il download si apre dopo l’acquisto confermato.",
+      prodotti: [
+        {
+          id: "trattato",
+          kicker: "Volume accademico",
+          titolo: "Trattato degli Arcani Maggiori",
+          blurb:
+            "Opera strutturata in schede e moduli di approfondimento: simbologie ermetiche, geometrie auree e le 22 chiavi iconologiche del mazzo marsigliese.",
+          prezzo: 24,
+          formato: "PDF",
+        },
+        {
+          id: "velo",
+          kicker: "Masterclass audio + teoria",
+          titolo: "Il Velo di Maya",
+          blurb: "Audio lezione con PDF sul chiaroscuro oracolare, in acustica raccolta.",
+          prezzo: 32,
+          formato: "Audio + PDF",
+        },
+        {
+          id: "taccuino",
+          kicker: "Prontuario pratico",
+          titolo: "Taccuino di studio",
+          blurb: "Taccuino di studio e ideogramma per stesa a cinque carte, da tenere sul tavolo di lettura.",
+          prezzo: 12,
+          formato: "Tavole",
+        },
+        {
+          id: "alchemici",
+          kicker: "Materiali alchemici",
+          titolo: "Strumenti complementari",
+          blurb:
+            "Calendario lunare, griglia di purificazione del mazzo e glossario dei simboli ermetici.",
+          prezzo: 18,
+          formato: "Tre PDF",
+        },
+      ],
+    },
     carrello: {
       kicker: "Carrello",
       titolo: "Carrello",
       lead: "Qui restano le selezioni in attesa di pagamento. Lo storico accoglie solo gli acquisti confermati.",
-      vuoto: "Il carrello è vuoto. Puoi scegliere un consulto e tornare qui per finalizzare.",
+      vuoto: "Il carrello è vuoto. Puoi scegliere un consulto o una dispensa e tornare qui per finalizzare.",
       rimuovi: "Rimuovi",
     },
     nonTrovata: {
@@ -661,7 +718,7 @@ export const siteContent = {
   auth: {
     sogliaTitolo: "Benvenuta/o nel tuo spazio riservato",
     sogliaLead:
-      "Per finalizzare la tua prenotazione è necessario accedere o registrarsi. Serve solo per darti un'area privata dove gestire il tuo consulto e ricevere i promemoria.",
+      "Per finalizzare l’acquisto è necessario accedere o registrarsi. Serve solo per darti un’area privata dove gestire consulti, dispense e conferme.",
     giaDeiNostri: "Hai già un account? Accedi qui",
     primaVolta: "Prima volta qui? Crea il tuo spazio",
     login: "Accedi",
@@ -725,8 +782,8 @@ export const siteContent = {
     passwordAggiornata: "Ho aggiornato la password.",
     corsiDispense: "Corsi e dispense",
     materialiAlchemici: "Materiali alchemici",
-    archivioAperto: "Da uno storico confermato puoi aprire corsi, dispense e materiali alchemici.",
-    archivioChiuso: "Corsi, dispense e materiali alchemici si aprono dopo un acquisto confermato.",
+    archivioAperto: "I titoli acquistati si aprono qui, pronti al download.",
+    archivioChiuso: "Ogni dispensa e materiale si sblocca dopo il relativo acquisto confermato.",
     stati: {
       pending: "In attesa",
       pending_payment: "In attesa del pagamento",
@@ -755,6 +812,7 @@ export const siteContent = {
           titolo: "1. Informazioni personali che raccolgo",
           testi: [
             'Quando visiti tarotitalia.com, raccolgo automaticamente determinate informazioni sul tuo dispositivo, tra cui informazioni sul browser web, indirizzo IP, fuso orario e alcuni dei cookie installati sul dispositivo. Inoltre, mentre navighi sul Sito, raccolgo informazioni sulle pagine o prodotti che visualizzi, su quali siti o termini di ricerca ti hanno indirizzato al Sito e su come interagisci con esso. Mi riferisco a queste informazioni raccolte automaticamente come "Informazioni sul dispositivo". Inoltre, posso raccogliere i dati personali che mi fornisci (inclusi, ma non limitati a, nome, cognome, indirizzo, informazioni di pagamento, ecc.) durante la registrazione, per adempiere all\'accordo.',
+            "Per i contenuti digitali acquistati registro data e ora dell’accesso o del download, il titolo, l’indirizzo IP e il user-agent. Servono unicamente a tutela in caso di contestazione del pagamento o di frode: non li uso per profilazione commerciale.",
           ],
         },
         {
