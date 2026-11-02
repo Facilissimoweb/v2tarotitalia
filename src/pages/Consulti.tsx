@@ -186,7 +186,7 @@ export function Consulti() {
                   if (!evening) setMode("studio");
                 }}
                 className={`p-4 text-left ${
-                  meeting === "studio" ? "bg-ink text-on-ink" : "bg-mist text-ink"
+                  meeting === "studio" ? "bg-plate text-on-ink" : "bg-mist text-ink"
                 } ${evening ? "cursor-not-allowed opacity-40" : ""}`}
               >
                 <p className="font-display">In studio</p>
@@ -197,7 +197,7 @@ export function Consulti() {
               <button
                 type="button"
                 onClick={() => setMode("remote")}
-                className={`p-4 text-left ${meeting === "remote" ? "bg-ink text-on-ink" : "bg-mist text-ink"}`}
+                className={`p-4 text-left ${meeting === "remote" ? "bg-plate text-on-ink" : "bg-mist text-ink"}`}
               >
                 <p className="font-display">A distanza</p>
                 <p className={`mt-1 text-[0.625rem] ${meeting === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>

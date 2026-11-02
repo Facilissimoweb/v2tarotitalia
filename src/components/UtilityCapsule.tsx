@@ -31,7 +31,7 @@ export function UtilityCapsule() {
 
   return (
     <nav
-      className="pointer-events-auto fixed right-2 z-[45] flex flex-col items-center gap-0 rounded-full border-2 border-[#d7f713] bg-[#111111] p-1 sm:right-3 sm:gap-0.5 sm:p-1.5 md:right-4"
+      className="pointer-events-auto fixed right-2 z-[45] flex flex-col items-center gap-0 rounded-full border-2 border-[#d7f713] bg-plate p-1 sm:right-3 sm:gap-0.5 sm:p-1.5 md:right-4"
       style={{ bottom: `calc(${lift}px + ${inset} + 4.65rem)` }}
     >
       <button

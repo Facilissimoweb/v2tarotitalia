@@ -110,7 +110,7 @@ export function ChromaticImage({
   alt,
   children,
   className,
-  backgroundColor = "#111111",
+  backgroundColor = "#393632",
   zoom = 0.2,
   displacement = 0.05,
   chromaticShift = 0.01,

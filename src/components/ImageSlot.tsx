@@ -36,7 +36,7 @@ export function ImageSlot({
     <Reveal className={className}>
       <figure>
         <div
-          className={`overflow-hidden ${framed ? "bg-[#111111]" : "bg-mist"} ${
+          className={`overflow-hidden ${framed ? "bg-plate" : "bg-mist"} ${
             lockBox ? ratios[ratio] : ""
           }`}
         >

@@ -82,7 +82,7 @@ export function Home() {
                 <Reveal key={lettura.id} delay={i * 80}>
                   <article
                     className={`flex h-full flex-col p-8 md:p-10 ${
-                      featured ? "bg-ink text-on-ink" : "bg-ivory"
+                      featured ? "bg-plate text-on-ink" : "bg-ivory"
                     }`}
                   >
                     <p

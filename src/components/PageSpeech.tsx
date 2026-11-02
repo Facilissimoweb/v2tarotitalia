@@ -4,7 +4,7 @@ import { pageSpeech, usePageSpeech } from "../lib/pageSpeech";
 const { accessibilita: copy } = siteContent;
 
 const cell =
-  "flex h-12 flex-1 items-center justify-center bg-[#111111] text-[#d7f713] ring-1 ring-[#d7f713] transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7f713] disabled:opacity-35 disabled:hover:opacity-35";
+  "flex h-12 flex-1 items-center justify-center bg-plate text-[#d7f713] ring-1 ring-[#d7f713] transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7f713] disabled:opacity-35 disabled:hover:opacity-35";
 
 function SpeakerIcon() {
   return (
@@ -49,7 +49,7 @@ export function PageSpeechSkipLink() {
   return (
     <button
       type="button"
-      className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[90] focus:bg-[#111111] focus:px-4 focus:py-3 focus:text-[0.6875rem] focus:font-bold focus:uppercase focus:tracking-[0.16em] focus:text-[#d7f713] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[#d7f713]"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[90] focus:bg-plate focus:px-4 focus:py-3 focus:text-[0.6875rem] focus:font-bold focus:uppercase focus:tracking-[0.16em] focus:text-[#d7f713] focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-[#d7f713]"
       onClick={() => pageSpeech.toggle()}
     >
       {active ? copy.ferma : copy.ascolta}

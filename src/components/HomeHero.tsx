@@ -149,12 +149,12 @@ export function HomeHero() {
         </motion.div>
       </div>
 
-      <div className="relative z-[2] grid grid-cols-1 border-t border-[#111111] sm:grid-cols-2 xl:grid-cols-4">
+      <div className="relative z-[2] grid grid-cols-1 border-t border-plate sm:grid-cols-2 xl:grid-cols-4">
         {azioni.map((azione) => (
           <NavLink
             key={azione.n}
             to={azione.to}
-            className="group flex min-h-[9.25rem] flex-col border-white/10 bg-[#111111] px-6 py-6 text-on-ink transition-colors max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:border-r xl:px-8 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
+            className="group flex min-h-[9.25rem] flex-col border-white/10 bg-plate px-6 py-6 text-on-ink transition-colors max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:border-r xl:px-8 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
           >
             <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-[#d7f713]">
               {azione.n}

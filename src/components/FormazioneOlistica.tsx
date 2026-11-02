@@ -10,7 +10,7 @@ function FormazioneCards() {
       {percorsoEsteso.voci.map((voce) => (
         <article
           key={voce.titolo}
-          className="relative isolate flex h-full flex-col overflow-hidden bg-ink p-8 ring-1 ring-ivory/25 transition-colors duration-300 hover:ring-ember/40"
+          className="relative isolate flex h-full flex-col overflow-hidden bg-plate p-8 ring-1 ring-ivory/25 transition-colors duration-300 hover:ring-ember/40"
         >
           {/* Ornamento floreale come sfondo della card: dietro al testo, ancorato a destra */}
           <img

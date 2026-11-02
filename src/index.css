@@ -9,6 +9,7 @@
   --color-ember-soft: #c9a87a;
   --color-lime: #d7f713;
   --color-graphite: #141210;
+  --color-plate: #393632;
   --color-paper: #ffffff;
   --color-mist: #efece7;
   --color-linen: #e7e2da;
@@ -176,13 +177,28 @@
   -webkit-backdrop-filter: blur(56px) saturate(160%);
 }
 
-/* Footer: grafite morbido, senza contrasto di nero puro. */
+/* Footer: campo #393632, fascia dell’angelo in basso. */
 @utility footer-graphite {
-  background-color: #1c1a18;
-  background-image:
-    radial-gradient(ellipse 70% 80% at 50% 0%, #2e2a27 0%, #23201e 42%, #1c1a18 100%);
+  background-color: var(--color-plate);
   border-top: 1px solid rgb(255 255 255 / 0.06);
   box-shadow: none;
+}
+
+.footer-angelo-band {
+  display: flex;
+  justify-content: center;
+  background-color: var(--color-plate);
+}
+
+.footer-angelo-tile {
+  display: block;
+  width: 100%;
+  max-width: 56rem;
+  height: auto;
+  object-fit: contain;
+  object-position: center bottom;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Logo navbar: alone neutro, senza lime. */
@@ -455,6 +471,7 @@ html[data-a11y-contrast="on"] {
   --color-mist: #f0f0f0;
   --color-linen: #d4d4d4;
   --color-ink: #000000;
+  --color-plate: #000000;
   --color-ember: #6a4423;
   --color-ember-hot: #7a4f29;
   --color-ember-deep: #4d3018;
@@ -556,7 +573,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 }
 
 .dock-skin {
-  background-color: #111111;
+  background-color: var(--color-plate);
   border: 2px solid #d7f713;
   -webkit-mask-image: radial-gradient(
     circle var(--dock-notch-r) at var(--dock-notch-x) 0px,
