@@ -722,6 +722,28 @@ export const siteContent = {
   },
 
   consulti: {
+    orientamento: [
+      {
+        n: "01",
+        titolo: "Cosa sono i tarocchi?",
+        testo: "Un sistema di 78 lame che mappa gli archetipi dell’esperienza umana. Non una semplice predizione, ma uno specchio rigoroso del presente per decodificare il futuro.",
+      },
+      {
+        n: "02",
+        titolo: "A chi si rivolgono?",
+        testo: "A chiunque attraversi un momento di snodo, di domanda o di incertezza e cerchi coordinate lucide per fare chiarezza dentro e fuori di sé.",
+      },
+      {
+        n: "03",
+        titolo: "Quando fare una lettura?",
+        testo: "Quando la mente è disposta all’ascolto. È consigliabile interrogare le lame quando si è centrati, evitando il panico cieco o la confusione caotica: la risposta cerca una terra stabile.",
+      },
+      {
+        n: "04",
+        titolo: "Come approcciarsi?",
+        testo: "Con ascolto nudo e assenza di dogmi. Accostarsi alle carte richiede la disponibilità a ricevere una prospettiva veritiera, anche quando disattende le attese.",
+      },
+    ],
     procedi: "Ci siamo quasi!",
     conferma: "Conferma e riserva la sessione",
     pagaStripe: "Paga e riserva la sessione",

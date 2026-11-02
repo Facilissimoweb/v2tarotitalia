@@ -18,6 +18,7 @@ import { formatBookingDay } from "../lib/whatsapp";
 import { Button, Kicker } from "../components/Button";
 import { BookingCalendar } from "../components/BookingCalendar";
 import { PageBanner } from "../components/PageBanner";
+import { PlateFocus } from "../components/PlateFocus";
 import { Reveal } from "../components/Reveal";
 
 const { consulti, nav } = siteContent;
@@ -117,11 +118,12 @@ export function Consulti() {
 
   return (
     <div>
-      <PageBanner title={nav.consulti} className="mb-10 md:mb-14" />
+      <PageBanner title={nav.consulti} className="mb-0" />
+      <PlateFocus items={consulti.orientamento} />
 
       <div
         id="prenota"
-        className="mx-auto flex max-w-2xl scroll-mt-28 flex-col gap-20 px-6 pb-24 md:gap-24 md:px-10 md:pb-32"
+        className="mx-auto flex max-w-2xl scroll-mt-28 flex-col gap-20 px-6 pb-24 pt-16 md:gap-24 md:px-10 md:pb-32 md:pt-24"
       >
         <Reveal>
           <section>
