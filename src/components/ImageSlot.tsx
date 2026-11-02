@@ -12,6 +12,8 @@ type Props = {
   src: string;
   alt: string;
   caption?: string;
+  /** Testo di corpo sotto la didascalia breve. */
+  note?: string;
   ratio?: Ratio;
   /** `contain` mostra l’immagine intera (senza ritaglio); default `cover`. */
   fit?: "cover" | "contain";
@@ -24,6 +26,7 @@ export function ImageSlot({
   src,
   alt,
   caption,
+  note,
   ratio = "portrait",
   fit = "cover",
   framed = false,
@@ -54,9 +57,16 @@ export function ImageSlot({
             }
           />
         </div>
-        {caption ? (
-          <figcaption className="mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
-            {caption}
+        {caption || note ? (
+          <figcaption
+            className={
+              note
+                ? "mt-5 space-y-3 text-sm leading-[1.85] text-ink/70"
+                : "mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft"
+            }
+          >
+            {caption ? <p>{caption}</p> : null}
+            {note ? <p>{note}</p> : null}
           </figcaption>
         ) : null}
       </figure>

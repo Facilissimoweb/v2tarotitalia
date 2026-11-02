@@ -19,10 +19,10 @@ export function Home() {
       <HomeHero />
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2 md:gap-20">
+        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>
-              <Kicker>{nav.chiSiamo}</Kicker>
+              <Kicker>{home.chiSiamo.kicker}</Kicker>
             </Reveal>
             <Reveal delay={100}>
               <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
@@ -57,12 +57,12 @@ export function Home() {
             </Reveal>
           </div>
           <ImageSlot
-            src={chiSiamo.immagini.teresaHome.src}
-            alt={chiSiamo.immagini.teresaHome.alt}
-            caption={chiSiamo.immagini.teresaHome.caption}
+            src={chiSiamo.immagini.pamela.src}
+            alt={chiSiamo.immagini.pamela.alt}
+            caption={chiSiamo.immagini.pamela.caption}
+            note={chiSiamo.immagini.pamela.nota}
             ratio="portrait"
             fit="contain"
-            framed
           />
         </div>
       </section>

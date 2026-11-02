@@ -113,6 +113,7 @@ export const siteContent = {
     competenze: "Cartomanzia, Tarologia e Armonizzazioni.",
     lead: sloganBrand,
     chiSiamo: {
+      kicker: "Tarot Italia",
       titolo: "Simbolismo visivo e tradizione esoterica locale",
       presentazione:
         "Ti do il benvenuto in Tarot Italia. Sono Teresa, operatrice olistica, esoterica e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine al linguaggio degli Arcani. Ogni consulto è uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirti piena sovranità decisionale. Opero con trasparenza, rigore ed etica, lontano da automatismi e logiche commerciali.",
@@ -410,10 +411,12 @@ export const siteContent = {
         alt: "Ritratto evocativo di M. Teresa Rogani, operatrice olistica ed esoterica, cartomante e tarologa professionista",
         caption: "M. Teresa Rogani",
       },
-      teresaHome: {
-        src: "/chi-siamo/chi-sono-home.webp?v=2",
-        alt: "Incisione: angelo con tromba tra le nubi e tre putti",
-        caption: "Tarot Italia",
+      pamela: {
+        src: "/chi-siamo/pamela-colman-smith.webp",
+        alt: "Pamela Colman Smith",
+        caption:
+          "Pamela Colman Smith (16 febbraio 1878 – 18 settembre 1951). Nel 1909 l’artista crea un innovativo mazzo di Tarocchi di 78 carte che sarebbe stato riconosciuto come rivoluzionario.",
+        nota: "Grazie alle scene descrittive che illustrano tutti gli Arcani minori, il mazzo si è distaccato dalla tradizione secolare dei Tarocchi per diventare il punto di riferimento per tutti i mazzi pubblicati in seguito.",
       },
       studio: {
         src: "/chi-siamo/studio-board.jpg?v=1",
