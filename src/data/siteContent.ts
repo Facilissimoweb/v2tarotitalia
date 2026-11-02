@@ -10,7 +10,7 @@ export const siteContent = {
     logoHero: "/logo-seal.webp",
     logoNav: "/logo-seal.webp",
     titolare: "Maria Teresa Rogani",
-    ruolo: "Operatrice olistica ed esoterica, cartomante e tarologa professionista",
+    ruolo: "Operatrice olistica e ricercatrice esoterica, cartomante e tarologa professionista",
     sottotitolo: sottotitoloBrand,
     descrizione: descrizioneBrand,
     slogan: sloganBrand,

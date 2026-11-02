@@ -4,6 +4,7 @@ import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { PageBanner } from "../components/PageBanner";
 import { ImageSlot } from "../components/ImageSlot";
 import { Button, Kicker } from "../components/Button";
+import { SectionBrandMark } from "../components/WidgetFrame";
 import { Reveal } from "../components/Reveal";
 
 const { brand, chiSiamo, nav, percorsi } = siteContent;
@@ -67,7 +68,7 @@ export function ChiSiamo() {
           />
           <Reveal>
             <div className="mx-auto mt-16 max-w-2xl text-center">
-              <Kicker>{brand.name}</Kicker>
+              <SectionBrandMark />
               <p className="mt-6 font-display text-xl leading-relaxed text-ink md:text-2xl">
                 {brand.titolare}
               </p>
@@ -172,7 +173,7 @@ export function ChiSiamo() {
       <section className="px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <div className="mx-auto max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
-            <Kicker>{brand.name}</Kicker>
+            <SectionBrandMark />
             <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
           </div>
         </Reveal>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { siteContent } from "../data/siteContent";
-import { BrandLogo } from "../components/BrandLogo";
 import { Button, Kicker } from "../components/Button";
+import { SectionBrandMark } from "../components/WidgetFrame";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
 import { HomeHero } from "../components/HomeHero";
@@ -35,10 +35,8 @@ export function Home() {
             </Reveal>
             <Reveal delay={300}>
               <div className="mt-10 bg-paper p-8">
-                <p className="text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-ink">
-                  {brand.name}
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-ink/70">
+                <SectionBrandMark align="start" />
+                <p className="mt-4 text-sm leading-relaxed text-ink/70">
                   {brand.titolare}, {brand.ruolo.toLowerCase()}.
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.deontologia}</p>
@@ -178,10 +176,7 @@ export function Home() {
       <section className="bg-mist px-6 pb-24 pt-32 text-center md:px-10 md:pb-32 md:pt-40">
         <div className="mx-auto w-full max-w-6xl">
           <Reveal>
-            <BrandLogo className="mx-auto h-16 w-16" />
-            <p className="mt-5 font-display text-[0.6875rem] uppercase leading-none tracking-[0.16em] text-ink">
-              {brand.wordmark}
-            </p>
+            <SectionBrandMark />
           </Reveal>
           <Reveal delay={80}>
             <blockquote className="mx-auto mt-10 max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
@@ -202,7 +197,7 @@ export function Home() {
       <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
           <Reveal>
-            <Kicker>{brand.name}</Kicker>
+            <SectionBrandMark />
           </Reveal>
           <Reveal delay={100}>
             <h2 className="mt-5 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">

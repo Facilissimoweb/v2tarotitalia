@@ -8,6 +8,19 @@ type MarkProps = {
   size?: "sm" | "md";
 };
 
+/** Logo ufficiale + scritta Tarot Italia, visibile, per le aree di pagina. */
+export function SectionBrandMark({ align = "center" }: { align?: "center" | "start" }) {
+  const centered = align === "center";
+  return (
+    <div className={centered ? "text-center" : ""}>
+      <BrandLogo
+        className={`logo-hero-ring ${centered ? "mx-auto" : ""} h-24 w-24 md:h-28 md:w-28`}
+      />
+      <p className="label-kicker mt-5">{brand.wordmark}</p>
+    </div>
+  );
+}
+
 /** Logo ufficiale + scritta Tarot Italia. Obbligatorio in testa a ogni widget o modale. */
 export function WidgetBrandMark({ size = "md" }: MarkProps) {
   const logo = size === "sm" ? "mx-auto h-12 w-12" : "mx-auto h-14 w-14";

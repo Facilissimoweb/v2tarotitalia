@@ -1,6 +1,7 @@
 import { siteContent } from "../data/siteContent";
 import { BrandSafetyNote } from "../components/BrandSafetyNote";
 import { Button, Kicker } from "../components/Button";
+import { SectionBrandMark } from "../components/WidgetFrame";
 import { MailToLink } from "../components/MailToLink";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
@@ -17,8 +18,7 @@ export function Contatti() {
         <div className="mx-auto grid max-w-4xl gap-10 md:grid-cols-2 md:gap-16">
           <Reveal>
             <article className="bg-paper px-8 py-12 md:px-10 md:py-16">
-              <Kicker>{brand.name}</Kicker>
-              <p className="mt-8 font-display text-2xl leading-snug text-ink">{brand.wordmark}</p>
+              <SectionBrandMark align="start" />
               <p className="mt-4 text-sm leading-relaxed text-ink/65">{brand.slogan}</p>
               <p className="mt-6 text-sm leading-relaxed text-ink/70">
                 {brand.titolare}, {brand.ruolo.toLowerCase()}.

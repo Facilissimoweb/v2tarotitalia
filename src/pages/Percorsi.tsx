@@ -3,6 +3,7 @@ import { usePercorsi } from "../context/PercorsiContext";
 import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
+import { SectionBrandMark } from "../components/WidgetFrame";
 
 const { brand, cta, nav, pages, percorsi } = siteContent;
 
@@ -73,7 +74,7 @@ export function Percorsi() {
         </Reveal>
         <Reveal delay={120}>
           <div className="mx-auto mt-20 max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
-            <Kicker>{brand.name}</Kicker>
+            <SectionBrandMark />
             <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
             <p className="mt-6 text-sm leading-[1.9] text-ink/65">{percorsi.chiacchierata}</p>
             <div className="mt-10">
