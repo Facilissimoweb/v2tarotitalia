@@ -3,7 +3,6 @@ import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
 import { usePercorsi } from "../context/PercorsiContext";
-import { useFooterClearance } from "../lib/useFooterClearance";
 import { tarotChatUi } from "../lib/tarotChat/ui";
 import { mailtoHref, openMailto } from "../lib/mailto";
 import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
@@ -22,11 +21,9 @@ type DockBarProps = {
 };
 
 export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
-  const lift = useFooterClearance();
   const tel = getPhoneHref();
   const wa = whatsappChatHref();
   const telegram = telegramHref();
-  const inset = "max(1.25rem, env(safe-area-inset-bottom))";
   const navRef = useRef<HTMLElement>(null);
   const [orb, setOrb] = useState({ x: 0, on: false, travel: false });
   const leaveTimer = useRef<number>(0);
@@ -76,10 +73,7 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
   if (hidden) return null;
 
   return (
-    <div
-      className="pointer-events-none fixed inset-x-0 z-40 flex justify-center px-3 sm:px-4"
-      style={{ bottom: `calc(${lift}px + ${inset})` }}
-    >
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[env(safe-area-inset-bottom,0px)] sm:px-4">
       <nav
         ref={navRef}
         className={dockClass}

@@ -133,6 +133,10 @@ export function Footer() {
       <div className="footer-angelo-band" aria-hidden>
         <img src="/footer-putti.png?v=3" alt="" className="footer-angelo-tile" />
       </div>
+      <div
+        className="h-[calc(5.25rem+env(safe-area-inset-bottom,0px))] bg-plate md:h-[calc(5.75rem+env(safe-area-inset-bottom,0px))]"
+        aria-hidden
+      />
 
       <LegalNotice kind={notice} onClose={() => setNotice(null)} />
     </footer>

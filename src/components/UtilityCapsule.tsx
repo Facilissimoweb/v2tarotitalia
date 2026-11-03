@@ -4,7 +4,6 @@ import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
 import { usePercorsi } from "../context/PercorsiContext";
-import { useFooterClearance } from "../lib/useFooterClearance";
 import { tarotChatUi } from "../lib/tarotChat/ui";
 import { shopLive } from "../lib/launchFlags";
 import { ShopIcon } from "./ShopIcon";
@@ -24,8 +23,6 @@ export function UtilityCapsule() {
   const { open: cookieOpen, ready } = useConsent();
   const { open: percorsiOpen } = usePercorsi();
   const chatOpen = useSyncExternalStore(tarotChatUi.subscribe, tarotChatUi.getOpen, () => false);
-  const lift = useFooterClearance();
-  const inset = "max(1.25rem, env(safe-area-inset-bottom))";
   const hidden = !ready || cookieOpen || authOpen || percorsiOpen || chatOpen;
 
   if (hidden) return null;
@@ -33,7 +30,7 @@ export function UtilityCapsule() {
   return (
     <nav
       className="pointer-events-auto fixed right-2 z-[45] flex flex-col items-center gap-0 rounded-full border-2 border-[#d7f713] bg-plate p-1 sm:right-3 sm:gap-0.5 sm:p-1.5 md:right-4"
-      style={{ bottom: `calc(${lift}px + ${inset} + 4.65rem)` }}
+      style={{ bottom: "calc(4.65rem + env(safe-area-inset-bottom, 0px))" }}
     >
       <button
         type="button"

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { clearAuthReturn, readAuthReturn, resolvePostAuthPath } from "../lib/authReturn";
@@ -29,18 +29,29 @@ function PostAuthBounce() {
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
+  const prevPath = useRef<string | null>(null);
   useEffect(() => {
     pageSpeech.stop();
   }, [pathname]);
   useEffect(() => {
-    if (hash) {
-      const id = decodeURIComponent(hash.replace(/^#/, ""));
-      const frame = window.requestAnimationFrame(() => {
-        document.getElementById(id)?.scrollIntoView({ block: "start" });
-      });
-      return () => window.cancelAnimationFrame(frame);
+    const first = prevPath.current === null;
+    const pathChanged = prevPath.current !== pathname;
+    prevPath.current = pathname;
+
+    if (!hash) {
+      if (first || pathChanged) window.scrollTo(0, 0);
+      return;
     }
-    window.scrollTo(0, 0);
+
+    // Click su ancora della stessa pagina: lo scroll nativo basta.
+    // Un secondo scrollIntoView compete sullo smooth e su touch lascia la pagina in blocco.
+    if (!first && !pathChanged) return;
+
+    const id = decodeURIComponent(hash.replace(/^#/, ""));
+    const frame = window.requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ block: "start" });
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname, hash]);
   return null;
 }

@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { googleReviewsContent } from "../data/googleReviewsContent";
 import { siteContent } from "../data/siteContent";
 import { Kicker } from "./Button";
@@ -178,11 +178,25 @@ function ReviewsStrip() {
     animateTo(el, el.scrollLeft + dir * delta, reduce);
   };
 
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el) return;
+    const onEnd = () => {
+      el.style.scrollSnapType = "";
+      settle(el);
+    };
+    el.addEventListener("scrollend", onEnd);
+    return () => {
+      el.removeEventListener("scrollend", onEnd);
+      cancelAnimationFrame(frame.current);
+    };
+  }, []);
+
   return (
     <div className="mt-8">
       <div
         ref={scroller}
-        className="flex min-w-0 snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain scroll-auto pb-1 [scrollbar-width:none] [touch-action:pan-x] [&::-webkit-scrollbar]:hidden md:gap-5"
+        className="flex min-w-0 snap-x snap-proximity gap-4 overflow-x-auto overscroll-x-contain scroll-auto pb-1 [scrollbar-width:none] [touch-action:pan-x_pan-y] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden md:gap-5"
       >
         {copies.flatMap((copy) =>
           googleReviewsContent.map((review) => (
@@ -208,7 +222,7 @@ export function GoogleReviews() {
   return (
     <section
       id="recensioni-google"
-      className="scroll-mt-24 bg-ivory px-6 py-14 md:px-10 md:py-16 xl:scroll-mt-[7rem]"
+      className="scroll-mt-24 bg-ivory px-6 pt-14 pb-[calc(7.5rem+env(safe-area-inset-bottom,0px))] md:px-10 md:pt-16 md:pb-24 xl:scroll-mt-[7rem]"
     >
       <div className="mx-auto max-w-6xl">
         <Reveal>
