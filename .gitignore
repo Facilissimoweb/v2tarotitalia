@@ -13,3 +13,5 @@ public/logo-3d/
 *.glb
 *.obj
 *.mtl
+
+.vercel

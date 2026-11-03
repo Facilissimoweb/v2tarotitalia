@@ -1,4 +1,4 @@
-import type { TarotChatActionId } from "./actions";
+import type { TarotChatActionId } from "./actions.ts";
 
 export type TarotChatRole = "user" | "assistant";
 
