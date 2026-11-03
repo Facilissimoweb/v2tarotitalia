@@ -85,7 +85,7 @@ export function TarotChat() {
 
   return createPortal(
             <div
-              className="fixed inset-0 z-[70] flex items-end justify-center bg-ink/35 p-0 sm:items-center sm:p-4"
+              className="overlay-scrim z-[70] bg-ink/35"
               role="presentation"
               onClick={(event) => {
                 if (event.target === event.currentTarget) tarotChatUi.setOpen(false);
@@ -96,7 +96,7 @@ export function TarotChat() {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={titleId}
-                className="relative flex h-[min(92dvh,40rem)] w-full max-w-lg flex-col overflow-hidden bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.28)] ring-1 ring-ink/10 sm:h-[min(86dvh,36rem)]"
+                className="overlay-panel md:h-[min(86dvh,36rem)] md:max-h-[min(86dvh,36rem)] md:max-w-lg md:shadow-[0_24px_60px_rgba(43,37,35,0.28)] md:ring-1 md:ring-ink/10"
               >
                 <WidgetCloseButton onClick={() => tarotChatUi.setOpen(false)} />
 

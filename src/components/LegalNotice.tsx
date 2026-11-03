@@ -35,14 +35,14 @@ export function LegalNotice({ kind, onClose }: Props) {
 
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/35 p-5 backdrop-blur-md md:p-8"
+      className="overlay-scrim z-[90] bg-ink/35"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
     >
-      <div className="relative w-full max-w-2xl bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
+      <div className="overlay-panel md:max-w-2xl">
         <WidgetCloseButton onClick={onClose} />
-        <div className="max-h-[min(90vh,48rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
+        <div className="overlay-body px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={title} titleId={titleId}>
             <p className="text-center text-[0.75rem] text-ember-soft">
               <LegalCopy>{intestazione}</LegalCopy>

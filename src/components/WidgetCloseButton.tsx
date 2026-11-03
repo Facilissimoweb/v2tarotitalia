@@ -20,7 +20,9 @@ export function WidgetCloseButton({ onClick, placement = "panel", className = ""
       onClick={onClick}
       aria-label={nav.chiudi}
       className={`${mark} ${
-        placement === "panel" ? "absolute right-3 top-3 z-20 md:right-4 md:top-4" : ""
+        placement === "panel"
+          ? "absolute right-3 top-[max(0.75rem,env(safe-area-inset-top))] z-20 md:right-4 md:top-4"
+          : ""
       } ${className}`}
     >
       <CloseMark />

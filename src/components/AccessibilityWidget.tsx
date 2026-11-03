@@ -126,7 +126,7 @@ export function AccessibilityPanel() {
       role="dialog"
       aria-labelledby={titleId}
       tabIndex={-1}
-      className="a11y-panel fixed inset-x-3 top-[88px] z-[75] max-h-[calc(100dvh-104px)] overflow-y-auto overscroll-contain bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.22)] ring-1 ring-ink/15 outline-none sm:inset-x-auto sm:right-4 sm:w-[22rem] xl:right-6 xl:top-[128px] xl:max-h-[calc(100dvh-144px)]"
+      className="a11y-panel overlay-panel fixed inset-0 z-[75] overflow-y-auto overscroll-contain outline-none md:inset-auto md:right-4 md:top-[88px] md:h-auto md:max-h-[calc(100dvh-104px)] md:w-[22rem] md:max-w-[22rem] md:shadow-[0_24px_60px_rgba(43,37,35,0.22)] md:ring-1 md:ring-ink/15 xl:right-6 xl:top-[128px] xl:max-h-[calc(100dvh-144px)]"
     >
       <WidgetCloseButton onClick={closePanel} />
       <div className="px-6 pb-6 pt-8">

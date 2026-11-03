@@ -98,21 +98,21 @@ export function LanguageWidget({ placement, className = "" }: Props) {
       {open
         ? createPortal(
             <div
-              className="fixed inset-0 z-[85] flex items-center justify-center bg-ink/35 p-5 backdrop-blur-md md:p-8"
+              className="overlay-scrim z-[85] bg-ink/35"
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
             >
               <button
                 type="button"
-                className="absolute inset-0 cursor-default"
+                className="absolute inset-0 hidden cursor-default md:block"
                 aria-label={nav.chiudi}
                 onClick={() => {
                   setOpen(false);
                   triggerRef.current?.focus();
                 }}
               />
-              <div className="relative z-10 flex max-h-[min(90vh,42rem)] w-full max-w-md flex-col bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
+              <div className="overlay-panel relative z-10 md:max-w-md">
                 <WidgetCloseButton
                   onClick={() => {
                     setOpen(false);
@@ -138,7 +138,7 @@ export function LanguageWidget({ placement, className = "" }: Props) {
                     </label>
                   </WidgetFrame>
                 </div>
-                <ul className="mt-2 min-h-0 flex-1 overflow-y-auto overscroll-contain px-7 pb-10 md:px-12 md:pb-14">
+                <ul className="overlay-body mt-2 px-7 pb-10 md:px-12 md:pb-14">
                   {showItalian ? (
                     <li>
                       <LanguageOption

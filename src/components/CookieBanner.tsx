@@ -32,14 +32,14 @@ export function CookieBanner() {
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-ink/35 p-5 backdrop-blur-md md:p-8"
+      className="overlay-scrim z-[80] bg-ink/35"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
     >
-      <div className="relative w-full max-w-lg bg-ivory shadow-[0_24px_60px_rgba(43,37,35,0.18)]">
+      <div className="overlay-panel md:max-w-lg">
         <WidgetCloseButton onClick={dismiss} />
-        <div className="max-h-[min(90vh,44rem)] overflow-y-auto px-7 py-10 md:px-12 md:py-14">
+        <div className="overlay-body px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={cookies.titolo} titleId={titleId}>
             <p className="text-sm leading-[1.8] text-ink/70">{cookies.descrizione}</p>
 
