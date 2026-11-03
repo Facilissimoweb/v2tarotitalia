@@ -7,7 +7,7 @@ type Props = {
 };
 
 const INK = "#2B2523";
-const FRAME = "#C99A7A";
+const FRAME = "#2B2523";
 
 export function ArcanoMinoreArt({ arcano, className = "" }: Props) {
   const mark = RANK_MARK[arcano.grado];

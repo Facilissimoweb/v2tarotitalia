@@ -29,8 +29,8 @@ function Stars({ value }: { value: number }) {
 
 const AVATAR_TONES = [
   "bg-ink text-on-ink",
-  "bg-ember text-ivory",
-  "bg-ember-deep text-ivory",
+  "bg-ember text-ink",
+  "bg-ember-deep text-on-ink",
 ] as const;
 
 function initialOf(author: string) {

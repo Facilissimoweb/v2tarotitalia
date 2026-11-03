@@ -3,10 +3,10 @@
 @theme {
   --color-ivory: #f9f8f6;
   --color-ink: #2b2523;
-  --color-ember: #8b5e34;
-  --color-ember-hot: #a8733f;
-  --color-ember-deep: #5e3f22;
-  --color-ember-soft: #c9a87a;
+  --color-ember: #d7f713;
+  --color-ember-hot: #e4fb4a;
+  --color-ember-deep: #393632;
+  --color-ember-soft: #5c5754;
   --color-lime: #d7f713;
   --color-graphite: #141210;
   --color-plate: #393632;
@@ -549,10 +549,10 @@ html[data-a11y-contrast="on"] {
   --color-linen: #d4d4d4;
   --color-ink: #000000;
   --color-plate: #000000;
-  --color-ember: #6a4423;
-  --color-ember-hot: #7a4f29;
-  --color-ember-deep: #4d3018;
-  --color-ember-soft: #6e5236;
+  --color-ember: #000000;
+  --color-ember-hot: #000000;
+  --color-ember-deep: #000000;
+  --color-ember-soft: #000000;
   --color-on-ink: #ffffff;
 }
 
@@ -674,7 +674,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
 .dock-sphere {
   border-radius: 9999px;
-  background-color: #ede4d4;
+  background-color: #f9f8f6;
   color: #111111;
   line-height: 0;
   box-shadow: 0 2px 8px rgb(0 0 0 / 0.45);
@@ -835,7 +835,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   width: min(120vw, 62rem);
   height: 80%;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at 50% 0%, rgb(232 208 160 / 0.4) 0%, rgb(176 132 84 / 0.18) 34%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgb(215 247 19 / 0.28) 0%, rgb(215 247 19 / 0.1) 34%, transparent 70%);
   animation: hero-rays-breathe 9s ease-in-out infinite;
 }
 
@@ -843,11 +843,11 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 22% 38%, rgb(236 214 172 / 0.22) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 71% 26%, rgb(236 214 172 / 0.2) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 58% 62%, rgb(236 214 172 / 0.16) 0 1px, transparent 2.5px),
-    radial-gradient(circle at 34% 74%, rgb(236 214 172 / 0.18) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 84% 70%, rgb(236 214 172 / 0.14) 0 1px, transparent 2.5px);
+    radial-gradient(circle at 22% 38%, rgb(215 247 19 / 0.22) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 71% 26%, rgb(215 247 19 / 0.2) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 58% 62%, rgb(215 247 19 / 0.16) 0 1px, transparent 2.5px),
+    radial-gradient(circle at 34% 74%, rgb(215 247 19 / 0.18) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 84% 70%, rgb(215 247 19 / 0.14) 0 1px, transparent 2.5px);
   animation: hero-rays-dust 16s ease-in-out infinite alternate;
 }
 

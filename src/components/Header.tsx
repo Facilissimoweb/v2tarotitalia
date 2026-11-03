@@ -361,7 +361,7 @@ function CartLink({ className = "relative flex h-[40px] w-[40px] items-center ju
     >
       <BagIcon />
       {count > 0 ? (
-        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-white">
+        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-ink">
           {count}
         </span>
       ) : null}
