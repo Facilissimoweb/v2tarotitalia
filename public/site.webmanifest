@@ -11,13 +11,13 @@
   "lang": "it",
   "icons": [
     {
-      "src": "/favicon.png",
+      "src": "/favicon.png?v=3",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any"
     },
     {
-      "src": "/favicon.png",
+      "src": "/favicon.png?v=3",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any"

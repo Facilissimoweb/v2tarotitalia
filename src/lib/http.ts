@@ -36,22 +36,59 @@ export function readBearer(req: NodeLikeReq) {
   return match?.[1] ?? "";
 }
 
+function parseJsonBody<T>(raw: string): T {
+  return JSON.parse(raw.trim() || "{}") as T;
+}
+
 export function readJsonBody<T>(req: NodeLikeReq): Promise<T> {
   return new Promise((resolve, reject) => {
     const existing = (req as NodeLikeReq & { body?: unknown }).body;
+    if (typeof existing === "string") {
+      try {
+        resolve(parseJsonBody<T>(existing));
+      } catch (error) {
+        reject(error);
+      }
+      return;
+    }
     if (existing && typeof existing === "object" && !ArrayBuffer.isView(existing)) {
       resolve(existing as T);
       return;
     }
+
     const chunks: string[] = [];
+    let settled = false;
+    const finish = (fn: () => void) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      fn();
+    };
+    const timer = setTimeout(() => {
+      finish(() => {
+        try {
+          resolve(parseJsonBody<T>(chunks.join("")));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }, 4000);
+
+    if (typeof req.on !== "function") {
+      finish(() => resolve({} as T));
+      return;
+    }
+
     req.on("data", (chunk) => chunks.push(String(chunk)));
     req.on("end", () => {
-      try {
-        resolve(JSON.parse(chunks.join("") || "{}") as T);
-      } catch (error) {
-        reject(error);
-      }
+      finish(() => {
+        try {
+          resolve(parseJsonBody<T>(chunks.join("")));
+        } catch (error) {
+          reject(error);
+        }
+      });
     });
-    req.on("error", (error) => reject(error));
+    req.on("error", (error) => finish(() => reject(error)));
   });
 }

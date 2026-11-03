@@ -100,15 +100,15 @@ export function TarotChat() {
               >
                 <WidgetCloseButton onClick={() => tarotChatUi.setOpen(false)} />
 
-                <header className="shrink-0 border-b border-ink/10 px-6 pb-5 pt-7 md:px-8">
+                <header className="shrink-0 border-b border-ink/10 px-6 pb-4 pt-6 md:px-8 md:pb-5 md:pt-7">
                   <WidgetBrandMark size="sm" />
                   <h2
                     id={titleId}
-                    className="mt-5 text-center font-display text-xl text-ink md:text-2xl"
+                    className="mt-4 text-center font-display text-xl text-ink md:mt-5 md:text-2xl"
                   >
                     {copy.titolo}
                   </h2>
-                  <p className="mx-auto mt-3 max-w-sm text-center text-xs leading-relaxed text-ink/65">
+                  <p className="mx-auto mt-2 hidden max-w-sm text-center text-xs leading-relaxed text-ink/65 sm:block">
                     {copy.lead}
                   </p>
                 </header>
