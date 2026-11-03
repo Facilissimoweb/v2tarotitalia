@@ -6,6 +6,7 @@ import { useConsent } from "../context/ConsentContext";
 import { usePercorsi } from "../context/PercorsiContext";
 import { useFooterClearance } from "../lib/useFooterClearance";
 import { tarotChatUi } from "../lib/tarotChat/ui";
+import { shopLive } from "../lib/launchFlags";
 import { ShopIcon } from "./ShopIcon";
 
 const { cta, pages, tarotChat } = siteContent;
@@ -42,14 +43,16 @@ export function UtilityCapsule() {
       >
         <ArrowUpIcon />
       </button>
-      <NavLink
-        to="/shop"
-        aria-label={pages.shop.trigger}
-        aria-current={pathname === "/shop" ? "page" : undefined}
-        className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7f713]`}
-      >
-        <ShopIcon size={22} className="h-[16px] w-[16px] sm:h-[18px] sm:w-[18px] md:h-[22px] md:w-[22px]" />
-      </NavLink>
+      {shopLive() ? (
+        <NavLink
+          to="/shop"
+          aria-label={pages.shop.trigger}
+          aria-current={pathname === "/shop" ? "page" : undefined}
+          className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7f713]`}
+        >
+          <ShopIcon size={22} className="h-[16px] w-[16px] sm:h-[18px] sm:w-[18px] md:h-[22px] md:w-[22px]" />
+        </NavLink>
+      ) : null}
       <button
         type="button"
         className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7f713]`}

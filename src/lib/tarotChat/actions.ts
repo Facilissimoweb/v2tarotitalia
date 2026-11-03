@@ -1,3 +1,5 @@
+import { shopLive } from "../launchFlags";
+
 export const TAROT_CHAT_ACTION_IDS = ["phone", "whatsapp", "telegram", "consulti", "percorsi", "shop"] as const;
 
 export type TarotChatActionId = (typeof TAROT_CHAT_ACTION_IDS)[number];
@@ -50,7 +52,12 @@ export function inferActionsFromText(text: string): TarotChatActionId[] {
   if (/\b(chiama|telefono|telefonare|numero)\b|\+39\s*379|tel:/.test(t)) push("phone");
   if (/\bconsult[oi]\b|\/consulti/.test(t)) push("consulti");
   if (/\bpercors[oi]\b|armonizzaz|\/percorsi/.test(t)) push("percorsi");
-  if (/\b(shop|corsi?|dispens[ae]|taccuino|trattato|masterclass|\/shop|\/corsi)\b/.test(t)) push("shop");
+  if (
+    shopLive() &&
+    /\b(shop|corsi?|dispens[ae]|taccuino|trattato|masterclass|\/shop|\/corsi)\b/.test(t)
+  ) {
+    push("shop");
+  }
 
   // Conversione tipica: predizione → servizi + contatto
   if (

@@ -11,6 +11,7 @@ function isLocalDev() {
   return import.meta.env.DEV;
 }
 
+/** Produzione: Coming Soon attiva. Si spegne solo con VITE_SITE_GATE=off. */
 export function siteGateEnabled() {
   if (isLocalDev()) return false;
   const raw = import.meta.env.VITE_SITE_GATE?.trim().toLowerCase();

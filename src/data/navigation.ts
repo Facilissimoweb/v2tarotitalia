@@ -1,3 +1,4 @@
+import { shopLive } from "../lib/launchFlags";
 import { siteContent } from "./siteContent";
 
 const { nav } = siteContent;
@@ -33,9 +34,13 @@ const blog: NavLeaf = { to: "/blog", label: nav.blog };
 const contatti: NavLeaf = { to: "/contatti", label: nav.contatti };
 
 export const NAV_LEADING: NavItem[] = [home, chiSono, consulti, tarocchi];
-export const NAV_TRAILING: NavItem[] = [percorsi, shop, blog, contatti];
+export const NAV_TRAILING: NavItem[] = shopLive()
+  ? [percorsi, shop, blog, contatti]
+  : [percorsi, blog, contatti];
 
-export const MAIN_NAV: NavItem[] = [home, chiSono, consulti, percorsi, shop, blog, contatti, tarocchi];
+export const MAIN_NAV: NavItem[] = shopLive()
+  ? [home, chiSono, consulti, percorsi, shop, blog, contatti, tarocchi]
+  : [home, chiSono, consulti, percorsi, blog, contatti, tarocchi];
 
 export function isNavBranch(item: NavItem): item is NavBranch {
   return "children" in item;

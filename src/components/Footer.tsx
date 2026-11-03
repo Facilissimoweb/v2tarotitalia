@@ -6,6 +6,7 @@ import { BrandLogo } from "./BrandLogo";
 import { LanguageWidget } from "./LanguageWidget";
 import { LegalNotice, type LegalKind } from "./LegalNotice";
 import { MailToLink } from "./MailToLink";
+import { shopLive } from "../lib/launchFlags";
 import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
 const { brand, cookies, cta, legal, nav } = siteContent;
@@ -67,16 +68,18 @@ export function Footer() {
           </div>
         </div>
 
-        <FooterColumn title={nav.shop} to="/shop">
+        <FooterColumn title={shopLive() ? nav.shop : nav.consulti} to={shopLive() ? "/shop" : "/consulti"}>
           <NavLink to="/percorsi" className={colLink}>
             {nav.percorsi}
           </NavLink>
           <NavLink to="/consulti" className={colLink}>
             {nav.consulti}
           </NavLink>
-          <NavLink to="/carrello" className={colLink}>
-            {nav.carrello}
-          </NavLink>
+          {shopLive() ? (
+            <NavLink to="/carrello" className={colLink}>
+              {nav.carrello}
+            </NavLink>
+          ) : null}
         </FooterColumn>
 
         <FooterColumn title={nav.chiSiamo} to="/chi-sono">

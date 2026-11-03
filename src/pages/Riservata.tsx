@@ -31,6 +31,7 @@ import {
   syncPaidCheckout,
   syncPaidDigitalOrder,
 } from "../lib/stripeCheckout";
+import { shopLive } from "../lib/launchFlags";
 import { buildRecessoMessage, openWhatsApp, whatsappHref } from "../lib/whatsapp";
 
 const TABS = ["acquisti", "corsi", "alchemici", "profilo"] as const;
@@ -290,10 +291,14 @@ export function Riservata() {
                 <Link to="/consulti" className="underline underline-offset-4">
                   {cta.consultoWhatsapp}
                 </Link>
-                {" · "}
-                <Link to="/shop" className="underline underline-offset-4">
-                  {pages.corsi.titolo}
-                </Link>
+                {shopLive() ? (
+                  <>
+                    {" · "}
+                    <Link to="/shop" className="underline underline-offset-4">
+                      {pages.corsi.titolo}
+                    </Link>
+                  </>
+                ) : null}
                 .
               </p>
             ) : null}
@@ -317,9 +322,11 @@ export function Riservata() {
               <Button to="/consulti" variant="ghost">
                 {cta.consultoWhatsapp}
               </Button>
-              <Button to="/shop" variant="ghost">
-                {cta.acquista}
-              </Button>
+              {shopLive() ? (
+                <Button to="/shop" variant="ghost">
+                  {cta.acquista}
+                </Button>
+              ) : null}
             </div>
           </div>
         ) : null}
@@ -336,10 +343,15 @@ export function Riservata() {
               if (ownedCorsi.length === 0) {
                 return (
                   <p className="bg-mist p-5 text-sm leading-relaxed text-ink/70">
-                    {auth.archivioChiuso}{" "}
-                    <Link className="underline underline-offset-4" to="/shop">
-                      {pages.corsi.titolo}
-                    </Link>
+                    {auth.archivioChiuso}
+                    {shopLive() ? (
+                      <>
+                        {" "}
+                        <Link className="underline underline-offset-4" to="/shop">
+                          {pages.corsi.titolo}
+                        </Link>
+                      </>
+                    ) : null}
                   </p>
                 );
               }
@@ -365,10 +377,15 @@ export function Riservata() {
               if (!bundle || !ownsDigital("alchemici")) {
                 return (
                   <p className="bg-mist p-5 text-sm leading-relaxed text-ink/70">
-                    {auth.archivioChiuso}{" "}
-                    <Link className="underline underline-offset-4" to="/shop">
-                      {pages.corsi.titolo}
-                    </Link>
+                    {auth.archivioChiuso}
+                    {shopLive() ? (
+                      <>
+                        {" "}
+                        <Link className="underline underline-offset-4" to="/shop">
+                          {pages.corsi.titolo}
+                        </Link>
+                      </>
+                    ) : null}
                   </p>
                 );
               }
@@ -581,7 +598,7 @@ function DigitalArchiveCard({
       ) : (
         <div className="mt-6">
           <p className="mb-4 text-sm leading-relaxed text-ink/70">{pages.corsi.sbloccaDopo}</p>
-          <Button to="/shop">{cta.acquista}</Button>
+          {shopLive() ? <Button to="/shop">{cta.acquista}</Button> : null}
         </div>
       )}
     </article>

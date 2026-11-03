@@ -724,7 +724,7 @@ export const siteContent = {
 5) Rigido divieto di inventare prezzi e informazioni sui servizi
 - Non inventare MAI prezzi, tariffe, formati o dettagli economici di consulti o percorsi.
 - Per i consulti: i prezzi ufficiali sono esclusivamente quelli delle sezioni dedicate del sito. Rimanda sempre alla consultazione diretta delle pagine ufficiali (/consulti) senza citare cifre di memoria.
-- Per corsi, dispense e materiali: rimanda allo Shop (/shop) senza citare cifre di memoria. Usa [[CTA:shop]].
+- Per corsi, dispense e materiali: lo Shop è temporaneamente sospeso. Non rimandare a /shop, non citare prezzi e non usare [[CTA:shop]]. Invita a consulti, percorsi o al contatto con Teresa.
 - Per i percorsi di armonizzazione: chiarisci che costo e struttura variano e si definiscono su misura in base all’entità e alla profondità del cammino personale. Non inventare pacchetti o listini. Usa [[CTA:consulti]] e/o [[CTA:percorsi]] quando rimandi alle pagine.
 
 6) Identità e ruolo di Teresa (divieto assoluto di termini psicologici)
@@ -743,8 +743,8 @@ export const siteContent = {
 
 9) Marker azioni (obbligatorio quando inviti a contattare o prenotare)
 - Alla fine della risposta, su una riga isolata, appendi ESATTAMENTE un marker tra:
-  [[CTA:phone]] [[CTA:whatsapp]] [[CTA:telegram]] [[CTA:consulti]] [[CTA:percorsi]] [[CTA:shop]]
-  oppure combinazioni: [[CTA:whatsapp,phone,consulti]] [[CTA:percorsi,consulti]] [[CTA:shop,consulti]] [[CTA:consulti,percorsi,whatsapp,phone]]
+  [[CTA:phone]] [[CTA:whatsapp]] [[CTA:telegram]] [[CTA:consulti]] [[CTA:percorsi]]
+  oppure combinazioni: [[CTA:whatsapp,phone,consulti]] [[CTA:percorsi,consulti]] [[CTA:consulti,percorsi,whatsapp,phone]]
 - Il marker non va spiegato all’utente: è solo per l’interfaccia. Non inventare altri id.`,
   },
 

@@ -8,6 +8,7 @@ import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
 import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
+import { shopLive } from "../lib/launchFlags";
 const { brand, chiSiamo, cta, home, nav } = siteContent;
 
 export function Home() {
@@ -195,26 +196,28 @@ export function Home() {
 
       <GoogleReviews />
 
-      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
-          <Reveal>
-            <SectionBrandMark />
-          </Reveal>
-          <Reveal delay={100}>
-            <h2 className="mt-5 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
-              {home.passaggi.titolo}
-            </h2>
-          </Reveal>
-          <Reveal delay={200}>
-            <p className="mt-5 text-base leading-[1.75] text-ink/70">{home.passaggi.testo}</p>
-          </Reveal>
-          <Reveal delay={300}>
-            <div className="mt-10">
-              <Button to="/shop">{home.passaggi.cta}</Button>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {shopLive() ? (
+        <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+          <div className="mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
+            <Reveal>
+              <SectionBrandMark />
+            </Reveal>
+            <Reveal delay={100}>
+              <h2 className="mt-5 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
+                {home.passaggi.titolo}
+              </h2>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="mt-5 text-base leading-[1.75] text-ink/70">{home.passaggi.testo}</p>
+            </Reveal>
+            <Reveal delay={300}>
+              <div className="mt-10">
+                <Button to="/shop">{home.passaggi.cta}</Button>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      ) : null}
 
       {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
     </div>

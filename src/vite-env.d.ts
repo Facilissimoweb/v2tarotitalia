@@ -9,6 +9,7 @@ interface ImportMetaEnv {
   readonly VITE_TELEGRAM_URL?: string;
   readonly VITE_SITE_GATE?: string;
   readonly VITE_SITE_ACCESS?: string;
+  readonly VITE_SHOP_LIVE?: string;
 }
 
 

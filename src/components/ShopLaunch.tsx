@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
 import { usePercorsi } from "../context/PercorsiContext";
 import { tarotChatUi } from "../lib/tarotChat/ui";
+import { shopLive } from "../lib/launchFlags";
 import { ShopIcon } from "./ShopIcon";
 
 const { pages } = siteContent;
@@ -15,7 +16,7 @@ export function ShopLaunch() {
   const { open: cookieOpen, ready } = useConsent();
   const { open: percorsiOpen } = usePercorsi();
   const chatOpen = useSyncExternalStore(tarotChatUi.subscribe, tarotChatUi.getOpen, () => false);
-  const hidden = !ready || cookieOpen || authOpen || percorsiOpen || chatOpen;
+  const hidden = !shopLive() || !ready || cookieOpen || authOpen || percorsiOpen || chatOpen;
 
   if (hidden) return null;
 

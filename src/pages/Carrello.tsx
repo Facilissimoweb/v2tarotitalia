@@ -27,6 +27,7 @@ import {
 } from "../lib/digitalOrders";
 import { sessionModeLabel } from "../lib/bookingRules";
 import { cancelPendingCheckout, cancelPendingDigitalCheckout } from "../lib/stripeCheckout";
+import { shopLive } from "../lib/launchFlags";
 import { formatBookingDay } from "../lib/whatsapp";
 import { useMemo, useState } from "react";
 
@@ -95,9 +96,11 @@ export function Carrello() {
             <p className="text-sm leading-[1.9] text-ink/70">{pages.carrello.vuoto}</p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Button to="/consulti">{siteContent.cta.consultoWhatsapp}</Button>
-              <Button to="/shop" variant="ghost">
-                {siteContent.cta.acquista}
-              </Button>
+              {shopLive() ? (
+                <Button to="/shop" variant="ghost">
+                  {siteContent.cta.acquista}
+                </Button>
+              ) : null}
             </div>
           </div>
         ) : null}

@@ -11,6 +11,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { Home } from "./pages/Home";
 import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
+import { shopLive } from "./lib/launchFlags";
 import { useSiteAccess } from "./lib/useSiteAccess";
 
 const PercorsiModal = lazy(() =>
@@ -162,12 +163,16 @@ export default function App() {
               <Route
                 path="/shop"
                 element={
-                  <Suspense fallback={<RouteFallback />}>
-                    <Shop />
-                  </Suspense>
+                  shopLive() ? (
+                    <Suspense fallback={<RouteFallback />}>
+                      <Shop />
+                    </Suspense>
+                  ) : (
+                    <Navigate to="/" replace />
+                  )
                 }
               />
-              <Route path="/corsi" element={<Navigate to="/shop" replace />} />
+              <Route path="/corsi" element={<Navigate to={shopLive() ? "/shop" : "/"} replace />} />
               <Route
                 path="/login"
                 element={
