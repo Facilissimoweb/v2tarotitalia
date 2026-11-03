@@ -83,13 +83,13 @@ function Switch({
       </span>
       <span
         aria-hidden
-        className={`relative h-6 w-11 shrink-0 ring-1 transition-colors duration-200 ${
-          checked ? "bg-ink ring-ink" : "bg-mist ring-ink/35"
+        className={`relative h-6 w-11 shrink-0 transition-colors duration-200 ${
+          checked ? "bg-lime" : "bg-plate"
         }`}
       >
         <span
           className={`absolute top-0.5 h-5 w-5 transition-[left,background-color] duration-200 ${
-            checked ? "left-[1.375rem] bg-ivory" : "left-0.5 bg-ink/55"
+            checked ? "left-[1.375rem] bg-ink" : "left-0.5 bg-ivory"
           }`}
         />
       </span>
