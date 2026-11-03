@@ -3,9 +3,17 @@ import { siteContent } from "../data/siteContent";
 /** Indirizzo ufficiale di contatto pubblico. */
 export const OFFICIAL_MAIL = siteContent.brand.email;
 
-export function mailtoHref(email: string = OFFICIAL_MAIL) {
+export type MailtoFields = {
+  subject?: string;
+  body?: string;
+};
+
+export function mailtoHref(email: string = OFFICIAL_MAIL, fields?: MailtoFields) {
   const address = email.trim().replace(/^mailto:/i, "");
-  return `mailto:${address}`;
+  const parts: string[] = [];
+  if (fields?.subject) parts.push(`subject=${encodeURIComponent(fields.subject)}`);
+  if (fields?.body) parts.push(`body=${encodeURIComponent(fields.body)}`);
+  return parts.length ? `mailto:${address}?${parts.join("&")}` : `mailto:${address}`;
 }
 
 /**
@@ -13,8 +21,8 @@ export function mailtoHref(email: string = OFFICIAL_MAIL) {
  * Preferisce location.assign (handler di protocollo nativo); fallback sull’anchor programmatico
  * come per WhatsApp (`openWhatsApp`).
  */
-export function openMailto(email: string = OFFICIAL_MAIL) {
-  const href = mailtoHref(email);
+export function openMailto(email: string = OFFICIAL_MAIL, fields?: MailtoFields) {
+  const href = mailtoHref(email, fields);
   try {
     window.location.assign(href);
     return;

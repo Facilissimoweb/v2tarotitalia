@@ -30,8 +30,9 @@ export function Home() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-8 text-base leading-[1.75] text-ink/75">{home.chiSiamo.presentazione}</p>
-              <p className="mt-5 text-base leading-[1.75] text-ink/75">{home.chiSiamo.percorsi}</p>
+              <p className="mt-8 text-base leading-[1.85] text-ink/75">{home.chiSiamo.benvenuto}</p>
+              <p className="mt-6 text-base leading-[1.85] text-ink/75">{home.chiSiamo.presentazione}</p>
+              <p className="mt-6 text-base leading-[1.85] text-ink/75">{home.chiSiamo.percorsi}</p>
             </Reveal>
             <Reveal delay={300}>
               <div className="mt-10 bg-paper p-8">

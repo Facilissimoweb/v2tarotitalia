@@ -6,17 +6,18 @@ import { ImageSlot } from "../components/ImageSlot";
 import { Button, Kicker } from "../components/Button";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { Reveal } from "../components/Reveal";
+import { usePageSeo } from "../lib/pageSeo";
 
-const { brand, chiSiamo, nav, percorsi } = siteContent;
+const { brand, chiSiamo, cta, nav } = siteContent;
 
 export function ChiSiamo() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
+  usePageSeo(chiSiamo.seo.titolo, chiSiamo.seo.descrizione);
 
   return (
     <div>
       <PageBanner
-        title={nav.chiSiamo}
-        subtitle={chiSiamo.titolo}
+        title={chiSiamo.titolo}
         background={chiSiamo.immagini.hero}
         className="mb-10 md:mb-14"
       />
@@ -31,56 +32,27 @@ export function ChiSiamo() {
           />
           <div className="md:pt-10">
             <Reveal>
-              <Kicker>{brand.name}</Kicker>
+              <Kicker>{chiSiamo.visione.kicker}</Kicker>
             </Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {chiSiamo.titolo}
+                {chiSiamo.visione.titolo}
               </h2>
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">
-                {chiSiamo.presentazione}
+                {chiSiamo.visione.testo}
               </p>
             </Reveal>
+            <Reveal delay={280}>
+              <div className="mt-12 bg-paper p-8">
+                <SectionBrandMark align="start" />
+                <p className="mt-4 text-sm leading-relaxed text-ink/70">
+                  {brand.titolare}, {brand.ruolo.toLowerCase()}.
+                </p>
+              </div>
+            </Reveal>
           </div>
-        </div>
-      </section>
-
-      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <Reveal>
-          <blockquote className="mx-auto max-w-3xl text-center">
-            <p className="font-display text-2xl italic leading-relaxed text-ink md:text-3xl">
-              «{chiSiamo.citazione}»
-            </p>
-          </blockquote>
-        </Reveal>
-      </section>
-
-      <section className="px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-6xl">
-          <ImageSlot
-            src={chiSiamo.immagini.studio.src}
-            alt={chiSiamo.immagini.studio.alt}
-            caption={chiSiamo.immagini.studio.caption}
-            fit="contain"
-            className="mx-auto w-full max-w-md md:max-w-lg"
-          />
-          <Reveal>
-            <div className="mx-auto mt-16 max-w-2xl text-center">
-              <SectionBrandMark />
-              <p className="mt-6 font-display text-xl leading-relaxed text-ink md:text-2xl">
-                {brand.titolare}
-              </p>
-              <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.ruolo}</p>
-              <p className="mt-6 font-display text-xl leading-relaxed text-ink md:text-2xl">
-                {brand.studioDiTeresa}
-              </p>
-              <p className="mt-4 text-sm uppercase leading-relaxed tracking-[0.16em] text-ink/70">
-                {brand.identitaFiscale}
-              </p>
-            </div>
-          </Reveal>
         </div>
       </section>
 
@@ -88,12 +60,25 @@ export function ChiSiamo() {
         <div className="mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2 md:gap-24">
           <div>
             <Reveal>
-              <Kicker>{chiSiamo.formazioneKicker}</Kicker>
+              <Kicker>{chiSiamo.metodo.kicker}</Kicker>
             </Reveal>
             <Reveal delay={100}>
-              <p className="mt-10 max-w-lg text-base leading-[1.9] text-ink/75">
-                {chiSiamo.formazioneAccademica}
-              </p>
+              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+                {chiSiamo.metodo.titolo}
+              </h2>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="mt-10 max-w-lg text-base leading-[1.9] text-ink/75">{chiSiamo.metodo.testo}</p>
+            </Reveal>
+            <Reveal delay={280}>
+              <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">
+                <Button to="/arcani" variant="ghost">
+                  {nav.arcaniMaggiori}
+                </Button>
+                <Button to="/arcani-minori" variant="ghost">
+                  {nav.arcaniMinori}
+                </Button>
+              </div>
             </Reveal>
           </div>
           <ImageSlot
@@ -106,7 +91,45 @@ export function ChiSiamo() {
         </div>
       </section>
 
-      <section className="px-6 py-24 pb-40 md:px-10 md:py-32 md:pb-48">
+      <section className="px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto max-w-3xl">
+          <Reveal>
+            <Kicker>{chiSiamo.etica.kicker}</Kicker>
+          </Reveal>
+          <Reveal delay={100}>
+            <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+              {chiSiamo.etica.titolo}
+            </h2>
+          </Reveal>
+          <Reveal delay={200}>
+            <p className="mt-10 text-base leading-[1.9] text-ink/75">{chiSiamo.etica.testo}</p>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
+        <div className="mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2 md:gap-24">
+          <div>
+            <Reveal>
+              <Kicker>{chiSiamo.formazioneKicker}</Kicker>
+            </Reveal>
+            <Reveal delay={100}>
+              <p className="mt-10 max-w-lg text-base leading-[1.9] text-ink/75">
+                {chiSiamo.formazioneAccademica}
+              </p>
+            </Reveal>
+          </div>
+          <ImageSlot
+            src={chiSiamo.immagini.studio.src}
+            alt={chiSiamo.immagini.studio.alt}
+            caption={chiSiamo.immagini.studio.caption}
+            fit="contain"
+            className="mx-auto w-full max-w-md md:max-w-lg"
+          />
+        </div>
+      </section>
+
+      <section className="px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <Kicker>{chiSiamo.percorsoKicker}</Kicker>
@@ -131,50 +154,17 @@ export function ChiSiamo() {
 
       {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
 
-      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.85fr)_1.15fr] md:gap-24">
-          <ImageSlot
-            src={percorsi.immagine.src}
-            alt={percorsi.immagine.alt}
-            caption={percorsi.immagine.caption}
-            ratio="portrait"
-          />
-          <div className="md:pt-8">
-            <Reveal>
-              <Kicker>{percorsi.sezione}</Kicker>
-            </Reveal>
-            <Reveal delay={100}>
-              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {percorsi.titoloSezione}
-              </h2>
-            </Reveal>
-            <Reveal delay={200}>
-              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{percorsi.descrizione}</p>
-            </Reveal>
-            <Reveal delay={300}>
-              <p className="mt-14 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsi.percorsiKicker}</p>
-            </Reveal>
-            <ul className="mt-6 space-y-4">
-              {percorsi.elenco.map((voce, i) => (
-                <Reveal key={voce} as="li" delay={350 + i * 80} className="font-display text-lg text-ink">
-                  {voce}
-                </Reveal>
-              ))}
-            </ul>
-            <Reveal delay={400}>
-              <blockquote className="mt-16 max-w-lg border-l border-ember-soft pl-8">
-                <p className="font-display text-xl italic leading-relaxed text-ink">«{percorsi.citazione}»</p>
-              </blockquote>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <Reveal>
-          <div className="mx-auto max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
+          <div className="mx-auto max-w-2xl bg-mist px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />
             <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
+            <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
+              <Button to="/consulti">{chiSiamo.ctaConsulti}</Button>
+              <Button to="/contatti" variant="ghost">
+                {cta.scriviStudio}
+              </Button>
+            </div>
           </div>
         </Reveal>
       </section>

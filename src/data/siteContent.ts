@@ -114,11 +114,12 @@ export const siteContent = {
     lead: sloganBrand,
     chiSiamo: {
       kicker: "Tarot Italia",
-      titolo: "Simbolismo visivo e tradizione esoterica locale",
+      titolo: "Simbolismo e Tradizione",
+      benvenuto: "Benvenuti in Tarot Italia.",
       presentazione:
-        "Ti do il benvenuto in Tarot Italia. Sono Teresa, operatrice olistica, esoterica e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine al linguaggio degli Arcani. Ogni consulto è uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirti piena sovranità decisionale. Opero con trasparenza, rigore ed etica, lontano da automatismi e logiche commerciali.",
+        "L’approccio che adotto unisce l’analisi visiva e semiotica dell’immagine alla lettura rigorosa dei tarocchi, sia negli Arcani Maggiori che nei Minori. Ciascun consulto costituisce per voi uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirvi piena sovranità decisionale, lontano da automatismi e logiche commerciali.",
       percorsi:
-        "Nei Percorsi di Armonizzazione e Consapevolezza offro uno spazio di ascolto profondo, riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza promesse di forzature esterne.",
+        "Sia nei consulti singoli che nei Percorsi di Armonizzazione e Consapevolezza, vi offro un’esperienza di riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza alcuna promessa di forzatura esterna.",
     },
     ctaConsulto: "Prenota consulto",
     visione: {
@@ -205,7 +206,39 @@ export const siteContent = {
     },
     contatti: {
       kicker: "Contatti",
-      titolo: "Contatti",
+      titolo: "Contatti – Inizia il Tuo Spazio di Ascolto",
+      seo: {
+        titolo: "Contatti – Inizia il Tuo Spazio di Ascolto",
+        descrizione:
+          "Benvenuti nella sezione dedicata al contatto diretto. Se desiderate richiedere informazioni sui consulti singoli, approfondire la struttura dei Percorsi di Armonizzazione o semplicemente valutare quale modalità sia più adatta alle vostre esigenze attuali, potete scrivermi in totale riservatezza.",
+      },
+      primoPasso: {
+        kicker: "Il Primo Passo",
+        titolo: "Il Primo Passo",
+        testo:
+          "Benvenuti nella sezione dedicata al contatto diretto. Se desiderate richiedere informazioni sui consulti singoli, approfondire la struttura dei Percorsi di Armonizzazione o semplicemente valutare quale modalità sia più adatta alle vostre esigenze attuali, potete scrivermi in totale riservatezza.",
+      },
+      canali: {
+        kicker: "Come Mettervi in Contatto",
+        titolo: "Come Mettervi in Contatto",
+        modulo: "Modulo di Contatto",
+        email: "Email Diretta",
+      },
+      note: {
+        kicker: "Note Operative",
+        titolo: "Note Operative",
+        gestione:
+          "Ciascuna richiesta viene letta e gestita personalmente da me (M. Teresa), garantendovi un’attenzione sartoriale fin dal primo messaggio.",
+        appuntamento:
+          "Gli incontri si svolgono su appuntamento e in uno spazio riservato, pensato per offrirvi il massimo rispetto dei vostri tempi e delle vostre esigenze.",
+      },
+      form: {
+        nome: "Nome",
+        email: "Email",
+        oggetto: "Oggetto",
+        messaggio: "Messaggio",
+        invia: "Invia il messaggio",
+      },
     },
     arcani: {
       abbinamenti: "Abbinamenti e Sinergie",
@@ -316,13 +349,33 @@ export const siteContent = {
 
   chiSiamo: {
     kicker: "Chi sono",
-    titolo: "Teresa & il Linguaggio dei Simboli",
-    presentazione:
-      "Ti do il benvenuto in Tarot Italia. Sono Teresa, operatrice olistica ed esoterica, cartomante e tarologa professionista. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine artistica con una decennale indagine negli archetipi della psiche e della tradizione esoterica. Ogni consulto è uno spazio protetto d’ascolto autentico, concepito per disvelare nodi interiori e restituire sovranità decisionale a chi siede al tavolo degli Arcani. Chiarezza e verità restano valori etici della mia pratica anche quando comunico aspetti complessi: l’incontro è intimo, sartoriale e rispettoso, lontano da linguaggi commerciali aggressivi.",
+    titolo: "Visione ed Etica",
+    seo: {
+      titolo: "M. Teresa – La Visione e l’Etica di Tarot Italia",
+      descrizione:
+        "Benvenuti in Tarot Italia. Mi chiamo M. Teresa e il mio lavoro nasce dal desiderio di restituire alla lettura dei tarocchi la sua veste più autentica: quella di uno strumento rigoroso di indagine simbolica e consapevolezza interiore.",
+    },
+    visione: {
+      kicker: "La Visione e il Percorso",
+      titolo: "La Visione e il Percorso",
+      testo:
+        "Benvenuti in Tarot Italia. Mi chiamo M. Teresa e il mio lavoro nasce dal desiderio di restituire alla lettura dei tarocchi la sua veste più autentica: quella di uno strumento rigoroso di indagine simbolica e consapevolezza interiore.",
+    },
+    metodo: {
+      kicker: "Il Metodo",
+      titolo: "Il Metodo — Arcani Maggiori e Minori",
+      testo:
+        "Il mio approccio si fonda sull’integrazione tra l’analisi visiva e semiotica dell’immagine e la conoscenza profonda dei tarocchi, sia negli Arcani Maggiori che nei Minori. Non considero le carte come un automatismo interpretativo, ma come un linguaggio iconografico complesso da decodificare con cura e rispetto.",
+    },
+    etica: {
+      kicker: "Etica e Rispetto",
+      titolo: "Etica e Rispetto",
+      testo:
+        "Credo in una tarologia etica e trasparente: ogni incontro è strutturato come uno spazio protetto di ascolto, privo di logiche commerciali o suggestioni deterministiche. Il mio obiettivo non è dirvi cosa accadrà, ma offrirvi chiarezza per restituirvi piena sovranità sulle vostre scelte di vita.",
+    },
+    ctaConsulti: "Scopri i consulti",
     formazioneAccademica:
       "Accademia di Belle Arti di Macerata. Laureata in Tecniche della Comunicazione Visiva. Questa solida base permette di decodificare la grammatica visiva, cromatica e compositiva delle carte storiche non come mera superstizione, ma come linguaggio visivo archetipico che dialoga direttamente con la mente profonda.",
-    citazione:
-      "I tarocchi non impongono un destino ineluttabile: sono uno specchio limpido dove l’intuito ritrova la propria bussola, trasformando le incertezze in consapevolezza e presenza.",
     percorsoKicker: "Percorso disciplinare",
     formazioneKicker: "Formazione accademica",
     percorsoDisciplinare: [
@@ -404,7 +457,7 @@ export const siteContent = {
     immagini: {
       hero: {
         src: "/chi-siamo/hero-chromatic.jpg",
-        alt: "Chi sono",
+        alt: "M. Teresa Rogani, Tarot Italia",
       },
       teresa: {
         src: "/chi-siamo/teresa-ritratto.jpg?v=5",
