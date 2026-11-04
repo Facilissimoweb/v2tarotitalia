@@ -390,7 +390,6 @@ export const siteContent = {
             "A cosa serve: È pensato per chi desidera andare in profondità, comprendendo la carta non solo come consiglio pratico, ma come specchio dell’inconscio, mappa di evoluzione personale e chiave di lettura della propria interiorità.",
         },
       ],
-      ctaLetture: "Letture",
     },
     etica: {
       kicker: "Etica e Rispetto",

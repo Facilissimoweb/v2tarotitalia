@@ -102,7 +102,7 @@ export function ChiSiamo() {
 
           <Reveal delay={200}>
             <div className="mt-14 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">
-              <Button to="/blog">{chiSiamo.metodo.ctaLetture}</Button>
+              <Button to="/consulti">{nav.consulti}</Button>
               <Button to="/arcani" variant="ghost">
                 {nav.arcaniMaggiori}
               </Button>
