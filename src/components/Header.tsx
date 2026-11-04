@@ -34,13 +34,15 @@ const NAV_ACTIVE = "bg-[#d7f713] text-black";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
-  `whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.16em] transition-colors ${
-    active ? "text-[#F9F8F6]" : "text-[#F9F8F6]/80 hover:text-[#F9F8F6]"
+  `relative whitespace-nowrap text-[0.6875rem] font-bold uppercase tracking-[0.16em] text-black transition-colors ${
+    active
+      ? "after:absolute after:inset-x-0 after:-bottom-1.5 after:h-px after:bg-black"
+      : "text-black/70 hover:text-black"
   }`;
 
-/** Icone della barra: avorio su vetro plate. */
+/** Icone della barra: nero su vetro opalino. */
 const NAV_ICON_CORE =
-  "flex h-12 shrink-0 items-center justify-center text-[#F9F8F6] transition-colors hover:text-[#F9F8F6]/70 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
+  "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `${NAV_ICON_CORE} w-12`;
 const NAV_ICON_LEFT = `${NAV_ICON_CORE} w-9`;
 
@@ -95,7 +97,7 @@ export function Header() {
             <span className="nav-logo-glow">
               <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[52px] w-[52px]" />
             </span>
-            <span className="mt-1 font-h1 text-[1.2rem] leading-none text-[#F9F8F6] xl:text-[1.3rem]">
+            <span className="mt-1 font-h1 text-[1.2rem] leading-none text-black xl:text-[1.3rem]">
               {brand.wordmark}
             </span>
           </NavLink>
@@ -128,13 +130,13 @@ export function Header() {
             aria-label={brand.wordmark}
             translate="no"
           >
-            <span className="hidden font-h1 text-[1.05rem] font-extrabold uppercase leading-none tracking-[-0.04em] text-[#F9F8F6] md:inline lg:text-[1.15rem]">
+            <span className="hidden font-h1 text-[1.05rem] font-extrabold uppercase leading-none tracking-[-0.04em] text-black md:inline lg:text-[1.15rem]">
               {marcaTarot}
             </span>
             <span className="nav-logo-glow">
               <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[68px] w-[68px]" />
             </span>
-            <span className="hidden font-h1 text-[1.05rem] font-extrabold uppercase leading-none tracking-[-0.04em] text-[#F9F8F6] md:inline lg:text-[1.15rem]">
+            <span className="hidden font-h1 text-[1.05rem] font-extrabold uppercase leading-none tracking-[-0.04em] text-black md:inline lg:text-[1.15rem]">
               {marcaItalia}
             </span>
           </NavLink>
@@ -220,7 +222,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
         onClick={() => setPinned((v) => !v)}
       >
         {item.label}
-        <span aria-hidden className="text-[#F9F8F6]">
+        <span aria-hidden className="text-black">
           <svg width="8" height="8" viewBox="0 0 8 8" fill="none" stroke="currentColor" strokeWidth="1.2">
             <path d="M1.5 2.5 L4 5.5 L6.5 2.5" />
           </svg>

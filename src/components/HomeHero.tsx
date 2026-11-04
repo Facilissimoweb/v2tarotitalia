@@ -90,23 +90,23 @@ export function HomeHero() {
 
             <motion.p
               variants={riseIn}
-              className="mt-5 max-w-xl text-[0.9375rem] font-medium leading-snug tracking-[0.01em] text-ink/70 md:text-base xl:mt-6 xl:max-w-2xl xl:text-[1.125rem] xl:leading-snug"
+              className="mt-5 max-w-xl font-display text-lg font-normal leading-snug text-ink/80 md:text-xl xl:mt-6 xl:max-w-2xl"
             >
               {home.competenze}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-3 font-display text-base font-medium text-ink/70 md:text-lg xl:mt-8"
+              className="mt-4 max-w-xl font-display text-base font-normal leading-relaxed text-ink/70 md:text-lg xl:mt-6"
             >
-              {home.firma}
+              {home.benvenuto}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-4 max-w-md font-display text-sm font-normal italic leading-relaxed text-[#111111]/55 md:text-[0.9375rem]"
+              className="mt-3 font-display text-base font-medium text-ink/70 md:text-lg"
             >
-              {home.benvenuto}
+              {home.firma}
             </motion.p>
 
             <motion.div variants={riseIn} className="mt-8">
