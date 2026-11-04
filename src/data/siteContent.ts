@@ -373,7 +373,7 @@ export const siteContent = {
       testo:
         "Il mio approccio si fonda sull’integrazione tra l’analisi visiva e semiotica dell’immagine e la conoscenza profonda dei tarocchi, sia negli Arcani Maggiori che nei Minori. Non considero le carte come un automatismo interpretativo o una predizione meccanica, ma come un linguaggio iconografico complesso da decodificare con cura e rispetto.",
       ponte:
-        "Per offrirvi uno strumento di orientamento chiaro e accessibile — sia che stiate muovendo i primi passi, sia che desideriate approfondire il piano spirituale — ho strutturato il percorso del mio blog in due grandi categorie fondamentali:",
+        "Per offrirvi uno strumento di orientamento chiaro e accessibile — sia che stiate muovendo i primi passi, sia che desideriate approfondire il piano spirituale ed evolutivo — ho strutturato i miei consulti in due grandi tipologie fondamentali:",
       categorie: [
         {
           titolo: "Il Tarocco Classico (Pratico, Immediato e Rassicurante)",

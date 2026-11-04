@@ -81,5 +81,5 @@ export function Button({
 }
 
 export function Kicker({ children }: { children: ReactNode }) {
-  return <span className="label-kicker">{children}</span>;
+  return <span className="label-kicker inline-block min-w-0 max-w-full [overflow-wrap:anywhere]">{children}</span>;
 }

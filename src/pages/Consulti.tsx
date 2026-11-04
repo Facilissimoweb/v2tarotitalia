@@ -117,7 +117,7 @@ export function Consulti() {
   }
 
   return (
-    <div>
+    <div className="min-w-0 overflow-x-clip">
       <PageBanner
         title={nav.consulti}
         background={consulti.immagini.hero}
@@ -128,21 +128,23 @@ export function Consulti() {
 
       <div
         id="prenota"
-        className="mx-auto flex max-w-2xl scroll-mt-28 flex-col gap-20 px-6 pb-24 pt-16 md:gap-24 md:px-10 md:pb-32 md:pt-24"
+        className="mx-auto flex w-full min-w-0 max-w-2xl scroll-mt-28 flex-col gap-20 px-[clamp(1.25rem,5vw,2.5rem)] pb-24 pt-16 md:gap-24 md:pb-32 md:pt-24"
       >
-        <Reveal>
-          <section>
-            <div className="mb-8 flex justify-between">
+        <Reveal className="w-full min-w-0">
+          <section className="w-full min-w-0">
+            <div className="mb-8 flex min-w-0 flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
               <Kicker>01 · Seleziona il percorso</Kicker>
-              <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Tariffa fissa</span>
+              <span className="text-[0.625rem] uppercase tracking-[0.12em] text-ember-soft sm:tracking-[0.16em]">
+                Tariffa fissa
+              </span>
             </div>
-            <div className="grid gap-6">
+            <div className="grid w-full min-w-0 gap-6">
               {consulti.opzioni.map((opt) => {
                 const t = TARIFFE.find((x) => x.id === opt.id)!;
                 return (
                   <label
                     key={opt.id}
-                    className={`cursor-pointer bg-paper p-8 ${type === opt.id ? "ring-1 ring-ink" : ""}`}
+                    className={`block w-full min-w-0 max-w-full cursor-pointer bg-paper px-5 py-6 sm:p-8 ${type === opt.id ? "ring-1 ring-ink" : ""}`}
                   >
                     <input
                       type="radio"
@@ -151,30 +153,36 @@ export function Consulti() {
                       checked={type === opt.id}
                       onChange={() => setType(opt.id)}
                     />
-                    <div className="flex justify-between gap-4">
-                      <div>
-                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{t.kicker}</p>
-                        <p className="font-display text-lg">{opt.titolo}</p>
+                    <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                      <div className="min-w-0">
+                        <p className="text-[0.625rem] uppercase tracking-[0.12em] text-ember-soft [overflow-wrap:anywhere] sm:tracking-[0.16em]">
+                          {t.kicker}
+                        </p>
+                        <p className="font-display text-lg [overflow-wrap:anywhere]">{opt.titolo}</p>
                         <p className="text-xs text-ink/55">Durata: {opt.minuti} minuti</p>
                       </div>
-                      <div className="text-right">
+                      <div className="min-w-0 sm:shrink-0 sm:text-right">
                         <p className="font-display text-xl">€{opt.prezzo}</p>
-                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Onnicomprensivo</p>
+                        <p className="text-[0.625rem] uppercase tracking-[0.08em] text-ember-soft [overflow-wrap:anywhere] sm:tracking-[0.12em]">
+                          Onnicomprensivo
+                        </p>
                       </div>
                     </div>
-                    <p className="mt-3 bg-mist p-3 text-[0.6875rem] leading-relaxed text-ink/65">{t.summary}</p>
+                    <p className="mt-3 min-w-0 bg-mist p-3 text-[0.6875rem] leading-relaxed text-ink/65 [overflow-wrap:anywhere]">
+                      {t.summary}
+                    </p>
                   </label>
                 );
               })}
             </div>
-            <label className="mt-8 flex cursor-pointer items-start gap-3 bg-paper p-6 text-[0.75rem] leading-snug text-ink/70">
+            <label className="mt-8 flex w-full min-w-0 cursor-pointer items-start gap-3 bg-paper p-5 text-[0.75rem] leading-snug text-ink/70 sm:p-6">
               <input
                 type="checkbox"
-                className="mt-0.5 accent-ink"
+                className="mt-0.5 shrink-0 accent-ink"
                 checked={pdf}
                 onChange={(e) => setPdf(e.target.checked)}
               />
-              <span>
+              <span className="min-w-0 [overflow-wrap:anywhere]">
                 {consulti.pdf.etichetta}
                 <strong className="ml-2 font-medium text-ink">+ €{consulti.pdf.prezzo}</strong>
               </span>
@@ -182,72 +190,76 @@ export function Consulti() {
           </section>
         </Reveal>
 
-        <Reveal>
-          <section>
+        <Reveal className="w-full min-w-0">
+          <section className="w-full min-w-0">
             <Kicker>02 · Modalità d’incontro</Kicker>
-            <div className="mt-8 grid grid-cols-2 gap-4">
+            <div className="mt-8 grid grid-cols-1 gap-3 min-[22rem]:grid-cols-2 min-[22rem]:gap-4">
               <button
                 type="button"
                 disabled={evening}
                 onClick={() => {
                   if (!evening) setMode("studio");
                 }}
-                className={`p-4 text-left ${
+                className={`min-w-0 p-4 text-left ${
                   meeting === "studio" ? "bg-plate text-on-ink" : "bg-mist text-ink"
                 } ${evening ? "cursor-not-allowed opacity-40" : ""}`}
               >
-                <p className="font-display">In studio</p>
-                <p className={`mt-1 text-[0.625rem] ${meeting === "studio" ? "text-on-ink/70" : "text-ink/50"}`}>
+                <p className="font-display [overflow-wrap:anywhere]">In studio</p>
+                <p className={`mt-1 text-[0.625rem] [overflow-wrap:anywhere] ${meeting === "studio" ? "text-on-ink/70" : "text-ink/50"}`}>
                   {STUDIO.city} centro
                 </p>
               </button>
               <button
                 type="button"
                 onClick={() => setMode("remote")}
-                className={`p-4 text-left ${meeting === "remote" ? "bg-plate text-on-ink" : "bg-mist text-ink"}`}
+                className={`min-w-0 p-4 text-left ${meeting === "remote" ? "bg-plate text-on-ink" : "bg-mist text-ink"}`}
               >
-                <p className="font-display">A distanza</p>
+                <p className="font-display [overflow-wrap:anywhere]">A distanza</p>
                 <p className={`mt-1 text-[0.625rem] ${meeting === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>
                   Audio WhatsApp
                 </p>
               </button>
             </div>
-            <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink/65">
+            <p className="mt-4 min-w-0 text-[0.6875rem] leading-relaxed text-ink/65 [overflow-wrap:anywhere]">
               {evening ? consulti.studioSeraChiuso : consulti.seraOnline}
             </p>
             {meeting === "remote" ? (
-              <p className="mt-8 bg-linen p-8 text-[0.75rem] leading-relaxed text-ink/70">{STUDIO.whatsappNote}</p>
+              <p className="mt-8 min-w-0 bg-linen p-5 text-[0.75rem] leading-relaxed text-ink/70 [overflow-wrap:anywhere] sm:p-8">
+                {STUDIO.whatsappNote}
+              </p>
             ) : (
-              <p className="mt-8 bg-mist p-8 text-[0.75rem] leading-relaxed text-ink/70">
+              <p className="mt-8 min-w-0 bg-mist p-5 text-[0.75rem] leading-relaxed text-ink/70 [overflow-wrap:anywhere] sm:p-8">
                 {siteContent.brand.studioDiTeresa}
               </p>
             )}
           </section>
         </Reveal>
 
-        <Reveal>
-          <section>
+        <Reveal className="w-full min-w-0">
+          <section className="w-full min-w-0">
             <Kicker>03 · Calendario</Kicker>
-            <div className="mt-8">
+            <div className="mt-8 min-w-0">
               <BookingCalendar dateIso={dateIso} slot={slot} onDate={chooseDate} onSlot={chooseSlot} />
             </div>
           </section>
         </Reveal>
 
-        <Reveal>
-          <section>
-            <div className="bg-mist p-8">
+        <Reveal className="w-full min-w-0">
+          <section className="w-full min-w-0">
+            <div className="min-w-0 bg-mist p-5 sm:p-8">
               <Row k="Sessione" v={`${option.titolo} (${option.minuti} min)`} />
               <Row k="Erogazione" v={sessionModeLabel(meeting, slot, STUDIO.city)} />
               <Row k="Data & ora" v={`${dayLabel} — ${slot}`} />
               {pdf ? <Row k={consulti.pdf.etichetta} v={`€${consulti.pdf.prezzo}`} /> : null}
-              <div className="mt-3 flex items-center justify-between">
-                <span className="text-[0.625rem] uppercase tracking-[0.16em] text-ink">Totale sessione</span>
+              <div className="mt-3 flex min-w-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <span className="min-w-0 text-[0.625rem] uppercase tracking-[0.12em] text-ink [overflow-wrap:anywhere] sm:tracking-[0.16em]">
+                  Totale sessione
+                </span>
                 <span className="font-display text-xl">€{total}</span>
               </div>
             </div>
             {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
-            <Button type="button" className="mt-8 w-full" onClick={() => void proceed()}>
+            <Button type="button" className="mt-8 w-full max-w-full whitespace-normal text-center" onClick={() => void proceed()}>
               {consulti.procedi}
             </Button>
           </section>
@@ -259,9 +271,11 @@ export function Consulti() {
 
 function Row({ k, v }: { k: string; v: string }) {
   return (
-    <div className="flex items-center justify-between gap-4 py-1.5 text-xs">
-      <span className="uppercase tracking-[0.16em] text-ember-soft">{k}</span>
-      <span className="text-right text-ink">{v}</span>
+    <div className="flex min-w-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-1.5 text-xs">
+      <span className="min-w-0 uppercase tracking-[0.12em] text-ember-soft [overflow-wrap:anywhere] sm:tracking-[0.16em]">
+        {k}
+      </span>
+      <span className="min-w-0 text-left text-ink [overflow-wrap:anywhere] sm:text-right">{v}</span>
     </div>
   );
 }
