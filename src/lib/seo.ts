@@ -8,7 +8,7 @@ import { SUBSTACK_HOME, SUBSTACK_PROFILE } from "./substack";
 const { brand, chiSiamo, consulti, home, legal, nav, pages, percorsi } = siteContent;
 
 export const SITE_URL = legal.sitoUrl.replace(/\/$/, "");
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-cover.jpg`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/immagine-snippet.jpg`;
 export const OG_IMAGE_WIDTH = 1200;
 export const OG_IMAGE_HEIGHT = 630;
 export const OG_IMAGE_TYPE = "image/jpeg";
