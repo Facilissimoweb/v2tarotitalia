@@ -6,16 +6,15 @@ import { BrandLogo } from "./BrandLogo";
 import { LanguageWidget } from "./LanguageWidget";
 import { LegalNotice, type LegalKind } from "./LegalNotice";
 import { MailToLink } from "./MailToLink";
-import { shopLive } from "../lib/launchFlags";
 import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
-const { brand, cookies, cta, legal, nav } = siteContent;
+const { brand, cookies, cta, footer, legal, nav } = siteContent;
 const { tutela } = legal;
 
 const colTitle =
   "text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-[#EDE4D4]";
 const colLink =
-  "text-[0.8125rem] leading-relaxed text-[#EDE4D4]/75 transition-colors hover:text-[#d7f713]";
+  "text-[0.8125rem] leading-relaxed text-[#EDE4D4]/90 transition-colors hover:text-[#d7f713]";
 const legalLink =
   "text-[0.625rem] font-semibold uppercase tracking-[0.16em] text-[#EDE4D4]/70 transition-colors hover:text-[#d7f713]";
 
@@ -68,21 +67,19 @@ export function Footer() {
           </div>
         </div>
 
-        <FooterColumn title={shopLive() ? nav.shop : nav.consulti} to={shopLive() ? "/shop" : "/consulti"}>
-          <NavLink to="/percorsi" className={colLink}>
-            {nav.percorsi}
+        <FooterColumn title={footer.esplora}>
+          <NavLink to="/" end className={colLink}>
+            {nav.home}
           </NavLink>
           <NavLink to="/consulti" className={colLink}>
             {nav.consulti}
           </NavLink>
-          {shopLive() ? (
-            <NavLink to="/carrello" className={colLink}>
-              {nav.carrello}
-            </NavLink>
-          ) : null}
+          <NavLink to="/percorsi" className={colLink}>
+            {nav.percorsi}
+          </NavLink>
         </FooterColumn>
 
-        <FooterColumn title={nav.chiSiamo} to="/chi-sono">
+        <FooterColumn title={nav.tarocchi}>
           <NavLink to="/arcani" className={colLink}>
             {nav.arcaniMaggiori}
           </NavLink>
@@ -94,9 +91,12 @@ export function Footer() {
           </NavLink>
         </FooterColumn>
 
-        <FooterColumn title={nav.contatti} to="/contatti">
-          <NavLink to="/" end className={colLink}>
-            {nav.home}
+        <FooterColumn title={footer.informazioni}>
+          <NavLink to="/chi-sono" className={colLink}>
+            {nav.chiSiamo}
+          </NavLink>
+          <NavLink to="/contatti" className={colLink}>
+            {nav.contatti}
           </NavLink>
           <button type="button" className={`${colLink} text-left`} onClick={() => setNotice("tutela")}>
             {tutela.kicker}
@@ -143,17 +143,11 @@ export function Footer() {
   );
 }
 
-function FooterColumn({ title, to, children }: { title: string; to?: string; children: ReactNode }) {
+function FooterColumn({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
-      {to ? (
-        <NavLink to={to} className={`${colTitle} hover:text-[#d7f713]`}>
-          {title}
-        </NavLink>
-      ) : (
-        <p className={colTitle}>{title}</p>
-      )}
-      <div className="mt-5 flex flex-col items-start gap-2.5">{children}</div>
+      <p className={colTitle}>{title}</p>
+      <div className="mt-6 flex flex-col items-start gap-3">{children}</div>
     </div>
   );
 }

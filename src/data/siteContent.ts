@@ -50,6 +50,11 @@ export const siteContent = {
     lingua: "Lingua",
   },
 
+  footer: {
+    esplora: "Esplora",
+    informazioni: "Informazioni",
+  },
+
   lingua: {
     titolo: "Lingua",
     lead: "Scegli la lingua. La pagina si traduce all’istante.",
