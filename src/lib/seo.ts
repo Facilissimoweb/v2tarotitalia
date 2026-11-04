@@ -8,7 +8,10 @@ import { SUBSTACK_HOME, SUBSTACK_PROFILE } from "./substack";
 const { brand, chiSiamo, consulti, home, legal, nav, pages, percorsi } = siteContent;
 
 export const SITE_URL = legal.sitoUrl.replace(/\/$/, "");
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/angelo-hero.webp`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-cover.jpg`;
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
+export const OG_IMAGE_TYPE = "image/jpeg";
 export const INDEX_FOLLOW = "index, follow, max-snippet:-1, max-image-preview:large";
 export const NOINDEX = "noindex, nofollow";
 
@@ -54,7 +57,7 @@ const CORE_LIVE: SeoPage[] = [
     path: "/chi-sono",
     title: chiSiamo.seo.titolo,
     description: chiSiamo.seo.descrizione,
-    image: imageUrl(chiSiamo.immagini.hero.src),
+    image: DEFAULT_OG_IMAGE,
     robots: INDEX_FOLLOW,
     changefreq: "monthly",
     priority: 0.9,
@@ -63,7 +66,7 @@ const CORE_LIVE: SeoPage[] = [
     path: "/consulti",
     title: consulti.seo.titolo,
     description: consulti.seo.descrizione,
-    image: imageUrl(consulti.immagini.hero.src),
+    image: DEFAULT_OG_IMAGE,
     robots: INDEX_FOLLOW,
     changefreq: "weekly",
     priority: 0.9,
@@ -72,7 +75,7 @@ const CORE_LIVE: SeoPage[] = [
     path: "/percorsi",
     title: pages.percorsi.seo.titolo,
     description: pages.percorsi.seo.descrizione,
-    image: imageUrl(percorsi.immagini.hero.src),
+    image: DEFAULT_OG_IMAGE,
     robots: INDEX_FOLLOW,
     changefreq: "monthly",
     priority: 0.8,
@@ -512,12 +515,16 @@ export function seoTagValues(page: SeoPage) {
     ogUrl: url,
     ogImage: page.image,
     ogImageAlt: brand.sottotitolo,
+    ogImageWidth: String(OG_IMAGE_WIDTH),
+    ogImageHeight: String(OG_IMAGE_HEIGHT),
+    ogImageType: OG_IMAGE_TYPE,
     ogLocale: "it_IT",
     ogSiteName: brand.wordmark,
     twitterCard: "summary_large_image",
     twitterTitle: page.title,
     twitterDescription: page.description,
     twitterImage: page.image,
+    twitterImageAlt: brand.sottotitolo,
     jsonLd: graph ? JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) : "",
   };
 }
@@ -561,6 +568,11 @@ export function applyDocumentSeo(page: SeoPage) {
   upsertMeta(head, "property", "og:description", tags.ogDescription);
   upsertMeta(head, "property", "og:url", tags.ogUrl);
   upsertMeta(head, "property", "og:image", tags.ogImage);
+  upsertMeta(head, "property", "og:image:url", tags.ogImage);
+  upsertMeta(head, "property", "og:image:secure_url", tags.ogImage);
+  upsertMeta(head, "property", "og:image:type", tags.ogImageType);
+  upsertMeta(head, "property", "og:image:width", tags.ogImageWidth);
+  upsertMeta(head, "property", "og:image:height", tags.ogImageHeight);
   upsertMeta(head, "property", "og:image:alt", tags.ogImageAlt);
   upsertMeta(head, "property", "og:locale", tags.ogLocale);
   upsertMeta(head, "property", "og:site_name", tags.ogSiteName);
@@ -568,6 +580,7 @@ export function applyDocumentSeo(page: SeoPage) {
   upsertMeta(head, "name", "twitter:title", tags.twitterTitle);
   upsertMeta(head, "name", "twitter:description", tags.twitterDescription);
   upsertMeta(head, "name", "twitter:image", tags.twitterImage);
+  upsertMeta(head, "name", "twitter:image:alt", tags.twitterImageAlt);
 
   const existing =
     head.querySelector("script[data-seo-jsonld]") ??
@@ -613,6 +626,11 @@ export function stampHtml(html: string, page: SeoPage) {
   next = setProp(next, "og:description", tags.ogDescription);
   next = setProp(next, "og:url", tags.ogUrl);
   next = setProp(next, "og:image", tags.ogImage);
+  next = setProp(next, "og:image:url", tags.ogImage);
+  next = setProp(next, "og:image:secure_url", tags.ogImage);
+  next = setProp(next, "og:image:type", tags.ogImageType);
+  next = setProp(next, "og:image:width", tags.ogImageWidth);
+  next = setProp(next, "og:image:height", tags.ogImageHeight);
   next = setProp(next, "og:image:alt", tags.ogImageAlt);
   next = setProp(next, "og:locale", tags.ogLocale);
   next = setProp(next, "og:site_name", tags.ogSiteName);
@@ -620,6 +638,7 @@ export function stampHtml(html: string, page: SeoPage) {
   next = setName(next, "twitter:title", tags.twitterTitle);
   next = setName(next, "twitter:description", tags.twitterDescription);
   next = setName(next, "twitter:image", tags.twitterImage);
+  next = setName(next, "twitter:image:alt", tags.twitterImageAlt);
   const jsonTag = tags.jsonLd ? `<script type="application/ld+json">${tags.jsonLd}</script>` : "";
   if (next.includes('type="application/ld+json"')) {
     next = jsonTag

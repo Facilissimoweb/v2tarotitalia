@@ -5,6 +5,7 @@ import { useConsent } from "../context/ConsentContext";
 import { BrandLogo } from "./BrandLogo";
 import { LanguageWidget } from "./LanguageWidget";
 import { LegalNotice, type LegalKind } from "./LegalNotice";
+import { FooterShare } from "./FooterShare";
 import { MailToLink } from "./MailToLink";
 import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
@@ -107,6 +108,8 @@ export function Footer() {
           </button>
         </FooterColumn>
       </div>
+
+      <FooterShare />
 
       <div className="relative z-[1] mx-auto flex max-w-6xl flex-col gap-4 px-6 pb-6 sm:px-10 md:flex-row md:items-end md:justify-between">
         <p className="max-w-md text-[0.625rem] uppercase leading-relaxed tracking-[0.14em] text-[#EDE4D4]/55">

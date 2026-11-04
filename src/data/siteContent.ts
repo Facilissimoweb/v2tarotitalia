@@ -57,6 +57,14 @@ export const siteContent = {
   footer: {
     esplora: "Esplora",
     informazioni: "Informazioni",
+    condividi: "Condividi questa pagina",
+    piattaforme: {
+      whatsapp: "WhatsApp",
+      x: "X",
+      facebook: "Facebook",
+      linkedin: "LinkedIn",
+      pinterest: "Pinterest",
+    },
   },
 
   lingua: {

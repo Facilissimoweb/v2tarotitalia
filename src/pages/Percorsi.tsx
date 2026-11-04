@@ -6,7 +6,7 @@ import { PageFaq } from "../components/PageFaq";
 import { Reveal } from "../components/Reveal";
 import { SectionBrandMark } from "../components/WidgetFrame";
 
-const { brand, chiSiamo, cta, home, nav, pages, percorsi } = siteContent;
+const { brand, chiSiamo, cta, nav, pages, percorsi } = siteContent;
 
 export function Percorsi() {
   const { openPercorso } = usePercorsi();
@@ -39,14 +39,6 @@ export function Percorsi() {
           </Reveal>
           <Reveal delay={250}>
             <p className="mt-6 text-base leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
-          </Reveal>
-          <Reveal delay={280}>
-            <p className="mt-8 text-base leading-[1.9] text-ink/75">{home.chiSiamo.presentazione}</p>
-            <div className="mt-8">
-              <Button to="/consulti" variant="ghost">
-                {chiSiamo.ctaConsulti}
-              </Button>
-            </div>
           </Reveal>
         </div>
       </section>
