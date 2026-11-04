@@ -7,6 +7,8 @@ export type PageBannerMedia = {
   alt?: string;
   /** object-position CSS, es. "center 30%". */
   position?: string;
+  /** `contain` per illustrazioni intere; default `cover` per foto. */
+  fit?: "cover" | "contain";
 };
 
 type Props = {
@@ -18,6 +20,8 @@ type Props = {
   background?: PageBannerMedia;
   /** Classi aggiuntive sul contenitore (es. margini verso il contenuto). */
   className?: string;
+  /** Su telefono, altezza hero a 2/3 rispetto allo standard. */
+  mobileHeight?: "default" | "two-thirds";
 };
 
 /**
@@ -25,9 +29,17 @@ type Props = {
  * Se `background` è presente, lo sfondo è fotografico; altrimenti resta ivory, pronto
  * ad accogliere l’immagine della pagina senza cambiare la struttura.
  */
-export function PageBanner({ title, subtitle, background, className = "" }: Props) {
+export function PageBanner({
+  title,
+  subtitle,
+  background,
+  className = "",
+  mobileHeight = "default",
+}: Props) {
   const reduce = useReducedMotion();
   const onMedia = Boolean(background?.src);
+  const contain = background?.fit === "contain";
+  const mobileCompact = mobileHeight === "two-thirds";
 
   return (
     <header
@@ -35,7 +47,7 @@ export function PageBanner({ title, subtitle, background, className = "" }: Prop
       data-page-hero
       className={
         onMedia
-          ? `relative isolate overflow-hidden bg-ink text-white ${className}`.trim()
+          ? `relative isolate overflow-hidden bg-plate text-white ${className}`.trim()
           : `bg-ivory px-6 pb-12 pt-16 md:px-10 md:pb-16 md:pt-24 ${className}`.trim()
       }
     >
@@ -44,17 +56,27 @@ export function PageBanner({ title, subtitle, background, className = "" }: Prop
           <img
             src={background.src}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover"
+            className={`absolute inset-0 h-full w-full ${contain ? "object-cover md:object-contain" : "object-cover"}`}
             style={background.position ? { objectPosition: background.position } : undefined}
           />
-          <span className="absolute inset-0 bg-gradient-to-b from-ink/50 via-ink/35 to-ink/65" />
+          <span
+            className={
+              contain
+                ? "absolute inset-0 bg-gradient-to-b from-plate/40 via-transparent to-plate/50"
+                : "absolute inset-0 bg-gradient-to-b from-plate/50 via-plate/30 to-plate/65"
+            }
+          />
         </div>
       ) : null}
 
       <motion.div
         className={
           onMedia
-            ? "relative z-10 mx-auto flex min-h-[min(72svh,36rem)] w-full max-w-3xl flex-col items-center justify-center px-6 py-16 text-center md:min-h-[min(64svh,38rem)] md:px-10 md:py-24"
+            ? `relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center justify-center px-6 py-12 text-center md:px-10 md:py-24 ${
+                mobileCompact
+                  ? "min-h-[min(48svh,24rem)] md:min-h-[min(64svh,38rem)]"
+                  : "min-h-[min(72svh,36rem)] md:min-h-[min(64svh,38rem)]"
+              }`
             : "mx-auto flex max-w-3xl flex-col items-center text-center"
         }
         initial={reduce ? false : { opacity: 0, y: 15 }}

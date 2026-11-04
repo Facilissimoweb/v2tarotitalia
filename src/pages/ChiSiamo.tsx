@@ -19,6 +19,7 @@ export function ChiSiamo() {
       <PageBanner
         title={chiSiamo.titolo}
         background={chiSiamo.immagini.hero}
+        mobileHeight="two-thirds"
         className="mb-10 md:mb-14"
       />
 
