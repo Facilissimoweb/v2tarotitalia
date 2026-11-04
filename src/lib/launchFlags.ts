@@ -1,6 +1,6 @@
 /**
  * Flag di lancio pubblico.
- * Coming Soon: `siteAccess` / `VITE_SITE_GATE` (pagina esistente, non si tocca).
+ * Coming Soon: `siteAccess` / `VITE_SITE_GATE=on` per rollback. Lancio: off.
  * Shop e dispense: congelati al lancio. Riattivare con `VITE_SHOP_LIVE=true`.
  */
 export function shopLive() {

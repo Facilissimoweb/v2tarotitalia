@@ -4,7 +4,7 @@ import { normalizeAppPath } from "./siteRoutes";
 const { brand, chiSiamo, consulti, home, legal, nav, pages } = siteContent;
 
 export const SITE_URL = legal.sitoUrl.replace(/\/$/, "");
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/coming-soon.png`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/angelo-hero.webp`;
 export const INDEX_FOLLOW = "index, follow, max-snippet:-1, max-image-preview:large";
 export const NOINDEX = "noindex, nofollow";
 

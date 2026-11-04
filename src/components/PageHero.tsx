@@ -1,5 +1,6 @@
 import type { MouseEvent, ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Button } from "./Button";
 import { GoogleMark, GoogleStars } from "./GoogleMark";
 import { PageBanner } from "./PageBanner";
 
@@ -18,13 +19,14 @@ export type HeroMedia = {
   type?: "image";
   alt?: string;
   objectPosition?: string;
+  width?: number;
+  height?: number;
 };
 
 type Props = {
   kicker: string;
   title: ReactNode;
   lead: ReactNode;
-  /** Ignorati: le pagine interne mostrano logo, titolo e sottotitolo. */
   cta?: HeroCta | null;
   beforeCta?: HeroCta;
   secondary?: HeroCta;
@@ -37,9 +39,24 @@ type Props = {
 /**
  * Intestazione delle pagine che non usano `PageBanner` in modo esplicito
  * (Blog, Arcani, Area riservata, ecc.): logo, titolo e sottotitolo (`lead`).
- * `media` diventa lo sfondo fotografico. Eventuali `children` restano sotto.
+ * `media` diventa lo sfondo fotografico. `cta` / `secondary` restano in hero.
+ * Eventuali `children` restano sotto.
  */
-export function PageHero({ title, lead, media, children }: Props) {
+export function PageHero({
+  title,
+  lead,
+  media,
+  children,
+  cta,
+  beforeCta,
+  secondary,
+  tertiary,
+}: Props) {
+  const onMedia = Boolean(media?.src);
+  const actions = [beforeCta, cta ?? undefined, secondary, tertiary].filter(
+    (item): item is HeroCta => Boolean(item),
+  );
+
   return (
     <>
       <PageBanner
@@ -47,7 +64,20 @@ export function PageHero({ title, lead, media, children }: Props) {
         subtitle={lead}
         background={
           media?.src
-            ? { src: media.src, alt: media.alt, position: media.objectPosition }
+            ? {
+                src: media.src,
+                alt: media.alt,
+                position: media.objectPosition,
+                width: media.width,
+                height: media.height,
+              }
+            : undefined
+        }
+        actions={
+          actions.length
+            ? actions.map((item, index) => (
+                <HeroAction key={`${item.label}-${index}`} item={item} onMedia={onMedia} />
+              ))
             : undefined
         }
         className={children ? "mb-0 pb-6 md:pb-8" : "mb-10 md:mb-14"}
@@ -58,6 +88,26 @@ export function PageHero({ title, lead, media, children }: Props) {
         </div>
       ) : null}
     </>
+  );
+}
+
+function HeroAction({ item, onMedia }: { item: HeroCta; onMedia: boolean }) {
+  if (item.accent === "google" && item.href) {
+    return <GoogleReviewsHeroLink href={item.href} label={item.label} onMedia={onMedia} />;
+  }
+
+  const variant = item.variant ?? "primary";
+  const resolved = onMedia && variant === "primary" ? "paper" : variant;
+
+  return (
+    <Button
+      variant={resolved}
+      to={item.to}
+      href={item.href}
+      onClick={item.onClick}
+    >
+      {item.label}
+    </Button>
   );
 }
 

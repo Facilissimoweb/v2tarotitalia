@@ -501,10 +501,12 @@ export const siteContent = {
     },
     immagini: {
       hero: {
-        src: "/chi-siamo/hero-putti.png?v=2",
+        src: "/chi-siamo/hero-putti.webp?v=3",
         alt: "M. Teresa Rogani, Tarot Italia",
         position: "right center",
         fit: "contain",
+        width: 938,
+        height: 469,
       },
       teresa: {
         src: "/chi-siamo/teresa-ritratto.jpg?v=6",
@@ -535,10 +537,12 @@ export const siteContent = {
   percorsi: {
     immagini: {
       hero: {
-        src: "/percorsi/hero.png?v=1",
+        src: "/percorsi/hero.webp?v=3",
         alt: "Percorsi di Armonizzazione — Tarot Italia",
         position: "left center",
         fit: "contain",
+        width: 938,
+        height: 469,
       },
     },
     titoloWidget: "Prenota un percorso",
@@ -838,10 +842,12 @@ export const siteContent = {
     },
     immagini: {
       hero: {
-        src: "/consulti/hero.png?v=1",
+        src: "/consulti/hero.webp?v=3",
         alt: "Consulti Tarot Italia",
         position: "left center",
         fit: "contain",
+        width: 938,
+        height: 469,
       },
     },
     orientamento: [

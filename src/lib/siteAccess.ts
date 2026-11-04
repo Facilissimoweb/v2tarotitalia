@@ -11,12 +11,15 @@ function isLocalDev() {
   return import.meta.env.DEV;
 }
 
-/** Produzione: Coming Soon attiva. Si spegne solo con VITE_SITE_GATE=off. */
+/**
+ * Coming Soon in produzione: attiva solo con `VITE_SITE_GATE=on|true|1`.
+ * Lancio: `VITE_SITE_GATE=off` (default). Il componente resta per rollback.
+ */
 export function siteGateEnabled() {
   if (isLocalDev()) return false;
   const raw = import.meta.env.VITE_SITE_GATE?.trim().toLowerCase();
-  if (raw === "0" || raw === "false" || raw === "off") return false;
-  return true;
+  if (!raw || raw === "0" || raw === "false" || raw === "off") return false;
+  return raw === "1" || raw === "true" || raw === "on";
 }
 
 function readStoredToken() {

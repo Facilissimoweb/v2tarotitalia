@@ -21,7 +21,7 @@ import { PageBanner } from "../components/PageBanner";
 import { PlateFocus } from "../components/PlateFocus";
 import { Reveal } from "../components/Reveal";
 
-const { consulti, nav } = siteContent;
+const { consulti, cta, home, nav, pages } = siteContent;
 
 function initialDate() {
   return nextBookableDate();
@@ -125,6 +125,18 @@ export function Consulti() {
         className="mb-0"
       />
       <PlateFocus items={consulti.orientamento} />
+
+      <section className="border-y border-ink/10 bg-paper px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="label-kicker">{pages.percorsi.kicker}</h2>
+          <p className="mt-6 text-base leading-[1.9] text-ink/75">{home.chiSiamo.percorsi}</p>
+          <div className="mt-8">
+            <Button to="/percorsi" variant="ghost">
+              {cta.percorsi}
+            </Button>
+          </div>
+        </div>
+      </section>
 
       <div
         id="prenota"

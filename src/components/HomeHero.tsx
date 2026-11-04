@@ -143,6 +143,10 @@ export function HomeHero() {
             <img
               src="/angelo-hero.webp"
               alt=""
+              width={556}
+              height={784}
+              fetchPriority="high"
+              decoding="async"
               className="hero-angelo relative z-[2] lg:-translate-x-[6%]"
             />
           </motion.div>

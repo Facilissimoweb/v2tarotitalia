@@ -9,6 +9,8 @@ export type PageBannerMedia = {
   position?: string;
   /** `contain` per illustrazioni intere; default `cover` per foto. */
   fit?: "cover" | "contain";
+  width?: number;
+  height?: number;
 };
 
 type Props = {
@@ -22,6 +24,8 @@ type Props = {
   className?: string;
   /** Su telefono, altezza hero a 2/3 rispetto allo standard. */
   mobileHeight?: "default" | "two-thirds";
+  /** Azioni in hero (CTA). Restano nel blocco LCP, sotto il sottotitolo. */
+  actions?: ReactNode;
 };
 
 /**
@@ -35,6 +39,7 @@ export function PageBanner({
   background,
   className = "",
   mobileHeight = "default",
+  actions,
 }: Props) {
   const reduce = useReducedMotion();
   const onMedia = Boolean(background?.src);
@@ -56,6 +61,10 @@ export function PageBanner({
           <img
             src={background.src}
             alt=""
+            width={background.width}
+            height={background.height}
+            fetchPriority="high"
+            decoding="async"
             className={`absolute inset-0 h-full w-full ${contain ? "object-cover md:object-contain" : "object-cover"}`}
             style={background.position ? { objectPosition: background.position } : undefined}
           />
@@ -97,6 +106,11 @@ export function PageBanner({
             }`}
           >
             {subtitle}
+          </div>
+        ) : null}
+        {actions ? (
+          <div className="mt-8 flex w-full max-w-xl flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+            {actions}
           </div>
         ) : null}
       </motion.div>

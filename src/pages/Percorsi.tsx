@@ -5,7 +5,7 @@ import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 import { SectionBrandMark } from "../components/WidgetFrame";
 
-const { brand, cta, nav, pages, percorsi } = siteContent;
+const { brand, chiSiamo, cta, home, nav, pages, percorsi } = siteContent;
 
 export function Percorsi() {
   const { openPercorso } = usePercorsi();
@@ -35,6 +35,14 @@ export function Percorsi() {
           </Reveal>
           <Reveal delay={220}>
             <p className="mt-6 text-base leading-[1.9] text-ink/70">{percorsi.intro}</p>
+          </Reveal>
+          <Reveal delay={280}>
+            <p className="mt-8 text-base leading-[1.9] text-ink/75">{home.chiSiamo.presentazione}</p>
+            <div className="mt-8">
+              <Button to="/consulti" variant="ghost">
+                {chiSiamo.ctaConsulti}
+              </Button>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -83,8 +91,11 @@ export function Percorsi() {
             <SectionBrandMark />
             <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
             <p className="mt-6 text-sm leading-[1.9] text-ink/65">{percorsi.chiacchierata}</p>
-            <div className="mt-10">
+            <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
               <Button onClick={() => openPercorso()}>{cta.prenotaPercorso}</Button>
+              <Button to="/consulti" variant="ghost">
+                {chiSiamo.ctaConsulti}
+              </Button>
             </div>
           </div>
         </Reveal>
