@@ -118,7 +118,12 @@ export function Consulti() {
 
   return (
     <div>
-      <PageBanner title={nav.consulti} className="mb-0" />
+      <PageBanner
+        title={nav.consulti}
+        background={consulti.immagini.hero}
+        mobileHeight="two-thirds"
+        className="mb-0"
+      />
       <PlateFocus items={consulti.orientamento} />
 
       <div

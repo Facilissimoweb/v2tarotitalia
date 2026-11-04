@@ -12,7 +12,13 @@ export function Percorsi() {
 
   return (
     <div>
-      <PageBanner title={nav.percorsi} subtitle={pages.percorsi.titolo} className="mb-10 md:mb-14" />
+      <PageBanner
+        title={nav.percorsi}
+        subtitle={pages.percorsi.titolo}
+        background={percorsi.immagini.hero}
+        mobileHeight="two-thirds"
+        className="mb-10 md:mb-14"
+      />
 
       <section className="px-6 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto max-w-3xl">

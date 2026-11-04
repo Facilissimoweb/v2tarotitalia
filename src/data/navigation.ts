@@ -33,10 +33,8 @@ const shop: NavLeaf = { to: "/shop", label: nav.shop, icon: "shop" };
 const blog: NavLeaf = { to: "/blog", label: nav.blog };
 const contatti: NavLeaf = { to: "/contatti", label: nav.contatti };
 
-export const NAV_LEADING: NavItem[] = [home, chiSono, consulti, tarocchi];
-export const NAV_TRAILING: NavItem[] = shopLive()
-  ? [percorsi, shop, blog, contatti]
-  : [percorsi, blog, contatti];
+export const NAV_LEADING: NavItem[] = [home, chiSono, consulti, percorsi];
+export const NAV_TRAILING: NavItem[] = [contatti, tarocchi, blog];
 
 export const MAIN_NAV: NavItem[] = shopLive()
   ? [home, chiSono, consulti, percorsi, shop, blog, contatti, tarocchi]

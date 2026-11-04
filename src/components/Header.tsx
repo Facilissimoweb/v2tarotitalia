@@ -80,7 +80,7 @@ export function Header() {
           className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-6 px-6 2xl:gap-x-8 2xl:px-16 xl:grid"
           aria-label="Principale"
         >
-          <div className="flex items-center justify-evenly gap-6">
+          <div className="flex items-center justify-end gap-x-7 2xl:gap-x-9">
             {NAV_LEADING.map((item) => (
               <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
             ))}
@@ -100,8 +100,8 @@ export function Header() {
             </span>
           </NavLink>
 
-          <div className="flex min-w-0 items-center justify-between gap-4 2xl:gap-6">
-            <div className="flex flex-1 items-center justify-evenly gap-5 2xl:gap-6">
+          <div className="flex min-w-0 items-center justify-between gap-8 2xl:gap-10">
+            <div className="flex items-center justify-start gap-x-7 2xl:gap-x-9">
               {NAV_TRAILING.map((item) => (
                 <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
               ))}
@@ -229,7 +229,7 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
       <div
         id={menuId}
         role="menu"
-        className={`absolute right-0 top-full z-50 min-w-[13.5rem] pt-2 ${
+        className={`absolute left-1/2 top-full z-50 min-w-[13.5rem] -translate-x-1/2 pt-2 ${
           expanded ? "visible pointer-events-auto" : "invisible pointer-events-none"
         }`}
       >
