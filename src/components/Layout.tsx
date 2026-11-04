@@ -59,14 +59,14 @@ function ScrollToTop() {
 
 export function Layout() {
   return (
-    <div className="flex min-h-dvh flex-col overflow-x-hidden bg-ivory text-ink">
+    <div className="flex min-h-dvh flex-col bg-ivory text-ink">
       <PageSpeechSkipLink />
       <ScrollToTop />
       <PostAuthBounce />
       <LanguageSeo />
       <SeoManager />
       <Header />
-      <main className="min-w-0 flex-1 overflow-x-hidden pt-[calc(80px+env(safe-area-inset-top,0px))] xl:pt-[calc(112px+env(safe-area-inset-top,0px))]">
+      <main className="min-w-0 flex-1 overflow-x-clip">
         <Outlet />
       </main>
       <Footer />

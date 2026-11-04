@@ -124,12 +124,16 @@ export const siteContent = {
     lead: sloganBrand,
     chiSiamo: {
       kicker: "Tarot Italia",
-      titolo: "Simbolismo e Tradizione",
-      benvenuto: "Benvenuti in Tarot Italia.",
+      titolo: "Il Simbolo, l’Immagine, il Cammino",
+      benvenuto: "Benvenuti nel cuore del mio laboratorio di ricerca visiva e interiore.",
       presentazione:
         "L’approccio che adotto unisce l’analisi visiva e semiotica dell’immagine alla lettura rigorosa dei tarocchi, sia negli Arcani Maggiori che nei Minori. Ciascun consulto costituisce per voi uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirvi piena sovranità decisionale, lontano da automatismi e logiche commerciali.",
+      iconografia:
+        "All’interno di Tarot Italia non troverete semplici carte, ma un linguaggio iconografico antico che attende solo di essere decodificato. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine alla conoscenza profonda e rigorosa dei tarocchi, esplorando con la stessa cura sia gli Arcani Maggiori che i Minori.",
+      bussola:
+        "Ciascun consulto o percorso costituisce per voi una bussola preziosa e una mappa di orientamento autentico, pensata per fare chiarezza, sciogliere i dubbi e restituirvi piena sovranità decisionale, lontano da automatismi meccanici, mode passeggere o logiche commerciali.",
       percorsi:
-        "Sia nei consulti singoli che nei Percorsi di Armonizzazione e Consapevolezza, vi offro un’esperienza di riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza alcuna promessa di forzatura esterna.",
+        "Sia che scegliate un consulto singolo, sia che desideriate affidarvi ai miei percorsi, vi offro un’esperienza di riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza alcuna promessa di forzatura esterna. Qui i tarocchi tornano a essere ciò che sono sempre stati: uno specchio limpido e potente per orientare il vostro cammino.",
     },
     ctaConsulto: "Prenota consulto",
     visione: {

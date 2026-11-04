@@ -59,9 +59,9 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate flex min-h-0 flex-col overflow-hidden bg-ivory text-ink xl:min-h-[calc(100svh-112px)]"
+      className="relative isolate flex min-h-0 flex-col overflow-hidden bg-ivory text-ink xl:min-h-svh"
     >
-      <div className="relative flex min-h-0 flex-1 flex-col justify-center px-6 pb-8 pt-20 md:px-10 md:pb-10 md:pt-14 xl:px-16 xl:pb-8 xl:pt-10 2xl:px-20">
+      <div className="relative flex min-h-0 flex-1 flex-col justify-center px-6 pb-8 pt-[calc(var(--nav-offset)+1.25rem)] md:px-10 md:pb-10 xl:px-16 xl:pb-8 xl:pt-[calc(var(--nav-offset)+1.5rem)] 2xl:px-20">
         <motion.div
           className="mx-auto grid w-full max-w-[96rem] items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.95fr)] lg:gap-6 xl:gap-10"
           variants={container}
