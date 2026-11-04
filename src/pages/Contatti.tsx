@@ -7,7 +7,6 @@ import { MailToLink } from "../components/MailToLink";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
 import { openMailto } from "../lib/mailto";
-import { usePageSeo } from "../lib/pageSeo";
 import { getPhoneHref, whatsappChatHref } from "../lib/whatsapp";
 
 const { brand, cta, pages } = siteContent;
@@ -80,8 +79,6 @@ function ContactForm() {
 }
 
 export function Contatti() {
-  usePageSeo(copy.seo.titolo, copy.seo.descrizione);
-
   return (
     <div>
       <PageBanner title={copy.titolo} className="mb-10 md:mb-14" />

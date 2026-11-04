@@ -1,5 +1,17 @@
 User-agent: *
 Allow: /
+Allow: /chi-sono
+Allow: /consulti
+Allow: /percorsi
+Allow: /blog
+Allow: /contatti
 Allow: /privacy.html
 
-Sitemap: https://www.tarotitalia.com/privacy.html
+Disallow: /carrello
+Disallow: /login
+Disallow: /riservata
+Disallow: /shop
+Disallow: /corsi
+Disallow: /api/
+
+Sitemap: https://www.tarotitalia.com/sitemap.xml

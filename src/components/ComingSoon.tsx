@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { siteContent } from "../data/siteContent";
+import { applyDocumentSeo, comingSoonSeo } from "../lib/seo";
 import { BrandLogo } from "./BrandLogo";
 import { ContactDock } from "./ContactDock";
 import { Kicker } from "./Button";
@@ -9,16 +10,9 @@ const copy = pages.soglia;
 
 export function ComingSoon() {
   useEffect(() => {
-    const previousTitle = document.title;
-    document.title = `${copy.titolo} — ${brand.wordmark}`;
-    const robots = document.createElement("meta");
-    robots.name = "robots";
-    robots.content = "noindex, nofollow";
-    document.head.appendChild(robots);
+    applyDocumentSeo(comingSoonSeo());
     document.body.style.overflow = "hidden";
     return () => {
-      document.title = previousTitle;
-      robots.remove();
       document.body.style.overflow = "";
     };
   }, []);

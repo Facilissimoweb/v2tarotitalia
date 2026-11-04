@@ -5,7 +5,21 @@
     { "source": "/termini", "destination": "/termini-di-servizio", "permanent": true },
     { "source": "/privacy", "destination": "/privacy.html", "permanent": true }
   ],
+  "headers": [
+    {
+      "source": "/carrello",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/login",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/riservata",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
+  ],
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|sitemap\\.xml|robots\\.txt).*)", "destination": "/index.html" }
   ]
 }

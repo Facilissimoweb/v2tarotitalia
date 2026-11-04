@@ -1,19 +1,26 @@
 import { useEffect } from "react";
-import { siteContent } from "../data/siteContent";
+import { useLocation } from "react-router-dom";
+import { applyDocumentSeo, seoForPath } from "./seo";
 
-/** Titolo del documento e meta description unici per pagina. */
-export function usePageSeo(title: string, description?: string) {
-  const wordmark = siteContent.brand.wordmark;
+/** Titolo, description, canonical, Open Graph e Twitter Card per il percorso corrente. */
+export function SeoManager() {
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const previousTitle = document.title;
-    const meta = document.querySelector('meta[name="description"]');
-    const previousDescription = meta?.getAttribute("content") ?? "";
-    document.title = `${title} — ${wordmark}`;
-    if (description && meta) meta.setAttribute("content", description);
-    return () => {
-      document.title = previousTitle;
-      if (description && meta) meta.setAttribute("content", previousDescription);
-    };
-  }, [title, description, wordmark]);
+    applyDocumentSeo(seoForPath(pathname));
+  }, [pathname]);
+
+  return null;
+}
+
+/** Compatibilità: applica titolo e description a un percorso già risolto. */
+export function usePageSeo(title: string, description?: string) {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    applyDocumentSeo({
+      ...seoForPath(pathname),
+      title,
+      description: description || seoForPath(pathname).description,
+    });
+  }, [title, description, pathname]);
 }

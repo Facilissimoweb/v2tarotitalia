@@ -1,10 +1,11 @@
-import { copyFileSync, existsSync, readFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig, loadEnv, type Plugin, type PreviewServer, type ViteDevServer } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { isKnownAppPath } from "./src/lib/siteRoutes.ts";
+import { buildRobotsTxt, buildSitemapXml, liveSeoPages, stampHtml } from "./src/lib/seo.ts";
 
 function applyEnv(mode: string) {
   const env = loadEnv(mode, process.cwd(), "");
@@ -137,13 +138,36 @@ function spaNotFoundPlugin(): Plugin {
   };
 }
 
+function seoPrerenderPlugin(): Plugin {
+  return {
+    name: "seo-prerender",
+    closeBundle() {
+      const index = resolve("dist/index.html");
+      if (!existsSync(index)) return;
+      const html = readFileSync(index, "utf8");
+      writeFileSync(resolve("dist/sitemap.xml"), buildSitemapXml());
+      writeFileSync(resolve("dist/robots.txt"), buildRobotsTxt());
+      for (const page of liveSeoPages()) {
+        const stamped = stampHtml(html, page);
+        if (page.path === "/") {
+          writeFileSync(index, stamped);
+          continue;
+        }
+        const dir = resolve(`dist${page.path}`);
+        mkdirSync(dir, { recursive: true });
+        writeFileSync(resolve(dir, "index.html"), stamped);
+      }
+    },
+  };
+}
+
 export default defineConfig(({ mode }) => {
   applyEnv(mode);
   return {
     // Evita il configLoader native di Vite 8 su import relativi senza estensione.
     configLoader: "bundle",
     clearScreen: false,
-    plugins: [react(), tailwindcss(), ithaApiPlugin(), spaNotFoundPlugin()],
+    plugins: [react(), tailwindcss(), ithaApiPlugin(), spaNotFoundPlugin(), seoPrerenderPlugin()],
     server: {
       host: "127.0.0.1",
       port: 5173,

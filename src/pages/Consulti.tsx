@@ -15,7 +15,7 @@ import { isEveningSlot, resolveBookingMode, sessionModeLabel } from "../lib/book
 import { fetchOccupiedSlots, isOccupied } from "../lib/occupiedSlots";
 import { loginPath } from "../lib/authReturn";
 import { formatBookingDay } from "../lib/whatsapp";
-import { Button, Kicker } from "../components/Button";
+import { Button } from "../components/Button";
 import { BookingCalendar } from "../components/BookingCalendar";
 import { PageBanner } from "../components/PageBanner";
 import { PlateFocus } from "../components/PlateFocus";
@@ -133,7 +133,7 @@ export function Consulti() {
         <Reveal className="w-full min-w-0">
           <section className="w-full min-w-0">
             <div className="mb-8 flex min-w-0 flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-              <Kicker>01 · Seleziona il percorso</Kicker>
+              <h2 className="label-kicker">01 · Seleziona il percorso</h2>
               <span className="text-[0.625rem] uppercase tracking-[0.12em] text-ember-soft sm:tracking-[0.16em]">
                 Tariffa fissa
               </span>
@@ -192,7 +192,7 @@ export function Consulti() {
 
         <Reveal className="w-full min-w-0">
           <section className="w-full min-w-0">
-            <Kicker>02 · Modalità d’incontro</Kicker>
+            <h2 className="label-kicker">02 · Modalità d’incontro</h2>
             <div className="mt-8 grid grid-cols-1 gap-3 min-[22rem]:grid-cols-2 min-[22rem]:gap-4">
               <button
                 type="button"
@@ -237,7 +237,7 @@ export function Consulti() {
 
         <Reveal className="w-full min-w-0">
           <section className="w-full min-w-0">
-            <Kicker>03 · Calendario</Kicker>
+            <h2 className="label-kicker">03 · Calendario</h2>
             <div className="mt-8 min-w-0">
               <BookingCalendar dateIso={dateIso} slot={slot} onDate={chooseDate} onSlot={chooseSlot} />
             </div>

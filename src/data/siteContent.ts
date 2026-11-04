@@ -111,6 +111,11 @@ export const siteContent = {
   home: {
     kicker: "Tarot Italia",
     titolo: "Tarot Italia",
+    seo: {
+      titolo: "Tarot Italia | Tarologia archetipica a Macerata e online",
+      descrizione:
+        "Tarot Italia di Maria Teresa Rogani: tarologia archetipica e consulti di tarocchi evolutivi a Macerata e online. Riceve su appuntamento.",
+    },
     copyright: "© Tarot Italia",
     firma: "di M. Teresa Rogani",
     benvenuto:
@@ -199,10 +204,20 @@ export const siteContent = {
     percorsi: {
       kicker: "Percorsi",
       titolo: "Percorsi di Armonizzazione e Consapevolezza",
+      seo: {
+        titolo: "Percorsi di Armonizzazione | Tarot Italia",
+        descrizione:
+          "Percorsi di Armonizzazione e Consapevolezza a Macerata e online. Tarologia archetipica con M. Teresa Rogani, Tarot Italia.",
+      },
     },
     blog: {
       kicker: "Blog",
       titolo: "Blog",
+      seo: {
+        titolo: "Blog | Tarologia archetipica – Tarot Italia",
+        descrizione:
+          "Il blog di Tarot Italia: tarologia archetipica, simboli e letture. Articoli di M. Teresa Rogani, a Macerata e online.",
+      },
       caricamento: "Sto aprendo l’archivio…",
       errore: "L’archivio non è raggiungibile in questo momento. Riprova tra poco.",
       vuoto: "Nessun articolo è ancora in archivio.",
@@ -213,9 +228,9 @@ export const siteContent = {
       kicker: "Contatti",
       titolo: "Contatti – Inizia il Tuo Spazio di Ascolto",
       seo: {
-        titolo: "Contatti – Inizia il Tuo Spazio di Ascolto",
+        titolo: "Contatti | Tarot Italia a Macerata e online",
         descrizione:
-          "Benvenuti nella sezione dedicata al contatto diretto. Se desiderate richiedere informazioni sui consulti singoli, approfondire la struttura dei Percorsi di Armonizzazione o semplicemente valutare quale modalità sia più adatta alle vostre esigenze attuali, potete scrivermi in totale riservatezza.",
+          "Contatti Tarot Italia: informazioni su consulti e Percorsi di Armonizzazione a Macerata e online. Riservatezza totale.",
       },
       primoPasso: {
         kicker: "Il Primo Passo",
@@ -356,9 +371,9 @@ export const siteContent = {
     kicker: "Chi sono",
     titolo: "Visione ed Etica",
     seo: {
-      titolo: "M. Teresa – La Visione e l’Etica di Tarot Italia",
+      titolo: "Chi sono | Visione ed etica di Tarot Italia",
       descrizione:
-        "Benvenuti in Tarot Italia. Mi chiamo M. Teresa e il mio lavoro nasce dal desiderio di restituire alla lettura dei tarocchi la sua veste più autentica: quella di uno strumento rigoroso di indagine simbolica e consapevolezza interiore.",
+        "M. Teresa Rogani, operatrice olistica a Macerata: visione ed etica di Tarot Italia. Tarologia archetipica e lettura dei tarocchi, in studio e online.",
     },
     visione: {
       kicker: "La Visione e il Percorso",
@@ -816,6 +831,11 @@ export const siteContent = {
   },
 
   consulti: {
+    seo: {
+      titolo: "Consulti di tarocchi evolutivi | Tarot Italia",
+      descrizione:
+        "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con M. Teresa Rogani, in uno spazio protetto di ascolto.",
+    },
     immagini: {
       hero: {
         src: "/consulti/hero.png?v=1",

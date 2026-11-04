@@ -6,13 +6,11 @@ import { ImageSlot } from "../components/ImageSlot";
 import { Button, Kicker } from "../components/Button";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { Reveal } from "../components/Reveal";
-import { usePageSeo } from "../lib/pageSeo";
 
 const { brand, chiSiamo, cta, nav } = siteContent;
 
 export function ChiSiamo() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
-  usePageSeo(chiSiamo.seo.titolo, chiSiamo.seo.descrizione);
 
   return (
     <div>

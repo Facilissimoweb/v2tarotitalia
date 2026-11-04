@@ -5,6 +5,7 @@ import { clearAuthReturn, readAuthReturn, resolvePostAuthPath } from "../lib/aut
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { LanguageSeo } from "./LanguageSeo";
+import { SeoManager } from "../lib/pageSeo";
 import { PageSpeechSkipLink } from "./PageSpeech";
 import { pageSpeech } from "../lib/pageSpeech";
 
@@ -63,6 +64,7 @@ export function Layout() {
       <ScrollToTop />
       <PostAuthBounce />
       <LanguageSeo />
+      <SeoManager />
       <Header />
       <main className="min-w-0 flex-1 overflow-x-hidden pt-[calc(80px+env(safe-area-inset-top,0px))] xl:pt-[calc(112px+env(safe-area-inset-top,0px))]">
         <Outlet />
