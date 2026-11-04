@@ -13,27 +13,27 @@ const precedenti = parole.slice(0, -1);
 const azioni = [
   {
     n: "01",
-    titolo: nav.consulti,
-    testo: home.percorsi.letture[0].testo,
-    to: "/consulti",
-  },
-  {
-    n: "02",
-    titolo: nav.percorsi,
-    testo: pages.percorsi.titolo,
-    to: "/percorsi",
-  },
-  {
-    n: "03",
     titolo: nav.chiSiamo,
     testo: home.chiSiamo.titolo,
     to: "/chi-sono",
   },
   {
+    n: "02",
+    titolo: nav.consulti,
+    testo: home.percorsi.letture[0].testo,
+    to: "/consulti",
+  },
+  {
+    n: "03",
+    titolo: nav.percorsi,
+    testo: pages.percorsi.titolo,
+    to: "/percorsi",
+  },
+  {
     n: "04",
-    titolo: nav.arcaniMaggiori,
-    testo: home.passaggi.titolo,
-    to: "/arcani",
+    titolo: nav.blog,
+    testo: pages.blog.leggi,
+    to: "/blog",
   },
 ] as const;
 
