@@ -635,7 +635,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   word-spacing: 0.12em;
 }
 
-/* Area notch: padding. Il colore nativo resta a theme-color / manifest. */
+/* Area notch: padding. Nessun theme-color: chrome del browser neutro. */
 .site-chrome {
   padding-top: env(safe-area-inset-top, 0px);
 }

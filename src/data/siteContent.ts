@@ -126,7 +126,9 @@ export const siteContent = {
     seo: {
       titolo: "Tarot Italia | Cartomante e tarologia evolutiva a Macerata",
       descrizione:
-        "Cartomanzia e tarologia con Maria Teresa Rogani, cartomante: consulti di tarologia evolutiva a Macerata e online, su appuntamento.",
+        "Cartomanzia e tarologia con Maria Teresa Rogani, cartomante: consulti di tarologia evolutiva dal vivo in studio a Macerata e online via WhatsApp.",
+      immagineAlt:
+        "Tarot Italia di Maria Teresa Rogani – Cartomanzia e tarologia evolutiva online e dal vivo",
     },
     copyright: "© Tarot Italia",
     firma: "di M. Teresa Rogani",

@@ -541,7 +541,7 @@ export function seoTagValues(page: SeoPage) {
     ogDescription: page.description,
     ogUrl: url,
     ogImage: page.image,
-    ogImageAlt: brand.sottotitolo,
+    ogImageAlt: home.seo.immagineAlt,
     ogImageWidth: String(OG_IMAGE_WIDTH),
     ogImageHeight: String(OG_IMAGE_HEIGHT),
     ogImageType: OG_IMAGE_TYPE,
@@ -551,7 +551,7 @@ export function seoTagValues(page: SeoPage) {
     twitterTitle: page.title,
     twitterDescription: page.description,
     twitterImage: page.image,
-    twitterImageAlt: brand.sottotitolo,
+    twitterImageAlt: home.seo.immagineAlt,
     jsonLd: graph ? JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) : "",
   };
 }
