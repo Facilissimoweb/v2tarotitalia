@@ -467,7 +467,7 @@ export const siteContent = {
         fit: "contain",
       },
       teresa: {
-        src: "/chi-siamo/teresa-ritratto.jpg?v=5",
+        src: "/chi-siamo/teresa-ritratto.jpg?v=6",
         alt: "Ritratto evocativo di M. Teresa Rogani, operatrice olistica ed esoterica, cartomante e tarologa professionista",
         caption: "M. Teresa Rogani",
       },
@@ -484,9 +484,10 @@ export const siteContent = {
         caption: "Via Crispi 37 · Macerata",
       },
       simboli: {
-        src: "/chi-siamo/tavolo-arcani.svg?v=2",
-        alt: "Tavolo degli Arcani e linguaggio visivo dei simboli",
-        caption: "Il tavolo degli Arcani",
+        src: "/chi-siamo/tavolo-arcani.jpg?v=1",
+        alt: "Carta dell'Eremita — Tarot Italia",
+        caption: "Carta dell'Eremita",
+        nota: "Per alcuni l'Eremita rappresenta (tradizionalmente) la cautela e la prudenza (Eliphas Lévi ed altri) ma nell'osservazione della IX carta degli Arcani Maggiori nulla indica tali caratteristiche e certamente il “buio” non comporta per l'Eremita né incertezza né timore visto che l'allontanarsi dalle “luci comuni dei luoghi comuni” (le verità superficiali) è il presupposto stesso all'essere Eremita. L'Eremita quindi indica la ricerca mirata e la filosofia analitica attraverso l'attenta osservazione cosciente. Per Wirth è l'esperienza. È colui che da solo cerca la conoscenza e il sapere.",
       },
     },
   },

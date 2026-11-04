@@ -29,7 +29,7 @@ export function ChiSiamo() {
             src={chiSiamo.immagini.teresa.src}
             alt={chiSiamo.immagini.teresa.alt}
             caption={chiSiamo.immagini.teresa.caption}
-            ratio="portrait"
+            fit="contain"
           />
           <div className="md:pt-10">
             <Reveal>
@@ -86,8 +86,9 @@ export function ChiSiamo() {
             src={chiSiamo.immagini.simboli.src}
             alt={chiSiamo.immagini.simboli.alt}
             caption={chiSiamo.immagini.simboli.caption}
-            ratio="portrait"
-            className="md:justify-self-end md:w-[min(100%,380px)]"
+            note={chiSiamo.immagini.simboli.nota}
+            fit="contain"
+            className="w-full"
           />
         </div>
       </section>
