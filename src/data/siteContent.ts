@@ -398,10 +398,16 @@ export const siteContent = {
         "Credo in una tarologia etica e trasparente: ogni incontro è strutturato come uno spazio protetto di ascolto, privo di logiche commerciali o suggestioni deterministiche. Il mio obiettivo non è dirvi cosa accadrà, ma offrirvi chiarezza per restituirvi piena sovranità sulle vostre scelte di vita.",
     },
     ctaConsulti: "Scopri i consulti",
-    formazioneAccademica:
-      "Accademia di Belle Arti di Macerata. Laureata in Tecniche della Comunicazione Visiva. Questa solida base permette di decodificare la grammatica visiva, cromatica e compositiva delle carte storiche non come mera superstizione, ma come linguaggio visivo archetipico che dialoga direttamente con la mente profonda.",
+    formazione: {
+      kicker: "Formazione Scolastica",
+      titolo: "La Grammatica Visiva dell’Anima",
+      lead: "Non semplici immagini o credenze del passato, ma una chiave di lettura visiva rigorosa che affonda le radici nella storia della comunicazione e del segno.",
+      testi: [
+        "Il mio percorso parte da lontano, fondandosi su basi solide: sono diplomata come Tecnica Grafica e laureata in Tecniche della Comunicazione Visiva all’Accademia di Belle Arti di Macerata. Non si tratta di semplici titoli su un CV, ma del vero e proprio habitat metodologico che dà forma al mio lavoro. A questo nucleo visivo si uniscono gli anni di ricerca artistica in Scultura Contemporanea (sempre in Accademia) e lo studio della Filosofia Classica all’Università di Lettere e Filosofia di Macerata.",
+        "È grazie a questo intreccio di saperi che possiedo gli strumenti concreti per dissezionare la grammatica visiva, cromatica e compositiva delle lame. Ogni tratto, ogni equilibrio di pesi e ogni scelta simbolica non vengono decodificati come dogmi magici, ma come un linguaggio iconografico archetipico che parla direttamente alla mente profonda. È questo sguardo consapevole e rigoroso che trasforma un mazzo di carte in un autentico specchio di chiarezza e orientamento per voi e per la vostra vita.",
+      ],
+    },
     percorsoKicker: "Percorso disciplinare",
-    formazioneKicker: "Formazione accademica",
     percorsoDisciplinare: [
       {
         titolo: "Tarocchi Rider Waite Smith",

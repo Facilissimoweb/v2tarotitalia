@@ -131,15 +131,23 @@ export function ChiSiamo() {
       </section>
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2 md:gap-24">
+        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-24">
           <div>
             <Reveal>
-              <Kicker>{chiSiamo.formazioneKicker}</Kicker>
+              <Kicker>{chiSiamo.formazione.kicker}</Kicker>
             </Reveal>
             <Reveal delay={100}>
-              <p className="mt-10 max-w-lg text-base leading-[1.9] text-ink/75">
-                {chiSiamo.formazioneAccademica}
-              </p>
+              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+                {chiSiamo.formazione.titolo}
+              </h2>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{chiSiamo.formazione.lead}</p>
+              {chiSiamo.formazione.testi.map((paragrafo) => (
+                <p key={paragrafo.slice(0, 48)} className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">
+                  {paragrafo}
+                </p>
+              ))}
             </Reveal>
           </div>
           <ImageSlot
