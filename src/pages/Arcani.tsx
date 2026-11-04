@@ -12,9 +12,9 @@ export function Arcani() {
   return (
     <div>
       <PageHero
-        kicker="I ventidue passaggi"
-        title="Gli Arcani Maggiori"
-        lead="Galleria completa del mazzo marsigliese. Ogni scheda apre essenza, dritto e rovescio — per studio, non per oracolo automatico."
+        kicker={siteContent.pages.arcani.kicker}
+        title={siteContent.pages.arcani.titolo}
+        lead={siteContent.pages.arcani.lead}
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/arcani-minori", label: siteContent.nav.arcaniMinori }}
       />
@@ -57,7 +57,7 @@ export function ArcanoDetail() {
         title={arcano.name}
         lead={arcano.subtitle}
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
-        secondary={{ to: "/arcani", label: "Tutti i 22 Arcani" }}
+        secondary={{ to: "/arcani", label: siteContent.pages.arcani.tutti }}
       />
       <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-4 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-8">
         <Reveal>

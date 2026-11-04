@@ -1,12 +1,21 @@
+import { ARCANI } from "../data/arcani";
+import { ARCANI_MINORI } from "../data/arcaniMinori";
+import { TARIFFE } from "../data/catalogo";
 import { siteContent } from "../data/siteContent";
 import { normalizeAppPath } from "./siteRoutes";
+import { SUBSTACK_HOME, SUBSTACK_PROFILE } from "./substack";
 
-const { brand, chiSiamo, consulti, home, legal, nav, pages } = siteContent;
+const { brand, chiSiamo, consulti, home, legal, nav, pages, percorsi } = siteContent;
 
 export const SITE_URL = legal.sitoUrl.replace(/\/$/, "");
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/angelo-hero.webp`;
 export const INDEX_FOLLOW = "index, follow, max-snippet:-1, max-image-preview:large";
 export const NOINDEX = "noindex, nofollow";
+
+const STUDIO_ID = `${SITE_URL}/#studio`;
+const PERSON_ID = `${SITE_URL}/chi-sono#persona`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+const VAT_ID = `IT${brand.piva.replace(/\D/g, "")}`;
 
 export type SeoPage = {
   path: string;
@@ -14,7 +23,6 @@ export type SeoPage = {
   description: string;
   image: string;
   robots: string;
-  jsonLd?: boolean;
   changefreq: "daily" | "weekly" | "monthly";
   priority: number;
 };
@@ -32,14 +40,13 @@ function brandedTitle(title: string) {
   return title.includes(brand.wordmark) ? title : `${title} — ${brand.wordmark}`;
 }
 
-const LIVE: SeoPage[] = [
+const CORE_LIVE: SeoPage[] = [
   {
     path: "/",
     title: home.seo.titolo,
     description: home.seo.descrizione,
     image: DEFAULT_OG_IMAGE,
     robots: INDEX_FOLLOW,
-    jsonLd: true,
     changefreq: "weekly",
     priority: 1,
   },
@@ -65,7 +72,7 @@ const LIVE: SeoPage[] = [
     path: "/percorsi",
     title: pages.percorsi.seo.titolo,
     description: pages.percorsi.seo.descrizione,
-    image: imageUrl(siteContent.percorsi.immagini.hero.src),
+    image: imageUrl(percorsi.immagini.hero.src),
     robots: INDEX_FOLLOW,
     changefreq: "monthly",
     priority: 0.8,
@@ -88,42 +95,58 @@ const LIVE: SeoPage[] = [
     changefreq: "monthly",
     priority: 0.7,
   },
+  {
+    path: "/arcani",
+    title: pages.arcani.seo.titolo,
+    description: pages.arcani.seo.descrizione,
+    image: DEFAULT_OG_IMAGE,
+    robots: INDEX_FOLLOW,
+    changefreq: "monthly",
+    priority: 0.7,
+  },
+  {
+    path: "/arcani-minori",
+    title: pages.arcaniMinori.seo.titolo,
+    description: pages.arcaniMinori.seo.descrizione,
+    image: DEFAULT_OG_IMAGE,
+    robots: INDEX_FOLLOW,
+    changefreq: "monthly",
+    priority: 0.7,
+  },
 ];
+
+function arcanaSeoPages(): SeoPage[] {
+  const maggiori = ARCANI.map((card) => ({
+    path: `/arcani/${card.slug}`,
+    title: brandedTitle(`${card.name} · ${nav.arcaniMaggiori}`),
+    description: `${card.name}: ${card.essence} Tarot Italia di Maria Teresa Rogani, Macerata.`,
+    image: DEFAULT_OG_IMAGE,
+    robots: INDEX_FOLLOW,
+    changefreq: "monthly" as const,
+    priority: 0.55,
+  }));
+  const minori = ARCANI_MINORI.map((card) => ({
+    path: `/arcani-minori/${card.slug}`,
+    title: brandedTitle(`${card.nome} · ${pages.arcaniMinori.titolo}`),
+    description: `${card.nome}: ${card.essence} Tarot Italia di Maria Teresa Rogani, Macerata.`,
+    image: DEFAULT_OG_IMAGE,
+    robots: INDEX_FOLLOW,
+    changefreq: "monthly" as const,
+    priority: 0.5,
+  }));
+  return [...maggiori, ...minori];
+}
 
 const PRIVATE_PATHS = ["/carrello", "/login", "/riservata"] as const;
 
 export function liveSeoPages() {
-  return LIVE;
+  return [...CORE_LIVE, ...arcanaSeoPages()];
 }
 
 export function seoForPath(pathname: string): SeoPage {
   const path = normalizeAppPath(pathname);
-  const live = LIVE.find((page) => page.path === path);
+  const live = liveSeoPages().find((page) => page.path === path);
   if (live) return live;
-
-  if (path === "/arcani" || path.startsWith("/arcani/")) {
-    return {
-      path,
-      title: brandedTitle(nav.arcaniMaggiori),
-      description: brand.descrizione,
-      image: DEFAULT_OG_IMAGE,
-      robots: INDEX_FOLLOW,
-      changefreq: "monthly",
-      priority: 0.6,
-    };
-  }
-
-  if (path === "/arcani-minori" || path.startsWith("/arcani-minori/")) {
-    return {
-      path,
-      title: brandedTitle(pages.arcaniMinori.titolo),
-      description: brand.descrizione,
-      image: DEFAULT_OG_IMAGE,
-      robots: INDEX_FOLLOW,
-      changefreq: "monthly",
-      priority: 0.6,
-    };
-  }
 
   const privatePage = PRIVATE_PATHS.find((item) => item === path);
   if (privatePage) {
@@ -170,37 +193,314 @@ export function canonicalUrl(path: string) {
   return path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
 }
 
-function localBusinessJsonLd() {
+function postalAddress() {
   return {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "PostalAddress",
+    streetAddress: "Via Crispi 37",
+    addressLocality: brand.city,
+    postalCode: "62100",
+    addressRegion: "MC",
+    addressCountry: "IT",
+  };
+}
+
+function geoCoordinates() {
+  return {
+    "@type": "GeoCoordinates",
+    latitude: brand.latitude,
+    longitude: brand.longitude,
+  };
+}
+
+function sameAs() {
+  return [SUBSTACK_HOME, SUBSTACK_PROFILE, home.recensioni.profiloUrl];
+}
+
+function personJsonLd() {
+  return {
+    "@type": "Person",
+    "@id": PERSON_ID,
+    name: brand.titolare,
+    alternateName: ["M. Teresa Rogani", "Teresa"],
+    jobTitle: brand.ruolo,
+    url: canonicalUrl("/chi-sono"),
+    image: imageUrl(chiSiamo.immagini.teresa.src),
+    worksFor: { "@id": STUDIO_ID },
+    address: postalAddress(),
+    email: brand.email,
+    telephone: brand.whatsapp,
+    knowsAbout: [
+      "Tarologia archetipica",
+      "Consulti di tarocchi evolutivi",
+      "Percorsi di Armonizzazione",
+      "Arcani Maggiori",
+      "Arcani Minori",
+    ],
+    sameAs: sameAs(),
+  };
+}
+
+function offerCatalog() {
+  const consultOffers = consulti.opzioni.map((opt, index) => {
+    const tariffa = TARIFFE.find((item) => item.id === opt.id);
+    return {
+      "@type": "Offer",
+      position: index + 1,
+      name: opt.titolo,
+      price: String(opt.prezzo),
+      priceCurrency: "EUR",
+      url: canonicalUrl("/consulti"),
+      availability: "https://schema.org/InStock",
+      itemOffered: {
+        "@type": "Service",
+        name: opt.titolo,
+        description: tariffa?.summary ?? opt.titolo,
+        provider: { "@id": STUDIO_ID },
+        areaServed: [brand.city, "Online"],
+      },
+    };
+  });
+  const percorsoOffers = percorsi.tipologie.map((tipo, index) => ({
+    "@type": "Offer",
+    position: consultOffers.length + index + 1,
+    name: tipo.titolo,
+    url: canonicalUrl("/percorsi"),
+    itemOffered: {
+      "@type": "Service",
+      name: tipo.titolo,
+      description: tipo.testo,
+      provider: { "@id": STUDIO_ID },
+      areaServed: [brand.city, "Online"],
+    },
+  }));
+
+  return {
+    "@type": "OfferCatalog",
+    name: "Consulti e Percorsi di Tarot Italia",
+    itemListElement: [...consultOffers, ...percorsoOffers],
+  };
+}
+
+function professionalServiceJsonLd() {
+  return {
+    "@type": ["ProfessionalService", "LocalBusiness"],
+    "@id": STUDIO_ID,
     name: brand.name,
     legalName: brand.sottotitolo,
     description: home.seo.descrizione,
     url: SITE_URL,
-    image: DEFAULT_OG_IMAGE,
+    image: [DEFAULT_OG_IMAGE, imageUrl(brand.logo), imageUrl(chiSiamo.immagini.teresa.src)],
+    logo: imageUrl(brand.logo),
     telephone: brand.whatsapp,
     email: brand.email,
-    founder: {
-      "@type": "Person",
-      name: brand.titolare,
-      jobTitle: brand.ruolo,
-    },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Via Crispi 37",
-      addressLocality: brand.city,
-      postalCode: "62100",
-      addressRegion: "MC",
-      addressCountry: "IT",
-    },
-    areaServed: ["IT", "Online"],
+    vatID: VAT_ID,
+    taxID: brand.piva.replace(/\D/g, ""),
     priceRange: "€€",
+    currenciesAccepted: "EUR",
+    paymentAccepted: "Cash, Credit Card",
+    availableLanguage: ["Italian"],
+    isAccessibleForFree: false,
+    founder: { "@id": PERSON_ID },
+    employee: { "@id": PERSON_ID },
+    address: postalAddress(),
+    geo: geoCoordinates(),
+    hasMap: home.recensioni.profiloUrl,
+    areaServed: [
+      { "@type": "City", name: brand.city },
+      { "@type": "AdministrativeArea", name: "Marche" },
+      { "@type": "Country", name: "IT" },
+      { "@type": "Place", name: "Online" },
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: brand.whatsapp,
+      email: brand.email,
+      contactType: "customer service",
+      availableLanguage: "Italian",
+      areaServed: "IT",
+    },
+    hasOfferCatalog: offerCatalog(),
+    sameAs: sameAs(),
   };
+}
+
+function websiteJsonLd() {
+  return {
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    url: SITE_URL,
+    name: brand.name,
+    inLanguage: "it-IT",
+    publisher: { "@id": STUDIO_ID },
+  };
+}
+
+function webPageJsonLd(page: SeoPage) {
+  const url = canonicalUrl(page.path);
+  return {
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: page.title,
+    description: page.description,
+    inLanguage: "it-IT",
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": STUDIO_ID },
+    primaryImageOfPage: page.image,
+  };
+}
+
+function breadcrumbJsonLd(page: SeoPage) {
+  const crumbs: { name: string; path: string }[] = [{ name: nav.home, path: "/" }];
+  if (page.path === "/chi-sono") crumbs.push({ name: nav.chiSiamo, path: "/chi-sono" });
+  if (page.path === "/consulti") crumbs.push({ name: nav.consulti, path: "/consulti" });
+  if (page.path === "/percorsi") crumbs.push({ name: nav.percorsi, path: "/percorsi" });
+  if (page.path === "/blog") crumbs.push({ name: nav.blog, path: "/blog" });
+  if (page.path === "/contatti") crumbs.push({ name: nav.contatti, path: "/contatti" });
+  if (page.path === "/arcani" || page.path.startsWith("/arcani/")) {
+    crumbs.push({ name: nav.arcaniMaggiori, path: "/arcani" });
+  }
+  if (page.path === "/arcani-minori" || page.path.startsWith("/arcani-minori/")) {
+    crumbs.push({ name: nav.arcaniMinori, path: "/arcani-minori" });
+  }
+  if (page.path.startsWith("/arcani/") && page.path !== "/arcani") {
+    crumbs.push({ name: page.title.split(" — ")[0] ?? page.title, path: page.path });
+  }
+  if (page.path.startsWith("/arcani-minori/") && page.path !== "/arcani-minori") {
+    crumbs.push({ name: page.title.split(" — ")[0] ?? page.title, path: page.path });
+  }
+  if (crumbs.length < 2) return null;
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: canonicalUrl(crumb.path),
+    })),
+  };
+}
+
+function faqPageJsonLd(path: string, voci: readonly { domanda: string; risposta: string }[]) {
+  return {
+    "@type": "FAQPage",
+    "@id": `${canonicalUrl(path)}#faq`,
+    mainEntity: voci.map((voce) => ({
+      "@type": "Question",
+      name: voce.domanda,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: voce.risposta,
+      },
+    })),
+  };
+}
+
+function consultiServiceJsonLd() {
+  return {
+    "@type": "Service",
+    "@id": `${canonicalUrl("/consulti")}#servizio`,
+    name: "Consulti di tarocchi evolutivi",
+    description: consulti.seo.descrizione,
+    provider: { "@id": STUDIO_ID },
+    url: canonicalUrl("/consulti"),
+    areaServed: [brand.city, "Online"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: nav.consulti,
+      itemListElement: consulti.opzioni.map((opt, index) => {
+        const tariffa = TARIFFE.find((item) => item.id === opt.id);
+        return {
+          "@type": "Offer",
+          position: index + 1,
+          name: opt.titolo,
+          price: String(opt.prezzo),
+          priceCurrency: "EUR",
+          url: canonicalUrl("/consulti"),
+          itemOffered: {
+            "@type": "Service",
+            name: opt.titolo,
+            description: tariffa?.summary ?? opt.titolo,
+          },
+        };
+      }),
+    },
+  };
+}
+
+function percorsiServiceJsonLd() {
+  return {
+    "@type": "Service",
+    "@id": `${canonicalUrl("/percorsi")}#servizio`,
+    name: percorsi.sezione,
+    description: pages.percorsi.seo.descrizione,
+    provider: { "@id": STUDIO_ID },
+    url: canonicalUrl("/percorsi"),
+    areaServed: [brand.city, "Online"],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: percorsi.sezione,
+      itemListElement: percorsi.tipologie.map((tipo, index) => ({
+        "@type": "Offer",
+        position: index + 1,
+        name: tipo.titolo,
+        url: canonicalUrl("/percorsi"),
+        itemOffered: {
+          "@type": "Service",
+          name: tipo.titolo,
+          description: tipo.testo,
+        },
+      })),
+    },
+  };
+}
+
+function definedTermJsonLd(page: SeoPage) {
+  const maggiore = ARCANI.find((card) => page.path === `/arcani/${card.slug}`);
+  if (maggiore) {
+    return {
+      "@type": "DefinedTerm",
+      "@id": `${canonicalUrl(page.path)}#termine`,
+      name: maggiore.name,
+      description: maggiore.essence,
+      inDefinedTermSet: canonicalUrl("/arcani"),
+      url: canonicalUrl(page.path),
+    };
+  }
+  const minore = ARCANI_MINORI.find((card) => page.path === `/arcani-minori/${card.slug}`);
+  if (!minore) return null;
+  return {
+    "@type": "DefinedTerm",
+    "@id": `${canonicalUrl(page.path)}#termine`,
+    name: minore.nome,
+    description: minore.essence,
+    inDefinedTermSet: canonicalUrl("/arcani-minori"),
+    url: canonicalUrl(page.path),
+  };
+}
+
+function jsonLdGraph(page: SeoPage): object[] | null {
+  if (page.robots === NOINDEX) return null;
+
+  const graph: object[] = [websiteJsonLd(), professionalServiceJsonLd(), personJsonLd(), webPageJsonLd(page)];
+  const crumbs = breadcrumbJsonLd(page);
+  if (crumbs) graph.push(crumbs);
+
+  if (page.path === "/consulti") {
+    graph.push(consultiServiceJsonLd(), faqPageJsonLd("/consulti", consulti.faq.voci));
+  }
+  if (page.path === "/percorsi") {
+    graph.push(percorsiServiceJsonLd(), faqPageJsonLd("/percorsi", percorsi.faq.voci));
+  }
+  const term = definedTermJsonLd(page);
+  if (term) graph.push(term);
+
+  return graph;
 }
 
 export function seoTagValues(page: SeoPage) {
   const url = canonicalUrl(page.path);
+  const graph = jsonLdGraph(page);
   return {
     title: page.title,
     description: page.description,
@@ -218,7 +518,7 @@ export function seoTagValues(page: SeoPage) {
     twitterTitle: page.title,
     twitterDescription: page.description,
     twitterImage: page.image,
-    jsonLd: page.jsonLd ? JSON.stringify(localBusinessJsonLd()) : "",
+    jsonLd: graph ? JSON.stringify({ "@context": "https://schema.org", "@graph": graph }) : "",
   };
 }
 
@@ -320,22 +620,24 @@ export function stampHtml(html: string, page: SeoPage) {
   next = setName(next, "twitter:title", tags.twitterTitle);
   next = setName(next, "twitter:description", tags.twitterDescription);
   next = setName(next, "twitter:image", tags.twitterImage);
-  if (tags.jsonLd) {
-    const jsonTag = `<script type="application/ld+json">${tags.jsonLd}</script>`;
-    next = next.includes('type="application/ld+json"')
+  const jsonTag = tags.jsonLd ? `<script type="application/ld+json">${tags.jsonLd}</script>` : "";
+  if (next.includes('type="application/ld+json"')) {
+    next = jsonTag
       ? next.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, jsonTag)
-      : next.replace("</head>", `    ${jsonTag}\n  </head>`);
+      : next.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>\s*/g, "");
+  } else if (jsonTag) {
+    next = next.replace("</head>", `    ${jsonTag}\n  </head>`);
   }
   return next;
 }
 
 export function buildSitemapXml(today = "2026-11-04") {
-  const urls = LIVE.map(
+  const urls = liveSeoPages().map(
     (page) => `  <url>
     <loc>${canonicalUrl(page.path)}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority.toFixed(1)}</priority>
+    <priority>${Number.isInteger(page.priority) ? page.priority.toFixed(1) : String(page.priority)}</priority>
   </url>`,
   );
   urls.push(`  <url>
@@ -351,23 +653,85 @@ ${urls.join("\n")}
 `;
 }
 
+const AI_SEARCH_AGENTS = [
+  "Googlebot",
+  "Google-Extended",
+  "OAI-SearchBot",
+  "ChatGPT-User",
+  "GPTBot",
+  "PerplexityBot",
+  "ClaudeBot",
+  "Claude-SearchBot",
+  "Claude-User",
+  "Applebot",
+  "Applebot-Extended",
+] as const;
+
 export function buildRobotsTxt() {
-  return `User-agent: *
+  const privateDisallow = `Disallow: /carrello
+Disallow: /login
+Disallow: /riservata
+Disallow: /shop
+Disallow: /corsi
+Disallow: /api/`;
+
+  const groups = [
+    `User-agent: *
 Allow: /
 Allow: /chi-sono
 Allow: /consulti
 Allow: /percorsi
 Allow: /blog
 Allow: /contatti
+Allow: /arcani
+Allow: /arcani-minori
 Allow: /privacy.html
+Allow: /llms.txt
 
-Disallow: /carrello
-Disallow: /login
-Disallow: /riservata
-Disallow: /shop
-Disallow: /corsi
-Disallow: /api/
+${privateDisallow}`,
+    ...AI_SEARCH_AGENTS.map(
+      (agent) => `User-agent: ${agent}
+Allow: /`,
+    ),
+  ];
+
+  return `${groups.join("\n\n")}
 
 Sitemap: ${SITE_URL}/sitemap.xml
+`;
+}
+
+export function buildLlmsTxt() {
+  return `# Tarot Italia
+
+> ${home.seo.descrizione}
+
+- Titolare: ${brand.titolare}
+- Ruolo: ${brand.ruolo}
+- Sede: ${brand.studioDiTeresa}
+- P.IVA: ${brand.piva.replace(/^P\.IVA\s+/i, "")}
+- Telefono / WhatsApp: ${brand.whatsapp}
+- Email: ${brand.email}
+- Coordinate: ${brand.coords}
+- Letture: ${brand.modalitaLettura}
+- Online: chiamata vocale WhatsApp, nessuna videochiamata
+
+${brand.deontologia}
+
+## Pagine
+
+- Home: ${canonicalUrl("/")}
+- Chi sono (Maria Teresa Rogani): ${canonicalUrl("/chi-sono")}
+- Consulti di tarocchi evolutivi: ${canonicalUrl("/consulti")}
+- Percorsi di Armonizzazione: ${canonicalUrl("/percorsi")}
+- 22 Arcani Maggiori: ${canonicalUrl("/arcani")}
+- Arcani Minori: ${canonicalUrl("/arcani-minori")}
+- Blog: ${canonicalUrl("/blog")}
+- Contatti: ${canonicalUrl("/contatti")}
+- Informativa sulla privacy: ${SITE_URL}/privacy.html
+
+## Identità
+
+Tarot Italia è il laboratorio di Maria Teresa Rogani a Macerata: tarologia archetipica, consulti evolutivi e Percorsi di Armonizzazione, in studio e a distanza.
 `;
 }

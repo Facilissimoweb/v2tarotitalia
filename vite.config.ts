@@ -5,7 +5,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { isKnownAppPath } from "./src/lib/siteRoutes.ts";
-import { buildRobotsTxt, buildSitemapXml, liveSeoPages, stampHtml } from "./src/lib/seo.ts";
+import { buildLlmsTxt, buildRobotsTxt, buildSitemapXml, liveSeoPages, stampHtml } from "./src/lib/seo.ts";
 
 function applyEnv(mode: string) {
   const env = loadEnv(mode, process.cwd(), "");
@@ -147,6 +147,7 @@ function seoPrerenderPlugin(): Plugin {
       const html = readFileSync(index, "utf8");
       writeFileSync(resolve("dist/sitemap.xml"), buildSitemapXml());
       writeFileSync(resolve("dist/robots.txt"), buildRobotsTxt());
+      writeFileSync(resolve("dist/llms.txt"), buildLlmsTxt());
       for (const page of liveSeoPages()) {
         const stamped = stampHtml(html, page);
         if (page.path === "/") {

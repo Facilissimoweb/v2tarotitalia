@@ -122,6 +122,7 @@ export function Contatti() {
                 {brand.email}
               </MailToLink>
               <p className="mt-10 text-sm leading-[1.9] text-ink/75">{brand.studioDiTeresa}</p>
+              <p className="mt-3 text-sm leading-[1.9] text-ink/75">{brand.piva}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Button href={whatsappChatHref()}>{cta.whatsappRapido}</Button>
                 <Button href={getPhoneHref()} variant="ghost">

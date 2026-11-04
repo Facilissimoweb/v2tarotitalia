@@ -42,6 +42,9 @@ export function Home() {
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
                   {brand.titolare}, {brand.ruolo.toLowerCase()}.
                 </p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/70">{brand.modalitaLettura}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.studioDiTeresa}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/65">{brand.piva}</p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.deontologia}</p>
               </div>
             </Reveal>

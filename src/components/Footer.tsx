@@ -53,6 +53,7 @@ export function Footer() {
               <PinGlyph />
               <span>{brand.studioDiTeresa}</span>
             </li>
+            <li>{brand.piva}</li>
           </ul>
           <div className="mt-5 flex items-center gap-3 text-[#EDE4D4]/80">
             <a href={wa} className="hover:text-[#d7f713]" aria-label={cta.whatsappRapido} {...WHATSAPP_ANCHOR}>

@@ -2,6 +2,7 @@ import { siteContent } from "../data/siteContent";
 import { usePercorsi } from "../context/PercorsiContext";
 import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
+import { PageFaq } from "../components/PageFaq";
 import { Reveal } from "../components/Reveal";
 import { SectionBrandMark } from "../components/WidgetFrame";
 
@@ -35,6 +36,9 @@ export function Percorsi() {
           </Reveal>
           <Reveal delay={220}>
             <p className="mt-6 text-base leading-[1.9] text-ink/70">{percorsi.intro}</p>
+          </Reveal>
+          <Reveal delay={250}>
+            <p className="mt-6 text-base leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
           </Reveal>
           <Reveal delay={280}>
             <p className="mt-8 text-base leading-[1.9] text-ink/75">{home.chiSiamo.presentazione}</p>
@@ -79,6 +83,8 @@ export function Percorsi() {
           </div>
         </div>
       </section>
+
+      <PageFaq kicker={percorsi.faq.kicker} titolo={percorsi.faq.titolo} voci={percorsi.faq.voci} />
 
       <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <Reveal>

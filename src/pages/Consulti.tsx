@@ -18,6 +18,7 @@ import { formatBookingDay } from "../lib/whatsapp";
 import { Button } from "../components/Button";
 import { BookingCalendar } from "../components/BookingCalendar";
 import { PageBanner } from "../components/PageBanner";
+import { PageFaq } from "../components/PageFaq";
 import { PlateFocus } from "../components/PlateFocus";
 import { Reveal } from "../components/Reveal";
 
@@ -125,6 +126,12 @@ export function Consulti() {
         className="mb-0"
       />
       <PlateFocus items={consulti.orientamento} />
+
+      <section className="border-b border-ink/10 bg-ivory px-6 py-16 md:px-10 md:py-20">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-base leading-[1.9] text-ink/80">{consulti.apertura}</p>
+        </div>
+      </section>
 
       <section className="border-y border-ink/10 bg-paper px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-2xl text-center">
@@ -277,6 +284,8 @@ export function Consulti() {
           </section>
         </Reveal>
       </div>
+
+      <PageFaq kicker={consulti.faq.kicker} titolo={consulti.faq.titolo} voci={consulti.faq.voci} />
     </div>
   );
 }

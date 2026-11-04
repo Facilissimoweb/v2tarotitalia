@@ -16,6 +16,8 @@ export const siteContent = {
     slogan: sloganBrand,
     studioDiTeresa:
       "Via Crispi 37, 62100 Macerata (MC), Marche, Italia — Ricevo esclusivamente su appuntamento",
+    modalitaLettura:
+      "Leggo i tarocchi sia dal vivo, in studio a Macerata, sia online.",
     piva: "P.IVA 02136780430",
     identitaFiscale:
       "Maria Teresa Rogani · Tarot Italia · Macerata · Via Crispi 37 · P.IVA 02136780430",
@@ -24,6 +26,8 @@ export const siteContent = {
     city: "Macerata",
     region: "Marche, Italia",
     coords: "43° 18′ 01″ N / 13° 27′ 12″ E",
+    latitude: 43.300278,
+    longitude: 13.453333,
     email: "info@tarotitalia.com",
     adminEmail: "info@tarotitalia.com",
     emailPersonale: "mariateresarogani@gmail.com",
@@ -154,7 +158,7 @@ export const siteContent = {
         },
         {
           titolo: "Doppia Modalità Fluida",
-          testo: "Consulti dal vivo presso la quiete dello studio storico di Macerata, oppure comodamente online via WhatsApp o videochiamata ovunque ti trovi nel mondo.",
+          testo: "Consulti dal vivo presso la quiete dello studio storico di Macerata, oppure online via chiamata vocale WhatsApp. Nessuna videochiamata, per preservare la concentrazione auricolare.",
           etichetta: "Presenza & Digitale",
         },
       ],
@@ -233,7 +237,7 @@ export const siteContent = {
       seo: {
         titolo: "Contatti | Tarot Italia a Macerata e online",
         descrizione:
-          "Contatti Tarot Italia: informazioni su consulti e Percorsi di Armonizzazione a Macerata e online. Riservatezza totale.",
+          "Contatti Tarot Italia di Maria Teresa Rogani: Via Crispi 37, 62100 Macerata. Consulti e Percorsi di Armonizzazione, su appuntamento, in studio e online.",
       },
       primoPasso: {
         kicker: "Il Primo Passo",
@@ -264,6 +268,15 @@ export const siteContent = {
       },
     },
     arcani: {
+      kicker: "I ventidue passaggi",
+      titolo: "Gli Arcani Maggiori",
+      lead: "Galleria completa del mazzo marsigliese. Ogni scheda apre essenza, dritto e rovescio — per studio, non per oracolo automatico.",
+      tutti: "Tutti i 22 Arcani",
+      seo: {
+        titolo: "22 Arcani Maggiori | Tarot Italia",
+        descrizione:
+          "Galleria completa del mazzo marsigliese. Ogni scheda apre essenza, dritto e rovescio — per studio, non per oracolo automatico. Tarot Italia di Maria Teresa Rogani, Macerata.",
+      },
       abbinamenti: "Abbinamenti e Sinergie",
       abbinamentoInStudio: "Abbinamento in fase di studio e archiviazione",
     },
@@ -271,6 +284,11 @@ export const siteContent = {
       kicker: "Tarocchi",
       titolo: "Arcani Minori",
       lead: "I 56 arcani minori del mazzo marsigliese: la trama quotidiana, l'esperienza pratica e lo sviluppo dell'azione attraverso i quattro semi della materia e del sentire.",
+      seo: {
+        titolo: "Arcani Minori | Tarot Italia",
+        descrizione:
+          "I 56 arcani minori del mazzo marsigliese: la trama quotidiana, l'esperienza pratica e lo sviluppo dell'azione attraverso i quattro semi. Tarot Italia di Maria Teresa Rogani, Macerata.",
+      },
     },
     corsi: {
       kicker: "Corsi e dispense",
@@ -374,15 +392,15 @@ export const siteContent = {
     kicker: "Chi sono",
     titolo: "Visione ed Etica",
     seo: {
-      titolo: "Chi sono | Visione ed etica di Tarot Italia",
+      titolo: "Maria Teresa Rogani | Chi sono – Tarot Italia a Macerata",
       descrizione:
-        "M. Teresa Rogani, operatrice olistica a Macerata: visione ed etica di Tarot Italia. Tarologia archetipica e lettura dei tarocchi, in studio e online.",
+        "Maria Teresa Rogani, operatrice olistica a Macerata: visione ed etica di Tarot Italia. Tarologia archetipica e lettura dei tarocchi, in studio in Via Crispi 37 e online.",
     },
     visione: {
       kicker: "La Visione e il Percorso",
       titolo: "La Visione e il Percorso",
       testo:
-        "Benvenuti in Tarot Italia. Mi chiamo M. Teresa e il mio lavoro nasce dal desiderio di restituire alla lettura dei tarocchi la sua veste più autentica: quella di uno strumento rigoroso di indagine simbolica e consapevolezza interiore.",
+        "Benvenuti in Tarot Italia. Mi chiamo Maria Teresa Rogani e il mio lavoro nasce dal desiderio di restituire alla lettura dei tarocchi la sua veste più autentica: quella di uno strumento rigoroso di indagine simbolica e consapevolezza interiore. Leggo i tarocchi sia dal vivo, in studio a Macerata, sia online.",
     },
     metodo: {
       kicker: "Il Metodo",
@@ -601,6 +619,37 @@ export const siteContent = {
           "Un percorso dedicato a chi condivide già un cammino ma avverte la necessità di ritrovare la sintonia profonda, superare i cicli di tensione ripetitivi e ridare linfa e chiarezza alla visione comune del futuro.",
       },
     ],
+    faq: {
+      kicker: "Chiarezza",
+      titolo: "Domande frequenti",
+      voci: [
+        {
+          domanda: "Cosa sono i Percorsi di Armonizzazione di Tarot Italia?",
+          risposta:
+            "Ogni legame umano vive di flussi, momenti di distanza e desideri di vicinanza. I percorsi di Tarot Italia offrono uno spazio di ascolto profondo, orientato ad accompagnare la persona nell’esplorazione dei propri vissuti, nel riallineamento simbolico e nell’evoluzione emotiva. L’obiettivo è coadiuvare la chiarezza, facilitare l’allentamento dei nodi comunicativi e sostenere la riscoperta di un flusso autentico e rispettoso delle parti.",
+        },
+        {
+          domanda: "Chi cura i Percorsi di Armonizzazione?",
+          risposta:
+            "I Percorsi di Armonizzazione di Tarot Italia sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica a Macerata. Studio in Via Crispi 37, 62100 Macerata (MC), Marche, Italia — ricevo esclusivamente su appuntamento.",
+        },
+        {
+          domanda: "Che differenza c’è tra un consulto singolo e un percorso?",
+          risposta:
+            "Sia che scegliate un consulto singolo, sia che desideriate affidarvi ai miei percorsi, vi offro un’esperienza di riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza alcuna promessa di forzatura esterna. Il consulto è una lettura puntuale di 30 o 60 minuti; i percorsi accompagnano nel tempo le dinamiche relazionali, di coppia, di riconciliazione o di attrazione.",
+        },
+        {
+          domanda: "I Percorsi di Armonizzazione sostituiscono un percorso medico o psicologico?",
+          risposta:
+            "Si precisa che tali percorsi hanno una finalità esclusivamente simbolica, introspettiva e di crescita personale, e non costituiscono in alcun modo pareri o trattamenti medici, psicologici, sanitari, legali o finanziari. Attività disciplinata ai sensi della Legge 14 gennaio 2013, n. 4. Nessuna consulenza costituisce parere medico, sanitario o legale.",
+        },
+        {
+          domanda: "Come si richiede un percorso?",
+          risposta:
+            "Ogni richiesta apre una chiacchierata preliminare con Teresa. Per procedere è necessario l’accesso all’area riservata. La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
+        },
+      ],
+    },
   },
 
   itha: {
@@ -841,8 +890,10 @@ export const siteContent = {
     seo: {
       titolo: "Consulti di tarocchi evolutivi | Tarot Italia",
       descrizione:
-        "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con M. Teresa Rogani, in uno spazio protetto di ascolto.",
+        "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con Maria Teresa Rogani, in studio in Via Crispi 37 e via chiamata vocale WhatsApp.",
     },
+    apertura:
+      "Leggo i tarocchi sia dal vivo, in studio a Via Crispi 37 a Macerata, sia online. Consulti di 30 o 60 minuti con Maria Teresa Rogani, su appuntamento. A distanza, chiamata vocale WhatsApp: nessuna videochiamata.",
     immagini: {
       hero: {
         src: "/consulti/hero.webp?v=3",
@@ -875,6 +926,37 @@ export const siteContent = {
         testo: "Con ascolto nudo e assenza di dogmi. Accostarsi alle carte richiede la disponibilità a ricevere una prospettiva veritiera, anche quando disattende le attese.",
       },
     ],
+    faq: {
+      kicker: "Chiarezza",
+      titolo: "Domande frequenti",
+      voci: [
+        {
+          domanda: "Come funziona un consulto di tarocchi evolutivi a Macerata?",
+          risposta:
+            "Un consulto di tarocchi evolutivi con Tarot Italia si svolge con Maria Teresa Rogani, operatrice olistica e tarologa professionista, in studio a Via Crispi 37 a Macerata oppure a distanza. Le letture durano 30 o 60 minuti, in uno spazio protetto di ascolto. Ricevo esclusivamente su appuntamento. I consulti a distanza avvengono tramite chiamata vocale WhatsApp: nessuna videochiamata, per preservare la concentrazione auricolare.",
+        },
+        {
+          domanda: "Un consulto è in studio o online?",
+          risposta:
+            "Sì: leggo i tarocchi sia dal vivo che online. Dal vivo, presso lo studio di Via Crispi 37, 62100 Macerata. Online, via chiamata vocale WhatsApp. Dalle ore 19:00 i consulti avvengono esclusivamente online. Nessuna videochiamata, per preservare la concentrazione auricolare.",
+        },
+        {
+          domanda: "Quanto dura un consulto e come si prenota?",
+          risposta:
+            "Sono disponibili un consulto di 30 minuti (40 €) e un consulto di 1 ora (60 €), onnicomprensivi. È possibile aggiungere un report di sintesi in PDF inviato via WhatsApp. La prenotazione si finalizza dal calendario di questa pagina: dopo il pagamento su Stripe la sessione è riservata sul tuo account. Per finalizzare è necessario accedere o registrarsi.",
+        },
+        {
+          domanda: "Che differenza c’è tra il consulto di 30 minuti e quello di 1 ora?",
+          risposta:
+            "Il consulto di 30 minuti è una disamina puntuale di una singola questione nevralgica — relazionale, lavorativa o decisionale. Il consulto di 1 ora è un’analisi completa di stasi evolutiva, croce celtica integrata e dialogo archetipico: un’ora dedicata senza fretta a sogni, nodi emotivi e scelte di vita, in un contesto privo di giudizio.",
+        },
+        {
+          domanda: "I tarocchi secondo Tarot Italia predicono il futuro?",
+          risposta:
+            "I tarocchi sono un sistema di 78 lame che mappa gli archetipi dell’esperienza umana. Non una semplice predizione, ma uno specchio rigoroso del presente per decodificare il futuro. Ogni incontro è uno spazio protetto di ascolto, privo di logiche commerciali o suggestioni deterministiche: l’obiettivo non è dire cosa accadrà, ma offrire chiarezza per restituire piena sovranità sulle scelte di vita. Attività disciplinata ai sensi della Legge 14 gennaio 2013, n. 4. Nessuna consulenza costituisce parere medico, sanitario o legale.",
+        },
+      ],
+    },
     procedi: "Ci siamo quasi!",
     conferma: "Conferma e riserva la sessione",
     pagaStripe: "Paga e riserva la sessione",

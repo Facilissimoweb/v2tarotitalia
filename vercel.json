@@ -20,6 +20,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/((?!api/|sitemap\\.xml|robots\\.txt).*)", "destination": "/index.html" }
+    { "source": "/((?!api/|sitemap\\.xml|robots\\.txt|llms\\.txt).*)", "destination": "/index.html" }
   ]
 }

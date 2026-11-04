@@ -15,7 +15,8 @@ export function ChiSiamo() {
   return (
     <div>
       <PageBanner
-        title={chiSiamo.titolo}
+        title={brand.titolare}
+        subtitle={chiSiamo.titolo}
         background={chiSiamo.immagini.hero}
         mobileHeight="two-thirds"
         className="mb-10 md:mb-14"
@@ -49,6 +50,9 @@ export function ChiSiamo() {
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
                   {brand.titolare}, {brand.ruolo.toLowerCase()}.
                 </p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/70">{brand.modalitaLettura}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.studioDiTeresa}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/65">{brand.piva}</p>
               </div>
             </Reveal>
           </div>
