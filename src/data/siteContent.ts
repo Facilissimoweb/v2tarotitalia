@@ -124,9 +124,9 @@ export const siteContent = {
     kicker: "Tarot Italia",
     titolo: "Tarot Italia",
     seo: {
-      titolo: "Tarot Italia | Tarologia archetipica a Macerata e online",
+      titolo: "Tarot Italia | Cartomante e tarologia evolutiva a Macerata",
       descrizione:
-        "Tarot Italia di Maria Teresa Rogani: tarologia archetipica e consulti di tarocchi evolutivi a Macerata e online. Riceve su appuntamento.",
+        "Cartomanzia e tarologia con Maria Teresa Rogani, cartomante: consulti di tarologia evolutiva a Macerata e online, su appuntamento.",
     },
     copyright: "© Tarot Italia",
     firma: "di M. Teresa Rogani",

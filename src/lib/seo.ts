@@ -116,6 +116,33 @@ const CORE_LIVE: SeoPage[] = [
     changefreq: "monthly",
     priority: 0.7,
   },
+  {
+    path: "/privacy",
+    title: brandedTitle(legal.privacy.titolo),
+    description: legal.privacy.intro[0],
+    image: DEFAULT_OG_IMAGE,
+    robots: INDEX_FOLLOW,
+    changefreq: "monthly",
+    priority: 0.3,
+  },
+  {
+    path: "/disclaimer",
+    title: brandedTitle(legal.disclaimer.titolo),
+    description: legal.disclaimer.sezione,
+    image: DEFAULT_OG_IMAGE,
+    robots: INDEX_FOLLOW,
+    changefreq: "monthly",
+    priority: 0.3,
+  },
+  {
+    path: "/termini-di-servizio",
+    title: brandedTitle(legal.vendita.titolo),
+    description: legal.vendita.sezioni[0].testi[0],
+    image: DEFAULT_OG_IMAGE,
+    robots: INDEX_FOLLOW,
+    changefreq: "monthly",
+    priority: 0.3,
+  },
 ];
 
 function arcanaSeoPages(): SeoPage[] {
