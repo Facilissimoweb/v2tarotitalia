@@ -369,8 +369,28 @@ export const siteContent = {
     metodo: {
       kicker: "Il Metodo",
       titolo: "Il Metodo — Arcani Maggiori e Minori",
+      sottotitolo: "L’Integrazione tra Analisi Visiva e Sapienza Archetipica",
       testo:
-        "Il mio approccio si fonda sull’integrazione tra l’analisi visiva e semiotica dell’immagine e la conoscenza profonda dei tarocchi, sia negli Arcani Maggiori che nei Minori. Non considero le carte come un automatismo interpretativo, ma come un linguaggio iconografico complesso da decodificare con cura e rispetto.",
+        "Il mio approccio si fonda sull’integrazione tra l’analisi visiva e semiotica dell’immagine e la conoscenza profonda dei tarocchi, sia negli Arcani Maggiori che nei Minori. Non considero le carte come un automatismo interpretativo o una predizione meccanica, ma come un linguaggio iconografico complesso da decodificare con cura e rispetto.",
+      ponte:
+        "Per offrirvi uno strumento di orientamento chiaro e accessibile — sia che stiate muovendo i primi passi, sia che desideriate approfondire il piano spirituale — ho strutturato il percorso del mio blog in due grandi categorie fondamentali:",
+      categorie: [
+        {
+          titolo: "Il Tarocco Classico (Pratico, Immediato e Rassicurante)",
+          lettura:
+            "Il significato superficiale e immediato: È la lettura più diffusa e accessibile, quella tradizionalmente associata alle figure “da mago” (eloquenza, scioltezza comunicativa e intuito pratico nella riuscita e nella gestione del lavoro).",
+          serve:
+            "A cosa serve: È lo strumento ideale per chi si avvicina per la prima volta alle carte e cerca risposte rapide, chiare e orientate alla concretezza lavorativa e quotidiana, senza barriere complesse o timori legati alla tecnologia o agli investimenti.",
+        },
+        {
+          titolo: "Il Tarocco Esoterico (Il Piano Più Profondo e Archetipico)",
+          lettura:
+            "La decodifica simbolica: Un viaggio che va oltre l’apparenza visiva, esplorando l’origine storica, le radici iconografiche (dal Rinascimento italiano fino alle grandi scuole ermetiche) e il profondo valore archetipico delle lame.",
+          serve:
+            "A cosa serve: È pensato per chi desidera andare in profondità, comprendendo la carta non solo come consiglio pratico, ma come specchio dell’inconscio, mappa di evoluzione personale e chiave di lettura della propria interiorità.",
+        },
+      ],
+      ctaLetture: "Letture",
     },
     etica: {
       kicker: "Etica e Rispetto",

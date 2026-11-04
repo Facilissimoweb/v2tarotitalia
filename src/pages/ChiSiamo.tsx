@@ -58,38 +58,59 @@ export function ChiSiamo() {
       </section>
 
       <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-6xl items-center gap-16 md:grid-cols-2 md:gap-24">
-          <div>
-            <Reveal>
-              <Kicker>{chiSiamo.metodo.kicker}</Kicker>
-            </Reveal>
-            <Reveal delay={100}>
-              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {chiSiamo.metodo.titolo}
-              </h2>
-            </Reveal>
-            <Reveal delay={200}>
-              <p className="mt-10 max-w-lg text-base leading-[1.9] text-ink/75">{chiSiamo.metodo.testo}</p>
-            </Reveal>
-            <Reveal delay={280}>
-              <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">
-                <Button to="/arcani" variant="ghost">
-                  {nav.arcaniMaggiori}
-                </Button>
-                <Button to="/arcani-minori" variant="ghost">
-                  {nav.arcaniMinori}
-                </Button>
-              </div>
-            </Reveal>
+        <div className="mx-auto max-w-6xl">
+          <div className="grid items-start gap-16 md:grid-cols-2 md:gap-24">
+            <div>
+              <Reveal>
+                <Kicker>{chiSiamo.metodo.kicker}</Kicker>
+              </Reveal>
+              <Reveal delay={100}>
+                <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+                  {chiSiamo.metodo.titolo}
+                </h2>
+                <p className="mt-5 font-display text-xl font-normal leading-snug text-ink/80 md:text-2xl">
+                  {chiSiamo.metodo.sottotitolo}
+                </p>
+              </Reveal>
+              <Reveal delay={200}>
+                <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{chiSiamo.metodo.testo}</p>
+                <p className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">{chiSiamo.metodo.ponte}</p>
+              </Reveal>
+            </div>
+            <ImageSlot
+              src={chiSiamo.immagini.simboli.src}
+              alt={chiSiamo.immagini.simboli.alt}
+              caption={chiSiamo.immagini.simboli.caption}
+              note={chiSiamo.immagini.simboli.nota}
+              fit="contain"
+              className="w-full"
+            />
           </div>
-          <ImageSlot
-            src={chiSiamo.immagini.simboli.src}
-            alt={chiSiamo.immagini.simboli.alt}
-            caption={chiSiamo.immagini.simboli.caption}
-            note={chiSiamo.immagini.simboli.nota}
-            fit="contain"
-            className="w-full"
-          />
+
+          <div className="mt-20 grid gap-12 md:grid-cols-2 md:gap-16">
+            {chiSiamo.metodo.categorie.map((voce, i) => (
+              <Reveal key={voce.titolo} delay={i * 80}>
+                <p className="text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-ember-soft">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-5 font-display text-2xl font-normal leading-snug text-ink">{voce.titolo}</h3>
+                <p className="mt-8 text-base leading-[1.9] text-ink/75">{voce.lettura}</p>
+                <p className="mt-5 text-base leading-[1.9] text-ink/75">{voce.serve}</p>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={200}>
+            <div className="mt-14 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">
+              <Button to="/blog">{chiSiamo.metodo.ctaLetture}</Button>
+              <Button to="/arcani" variant="ghost">
+                {nav.arcaniMaggiori}
+              </Button>
+              <Button to="/arcani-minori" variant="ghost">
+                {nav.arcaniMinori}
+              </Button>
+            </div>
+          </Reveal>
         </div>
       </section>
 
