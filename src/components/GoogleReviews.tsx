@@ -222,7 +222,7 @@ export function GoogleReviews() {
   return (
     <section
       id="recensioni-google"
-      className="scroll-mt-24 px-6 pb-8 pt-4 md:px-10 md:pb-10 md:pt-6 xl:scroll-mt-[7rem]"
+      className="scroll-mt-24 px-6 py-24 md:px-10 md:py-32 xl:scroll-mt-[7rem]"
     >
       <div className="mx-auto max-w-6xl">
         <Reveal>

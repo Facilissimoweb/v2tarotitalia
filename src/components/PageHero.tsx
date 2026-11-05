@@ -80,7 +80,7 @@ export function PageHero({
               ))
             : undefined
         }
-        className={children ? "mb-0 pb-6 md:pb-8" : "mb-0"}
+        className={children ? "mb-0 pb-6 md:pb-8" : "mb-10 md:mb-14"}
       />
       {children ? (
         <div className="mx-auto flex w-full max-w-3xl justify-center px-6 pb-10 md:px-10 md:pb-14">

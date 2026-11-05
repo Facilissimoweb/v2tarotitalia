@@ -82,7 +82,7 @@ function ContactForm() {
 export function Contatti() {
   return (
     <div>
-      <PageBanner title={copy.titolo} className="mb-0" />
+      <PageBanner title={copy.titolo} className="mb-10 md:mb-14" />
 
       <StackDeck>
       <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
