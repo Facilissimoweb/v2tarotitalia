@@ -20,7 +20,7 @@ export function ChiSiamo() {
         subtitle={chiSiamo.titolo}
         background={chiSiamo.immagini.hero}
         mobileHeight="two-thirds"
-        className="mb-10 md:mb-14"
+        className="mb-0"
       />
 
       <StackDeck>
@@ -187,8 +187,6 @@ export function ChiSiamo() {
         </div>
       </StackSheet>
 
-      {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
-
       <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <div className="mx-auto max-w-2xl bg-mist px-8 py-16 text-center md:px-16 md:py-20">
@@ -204,6 +202,8 @@ export function ChiSiamo() {
         </Reveal>
       </StackSheet>
       </StackDeck>
+
+      {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
     </div>
   );
 }

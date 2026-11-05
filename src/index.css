@@ -528,62 +528,110 @@ h3 {
       box-shadow: none;
     }
 
-    .stack-sheet + .stack-sheet {
+    .stack-deck {
       margin-top: 0;
     }
 
-    .stack-sheet + .stack-sheet .stack-sheet-lift::before {
+    .stack-deck > .stack-sheet + .stack-sheet {
+      margin-top: 0;
+    }
+
+    .stack-deck > .stack-sheet .stack-sheet-lift::before {
       display: none;
     }
   }
 }
 
-/* Livelli a sfogliamento: il foglio visivo (interno) si alza; il guscio resta fermo. */
+/* Sfogliamento: ogni foglio copre il precedente (~metà viewport), senza sticky. */
+:root {
+  --stack-overlap: 48vh;
+}
+
 .stack-deck {
+  --stack-overlap: 48vh;
   position: relative;
   isolation: isolate;
+  z-index: 3;
+  margin-top: calc(var(--stack-overlap) * -1);
+}
+
+.stack-deck.stack-deck--flush {
+  margin-top: 0;
 }
 
 .stack-sheet {
   position: relative;
-  z-index: 1;
   overflow: visible;
 }
 
 .stack-sheet-lift {
   position: relative;
+  will-change: transform;
 }
 
-.stack-sheet + .stack-sheet {
-  margin-top: -4.5rem;
+.stack-deck > .stack-sheet + .stack-sheet {
+  margin-top: calc(var(--stack-overlap) * -1);
 }
 
-.stack-sheet + .stack-sheet .stack-sheet-lift {
-  box-shadow: 0 -2.25rem 3.5rem rgb(20 18 16 / 0.18);
+/* Respiro: il foglio copre solo il vuoto, non i testi. Fascia alta su tutti i fogli. */
+.stack-deck:not(.stack-deck--static) > .stack-sheet > .stack-sheet-lift {
+  padding-top: 10rem;
 }
 
-.stack-sheet + .stack-sheet .stack-sheet-lift::before {
+.stack-deck:not(.stack-deck--static) > .stack-sheet + .stack-sheet > .stack-sheet-lift {
+  padding-top: 11rem;
+}
+
+.stack-deck:not(.stack-deck--static) > .stack-sheet:not(:last-child) > .stack-sheet-lift {
+  padding-bottom: calc(var(--stack-overlap) + 20rem);
+}
+
+.stack-deck:not(.stack-deck--static) > .stack-sheet:last-child > .stack-sheet-lift {
+  padding-bottom: 12rem;
+}
+
+[data-home-hero],
+[data-page-hero].mb-0 {
+  padding-bottom: calc(var(--stack-overlap, 48vh) + 6rem);
+}
+
+.stack-deck > .stack-sheet .stack-sheet-lift {
+  box-shadow: 0 -1.75rem 4rem rgb(20 18 16 / 0.28);
+}
+
+.stack-deck > .stack-sheet .stack-sheet-lift::before {
   content: "";
   position: absolute;
   top: 0;
   right: 0;
   left: 0;
   z-index: 2;
-  height: 2px;
+  height: 3px;
   background: #d7f713;
   pointer-events: none;
 }
 
+.stack-deck.stack-deck--static,
+.stack-deck.stack-deck--static.stack-deck--flush {
+  --stack-overlap: 0px;
+  margin-top: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .stack-sheet + .stack-sheet {
+  .stack-deck {
+    --stack-overlap: 0px;
     margin-top: 0;
   }
 
-  .stack-sheet + .stack-sheet .stack-sheet-lift {
+  .stack-deck > .stack-sheet + .stack-sheet {
+    margin-top: 0;
+  }
+
+  .stack-deck > .stack-sheet .stack-sheet-lift {
     box-shadow: none;
   }
 
-  .stack-sheet + .stack-sheet .stack-sheet-lift::before {
+  .stack-deck > .stack-sheet .stack-sheet-lift::before {
     display: none;
   }
 }

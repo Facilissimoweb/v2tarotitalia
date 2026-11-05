@@ -196,6 +196,7 @@ export function Home() {
           </Reveal>
         </div>
       </StackSheet>
+      </StackDeck>
 
       <GoogleReviews />
 
@@ -221,7 +222,6 @@ export function Home() {
           </div>
         </StackSheet>
       ) : null}
-      </StackDeck>
 
       {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
     </div>

@@ -19,7 +19,7 @@ export function Percorsi() {
         subtitle={pages.percorsi.titolo}
         background={percorsi.immagini.hero}
         mobileHeight="two-thirds"
-        className="mb-10 md:mb-14"
+        className="mb-0"
       />
 
       <StackDeck>

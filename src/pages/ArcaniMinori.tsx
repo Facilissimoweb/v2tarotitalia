@@ -57,7 +57,7 @@ export function ArcaniMinori() {
           </a>
         ))}
       </nav>
-      <StackDeck className="mx-auto max-w-6xl space-y-24 px-6 pb-24 pt-16 md:space-y-32 md:px-10 md:pb-32 md:pt-24">
+      <StackDeck flush className="mx-auto max-w-6xl px-6 pb-24 pt-16 md:px-10 md:pb-32 md:pt-24">
         {SEMI_MINORI.map((seme) => {
           const lame = lameDelSeme(seme.id);
           return (
