@@ -1,5 +1,5 @@
-import { useRef, type ReactNode } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import type { ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
 
 type Props = {
   children: ReactNode;
@@ -8,30 +8,30 @@ type Props = {
   id?: string;
 };
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 /**
- * Foglio dopo la hero: sale dal basso coprendo il blocco precedente, legato allo scroll della finestra.
- * Non usa view-timeline CSS (gli overflow dei genitori la facevano finire subito).
+ * Foglio dopo la hero.
+ * Il guscio esterno resta nel flusso (niente transform): così IntersectionObserver
+ * e whileInView misurano la posizione reale. Sfondo e padding stanno sul foglio
+ * interno, che è l’unico a sollevarsi — altrimenti si muoveva solo il testo
+ * su un pannello già fermo, e l’effetto risultava invisibile.
  */
 export function StackSheet({ children, className = "", as = "section", id }: Props) {
-  const ref = useRef<HTMLElement | null>(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "start 0.28"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [180, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [0.35, 1]);
-
-  const Tag = as === "div" ? motion.div : motion.section;
+  const Tag = as === "div" ? "div" : "section";
 
   return (
-    <Tag
-      ref={ref}
-      id={id}
-      className={`stack-sheet${className ? ` ${className}` : ""}`}
-      style={reduce ? undefined : { y, opacity }}
-    >
-      {children}
+    <Tag id={id} className="stack-sheet">
+      <motion.div
+        className={`stack-sheet-lift${className ? ` ${className}` : ""}`}
+        initial={reduce ? false : { y: 120, opacity: 0 }}
+        whileInView={reduce ? undefined : { y: 0, opacity: 1 }}
+        viewport={{ once: true, amount: "some", margin: "0px 0px -12% 0px" }}
+        transition={{ duration: 0.9, ease }}
+      >
+        {children}
+      </motion.div>
     </Tag>
   );
 }

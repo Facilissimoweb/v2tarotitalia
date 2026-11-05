@@ -532,13 +532,13 @@ h3 {
       margin-top: 0;
     }
 
-    .stack-sheet + .stack-sheet::before {
+    .stack-sheet + .stack-sheet .stack-sheet-lift::before {
       display: none;
     }
   }
 }
 
-/* Livelli a sfogliamento: il foglio successivo copre il precedente e sale con lo scroll. */
+/* Livelli a sfogliamento: il foglio visivo (interno) si alza; il guscio resta fermo. */
 .stack-deck {
   position: relative;
   isolation: isolate;
@@ -547,14 +547,22 @@ h3 {
 .stack-sheet {
   position: relative;
   z-index: 1;
+  overflow: visible;
+}
+
+.stack-sheet-lift {
+  position: relative;
 }
 
 .stack-sheet + .stack-sheet {
   margin-top: -4.5rem;
+}
+
+.stack-sheet + .stack-sheet .stack-sheet-lift {
   box-shadow: 0 -2.25rem 3.5rem rgb(20 18 16 / 0.18);
 }
 
-.stack-sheet + .stack-sheet::before {
+.stack-sheet + .stack-sheet .stack-sheet-lift::before {
   content: "";
   position: absolute;
   top: 0;
@@ -564,6 +572,20 @@ h3 {
   height: 2px;
   background: #d7f713;
   pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack-sheet + .stack-sheet {
+    margin-top: 0;
+  }
+
+  .stack-sheet + .stack-sheet .stack-sheet-lift {
+    box-shadow: none;
+  }
+
+  .stack-sheet + .stack-sheet .stack-sheet-lift::before {
+    display: none;
+  }
 }
 
 
