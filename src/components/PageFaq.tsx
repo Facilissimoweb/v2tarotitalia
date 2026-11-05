@@ -1,5 +1,6 @@
 import { Reveal } from "./Reveal";
 import { Kicker } from "./Button";
+import { StackSheet } from "./StackSheet";
 
 export type FaqVoce = {
   domanda: string;
@@ -17,7 +18,7 @@ export function PageFaq({ kicker, titolo, voci }: Props) {
   if (!voci.length) return null;
 
   return (
-    <section className="px-6 py-24 md:px-10 md:py-32">
+    <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-3xl">
         <Reveal>
           <Kicker>{kicker}</Kicker>
@@ -40,6 +41,6 @@ export function PageFaq({ kicker, titolo, voci }: Props) {
           ))}
         </dl>
       </div>
-    </section>
+    </StackSheet>
   );
 }

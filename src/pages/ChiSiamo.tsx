@@ -6,6 +6,7 @@ import { ImageSlot } from "../components/ImageSlot";
 import { Button, Kicker } from "../components/Button";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { Reveal } from "../components/Reveal";
+import { StackDeck, StackSheet } from "../components/StackSheet";
 
 const { brand, chiSiamo, cta, nav } = siteContent;
 
@@ -22,7 +23,8 @@ export function ChiSiamo() {
         className="mb-10 md:mb-14"
       />
 
-      <section className="px-6 pb-24 md:px-10 md:pb-32">
+      <StackDeck>
+      <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:gap-24">
           <ImageSlot
             src={chiSiamo.immagini.teresa.src}
@@ -57,9 +59,9 @@ export function ChiSiamo() {
             </Reveal>
           </div>
         </div>
-      </section>
+      </StackSheet>
 
-      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <div className="grid items-start gap-16 md:grid-cols-2 md:gap-24">
             <div>
@@ -114,9 +116,9 @@ export function ChiSiamo() {
             </div>
           </Reveal>
         </div>
-      </section>
+      </StackSheet>
 
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Kicker>{chiSiamo.etica.kicker}</Kicker>
@@ -130,9 +132,9 @@ export function ChiSiamo() {
             <p className="mt-10 text-base leading-[1.9] text-ink/75">{chiSiamo.etica.testo}</p>
           </Reveal>
         </div>
-      </section>
+      </StackSheet>
 
-      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-24">
           <div>
             <Reveal>
@@ -160,9 +162,9 @@ export function ChiSiamo() {
             className="mx-auto w-full max-w-md md:max-w-lg"
           />
         </div>
-      </section>
+      </StackSheet>
 
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-4xl">
           <Reveal>
             <Kicker>{chiSiamo.percorsoKicker}</Kicker>
@@ -183,11 +185,11 @@ export function ChiSiamo() {
             </div>
           </Reveal>
         </div>
-      </section>
+      </StackSheet>
 
       {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
 
-      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <div className="mx-auto max-w-2xl bg-mist px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />
@@ -200,7 +202,8 @@ export function ChiSiamo() {
             </div>
           </div>
         </Reveal>
-      </section>
+      </StackSheet>
+      </StackDeck>
     </div>
   );
 }

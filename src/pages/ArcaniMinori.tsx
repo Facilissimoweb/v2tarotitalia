@@ -12,6 +12,7 @@ import { ArcanoMinoreArt } from "../components/ArcanoMinoreArt";
 import { Button } from "../components/Button";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
+import { StackDeck, StackSheet } from "../components/StackSheet";
 import { NonTrovata } from "./NonTrovata";
 
 const { comingSoon, nav, pages } = siteContent;
@@ -56,14 +57,14 @@ export function ArcaniMinori() {
           </a>
         ))}
       </nav>
-      <div className="mx-auto max-w-6xl space-y-24 px-6 pb-24 pt-16 md:space-y-32 md:px-10 md:pb-32 md:pt-24">
+      <StackDeck className="mx-auto max-w-6xl space-y-24 px-6 pb-24 pt-16 md:space-y-32 md:px-10 md:pb-32 md:pt-24">
         {SEMI_MINORI.map((seme) => {
           const lame = lameDelSeme(seme.id);
           return (
-            <section
+            <StackSheet
               key={seme.id}
               id={seme.id}
-              className="scroll-mt-[calc(80px+env(safe-area-inset-top,0px)+12px)] xl:scroll-mt-[calc(112px+env(safe-area-inset-top,0px)+12px)]"
+              className="bg-ivory scroll-mt-[calc(80px+env(safe-area-inset-top,0px)+12px)] xl:scroll-mt-[calc(112px+env(safe-area-inset-top,0px)+12px)]"
             >
               <Reveal>
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
@@ -105,10 +106,10 @@ export function ArcaniMinori() {
                   </div>
                 </Reveal>
               )}
-            </section>
+            </StackSheet>
           );
         })}
-      </div>
+      </StackDeck>
     </div>
   );
 }
@@ -132,6 +133,7 @@ export function ArcanoMinoreDetail() {
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/arcani-minori", label: nav.arcaniMinori }}
       />
+      <StackSheet className="bg-ivory">
       <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-24 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-32">
         <Reveal>
           <div className="bg-paper p-6">
@@ -192,6 +194,7 @@ export function ArcanoMinoreDetail() {
           </Reveal>
         </div>
       </div>
+      </StackSheet>
     </div>
   );
 }

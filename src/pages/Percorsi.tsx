@@ -4,6 +4,7 @@ import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
 import { Reveal } from "../components/Reveal";
+import { StackDeck, StackSheet } from "../components/StackSheet";
 import { SectionBrandMark } from "../components/WidgetFrame";
 
 const { brand, chiSiamo, cta, nav, pages, percorsi } = siteContent;
@@ -21,7 +22,8 @@ export function Percorsi() {
         className="mb-10 md:mb-14"
       />
 
-      <section className="px-6 pb-20 md:px-10 md:pb-28">
+      <StackDeck>
+      <StackSheet className="bg-ivory px-6 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Kicker>{percorsi.sezione}</Kicker>
@@ -41,9 +43,9 @@ export function Percorsi() {
             <p className="mt-6 text-base leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
           </Reveal>
         </div>
-      </section>
+      </StackSheet>
 
-      <section className="px-6 pb-24 md:px-10 md:pb-32">
+      <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{percorsi.percorsiKicker}</Kicker>
@@ -74,11 +76,11 @@ export function Percorsi() {
             ))}
           </div>
         </div>
-      </section>
+      </StackSheet>
 
       <PageFaq kicker={percorsi.faq.kicker} titolo={percorsi.faq.titolo} voci={percorsi.faq.voci} />
 
-      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <blockquote className="mx-auto max-w-lg border-l border-ember-soft pl-8">
             <p className="font-display text-xl italic leading-relaxed text-ink">«{percorsi.citazione}»</p>
@@ -97,7 +99,8 @@ export function Percorsi() {
             </div>
           </div>
         </Reveal>
-      </section>
+      </StackSheet>
+      </StackDeck>
     </div>
   );
 }

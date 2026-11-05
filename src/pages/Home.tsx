@@ -8,6 +8,7 @@ import { HomeHero } from "../components/HomeHero";
 import { ImageSlot } from "../components/ImageSlot";
 import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
+import { StackDeck, StackSheet } from "../components/StackSheet";
 import { shopLive } from "../lib/launchFlags";
 const { brand, chiSiamo, cta, home, nav } = siteContent;
 
@@ -19,7 +20,8 @@ export function Home() {
     <div className="w-full min-w-0 overflow-x-hidden">
       <HomeHero />
 
-      <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
+      <StackDeck>
+      <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>
@@ -69,9 +71,9 @@ export function Home() {
             fit="contain"
           />
         </div>
-      </section>
+      </StackSheet>
 
-      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{nav.consulti}</Kicker>
@@ -135,51 +137,48 @@ export function Home() {
               </Button>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      <div
-        id="home-visione"
-        className={`grid transition-[grid-template-rows] duration-500 ease-out ${
-          visioneOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        }`}
-      >
-        <div className="overflow-hidden">
-          <section className="px-6 py-24 md:px-10 md:py-32">
-            <div className="mx-auto max-w-6xl">
-              <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
-                <Reveal>
-                  <Kicker>{home.visione.kicker}</Kicker>
-                  <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                    {home.visione.titolo}
-                  </h2>
-                </Reveal>
-                <Reveal delay={80}>
-                  <p className="text-base leading-[1.75] text-ink/75">{home.visione.lead}</p>
-                </Reveal>
-              </div>
-              <div className="mt-14 grid gap-8 lg:grid-cols-3">
-                {home.visione.pilastri.map((pilastro, i) => (
-                  <Reveal key={pilastro.titolo} delay={i * 80}>
-                    <article className="flex h-full flex-col bg-paper p-8 md:p-10">
-                      <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
-                        {String(i + 1).padStart(2, "0")}
-                      </p>
-                      <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
-                      <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{pilastro.testo}</p>
-                      <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">
-                        {pilastro.etichetta}
-                      </p>
-                    </article>
+          <div
+            id="home-visione"
+            className={`grid transition-[grid-template-rows] duration-500 ease-out ${
+              visioneOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+            }`}
+          >
+            <div className="overflow-hidden">
+              <div className="pt-24 md:pt-32">
+                <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
+                  <Reveal>
+                    <Kicker>{home.visione.kicker}</Kicker>
+                    <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
+                      {home.visione.titolo}
+                    </h2>
                   </Reveal>
-                ))}
+                  <Reveal delay={80}>
+                    <p className="text-base leading-[1.75] text-ink/75">{home.visione.lead}</p>
+                  </Reveal>
+                </div>
+                <div className="mt-14 grid gap-8 lg:grid-cols-3">
+                  {home.visione.pilastri.map((pilastro, i) => (
+                    <Reveal key={pilastro.titolo} delay={i * 80}>
+                      <article className="flex h-full flex-col bg-paper p-8 md:p-10">
+                        <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
+                          {String(i + 1).padStart(2, "0")}
+                        </p>
+                        <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
+                        <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{pilastro.testo}</p>
+                        <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">
+                          {pilastro.etichetta}
+                        </p>
+                      </article>
+                    </Reveal>
+                  ))}
+                </div>
               </div>
             </div>
-          </section>
+          </div>
         </div>
-      </div>
+      </StackSheet>
 
-      <section className="bg-mist px-6 pb-24 pt-32 text-center md:px-10 md:pb-32 md:pt-40">
+      <StackSheet className="bg-mist px-6 pb-24 pt-32 text-center md:px-10 md:pb-32 md:pt-40">
         <div className="mx-auto w-full max-w-6xl">
           <Reveal>
             <SectionBrandMark />
@@ -196,12 +195,12 @@ export function Home() {
             <p className="mt-3 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{home.citazione.fonte}</p>
           </Reveal>
         </div>
-      </section>
+      </StackSheet>
 
       <GoogleReviews />
 
       {shopLive() ? (
-        <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+        <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
           <div className="mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
             <Reveal>
               <SectionBrandMark />
@@ -220,8 +219,9 @@ export function Home() {
               </div>
             </Reveal>
           </div>
-        </section>
+        </StackSheet>
       ) : null}
+      </StackDeck>
 
       {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
     </div>

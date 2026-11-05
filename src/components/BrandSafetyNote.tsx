@@ -3,13 +3,14 @@ import { Kicker } from "./Button";
 import { LegalCopy } from "./LegalNotice";
 import { MailToLink } from "./MailToLink";
 import { Reveal } from "./Reveal";
+import { StackSheet } from "./StackSheet";
 
 const { brand, legal } = siteContent;
 const { tutela } = legal;
 
 export function BrandSafetyNote() {
   return (
-    <section className="bg-mist px-6 py-24 md:px-10 md:py-32">
+    <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-5xl">
         <Reveal>
           <Kicker>{tutela.kicker}</Kicker>
@@ -48,6 +49,6 @@ export function BrandSafetyNote() {
           </p>
         </Reveal>
       </div>
-    </section>
+    </StackSheet>
   );
 }

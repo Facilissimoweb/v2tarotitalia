@@ -1,6 +1,7 @@
 import { siteContent } from "../data/siteContent";
 import { BlogFeed } from "../components/BlogFeed";
 import { PageHero } from "../components/PageHero";
+import { StackSheet } from "../components/StackSheet";
 
 const { brand, cta, pages } = siteContent;
 
@@ -14,9 +15,9 @@ export function Blog() {
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         secondary={{ to: "/chi-sono", label: cta.leggiChiSiamo }}
       />
-      <section className="px-6 pb-24 md:px-10 md:pb-32">
+      <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <BlogFeed />
-      </section>
+      </StackSheet>
     </div>
   );
 }

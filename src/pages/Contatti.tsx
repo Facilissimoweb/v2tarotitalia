@@ -6,6 +6,7 @@ import { SectionBrandMark } from "../components/WidgetFrame";
 import { MailToLink } from "../components/MailToLink";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
+import { StackDeck, StackSheet } from "../components/StackSheet";
 import { openMailto } from "../lib/mailto";
 import { getPhoneHref, whatsappChatHref } from "../lib/whatsapp";
 
@@ -83,7 +84,8 @@ export function Contatti() {
     <div>
       <PageBanner title={copy.titolo} className="mb-10 md:mb-14" />
 
-      <section className="px-6 pb-24 md:px-10 md:pb-32">
+      <StackDeck>
+      <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Kicker>{copy.primoPasso.kicker}</Kicker>
@@ -97,9 +99,9 @@ export function Contatti() {
             <p className="mt-8 text-base leading-[1.9] text-ink/75">{copy.primoPasso.testo}</p>
           </Reveal>
         </div>
-      </section>
+      </StackSheet>
 
-      <section className="bg-paper px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
           <Reveal>
             <article>
@@ -132,9 +134,9 @@ export function Contatti() {
             </article>
           </Reveal>
         </div>
-      </section>
+      </StackSheet>
 
-      <section className="px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Kicker>{copy.note.kicker}</Kicker>
@@ -149,9 +151,10 @@ export function Contatti() {
             <p className="mt-6 text-base leading-[1.9] text-ink/75">{copy.note.appuntamento}</p>
           </Reveal>
         </div>
-      </section>
+      </StackSheet>
 
       <BrandSafetyNote />
+      </StackDeck>
     </div>
   );
 }
