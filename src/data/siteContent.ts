@@ -100,6 +100,11 @@ export const siteContent = {
     vuota: "Nessun contenuto da ascoltare in questa pagina.",
   },
 
+  fold: {
+    apri: "Apri",
+    chiudi: "Chiudi",
+  },
+
   comingSoon: "Archivio in costruzione",
 
   cta: {

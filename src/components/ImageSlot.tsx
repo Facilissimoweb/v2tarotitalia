@@ -1,4 +1,5 @@
 import { Reveal } from "./Reveal";
+import { TextFold } from "./TextFold";
 
 type Ratio = "portrait" | "landscape" | "square";
 
@@ -61,12 +62,17 @@ export function ImageSlot({
           <figcaption
             className={
               note
-                ? "mt-5 space-y-3 text-sm leading-[1.85] text-ink/70"
+                ? "mt-5 text-sm leading-[1.85] text-ink/70"
                 : "mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft"
             }
           >
-            {caption ? <p>{caption}</p> : null}
-            {note ? <p>{note}</p> : null}
+            {note ? (
+              <TextFold summary={caption ? <p>{caption}</p> : null}>
+                <p>{note}</p>
+              </TextFold>
+            ) : caption ? (
+              <p>{caption}</p>
+            ) : null}
           </figcaption>
         ) : null}
       </figure>
