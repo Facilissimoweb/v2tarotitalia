@@ -79,8 +79,8 @@
   body {
     margin: 0;
     overflow-x: clip;
-    background: var(--color-graphite);
-    color: var(--color-on-ink);
+    background: var(--color-ivory);
+    color: var(--color-ink);
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -626,98 +626,90 @@ main:not(:has(.stack-sheet)) {
 }
 
 .stack-sheet:nth-child(even) > .stack-sheet-lift::after {
-  background: linear-gradient(180deg, rgb(0 0 0 / 0.18), transparent 10rem);
+  background: linear-gradient(180deg, rgb(43 37 35 / 0.07), rgb(201 154 122 / 0.04) 8rem, transparent 14rem);
 }
 
 .stack-sheet:nth-child(odd) > .stack-sheet-lift {
-  box-shadow: 0 -1.2rem 2.4rem rgb(0 0 0 / 0.38);
+  box-shadow: 0 -1.2rem 2.4rem rgb(20 18 16 / 0.22);
 }
 
 .stack-sheet:nth-child(even) > .stack-sheet-lift {
-  box-shadow: 0 -1.85rem 3.1rem rgb(0 0 0 / 0.5);
+  box-shadow: 0 -1.85rem 3.1rem rgb(20 18 16 / 0.34);
 }
 
-/* Fogli dispari: lastra scura. Fogli pari: vetro smerigliato sul buio, testo bianco. */
-.stack-deck > .stack-sheet > .stack-sheet-lift {
-  color: #ffffff;
-}
-
-.stack-deck > .stack-sheet:nth-child(odd) > .stack-sheet-lift {
-  background-color: var(--color-plate);
-}
-
+/* Dispari: fogli chiari originali. Pari: lastre scure a vetro, testo bianco. */
 .stack-deck > .stack-sheet:nth-child(even) {
   filter: none;
-  background-color: color-mix(in srgb, var(--color-glass) 62%, transparent);
-  backdrop-filter: blur(32px) saturate(1.55);
-  -webkit-backdrop-filter: blur(32px) saturate(1.55);
+  background-color: color-mix(in srgb, var(--color-glass) 82%, transparent);
+  backdrop-filter: blur(28px) saturate(1.35);
+  -webkit-backdrop-filter: blur(28px) saturate(1.35);
 }
 
 .stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift {
+  color: #ffffff;
   background-color: transparent;
   background-image:
-    radial-gradient(circle at 50% 24%, rgb(255 255 255 / 0.18) 0 4.5%, transparent 5.5%),
-    radial-gradient(circle at 50% 24%, rgb(215 247 19 / 0.2), transparent 30%),
-    radial-gradient(ellipse 70% 42% at 50% 16%, rgb(215 247 19 / 0.08), transparent 58%),
-    radial-gradient(ellipse 90% 55% at 50% 110%, rgb(0 0 0 / 0.55), transparent 62%),
-    linear-gradient(180deg, rgb(255 255 255 / 0.07), transparent 30%, rgb(8 7 6 / 0.32));
+    radial-gradient(circle at 50% 22%, rgb(255 255 255 / 0.14) 0 4%, transparent 5%),
+    radial-gradient(circle at 50% 22%, rgb(215 247 19 / 0.14), transparent 28%),
+    radial-gradient(ellipse 90% 55% at 50% 110%, rgb(0 0 0 / 0.4), transparent 62%),
+    linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 28%, rgb(8 7 6 / 0.22));
   box-shadow:
-    0 -2rem 3.4rem rgb(0 0 0 / 0.48),
-    inset 0 1px 0 rgb(255 255 255 / 0.2),
-    inset 0 0 0 1px rgb(215 247 19 / 0.22);
+    0 -2rem 3.4rem rgb(0 0 0 / 0.42),
+    inset 0 1px 0 rgb(255 255 255 / 0.16),
+    inset 0 0 0 1px rgb(215 247 19 / 0.18);
 }
 
 .stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift::after {
   background:
-    radial-gradient(circle at 50% 22%, rgb(215 247 19 / 0.12), transparent 38%),
-    linear-gradient(180deg, rgb(255 255 255 / 0.1), transparent 9rem);
+    radial-gradient(circle at 50% 18%, rgb(215 247 19 / 0.08), transparent 34%),
+    linear-gradient(180deg, rgb(0 0 0 / 0.16), transparent 10rem);
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift .label-kicker,
-.stack-deck > .stack-sheet > .stack-sheet-lift .text-ember-soft {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift .label-kicker,
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift .text-ember-soft {
   color: #d7f713;
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift [class*="text-ink"] {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift [class*="text-ink"] {
   color: #ffffff;
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift [class*="text-ink/"] {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift [class*="text-ink/"] {
   color: rgb(255 255 255 / 0.78);
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift a.bg-ink,
-.stack-deck > .stack-sheet > .stack-sheet-lift button.bg-ink {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift a.bg-ink,
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift button.bg-ink {
   background-color: #ffffff;
   color: var(--color-ink);
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift .bg-transparent {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift .bg-transparent {
   color: #ffffff;
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift .ring-ink {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift .ring-ink {
   --tw-ring-color: #ffffff;
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) {
   color: var(--color-ink);
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) .label-kicker,
-.stack-deck > .stack-sheet > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) .text-ember-soft {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) .label-kicker,
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) .text-ember-soft {
   color: var(--color-ember-soft);
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) [class*="text-ink"] {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) [class*="text-ink"] {
   color: var(--color-ink);
 }
 
-.stack-deck > .stack-sheet > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) [class*="text-ink/"] {
+.stack-deck > .stack-sheet:nth-child(even) > .stack-sheet-lift :is(.bg-paper, .bg-ivory, .bg-mist, .bg-linen) [class*="text-ink/"] {
   color: rgb(43 37 35 / 0.75);
 }
 
-@supports not ((backdrop-filter: blur(32px)) or (-webkit-backdrop-filter: blur(32px))) {
+@supports not ((backdrop-filter: blur(28px)) or (-webkit-backdrop-filter: blur(28px))) {
   .stack-deck > .stack-sheet:nth-child(even) {
     background-color: var(--color-glass);
   }
