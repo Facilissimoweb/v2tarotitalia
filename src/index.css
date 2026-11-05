@@ -542,13 +542,15 @@ h3 {
   }
 }
 
-/* Sfogliamento: ogni foglio copre il precedente (~metà viewport), senza sticky. */
+/* Sfogliamento: copertura + bordo alto obliquo (fogli a strati). */
 :root {
   --stack-overlap: 48vh;
+  --sheet-slant: clamp(3rem, 7.5vw, 5.75rem);
 }
 
 .stack-deck {
   --stack-overlap: 48vh;
+  --sheet-slant: clamp(3rem, 7.5vw, 5.75rem);
   position: relative;
   isolation: isolate;
   z-index: 3;
@@ -562,10 +564,12 @@ h3 {
 .stack-sheet {
   position: relative;
   overflow: visible;
+  filter: drop-shadow(0 -1.5rem 2.6rem rgb(20 18 16 / 0.3));
 }
 
 .stack-sheet-lift {
   position: relative;
+  transform-origin: 50% 0;
   will-change: transform;
 }
 
@@ -573,13 +577,22 @@ h3 {
   margin-top: calc(var(--stack-overlap) * -1);
 }
 
-/* Respiro: il foglio copre solo il vuoto, non i testi. Fascia alta su tutti i fogli. */
+/* Taglio obliquo: dispari alto a destra, pari alto a sinistra. */
+.stack-deck:not(.stack-deck--static) > .stack-sheet:nth-child(odd) > .stack-sheet-lift {
+  clip-path: polygon(0 var(--sheet-slant), 100% 0, 100% 100%, 0 100%);
+}
+
+.stack-deck:not(.stack-deck--static) > .stack-sheet:nth-child(even) > .stack-sheet-lift {
+  clip-path: polygon(0 0, 100% var(--sheet-slant), 100% 100%, 0 100%);
+}
+
+/* Respiro sotto il taglio, così i testi restano interi. */
 .stack-deck:not(.stack-deck--static) > .stack-sheet > .stack-sheet-lift {
-  padding-top: 10rem;
+  padding-top: calc(var(--sheet-slant) + 9rem);
 }
 
 .stack-deck:not(.stack-deck--static) > .stack-sheet + .stack-sheet > .stack-sheet-lift {
-  padding-top: 11rem;
+  padding-top: calc(var(--sheet-slant) + 10rem);
 }
 
 .stack-deck:not(.stack-deck--static) > .stack-sheet:not(:last-child) > .stack-sheet-lift {
@@ -595,10 +608,7 @@ h3 {
   padding-bottom: calc(var(--stack-overlap, 48vh) + 6rem);
 }
 
-.stack-deck > .stack-sheet .stack-sheet-lift {
-  box-shadow: 0 -1.75rem 4rem rgb(20 18 16 / 0.28);
-}
-
+/* Filetto lime sul bordo obliquo. */
 .stack-deck > .stack-sheet .stack-sheet-lift::before {
   content: "";
   position: absolute;
@@ -606,9 +616,17 @@ h3 {
   right: 0;
   left: 0;
   z-index: 2;
-  height: 3px;
-  background: #d7f713;
+  height: var(--sheet-slant);
   pointer-events: none;
+  background: #d7f713;
+}
+
+.stack-deck:not(.stack-deck--static) > .stack-sheet:nth-child(odd) > .stack-sheet-lift::before {
+  clip-path: polygon(0 calc(100% - 3px), 100% 0, 100% 3px, 0 100%);
+}
+
+.stack-deck:not(.stack-deck--static) > .stack-sheet:nth-child(even) > .stack-sheet-lift::before {
+  clip-path: polygon(0 0, 100% calc(100% - 3px), 100% 100%, 0 3px);
 }
 
 .stack-deck.stack-deck--static,
@@ -617,10 +635,18 @@ h3 {
   margin-top: 0;
 }
 
+.stack-deck.stack-deck--static > .stack-sheet {
+  filter: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .stack-deck {
     --stack-overlap: 0px;
     margin-top: 0;
+  }
+
+  .stack-deck > .stack-sheet {
+    filter: none;
   }
 
   .stack-deck > .stack-sheet + .stack-sheet {
@@ -628,11 +654,49 @@ h3 {
   }
 
   .stack-deck > .stack-sheet .stack-sheet-lift {
-    box-shadow: none;
+    clip-path: none;
   }
 
   .stack-deck > .stack-sheet .stack-sheet-lift::before {
     display: none;
+  }
+}
+
+/* Hero interne con media: blocco logo+testo centrato nel palco visibile. */
+.page-hero-stage {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  width: 100%;
+  min-height: 78svh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--nav-offset);
+  padding-right: 1.5rem;
+  padding-bottom: 2.5rem;
+  padding-left: 1.5rem;
+  text-align: center;
+}
+
+.page-hero-stage > * {
+  max-width: 48rem;
+}
+
+.page-hero-stage--compact {
+  min-height: 66svh;
+}
+
+@media (min-width: 768px) {
+  .page-hero-stage {
+    min-height: 82svh;
+    padding-right: 2.5rem;
+    padding-bottom: 3rem;
+    padding-left: 2.5rem;
+  }
+
+  .page-hero-stage--compact {
+    min-height: 72svh;
   }
 }
 

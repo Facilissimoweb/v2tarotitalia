@@ -19,17 +19,17 @@ type Props = {
 const StackLayer = createContext(0);
 
 const OVERLAP_VH = 0.48;
-/** Corsa di entrata: visibile, ma più corta dell’overlap così non lo annulla. */
-const TRAVEL_IN_VH = 0.14;
-/** Corsa di uscita speculare (10–12%). Il foglio si abbassa sotto il successivo. */
-const TRAVEL_OUT_VH = 0.11;
-/**
- * Soglia di entrata ≈ Framer `viewport={{ once: false, amount: 0.12 }}`.
- * La corsa parte quando il bordo alto entra nel 12% inferiore dello schermo.
- */
+/** Corsa di entrata: visibile, più ampia della precedente, sempre < overlap. */
+const TRAVEL_IN_VH = 0.22;
+/** Corsa di uscita speculare: il foglio si tucks sotto il successivo. */
+const TRAVEL_OUT_VH = 0.14;
+/** Equivalente Framer `viewport={{ once: false, amount: 0.12 }}`. */
 const IN_AMOUNT = 0.12;
-/** Finestra di scroll (vh) in cui si gioca la corsa di 14vh: corta → visibile. */
-const IN_WINDOW_VH = 0.22;
+const IN_WINDOW_VH = 0.28;
+/** Inclinazione del foglio in arrivo / a riposo / in uscita (gradi). */
+const TILT_IN = 1.7;
+const TILT_REST = 0.45;
+const TILT_OUT = 1.15;
 
 function clamp01(n: number) {
   return Math.min(1, Math.max(0, n));
@@ -43,20 +43,26 @@ function easeInOut(p: number) {
   return p * p * (3 - 2 * p);
 }
 
-function liftY(top: number, bottom: number, vh: number, hasNext: boolean) {
+function liftPose(top: number, bottom: number, vh: number, hasNext: boolean, sign: number) {
   const travelIn = Math.round(vh * TRAVEL_IN_VH);
   const travelOut = Math.round(vh * TRAVEL_OUT_VH);
   const inStart = vh * (1 - IN_AMOUNT);
   const inEnd = inStart - vh * IN_WINDOW_VH;
 
   const pIn = clamp01((inStart - top) / (inStart - inEnd));
-  const yIn = (1 - easeOutQuad(pIn)) * travelIn;
+  const easedIn = easeOutQuad(pIn);
+  const y = (1 - easedIn) * travelIn;
+  const rot = sign * (TILT_IN + (TILT_REST - TILT_IN) * easedIn);
 
-  if (!hasNext || pIn < 1) return yIn;
+  if (!hasNext || pIn < 1) return { y, rot };
 
   const nextTop = bottom - vh * OVERLAP_VH;
   const pOut = clamp01((inStart - nextTop) / (inStart - inEnd));
-  return easeInOut(pOut) * travelOut;
+  const easedOut = easeInOut(pOut);
+  return {
+    y: easedOut * travelOut,
+    rot: sign * (TILT_REST + (TILT_OUT - TILT_REST) * easedOut),
+  };
 }
 
 function useOverlapPx() {
@@ -74,8 +80,8 @@ function useOverlapPx() {
 
 /**
  * Foglio di sezione.
- * Overlap CSS = copertura. Transform sul foglio interno = movimento
- * (entrata 14vh + uscita 11vh, misurate sul guscio fermo). Padding = respiro.
+ * Overlap CSS = copertura. Bordo alto obliquo = sfogliamento.
+ * Transform sul foglio interno = corsa + lieve tilt, misurati sul guscio fermo.
  */
 export function StackSheet({ children, className = "", as = "section", id }: Props) {
   const layer = useContext(StackLayer);
@@ -84,6 +90,7 @@ export function StackSheet({ children, className = "", as = "section", id }: Pro
   const liftRef = useRef<HTMLDivElement | null>(null);
   const Tag = as === "div" ? "div" : "section";
   const live = layer > 0 && !reduce;
+  const sign = layer % 2 === 0 ? -1 : 1;
 
   useEffect(() => {
     if (!live) {
@@ -99,8 +106,14 @@ export function StackSheet({ children, className = "", as = "section", id }: Pro
       const lift = liftRef.current;
       if (!track || !lift) return;
       const rect = track.getBoundingClientRect();
-      const y = liftY(rect.top, rect.bottom, window.innerHeight, Boolean(track.nextElementSibling));
-      lift.style.transform = `translate3d(0, ${y}px, 0)`;
+      const { y, rot } = liftPose(
+        rect.top,
+        rect.bottom,
+        window.innerHeight,
+        Boolean(track.nextElementSibling),
+        sign,
+      );
+      lift.style.transform = `translate3d(0, ${y}px, 0) rotate(${rot.toFixed(3)}deg)`;
     };
 
     const loop = () => {
@@ -129,7 +142,7 @@ export function StackSheet({ children, className = "", as = "section", id }: Pro
       window.visualViewport?.removeEventListener("scroll", onScroll);
       window.visualViewport?.removeEventListener("resize", onScroll);
     };
-  }, [live]);
+  }, [live, sign]);
 
   return (
     <Tag

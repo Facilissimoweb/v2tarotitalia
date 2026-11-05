@@ -52,7 +52,7 @@ export function PageBanner({
       data-page-hero
       className={
         onMedia
-          ? `relative isolate overflow-hidden bg-plate text-white ${className}`.trim()
+          ? `relative isolate flex flex-col overflow-hidden bg-plate text-white ${className}`.trim()
           : `bg-ivory px-6 pb-12 pt-[calc(var(--nav-offset)+2.5rem)] md:px-10 md:pb-16 md:pt-[calc(var(--nav-offset)+3.5rem)] ${className}`.trim()
       }
     >
@@ -81,11 +81,7 @@ export function PageBanner({
       <motion.div
         className={
           onMedia
-            ? `relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center justify-center px-6 pb-12 pt-[calc(var(--nav-offset)+1.5rem)] text-center md:px-10 md:pb-24 md:pt-[calc(var(--nav-offset)+2.5rem)] ${
-                mobileCompact
-                  ? "min-h-[min(48svh,24rem)] md:min-h-[min(64svh,38rem)]"
-                  : "min-h-[min(72svh,36rem)] md:min-h-[min(64svh,38rem)]"
-              }`
+            ? `page-hero-stage${mobileCompact ? " page-hero-stage--compact" : ""}`
             : "mx-auto flex max-w-3xl flex-col items-center text-center"
         }
         initial={reduce ? false : { opacity: 0, y: 15 }}
