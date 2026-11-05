@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import { AnimatePresence, motion, useReducedMotion, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
 import {
   MAIN_NAV,
@@ -20,17 +21,30 @@ import { PageSpeechTrigger } from "./PageSpeech";
 import { BrandLogo } from "./BrandLogo";
 import { ShopIcon } from "./ShopIcon";
 import { WidgetCloseButton } from "./WidgetCloseButton";
-import { WidgetBrandMark } from "./WidgetFrame";
 
 const { brand, nav } = siteContent;
 const [marcaTarot, marcaItalia] = brand.wordmark.split(/\s+/);
 
-/** Tipografia menu hamburger (mobile / tablet): nero pieno, peso e tracking editoriali. */
-const NAV_ITEM =
-  "font-body text-[0.9375rem] font-bold uppercase not-italic leading-none tracking-[0.2em] text-black";
-const NAV_CHILD =
-  "font-body text-[0.8125rem] font-bold uppercase not-italic leading-none tracking-[0.18em] text-black";
-const NAV_ACTIVE = "bg-[#d7f713] text-black";
+const MENU_EASE = [0.22, 1, 0.36, 1] as const;
+
+const menuPanel: Variants = {
+  hidden: {},
+  show: {},
+  exit: { opacity: 0, transition: { duration: 0.18, ease: MENU_EASE } },
+};
+
+const menuList: Variants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.055, delayChildren: 0.1 } },
+};
+
+const menuItem: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: MENU_EASE } },
+};
+
+const DRAWER_ICON =
+  "flex h-12 w-12 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-[#d7f713] [&_svg]:h-[1.5rem] [&_svg]:w-[1.5rem] [&_svg]:stroke-[2.25]";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
@@ -156,7 +170,9 @@ export function Header() {
         </div>
       </header>
 
-      {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
+      <AnimatePresence>
+        {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
+      </AnimatePresence>
     </>
   );
 }
@@ -258,71 +274,127 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
 }
 
 function MobileDrawer({ onClose }: { onClose: () => void }) {
+  const reduce = useReducedMotion();
+  let index = 0;
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   return (
-    <div
+    <motion.div
       id="menu-mobile"
-      className="fixed inset-0 z-[60] flex flex-col bg-ivory xl:hidden"
       role="dialog"
       aria-modal="true"
       aria-label={nav.menu}
+      className="fixed inset-0 z-[70] flex flex-col overflow-hidden bg-graphite text-on-ink xl:hidden"
+      variants={reduce ? undefined : menuPanel}
+      initial={reduce ? false : "hidden"}
+      animate="show"
+      exit="exit"
     >
-      <div className="relative px-8 pb-8 pt-10">
-        <div className="absolute right-4 top-4 flex items-center gap-2">
-          <PageSpeechTrigger />
-          <AccessibilityTrigger />
-          <AccountLink />
-          <CartLink />
-          <WidgetCloseButton placement="inline" onClick={onClose} />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-[#d7f713]" aria-hidden />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-8 bottom-[-0.22em] select-none font-h1 text-[min(78vw,24rem)] uppercase leading-[0.68] tracking-[-0.08em] text-white/[0.06]"
+      >
+        T
+      </span>
+
+      <div className="relative flex items-start justify-between gap-4 pl-7 pr-4 pt-[max(1rem,env(safe-area-inset-top))] sm:pl-10 sm:pr-6">
+        <div data-widget-brand className="pt-2">
+          <BrandLogo className="h-12 w-12" />
+          <p className="mt-3 font-display text-[0.625rem] uppercase tracking-[0.16em] text-on-ink">
+            {brand.wordmark}
+          </p>
+          <p className="mt-6 font-h1 text-[0.7rem] uppercase tracking-[0.22em] text-[#d7f713]">
+            {nav.menu}
+          </p>
         </div>
-        <WidgetBrandMark size="sm" />
+        <WidgetCloseButton placement="inline" onClick={onClose} />
       </div>
 
-      <nav className="flex-1 overflow-y-auto pb-6" aria-label="Principale">
-        <div className="flex flex-col text-center">
-          {MAIN_NAV.map((item) =>
-            isNavBranch(item) ? (
-              <div key={item.label} className="border-t border-ink/10">
-                <p className={`px-8 py-7 ${NAV_ITEM}`}>
-                  {item.label}
-                </p>
-                <ul className="pb-3">
-                  {item.children.map((child) => (
-                    <li key={child.to}>
-                      <NavLink
-                        to={child.to}
-                        className={({ isActive }) =>
-                          `block px-8 py-5 ${NAV_CHILD} ${isActive ? NAV_ACTIVE : ""}`
-                        }
-                      >
-                        {child.label}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                className={({ isActive }) =>
-                  `block border-t border-ink/10 px-8 py-7 ${NAV_ITEM} ${
-                    isActive ? NAV_ACTIVE : ""
-                  }${item.icon ? " inline-flex w-full items-center justify-center gap-2" : ""}`
-                }
-              >
-                {item.icon === "shop" ? <ShopIcon size={16} /> : null}
-                {item.label}
-              </NavLink>
-            ),
-          )}
-        </div>
+      <nav className="relative flex-1 overflow-y-auto overscroll-contain pb-4" aria-label="Principale">
+        <motion.ul
+          className="flex flex-col"
+          variants={reduce ? undefined : menuList}
+          initial={reduce ? false : "hidden"}
+          animate="show"
+        >
+          {MAIN_NAV.map((item) => {
+            index += 1;
+            const n = String(index).padStart(2, "0");
+            if (isNavBranch(item)) {
+              return (
+                <motion.li key={item.label} variants={reduce ? undefined : menuItem} className="pl-7 pr-6 sm:pl-10">
+                  <p className="flex items-baseline gap-4 py-2">
+                    <span className="w-8 shrink-0 font-h1 text-[1rem] leading-none tracking-[-0.04em] text-[#d7f713]">
+                      {n}
+                    </span>
+                    <span className="font-h1 text-[clamp(1.55rem,7.2vw,2.4rem)] uppercase leading-[0.92] tracking-[-0.045em] text-on-ink/50">
+                      {item.label}
+                    </span>
+                  </p>
+                  <ul className="mb-2 ml-12 border-l border-[#d7f713]/35">
+                    {item.children.map((child) => (
+                      <li key={child.to}>
+                        <NavLink
+                          to={child.to}
+                          className={({ isActive }) =>
+                            `block py-2 pl-4 font-h1 text-[clamp(1.05rem,4.2vw,1.35rem)] uppercase leading-none tracking-[-0.03em] ${
+                              isActive ? "text-[#d7f713]" : "text-on-ink hover:text-[#d7f713]"
+                            }`
+                          }
+                        >
+                          {child.label}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.li>
+              );
+            }
+            return (
+              <motion.li key={item.to} variants={reduce ? undefined : menuItem}>
+                <NavLink
+                  to={item.to}
+                  end={item.end}
+                  className={({ isActive }) =>
+                    `flex items-baseline gap-4 py-2.5 pl-7 pr-6 sm:pl-10 ${
+                      isActive ? "text-[#d7f713]" : "text-on-ink hover:text-[#d7f713]"
+                    }`
+                  }
+                >
+                  <span className="w-8 shrink-0 font-h1 text-[1rem] leading-none tracking-[-0.04em] text-[#d7f713]">
+                    {n}
+                  </span>
+                  <span className="inline-flex items-center gap-3 font-h1 text-[clamp(1.55rem,7.2vw,2.4rem)] uppercase leading-[0.92] tracking-[-0.045em]">
+                    {item.icon === "shop" ? <ShopIcon size={20} /> : null}
+                    {item.label}
+                  </span>
+                </NavLink>
+              </motion.li>
+            );
+          })}
+        </motion.ul>
       </nav>
 
-      <div className="shrink-0 bg-ivory border-t border-ink/10 px-8 pt-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        <LanguageWidget placement="drawer" />
+      <div className="relative shrink-0 border-t border-white/10 pl-7 pr-4 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:pl-10 sm:pr-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <PageSpeechTrigger className={DRAWER_ICON} />
+            <AccessibilityTrigger className={DRAWER_ICON} />
+            <AccountLink className={DRAWER_ICON} />
+            <CartLink className={DRAWER_ICON} />
+          </div>
+          <LanguageWidget placement="drawer" className="w-auto justify-end py-2 text-on-ink/70 hover:text-on-ink" />
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

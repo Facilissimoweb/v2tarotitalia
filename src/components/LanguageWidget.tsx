@@ -70,7 +70,7 @@ export function LanguageWidget({ placement, className = "" }: Props) {
           compact
             ? `flex h-12 ${className || "w-12"} shrink-0 items-center justify-center text-inherit transition-opacity hover:opacity-70`
             : drawer
-              ? "flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em] text-ink/55 hover:text-ink"
+              ? `flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em] ${className || "text-ink/55 hover:text-ink"}`
               : "inline-flex items-center gap-2 uppercase tracking-[0.16em] hover:text-white"
         }
         aria-haspopup="dialog"
@@ -88,7 +88,7 @@ export function LanguageWidget({ placement, className = "" }: Props) {
         ) : drawer ? (
           <>
             <span>{nav.lingua}</span>
-            <span className="text-ink/40">{selectedLabel}</span>
+            <span className="opacity-50">{selectedLabel}</span>
           </>
         ) : (
           nav.lingua
