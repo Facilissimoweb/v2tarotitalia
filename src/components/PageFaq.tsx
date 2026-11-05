@@ -18,7 +18,7 @@ export function PageFaq({ kicker, titolo, voci }: Props) {
   if (!voci.length) return null;
 
   return (
-    <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
+    <StackSheet label={kicker} className="bg-mist px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-3xl">
         <Reveal>
           <Kicker>{kicker}</Kicker>

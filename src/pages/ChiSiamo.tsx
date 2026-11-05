@@ -186,7 +186,7 @@ export function ChiSiamo() {
         </div>
       </StackSheet>
 
-      <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
+      <StackSheet label={brand.wordmark} className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <div className="mx-auto max-w-2xl bg-mist px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />

@@ -79,7 +79,7 @@ export function Percorsi() {
 
       <PageFaq kicker={percorsi.faq.kicker} titolo={percorsi.faq.titolo} voci={percorsi.faq.voci} />
 
-      <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
+      <StackSheet label={nav.percorsi} className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <blockquote className="mx-auto max-w-lg border-l border-ember-soft pl-8">
             <p className="font-display text-xl italic leading-relaxed text-ink">«{percorsi.citazione}»</p>

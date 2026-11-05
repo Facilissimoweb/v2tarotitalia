@@ -21,7 +21,7 @@ export function Home() {
       <HomeHero />
 
       <StackDeck>
-      <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
+      <StackSheet label={nav.chiSiamo} className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>
@@ -73,7 +73,7 @@ export function Home() {
         </div>
       </StackSheet>
 
-      <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
+      <StackSheet label={nav.consulti} className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{nav.consulti}</Kicker>
@@ -178,7 +178,7 @@ export function Home() {
         </div>
       </StackSheet>
 
-      <StackSheet className="bg-mist px-6 pb-24 pt-32 text-center md:px-10 md:pb-32 md:pt-40">
+      <StackSheet label={home.citazione.autore} className="bg-mist px-6 pb-24 pt-32 text-center md:px-10 md:pb-32 md:pt-40">
         <div className="mx-auto w-full max-w-6xl">
           <Reveal>
             <SectionBrandMark />
@@ -197,12 +197,12 @@ export function Home() {
         </div>
       </StackSheet>
 
-      <StackSheet className="bg-linen">
+      <StackSheet label={home.recensioni.titolo} className="bg-linen">
         <GoogleReviews />
       </StackSheet>
 
       {shopLive() ? (
-        <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
+        <StackSheet label={home.passaggi.titolo} className="bg-paper px-6 py-24 md:px-10 md:py-32">
           <div className="mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
             <Reveal>
               <SectionBrandMark />

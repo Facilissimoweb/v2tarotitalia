@@ -15,7 +15,7 @@ export function Blog() {
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
         secondary={{ to: "/chi-sono", label: cta.leggiChiSiamo }}
       />
-      <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
+      <StackSheet label={pages.blog.titolo} className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <BlogFeed />
       </StackSheet>
     </div>

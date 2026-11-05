@@ -128,7 +128,7 @@ export function Consulti() {
       <PlateFocus items={consulti.orientamento} />
 
       <StackDeck flush>
-      <StackSheet className="border-b border-ink/10 bg-ivory px-6 py-16 md:px-10 md:py-20">
+      <StackSheet label={nav.consulti} className="border-b border-ink/10 bg-ivory px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-base leading-[1.9] text-ink/80">{consulti.apertura}</p>
         </div>

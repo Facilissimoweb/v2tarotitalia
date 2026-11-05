@@ -133,7 +133,7 @@ export function ArcanoMinoreDetail() {
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
         secondary={{ to: "/arcani-minori", label: nav.arcaniMinori }}
       />
-      <StackSheet className="bg-ivory">
+      <StackSheet label={arcano.nome} className="bg-ivory">
       <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-24 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-32">
         <Reveal>
           <div className="bg-paper p-6">

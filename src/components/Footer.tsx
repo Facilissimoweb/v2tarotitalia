@@ -27,7 +27,11 @@ export function Footer() {
   const telegram = telegramHref();
 
   return (
-    <footer data-site-footer className="stack-sheet footer-graphite relative mt-auto text-[#EDE4D4]">
+    <footer
+      data-site-footer
+      data-sheet-label={brand.wordmark}
+      className="stack-sheet footer-graphite relative mt-auto text-[#EDE4D4]"
+    >
       <div className="stack-sheet-lift footer-graphite">
       <div className="relative z-[1] mx-auto grid max-w-6xl gap-12 px-6 pb-10 pt-6 sm:px-10 md:grid-cols-2 md:pt-8 lg:grid-cols-4 lg:gap-10 lg:pt-10">
         <div>

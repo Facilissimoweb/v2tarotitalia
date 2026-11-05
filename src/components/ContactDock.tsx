@@ -73,7 +73,10 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
   if (hidden) return null;
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[env(safe-area-inset-bottom,0px)] sm:px-4">
+    <div
+      data-contact-dock
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[env(safe-area-inset-bottom,0px)] sm:px-4"
+    >
       <nav
         ref={navRef}
         className={dockClass}

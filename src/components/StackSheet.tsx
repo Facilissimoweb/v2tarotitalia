@@ -14,6 +14,8 @@ type Props = {
   className?: string;
   as?: "section" | "div";
   id?: string;
+  /** Titolo del foglio per il segnalibro. Solo testi da siteContent. */
+  label?: string;
 };
 
 const StackLayer = createContext(0);
@@ -65,6 +67,20 @@ function sheetLift(track: HTMLElement) {
   return track.querySelector<HTMLElement>(":scope > .stack-sheet-lift");
 }
 
+function sheetLabel(track: HTMLElement) {
+  const explicit = track.getAttribute("data-sheet-label")?.replace(/\s+/g, " ").trim();
+  if (explicit) return explicit;
+  const kickers = [...track.querySelectorAll(".label-kicker")];
+  for (const kicker of kickers) {
+    if (kicker.closest("[data-widget-brand]")) continue;
+    if (kicker.parentElement?.querySelector(".logo-hero-ring")) continue;
+    const text = kicker.textContent?.replace(/\s+/g, " ").trim();
+    if (text) return text;
+  }
+  const heading = track.querySelector("h2");
+  return heading?.textContent?.replace(/\s+/g, " ").trim() ?? "";
+}
+
 /**
  * Un solo motore per pagina: fogli in main + footer.
  * overflow-x: clip su html/body impedisce lo sticky CSS nativo.
@@ -74,6 +90,7 @@ export function PageStackEngine() {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    const markOf = () => document.querySelector<HTMLElement>("[data-sheet-bookmark]");
     const heroes = () =>
       [...document.querySelectorAll<HTMLElement>("[data-home-hero], [data-page-hero]")];
     const tracksOf = () => [...document.querySelectorAll<HTMLElement>(".stack-sheet")];
@@ -81,6 +98,14 @@ export function PageStackEngine() {
     const reset = () => {
       tracksOf().forEach((track) => clearTransform(sheetLift(track)));
       heroes().forEach(clearTransform);
+      const mark = markOf();
+      if (mark) {
+        mark.hidden = true;
+        mark.dataset.on = "0";
+        mark.textContent = "";
+        mark.removeAttribute("data-label");
+        mark.style.top = "";
+      }
     };
 
     if (reduce) {
@@ -105,6 +130,9 @@ export function PageStackEngine() {
         hero.style.transform = pin ? `translate3d(0, ${pin}px, 0)` : "";
       }
 
+      let active: HTMLElement | null = null;
+      let activeTop = 0;
+
       tracks.forEach((track, index) => {
         const lift = sheetLift(track);
         if (!lift) return;
@@ -114,7 +142,39 @@ export function PageStackEngine() {
         const nextTop = next ? next.getBoundingClientRect().top : null;
         const y = liftY(top, nextTop, vh);
         lift.style.transform = `translate3d(0, ${y}px, 0)`;
+        const liftTop = lift.getBoundingClientRect().top;
+        if (liftTop <= vh * 0.62) {
+          active = track;
+          activeTop = liftTop;
+        }
       });
+
+      const mark = markOf();
+      if (!mark) return;
+      const label = active ? sheetLabel(active) : "";
+      if (!active || !label) {
+        mark.hidden = true;
+        mark.dataset.on = "0";
+        return;
+      }
+
+      const header = document.querySelector<HTMLElement>("header.site-chrome");
+      const dock = document.querySelector<HTMLElement>("[data-contact-dock]");
+      const minTop = Math.round((header?.getBoundingClientRect().bottom ?? 80) + 6);
+      mark.hidden = false;
+      mark.dataset.on = "1";
+      if (mark.dataset.label !== label) {
+        mark.dataset.label = label;
+        mark.textContent = label;
+        mark.classList.remove("is-swap");
+        void mark.offsetWidth;
+        mark.classList.add("is-swap");
+      }
+      const tabH = Math.max(mark.offsetHeight || 88, 72);
+      const dockTop = dock ? dock.getBoundingClientRect().top : vh;
+      const maxTop = Math.round(Math.min(vh, dockTop) - tabH - 12);
+      const top = Math.min(maxTop, Math.max(minTop, Math.round(activeTop)));
+      mark.style.top = `${top}px`;
     };
 
     const loop = () => {
@@ -146,15 +206,20 @@ export function PageStackEngine() {
     };
   }, [reduce, pathname]);
 
-  return null;
+  return <p data-sheet-bookmark className="sheet-bookmark" hidden aria-hidden="true" />;
 }
 
-export function StackSheet({ children, className = "", as = "section", id }: Props) {
+export function StackSheet({ children, className = "", as = "section", id, label }: Props) {
   const layer = useContext(StackLayer);
   const Tag = as === "div" ? "div" : "section";
 
   return (
-    <Tag id={id} className="stack-sheet" style={{ zIndex: layer || undefined }}>
+    <Tag
+      id={id}
+      className="stack-sheet"
+      data-sheet-label={label || undefined}
+      style={{ zIndex: layer || undefined }}
+    >
       <div className={`stack-sheet-lift${className ? ` ${className}` : ""}`}>{children}</div>
     </Tag>
   );

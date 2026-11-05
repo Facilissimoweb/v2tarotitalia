@@ -10,7 +10,7 @@ const { tutela } = legal;
 
 export function BrandSafetyNote() {
   return (
-    <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
+    <StackSheet label={tutela.kicker} className="bg-mist px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-5xl">
         <Reveal>
           <Kicker>{tutela.kicker}</Kicker>
