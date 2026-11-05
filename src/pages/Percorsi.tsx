@@ -18,7 +18,6 @@ export function Percorsi() {
         title={nav.percorsi}
         subtitle={pages.percorsi.titolo}
         background={percorsi.immagini.hero}
-        mobileHeight="two-thirds"
         className="mb-0"
       />
 
@@ -45,7 +44,7 @@ export function Percorsi() {
         </div>
       </StackSheet>
 
-      <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
+      <StackSheet className="bg-paper px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{percorsi.percorsiKicker}</Kicker>

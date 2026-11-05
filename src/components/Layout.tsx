@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { clearAuthReturn, readAuthReturn, resolvePostAuthPath } from "../lib/authReturn";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { PageStackEngine } from "./StackSheet";
 import { LanguageSeo } from "./LanguageSeo";
 import { SeoManager } from "../lib/pageSeo";
 import { PageSpeechSkipLink } from "./PageSpeech";
@@ -66,6 +67,7 @@ export function Layout() {
       <LanguageSeo />
       <SeoManager />
       <Header />
+      <PageStackEngine />
       <main className="min-w-0 flex-1">
         <Outlet />
       </main>

@@ -22,29 +22,25 @@ type Props = {
   background?: PageBannerMedia;
   /** Classi aggiuntive sul contenitore (es. margini verso il contenuto). */
   className?: string;
-  /** Su telefono, altezza hero a 2/3 rispetto allo standard. */
+  /** Mantenuto per compatibilità: tutte le hero usano il palco di Chi sono. */
   mobileHeight?: "default" | "two-thirds";
   /** Azioni in hero (CTA). Restano nel blocco LCP, sotto il sottotitolo. */
   actions?: ReactNode;
 };
 
 /**
- * Hero delle pagine interne: logo, titolo e sottotitolo.
- * Se `background` è presente, lo sfondo è fotografico; altrimenti resta ivory, pronto
- * ad accogliere l’immagine della pagina senza cambiare la struttura.
+ * Hero delle pagine interne: logo e titolo centrati, stesso palco di Chi sono.
  */
 export function PageBanner({
   title,
   subtitle,
   background,
   className = "",
-  mobileHeight = "default",
   actions,
 }: Props) {
   const reduce = useReducedMotion();
   const onMedia = Boolean(background?.src);
   const contain = background?.fit === "contain";
-  const mobileCompact = mobileHeight === "two-thirds";
 
   return (
     <header
@@ -53,7 +49,7 @@ export function PageBanner({
       className={
         onMedia
           ? `relative isolate flex flex-col overflow-hidden bg-plate text-white ${className}`.trim()
-          : `bg-ivory px-6 pb-12 pt-[calc(var(--nav-offset)+2.5rem)] md:px-10 md:pb-16 md:pt-[calc(var(--nav-offset)+3.5rem)] ${className}`.trim()
+          : `relative isolate flex flex-col bg-ivory text-ink ${className}`.trim()
       }
     >
       {background?.src ? (
@@ -79,11 +75,7 @@ export function PageBanner({
       ) : null}
 
       <motion.div
-        className={
-          onMedia
-            ? `page-hero-stage${mobileCompact ? " page-hero-stage--compact" : ""}`
-            : "mx-auto flex max-w-3xl flex-col items-center text-center"
-        }
+        className="page-hero-stage"
         initial={reduce ? false : { opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}

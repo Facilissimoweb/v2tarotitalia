@@ -19,7 +19,6 @@ export function ChiSiamo() {
         title={brand.titolare}
         subtitle={chiSiamo.titolo}
         background={chiSiamo.immagini.hero}
-        mobileHeight="two-thirds"
         className="mb-0"
       />
 

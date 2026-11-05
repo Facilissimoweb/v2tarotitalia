@@ -196,9 +196,10 @@ export function Home() {
           </Reveal>
         </div>
       </StackSheet>
-      </StackDeck>
 
-      <GoogleReviews />
+      <StackSheet className="bg-linen">
+        <GoogleReviews />
+      </StackSheet>
 
       {shopLive() ? (
         <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
@@ -222,6 +223,7 @@ export function Home() {
           </div>
         </StackSheet>
       ) : null}
+      </StackDeck>
 
       {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
     </div>

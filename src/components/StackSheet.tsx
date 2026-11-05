@@ -3,10 +3,10 @@ import {
   createContext,
   useContext,
   useEffect,
-  useRef,
   useState,
   type ReactNode,
 } from "react";
+import { useLocation } from "react-router-dom";
 import { useReducedMotion } from "motion/react";
 
 type Props = {
@@ -19,7 +19,6 @@ type Props = {
 const StackLayer = createContext(0);
 
 const OVERLAP_VH = 0.48;
-/** Corsa del foglio in arrivo: visibile contro il foglio fermo sotto. */
 const TRAVEL_IN_VH = 0.2;
 const IN_AMOUNT = 0.12;
 const IN_WINDOW_VH = 0.3;
@@ -38,14 +37,8 @@ function liftY(top: number, nextTop: number | null, vh: number) {
   const inEnd = inStart - vh * IN_WINDOW_VH;
   const pIn = clamp01((inStart - top) / (inStart - inEnd));
   const arrive = (1 - easeOutQuad(pIn)) * travel;
-
-  /*
-   * Pin 1:1: mentre il successivo entra nel viewport, questo foglio
-   * resta fermo. Solo asse Y — nessun laterale.
-   */
   const pinned = nextTop != null && pIn >= 1;
   const pin = pinned ? Math.max(0, Math.min(vh, vh - nextTop)) : 0;
-
   return arrive + pin;
 }
 
@@ -62,51 +55,32 @@ function useOverlapPx() {
   return px;
 }
 
-/**
- * Foglio di sezione. Il movimento vive nel mazzo: qui solo strato e markup.
- */
-export function StackSheet({ children, className = "", as = "section", id }: Props) {
-  const layer = useContext(StackLayer);
-  const Tag = as === "div" ? "div" : "section";
-
-  return (
-    <Tag id={id} className="stack-sheet" style={{ zIndex: layer || undefined }}>
-      <div className={`stack-sheet-lift${className ? ` ${className}` : ""}`}>{children}</div>
-    </Tag>
-  );
-}
-
-type DeckProps = {
-  children: ReactNode;
-  className?: string;
-  /** Non copre l’elemento precedente al mazzo (solo i fogli fra loro). */
-  flush?: boolean;
-};
-
 function clearTransform(el: HTMLElement | null) {
   if (!el) return;
   el.style.transform = "";
   el.style.willChange = "";
 }
 
+function sheetLift(track: HTMLElement) {
+  return track.querySelector<HTMLElement>(":scope > .stack-sheet-lift");
+}
+
 /**
- * Un solo rAF per il mazzo: il foglio sotto resta pinato, quello sopra arriva.
+ * Un solo motore per pagina: fogli in main + footer.
  * overflow-x: clip su html/body impedisce lo sticky CSS nativo.
  */
-export function StackDeck({ children, className = "", flush = false }: DeckProps) {
+export function PageStackEngine() {
   const reduce = useReducedMotion();
-  const overlap = useOverlapPx();
-  const deckRef = useRef<HTMLDivElement | null>(null);
+  const { pathname } = useLocation();
 
   useEffect(() => {
-    const deck = deckRef.current;
-    if (!deck) return;
-
-    const hero = flush ? null : (deck.previousElementSibling as HTMLElement | null);
+    const heroes = () =>
+      [...document.querySelectorAll<HTMLElement>("[data-home-hero], [data-page-hero]")];
+    const tracksOf = () => [...document.querySelectorAll<HTMLElement>(".stack-sheet")];
 
     const reset = () => {
-      deck.querySelectorAll<HTMLElement>(":scope > .stack-sheet > .stack-sheet-lift").forEach(clearTransform);
-      clearTransform(hero);
+      tracksOf().forEach((track) => clearTransform(sheetLift(track)));
+      heroes().forEach(clearTransform);
     };
 
     if (reduce) {
@@ -118,9 +92,11 @@ export function StackDeck({ children, className = "", flush = false }: DeckProps
     let alive = true;
 
     const update = () => {
-      const tracks = deck.querySelectorAll<HTMLElement>(":scope > .stack-sheet");
+      const tracks = tracksOf();
       const vh = window.innerHeight;
-      const first = tracks[0];
+      const first = tracks.find((track) => !track.matches("[data-site-footer]"));
+      const flush = Boolean(first?.closest(".stack-deck--flush"));
+      const hero = !flush ? (heroes()[0] ?? null) : null;
 
       if (hero && first) {
         const firstTop = first.getBoundingClientRect().top;
@@ -130,9 +106,10 @@ export function StackDeck({ children, className = "", flush = false }: DeckProps
       }
 
       tracks.forEach((track, index) => {
-        const lift = track.querySelector<HTMLElement>(":scope > .stack-sheet-lift");
+        const lift = sheetLift(track);
         if (!lift) return;
-        const next = tracks[index + 1];
+        track.style.zIndex = String(index + 1);
+        const next = tracks[index + 1] ?? null;
         const top = track.getBoundingClientRect().top;
         const nextTop = next ? next.getBoundingClientRect().top : null;
         const y = liftY(top, nextTop, vh);
@@ -167,11 +144,34 @@ export function StackDeck({ children, className = "", flush = false }: DeckProps
       window.visualViewport?.removeEventListener("resize", onScroll);
       reset();
     };
-  }, [reduce, flush]);
+  }, [reduce, pathname]);
+
+  return null;
+}
+
+export function StackSheet({ children, className = "", as = "section", id }: Props) {
+  const layer = useContext(StackLayer);
+  const Tag = as === "div" ? "div" : "section";
+
+  return (
+    <Tag id={id} className="stack-sheet" style={{ zIndex: layer || undefined }}>
+      <div className={`stack-sheet-lift${className ? ` ${className}` : ""}`}>{children}</div>
+    </Tag>
+  );
+}
+
+type DeckProps = {
+  children: ReactNode;
+  className?: string;
+  flush?: boolean;
+};
+
+export function StackDeck({ children, className = "", flush = false }: DeckProps) {
+  const reduce = useReducedMotion();
+  const overlap = useOverlapPx();
 
   return (
     <div
-      ref={deckRef}
       className={`stack-deck${flush ? " stack-deck--flush" : ""}${reduce ? " stack-deck--static" : ""}${
         className ? ` ${className}` : ""
       }`}

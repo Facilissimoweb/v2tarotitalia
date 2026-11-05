@@ -27,8 +27,9 @@ export function Footer() {
   const telegram = telegramHref();
 
   return (
-    <footer data-site-footer className="footer-graphite relative mt-auto overflow-hidden text-[#EDE4D4]">
-      <div className="relative z-[1] mx-auto grid max-w-6xl gap-12 px-6 pb-10 pt-16 sm:px-10 md:grid-cols-2 md:pt-20 lg:grid-cols-4 lg:gap-10 lg:pt-24">
+    <footer data-site-footer className="stack-sheet footer-graphite relative mt-auto text-[#EDE4D4]">
+      <div className="stack-sheet-lift footer-graphite">
+      <div className="relative z-[1] mx-auto grid max-w-6xl gap-12 px-6 pb-10 pt-6 sm:px-10 md:grid-cols-2 md:pt-8 lg:grid-cols-4 lg:gap-10 lg:pt-10">
         <div>
           <div translate="no" className="flex items-center gap-3">
             <BrandLogo tone="hero" className="h-12 w-12 shrink-0" />
@@ -141,6 +142,7 @@ export function Footer() {
         className="h-[calc(5.25rem+env(safe-area-inset-bottom,0px))] bg-plate md:h-[calc(5.75rem+env(safe-area-inset-bottom,0px))]"
         aria-hidden
       />
+      </div>
 
       <LegalNotice kind={notice} onClose={() => setNotice(null)} />
     </footer>

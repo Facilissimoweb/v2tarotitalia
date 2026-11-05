@@ -121,7 +121,7 @@ export function ArcanoDetail() {
         </div>
       </div>
       </StackSheet>
-      <StackSheet className="bg-ivory">
+      <StackSheet className="bg-mist">
       <div className="mx-auto max-w-5xl px-6 pb-24 md:px-10 md:pb-32">
         <ArcanoAbbinamenti slug={arcano.slug} />
       </div>

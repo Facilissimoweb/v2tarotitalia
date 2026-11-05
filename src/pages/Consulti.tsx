@@ -21,7 +21,7 @@ import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
 import { PlateFocus } from "../components/PlateFocus";
 import { Reveal } from "../components/Reveal";
-import { StackSheet } from "../components/StackSheet";
+import { StackDeck, StackSheet } from "../components/StackSheet";
 
 const { consulti, nav } = siteContent;
 
@@ -123,17 +123,18 @@ export function Consulti() {
       <PageBanner
         title={nav.consulti}
         background={consulti.immagini.hero}
-        mobileHeight="two-thirds"
         className="mb-0"
       />
       <PlateFocus items={consulti.orientamento} />
 
+      <StackDeck flush>
       <StackSheet className="border-b border-ink/10 bg-ivory px-6 py-16 md:px-10 md:py-20">
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-base leading-[1.9] text-ink/80">{consulti.apertura}</p>
         </div>
       </StackSheet>
 
+      <StackSheet className="bg-paper">
       <div
         id="prenota"
         className="mx-auto flex w-full min-w-0 max-w-2xl scroll-mt-28 flex-col gap-20 px-[clamp(1.25rem,5vw,2.5rem)] pb-24 pt-16 md:gap-24 md:pb-32 md:pt-24"
@@ -273,8 +274,10 @@ export function Consulti() {
           </section>
         </Reveal>
       </div>
+      </StackSheet>
 
       <PageFaq kicker={consulti.faq.kicker} titolo={consulti.faq.titolo} voci={consulti.faq.voci} />
+      </StackDeck>
     </div>
   );
 }
