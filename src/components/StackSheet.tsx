@@ -19,17 +19,10 @@ type Props = {
 const StackLayer = createContext(0);
 
 const OVERLAP_VH = 0.48;
-/** Corsa di entrata: visibile, più ampia della precedente, sempre < overlap. */
-const TRAVEL_IN_VH = 0.22;
-/** Corsa di uscita speculare: il foglio si tucks sotto il successivo. */
-const TRAVEL_OUT_VH = 0.14;
-/** Equivalente Framer `viewport={{ once: false, amount: 0.12 }}`. */
+/** Corsa del foglio in arrivo: visibile contro il foglio fermo sotto. */
+const TRAVEL_IN_VH = 0.2;
 const IN_AMOUNT = 0.12;
-const IN_WINDOW_VH = 0.28;
-/** Inclinazione del foglio in arrivo / a riposo / in uscita (gradi). */
-const TILT_IN = 1.7;
-const TILT_REST = 0.45;
-const TILT_OUT = 1.15;
+const IN_WINDOW_VH = 0.3;
 
 function clamp01(n: number) {
   return Math.min(1, Math.max(0, n));
@@ -39,30 +32,21 @@ function easeOutQuad(p: number) {
   return 1 - (1 - p) * (1 - p);
 }
 
-function easeInOut(p: number) {
-  return p * p * (3 - 2 * p);
-}
-
-function liftPose(top: number, bottom: number, vh: number, hasNext: boolean, sign: number) {
-  const travelIn = Math.round(vh * TRAVEL_IN_VH);
-  const travelOut = Math.round(vh * TRAVEL_OUT_VH);
+function liftY(top: number, nextTop: number | null, vh: number) {
+  const travel = Math.round(vh * TRAVEL_IN_VH);
   const inStart = vh * (1 - IN_AMOUNT);
   const inEnd = inStart - vh * IN_WINDOW_VH;
-
   const pIn = clamp01((inStart - top) / (inStart - inEnd));
-  const easedIn = easeOutQuad(pIn);
-  const y = (1 - easedIn) * travelIn;
-  const rot = sign * (TILT_IN + (TILT_REST - TILT_IN) * easedIn);
+  const arrive = (1 - easeOutQuad(pIn)) * travel;
 
-  if (!hasNext || pIn < 1) return { y, rot };
+  /*
+   * Pin 1:1: mentre il successivo entra nel viewport, questo foglio
+   * resta fermo. Solo asse Y — nessun laterale.
+   */
+  const pinned = nextTop != null && pIn >= 1;
+  const pin = pinned ? Math.max(0, Math.min(vh, vh - nextTop)) : 0;
 
-  const nextTop = bottom - vh * OVERLAP_VH;
-  const pOut = clamp01((inStart - nextTop) / (inStart - inEnd));
-  const easedOut = easeInOut(pOut);
-  return {
-    y: easedOut * travelOut,
-    rot: sign * (TILT_REST + (TILT_OUT - TILT_REST) * easedOut),
-  };
+  return arrive + pin;
 }
 
 function useOverlapPx() {
@@ -79,22 +63,54 @@ function useOverlapPx() {
 }
 
 /**
- * Foglio di sezione.
- * Overlap CSS = copertura. Bordo alto obliquo = sfogliamento.
- * Transform sul foglio interno = corsa + lieve tilt, misurati sul guscio fermo.
+ * Foglio di sezione. Il movimento vive nel mazzo: qui solo strato e markup.
  */
 export function StackSheet({ children, className = "", as = "section", id }: Props) {
   const layer = useContext(StackLayer);
-  const reduce = useReducedMotion();
-  const trackRef = useRef<HTMLElement | null>(null);
-  const liftRef = useRef<HTMLDivElement | null>(null);
   const Tag = as === "div" ? "div" : "section";
-  const live = layer > 0 && !reduce;
-  const sign = layer % 2 === 0 ? -1 : 1;
+
+  return (
+    <Tag id={id} className="stack-sheet" style={{ zIndex: layer || undefined }}>
+      <div className={`stack-sheet-lift${className ? ` ${className}` : ""}`}>{children}</div>
+    </Tag>
+  );
+}
+
+type DeckProps = {
+  children: ReactNode;
+  className?: string;
+  /** Non copre l’elemento precedente al mazzo (solo i fogli fra loro). */
+  flush?: boolean;
+};
+
+function clearTransform(el: HTMLElement | null) {
+  if (!el) return;
+  el.style.transform = "";
+  el.style.willChange = "";
+}
+
+/**
+ * Un solo rAF per il mazzo: il foglio sotto resta pinato, quello sopra arriva.
+ * overflow-x: clip su html/body impedisce lo sticky CSS nativo.
+ */
+export function StackDeck({ children, className = "", flush = false }: DeckProps) {
+  const reduce = useReducedMotion();
+  const overlap = useOverlapPx();
+  const deckRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!live) {
-      if (liftRef.current) liftRef.current.style.transform = "";
+    const deck = deckRef.current;
+    if (!deck) return;
+
+    const hero = flush ? null : (deck.previousElementSibling as HTMLElement | null);
+
+    const reset = () => {
+      deck.querySelectorAll<HTMLElement>(":scope > .stack-sheet > .stack-sheet-lift").forEach(clearTransform);
+      clearTransform(hero);
+    };
+
+    if (reduce) {
+      reset();
       return;
     }
 
@@ -102,18 +118,26 @@ export function StackSheet({ children, className = "", as = "section", id }: Pro
     let alive = true;
 
     const update = () => {
-      const track = trackRef.current;
-      const lift = liftRef.current;
-      if (!track || !lift) return;
-      const rect = track.getBoundingClientRect();
-      const { y, rot } = liftPose(
-        rect.top,
-        rect.bottom,
-        window.innerHeight,
-        Boolean(track.nextElementSibling),
-        sign,
-      );
-      lift.style.transform = `translate3d(0, ${y}px, 0) rotate(${rot.toFixed(3)}deg)`;
+      const tracks = deck.querySelectorAll<HTMLElement>(":scope > .stack-sheet");
+      const vh = window.innerHeight;
+      const first = tracks[0];
+
+      if (hero && first) {
+        const firstTop = first.getBoundingClientRect().top;
+        const pin = Math.max(0, Math.min(vh, vh - firstTop));
+        hero.style.willChange = pin ? "transform" : "";
+        hero.style.transform = pin ? `translate3d(0, ${pin}px, 0)` : "";
+      }
+
+      tracks.forEach((track, index) => {
+        const lift = track.querySelector<HTMLElement>(":scope > .stack-sheet-lift");
+        if (!lift) return;
+        const next = tracks[index + 1];
+        const top = track.getBoundingClientRect().top;
+        const nextTop = next ? next.getBoundingClientRect().top : null;
+        const y = liftY(top, nextTop, vh);
+        lift.style.transform = `translate3d(0, ${y}px, 0)`;
+      });
     };
 
     const loop = () => {
@@ -141,38 +165,13 @@ export function StackSheet({ children, className = "", as = "section", id }: Pro
       window.removeEventListener("resize", onScroll);
       window.visualViewport?.removeEventListener("scroll", onScroll);
       window.visualViewport?.removeEventListener("resize", onScroll);
+      reset();
     };
-  }, [live, sign]);
-
-  return (
-    <Tag
-      ref={(node) => {
-        trackRef.current = node;
-      }}
-      id={id}
-      className="stack-sheet"
-      style={{ zIndex: layer || undefined }}
-    >
-      <div ref={liftRef} className={`stack-sheet-lift${className ? ` ${className}` : ""}`}>
-        {children}
-      </div>
-    </Tag>
-  );
-}
-
-type DeckProps = {
-  children: ReactNode;
-  className?: string;
-  /** Non copre l’elemento precedente al mazzo (solo i fogli fra loro). */
-  flush?: boolean;
-};
-
-export function StackDeck({ children, className = "", flush = false }: DeckProps) {
-  const reduce = useReducedMotion();
-  const overlap = useOverlapPx();
+  }, [reduce, flush]);
 
   return (
     <div
+      ref={deckRef}
       className={`stack-deck${flush ? " stack-deck--flush" : ""}${reduce ? " stack-deck--static" : ""}${
         className ? ` ${className}` : ""
       }`}
