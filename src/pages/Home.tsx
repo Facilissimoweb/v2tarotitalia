@@ -17,7 +17,7 @@ export function Home() {
   const [visioneOpen, setVisioneOpen] = useState(false);
 
   return (
-    <div className="w-full min-w-0 overflow-x-hidden">
+    <div className="w-full min-w-0">
       <HomeHero />
 
       <StackDeck>

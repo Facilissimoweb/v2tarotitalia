@@ -66,7 +66,7 @@ export function Layout() {
       <LanguageSeo />
       <SeoManager />
       <Header />
-      <main className="min-w-0 flex-1 overflow-x-clip">
+      <main className="min-w-0 flex-1">
         <Outlet />
       </main>
       <Footer />

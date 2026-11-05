@@ -1,47 +1,36 @@
-import { useEffect, useRef, type ElementType, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 
 type Props = {
   children: ReactNode;
   className?: string;
-  as?: ElementType;
+  as?: "section" | "div";
   id?: string;
 };
 
-function supportsViewTimeline() {
-  return typeof CSS !== "undefined" && CSS.supports("animation-timeline", "view()");
-}
-
 /**
- * Foglio di contenuto dopo la hero: emerge dal basso seguendo lo scroll.
- * Non avvolge caroselli touch né form lunghe. Le interazioni interne restano intatte.
+ * Foglio dopo la hero: sale dal basso coprendo il blocco precedente, legato allo scroll della finestra.
+ * Non usa view-timeline CSS (gli overflow dei genitori la facevano finire subito).
  */
-export function StackSheet({ children, className = "", as: Tag = "section", id }: Props) {
+export function StackSheet({ children, className = "", as = "section", id }: Props) {
   const ref = useRef<HTMLElement | null>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start 0.28"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [180, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 1], reduce ? [1, 1] : [0.35, 1]);
 
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.classList.add("is-in");
-      return;
-    }
-    if (supportsViewTimeline()) return;
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("is-in");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -10% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  const Tag = as === "div" ? motion.div : motion.section;
 
   return (
-    <Tag ref={ref} id={id} className={`stack-sheet${className ? ` ${className}` : ""}`}>
+    <Tag
+      ref={ref}
+      id={id}
+      className={`stack-sheet${className ? ` ${className}` : ""}`}
+      style={reduce ? undefined : { y, opacity }}
+    >
       {children}
     </Tag>
   );
