@@ -91,13 +91,13 @@ export function PageStackEngine() {
 
   useEffect(() => {
     const markOf = () => document.querySelector<HTMLElement>("[data-sheet-bookmark]");
-    const heroes = () =>
-      [...document.querySelectorAll<HTMLElement>("[data-home-hero], [data-page-hero]")];
     const tracksOf = () => [...document.querySelectorAll<HTMLElement>(".stack-sheet")];
+    const heroesOf = () =>
+      [...document.querySelectorAll<HTMLElement>("[data-home-hero], [data-page-hero]")];
 
     const reset = () => {
       tracksOf().forEach((track) => clearTransform(sheetLift(track)));
-      heroes().forEach(clearTransform);
+      heroesOf().forEach(clearTransform);
       const mark = markOf();
       if (mark) {
         mark.hidden = true;
@@ -119,16 +119,7 @@ export function PageStackEngine() {
     const update = () => {
       const tracks = tracksOf();
       const vh = window.innerHeight;
-      const first = tracks.find((track) => !track.matches("[data-site-footer]"));
-      const flush = Boolean(first?.closest(".stack-deck--flush"));
-      const hero = !flush ? (heroes()[0] ?? null) : null;
-
-      if (hero && first) {
-        const firstTop = first.getBoundingClientRect().top;
-        const pin = Math.max(0, Math.min(vh, vh - firstTop));
-        hero.style.willChange = pin ? "transform" : "";
-        hero.style.transform = pin ? `translate3d(0, ${pin}px, 0)` : "";
-      }
+      heroesOf().forEach(clearTransform);
 
       let active: HTMLElement | null = null;
       let activeTop = 0;

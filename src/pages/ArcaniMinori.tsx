@@ -20,15 +20,13 @@ const { comingSoon, nav, pages } = siteContent;
 export function ArcaniMinori() {
   return (
     <div>
-      <div className="[&_[data-page-hero]]:mb-0">
-        <PageHero
-          kicker={pages.arcaniMinori.kicker}
-          title={pages.arcaniMinori.titolo}
-          lead={pages.arcaniMinori.lead}
-          cta={{ to: "/arcani", label: nav.arcaniMaggiori }}
-          secondary={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
-        />
-      </div>
+      <PageHero
+        kicker={pages.arcaniMinori.kicker}
+        title={pages.arcaniMinori.titolo}
+        lead={pages.arcaniMinori.lead}
+        cta={{ to: "/arcani", label: nav.arcaniMaggiori }}
+        secondary={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
+      />
       <nav
         aria-label={nav.arcaniMinori}
         className="relative z-[2] grid grid-cols-1 border-t border-plate sm:grid-cols-2 xl:grid-cols-4"

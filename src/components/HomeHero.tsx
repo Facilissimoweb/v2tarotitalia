@@ -45,8 +45,8 @@ const container: Variants = {
 };
 
 const riseIn: Variants = {
-  hidden: { opacity: 0, y: 14 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.7, ease } },
 };
 
 /**
@@ -59,9 +59,9 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate flex min-h-0 flex-col overflow-hidden bg-ivory text-ink xl:min-h-svh"
+      className="relative isolate flex min-h-[66svh] flex-col overflow-hidden bg-ivory text-ink md:min-h-[72svh]"
     >
-      <div className="relative flex min-h-0 flex-1 flex-col justify-center px-6 pb-8 pt-[calc(var(--nav-offset)+5rem)] md:px-10 md:pb-10 md:pt-[calc(var(--nav-offset)+6rem)] xl:px-16 xl:pb-8 xl:pt-[calc(var(--nav-offset)+7rem)] 2xl:px-20">
+      <div className="relative flex min-h-[66svh] flex-1 flex-col justify-center px-6 pb-10 pt-[var(--nav-offset)] md:min-h-[72svh] md:px-10 md:pb-12 xl:px-16 2xl:px-20">
         <motion.div
           className="mx-auto grid w-full max-w-[96rem] items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.95fr)] lg:gap-6 xl:gap-10"
           variants={container}

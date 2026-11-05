@@ -582,20 +582,27 @@ h3 {
 
 /* Respiro: il foglio copre il vuoto, non i testi. */
 .stack-sheet > .stack-sheet-lift {
-  padding-top: 10rem;
+  padding-top: 14rem;
 }
 
 .stack-sheet + .stack-sheet > .stack-sheet-lift {
-  padding-top: 11rem;
+  padding-top: 16rem;
 }
 
 main .stack-sheet > .stack-sheet-lift {
-  padding-bottom: calc(var(--stack-overlap) + 20rem);
+  padding-bottom: calc(var(--stack-overlap) + 28rem);
+}
+
+/* Hero statiche: respiro solo se il foglio successivo le copre. */
+[data-home-hero]:has(+ .stack-deck),
+[data-page-hero]:has(+ .stack-deck),
+[data-page-hero]:has(+ .stack-sheet) {
+  padding-bottom: calc(var(--stack-overlap, 48vh) + 8rem);
 }
 
 [data-home-hero],
-[data-page-hero].mb-0 {
-  padding-bottom: calc(var(--stack-overlap, 48vh) + 6rem);
+[data-page-hero] {
+  transform: none;
 }
 
 main:not(:has(.stack-sheet)) {
@@ -622,7 +629,7 @@ main:not(:has(.stack-sheet)) {
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: linear-gradient(180deg, rgb(20 18 16 / 0.045), transparent 9rem);
+  background: linear-gradient(180deg, rgb(20 18 16 / 0.045), transparent 12rem);
 }
 
 .stack-sheet:nth-child(even) > .stack-sheet-lift::after {
@@ -704,7 +711,7 @@ main:not(:has(.stack-sheet)) {
 }
 
 [data-site-footer] > .stack-sheet-lift {
-  padding-top: 10rem;
+  padding-top: 14rem;
   padding-bottom: 0;
 }
 
