@@ -211,9 +211,9 @@ export function Consulti() {
                   meeting === "studio" ? "bg-plate text-on-ink" : "bg-mist text-ink"
                 } ${evening ? "cursor-not-allowed opacity-40" : ""}`}
               >
-                <p className="font-display [overflow-wrap:anywhere]">In studio</p>
+                <p className="font-display [overflow-wrap:anywhere]">{consulti.modalita.presenza}</p>
                 <p className={`mt-1 text-[0.625rem] [overflow-wrap:anywhere] ${meeting === "studio" ? "text-on-ink/70" : "text-ink/50"}`}>
-                  {STUDIO.city} centro
+                  {consulti.modalita.presenzaNota}
                 </p>
               </button>
               <button
@@ -221,9 +221,9 @@ export function Consulti() {
                 onClick={() => setMode("remote")}
                 className={`min-w-0 p-4 text-left ${meeting === "remote" ? "bg-plate text-on-ink" : "bg-mist text-ink"}`}
               >
-                <p className="font-display [overflow-wrap:anywhere]">A distanza</p>
+                <p className="font-display [overflow-wrap:anywhere]">{consulti.modalita.distanza}</p>
                 <p className={`mt-1 text-[0.625rem] ${meeting === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>
-                  Audio WhatsApp
+                  {consulti.modalita.distanzaNota}
                 </p>
               </button>
             </div>

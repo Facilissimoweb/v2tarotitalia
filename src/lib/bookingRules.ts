@@ -18,6 +18,6 @@ export function resolveBookingMode(mode: BookingMode, slot: string): BookingMode
 
 export function sessionModeLabel(mode: BookingMode, slot: string, city = "Macerata") {
   const remote = resolveBookingMode(mode, slot) === "remote";
-  const base = remote ? "Chiamata vocale WhatsApp" : `In studio a ${city}`;
+  const base = remote ? "Chiamata vocale WhatsApp" : `Dal vivo a ${city}`;
   return isEveningSlot(slot) ? `${base} · dalle 19:00 solo online` : base;
 }

@@ -778,6 +778,6 @@ ${brand.deontologia}
 
 ## Identità
 
-Tarot Italia è il laboratorio di Maria Teresa Rogani a Macerata: tarologia archetipica, consulti evolutivi e Percorsi di Armonizzazione, in studio e a distanza.
+Tarot Italia è il laboratorio di Maria Teresa Rogani a Macerata: tarologia archetipica, consulti evolutivi e Percorsi di Armonizzazione, dal vivo e a distanza.
 `;
 }

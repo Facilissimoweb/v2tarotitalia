@@ -15,9 +15,9 @@ export const siteContent = {
     descrizione: descrizioneBrand,
     slogan: sloganBrand,
     studioDiTeresa:
-      "Via Crispi 37, 62100 Macerata (MC), Marche, Italia — Ricevo esclusivamente su appuntamento",
+      "Via Crispi 37, 62100 Macerata (MC), Marche, Italia — Sede dell’attività. Consulti su appuntamento.",
     modalitaLettura:
-      "Leggo i tarocchi sia dal vivo, in studio a Macerata, sia online.",
+      "Lettura dei tarocchi dal vivo, in Via Crispi 37 a Macerata, e online via chiamata vocale WhatsApp.",
     piva: "P.IVA 02136780430",
     identitaFiscale:
       "Maria Teresa Rogani · Tarot Italia · Macerata · Via Crispi 37 · P.IVA 02136780430",
@@ -131,7 +131,7 @@ export const siteContent = {
     seo: {
       titolo: "Tarot Italia | Cartomante e tarologia evolutiva a Macerata",
       descrizione:
-        "Cartomanzia e tarologia con Maria Teresa Rogani, cartomante: consulti di tarologia evolutiva dal vivo in studio a Macerata e online via WhatsApp.",
+        "Cartomanzia e tarologia con Maria Teresa Rogani, cartomante: consulti di tarologia evolutiva dal vivo in Via Crispi 37 a Macerata e online via WhatsApp.",
       immagineAlt:
         "Tarot Italia di Maria Teresa Rogani – Cartomanzia e tarologia evolutiva online e dal vivo",
     },
@@ -173,7 +173,7 @@ export const siteContent = {
         },
         {
           titolo: "Doppia Modalità Fluida",
-          testo: "Consulti dal vivo presso la quiete dello studio storico di Macerata, oppure online via chiamata vocale WhatsApp. Nessuna videochiamata, per preservare la concentrazione auricolare.",
+          testo: "Consulti dal vivo in Via Crispi 37 a Macerata, oppure online via chiamata vocale WhatsApp. Nessuna videochiamata, per preservare la concentrazione auricolare.",
           etichetta: "Presenza & Digitale",
         },
       ],
@@ -252,7 +252,7 @@ export const siteContent = {
       seo: {
         titolo: "Contatti | Tarot Italia a Macerata e online",
         descrizione:
-          "Contatti Tarot Italia di Maria Teresa Rogani: Via Crispi 37, 62100 Macerata. Consulti e Percorsi di Armonizzazione, su appuntamento, in studio e online.",
+          "Contatti Tarot Italia di Maria Teresa Rogani: Via Crispi 37, 62100 Macerata. Consulti e Percorsi di Armonizzazione, su appuntamento, dal vivo e online.",
       },
       primoPasso: {
         kicker: "Il Primo Passo",
@@ -409,13 +409,13 @@ export const siteContent = {
     seo: {
       titolo: "Maria Teresa Rogani | Chi sono – Tarot Italia a Macerata",
       descrizione:
-        "Maria Teresa Rogani, operatrice olistica a Macerata: visione ed etica di Tarot Italia. Tarologia archetipica e lettura dei tarocchi, in studio in Via Crispi 37 e online.",
+        "Maria Teresa Rogani, operatrice olistica a Macerata: visione ed etica di Tarot Italia. Tarologia archetipica e lettura dei tarocchi, dal vivo in Via Crispi 37 e online via WhatsApp.",
     },
     visione: {
       kicker: "La Visione e il Percorso",
       titolo: "La Visione e il Percorso",
       testo:
-        "Benvenuti in Tarot Italia. Mi chiamo Maria Teresa Rogani e il mio lavoro nasce dal desiderio di restituire alla lettura dei tarocchi la sua veste più autentica: quella di uno strumento rigoroso di indagine simbolica e consapevolezza interiore. Leggo i tarocchi sia dal vivo, in studio a Macerata, sia online.",
+        "Benvenuti in Tarot Italia. Mi chiamo Maria Teresa Rogani e il mio lavoro nasce dal desiderio di restituire alla lettura dei tarocchi la sua veste più autentica: quella di uno strumento rigoroso di indagine simbolica e consapevolezza interiore. Lettura dei tarocchi dal vivo, in Via Crispi 37 a Macerata, e online via chiamata vocale WhatsApp.",
     },
     metodo: {
       kicker: "Il Metodo",
@@ -558,7 +558,7 @@ export const siteContent = {
       },
       studio: {
         src: "/chi-siamo/studio-board.jpg?v=1",
-        alt: "Studio di M. Teresa Rogani in Via Crispi 37 a Macerata",
+        alt: "Sede di Tarot Italia in Via Crispi 37 a Macerata",
         caption: "Via Crispi 37 · Macerata",
       },
       simboli: {
@@ -646,7 +646,7 @@ export const siteContent = {
         {
           domanda: "Chi cura i Percorsi di Armonizzazione?",
           risposta:
-            "I Percorsi di Armonizzazione di Tarot Italia sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica a Macerata. Studio in Via Crispi 37, 62100 Macerata (MC), Marche, Italia — ricevo esclusivamente su appuntamento.",
+            "I Percorsi di Armonizzazione di Tarot Italia sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica a Macerata. Sede: Via Crispi 37, 62100 Macerata (MC), Marche, Italia. Consulti su appuntamento.",
         },
         {
           domanda: "Che differenza c’è tra un consulto singolo e un percorso?",
@@ -905,10 +905,16 @@ export const siteContent = {
     seo: {
       titolo: "Consulti di tarocchi evolutivi | Tarot Italia",
       descrizione:
-        "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con Maria Teresa Rogani, in studio in Via Crispi 37 e via chiamata vocale WhatsApp.",
+        "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con Maria Teresa Rogani, dal vivo in Via Crispi 37 e via chiamata vocale WhatsApp.",
     },
     apertura:
-      "Leggo i tarocchi sia dal vivo, in studio a Via Crispi 37 a Macerata, sia online. Consulti di 30 o 60 minuti con Maria Teresa Rogani, su appuntamento. A distanza, chiamata vocale WhatsApp: nessuna videochiamata.",
+      "Lettura dei tarocchi dal vivo, in Via Crispi 37 a Macerata, e online. Consulti di 30 o 60 minuti con Maria Teresa Rogani, su appuntamento. A distanza, chiamata vocale WhatsApp: nessuna videochiamata.",
+    modalita: {
+      presenza: "Dal vivo",
+      presenzaNota: "Via Crispi 37, Macerata",
+      distanza: "A distanza",
+      distanzaNota: "Audio WhatsApp",
+    },
     immagini: {
       hero: {
         src: "/consulti/hero.webp?v=3",
@@ -948,12 +954,12 @@ export const siteContent = {
         {
           domanda: "Come funziona un consulto di tarocchi evolutivi a Macerata?",
           risposta:
-            "Un consulto di tarocchi evolutivi con Tarot Italia si svolge con Maria Teresa Rogani, operatrice olistica e tarologa professionista, in studio a Via Crispi 37 a Macerata oppure a distanza. Le letture durano 30 o 60 minuti, in uno spazio protetto di ascolto. Ricevo esclusivamente su appuntamento. I consulti a distanza avvengono tramite chiamata vocale WhatsApp: nessuna videochiamata, per preservare la concentrazione auricolare.",
+            "Un consulto di tarocchi evolutivi con Tarot Italia si svolge con Maria Teresa Rogani, operatrice olistica e tarologa professionista, dal vivo in Via Crispi 37 a Macerata oppure a distanza. Le letture durano 30 o 60 minuti, in uno spazio protetto di ascolto. Consulti su appuntamento. I consulti a distanza avvengono tramite chiamata vocale WhatsApp: nessuna videochiamata, per preservare la concentrazione auricolare.",
         },
         {
-          domanda: "Un consulto è in studio o online?",
+          domanda: "Un consulto è dal vivo o online?",
           risposta:
-            "Sì: leggo i tarocchi sia dal vivo che online. Dal vivo, presso lo studio di Via Crispi 37, 62100 Macerata. Online, via chiamata vocale WhatsApp. Dalle ore 19:00 i consulti avvengono esclusivamente online. Nessuna videochiamata, per preservare la concentrazione auricolare.",
+            "I consulti si tengono dal vivo, in Via Crispi 37, 62100 Macerata, e online via chiamata vocale WhatsApp. Dalle ore 19:00 i consulti avvengono esclusivamente online. Nessuna videochiamata, per preservare la concentrazione auricolare.",
         },
         {
           domanda: "Quanto dura un consulto e come si prenota?",
@@ -997,7 +1003,7 @@ export const siteContent = {
     orarioNonDisponibile: "Seleziona una fascia oraria disponibile.",
     seraOnline: "Dalle ore 19:00 i consulti avvengono esclusivamente online, via chiamata vocale WhatsApp.",
     seraOnlineBreve: "online",
-    studioSeraChiuso: "Dalle ore 19:00 lo studio è chiuso. La sessione resta online.",
+    studioSeraChiuso: "Dalle ore 19:00 i consulti in presenza non sono disponibili. La sessione resta online.",
     calendario: {
       giorno: "Giorno",
       orario: "Fascia oraria",
