@@ -153,6 +153,14 @@ export function Header() {
               flagClassName="h-2.5 w-[0.9rem]"
             />
             <CartLink className={NAV_ICON_BTN} />
+            <NavLink
+              to="/"
+              className={NAV_ICON_BTN}
+              aria-label={nav.home}
+              title={nav.home}
+            >
+              <HomeIcon size={20} />
+            </NavLink>
             <button
               type="button"
               className={NAV_ICON_BTN}

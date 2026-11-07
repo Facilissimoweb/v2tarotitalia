@@ -101,7 +101,7 @@ export function HomeHero() {
 
             <motion.p
               variants={riseIn}
-              className="mt-5 max-w-[12.5rem] font-display text-xl font-normal leading-snug text-ink lg:max-w-xl lg:text-lg xl:mt-6 xl:max-w-2xl xl:text-xl"
+              className="mt-5 max-w-[18rem] font-display text-xl font-normal leading-snug text-ink lg:max-w-xl lg:text-lg xl:mt-6 xl:max-w-2xl xl:text-xl"
             >
               {home.competenze}
             </motion.p>

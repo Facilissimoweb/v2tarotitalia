@@ -137,8 +137,8 @@ export const siteContent = {
     },
     copyright: "© Tarot Italia",
     firma: "di M. Teresa Rogani",
-    benvenuto: "Letture in studio a Macerata e online, per esplorare il presente e le possibili direzioni future.",
-    competenze: "Cartomanzia · letture dei tarocchi dal vivo e online",
+    benvenuto: "Una lettura simbolica degli Arcani per osservare il presente e orientare con consapevolezza le scelte.",
+    competenze: "Cartomanzia e tarologia evolutiva · letture dei tarocchi dal vivo e online",
     lead: sloganBrand,
     chiSono: {
       kicker: "Il mio approccio",
