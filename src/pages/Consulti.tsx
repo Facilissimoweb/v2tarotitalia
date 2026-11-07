@@ -121,6 +121,7 @@ export function Consulti() {
     <div className="min-w-0 overflow-x-clip">
       <PageBanner
         title={nav.consulti}
+        subtitle={consulti.intro}
         background={consulti.immagini.hero}
         className="mb-0"
       />
@@ -134,7 +135,7 @@ export function Consulti() {
         <Reveal className="w-full min-w-0">
           <section className="w-full min-w-0">
             <div className="mb-8 flex min-w-0 flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4">
-              <h2 className="label-kicker">01 · Seleziona il percorso</h2>
+              <h2 className="label-kicker">01 · Scegli la durata</h2>
               <span className="text-[0.625rem] uppercase tracking-[0.12em] text-ember-soft sm:tracking-[0.16em]">
                 Tariffa fissa
               </span>
@@ -238,7 +239,7 @@ export function Consulti() {
 
         <Reveal className="w-full min-w-0">
           <section className="w-full min-w-0">
-            <h2 className="label-kicker">03 · Calendario</h2>
+            <h2 className="label-kicker">03 · Scegli giorno e orario</h2>
             <div className="mt-8 min-w-0">
               <BookingCalendar dateIso={dateIso} slot={slot} onDate={chooseDate} onSlot={chooseSlot} />
             </div>

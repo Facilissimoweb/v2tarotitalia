@@ -907,8 +907,10 @@ export const siteContent = {
       descrizione:
         "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con Maria Teresa Rogani, dal vivo in Via Crispi 37 e via chiamata vocale WhatsApp.",
     },
+    intro:
+      "Uno spazio di ascolto per osservare con maggiore chiarezza una domanda e le possibilità a tua disposizione.",
     letturaDalVivo:
-      "Consulti di 30 o 60 minuti con Maria Teresa Rogani, su appuntamento. La lettura si svolge dal vivo oppure a distanza tramite chiamata vocale WhatsApp, senza videochiamata.",
+      "L’incontro con Maria Teresa Rogani dura 30 o 60 minuti e si svolge su appuntamento. A distanza, la sessione avviene tramite chiamata vocale WhatsApp, senza videochiamata.",
     modalita: {
       presenza: "Dal vivo",
       presenzaNota: "Via Crispi 37, Macerata",
@@ -930,33 +932,33 @@ export const siteContent = {
       titolo: "Domande frequenti",
       voci: [
         {
-          domanda: "Come funziona un consulto di tarocchi evolutivi a Macerata?",
+          domanda: "Che cosa comprende il consulto?",
           risposta:
-            "Un consulto di tarocchi evolutivi con Tarot Italia si svolge con Maria Teresa Rogani, operatrice olistica e tarologa professionista, dal vivo in Via Crispi 37 a Macerata oppure a distanza. Le letture durano 30 o 60 minuti, in uno spazio protetto di ascolto. Consulti su appuntamento. I consulti a distanza avvengono tramite chiamata vocale WhatsApp: nessuna videochiamata, per preservare la concentrazione auricolare.",
+            "È un incontro dedicato alla domanda o alla situazione che desideri esplorare. La lettura offre una prospettiva simbolica sul presente e non formula risposte deterministiche.",
         },
         {
-          domanda: "Un consulto è dal vivo o online?",
+          domanda: "Dove si svolge il consulto?",
           risposta:
-            "I consulti si tengono dal vivo, in Via Crispi 37, 62100 Macerata, e online via chiamata vocale WhatsApp. Dalle ore 19:00 i consulti avvengono esclusivamente online. Nessuna videochiamata, per preservare la concentrazione auricolare.",
+            "Puoi incontrare Maria Teresa Rogani su appuntamento in Via Crispi 37, a Macerata, oppure a distanza con una chiamata vocale WhatsApp. Dopo le 19:00 i consulti sono disponibili solo a distanza.",
         },
         {
-          domanda: "Quanto dura un consulto e come si prenota?",
+          domanda: "Quanto dura e quanto costa?",
           risposta:
-            "Sono disponibili un consulto di 30 minuti (40 €) e un consulto di 1 ora (60 €), onnicomprensivi. È possibile aggiungere un report di sintesi in PDF inviato via WhatsApp. La prenotazione si finalizza dal calendario di questa pagina: dopo il pagamento su Stripe la sessione è riservata sul tuo account. Per finalizzare è necessario accedere o registrarsi.",
+            "Puoi scegliere una sessione di 30 minuti a 40 € o di un’ora a 60 €. È disponibile anche un report di sintesi in PDF a 10 €, inviato via WhatsApp.",
         },
         {
-          domanda: "Che differenza c’è tra il consulto di 30 minuti e quello di 1 ora?",
+          domanda: "Come si prenota?",
           risposta:
-            "Il consulto di 30 minuti è una disamina puntuale di una singola questione nevralgica — relazionale, lavorativa o decisionale. Il consulto di 1 ora è un’analisi completa di stasi evolutiva, croce celtica integrata e dialogo archetipico: un’ora dedicata senza fretta a sogni, nodi emotivi e scelte di vita, in un contesto privo di giudizio.",
+            "Scegli durata, modalità, data e orario nel calendario. Per confermare la sessione è necessario accedere o registrarsi e completare il pagamento. Riceverai una conferma via email e potrai consultare la prenotazione nella tua area riservata.",
         },
         {
-          domanda: "I tarocchi secondo Tarot Italia predicono il futuro?",
+          domanda: "La lettura predice il futuro?",
           risposta:
-            "I tarocchi sono un sistema di 78 lame che mappa gli archetipi dell’esperienza umana. Non una semplice predizione, ma uno specchio rigoroso del presente per decodificare il futuro. Ogni incontro è uno spazio protetto di ascolto, privo di logiche commerciali o suggestioni deterministiche: l’obiettivo non è dire cosa accadrà, ma offrire chiarezza per restituire piena sovranità sulle scelte di vita. Attività disciplinata ai sensi della Legge 14 gennaio 2013, n. 4. Nessuna consulenza costituisce parere medico, sanitario o legale.",
+            "No. I tarocchi sono uno strumento di riflessione sul presente e sulle possibilità che si aprono; le scelte restano tue. Il consulto non sostituisce pareri medici, sanitari o legali.",
         },
       ],
     },
-    procedi: "Ci siamo quasi!",
+    procedi: "Continua alla prenotazione",
     conferma: "Conferma e riserva la sessione",
     pagaStripe: "Paga e riserva la sessione",
     checkoutOk: "Pagamento ricevuto. La sessione è riservata. Ti ho scritto anche via email.",
