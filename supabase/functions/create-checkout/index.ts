@@ -83,6 +83,11 @@ Deno.serve(async (req) => {
   const total = catalog.price + (pdf ? PDF_PRICE : 0);
   const bookingId = crypto.randomUUID();
 
+  const taken = await admin.rpc("occupied_slots", { from_date: body.dateIso, to_date: body.dateIso });
+  if (taken.data?.some((row: { slot?: string }) => row.slot === body.slot)) {
+    return json({ error: "Questo orario è appena stato riservato. Scegline un altro." }, 409);
+  }
+
   const insert = await admin.from("bookings").insert({
     id: bookingId,
     user_id: user.id,

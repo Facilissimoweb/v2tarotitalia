@@ -45,6 +45,7 @@ const Contatti = lazy(() => import("./pages/Contatti").then((m) => ({ default: m
 const Carrello = lazy(() => import("./pages/Carrello").then((m) => ({ default: m.Carrello })));
 const Shop = lazy(() => import("./pages/Shop").then((m) => ({ default: m.Shop })));
 const Login = lazy(() => import("./pages/Login").then((m) => ({ default: m.Login })));
+const Admin = lazy(() => import("./pages/Admin").then((m) => ({ default: m.Admin })));
 const Riservata = lazy(() => import("./pages/Riservata").then((m) => ({ default: m.Riservata })));
 const NonTrovata = lazy(() =>
   import("./pages/NonTrovata").then((m) => ({ default: m.NonTrovata })),
@@ -178,6 +179,14 @@ export default function App() {
                 element={
                   <Suspense fallback={<RouteFallback />}>
                     <Login />
+                  </Suspense>
+                }
+              />
+              <Route
+                path="/admin"
+                element={
+                  <Suspense fallback={<RouteFallback />}>
+                    <Admin />
                   </Suspense>
                 }
               />

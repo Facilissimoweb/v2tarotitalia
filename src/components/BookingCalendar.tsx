@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { siteDateTime } from "../lib/locale";
-import { fetchOccupiedSlots, isOccupied, type OccupiedSlot } from "../lib/occupiedSlots";
+import { fetchOccupiedSlots, isOccupied, subscribeOccupiedSlots, type OccupiedSlot } from "../lib/occupiedSlots";
 import { isEveningSlot } from "../lib/bookingRules";
 import { HOUR_SLOTS, localIso, slotsForDate } from "../lib/storage";
 
@@ -76,11 +76,16 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
   useEffect(() => {
     const { from, to } = monthRange(activeIso);
     let alive = true;
-    void fetchOccupiedSlots(from, to).then((list) => {
-      if (alive) setOccupied(list);
-    });
+    const load = () => {
+      void fetchOccupiedSlots(from, to).then((list) => {
+        if (alive) setOccupied(list);
+      });
+    };
+    load();
+    const stop = subscribeOccupiedSlots(load);
     return () => {
       alive = false;
+      stop();
     };
   }, [activeIso]);
 

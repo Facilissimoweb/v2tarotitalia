@@ -36,6 +36,7 @@ import {
   type DigitalOrderRow,
 } from "../lib/digitalOrders";
 import type { DigitalProductId } from "../data/catalogo";
+import { isStudioAdminEmail, STUDIO_ADMIN_EMAIL } from "../lib/admin";
 import { safeInternalPath } from "../lib/siteRoutes";
 
 const { auth } = siteContent;
@@ -49,7 +50,9 @@ type AuthContextValue = {
   authOpen: boolean;
   openAuth: () => void;
   closeAuth: () => void;
+  isAdmin: boolean;
   login: (email: string, password: string, consents: Consents) => Promise<string | null | "verify">;
+  loginAdmin: (password: string) => Promise<string | null>;
   register: (
     email: string,
     password: string,
@@ -314,12 +317,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     () => ({
       session,
       ready,
+      isAdmin: isStudioAdminEmail(session?.email),
       purchases,
       digitalOrders,
       ownsDigital: (id) => ownedProductIds(digitalOrders).has(id),
       authOpen,
       openAuth: () => setAuthOpen(true),
       closeAuth: () => setAuthOpen(false),
+      loginAdmin: async (password) => {
+        const sb = getSupabaseClient();
+        if (!sb) return auth.errori.servizio;
+        const { data, error } = await sb.auth.signInWithPassword({
+          email: STUDIO_ADMIN_EMAIL,
+          password,
+        });
+        if (error || !data.user) return mapAuthError(error, auth.errori.credenziali);
+        if (!isStudioAdminEmail(data.user.email)) {
+          await sb.auth.signOut();
+          return siteContent.admin.nonAutorizzata;
+        }
+        const consents = { privacy: true, adult: true, refund: true };
+        const next = mapUser(data.user, consents);
+        if (!next) {
+          await sb.auth.signOut();
+          return auth.errori.credenziali;
+        }
+        const list = await loadRemotePurchases(next.id);
+        applySession(next, list);
+        applyDigital(await loadRemoteDigitalOrders(next.id));
+        return null;
+      },
       login: async (email, password, consents) => {
         if (!hasRequiredConsents(consents)) return auth.errori.consensi;
         const e = email.trim().toLowerCase();

@@ -45,7 +45,7 @@ function parseTab(value: string | null): Tab {
 }
 
 export function Riservata() {
-  const { session, purchases, digitalOrders, ownsDigital, logout, requestWithdrawal, refreshPurchases } = useAuth();
+  const { session, purchases, digitalOrders, ownsDigital, isAdmin, logout, requestWithdrawal, refreshPurchases } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
   const checkout = searchParams.get("checkout");
   const checkoutBooking = searchParams.get("booking");
@@ -210,8 +210,13 @@ export function Riservata() {
         lead={`Iniziato · ${session?.email}. Qui trovi lo storico degli acquisti, le dispense e i materiali alchemici.`}
         cta={{ to: "/consulti", label: siteContent.cta.consultoWhatsapp }}
       >
-        <div className="mt-8 flex items-center gap-4">
+        <div className="mt-8 flex flex-wrap items-center gap-4">
           <span className="bg-paper px-3 py-1.5 text-[0.625rem] uppercase tracking-[0.16em]">Attivo</span>
+          {isAdmin ? (
+            <Button to="/admin" variant="ghost">
+              {siteContent.admin.titolo}
+            </Button>
+          ) : null}
           <button
             type="button"
             onClick={() => void logout()}

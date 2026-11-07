@@ -5,7 +5,7 @@ import { siteContent } from "../data/siteContent";
 import { normalizeAppPath } from "./siteRoutes";
 import { SUBSTACK_HOME, SUBSTACK_PROFILE } from "./substack";
 
-const { brand, chiSiamo, consulti, home, legal, nav, pages, percorsi } = siteContent;
+const { admin, brand, chiSiamo, consulti, home, legal, nav, pages, percorsi } = siteContent;
 
 export const SITE_URL = legal.sitoUrl.replace(/\/$/, "");
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/immagine-snippet.jpg`;
@@ -167,7 +167,7 @@ function arcanaSeoPages(): SeoPage[] {
   return [...maggiori, ...minori];
 }
 
-const PRIVATE_PATHS = ["/carrello", "/login", "/riservata"] as const;
+const PRIVATE_PATHS = ["/carrello", "/login", "/admin", "/riservata"] as const;
 
 export function liveSeoPages() {
   return [...CORE_LIVE, ...arcanaSeoPages()];
@@ -183,6 +183,7 @@ export function seoForPath(pathname: string): SeoPage {
     const labels: Record<(typeof PRIVATE_PATHS)[number], string> = {
       "/carrello": pages.carrello.titolo,
       "/login": nav.accedi,
+      "/admin": admin.titolo,
       "/riservata": nav.riservata,
     };
     return {
@@ -716,6 +717,7 @@ const AI_SEARCH_AGENTS = [
 export function buildRobotsTxt() {
   const privateDisallow = `Disallow: /carrello
 Disallow: /login
+Disallow: /admin
 Disallow: /riservata
 Disallow: /shop
 Disallow: /corsi

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
@@ -146,11 +147,12 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
 
 /** Barra contatti: nasconde il dock quando un overlay è aperto. */
 export function StudioContactDock() {
+  const { pathname } = useLocation();
   const { open: cookieOpen, ready, reopen } = useConsent();
   const { authOpen } = useAuth();
   const { open: percorsiOpen } = usePercorsi();
   const chatOpen = useSyncExternalStore(tarotChatUi.subscribe, tarotChatUi.getOpen, () => false);
-  const hidden = !ready || cookieOpen || authOpen || percorsiOpen || chatOpen;
+  const hidden = pathname === "/admin" || !ready || cookieOpen || authOpen || percorsiOpen || chatOpen;
   return <ContactDock onCookies={reopen} hidden={hidden} />;
 }
 

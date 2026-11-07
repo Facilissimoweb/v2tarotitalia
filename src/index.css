@@ -90,6 +90,23 @@
     color: var(--color-on-ink);
   }
 
+  img,
+  picture,
+  svg,
+  video {
+    -webkit-user-drag: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+  }
+
+  input,
+  textarea,
+  [contenteditable="true"] {
+    user-select: text;
+    -webkit-user-select: text;
+  }
+
   button,
   input,
   textarea,

@@ -57,9 +57,26 @@ function ScrollToTop() {
   return null;
 }
 
+function ProtectMedia() {
+  useEffect(() => {
+    const block = (event: Event) => {
+      const node = event.target;
+      if (node instanceof HTMLImageElement || node instanceof SVGImageElement) event.preventDefault();
+    };
+    document.addEventListener("contextmenu", block);
+    document.addEventListener("dragstart", block);
+    return () => {
+      document.removeEventListener("contextmenu", block);
+      document.removeEventListener("dragstart", block);
+    };
+  }, []);
+  return null;
+}
+
 export function Layout() {
   return (
     <div className="flex min-h-dvh flex-col bg-ivory text-ink">
+      <ProtectMedia />
       <PageSpeechSkipLink />
       <ScrollToTop />
       <PostAuthBounce />
