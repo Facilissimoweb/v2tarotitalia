@@ -243,38 +243,24 @@ export const siteContent = {
     },
     contatti: {
       kicker: "Contatti",
-      titolo: "Contatti – Inizia il Tuo Spazio di Ascolto",
+      titolo: "Contatti",
+      intro: "Per informazioni o appuntamenti, scrivimi o chiamami.",
       seo: {
         titolo: "Contatti | Tarot Italia a Macerata e online",
         descrizione:
-          "Contatti Tarot Italia di Maria Teresa Rogani: Via Crispi 37, 62100 Macerata. Consulti e Percorsi di Armonizzazione, su appuntamento, dal vivo e online.",
+          "Scrivi o chiama Maria Teresa Rogani per informazioni e appuntamenti. Ricevo a Macerata e online.",
       },
-      primoPasso: {
-        kicker: "Il Primo Passo",
-        titolo: "Il Primo Passo",
-        testo:
-          "Benvenuti nella sezione dedicata al contatto diretto. Se desiderate richiedere informazioni sui consulti singoli, approfondire la struttura dei Percorsi di Armonizzazione o semplicemente valutare quale modalità sia più adatta alle vostre esigenze attuali, potete scrivermi in totale riservatezza.",
-      },
-      canali: {
-        kicker: "Come Mettervi in Contatto",
-        titolo: "Come Mettervi in Contatto",
-        modulo: "Modulo di Contatto",
-        email: "Email Diretta",
-      },
-      note: {
-        kicker: "Note Operative",
-        titolo: "Note Operative",
-        gestione:
-          "Ciascuna richiesta viene letta e gestita personalmente da me (M. Teresa), garantendovi un’attenzione sartoriale fin dal primo messaggio.",
-        appuntamento:
-          "Gli incontri si svolgono su appuntamento e in uno spazio riservato, pensato per offrirvi il massimo rispetto dei vostri tempi e delle vostre esigenze.",
-      },
+      moduloKicker: "Modulo",
+      moduloTitolo: "Scrivimi",
+      recapitiTitolo: "Email e telefono",
+      sede: "Via Crispi 37, 62100 Macerata",
+      appuntamento: "Ricevo su appuntamento.",
       form: {
         nome: "Nome",
         email: "Email",
         oggetto: "Oggetto",
         messaggio: "Messaggio",
-        invia: "Invia il messaggio",
+        invia: "Apri il programma email",
       },
     },
     arcani: {
