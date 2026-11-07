@@ -8,17 +8,17 @@ import { SectionBrandMark } from "../components/WidgetFrame";
 import { Reveal } from "../components/Reveal";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 
-const { brand, chiSiamo, cta, nav } = siteContent;
+const { brand, chiSono, cta, nav } = siteContent;
 
-export function ChiSiamo() {
+export function ChiSono() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
 
   return (
     <div>
       <PageBanner
-        title={chiSiamo.titolo}
-        subtitle={chiSiamo.sottotitolo}
-        background={chiSiamo.immagini.hero}
+        title={chiSono.titolo}
+        subtitle={chiSono.sottotitolo}
+        background={chiSono.immagini.hero}
         className="mb-6 md:mb-8"
       />
 
@@ -26,23 +26,23 @@ export function ChiSiamo() {
       <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:gap-24">
           <ImageSlot
-            src={chiSiamo.immagini.teresa.src}
-            alt={chiSiamo.immagini.teresa.alt}
-            caption={chiSiamo.immagini.teresa.caption}
+            src={chiSono.immagini.teresa.src}
+            alt={chiSono.immagini.teresa.alt}
+            caption={chiSono.immagini.teresa.caption}
             fit="contain"
           />
           <div className="md:pt-10">
             <Reveal>
-              <Kicker>{chiSiamo.visione.kicker}</Kicker>
+              <Kicker>{chiSono.visione.kicker}</Kicker>
             </Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {chiSiamo.visione.titolo}
+                {chiSono.visione.titolo}
               </h2>
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">
-                {chiSiamo.visione.testo}
+                {chiSono.visione.testo}
               </p>
             </Reveal>
             <Reveal delay={280}>
@@ -63,33 +63,33 @@ export function ChiSiamo() {
           <div className="grid items-start gap-16 md:grid-cols-2 md:gap-24">
             <div>
               <Reveal>
-                <Kicker>{chiSiamo.metodo.kicker}</Kicker>
+                <Kicker>{chiSono.metodo.kicker}</Kicker>
               </Reveal>
               <Reveal delay={100}>
                 <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                  {chiSiamo.metodo.titolo}
+                  {chiSono.metodo.titolo}
                 </h2>
                 <p className="mt-5 font-display text-xl font-normal leading-snug text-ink/80 md:text-2xl">
-                  {chiSiamo.metodo.sottotitolo}
+                  {chiSono.metodo.sottotitolo}
                 </p>
               </Reveal>
               <Reveal delay={200}>
-                <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{chiSiamo.metodo.testo}</p>
-                <p className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">{chiSiamo.metodo.ponte}</p>
+                <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{chiSono.metodo.testo}</p>
+                <p className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">{chiSono.metodo.ponte}</p>
               </Reveal>
             </div>
             <ImageSlot
-              src={chiSiamo.immagini.simboli.src}
-              alt={chiSiamo.immagini.simboli.alt}
-              caption={chiSiamo.immagini.simboli.caption}
-              note={chiSiamo.immagini.simboli.nota}
+              src={chiSono.immagini.simboli.src}
+              alt={chiSono.immagini.simboli.alt}
+              caption={chiSono.immagini.simboli.caption}
+              note={chiSono.immagini.simboli.nota}
               fit="contain"
               className="w-full"
             />
           </div>
 
           <div className="mt-20 grid gap-12 md:grid-cols-2 md:gap-16">
-            {chiSiamo.metodo.categorie.map((voce, i) => (
+            {chiSono.metodo.categorie.map((voce, i) => (
               <Reveal key={voce.titolo} delay={i * 80}>
                 <p className="text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-ember-soft">
                   {String(i + 1).padStart(2, "0")}
@@ -118,15 +118,15 @@ export function ChiSiamo() {
       <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-3xl">
           <Reveal>
-            <Kicker>{chiSiamo.etica.kicker}</Kicker>
+            <Kicker>{chiSono.etica.kicker}</Kicker>
           </Reveal>
           <Reveal delay={100}>
             <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-              {chiSiamo.etica.titolo}
+              {chiSono.etica.titolo}
             </h2>
           </Reveal>
           <Reveal delay={200}>
-            <p className="mt-10 text-base leading-[1.9] text-ink/75">{chiSiamo.etica.testo}</p>
+            <p className="mt-10 text-base leading-[1.9] text-ink/75">{chiSono.etica.testo}</p>
           </Reveal>
         </div>
       </StackSheet>
@@ -135,16 +135,16 @@ export function ChiSiamo() {
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-24">
           <div>
             <Reveal>
-              <Kicker>{chiSiamo.formazione.kicker}</Kicker>
+              <Kicker>{chiSono.formazione.kicker}</Kicker>
             </Reveal>
             <Reveal delay={100}>
               <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {chiSiamo.formazione.titolo}
+                {chiSono.formazione.titolo}
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{chiSiamo.formazione.lead}</p>
-              {chiSiamo.formazione.testi.map((paragrafo) => (
+              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{chiSono.formazione.lead}</p>
+              {chiSono.formazione.testi.map((paragrafo) => (
                 <p key={paragrafo.slice(0, 48)} className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">
                   {paragrafo}
                 </p>
@@ -152,9 +152,9 @@ export function ChiSiamo() {
             </Reveal>
           </div>
           <ImageSlot
-            src={chiSiamo.immagini.studio.src}
-            alt={chiSiamo.immagini.studio.alt}
-            caption={chiSiamo.immagini.studio.caption}
+            src={chiSono.immagini.studio.src}
+            alt={chiSono.immagini.studio.alt}
+            caption={chiSono.immagini.studio.caption}
             fit="contain"
             className="mx-auto w-full max-w-md md:max-w-lg"
           />
@@ -164,10 +164,10 @@ export function ChiSiamo() {
       <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-4xl">
           <Reveal>
-            <Kicker>{chiSiamo.percorsoKicker}</Kicker>
+            <Kicker>{chiSono.percorsoKicker}</Kicker>
           </Reveal>
           <ul className="mt-16 divide-y divide-ink/10">
-            {chiSiamo.percorsoDisciplinare.map((item, i) => (
+            {chiSono.percorsoDisciplinare.map((item, i) => (
               <Reveal key={item.titolo} as="li" delay={i * 80} className="grid gap-3 py-10 md:grid-cols-[1fr_1fr] md:gap-16">
                 <p className="font-display text-xl text-ink">{item.titolo}</p>
                 <p className="text-sm leading-relaxed text-ink/65 md:text-right">{item.dettaglio}</p>
@@ -177,7 +177,7 @@ export function ChiSiamo() {
           <Reveal delay={200}>
             <div className="mt-14 text-center">
               <Button variant="ghost" onClick={() => setFormazioneOpen(true)}>
-                {chiSiamo.percorsoEsteso.kicker}
+                {chiSono.percorsoEsteso.kicker}
               </Button>
             </div>
           </Reveal>
@@ -189,7 +189,7 @@ export function ChiSiamo() {
           <div className="mx-auto max-w-2xl bg-mist px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
-              <Button to="/consulti">{chiSiamo.ctaConsulti}</Button>
+              <Button to="/consulti">{chiSono.ctaConsulti}</Button>
               <Button to="/contatti" variant="ghost">
                 {cta.scriviStudio}
               </Button>

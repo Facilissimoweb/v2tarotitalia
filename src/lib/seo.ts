@@ -5,7 +5,7 @@ import { siteContent } from "../data/siteContent";
 import { normalizeAppPath } from "./siteRoutes";
 import { SUBSTACK_HOME, SUBSTACK_PROFILE } from "./substack";
 
-const { admin, brand, chiSiamo, consulti, home, legal, nav, pages, percorsi } = siteContent;
+const { admin, brand, chiSono, consulti, home, legal, nav, pages, percorsi } = siteContent;
 
 export const SITE_URL = legal.sitoUrl.replace(/\/$/, "");
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/immagine-snippet.jpg`;
@@ -55,8 +55,8 @@ const CORE_LIVE: SeoPage[] = [
   },
   {
     path: "/chi-sono",
-    title: chiSiamo.seo.titolo,
-    description: chiSiamo.seo.descrizione,
+    title: chiSono.seo.titolo,
+    description: chiSono.seo.descrizione,
     image: DEFAULT_OG_IMAGE,
     robots: INDEX_FOLLOW,
     changefreq: "monthly",
@@ -255,7 +255,7 @@ function personJsonLd() {
     alternateName: ["M. Teresa Rogani", "Teresa"],
     jobTitle: brand.ruolo,
     url: canonicalUrl("/chi-sono"),
-    image: imageUrl(chiSiamo.immagini.teresa.src),
+    image: imageUrl(chiSono.immagini.teresa.src),
     worksFor: { "@id": STUDIO_ID },
     address: postalAddress(),
     email: brand.email,
@@ -320,7 +320,7 @@ function professionalServiceJsonLd() {
     legalName: brand.sottotitolo,
     description: home.seo.descrizione,
     url: SITE_URL,
-    image: [DEFAULT_OG_IMAGE, imageUrl(brand.logo), imageUrl(chiSiamo.immagini.teresa.src)],
+    image: [DEFAULT_OG_IMAGE, imageUrl(brand.logo), imageUrl(chiSono.immagini.teresa.src)],
     logo: imageUrl(brand.logo),
     telephone: brand.whatsapp,
     email: brand.email,
@@ -383,7 +383,7 @@ function webPageJsonLd(page: SeoPage) {
 
 function breadcrumbJsonLd(page: SeoPage) {
   const crumbs: { name: string; path: string }[] = [{ name: nav.home, path: "/" }];
-  if (page.path === "/chi-sono") crumbs.push({ name: nav.chiSiamo, path: "/chi-sono" });
+  if (page.path === "/chi-sono") crumbs.push({ name: nav.chiSono, path: "/chi-sono" });
   if (page.path === "/consulti") crumbs.push({ name: nav.consulti, path: "/consulti" });
   if (page.path === "/percorsi") crumbs.push({ name: nav.percorsi, path: "/percorsi" });
   if (page.path === "/blog") crumbs.push({ name: nav.blog, path: "/blog" });

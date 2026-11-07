@@ -100,7 +100,7 @@ Replicate the website footer inside the email. Blocks **stacked cleanly**, top �
 | Disclaimer Legale (Deontologia & Legge) | `https://www.tarotitalia.com/disclaimer` |
 | Termini e Condizioni | `https://www.tarotitalia.com/termini` |
 
-> **Route note:** `/disclaimer` is a public page; `/termini` redirects permanently to `/termini-di-servizio`. Never use `/chi-siamo`.
+> **Route note:** `/disclaimer` is a public page; `/termini` redirects permanently to `/termini-di-servizio`.
 
 #### C. Interactive contact buttons
 
@@ -181,7 +181,7 @@ Each type reuses header + advanced footer. Subject lines: clear, no clickbait.
 - [ ] Header logo 130px + subtitle
 - [ ] Welcome body includes Percorsi + Riservata + Consulti CTAs
 - [ ] Footer order: tutela → legal → WhatsApp/Chiama → logo 90px → nav → fiscal → support → motto
-- [ ] Nav uses `/chi-sono` (never `/chi-siamo`)
+- [ ] Nav uses `/chi-sono`
 - [ ] Fiscal line exact
 - [ ] Max width 560px; palette ivory / ink / sage / `#F1F0EC`
 - [ ] No PayPal/credits pitches; no unauthorized methods; no medical claims

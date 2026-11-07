@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { siteContent } from "../data/siteContent";
 import { WidgetDialog } from "./WidgetDialog";
 
-const { percorsoEsteso } = siteContent.chiSiamo;
+const { percorsoEsteso } = siteContent.chiSono;
 
 function FormazioneCards() {
   return (

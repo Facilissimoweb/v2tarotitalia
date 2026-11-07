@@ -36,7 +36,7 @@ export const siteContent = {
 
   nav: {
     home: "Home",
-    chiSiamo: "Chi sono",
+    chiSono: "Chi sono",
     tarocchi: "Tarocchi",
     arcaniMaggiori: "22 Arcani Maggiori",
     arcaniMinori: "Arcani Minori",
@@ -114,7 +114,7 @@ export const siteContent = {
     telegram: "Telegram",
     esploraArcani: "Esplora i 22 Arcani",
     formazioneOlistica: "Formazione olistica",
-    leggiChiSiamo: "Leggi Chi sono",
+    leggiChiSono: "Leggi Chi sono",
     scriviStudio: "Scrivimi",
     percorsi: "Percorsi",
     prenotaPercorso: "Prenota questo percorso",
@@ -137,10 +137,10 @@ export const siteContent = {
     },
     copyright: "© Tarot Italia",
     firma: "di M. Teresa Rogani",
-    benvenuto: "Leggo i tarocchi come un linguaggio simbolico per osservare il presente e orientare con consapevolezza le scelte.",
-    competenze: "Tarologia archetipica e consulti evolutivi",
+    benvenuto: "Letture in studio a Macerata e online, per esplorare il presente e le possibili direzioni future.",
+    competenze: "Cartomanzia · letture dei tarocchi dal vivo e online",
     lead: sloganBrand,
-    chiSiamo: {
+    chiSono: {
       kicker: "Il mio approccio",
       titolo: "Le immagini dei tarocchi come linguaggio",
       benvenuto:
@@ -384,7 +384,7 @@ export const siteContent = {
   },
 
 
-  chiSiamo: {
+  chiSono: {
     kicker: "Chi sono",
     titolo: "Chi sono",
     sottotitolo: "Tarologa a Macerata · Consulti in studio e online",
@@ -513,7 +513,7 @@ export const siteContent = {
     },
     immagini: {
       hero: {
-        src: "/chi-siamo/hero-putti.webp?v=3",
+        src: "/chi-sono/hero-putti.webp?v=3",
         alt: "M. Teresa Rogani, Tarot Italia",
         position: "right center",
         fit: "contain",
@@ -521,24 +521,24 @@ export const siteContent = {
         height: 469,
       },
       teresa: {
-        src: "/chi-siamo/teresa-ritratto.jpg?v=6",
+        src: "/chi-sono/teresa-ritratto.jpg?v=6",
         alt: "Ritratto evocativo di M. Teresa Rogani, operatrice olistica ed esoterica, cartomante e tarologa professionista",
         caption: "M. Teresa Rogani",
       },
       pamela: {
-        src: "/chi-siamo/pamela-colman-smith.webp",
+        src: "/chi-sono/pamela-colman-smith.webp",
         alt: "Pamela Colman Smith",
         caption:
           "Pamela Colman Smith (1878–1951), artista e illustratrice del mazzo Rider–Waite–Smith (1909).",
         nota: "Le scene illustrate degli Arcani Minori resero questo mazzo un riferimento per le successive tradizioni di tarocchi.",
       },
       studio: {
-        src: "/chi-siamo/studio-board.jpg?v=1",
+        src: "/chi-sono/studio-board.jpg?v=1",
         alt: "Sede di Tarot Italia in Via Crispi 37 a Macerata",
         caption: "Via Crispi 37 · Macerata",
       },
       simboli: {
-        src: "/chi-siamo/tavolo-arcani.jpg?v=1",
+        src: "/chi-sono/tavolo-arcani.jpg?v=1",
         alt: "Carta dell'Eremita — Tarot Italia",
         caption: "Carta dell'Eremita",
         nota: "L’Eremita richiama la ricerca della conoscenza e l’osservazione consapevole.",
@@ -571,7 +571,7 @@ export const siteContent = {
     citazione:
       "Chiarezza, rispetto e crescita personale: la direzione resta tua.",
     immagine: {
-      src: "/chi-siamo/folklore-marche.svg?v=2",
+      src: "/chi-sono/folklore-marche.svg?v=2",
       alt: "Percorsi di armonizzazione e consapevolezza — Tarot Italia",
       caption: "Percorsi di Armonizzazione",
     },

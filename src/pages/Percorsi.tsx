@@ -7,7 +7,7 @@ import { Reveal } from "../components/Reveal";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { SectionBrandMark } from "../components/WidgetFrame";
 
-const { brand, chiSiamo, cta, nav, pages, percorsi } = siteContent;
+const { brand, chiSono, cta, nav, pages, percorsi } = siteContent;
 
 export function Percorsi() {
   const { openPercorso } = usePercorsi();
@@ -93,7 +93,7 @@ export function Percorsi() {
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
               <Button onClick={() => openPercorso()}>{cta.prenotaPercorso}</Button>
               <Button to="/consulti" variant="ghost">
-                {chiSiamo.ctaConsulti}
+                {chiSono.ctaConsulti}
               </Button>
             </div>
           </div>

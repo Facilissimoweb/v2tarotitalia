@@ -27,7 +27,7 @@ const UtilityCapsule = lazy(() =>
   import("./components/UtilityCapsule").then((m) => ({ default: m.UtilityCapsule })),
 );
 
-const ChiSiamo = lazy(() => import("./pages/ChiSiamo").then((m) => ({ default: m.ChiSiamo })));
+const ChiSono = lazy(() => import("./pages/ChiSono").then((m) => ({ default: m.ChiSono })));
 const Arcani = lazy(() => import("./pages/Arcani").then((m) => ({ default: m.Arcani })));
 const ArcanoDetail = lazy(() =>
   import("./pages/Arcani").then((m) => ({ default: m.ArcanoDetail })),
@@ -83,11 +83,10 @@ export default function App() {
                 path="/chi-sono"
                 element={
                   <Suspense fallback={<RouteFallback />}>
-                    <ChiSiamo />
+                    <ChiSono />
                   </Suspense>
                 }
               />
-              <Route path="/chi-siamo" element={<Navigate to="/chi-sono" replace />} />
               <Route
                 path="/arcani"
                 element={

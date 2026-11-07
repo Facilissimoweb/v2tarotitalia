@@ -4,7 +4,6 @@ import { ARCANI_MINORI } from "../data/arcaniMinori.ts";
 export const STATIC_APP_PATHS = [
   "/",
   "/chi-sono",
-  "/chi-siamo",
   "/arcani",
   "/arcani-minori",
   "/consulti",

@@ -1,7 +1,6 @@
 {
   "redirects": [
     { "source": "/rituali", "destination": "/percorsi", "permanent": true },
-    { "source": "/chi-siamo", "destination": "/chi-sono", "permanent": true },
     { "source": "/termini", "destination": "/termini-di-servizio", "permanent": true },
     { "source": "/privacy", "destination": "/privacy.html", "permanent": true }
   ],

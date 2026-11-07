@@ -4,7 +4,7 @@ import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
 import { Button } from "./Button";
 
-const { chiSiamo, home, nav, pages } = siteContent;
+const { chiSono, home, nav, pages } = siteContent;
 
 const titolo = home.titolo;
 const parole = titolo.split(/\s+/);
@@ -14,8 +14,8 @@ const precedenti = parole.slice(0, -1);
 const azioni = [
   {
     n: "01",
-    titolo: nav.chiSiamo,
-    testo: chiSiamo.sottotitolo,
+    titolo: nav.chiSono,
+    testo: chiSono.sottotitolo,
     to: "/chi-sono",
   },
   {
