@@ -60,9 +60,10 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ivory text-ink lg:min-h-[66svh] xl:min-h-[72svh]"
+      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ivory text-ink max-lg:pb-[calc(4.75rem+var(--dock-lift)+env(safe-area-inset-bottom,0px))] lg:min-h-[66svh] xl:min-h-[72svh]"
     >
       <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-5 pb-8 pt-[var(--nav-offset)] sm:px-6 md:px-10 md:pb-12 lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible xl:min-h-[72svh] xl:px-16 2xl:px-20">
+        <div aria-hidden className="hero-copy-veil lg:hidden" />
         <motion.div
           className="relative mx-auto w-full max-w-[96rem] items-center max-lg:contents lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.95fr)] lg:gap-6 xl:gap-10"
           variants={container}

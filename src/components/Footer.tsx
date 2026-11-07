@@ -138,7 +138,7 @@ export function Footer() {
         <img src="/footer-putti.png?v=3" alt="" className="footer-angelo-tile" />
       </div>
       <div
-        className="h-[calc(5.25rem+env(safe-area-inset-bottom,0px))] bg-plate md:h-[calc(5.75rem+env(safe-area-inset-bottom,0px))]"
+        className="h-[calc(5.25rem+var(--dock-lift)+env(safe-area-inset-bottom,0px))] bg-plate md:h-[calc(5.75rem+var(--dock-lift)+env(safe-area-inset-bottom,0px))]"
         aria-hidden
       />
 

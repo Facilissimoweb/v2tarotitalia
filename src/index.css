@@ -389,15 +389,29 @@
     justify-content: flex-end;
     overflow: hidden;
     pointer-events: none;
-    mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
   }
 
   .hero-angelo {
     height: min(78svh, 38rem);
     max-width: none;
     object-position: center top;
-    opacity: 0.9;
+    opacity: 0.82;
+  }
+
+  .hero-copy-veil {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      108deg,
+      var(--color-ivory) 0%,
+      rgb(249 248 246 / 0.96) 22%,
+      rgb(249 248 246 / 0.72) 38%,
+      rgb(249 248 246 / 0.32) 56%,
+      rgb(249 248 246 / 0.08) 74%,
+      transparent 92%
+    );
   }
 
   .hero-drop-t {
@@ -745,6 +759,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
 :root {
   --nav-offset: calc(56px + env(safe-area-inset-top, 0px));
+  --dock-lift: 1.25rem;
 }
 
 @media (min-width: 1280px) {
