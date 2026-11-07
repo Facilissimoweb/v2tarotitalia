@@ -19,7 +19,6 @@ import { Button } from "../components/Button";
 import { BookingCalendar } from "../components/BookingCalendar";
 import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
-import { PlateFocus } from "../components/PlateFocus";
 import { Reveal } from "../components/Reveal";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 
@@ -125,15 +124,8 @@ export function Consulti() {
         background={consulti.immagini.hero}
         className="mb-0"
       />
-      <PlateFocus items={consulti.orientamento} />
 
       <StackDeck flush>
-      <StackSheet label={nav.consulti} className="border-b border-ink/10 bg-ivory px-6 py-16 md:px-10 md:py-20">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-base leading-[1.9] text-ink/80">{consulti.apertura}</p>
-        </div>
-      </StackSheet>
-
       <StackSheet className="bg-paper">
       <div
         id="prenota"
@@ -274,6 +266,36 @@ export function Consulti() {
           </section>
         </Reveal>
       </div>
+      </StackSheet>
+
+      <StackSheet className="bg-ivory px-6 py-12 md:px-10 md:py-16">
+        <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-16">
+          <article className="border-t border-ink/15 pt-6">
+            <p className="text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-ember-soft">
+              Il consulto
+            </p>
+            <h2 className="mt-4 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
+              Lettura dei tarocchi dal vivo
+            </h2>
+            <p className="mt-5 text-sm leading-[1.9] text-ink/75">
+              {consulti.letturaDalVivo}
+            </p>
+          </article>
+          <article className="border-t border-ink/15 pt-6">
+            <p className="text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-ember-soft">
+              La sede
+            </p>
+            <h2 className="mt-4 font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
+              Lettura dei tarocchi in Via Crispi a Macerata
+            </h2>
+            <p className="mt-5 text-sm leading-[1.9] text-ink/75">
+              {siteContent.brand.studioDiTeresa}
+            </p>
+            <p className="mt-4 text-sm leading-[1.9] text-ink/75">
+              {consulti.studioSeraChiuso}
+            </p>
+          </article>
+        </div>
       </StackSheet>
 
       <PageFaq kicker={consulti.faq.kicker} titolo={consulti.faq.titolo} voci={consulti.faq.voci} />

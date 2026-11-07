@@ -907,8 +907,8 @@ export const siteContent = {
       descrizione:
         "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con Maria Teresa Rogani, dal vivo in Via Crispi 37 e via chiamata vocale WhatsApp.",
     },
-    apertura:
-      "Lettura dei tarocchi dal vivo, in Via Crispi 37 a Macerata, e online. Consulti di 30 o 60 minuti con Maria Teresa Rogani, su appuntamento. A distanza, chiamata vocale WhatsApp: nessuna videochiamata.",
+    letturaDalVivo:
+      "Consulti di 30 o 60 minuti con Maria Teresa Rogani, su appuntamento. La lettura si svolge dal vivo oppure a distanza tramite chiamata vocale WhatsApp, senza videochiamata.",
     modalita: {
       presenza: "Dal vivo",
       presenzaNota: "Via Crispi 37, Macerata",
@@ -925,28 +925,6 @@ export const siteContent = {
         height: 469,
       },
     },
-    orientamento: [
-      {
-        n: "01",
-        titolo: "Cosa sono i tarocchi?",
-        testo: "Un sistema di 78 lame che mappa gli archetipi dell’esperienza umana. Non una semplice predizione, ma uno specchio rigoroso del presente per decodificare il futuro.",
-      },
-      {
-        n: "02",
-        titolo: "A chi si rivolgono?",
-        testo: "A chiunque attraversi un momento di snodo, di domanda o di incertezza e cerchi coordinate lucide per fare chiarezza dentro e fuori di sé.",
-      },
-      {
-        n: "03",
-        titolo: "Quando fare una lettura?",
-        testo: "Quando la mente è disposta all’ascolto. È consigliabile interrogare le lame quando si è centrati, evitando il panico cieco o la confusione caotica: la risposta cerca una terra stabile.",
-      },
-      {
-        n: "04",
-        titolo: "Come approcciarsi?",
-        testo: "Con ascolto nudo e assenza di dogmi. Accostarsi alle carte richiede la disponibilità a ricevere una prospettiva veritiera, anche quando disattende le attese.",
-      },
-    ],
     faq: {
       kicker: "Chiarezza",
       titolo: "Domande frequenti",
