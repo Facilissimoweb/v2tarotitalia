@@ -80,7 +80,7 @@ export function HomeHero() {
             <motion.div variants={reduce ? undefined : riseLogo}>
               <BrandLogo
                 tone="hero"
-                className="hero-glow mb-6 h-[8rem] w-[8rem] md:mb-8 md:h-[10rem] md:w-[10rem] lg:h-[11.5rem] lg:w-[11.5rem]"
+                className="hero-glow mb-5 h-[6rem] w-[6rem] md:mb-7 md:h-[7rem] md:w-[7rem] lg:h-[7.75rem] lg:w-[7.75rem]"
               />
             </motion.div>
             <motion.h1

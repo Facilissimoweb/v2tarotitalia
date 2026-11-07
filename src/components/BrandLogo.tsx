@@ -33,7 +33,7 @@ export function BrandLogo({ className = "", tone = "mark", finish = "ivory" }: P
         fetchPriority={hero ? "high" : "auto"}
         loading={eager ? "eager" : "lazy"}
         className={`h-full w-full object-cover object-center ${
-          nav ? "origin-center scale-[1.36]" : hero ? "origin-center scale-[1.18]" : ""
+          nav ? "logo-nav-crop" : hero ? "logo-hero-crop" : ""
         }`}
       />
     </span>

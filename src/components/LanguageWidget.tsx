@@ -12,6 +12,7 @@ const { lingua, nav } = siteContent;
 type Props = {
   placement: "nav" | "footer" | "drawer";
   className?: string;
+  flagClassName?: string;
 };
 
 function matchesQuery(query: string, label: string, name: string, code: string) {
@@ -20,7 +21,7 @@ function matchesQuery(query: string, label: string, name: string, code: string) 
   return hay.includes(query);
 }
 
-export function LanguageWidget({ placement, className = "" }: Props) {
+export function LanguageWidget({ placement, className = "", flagClassName }: Props) {
   const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -81,7 +82,15 @@ export function LanguageWidget({ placement, className = "" }: Props) {
       >
         <LanguageFlag
           code={language}
-          className={compact ? "h-[1.35rem] w-8" : drawer ? "h-5 w-7" : "h-4 w-6"}
+          className={
+            flagClassName
+              ? flagClassName
+              : compact
+                ? "h-[1.35rem] w-8"
+                : drawer
+                  ? "h-5 w-7"
+                  : "h-4 w-6"
+          }
         />
         {compact ? (
           <span className="sr-only">{selectedLabel}</span>

@@ -23,7 +23,7 @@ import { ShopIcon } from "./ShopIcon";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 
 const { brand, nav } = siteContent;
-const marcaTarot = brand.wordmark.split(/\s+/)[0] ?? brand.name;
+const [marcaTarot, marcaItalia] = brand.wordmark.split(/\s+/);
 
 const MENU_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -134,17 +134,24 @@ export function Header() {
         <div className="relative flex h-16 w-full items-center justify-between gap-2 px-3 sm:px-4 xl:hidden">
           <NavLink
             to="/"
-            className="relative z-[1] flex min-w-0 items-center gap-2.5"
+            className="relative z-[1] flex min-w-0 items-center"
             aria-label={brand.wordmark}
             translate="no"
           >
-            <span className="nav-logo-glow shrink-0">
-              <BrandLogo tone="nav" className="relative z-[1] h-12 w-12" />
+            <span className="nav-brand-lockup min-w-0">
+              <span className="nav-brand-tarot">
+                <span aria-hidden className="nav-brand-tarot-bar" />
+                <span className="relative z-[1]">{marcaTarot}</span>
+              </span>
+              <span className="nav-brand-italia">{marcaItalia}</span>
             </span>
-            <span className="nav-brand-tarot min-w-0">{marcaTarot}</span>
           </NavLink>
           <div className="relative z-10 flex shrink-0 items-center">
-            <LanguageWidget placement="nav" className="w-11" />
+            <LanguageWidget
+              placement="nav"
+              className="h-8 w-8"
+              flagClassName="h-2.5 w-[0.9rem]"
+            />
             <CartLink className={NAV_ICON_BTN} />
             <button
               type="button"

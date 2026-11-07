@@ -245,6 +245,17 @@
   isolation: isolate;
 }
 
+/* Ritaglio: l’anello nero del sigillo a filo, senza disco bianco. */
+.logo-nav-crop {
+  transform: scale(1.52);
+  transform-origin: center;
+}
+
+.logo-hero-crop {
+  transform: scale(1.18);
+  transform-origin: center;
+}
+
 /* Grano carta: velo da foglio, senza coprire chrome e widget. */
 html::after {
   content: "";
@@ -482,16 +493,48 @@ h1.font-inquisition,
   font-style: normal;
 }
 
-.nav-brand-tarot {
+.nav-brand-lockup {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  justify-content: center;
+  color: #000000;
+}
+
+.nav-brand-tarot,
+.nav-brand-italia {
   font-family: "The Inquisition", var(--font-h1);
-  font-size: clamp(1.75rem, 8.5vw, 2.15rem);
   font-weight: 400;
   font-style: normal;
-  line-height: 0.78;
   letter-spacing: 0.02em;
   color: #000000;
   text-transform: uppercase;
   white-space: nowrap;
+}
+
+.nav-brand-tarot {
+  position: relative;
+  isolation: isolate;
+  width: fit-content;
+  font-size: clamp(1.42rem, 6.4vw, 1.72rem);
+  line-height: 0.78;
+}
+
+.nav-brand-tarot-bar {
+  position: absolute;
+  inset-inline: 0;
+  top: 50%;
+  z-index: 0;
+  height: 0.28em;
+  transform: translateY(-50%);
+  background-color: #d7f713;
+  pointer-events: none;
+}
+
+.nav-brand-italia {
+  margin-top: 0.06em;
+  font-size: clamp(0.92rem, 4.1vw, 1.12rem);
+  line-height: 0.82;
 }
 
 h2 {
@@ -765,7 +808,8 @@ html[data-a11y-contrast="on"] body {
 }
 
 html[data-a11y-contrast="on"]::after,
-html[data-a11y-contrast="on"] .hero-ember-field {
+html[data-a11y-contrast="on"] .hero-ember-field,
+html[data-a11y-contrast="on"] .nav-brand-tarot-bar {
   display: none;
 }
 
