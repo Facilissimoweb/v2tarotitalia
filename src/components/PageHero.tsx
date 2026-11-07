@@ -1,6 +1,5 @@
 import type { MouseEvent, ReactNode } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "./Button";
 import { GoogleMark, GoogleStars } from "./GoogleMark";
 import { PageBanner } from "./PageBanner";
 
@@ -37,50 +36,21 @@ type Props = {
 };
 
 /**
- * Intestazione delle pagine che non usano `PageBanner` in modo esplicito
- * (Blog, Arcani, Area riservata, ecc.): logo, titolo e sottotitolo (`lead`).
- * `media` diventa lo sfondo fotografico. `cta` / `secondary` restano in hero.
- * Eventuali `children` restano sotto.
+ * Intestazione compatta delle pagine interne; i contenuti aggiuntivi restano sotto.
  */
 export function PageHero({
+  kicker,
   title,
   lead,
-  media,
   children,
-  cta,
-  beforeCta,
-  secondary,
-  tertiary,
 }: Props) {
-  const onMedia = Boolean(media?.src);
-  const actions = [beforeCta, cta ?? undefined, secondary, tertiary].filter(
-    (item): item is HeroCta => Boolean(item),
-  );
-
   return (
     <>
       <PageBanner
+        eyebrow={kicker}
         title={title}
         subtitle={lead}
-        background={
-          media?.src
-            ? {
-                src: media.src,
-                alt: media.alt,
-                position: media.objectPosition,
-                width: media.width,
-                height: media.height,
-              }
-            : undefined
-        }
-        actions={
-          actions.length
-            ? actions.map((item, index) => (
-                <HeroAction key={`${item.label}-${index}`} item={item} onMedia={onMedia} />
-              ))
-            : undefined
-        }
-        className={children ? "mb-0 pb-6 md:pb-8" : "mb-10 md:mb-14"}
+        className={children ? "mb-0" : "mb-6 md:mb-8"}
       />
       {children ? (
         <div className="mx-auto flex w-full max-w-3xl justify-center px-6 pb-10 md:px-10 md:pb-14">
@@ -88,26 +58,6 @@ export function PageHero({
         </div>
       ) : null}
     </>
-  );
-}
-
-function HeroAction({ item, onMedia }: { item: HeroCta; onMedia: boolean }) {
-  if (item.accent === "google" && item.href) {
-    return <GoogleReviewsHeroLink href={item.href} label={item.label} onMedia={onMedia} />;
-  }
-
-  const variant = item.variant ?? "primary";
-  const resolved = onMedia && variant === "primary" ? "paper" : variant;
-
-  return (
-    <Button
-      variant={resolved}
-      to={item.to}
-      href={item.href}
-      onClick={item.onClick}
-    >
-      {item.label}
-    </Button>
   );
 }
 

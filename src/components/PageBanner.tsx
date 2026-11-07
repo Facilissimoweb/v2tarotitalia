@@ -1,6 +1,4 @@
 import type { ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
-import { BrandLogo } from "./BrandLogo";
 
 export type PageBannerMedia = {
   src: string;
@@ -16,92 +14,49 @@ export type PageBannerMedia = {
 type Props = {
   /** Titolo della pagina (h1). */
   title: ReactNode;
-  /** Sottotitolo della pagina, facoltativo. */
+  /** Etichetta introduttiva della pagina, facoltativa. */
+  eyebrow?: ReactNode;
+  /** Descrizione breve della pagina, facoltativa. */
   subtitle?: ReactNode;
-  /** Sfondo fotografico opzionale: ogni pagina può passare la propria immagine. */
+  /** Mantenuto per compatibilità con i contenuti esistenti. */
   background?: PageBannerMedia;
   /** Classi aggiuntive sul contenitore (es. margini verso il contenuto). */
   className?: string;
-  /** Mantenuto per compatibilità: tutte le hero usano il palco di Chi sono. */
+  /** Mantenuto per compatibilità con i contenuti esistenti. */
   mobileHeight?: "default" | "two-thirds";
-  /** Azioni in hero (CTA). Restano nel blocco LCP, sotto il sottotitolo. */
+  /** Mantenuto per compatibilità con i contenuti esistenti. */
   actions?: ReactNode;
 };
 
 /**
- * Hero delle pagine interne: logo e titolo centrati, stesso palco di Chi sono.
+ * Intestazione compatta delle pagine interne, senza il palco della Home.
  */
 export function PageBanner({
   title,
+  eyebrow,
   subtitle,
-  background,
   className = "",
-  actions,
 }: Props) {
-  const reduce = useReducedMotion();
-  const onMedia = Boolean(background?.src);
-  const contain = background?.fit === "contain";
-
   return (
     <header
       data-page-top
-      data-page-hero
-      className={
-        onMedia
-          ? `relative isolate flex flex-col overflow-hidden bg-plate text-white ${className}`.trim()
-          : `relative isolate flex flex-col bg-ivory text-ink ${className}`.trim()
-      }
+      className={`px-6 pt-[calc(var(--nav-offset)+1.5rem)] text-ink md:px-10 md:pt-[calc(var(--nav-offset)+2rem)] ${className}`.trim()}
     >
-      {background?.src ? (
-        <div className="pointer-events-none absolute inset-0" aria-hidden>
-          <img
-            src={background.src}
-            alt=""
-            width={background.width}
-            height={background.height}
-            fetchPriority="high"
-            decoding="async"
-            className={`absolute inset-0 h-full w-full ${contain ? "object-cover md:object-contain" : "object-cover"}`}
-            style={background.position ? { objectPosition: background.position } : undefined}
-          />
-          <span
-            className={
-              contain
-                ? "absolute inset-0 bg-gradient-to-b from-plate/40 via-transparent to-plate/50"
-                : "absolute inset-0 bg-gradient-to-b from-plate/50 via-plate/30 to-plate/65"
-            }
-          />
-        </div>
-      ) : null}
-
-      <motion.div
-        className="page-hero-stage"
-        initial={reduce ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <BrandLogo
-          tone={onMedia ? "hero" : "mark"}
-          className="logo-hero-ring h-[5.5rem] w-[5.5rem] md:h-[6.75rem] md:w-[6.75rem]"
-        />
-        <h1 className={`mt-8 font-h1 text-h1 md:mt-10 ${onMedia ? "text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)]" : "text-ink"}`}>
+      <div className="mx-auto max-w-6xl">
+        {eyebrow ? (
+          <p className="mb-3 text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-ember-soft">
+            {eyebrow}
+          </p>
+        ) : null}
+        <h1 className="font-h1 text-h1">
           {title}
         </h1>
         {subtitle ? (
-          <div
-            className={`mt-6 max-w-xl font-display text-base font-normal leading-relaxed md:mt-8 md:text-lg ${
-              onMedia ? "text-white/90" : "text-ink/75"
-            }`}
-          >
+          <p className="mt-3 max-w-3xl font-display text-base leading-relaxed text-ink/75 md:text-lg">
             {subtitle}
-          </div>
+          </p>
         ) : null}
-        {actions ? (
-          <div className="mt-8 flex w-full max-w-xl flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
-            {actions}
-          </div>
-        ) : null}
-      </motion.div>
+      </div>
     </header>
   );
 }

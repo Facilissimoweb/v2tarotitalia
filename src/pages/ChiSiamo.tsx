@@ -19,7 +19,7 @@ export function ChiSiamo() {
         title={brand.titolare}
         subtitle={chiSiamo.titolo}
         background={chiSiamo.immagini.hero}
-        className="mb-10 md:mb-14"
+        className="mb-6 md:mb-8"
       />
 
       <StackDeck>

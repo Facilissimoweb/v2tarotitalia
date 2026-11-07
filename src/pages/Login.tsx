@@ -48,7 +48,7 @@ export function Login() {
   return (
     <div>
       {pending ? (
-        <PageBanner title={auth.sogliaTitolo} subtitle={auth.sogliaLead} className="mb-10 md:mb-14" />
+        <PageBanner title={auth.sogliaTitolo} subtitle={auth.sogliaLead} className="mb-6 md:mb-8" />
       ) : (
         <PageHero
           kicker={nav.riservata}

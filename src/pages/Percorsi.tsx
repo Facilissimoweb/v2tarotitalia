@@ -18,7 +18,7 @@ export function Percorsi() {
         title={nav.percorsi}
         subtitle={pages.percorsi.titolo}
         background={percorsi.immagini.hero}
-        className="mb-10 md:mb-14"
+        className="mb-6 md:mb-8"
       />
 
       <StackDeck>
