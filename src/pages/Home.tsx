@@ -35,18 +35,14 @@ export function Home() {
             <Reveal delay={200}>
               <p className="mt-8 text-base leading-[1.85] text-ink/75">{home.chiSiamo.benvenuto}</p>
               <p className="mt-6 text-base leading-[1.85] text-ink/75">{home.chiSiamo.iconografia}</p>
-              <p className="mt-6 text-base leading-[1.85] text-ink/75">{home.chiSiamo.bussola}</p>
-              <p className="mt-6 text-base leading-[1.85] text-ink/75">{home.chiSiamo.percorsi}</p>
             </Reveal>
             <Reveal delay={300}>
               <div className="mt-10 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  {brand.titolare}, {brand.ruolo.toLowerCase()}.
+                  {brand.titolare} · Tarologa
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/70">{brand.modalitaLettura}</p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.studioDiTeresa}</p>
-                <p className="mt-2 text-sm leading-relaxed text-ink/65">{brand.piva}</p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.deontologia}</p>
               </div>
             </Reveal>

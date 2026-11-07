@@ -16,8 +16,8 @@ export function ChiSiamo() {
   return (
     <div>
       <PageBanner
-        title={brand.titolare}
-        subtitle={chiSiamo.titolo}
+        title={chiSiamo.titolo}
+        subtitle={chiSiamo.sottotitolo}
         background={chiSiamo.immagini.hero}
         className="mb-6 md:mb-8"
       />
@@ -49,11 +49,9 @@ export function ChiSiamo() {
               <div className="mt-12 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  {brand.titolare}, {brand.ruolo.toLowerCase()}.
+                  Ricevo su appuntamento in Via Crispi 37, a Macerata, e online tramite chiamata vocale WhatsApp.
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/70">{brand.modalitaLettura}</p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.studioDiTeresa}</p>
-                <p className="mt-2 text-sm leading-relaxed text-ink/65">{brand.piva}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.piva}</p>
               </div>
             </Reveal>
           </div>
@@ -190,7 +188,6 @@ export function ChiSiamo() {
         <Reveal>
           <div className="mx-auto max-w-2xl bg-mist px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />
-            <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
               <Button to="/consulti">{chiSiamo.ctaConsulti}</Button>
               <Button to="/contatti" variant="ghost">
