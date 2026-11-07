@@ -106,7 +106,7 @@ export function ArcanoAbbinamenti({ slug }: Props) {
       {partnerCard ? (
         <article
           ref={resultRef}
-          className="mt-8 scroll-mt-[calc(80px+env(safe-area-inset-top,0px)+16px)] bg-mist p-8 xl:scroll-mt-[calc(112px+env(safe-area-inset-top,0px)+16px)]"
+          className="mt-8 scroll-mt-[calc(var(--nav-offset)+16px)] bg-mist p-8"
         >
           <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
             {partnerCard.roman} · {partnerCard.name}

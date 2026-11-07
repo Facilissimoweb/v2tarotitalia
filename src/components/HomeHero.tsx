@@ -2,6 +2,7 @@ import { motion, useReducedMotion, type Variants } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
+import { Button } from "./Button";
 
 const { home, nav, pages } = siteContent;
 
@@ -45,13 +46,13 @@ const container: Variants = {
 };
 
 const riseIn: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.7, ease } },
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 };
 
 /**
  * Hero Home: griglia editoriale asimmetrica.
- * Titolo display Outfit ExtraBold, angelo a destra, fascia servizi 01–04.
+ * Su cellulare: manifesto a schermo pieno, angelo in overlay, fascia 01–04 compatta.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -59,19 +60,17 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate flex min-h-[66svh] flex-col overflow-hidden bg-ivory text-ink md:min-h-[72svh]"
+      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ivory text-ink lg:min-h-[66svh] xl:min-h-[72svh]"
     >
-      <div className="relative flex min-h-[66svh] flex-1 flex-col justify-center px-6 pb-10 pt-[var(--nav-offset)] md:min-h-[72svh] md:px-10 md:pb-12 xl:px-16 2xl:px-20">
+      <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-5 pb-8 pt-[var(--nav-offset)] sm:px-6 md:px-10 md:pb-12 lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible xl:min-h-[72svh] xl:px-16 2xl:px-20">
         <motion.div
-          className="mx-auto grid w-full max-w-[96rem] items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.95fr)] lg:gap-6 xl:gap-10"
+          className="relative mx-auto w-full max-w-[96rem] items-center max-lg:contents lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.95fr)] lg:gap-6 xl:gap-10"
           variants={container}
           initial={reduce ? false : "hidden"}
           animate="show"
         >
-          <div className="hero-editorial-stage relative min-w-0">
-            <motion.div variants={riseIn} className="lg:hidden">
-              <BrandLogo tone="hero" className="hero-logo-mobile" />
-            </motion.div>
+          <div className="hero-editorial-stage relative z-[3] min-w-0">
+            <motion.div variants={riseIn} aria-hidden className="mb-5 h-10 w-px bg-[#d7f713] lg:hidden" />
             <motion.h1
               variants={riseIn}
               className="font-h1 text-h1-editorial text-[#111111]"
@@ -90,29 +89,32 @@ export function HomeHero() {
 
             <motion.p
               variants={riseIn}
-              className="mt-5 max-w-xl font-display text-lg font-normal leading-snug text-ink/80 md:text-xl xl:mt-6 xl:max-w-2xl"
+              className="mt-5 max-w-[12.5rem] font-display text-xl font-normal leading-snug text-ink lg:max-w-xl lg:text-lg xl:mt-6 xl:max-w-2xl xl:text-xl"
             >
               {home.competenze}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-4 max-w-xl font-display text-base font-normal leading-relaxed text-ink/70 md:text-lg xl:mt-6"
+              className="mt-4 hidden max-w-xl font-display text-base font-normal leading-relaxed text-ink/70 md:block md:text-lg xl:mt-6"
             >
               {home.benvenuto}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-3 font-display text-base font-medium text-ink/70 md:text-lg"
+              className="mt-4 font-display text-sm font-medium tracking-[0.04em] text-ink/70 md:mt-3 md:text-lg md:tracking-normal"
             >
               {home.firma}
             </motion.p>
 
             <motion.div variants={riseIn} className="mt-8">
+              <Button to="/consulti" variant="ember" className="lg:hidden">
+                {home.ctaConsulto} →
+              </Button>
               <NavLink
                 to="/consulti"
-                className="inline-flex items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-[#111111] transition-colors hover:text-[#111111]/50"
+                className="hidden items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-[#111111] transition-colors hover:text-[#111111]/50 lg:inline-flex"
               >
                 {home.ctaConsulto}
                 <span aria-hidden>→</span>
@@ -122,7 +124,7 @@ export function HomeHero() {
 
           <motion.div
             variants={riseIn}
-            className="relative z-[2] mx-auto flex w-full max-w-md items-center justify-center overflow-visible py-4 lg:mx-0 lg:max-w-none lg:py-0"
+            className="hero-visual-stage relative z-[2] mx-auto flex w-full max-w-md items-center justify-center overflow-visible py-4 lg:mx-0 lg:max-w-none lg:py-0"
           >
             <span
               aria-hidden
@@ -153,25 +155,25 @@ export function HomeHero() {
         </motion.div>
       </div>
 
-      <div className="relative z-[2] grid grid-cols-1 border-t border-plate sm:grid-cols-2 xl:grid-cols-4">
+      <div className="relative z-[2] grid grid-cols-2 border-t border-plate xl:grid-cols-4">
         {azioni.map((azione) => (
           <NavLink
             key={azione.n}
             to={azione.to}
-            className="group flex min-h-[9.25rem] flex-col border-white/10 bg-plate px-6 py-6 text-on-ink transition-colors max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:border-r xl:px-8 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
+            className="group flex min-h-[7.25rem] flex-col border-white/10 bg-plate px-4 py-5 text-on-ink transition-colors max-xl:border-b max-xl:border-r max-xl:[&:nth-child(2n)]:border-r-0 max-xl:[&:nth-last-child(-n+2)]:border-b-0 sm:min-h-[9.25rem] sm:px-6 sm:py-6 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:last:border-r-0"
           >
-            <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-[#d7f713]">
+            <span className="font-h1 text-[1.2rem] leading-none tracking-[-0.04em] text-[#d7f713] sm:text-[1.35rem]">
               {azione.n}
             </span>
-            <span className="mt-5 text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-[#d7f713]">
+            <span className="mt-4 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-[#d7f713] sm:mt-5 sm:text-[0.6875rem]">
               {azione.titolo}
             </span>
-            <span className="mt-3 line-clamp-2 flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55">
+            <span className="mt-3 hidden flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55 sm:block sm:line-clamp-2">
               {azione.testo}
             </span>
             <span
               aria-hidden
-              className="mt-5 text-[0.8125rem] text-[#d7f713] transition-transform group-hover:translate-x-1"
+              className="mt-4 text-[0.8125rem] text-[#d7f713] transition-transform group-hover:translate-x-1 sm:mt-5"
             >
               →
             </span>

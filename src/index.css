@@ -318,16 +318,21 @@
   top: 50%;
   z-index: 0;
   height: 0.1em;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
   background-color: #d7f713;
   pointer-events: none;
+  animation: hero-bar-draw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
+}
+
+@keyframes hero-bar-draw {
+  to {
+    transform: translateY(-50%) scaleX(1);
+  }
 }
 
 .hero-logo-mobile {
-  display: block;
-  width: 7.5rem;
-  height: 7.5rem;
-  margin-bottom: 1.35rem;
+  display: none;
 }
 
 .hero-logo-on-t {
@@ -361,9 +366,55 @@
   opacity: 1;
 }
 
+@media (max-width: 1023px) {
+  .text-h1-editorial {
+    font-size: clamp(3.85rem, 22vw, 5.75rem);
+    line-height: 0.76;
+  }
+
+  .hero-tarot-bar {
+    height: 0.13em;
+  }
+
+  .hero-visual-stage {
+    position: absolute;
+    top: var(--nav-offset);
+    right: -12%;
+    bottom: 0;
+    left: auto;
+    z-index: 1;
+    display: flex;
+    width: min(88vw, 28rem);
+    align-items: flex-start;
+    justify-content: flex-end;
+    overflow: hidden;
+    pointer-events: none;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 22%, #000 100%);
+  }
+
+  .hero-angelo {
+    height: min(78svh, 38rem);
+    max-width: none;
+    object-position: center top;
+    opacity: 0.9;
+  }
+
+  .hero-drop-t {
+    display: none;
+  }
+}
+
 @media (min-width: 1024px) {
   .hero-angelo {
     height: clamp(16rem, 48vw, 26rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-tarot-bar {
+    animation: none;
+    transform: translateY(-50%) scaleX(1);
   }
 }
 
@@ -693,7 +744,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 }
 
 :root {
-  --nav-offset: calc(80px + env(safe-area-inset-top, 0px));
+  --nav-offset: calc(56px + env(safe-area-inset-top, 0px));
 }
 
 @media (min-width: 1280px) {

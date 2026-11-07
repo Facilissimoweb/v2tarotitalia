@@ -227,7 +227,7 @@ export function Riservata() {
         </div>
       </PageHero>
 
-      <div className="sticky top-[80px] z-30 bg-ivory/90 px-5 py-4 backdrop-blur-md">
+      <div className="sticky top-[var(--nav-offset)] z-30 bg-ivory/90 px-5 py-4 backdrop-blur-md">
         <div className="mx-auto flex max-w-3xl gap-2 overflow-x-auto" role="tablist" aria-label={nav.riservata}>
           {(
             [

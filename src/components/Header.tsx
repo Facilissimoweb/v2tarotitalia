@@ -58,7 +58,6 @@ const desktopLinkClass = (active: boolean) =>
 const NAV_ICON_CORE =
   "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `${NAV_ICON_CORE} w-12`;
-const NAV_ICON_LEFT = `${NAV_ICON_CORE} w-9`;
 
 export function Header() {
   const { pathname } = useLocation();
@@ -132,30 +131,28 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="relative flex h-[80px] w-full items-center justify-between px-3 xl:hidden">
-          <div className="relative z-10 flex items-center">
-            <LanguageWidget placement="nav" className="w-9" />
-            <CartLink className={NAV_ICON_LEFT} />
-            <AccessibilityTrigger className={NAV_ICON_LEFT} />
-          </div>
+        <div className="relative flex h-14 w-full items-center justify-between gap-3 px-4 xl:hidden">
           <NavLink
             to="/"
-            className="absolute left-1/2 top-1/2 z-[1] flex -translate-x-1/2 -translate-y-1/2 items-center gap-3"
+            className="relative z-[1] flex min-w-0 items-center gap-2.5"
             aria-label={brand.wordmark}
             translate="no"
           >
-            <span className="hidden font-h1 text-[1.05rem] font-extrabold uppercase leading-none tracking-[-0.04em] text-black md:inline lg:text-[1.15rem]">
-              {marcaTarot}
+            <span className="nav-logo-glow shrink-0">
+              <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-9 w-9" />
             </span>
-            <span className="nav-logo-glow">
-              <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[68px] w-[68px]" />
-            </span>
-            <span className="hidden font-h1 text-[1.05rem] font-extrabold uppercase leading-none tracking-[-0.04em] text-black md:inline lg:text-[1.15rem]">
-              {marcaItalia}
+            <span className="flex min-w-0 flex-col justify-center leading-none">
+              <span className="font-h1 text-[0.625rem] font-extrabold uppercase tracking-[0.2em] text-black">
+                {marcaTarot}
+              </span>
+              <span className="mt-0.5 font-h1 text-[0.625rem] font-extrabold uppercase tracking-[0.2em] text-black">
+                {marcaItalia}
+              </span>
             </span>
           </NavLink>
-          <div className="relative z-10 flex items-center">
-            <AccountLink className={NAV_ICON_BTN} />
+          <div className="relative z-10 flex shrink-0 items-center">
+            <LanguageWidget placement="nav" className="w-11" />
+            <CartLink className={NAV_ICON_BTN} />
             <button
               type="button"
               className={NAV_ICON_BTN}

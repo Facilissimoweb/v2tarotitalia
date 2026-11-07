@@ -62,7 +62,7 @@ export function ArcaniMinori() {
             <StackSheet
               key={seme.id}
               id={seme.id}
-              className="bg-ivory scroll-mt-[calc(80px+env(safe-area-inset-top,0px)+12px)] xl:scroll-mt-[calc(112px+env(safe-area-inset-top,0px)+12px)]"
+              className="bg-ivory scroll-mt-[calc(var(--nav-offset)+12px)]"
             >
               <Reveal>
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
