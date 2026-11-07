@@ -954,7 +954,7 @@ export const siteContent = {
         {
           domanda: "La lettura predice il futuro?",
           risposta:
-            "No. I tarocchi sono uno strumento di riflessione sul presente e sulle possibilità che si aprono; le scelte restano tue. Il consulto non sostituisce pareri medici, sanitari o legali.",
+            "La lettura non descrive un futuro fatalmente già scritto. Attraverso una visione profonda del presente, i tarocchi aiutano ad analizzare le dinamiche in atto, intravedere le possibili linee evolutive e orientare con maggiore consapevolezza le proprie scelte. Il consulto non sostituisce pareri medici, sanitari o legali.",
         },
       ],
     },
