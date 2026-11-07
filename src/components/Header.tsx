@@ -23,7 +23,7 @@ import { ShopIcon } from "./ShopIcon";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 
 const { brand, nav } = siteContent;
-const [marcaTarot, marcaItalia] = brand.wordmark.split(/\s+/);
+const marcaTarot = brand.wordmark.split(/\s+/)[0] ?? brand.name;
 
 const MENU_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -108,7 +108,7 @@ export function Header() {
             translate="no"
           >
             <span className="nav-logo-glow">
-              <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-[52px] w-[52px]" />
+              <BrandLogo tone="nav" className="relative z-[1] h-[60px] w-[60px]" />
             </span>
             <span className="mt-1 font-h1 text-[1.2rem] leading-none text-black xl:text-[1.3rem]">
               {brand.wordmark}
@@ -131,7 +131,7 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="relative flex h-14 w-full items-center justify-between gap-3 px-4 xl:hidden">
+        <div className="relative flex h-16 w-full items-center justify-between gap-2 px-3 sm:px-4 xl:hidden">
           <NavLink
             to="/"
             className="relative z-[1] flex min-w-0 items-center gap-2.5"
@@ -139,16 +139,9 @@ export function Header() {
             translate="no"
           >
             <span className="nav-logo-glow shrink-0">
-              <BrandLogo tone="nav" finish="metal" className="relative z-[1] h-9 w-9" />
+              <BrandLogo tone="nav" className="relative z-[1] h-12 w-12" />
             </span>
-            <span className="flex min-w-0 flex-col justify-center leading-none">
-              <span className="font-h1 text-[0.625rem] font-extrabold uppercase tracking-[0.2em] text-black">
-                {marcaTarot}
-              </span>
-              <span className="mt-0.5 font-h1 text-[0.625rem] font-extrabold uppercase tracking-[0.2em] text-black">
-                {marcaItalia}
-              </span>
-            </span>
+            <span className="nav-brand-tarot min-w-0">{marcaTarot}</span>
           </NavLink>
           <div className="relative z-10 flex shrink-0 items-center">
             <LanguageWidget placement="nav" className="w-11" />

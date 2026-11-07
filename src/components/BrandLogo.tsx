@@ -15,22 +15,26 @@ type Props = {
 export function BrandLogo({ className = "", tone = "mark", finish = "ivory" }: Props) {
   const src = tone === "hero" ? brand.logoHero : tone === "nav" ? brand.logoNav : brand.logo;
   const hero = tone === "hero";
-  const metal = finish === "metal";
+  const nav = tone === "nav";
+  const metal = finish === "metal" && !nav;
+  const eager = hero || nav;
   return (
     <span
       className={`flex aspect-square shrink-0 items-center justify-center overflow-hidden rounded-full ${
-        metal ? "logo-medallion" : ""
-      } ${className}`.trim()}
+        nav ? "bg-transparent" : "bg-ivory"
+      } ${metal ? "logo-medallion" : ""} ${className}`.trim()}
     >
       <img
         src={src}
         alt=""
-        width={hero ? 288 : 48}
-        height={hero ? 288 : 48}
-        decoding={hero ? "sync" : "async"}
+        width={800}
+        height={800}
+        decoding={eager ? "sync" : "async"}
         fetchPriority={hero ? "high" : "auto"}
-        loading={hero ? "eager" : "lazy"}
-        className={`h-full w-full rounded-full ${tone === "nav" ? "object-contain object-center" : "object-cover"}`}
+        loading={eager ? "eager" : "lazy"}
+        className={`h-full w-full object-cover object-center ${
+          nav ? "origin-center scale-[1.36]" : hero ? "origin-center scale-[1.18]" : ""
+        }`}
       />
     </span>
   );

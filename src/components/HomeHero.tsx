@@ -50,6 +50,11 @@ const riseIn: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
 };
 
+const riseLogo: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease } },
+};
+
 /**
  * Hero Home: griglia editoriale asimmetrica.
  * Su cellulare: manifesto a schermo pieno, angelo in overlay, fascia 01–04 compatta.
@@ -62,7 +67,8 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ivory text-ink max-lg:pb-[calc(4.75rem+var(--dock-lift)+env(safe-area-inset-bottom,0px))] lg:min-h-[66svh] xl:min-h-[72svh]"
     >
-      <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-5 pb-8 pt-[var(--nav-offset)] sm:px-6 md:px-10 md:pb-12 lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible xl:min-h-[72svh] xl:px-16 2xl:px-20">
+      <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-5 pb-8 pt-[calc(var(--nav-offset)+2.85rem)] sm:px-6 md:px-10 md:pb-12 max-lg:justify-start lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible lg:pt-[calc(var(--nav-offset)+1.75rem)] xl:min-h-[72svh] xl:px-16 2xl:px-20">
+        <div aria-hidden className="hero-ember-field" />
         <div aria-hidden className="hero-copy-veil lg:hidden" />
         <motion.div
           className="relative mx-auto w-full max-w-[96rem] items-center max-lg:contents lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.95fr)] lg:gap-6 xl:gap-10"
@@ -70,19 +76,24 @@ export function HomeHero() {
           initial={reduce ? false : "hidden"}
           animate="show"
         >
-          <div className="hero-editorial-stage relative z-[3] min-w-0">
-            <motion.div variants={riseIn} aria-hidden className="mb-5 h-10 w-px bg-[#d7f713] lg:hidden" />
+          <div className="hero-editorial-stage relative z-[12] min-w-0">
+            <motion.div variants={reduce ? undefined : riseLogo}>
+              <BrandLogo
+                tone="hero"
+                className="hero-glow mb-6 h-[8rem] w-[8rem] md:mb-8 md:h-[10rem] md:w-[10rem] lg:h-[11.5rem] lg:w-[11.5rem]"
+              />
+            </motion.div>
             <motion.h1
               variants={riseIn}
-              className="font-h1 text-h1-editorial text-[#111111]"
+              className="font-inquisition text-h1-editorial text-black"
             >
               {precedenti.map((parola) => (
-                <span key={parola} className="relative isolate block w-fit">
+                <span key={parola} className="relative isolate block w-fit text-black">
                   <span aria-hidden className="hero-tarot-bar" />
                   <span className="relative z-[1]">{parola}</span>
                 </span>
               ))}
-              <span className="mt-[0.08em] block text-[0.52em] font-extrabold leading-[0.88] tracking-[-0.045em] text-[#111111]/40">
+              <span className="mt-[0.08em] block text-[0.52em] font-normal leading-[0.88] tracking-[0.02em] text-black/45">
                 {ultima}
                 <span aria-hidden>.</span>
               </span>
@@ -133,10 +144,6 @@ export function HomeHero() {
             >
               {titolo.charAt(0)}
             </span>
-            <BrandLogo
-              tone="hero"
-              className="hero-logo-on-t z-[3] hidden lg:flex"
-            />
             <p
               aria-hidden
               className="pointer-events-none absolute right-0 top-1/2 z-[1] hidden origin-center translate-x-1/2 -translate-y-1/2 rotate-90 text-[0.5625rem] font-semibold uppercase tracking-[0.32em] text-ink/35 xl:block"
@@ -150,7 +157,7 @@ export function HomeHero() {
               height={784}
               fetchPriority="high"
               decoding="async"
-              className="hero-angelo relative z-[2] lg:-translate-x-[6%]"
+              className="hero-angelo relative z-[2] lg:translate-x-[8%]"
             />
           </motion.div>
         </motion.div>

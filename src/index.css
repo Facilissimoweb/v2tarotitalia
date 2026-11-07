@@ -19,6 +19,7 @@
   --font-h2: var(--font-display);
   --font-h3: var(--font-display);
   --font-body: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-inquisition: "The Inquisition", var(--font-h1);
   --radius-none: 0px;
   --radius-sm: 0px;
   --radius-md: 0px;
@@ -26,6 +27,14 @@
   --radius-xl: 0px;
   --radius-2xl: 0px;
   --radius-3xl: 0px;
+}
+
+@font-face {
+  font-family: "The Inquisition";
+  src: url("/fonts/TheInquisition.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
 @layer base {
@@ -236,24 +245,27 @@
   isolation: isolate;
 }
 
-.nav-logo-glow::before {
+/* Grano carta: velo da foglio, senza coprire chrome e widget. */
+html::after {
   content: "";
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 0;
-  width: 240%;
-  height: 240%;
-  transform: translate(-50%, -50%);
-  border-radius: 9999px;
   pointer-events: none;
-  background: radial-gradient(
-    circle,
-    rgb(249 248 246 / 0.28) 0%,
-    rgb(249 248 246 / 0.1) 38%,
-    transparent 72%
-  );
-  filter: blur(8px);
+  position: fixed;
+  inset: 0;
+  z-index: 8;
+  opacity: 0.028;
+  mix-blend-mode: multiply;
+  background-image: url("/textures/paper-grain.svg");
+  background-size: 220px 220px;
+}
+
+.hero-ember-field {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 72% 58% at 92% 78%, rgb(215 247 19 / 0.1), transparent 64%),
+    radial-gradient(ellipse 48% 38% at 8% 12%, rgb(43 37 35 / 0.04), transparent 70%);
 }
 
 /* Lastre della Hero: A.jpg in scala di grigi. */
@@ -290,6 +302,12 @@
   line-height: 0.82;
   text-transform: uppercase;
   font-size: clamp(3.35rem, 18cqi, 9.5rem);
+}
+
+.font-inquisition.text-h1-editorial {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 0.9;
 }
 
 @utility text-h1-home {
@@ -378,24 +396,30 @@
 
   .hero-visual-stage {
     position: absolute;
-    top: var(--nav-offset);
-    right: -12%;
+    top: auto;
+    right: -34%;
     bottom: 0;
     left: auto;
     z-index: 1;
     display: flex;
-    width: min(88vw, 28rem);
+    width: min(118vw, 34rem);
+    height: clamp(14.75rem, 44vw, 18.25rem);
     align-items: flex-start;
     justify-content: flex-end;
     overflow: hidden;
     pointer-events: none;
+    mask-image: linear-gradient(180deg, #000 52%, rgb(0 0 0 / 0.45) 78%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg, #000 52%, rgb(0 0 0 / 0.45) 78%, transparent 100%);
   }
 
   .hero-angelo {
-    height: min(78svh, 38rem);
+    height: min(52rem, 148vw);
+    width: auto;
     max-width: none;
-    object-position: center top;
-    opacity: 0.82;
+    object-fit: cover;
+    object-position: 68% 0%;
+    transform: translate3d(16%, 0, 0);
+    opacity: 0.88;
   }
 
   .hero-copy-veil {
@@ -403,15 +427,20 @@
     inset: 0;
     z-index: 2;
     pointer-events: none;
-    background: linear-gradient(
-      108deg,
-      var(--color-ivory) 0%,
-      rgb(249 248 246 / 0.96) 22%,
-      rgb(249 248 246 / 0.72) 38%,
-      rgb(249 248 246 / 0.32) 56%,
-      rgb(249 248 246 / 0.08) 74%,
-      transparent 92%
-    );
+    background:
+      linear-gradient(
+        180deg,
+        var(--color-ivory) 0%,
+        rgb(249 248 246 / 0.7) 16%,
+        transparent 38%
+      ),
+      linear-gradient(
+        115deg,
+        var(--color-ivory) 0%,
+        rgb(249 248 246 / 0.92) 18%,
+        rgb(249 248 246 / 0.38) 32%,
+        transparent 52%
+      );
   }
 
   .hero-drop-t {
@@ -443,6 +472,26 @@ h1 {
   font-weight: 800;
   letter-spacing: -0.03em;
   font-style: normal;
+}
+
+h1.font-inquisition,
+.font-inquisition {
+  font-family: "The Inquisition", var(--font-h1);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  font-style: normal;
+}
+
+.nav-brand-tarot {
+  font-family: "The Inquisition", var(--font-h1);
+  font-size: clamp(1.75rem, 8.5vw, 2.15rem);
+  font-weight: 400;
+  font-style: normal;
+  line-height: 0.78;
+  letter-spacing: 0.02em;
+  color: #000000;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 h2 {
@@ -715,6 +764,23 @@ html[data-a11y-contrast="on"] body {
   color: #000000;
 }
 
+html[data-a11y-contrast="on"]::after,
+html[data-a11y-contrast="on"] .hero-ember-field {
+  display: none;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  html::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glow {
+    animation: none;
+  }
+}
+
 /* Alta leggibilità: Atkinson Hyperlegible (caricato solo se attivato), interlinea 1.6, lettere +0.02em.
    Va prima della spaziatura: se entrambe sono attive, vince la spaziatura più ampia. */
 html[data-a11y-font="on"],
@@ -758,7 +824,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 }
 
 :root {
-  --nav-offset: calc(56px + env(safe-area-inset-top, 0px));
+  --nav-offset: calc(64px + env(safe-area-inset-top, 0px));
   --dock-lift: 1.25rem;
 }
 
