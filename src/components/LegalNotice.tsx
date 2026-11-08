@@ -1,4 +1,5 @@
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { siteContent } from "../data/siteContent";
 import { Button } from "./Button";
 import { MailToLink } from "./MailToLink";
@@ -15,25 +16,53 @@ type Props = {
   onClose: () => void;
 };
 
+let legalDepth = 0;
+const legalListeners = new Set<() => void>();
+
+function emitLegal() {
+  legalListeners.forEach((listener) => listener());
+}
+
+/** La barra contatti e la capsula si nascondono finché l’informativa è aperta. */
+export function subscribeLegalOpen(listener: () => void) {
+  legalListeners.add(listener);
+  return () => legalListeners.delete(listener);
+}
+
+export function getLegalOpen() {
+  return legalDepth > 0;
+}
+
 export function LegalNotice({ kind, onClose }: Props) {
   const titleId = useId();
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   useEffect(() => {
     if (!kind) return;
+    legalDepth += 1;
+    emitLegal();
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onCloseRef.current();
+    };
+    window.addEventListener("keydown", onKey);
     return () => {
+      legalDepth = Math.max(0, legalDepth - 1);
+      emitLegal();
       document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
     };
   }, [kind]);
 
-  if (!kind) return null;
+  if (!kind || typeof document === "undefined") return null;
 
   const meta = legalMeta(kind);
   const title = meta.titolo;
   const intestazione = meta.intestazione;
 
-  return (
+  return createPortal(
     <div
       className="overlay-scrim z-[90] bg-ink/35"
       role="dialog"
@@ -47,11 +76,19 @@ export function LegalNotice({ kind, onClose }: Props) {
             <p className="text-center text-[0.75rem] text-ember-soft">
               <LegalCopy>{intestazione}</LegalCopy>
             </p>
-            <LegalBody kind={kind} onClose={onClose} />
+            <LegalBody kind={kind} />
           </WidgetFrame>
         </div>
+        {kind === "disclaimer" ? (
+          <div className="relative z-10 shrink-0 border-t border-ink/10 bg-ivory px-7 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:px-12 md:pb-6">
+            <Button variant="primary" className="w-full" onClick={onClose}>
+              {legal.disclaimer.conferma}
+            </Button>
+          </div>
+        ) : null}
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 
@@ -68,12 +105,12 @@ function legalMeta(kind: LegalKind) {
   }
 }
 
-function LegalBody({ kind, onClose }: { kind: LegalKind; onClose: () => void }) {
+function LegalBody({ kind }: { kind: LegalKind }) {
   switch (kind) {
     case "privacy":
       return <PrivacyBody />;
     case "disclaimer":
-      return <DisclaimerBody onClose={onClose} />;
+      return <DisclaimerBody />;
     case "tutela":
       return <TutelaBody />;
     case "vendita":

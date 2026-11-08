@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
 import { usePercorsi } from "../context/PercorsiContext";
 import { tarotChatUi } from "../lib/tarotChat/ui";
+import { getLegalOpen, subscribeLegalOpen } from "./LegalNotice";
 import { shopLive } from "../lib/launchFlags";
 import { ShopIcon } from "./ShopIcon";
 
@@ -23,7 +24,8 @@ export function UtilityCapsule() {
   const { open: cookieOpen, ready } = useConsent();
   const { open: percorsiOpen } = usePercorsi();
   const chatOpen = useSyncExternalStore(tarotChatUi.subscribe, tarotChatUi.getOpen, () => false);
-  const hidden = !ready || cookieOpen || authOpen || percorsiOpen || chatOpen;
+  const legalOpen = useSyncExternalStore(subscribeLegalOpen, getLegalOpen, () => false);
+  const hidden = !ready || cookieOpen || authOpen || percorsiOpen || chatOpen || legalOpen;
 
   if (hidden) return null;
 

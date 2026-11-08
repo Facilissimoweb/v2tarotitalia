@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { useConsent } from "../context/ConsentContext";
 import { usePercorsi } from "../context/PercorsiContext";
 import { tarotChatUi } from "../lib/tarotChat/ui";
+import { getLegalOpen, subscribeLegalOpen } from "./LegalNotice";
 import { mailtoHref, openMailto } from "../lib/mailto";
 import { getPhoneHref, telegramHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
@@ -152,7 +153,8 @@ export function StudioContactDock() {
   const { authOpen } = useAuth();
   const { open: percorsiOpen } = usePercorsi();
   const chatOpen = useSyncExternalStore(tarotChatUi.subscribe, tarotChatUi.getOpen, () => false);
-  const hidden = pathname === "/admin" || !ready || cookieOpen || authOpen || percorsiOpen || chatOpen;
+  const legalOpen = useSyncExternalStore(subscribeLegalOpen, getLegalOpen, () => false);
+  const hidden = pathname === "/admin" || !ready || cookieOpen || authOpen || percorsiOpen || chatOpen || legalOpen;
   return <ContactDock onCookies={reopen} hidden={hidden} />;
 }
 
