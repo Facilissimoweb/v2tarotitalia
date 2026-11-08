@@ -25,7 +25,7 @@ export function Percorsi() {
       <StackSheet className="bg-ivory px-6 pb-20 md:px-10 md:pb-28">
         <div className="mx-auto max-w-3xl">
           <Reveal>
-            <Kicker>{percorsi.sezione}</Kicker>
+            <Kicker>{percorsi.introKicker}</Kicker>
           </Reveal>
           <Reveal delay={80}>
             <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
@@ -48,7 +48,7 @@ export function Percorsi() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{percorsi.percorsiKicker}</Kicker>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">{pages.percorsi.titolo}</h2>
+            <h2 className="mt-4 font-display text-3xl md:text-4xl">{percorsi.titoloElenco}</h2>
           </Reveal>
           <div className="mt-16 grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
             {percorsi.tipologie.map((tipo, i) => (

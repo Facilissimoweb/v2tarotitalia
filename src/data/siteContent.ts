@@ -583,10 +583,12 @@ export const siteContent = {
     },
     titoloWidget: "Prenota un percorso",
     sezione: "Percorsi di Armonizzazione",
-    titoloSezione: "Percorsi di Armonizzazione e Consapevolezza",
+    introKicker: "Ascolto",
+    titoloSezione: "Dinamiche di legame",
     descrizione:
-      "Ogni legame umano vive di flussi, momenti di distanza e desideri di vicinanza. I percorsi di Tarot Italia offrono uno spazio di ascolto profondo, orientato ad accompagnare la persona nell’esplorazione dei propri vissuti, nel riallineamento simbolico e nell’evoluzione emotiva. L’obiettivo è coadiuvare la chiarezza, facilitare l’allentamento dei nodi comunicativi e sostenere la riscoperta di un flusso autentico e rispettoso delle parti.",
+      "Ogni legame vive di vicinanza e di distanza. Si chiariscono i vissuti e si allentano i nodi della comunicazione, nel rispetto delle parti e senza forzature.",
     percorsiKicker: "I tre percorsi",
+    titoloElenco: "Amore, riconciliazione, coppia",
     elenco: [
       "Armonizzazione d'Amore e Attrazione",
       "Armonizzazione per la Riconciliazione",
@@ -600,11 +602,11 @@ export const siteContent = {
       caption: "Percorsi di Armonizzazione",
     },
     mediazione:
-      "I Percorsi di Armonizzazione di Tarot Italia sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica a Macerata.",
+      "I percorsi sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica, a Macerata.",
     intro:
-      "I percorsi di armonizzazione e consapevolezza si rivolgono a chi cerca uno spazio intimo di riflessione per fare luce sulle dinamiche relazionali, sbloccare situazioni di stallo emotivo e ritrovare centratura. Si precisa che tali percorsi hanno una finalità esclusivamente simbolica, introspettiva e di crescita personale, e non costituiscono in alcun modo pareri o trattamenti medici, psicologici, sanitari, legali o finanziari.",
+      "Per chi attraversa uno stallo emotivo o sente di aver perso la centratura.",
     chiacchierata:
-      "Ogni richiesta apre una chiacchierata preliminare con Teresa. Per procedere è necessario l’accesso all’area riservata. La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
+      "Ogni richiesta apre una chiacchierata preliminare con Teresa. Serve l’accesso all’area riservata. La prenotazione è confermata solo da una sua risposta esplicita su WhatsApp.",
     inviaWhatsapp: "Invia la richiesta su WhatsApp",
     tornaScelta: "Torna alla richiesta",
     nome: "Nome completo",
@@ -619,19 +621,19 @@ export const siteContent = {
         id: "amore-attrazione",
         titolo: "Armonizzazione d'Amore e Attrazione",
         testo:
-          "Un percorso pensato per riscoprire e rilanciare l’energia dell’attrazione reciproca, lavorando sulla propria presenza emotiva e sulla capacità di accogliere l’altro senza aspettative rigide. Ideale per sbloccare la stagnazione e riaprire i canali della complicità.",
+          "Per ritrovare l’attrazione reciproca, attraverso la presenza emotiva e l’accoglienza dell’altro, senza aspettative rigide. Quando la stagnazione si allenta, la complicità può riaprirsi.",
       },
       {
         id: "riconciliazione",
         titolo: "Armonizzazione per la Riconciliazione",
         testo:
-          "Nei momenti di allontanamento o incomprensione, questo percorso offre un supporto simbolico e riflessivo per favorire il dialogo, smussare le rigidità e creare un terreno fertile per un eventuale riavvicinamento basato sul rispetto reciproco e sulla verità dei sentimenti.",
+          "Per i momenti di allontanamento o incomprensione. Un sostegno simbolico al dialogo, per allentare le rigidità e, se lo si desidera, aprire a un riavvicinamento fondato sul rispetto e sulla verità dei sentimenti.",
       },
       {
         id: "coppia",
         titolo: "Armonizzazione della Coppia",
         testo:
-          "Un percorso dedicato a chi condivide già un cammino ma avverte la necessità di ritrovare la sintonia profonda, superare i cicli di tensione ripetitivi e ridare linfa e chiarezza alla visione comune del futuro.",
+          "Per chi condivide già un cammino e sente la sintonia assottigliarsi. Aiuta a interrompere i cicli di tensione e a chiarire la visione comune del futuro.",
       },
     ],
     faq: {
@@ -641,27 +643,27 @@ export const siteContent = {
         {
           domanda: "Cosa sono i Percorsi di Armonizzazione di Tarot Italia?",
           risposta:
-            "Ogni legame umano vive di flussi, momenti di distanza e desideri di vicinanza. I percorsi di Tarot Italia offrono uno spazio di ascolto profondo, orientato ad accompagnare la persona nell’esplorazione dei propri vissuti, nel riallineamento simbolico e nell’evoluzione emotiva. L’obiettivo è coadiuvare la chiarezza, facilitare l’allentamento dei nodi comunicativi e sostenere la riscoperta di un flusso autentico e rispettoso delle parti.",
+            "Accompagnamenti simbolici nel tempo, sul legame: attrazione, riconciliazione o vita di coppia. La finalità è introspettiva e di crescita personale.",
         },
         {
           domanda: "Chi cura i Percorsi di Armonizzazione?",
           risposta:
-            "I Percorsi di Armonizzazione di Tarot Italia sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica a Macerata. Sede: Via Crispi 37, 62100 Macerata (MC), Marche, Italia. Consulti su appuntamento.",
+            "Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica. Studio in Via Crispi 37, 62100 Macerata, su appuntamento.",
         },
         {
           domanda: "Che differenza c’è tra un consulto singolo e un percorso?",
           risposta:
-            "Sia che scegliate un consulto singolo, sia che desideriate affidarvi ai miei percorsi, vi offro un’esperienza di riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza alcuna promessa di forzatura esterna. Il consulto è una lettura puntuale di 30 o 60 minuti; i percorsi accompagnano nel tempo le dinamiche relazionali, di coppia, di riconciliazione o di attrazione.",
+            "Il consulto è una lettura di 30 o 60 minuti, su un quesito preciso. Il percorso resta aperto nel tempo e segue una dinamica di amore, di riconciliazione o di coppia.",
         },
         {
           domanda: "I Percorsi di Armonizzazione sostituiscono un percorso medico o psicologico?",
           risposta:
-            "Si precisa che tali percorsi hanno una finalità esclusivamente simbolica, introspettiva e di crescita personale, e non costituiscono in alcun modo pareri o trattamenti medici, psicologici, sanitari, legali o finanziari. Attività disciplinata ai sensi della Legge 14 gennaio 2013, n. 4. Nessuna consulenza costituisce parere medico, sanitario o legale.",
+            "No. La finalità è solo simbolica, introspettiva e di crescita personale: non sono pareri né trattamenti medici, psicologici, sanitari, legali o finanziari. L’attività è disciplinata dalla Legge 14 gennaio 2013, n. 4.",
         },
         {
           domanda: "Come si richiede un percorso?",
           risposta:
-            "Ogni richiesta apre una chiacchierata preliminare con Teresa. Per procedere è necessario l’accesso all’area riservata. La prenotazione si intende effettivamente confermata e riservata solo a seguito di una risposta esplicita via WhatsApp.",
+            "Si richiede dall’area riservata. Segue una chiacchierata con Teresa su WhatsApp, e solo la sua risposta conferma la prenotazione.",
         },
       ],
     },
