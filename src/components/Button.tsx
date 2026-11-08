@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { isWhatsAppHref, WHATSAPP_ANCHOR } from "../lib/whatsapp";
 
 const base =
-  "inline-flex items-center justify-center gap-2 px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
+  "ti-btn inline-flex items-center justify-center gap-2 px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
 
 const variants = {
   primary: "bg-ink text-on-ink hover:bg-[#3a3430]",

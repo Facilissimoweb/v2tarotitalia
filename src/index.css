@@ -951,6 +951,110 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 }
 
+/* Sfumatura dei tasti: luce inclinata a destra, dietro il testo, che scorre in avanti. */
+@layer components {
+  :where(button, .ti-btn):not(.dock-sphere, .inset-0) {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+  }
+
+  :where(button, .ti-btn):not(.dock-sphere, .inset-0)::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -50%;
+    bottom: -50%;
+    left: -20%;
+    width: 145%;
+    pointer-events: none;
+    background: linear-gradient(
+      128deg,
+      transparent 54%,
+      color-mix(in srgb, currentColor 12%, transparent) 64%,
+      color-mix(in srgb, currentColor 58%, transparent) 74%,
+      color-mix(in srgb, currentColor 12%, transparent) 84%,
+      transparent 94%
+    );
+    filter: blur(7px);
+    transform: translate3d(4%, 0, 0);
+    opacity: 0.9;
+    transition:
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.45s ease;
+  }
+
+  :where(button, .ti-btn):not(.dock-sphere, .inset-0, :disabled):hover::before,
+  :where(button, .ti-btn):not(.dock-sphere, .inset-0, :disabled):focus-visible::before {
+    animation: ti-btn-flow 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  :where(button, .ti-btn):not(.dock-sphere, .inset-0, :disabled):active::before {
+    transform: translate3d(14%, 0, 0);
+    opacity: 1;
+    animation: none;
+    transition-duration: 0.22s;
+  }
+
+  :where(button, .ti-btn):disabled::before {
+    opacity: 0.16;
+    animation: none;
+  }
+
+  /* Tasti icona: solo un filo di luce sul bordo destro, senza velare il simbolo. */
+  :where(button, .ti-btn).ti-btn-icon::before,
+  :where(button):not(.ti-btn):has(> svg:only-child)::before {
+    background: linear-gradient(
+      128deg,
+      transparent 68%,
+      color-mix(in srgb, currentColor 34%, transparent) 82%,
+      transparent 94%
+    );
+    filter: blur(3px);
+    opacity: 0.45;
+    animation: none;
+  }
+
+  :where(button, .ti-btn).ti-btn-icon:hover::before,
+  :where(button, .ti-btn).ti-btn-icon:focus-visible::before,
+  :where(button):not(.ti-btn):has(> svg:only-child):hover::before,
+  :where(button):not(.ti-btn):has(> svg:only-child):focus-visible::before {
+    animation: none;
+    transform: translate3d(8%, 0, 0);
+    opacity: 0.7;
+  }
+}
+
+@keyframes ti-btn-flow {
+  0% {
+    transform: translate3d(-24%, 0, 0);
+    opacity: 0.35;
+  }
+
+  100% {
+    transform: translate3d(9%, 0, 0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(button, .ti-btn)::before {
+    animation: none !important;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :where(button, .ti-btn):not(.dock-sphere, .inset-0)::before {
+    filter: none;
+    opacity: 0.28;
+  }
+}
+
+html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
+  content: none;
+}
+
 /* Barra contatti: grafite pieno, filetto oro antico, sfera sigillo. */
 .esoteric-badge-btn {
   --ember: var(--color-ember);
@@ -1013,6 +1117,39 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
     background-color 0.35s cubic-bezier(0.34, 1.15, 0.64, 1),
     color 0.25s ease,
     box-shadow 0.35s ease;
+}
+
+.dock-sphere::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(
+    128deg,
+    transparent 28%,
+    rgb(17 17 17 / 0.06) 44%,
+    rgb(17 17 17 / 0.28) 62%,
+    transparent 80%
+  );
+  filter: blur(2.5px);
+  transform: translate3d(10%, 0, 0);
+  opacity: 0.9;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+
+.dock-sphere:hover::before,
+.dock-sphere:focus-visible::before,
+.dock-sphere:active::before {
+  transform: translate3d(18%, 0, 0);
+  opacity: 1;
+}
+
+.dock-sphere[data-raised]::before {
+  opacity: 0;
 }
 
 .dock-icon {
@@ -1091,6 +1228,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   .esoteric-badge-btn:focus-within,
   .esoteric-badge-btn:active,
   .dock-sphere,
+  .dock-sphere::before,
   .dock-icon,
   .dock-sphere[data-raised] .dock-icon,
   .dock-fluid-orb,

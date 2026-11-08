@@ -11,7 +11,7 @@ import { ShopIcon } from "./ShopIcon";
 const { cta, pages, tarotChat } = siteContent;
 
 const cellClass =
-  "grid h-9 w-9 place-items-center text-ember-pale sm:h-10 sm:w-10 md:h-[3.25rem] md:w-[3.25rem]";
+  "ti-btn ti-btn-icon grid h-9 w-9 place-items-center text-ember-pale sm:h-10 sm:w-10 md:h-[3.25rem] md:w-[3.25rem]";
 
 /**
  * Capsula fissa: Torna su, Shop, chat.

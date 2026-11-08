@@ -44,7 +44,7 @@ const menuItem: Variants = {
 };
 
 const DRAWER_ICON =
-  "flex h-12 w-12 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-ember-pale [&_svg]:h-[1.5rem] [&_svg]:w-[1.5rem] [&_svg]:stroke-[2.25]";
+  "ti-btn ti-btn-icon flex h-12 w-12 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-ember-pale [&_svg]:h-[1.5rem] [&_svg]:w-[1.5rem] [&_svg]:stroke-[2.25]";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
@@ -57,7 +57,7 @@ const desktopLinkClass = (active: boolean) =>
 /** Icone della barra: nero su vetro opalino. */
 const NAV_ICON_CORE =
   "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
-const NAV_ICON_BTN = `${NAV_ICON_CORE} w-12`;
+const NAV_ICON_BTN = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-12`;
 
 export function Header() {
   const { pathname } = useLocation();
