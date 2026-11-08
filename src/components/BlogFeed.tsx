@@ -53,7 +53,7 @@ function PostCard({ post, index }: { post: SubstackPost; index: number }) {
   const dateLabel = formatPostDate(post.date);
   return (
     <Reveal delay={(index % 2) * 80} as="li">
-      <article className="flex h-full flex-col bg-paper px-8 py-10 md:px-10 md:py-12">
+      <article className="depth-panel flex h-full flex-col bg-paper px-8 py-10 md:px-10 md:py-12">
         {dateLabel ? (
           <time
             dateTime={post.date}

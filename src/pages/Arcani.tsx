@@ -26,10 +26,10 @@ export function Arcani() {
             <Reveal key={a.slug} delay={(i % 4) * 80} className={i % 2 === 1 ? "sm:mt-8" : ""}>
               <Link
                 to={`/arcani/${a.slug}`}
-                className="block bg-paper p-5 transition-colors hover:bg-mist"
+                className="depth-card block p-5"
               >
-                <div className="aspect-[2/3] bg-mist">
-                  <ArcanoArt arcano={a} />
+                <div className="depth-card__well aspect-[2/3] bg-mist">
+                  <ArcanoArt arcano={a} className="depth-card__art" />
                 </div>
                 <p className="mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{a.roman}</p>
                 <p className="mt-1 font-display text-base text-ink">{a.name}</p>
@@ -65,8 +65,10 @@ export function ArcanoDetail() {
       <StackSheet label={arcano.name} className="bg-ivory">
       <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-4 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-8">
         <Reveal>
-          <div className="bg-paper p-6">
-            <ArcanoArt arcano={arcano} />
+          <div className="depth-frame depth-frame--cast">
+            <div className="depth-frame__plate bg-paper p-6">
+              <ArcanoArt arcano={arcano} />
+            </div>
           </div>
         </Reveal>
         <div>
@@ -75,13 +77,13 @@ export function ArcanoDetail() {
           </Reveal>
           <div className="grid gap-8 md:grid-cols-2">
             <Reveal>
-              <article className="bg-mist p-8">
+              <article className="depth-panel bg-mist p-8">
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Dritto</p>
                 <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.upright}</p>
               </article>
             </Reveal>
             <Reveal delay={100}>
-              <article className="bg-mist p-8">
+              <article className="depth-panel bg-mist p-8">
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Rovescio</p>
                 <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.reversed}</p>
               </article>

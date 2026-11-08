@@ -138,27 +138,33 @@ export function HomeHero() {
             variants={riseIn}
             className="hero-visual-stage relative z-[2] mx-auto flex w-full max-w-md items-center justify-center overflow-visible py-4 lg:mx-0 lg:max-w-none lg:py-0"
           >
-            <span
-              aria-hidden
-              className="hero-drop-t pointer-events-none absolute -right-8 bottom-[-18%] z-0 select-none xl:-right-16 xl:bottom-[-22%]"
-            >
-              {titolo.charAt(0)}
-            </span>
-            <p
-              aria-hidden
-              className="pointer-events-none absolute right-0 top-1/2 z-[1] hidden origin-center translate-x-1/2 -translate-y-1/2 rotate-90 text-[0.5625rem] font-semibold uppercase tracking-[0.32em] text-ink/35 xl:block"
-            >
-              {home.copyright}
-            </p>
-            <img
-              src="/angelo-hero.webp"
-              alt=""
-              width={556}
-              height={784}
-              fetchPriority="high"
-              decoding="async"
-              className="hero-angelo relative z-[2] lg:translate-x-[8%]"
-            />
+            <div className="hero-visual-parallax">
+              <span aria-hidden className="hero-angelo-mist" />
+              <span
+                aria-hidden
+                className="hero-drop-t pointer-events-none absolute -right-8 bottom-[-18%] z-0 select-none xl:-right-16 xl:bottom-[-22%]"
+              >
+                {titolo.charAt(0)}
+              </span>
+              <p
+                aria-hidden
+                className="pointer-events-none absolute right-0 top-1/2 z-[1] hidden origin-center translate-x-1/2 -translate-y-1/2 rotate-90 text-[0.5625rem] font-semibold uppercase tracking-[0.32em] text-ink/35 xl:block"
+              >
+                {home.copyright}
+              </p>
+              <span aria-hidden className="hero-angelo-shadow" />
+              <div className="hero-angelo-float">
+                <img
+                  src="/angelo-hero.webp"
+                  alt=""
+                  width={556}
+                  height={784}
+                  fetchPriority="high"
+                  decoding="async"
+                  className="hero-angelo relative z-[2] lg:translate-x-[8%]"
+                />
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       </div>
@@ -168,7 +174,7 @@ export function HomeHero() {
           <NavLink
             key={azione.n}
             to={azione.to}
-            className="group flex min-h-[7.25rem] flex-col border-white/10 bg-plate px-4 py-5 text-on-ink transition-colors max-xl:border-b max-xl:border-r max-xl:[&:nth-child(2n)]:border-r-0 max-xl:[&:nth-last-child(-n+2)]:border-b-0 sm:min-h-[9.25rem] sm:px-6 sm:py-6 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:last:border-r-0"
+            className="plate-tile group flex min-h-[7.25rem] flex-col border-white/10 bg-plate px-4 py-5 text-on-ink transition-colors max-xl:border-b max-xl:border-r max-xl:[&:nth-child(2n)]:border-r-0 max-xl:[&:nth-last-child(-n+2)]:border-b-0 sm:min-h-[9.25rem] sm:px-6 sm:py-6 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:last:border-r-0"
           >
             <span className="font-h1 text-[1.2rem] leading-none tracking-[-0.04em] text-[#d7f713] sm:text-[1.35rem]">
               {azione.n}

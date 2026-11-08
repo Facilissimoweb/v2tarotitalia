@@ -39,24 +39,26 @@ export function ImageSlot({
   return (
     <Reveal className={className}>
       <figure>
-        <div
-          className={`overflow-hidden ${framed ? "bg-plate" : "bg-mist"} ${
-            lockBox ? ratios[ratio] : ""
-          }`}
-        >
-          <img
-            src={src}
-            alt={alt}
-            loading="lazy"
-            decoding="async"
-            className={
-              contain
-                ? lockBox
-                  ? "h-full w-full object-contain object-center"
-                  : "block h-auto w-full object-contain"
-                : "h-full w-full object-cover"
-            }
-          />
+        <div className="depth-frame">
+          <div
+            className={`depth-frame__plate overflow-hidden ${framed ? "bg-plate" : "bg-mist"} ${
+              lockBox ? ratios[ratio] : ""
+            }`}
+          >
+            <img
+              src={src}
+              alt={alt}
+              loading="lazy"
+              decoding="async"
+              className={
+                contain
+                  ? lockBox
+                    ? "h-full w-full object-contain object-center"
+                    : "block h-auto w-full object-contain"
+                  : "depth-frame__media h-full w-full object-cover"
+              }
+            />
+          </div>
         </div>
         {caption || note ? (
           <figcaption

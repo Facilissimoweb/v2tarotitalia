@@ -28,6 +28,10 @@ export function Footer() {
 
   return (
     <footer data-site-footer className="footer-graphite relative mt-auto text-[#EDE4D4]">
+      <div className="atmosphere-footer" aria-hidden>
+        <span className="atmosphere-footer__orb" />
+        <span className="atmosphere-footer__orb atmosphere-footer__orb--b" />
+      </div>
       <div className="relative z-[1] mx-auto grid max-w-6xl gap-12 px-6 pb-10 pt-6 sm:px-10 md:grid-cols-2 md:pt-8 lg:grid-cols-4 lg:gap-10 lg:pt-10">
         <div>
           <div translate="no" className="flex items-center gap-3">

@@ -64,7 +64,7 @@ function ReviewCard({
 }: (typeof googleReviewsContent)[number] & { echo?: boolean }) {
   return (
     <article
-      className="flex w-[min(100%,20.5rem)] shrink-0 snap-start flex-col bg-paper p-5 ring-1 ring-ink/10 md:w-[21.25rem] md:p-6"
+      className="depth-lift flex w-[min(100%,20.5rem)] shrink-0 snap-start flex-col bg-paper p-5 ring-1 ring-ink/10 md:w-[21.25rem] md:p-6"
       aria-hidden={echo || undefined}
     >
       <div className="flex items-center gap-3">
@@ -196,7 +196,7 @@ function ReviewsStrip() {
     <div className="mt-8">
       <div
         ref={scroller}
-        className="flex min-w-0 snap-x snap-proximity gap-4 overflow-x-auto overscroll-x-contain scroll-auto pb-1 [scrollbar-width:none] [touch-action:pan-x_pan-y] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden md:gap-5"
+        className="flex min-w-0 snap-x snap-proximity gap-4 overflow-x-auto overscroll-x-contain scroll-auto py-3 [scrollbar-width:none] [touch-action:pan-x_pan-y] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden md:gap-5"
       >
         {copies.flatMap((copy) =>
           googleReviewsContent.map((review) => (

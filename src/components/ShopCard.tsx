@@ -23,15 +23,15 @@ export function ShopCard({ item, owned, busy, localized, delay = 0, onBuy, onDow
   return (
     <Reveal delay={delay}>
       <article
-        className="flex h-full flex-col bg-paper ring-1 ring-ink/10"
+        className="depth-card flex h-full flex-col"
         translate={localized ? "no" : undefined}
       >
-        <div className="aspect-[3/4] overflow-hidden bg-mist">
+        <div className="depth-card__well aspect-[3/4] bg-mist">
           {item.image ? (
             <img
               src={item.image}
               alt=""
-              className="h-full w-full object-cover"
+              className="depth-card__art h-full w-full object-cover"
               draggable={false}
             />
           ) : null}

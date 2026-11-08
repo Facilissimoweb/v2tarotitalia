@@ -153,7 +153,7 @@ export function Consulti() {
                 return (
                   <label
                     key={opt.id}
-                    className={`block w-full min-w-0 max-w-full cursor-pointer bg-paper px-5 py-6 sm:p-8 ${type === opt.id ? "ring-1 ring-ink" : ""}`}
+                    className={`block w-full min-w-0 max-w-full cursor-pointer bg-paper px-5 py-6 sm:p-8 ${type === opt.id ? "lime-seal" : ""}`}
                   >
                     <input
                       type="radio"
@@ -210,7 +210,7 @@ export function Consulti() {
                   if (!evening) setMode("studio");
                 }}
                 className={`min-w-0 p-4 text-left ${
-                  meeting === "studio" ? "bg-plate text-on-ink" : "bg-mist text-ink"
+                  meeting === "studio" ? "lime-seal-dark bg-plate text-on-ink" : "bg-mist text-ink"
                 } ${evening ? "cursor-not-allowed opacity-40" : ""}`}
               >
                 <p className="font-display [overflow-wrap:anywhere]">{consulti.modalita.presenza}</p>
@@ -221,7 +221,7 @@ export function Consulti() {
               <button
                 type="button"
                 onClick={() => setMode("remote")}
-                className={`min-w-0 p-4 text-left ${meeting === "remote" ? "bg-plate text-on-ink" : "bg-mist text-ink"}`}
+                className={`min-w-0 p-4 text-left ${meeting === "remote" ? "lime-seal-dark bg-plate text-on-ink" : "bg-mist text-ink"}`}
               >
                 <p className="font-display [overflow-wrap:anywhere]">{consulti.modalita.distanza}</p>
                 <p className={`mt-1 text-[0.625rem] ${meeting === "remote" ? "text-on-ink/70" : "text-ink/50"}`}>

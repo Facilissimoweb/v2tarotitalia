@@ -53,26 +53,36 @@ export function PageBanner({
       }
     >
       {background?.src ? (
-        <div className="pointer-events-none absolute inset-0" aria-hidden>
-          <img
-            src={background.src}
-            alt=""
-            width={background.width}
-            height={background.height}
-            fetchPriority="high"
-            decoding="async"
-            className={`absolute inset-0 h-full w-full ${contain ? "object-cover md:object-contain" : "object-cover"}`}
-            style={background.position ? { objectPosition: background.position } : undefined}
-          />
+        <div className="atmosphere-media" aria-hidden>
+          <div className="atmosphere-media__shift">
+            <img
+              src={background.src}
+              alt=""
+              width={background.width}
+              height={background.height}
+              fetchPriority="high"
+              decoding="async"
+              className={`atmosphere-media__ken ${contain ? "atmosphere-media__ken--soft object-cover md:object-contain" : "object-cover"}`}
+              style={background.position ? { objectPosition: background.position } : undefined}
+            />
+          </div>
+          <span className="atmosphere-media__orb atmosphere-media__orb--a" />
+          <span className="atmosphere-media__orb atmosphere-media__orb--b" />
           <span
             className={
               contain
-                ? "absolute inset-0 bg-gradient-to-b from-plate/40 via-transparent to-plate/50"
-                : "absolute inset-0 bg-gradient-to-b from-plate/50 via-plate/30 to-plate/65"
+                ? "atmosphere-media__shade bg-gradient-to-b from-plate/40 via-transparent to-plate/50"
+                : "atmosphere-media__shade bg-gradient-to-b from-plate/50 via-plate/30 to-plate/65"
             }
           />
+          <span className="atmosphere-media__filament" />
         </div>
-      ) : null}
+      ) : (
+        <div className="atmosphere-quiet" aria-hidden>
+          <span className="atmosphere-quiet__well" />
+          <span className="atmosphere-quiet__rule" />
+        </div>
+      )}
 
       <motion.div
         className="page-hero-stage"
@@ -82,7 +92,12 @@ export function PageBanner({
       >
         <BrandLogo
           tone={onMedia ? "hero" : "mark"}
-          className="logo-hero-ring h-[5.5rem] w-[5.5rem] md:h-[6.75rem] md:w-[6.75rem]"
+          finish={onMedia ? "metal" : "ivory"}
+          className={
+            onMedia
+              ? "hero-glow h-[5.5rem] w-[5.5rem] md:h-[6.75rem] md:w-[6.75rem]"
+              : "logo-hero-ring h-[5.5rem] w-[5.5rem] md:h-[6.75rem] md:w-[6.75rem]"
+          }
         />
         <h1 className={`mt-8 font-h1 text-h1 md:mt-10 ${onMedia ? "text-white [text-shadow:0_2px_28px_rgba(43,37,35,0.55)]" : "text-ink"}`}>
           {title}

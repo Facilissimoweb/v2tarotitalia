@@ -46,7 +46,7 @@ export function ChiSiamo() {
               </p>
             </Reveal>
             <Reveal delay={280}>
-              <div className="mt-12 bg-paper p-8">
+              <div className="depth-panel mt-12 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
                   {brand.titolare}, {brand.ruolo.toLowerCase()}.

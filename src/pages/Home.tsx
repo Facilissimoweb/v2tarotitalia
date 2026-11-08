@@ -39,7 +39,7 @@ export function Home() {
               <p className="mt-6 text-base leading-[1.85] text-ink/75">{home.chiSiamo.percorsi}</p>
             </Reveal>
             <Reveal delay={300}>
-              <div className="mt-10 bg-paper p-8">
+              <div className="depth-panel mt-10 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
                   {brand.titolare}, {brand.ruolo.toLowerCase()}.
@@ -87,8 +87,8 @@ export function Home() {
               return (
                 <Reveal key={lettura.id} delay={i * 80}>
                   <article
-                    className={`flex h-full flex-col p-8 md:p-10 ${
-                      featured ? "bg-plate text-on-ink" : "bg-ivory"
+                    className={`depth-panel flex h-full flex-col p-8 md:p-10 ${
+                      featured ? "depth-panel--dark bg-plate text-on-ink" : "bg-ivory"
                     }`}
                   >
                     <p
@@ -159,7 +159,7 @@ export function Home() {
                 <div className="mt-14 grid gap-8 lg:grid-cols-3">
                   {home.visione.pilastri.map((pilastro, i) => (
                     <Reveal key={pilastro.titolo} delay={i * 80}>
-                      <article className="flex h-full flex-col bg-paper p-8 md:p-10">
+                      <article className="depth-panel flex h-full flex-col bg-paper p-8 md:p-10">
                         <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                           {String(i + 1).padStart(2, "0")}
                         </p>
@@ -184,7 +184,7 @@ export function Home() {
             <SectionBrandMark />
           </Reveal>
           <Reveal delay={80}>
-            <blockquote className="mx-auto mt-10 max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
+            <blockquote className="atmosphere-quote mx-auto mt-10 max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
               «{home.citazione.testo}»
             </blockquote>
           </Reveal>
@@ -203,7 +203,7 @@ export function Home() {
 
       {shopLive() ? (
         <StackSheet label={home.passaggi.titolo} className="bg-paper px-6 py-24 md:px-10 md:py-32">
-          <div className="mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
+          <div className="depth-panel mx-auto max-w-3xl bg-mist p-10 text-center md:p-14">
             <Reveal>
               <SectionBrandMark />
             </Reveal>

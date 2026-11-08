@@ -12,7 +12,7 @@ type Props = {
 export function StackSheet({ children, className = "", as = "section", id }: Props) {
   const Tag = as === "div" ? "div" : "section";
   return (
-    <Tag id={id} className={className || undefined}>
+    <Tag id={id} className={className ? `sheet-plane ${className}` : "sheet-plane"}>
       {children}
     </Tag>
   );

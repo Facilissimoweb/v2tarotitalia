@@ -35,7 +35,7 @@ export function ArcaniMinori() {
           <a
             key={seme.id}
             href={`#${seme.id}`}
-            className="group flex min-h-[9.25rem] flex-col border-white/10 bg-plate px-6 py-6 text-on-ink transition-colors max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:border-r xl:px-8 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
+            className="plate-tile group flex min-h-[9.25rem] flex-col border-white/10 bg-plate px-6 py-6 text-on-ink transition-colors max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:border-r xl:px-8 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
           >
             <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-[#d7f713]">
               {String(i + 1).padStart(2, "0")}
@@ -81,10 +81,10 @@ export function ArcaniMinori() {
                     <Reveal key={card.slug} delay={(i % 4) * 80} className={i % 2 === 1 ? "sm:mt-8" : ""}>
                       <Link
                         to={`/arcani-minori/${card.slug}`}
-                        className="block bg-paper p-5 transition-colors hover:bg-mist"
+                        className="depth-card block p-5"
                       >
-                        <div className="aspect-[2/3] bg-mist">
-                          <ArcanoMinoreArt arcano={card} />
+                        <div className="depth-card__well aspect-[2/3] bg-mist">
+                          <ArcanoMinoreArt arcano={card} className="depth-card__art" />
                         </div>
                         <p className="mt-5 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                           {RANK_MARK[card.grado]}
@@ -134,8 +134,10 @@ export function ArcanoMinoreDetail() {
       <StackSheet label={arcano.nome} className="bg-ivory">
       <div className="mx-auto grid max-w-5xl gap-14 px-6 pb-24 md:grid-cols-[minmax(0,280px)_1fr] md:px-10 md:pb-32">
         <Reveal>
-          <div className="bg-paper p-6">
-            <ArcanoMinoreArt arcano={arcano} />
+          <div className="depth-frame depth-frame--cast">
+            <div className="depth-frame__plate bg-paper p-6">
+              <ArcanoMinoreArt arcano={arcano} />
+            </div>
           </div>
         </Reveal>
         <div>
@@ -144,13 +146,13 @@ export function ArcanoMinoreDetail() {
           </Reveal>
           <div className="grid gap-8 md:grid-cols-2">
             <Reveal>
-              <article className="bg-mist p-8">
+              <article className="depth-panel bg-mist p-8">
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Dritto</p>
                 <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.upright}</p>
               </article>
             </Reveal>
             <Reveal delay={100}>
-              <article className="bg-mist p-8">
+              <article className="depth-panel bg-mist p-8">
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Rovescio</p>
                 <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.reversed}</p>
               </article>

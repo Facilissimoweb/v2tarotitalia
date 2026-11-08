@@ -87,7 +87,7 @@ export function Shop() {
                     type="button"
                     onClick={() => setFilter(id)}
                     className={`px-4 py-2.5 text-[0.625rem] font-bold uppercase tracking-[0.16em] transition-colors ${
-                      active ? "bg-ink text-on-ink" : "text-ink ring-1 ring-ink/15 hover:ring-ink/40"
+                      active ? "lime-seal-dark bg-ink text-on-ink" : "text-ink ring-1 ring-ink/15 hover:ring-ink/40"
                     }`}
                     aria-pressed={active}
                   >

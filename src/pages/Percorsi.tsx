@@ -53,7 +53,7 @@ export function Percorsi() {
           <div className="mt-16 grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
             {percorsi.tipologie.map((tipo, i) => (
               <Reveal key={tipo.id} delay={i * 90}>
-                <article className="flex h-full flex-col border border-ink/10 bg-paper px-8 py-10 md:px-9 md:py-12">
+                <article className="depth-panel flex h-full flex-col bg-paper px-8 py-10 md:px-9 md:py-12">
                   <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                     {String(i + 1).padStart(2, "0")}
                   </p>
@@ -81,12 +81,12 @@ export function Percorsi() {
 
       <StackSheet label={nav.percorsi} className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <Reveal>
-          <blockquote className="mx-auto max-w-lg border-l border-ember-soft pl-8">
+          <blockquote className="mx-auto max-w-lg border-l-2 border-ember pl-8">
             <p className="font-display text-xl italic leading-relaxed text-ink">«{percorsi.citazione}»</p>
           </blockquote>
         </Reveal>
         <Reveal delay={120}>
-          <div className="mx-auto mt-20 max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
+          <div className="depth-panel mx-auto mt-20 max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />
             <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
             <p className="mt-6 text-sm leading-[1.9] text-ink/65">{percorsi.chiacchierata}</p>
