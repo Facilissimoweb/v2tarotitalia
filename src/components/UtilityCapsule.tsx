@@ -14,7 +14,7 @@ const cellClass =
   "grid h-9 w-9 place-items-center text-ember-pale sm:h-10 sm:w-10 md:h-[3.25rem] md:w-[3.25rem]";
 
 /**
- * Capsula fissa: Torna su, Shop, bocca-chat.
+ * Capsula fissa: Torna su, Shop, chat.
  * Grafite pieno, bordo oro antico, icone centrate. Nessuna animazione.
  */
 export function UtilityCapsule() {
@@ -58,17 +58,28 @@ export function UtilityCapsule() {
         aria-expanded={chatOpen}
         onClick={() => tarotChatUi.toggle()}
       >
-        <img
-          src="/chat-mouth.png"
-          alt=""
-          width={48}
-          height={56}
-          draggable={false}
-          aria-hidden="true"
-          className="h-7 w-7 object-contain sm:h-8 sm:w-8 md:h-10 md:w-10"
-        />
+        <ChatIcon />
       </button>
     </nav>
+  );
+}
+
+function ChatIcon() {
+  return (
+    <svg
+      width={22}
+      height={22}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+      className="block h-4 w-4 shrink-0 overflow-visible sm:h-[18px] sm:w-[18px] md:h-[22px] md:w-[22px]"
+    >
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+    </svg>
   );
 }
 
