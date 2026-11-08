@@ -37,10 +37,10 @@ export function ArcaniMinori() {
             href={`#${seme.id}`}
             className="plate-tile group flex min-h-[9.25rem] flex-col border-white/10 bg-plate px-6 py-6 text-on-ink transition-colors max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:border-r xl:px-8 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
           >
-            <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-[#d7f713]">
+            <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-ember-pale">
               {String(i + 1).padStart(2, "0")}
             </span>
-            <span className="mt-5 text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-[#d7f713]">
+            <span className="mt-5 text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-ember-pale">
               {seme.nome}
             </span>
             <span className="mt-3 line-clamp-2 flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55">
@@ -48,7 +48,7 @@ export function ArcaniMinori() {
             </span>
             <span
               aria-hidden
-              className="mt-5 text-[0.8125rem] text-[#d7f713] transition-transform group-hover:translate-x-1"
+              className="mt-5 text-[0.8125rem] text-ember-pale transition-transform group-hover:translate-x-1"
             >
               →
             </span>

@@ -111,7 +111,7 @@ function CookieRow({
         <p className="mt-3 text-sm leading-relaxed text-ink/65">{text}</p>
       </div>
       {locked ? (
-        <span className="shrink-0 bg-ink px-2 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-lime">
+        <span className="shrink-0 bg-ink px-2 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ember-pale">
           {lockedLabel}
         </span>
       ) : (
@@ -121,7 +121,7 @@ function CookieRow({
           aria-checked={on}
           aria-label={title}
           onClick={() => onChange?.(!on)}
-          className={`relative mt-1 h-7 w-12 shrink-0 ${on ? "bg-lime" : "bg-plate"}`}
+          className={`relative mt-1 h-7 w-12 shrink-0 ${on ? "bg-ember" : "bg-plate"}`}
         >
           <span
             className={`absolute top-0.5 h-6 w-6 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${

@@ -84,7 +84,7 @@ function Switch({
       <span
         aria-hidden
         className={`relative h-6 w-11 shrink-0 transition-colors duration-200 ${
-          checked ? "bg-lime" : "bg-plate"
+          checked ? "bg-ember" : "bg-plate"
         }`}
       >
         <span

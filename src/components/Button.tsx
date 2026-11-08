@@ -8,7 +8,7 @@ const base =
 const variants = {
   primary: "bg-ink text-on-ink hover:bg-[#3a3430]",
   ghost: "bg-transparent text-ink ring-1 ring-inset ring-ink hover:bg-ink hover:text-on-ink",
-  ember: "bg-ember text-ink hover:bg-ember-hot",
+  ember: "bg-ember text-graphite hover:bg-ember-hot",
   paper: "bg-paper text-ink hover:bg-mist",
 };
 

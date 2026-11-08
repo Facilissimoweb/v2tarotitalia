@@ -69,7 +69,7 @@ function PostCard({ post, index }: { post: SubstackPost; index: number }) {
         <a
           href={post.link}
           {...EXTERNAL}
-          className="mt-8 inline-flex items-center self-start px-0 py-2 text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-ink underline decoration-ember-soft/60 underline-offset-4 transition-colors hover:text-ember"
+          className="mt-8 inline-flex items-center self-start px-0 py-2 text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-ink underline decoration-ember-soft/60 underline-offset-4 transition-colors hover:text-ember-soft"
         >
           {copy.leggi}
         </a>

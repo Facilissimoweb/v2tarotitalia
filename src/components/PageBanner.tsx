@@ -30,7 +30,7 @@ type Props = {
 
 /**
  * Intestazione compatta delle pagine interne, senza il palco della Home.
- * Un filetto lime chiude il blocco e lo stacca dal corpo della pagina.
+ * Un filetto ember chiude il blocco e lo stacca dal corpo della pagina.
  */
 export function PageBanner({
   title,

@@ -3,11 +3,18 @@
 @theme {
   --color-ivory: #f9f8f6;
   --color-ink: #2b2523;
-  --color-ember: #d7f713;
-  --color-ember-hot: #e4fb4a;
-  --color-ember-deep: #393632;
-  --color-ember-soft: #5c5754;
-  --color-lime: #d7f713;
+  /* Eucalyptus: sigillo visibile, barre, pulsanti, orb. */
+  --color-ember: #4f8f75;
+  /* Sage Mist: hover del sigillo e voce chiara sulle lastre scure. */
+  --color-ember-hot: #9fc3b2;
+  /* Deep Forest: campitura scura. */
+  --color-ember-deep: #072e24;
+  /* Moss Shadow: kicker e meta sull’avorio. */
+  --color-ember-soft: #1f4d3a;
+  /* Sage Mist: icone, filetti e stati attivi sul grafite. */
+  --color-ember-pale: #9fc3b2;
+  /* Pale Lichen: testo sulle campiture Deep Forest. */
+  --color-lichen: #e7f1ec;
   --color-graphite: #141210;
   --color-plate: #393632;
   --color-paper: #ffffff;
@@ -256,7 +263,7 @@
   width: min(10rem, 42%);
   height: 2px;
   transform: translateX(-50%);
-  background: #d7f713;
+  background: var(--color-ember-pale);
 }
 
 .footer-angelo-tile {
@@ -270,7 +277,7 @@
   user-select: none;
 }
 
-/* Logo navbar: alone neutro, senza lime. */
+/* Logo navbar: alone neutro, senza accento fluorescente. */
 .nav-logo-glow {
   position: relative;
   display: inline-flex;
@@ -307,7 +314,7 @@ html::after {
   inset: -8%;
   z-index: 0;
   background:
-    radial-gradient(ellipse 72% 58% at 92% 78%, rgb(215 247 19 / 0.16), transparent 64%),
+    radial-gradient(ellipse 72% 58% at 92% 78%, rgb(from var(--color-ember) r g b / 0.08), transparent 64%),
     radial-gradient(ellipse 42% 36% at 18% 18%, rgb(20 18 16 / 0.05), transparent 70%);
   animation: field-drift 26s ease-in-out infinite alternate;
 }
@@ -427,7 +434,7 @@ html::after {
   height: 0.1em;
   transform: translateY(-50%) scaleX(0);
   transform-origin: left center;
-  background-color: #d7f713;
+  background-color: var(--color-ember);
   pointer-events: none;
   animation: hero-bar-draw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
 }
@@ -641,7 +648,7 @@ h1.font-bellara,
   z-index: 0;
   height: 0.28em;
   transform: translateY(-50%);
-  background-color: #d7f713;
+  background-color: var(--color-ember);
   pointer-events: none;
 }
 
@@ -851,6 +858,8 @@ html[data-a11y-contrast="on"] {
   --color-ember-hot: #000000;
   --color-ember-deep: #000000;
   --color-ember-soft: #000000;
+  --color-ember-pale: #000000;
+  --color-lichen: #ffffff;
   --color-on-ink: #ffffff;
 }
 
@@ -962,7 +971,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 }
 
-/* Barra contatti: grafite pieno, capsula lime piena, icone centrate. */
+/* Barra contatti: grafite pieno, filetto oro antico, sfera sigillo. */
 .esoteric-badge-btn {
   --ember: var(--color-ember);
   --ember-hot: var(--color-ember-hot);
@@ -993,7 +1002,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
 .dock-skin {
   background-color: var(--color-plate);
-  border: 2px solid #d7f713;
+  border: 2px solid var(--color-ember-pale);
   -webkit-mask-image: radial-gradient(
     circle var(--dock-notch-r) at var(--dock-notch-x) 0px,
     transparent 99%,
@@ -1051,7 +1060,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 }
 
 .dock-sphere:focus-visible {
-  outline: 2px solid #d7f713;
+  outline: 2px solid var(--color-ember);
   outline-offset: 2px;
 }
 
@@ -1066,7 +1075,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 9999px;
-  background-color: #d7f713;
+  background-color: var(--color-ember);
   box-shadow: 0 8px 18px rgb(0 0 0 / 0.28);
   pointer-events: none;
   transform: translate(-50%, -48%);
@@ -1111,7 +1120,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 
   .dock-sphere[data-raised] {
-    background-color: #d7f713;
+    background-color: var(--color-ember);
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.45);
   }
 
@@ -1126,7 +1135,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  mix-blend-mode: screen;
+  mix-blend-mode: soft-light;
 }
 
 .hero-rays__beams,
@@ -1146,12 +1155,12 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   margin-left: min(-95%, -30rem);
   background: repeating-conic-gradient(
     from 168deg at 50% 0%,
-    rgb(215 247 19 / 0.5) 0deg,
-    rgb(215 247 19 / 0) 2.6deg,
-    rgb(215 247 19 / 0) 5.4deg,
-    rgb(215 247 19 / 0.3) 7deg,
-    rgb(215 247 19 / 0) 9.4deg,
-    rgb(215 247 19 / 0) 13deg
+    rgb(from var(--color-ember) r g b / 0.22) 0deg,
+    rgb(from var(--color-ember) r g b / 0) 2.6deg,
+    rgb(from var(--color-ember) r g b / 0) 5.4deg,
+    rgb(from var(--color-ember-pale) r g b / 0.16) 7deg,
+    rgb(from var(--color-ember) r g b / 0) 9.4deg,
+    rgb(from var(--color-ember) r g b / 0) 13deg
   );
   animation: hero-rays-sway 22s ease-in-out infinite alternate;
 }
@@ -1160,12 +1169,12 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   margin-left: min(-95%, -30rem);
   background: repeating-conic-gradient(
     from 176deg at 50% 0%,
-    rgb(232 252 96 / 0.4) 0deg,
-    rgb(232 252 96 / 0) 1.8deg,
-    rgb(232 252 96 / 0) 8deg,
-    rgb(215 247 19 / 0.28) 9.5deg,
-    rgb(215 247 19 / 0) 12deg,
-    rgb(232 252 96 / 0) 17deg
+    rgb(from var(--color-ember-pale) r g b / 0.2) 0deg,
+    rgb(from var(--color-ember-pale) r g b / 0) 1.8deg,
+    rgb(from var(--color-ember-pale) r g b / 0) 8deg,
+    rgb(from var(--color-ember) r g b / 0.12) 9.5deg,
+    rgb(from var(--color-ember) r g b / 0) 12deg,
+    rgb(from var(--color-ember-pale) r g b / 0) 17deg
   );
   animation: hero-rays-sway-b 31s ease-in-out infinite alternate;
 }
@@ -1177,7 +1186,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   width: min(120vw, 62rem);
   height: 80%;
   transform: translateX(-50%);
-  background: radial-gradient(ellipse at 50% 0%, rgb(215 247 19 / 0.28) 0%, rgb(215 247 19 / 0.1) 34%, transparent 70%);
+  background: radial-gradient(ellipse at 50% 0%, rgb(from var(--color-ember-pale) r g b / 0.2) 0%, rgb(from var(--color-ember) r g b / 0.06) 34%, transparent 70%);
   animation: hero-rays-breathe 9s ease-in-out infinite;
 }
 
@@ -1185,11 +1194,11 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 22% 38%, rgb(215 247 19 / 0.22) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 71% 26%, rgb(215 247 19 / 0.2) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 58% 62%, rgb(215 247 19 / 0.16) 0 1px, transparent 2.5px),
-    radial-gradient(circle at 34% 74%, rgb(215 247 19 / 0.18) 0 1.5px, transparent 3px),
-    radial-gradient(circle at 84% 70%, rgb(215 247 19 / 0.14) 0 1px, transparent 2.5px);
+    radial-gradient(circle at 22% 38%, rgb(from var(--color-ember-pale) r g b / 0.45) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 71% 26%, rgb(from var(--color-ember-pale) r g b / 0.4) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 58% 62%, rgb(from var(--color-ember) r g b / 0.28) 0 1px, transparent 2.5px),
+    radial-gradient(circle at 34% 74%, rgb(from var(--color-ember-pale) r g b / 0.35) 0 1.5px, transparent 3px),
+    radial-gradient(circle at 84% 70%, rgb(from var(--color-ember-pale) r g b / 0.3) 0 1px, transparent 2.5px);
   animation: hero-rays-dust 16s ease-in-out infinite alternate;
 }
 
@@ -1222,7 +1231,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 }
 
-/* ───────── Atmosfera: profondità, veli, lime sulle lastre scure ───────── */
+/* ───────── Atmosfera: profondità, veli caldi, oro sulle lastre scure ───────── */
 
 @keyframes field-drift {
   from { transform: translate3d(0, 0, 0) scale(1); }
@@ -1308,7 +1317,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 .atmosphere-media__orb {
   position: absolute;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgb(215 247 19 / 0.22), transparent 68%);
+  background: radial-gradient(circle, rgb(from var(--color-ember-pale) r g b / 0.16), transparent 68%);
   animation: mist-drift 24s ease-in-out infinite alternate;
 }
 
@@ -1337,7 +1346,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   left: 0;
   z-index: 2;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #d7f713 16%, #d7f713 84%, transparent);
+  background: linear-gradient(90deg, transparent, var(--color-ember-pale) 16%, var(--color-ember-pale) 84%, transparent);
   animation: filament-glow 7s ease-in-out infinite;
 }
 
@@ -1356,7 +1365,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   transform: translate(-50%, -50%);
   background:
     radial-gradient(ellipse at 50% 45%, rgb(20 18 16 / 0.07), transparent 68%),
-    radial-gradient(ellipse at 70% 60%, rgb(215 247 19 / 0.14), transparent 62%);
+    radial-gradient(ellipse at 70% 60%, rgb(from var(--color-ember) r g b / 0.07), transparent 62%);
   animation: mist-drift 20s ease-in-out infinite alternate;
 }
 
@@ -1366,7 +1375,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   bottom: 0;
   left: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #d7f713 50%, transparent);
+  background: linear-gradient(90deg, transparent, var(--color-ember) 50%, transparent);
 }
 
 .hero-visual-parallax {
@@ -1387,7 +1396,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   top: 6%;
   width: 68%;
   height: 74%;
-  background: radial-gradient(circle at 50% 42%, rgb(215 247 19 / 0.32), rgb(215 247 19 / 0.08) 46%, transparent 72%);
+  background: radial-gradient(circle at 50% 42%, rgb(from var(--color-ember-pale) r g b / 0.22), rgb(from var(--color-ember) r g b / 0.06) 46%, transparent 72%);
   animation: mist-drift 16s ease-in-out infinite alternate;
 }
 
@@ -1418,7 +1427,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   height: 26rem;
   right: -7rem;
   top: -7rem;
-  background: radial-gradient(circle, rgb(215 247 19 / 0.18), transparent 68%);
+  background: radial-gradient(circle, rgb(from var(--color-ember-pale) r g b / 0.14), transparent 68%);
   animation: mist-drift 24s ease-in-out infinite alternate;
 }
 
@@ -1482,7 +1491,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   right: 0;
   width: 2px;
   height: 24%;
-  background: #d7f713;
+  background: var(--color-ember-pale);
   transform-origin: top center;
   animation: filament-breathe 7.5s ease-in-out infinite;
 }
@@ -1505,19 +1514,19 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   left: 0;
   width: 2.25rem;
   height: 2px;
-  background: #d7f713;
+  background: var(--color-ember);
 }
 
 .depth-panel--dark {
   box-shadow:
-    0 0 0 1px rgb(215 247 19 / 0.32),
+    0 0 0 1px rgb(from var(--color-ember-pale) r g b / 0.45),
     8px 12px 0 rgb(20 18 16 / 0.38),
     0 26px 44px -24px rgb(0 0 0 / 0.55);
 }
 
 .depth-panel--dark::after {
   width: 3.5rem;
-  box-shadow: 0 0 14px rgb(215 247 19 / 0.55);
+  background: var(--color-ember-pale);
 }
 
 .depth-card {
@@ -1540,7 +1549,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   left: 0;
   width: 1.75rem;
   height: 2px;
-  background: #d7f713;
+  background: var(--color-ember);
 }
 
 .depth-card__well {
@@ -1569,7 +1578,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   right: 0;
   left: 0;
   height: 1px;
-  background: linear-gradient(90deg, rgb(215 247 19 / 0.7), transparent 62%);
+  background: linear-gradient(90deg, rgb(from var(--color-ember-pale) r g b / 0.85), transparent 62%);
 }
 
 a.plate-tile::after {
@@ -1579,20 +1588,22 @@ a.plate-tile::after {
   bottom: 0;
   left: 1.15rem;
   height: 2px;
-  background: #d7f713;
+  background: var(--color-ember-pale);
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.ember-seal,
 .lime-seal {
   box-shadow:
-    inset 3px 0 0 #d7f713,
+    inset 3px 0 0 var(--color-ember),
     6px 8px 0 rgb(20 18 16 / 0.06);
 }
 
+.ember-seal-dark,
 .lime-seal-dark {
-  box-shadow: inset 0 2px 0 #d7f713;
+  box-shadow: inset 0 2px 0 var(--color-ember-pale);
 }
 
 .atmosphere-quote::before {
@@ -1601,12 +1612,12 @@ a.plate-tile::after {
   width: 2.5rem;
   height: 2px;
   margin: 0 auto 1.5rem;
-  background: #d7f713;
+  background: var(--color-ember);
 }
 
 .depth-card:focus-visible,
 .plate-tile:focus-visible {
-  outline: 2px solid #d7f713;
+  outline: 2px solid var(--color-ember);
   outline-offset: 3px;
 }
 
@@ -1614,7 +1625,7 @@ a.plate-tile::after {
   .depth-card:hover {
     transform: translateY(-6px);
     box-shadow:
-      8px 14px 0 rgb(215 247 19 / 0.28),
+      8px 14px 0 rgb(from var(--color-ember-pale) r g b / 0.55),
       0 28px 44px -24px rgb(20 18 16 / 0.45);
   }
 

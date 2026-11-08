@@ -44,7 +44,7 @@ const menuItem: Variants = {
 };
 
 const DRAWER_ICON =
-  "flex h-12 w-12 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-[#d7f713] [&_svg]:h-[1.5rem] [&_svg]:w-[1.5rem] [&_svg]:stroke-[2.25]";
+  "flex h-12 w-12 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-ember-pale [&_svg]:h-[1.5rem] [&_svg]:w-[1.5rem] [&_svg]:stroke-[2.25]";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
@@ -303,7 +303,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       animate="show"
       exit="exit"
     >
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-[#d7f713]" aria-hidden />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-ember" aria-hidden />
       <span
         aria-hidden
         className="pointer-events-none absolute -right-8 bottom-[-0.22em] select-none font-h1 text-[min(78vw,24rem)] uppercase leading-[0.68] tracking-[-0.08em] text-white/[0.06]"
@@ -317,7 +317,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
           <p className="mt-3 font-display text-[0.625rem] uppercase tracking-[0.16em] text-on-ink">
             {brand.wordmark}
           </p>
-          <p className="mt-6 font-h1 text-[0.7rem] uppercase tracking-[0.22em] text-[#d7f713]">
+          <p className="mt-6 font-h1 text-[0.7rem] uppercase tracking-[0.22em] text-ember-pale">
             {nav.menu}
           </p>
         </div>
@@ -338,21 +338,21 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
               return (
                 <motion.li key={item.label} variants={reduce ? undefined : menuItem} className="pl-7 pr-6 sm:pl-10">
                   <p className="flex items-baseline gap-4 py-2">
-                    <span className="w-8 shrink-0 font-h1 text-[1rem] leading-none tracking-[-0.04em] text-[#d7f713]">
+                    <span className="w-8 shrink-0 font-h1 text-[1rem] leading-none tracking-[-0.04em] text-ember-pale">
                       {n}
                     </span>
                     <span className="font-h1 text-[clamp(1.55rem,7.2vw,2.4rem)] uppercase leading-[0.92] tracking-[-0.045em] text-on-ink/50">
                       {item.label}
                     </span>
                   </p>
-                  <ul className="mb-2 ml-12 border-l border-[#d7f713]/35">
+                  <ul className="mb-2 ml-12 border-l border-ember-pale/35">
                     {item.children.map((child) => (
                       <li key={child.to}>
                         <NavLink
                           to={child.to}
                           className={({ isActive }) =>
                             `block py-2 pl-4 font-h1 text-[clamp(1.05rem,4.2vw,1.35rem)] uppercase leading-none tracking-[-0.03em] ${
-                              isActive ? "text-[#d7f713]" : "text-on-ink hover:text-[#d7f713]"
+                              isActive ? "text-ember-pale" : "text-on-ink hover:text-ember-pale"
                             }`
                           }
                         >
@@ -371,11 +371,11 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                   end={item.end}
                   className={({ isActive }) =>
                     `flex items-baseline gap-4 py-2.5 pl-7 pr-6 sm:pl-10 ${
-                      isActive ? "text-[#d7f713]" : "text-on-ink hover:text-[#d7f713]"
+                      isActive ? "text-ember-pale" : "text-on-ink hover:text-ember-pale"
                     }`
                   }
                 >
-                  <span className="w-8 shrink-0 font-h1 text-[1rem] leading-none tracking-[-0.04em] text-[#d7f713]">
+                  <span className="w-8 shrink-0 font-h1 text-[1rem] leading-none tracking-[-0.04em] text-ember-pale">
                     {n}
                   </span>
                   <span className="inline-flex items-center gap-3 font-h1 text-[clamp(1.55rem,7.2vw,2.4rem)] uppercase leading-[0.92] tracking-[-0.045em]">
@@ -442,7 +442,7 @@ function CartLink({ className = "relative flex h-[40px] w-[40px] items-center ju
     >
       <BagIcon />
       {count > 0 ? (
-        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-ink">
+        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-graphite">
           {count}
         </span>
       ) : null}

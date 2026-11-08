@@ -11,11 +11,11 @@ import { ShopIcon } from "./ShopIcon";
 const { cta, pages, tarotChat } = siteContent;
 
 const cellClass =
-  "grid h-9 w-9 place-items-center text-[#d7f713] sm:h-10 sm:w-10 md:h-[3.25rem] md:w-[3.25rem]";
+  "grid h-9 w-9 place-items-center text-ember-pale sm:h-10 sm:w-10 md:h-[3.25rem] md:w-[3.25rem]";
 
 /**
  * Capsula fissa: Torna su, Shop, bocca-chat.
- * Grafite pieno, bordo lime, icone centrate. Nessuna animazione.
+ * Grafite pieno, bordo oro antico, icone centrate. Nessuna animazione.
  */
 export function UtilityCapsule() {
   const { pathname } = useLocation();
@@ -29,14 +29,14 @@ export function UtilityCapsule() {
 
   return (
     <nav
-      className="pointer-events-auto fixed right-2 z-[45] flex flex-col items-center gap-0 rounded-full border-2 border-[#d7f713] bg-plate p-1 sm:right-3 sm:gap-0.5 sm:p-1.5 md:right-4"
+      className="pointer-events-auto fixed right-2 z-[45] flex flex-col items-center gap-0 rounded-full border-2 border-ember-pale bg-plate p-1 sm:right-3 sm:gap-0.5 sm:p-1.5 md:right-4"
       style={{ bottom: "calc(4.65rem + var(--dock-lift) + env(safe-area-inset-bottom, 0px))" }}
     >
       <button
         type="button"
         aria-label={cta.tornaSu}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7f713]`}
+        className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-pale`}
       >
         <ArrowUpIcon />
       </button>
@@ -45,14 +45,14 @@ export function UtilityCapsule() {
           to="/shop"
           aria-label={pages.shop.trigger}
           aria-current={pathname === "/shop" ? "page" : undefined}
-          className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7f713]`}
+          className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-pale`}
         >
           <ShopIcon size={22} className="h-[16px] w-[16px] sm:h-[18px] sm:w-[18px] md:h-[22px] md:w-[22px]" />
         </NavLink>
       ) : null}
       <button
         type="button"
-        className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#d7f713]`}
+        className={`${cellClass} hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-pale`}
         aria-label={tarotChat.trigger}
         aria-haspopup="dialog"
         aria-expanded={chatOpen}

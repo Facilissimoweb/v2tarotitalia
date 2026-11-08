@@ -4,7 +4,7 @@ import { getPhoneHref, whatsappChatHref, WHATSAPP_ANCHOR } from "../lib/whatsapp
 const { cta } = siteContent;
 
 const actionClass =
-  "grid h-11 w-11 place-items-center bg-ivory text-ink shadow-[0_8px_24px_rgba(43,37,35,0.1)] ring-1 ring-ink/10 transition-colors duration-200 hover:text-ember";
+  "grid h-11 w-11 place-items-center bg-ivory text-ink shadow-[0_8px_24px_rgba(43,37,35,0.1)] ring-1 ring-ink/10 transition-colors duration-200 hover:text-ember-soft";
 
 type Props = {
   raised?: boolean;

@@ -7,7 +7,7 @@ const { footer } = siteContent;
 const { piattaforme } = footer;
 
 const iconBtn =
-  "inline-flex h-11 w-11 items-center justify-center text-[#EDE4D4]/85 transition-colors duration-200 hover:text-[#d7f713] focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#d7f713]";
+  "inline-flex h-11 w-11 items-center justify-center text-[#EDE4D4]/85 transition-colors duration-200 hover:text-ember-pale focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ember-pale";
 
 export function FooterShare() {
   const { pathname } = useLocation();

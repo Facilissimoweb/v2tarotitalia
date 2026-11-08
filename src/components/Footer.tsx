@@ -15,9 +15,9 @@ const { tutela } = legal;
 const colTitle =
   "text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-[#EDE4D4]";
 const colLink =
-  "text-[0.8125rem] leading-relaxed text-[#EDE4D4]/90 transition-colors hover:text-[#d7f713]";
+  "text-[0.8125rem] leading-relaxed text-[#EDE4D4]/90 transition-colors hover:text-ember-pale";
 const legalLink =
-  "text-[0.625rem] font-semibold uppercase tracking-[0.16em] text-[#EDE4D4]/70 transition-colors hover:text-[#d7f713]";
+  "text-[0.625rem] font-semibold uppercase tracking-[0.16em] text-[#EDE4D4]/70 transition-colors hover:text-ember-pale";
 
 export function Footer() {
   const { reopen } = useConsent();
@@ -42,14 +42,14 @@ export function Footer() {
           <ul className="mt-6 space-y-2.5 text-[0.8125rem] text-[#EDE4D4]/80">
             <li className="flex items-start gap-2.5">
               <MailGlyph />
-              <MailToLink email={brand.email} className="hover:text-[#d7f713]">
+              <MailToLink email={brand.email} className="hover:text-ember-pale">
                 {brand.email}
               </MailToLink>
             </li>
             {tel ? (
               <li className="flex items-start gap-2.5">
                 <PhoneGlyph />
-                <a href={tel} className="hover:text-[#d7f713]">
+                <a href={tel} className="hover:text-ember-pale">
                   {brand.whatsapp}
                 </a>
               </li>
@@ -61,11 +61,11 @@ export function Footer() {
             <li>{brand.piva}</li>
           </ul>
           <div className="mt-5 flex items-center gap-3 text-[#EDE4D4]/80">
-            <a href={wa} className="hover:text-[#d7f713]" aria-label={cta.whatsappRapido} {...WHATSAPP_ANCHOR}>
+            <a href={wa} className="hover:text-ember-pale" aria-label={cta.whatsappRapido} {...WHATSAPP_ANCHOR}>
               <WhatsAppGlyph />
             </a>
             {telegram ? (
-              <a href={telegram} className="hover:text-[#d7f713]" aria-label={cta.telegram} {...WHATSAPP_ANCHOR}>
+              <a href={telegram} className="hover:text-ember-pale" aria-label={cta.telegram} {...WHATSAPP_ANCHOR}>
                 <TelegramGlyph />
               </a>
             ) : null}

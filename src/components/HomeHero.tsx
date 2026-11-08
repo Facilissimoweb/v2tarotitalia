@@ -169,10 +169,10 @@ export function HomeHero() {
             to={azione.to}
             className="plate-tile group flex min-h-[7.25rem] flex-col border-white/10 bg-plate px-4 py-5 text-on-ink transition-colors max-xl:border-b max-xl:border-r max-xl:[&:nth-child(2n)]:border-r-0 max-xl:[&:nth-last-child(-n+2)]:border-b-0 sm:min-h-[9.25rem] sm:px-6 sm:py-6 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:last:border-r-0"
           >
-            <span className="font-h1 text-[1.2rem] leading-none tracking-[-0.04em] text-[#d7f713] sm:text-[1.35rem]">
+            <span className="font-h1 text-[1.2rem] leading-none tracking-[-0.04em] text-ember-pale sm:text-[1.35rem]">
               {azione.n}
             </span>
-            <span className="mt-4 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-[#d7f713] sm:mt-5 sm:text-[0.6875rem]">
+            <span className="mt-4 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-ember-pale sm:mt-5 sm:text-[0.6875rem]">
               {azione.titolo}
             </span>
             <span className="mt-3 hidden flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55 sm:block sm:line-clamp-2">
@@ -180,7 +180,7 @@ export function HomeHero() {
             </span>
             <span
               aria-hidden
-              className="mt-4 text-[0.8125rem] text-[#d7f713] transition-transform group-hover:translate-x-1 sm:mt-5"
+              className="mt-4 text-[0.8125rem] text-ember-pale transition-transform group-hover:translate-x-1 sm:mt-5"
             >
               →
             </span>

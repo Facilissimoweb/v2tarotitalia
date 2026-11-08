@@ -11,7 +11,7 @@ type Props = {
 
 /**
  * Testo visibile + approfondimento a tendina.
- * Freccia lime nello scacco nero: ruota all’apertura.
+ * Freccia in oro antico nello scacco nero: ruota all’apertura.
  */
 export function TextFold({ summary, children, className = "" }: Props) {
   const [open, setOpen] = useState(false);
@@ -26,7 +26,7 @@ export function TextFold({ summary, children, className = "" }: Props) {
         aria-controls={panelId}
         aria-label={open ? fold.chiudi : fold.apri}
         onClick={() => setOpen((value) => !value)}
-        className="mt-4 flex h-10 w-10 items-center justify-center bg-ink text-lime transition-colors duration-200 hover:bg-graphite focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime"
+        className="mt-4 flex h-10 w-10 items-center justify-center bg-ink text-ember-pale transition-colors duration-200 hover:bg-graphite focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-pale"
       >
         <svg
           aria-hidden
