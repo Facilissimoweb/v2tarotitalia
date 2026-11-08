@@ -36,7 +36,7 @@ export const siteContent = {
 
   nav: {
     home: "Home",
-    chiSiamo: "Chi sono",
+    chiSono: "Chi sono",
     tarocchi: "Tarocchi",
     arcaniMaggiori: "22 Arcani Maggiori",
     arcaniMinori: "Arcani Minori",
@@ -114,7 +114,7 @@ export const siteContent = {
     telegram: "Telegram",
     esploraArcani: "Esplora i 22 Arcani",
     formazioneOlistica: "Formazione olistica",
-    leggiChiSiamo: "Leggi Chi sono",
+    leggiChiSono: "Leggi Chi sono",
     scriviStudio: "Scrivimi",
     percorsi: "Percorsi",
     prenotaPercorso: "Prenota questo percorso",
@@ -131,74 +131,69 @@ export const siteContent = {
     seo: {
       titolo: "Tarot Italia | Cartomante e tarologia evolutiva a Macerata",
       descrizione:
-        "Cartomanzia e tarologia con Maria Teresa Rogani, cartomante: consulti di tarologia evolutiva dal vivo in Via Crispi 37 a Macerata e online via WhatsApp.",
+        "Sono Maria Teresa Rogani, tarologa a Macerata. Consulti dal vivo e online, con una lettura simbolica degli Arcani Maggiori e Minori.",
       immagineAlt:
-        "Tarot Italia di Maria Teresa Rogani – Cartomanzia e tarologia evolutiva online e dal vivo",
+        "Tarot Italia, tarologia archetipica con Maria Teresa Rogani",
     },
     copyright: "© Tarot Italia",
     firma: "di M. Teresa Rogani",
-    benvenuto: "Benvenuti nel cuore del mio laboratorio di ricerca visiva e interiore.",
-    competenze: "Il Simbolo, l’Immagine, il Cammino",
+    benvenuto: "Una lettura simbolica degli Arcani per osservare il presente e orientare con consapevolezza le scelte.",
+    competenze: "Cartomanzia e tarologia evolutiva · letture dei tarocchi dal vivo e online",
     lead: sloganBrand,
-    chiSiamo: {
-      kicker: "Tarot Italia",
-      titolo: "Il Simbolo, l’Immagine, il Cammino",
-      benvenuto: "Benvenuti nel cuore del mio laboratorio di ricerca visiva e interiore.",
-      presentazione:
-        "L’approccio che adotto unisce l’analisi visiva e semiotica dell’immagine alla lettura rigorosa dei tarocchi, sia negli Arcani Maggiori che nei Minori. Ciascun consulto costituisce per voi uno spazio protetto di ascolto autentico, pensato per fare chiarezza e restituirvi piena sovranità decisionale, lontano da automatismi e logiche commerciali.",
+    chiSono: {
+      kicker: "Il mio approccio",
+      titolo: "Le immagini dei tarocchi come linguaggio",
+      benvenuto:
+        "Mi chiamo Maria Teresa Rogani. Nei consulti leggo i tarocchi come un sistema di immagini e simboli, non come un automatismo interpretativo.",
       iconografia:
-        "All’interno di Tarot Italia non troverete semplici carte, ma un linguaggio iconografico antico che attende solo di essere decodificato. Il mio approccio unisce l’analisi visiva e semiotica dell’immagine alla conoscenza profonda e rigorosa dei tarocchi, esplorando con la stessa cura sia gli Arcani Maggiori che i Minori.",
-      bussola:
-        "Ciascun consulto o percorso costituisce per voi una bussola preziosa e una mappa di orientamento autentico, pensata per fare chiarezza, sciogliere i dubbi e restituirvi piena sovranità decisionale, lontano da automatismi meccanici, mode passeggere o logiche commerciali.",
-      percorsi:
-        "Sia che scegliate un consulto singolo, sia che desideriate affidarvi ai miei percorsi, vi offro un’esperienza di riallineamento simbolico ed evoluzione emotiva: chiarezza, rispetto e cura sartoriale, senza alcuna promessa di forzatura esterna. Qui i tarocchi tornano a essere ciò che sono sempre stati: uno specchio limpido e potente per orientare il vostro cammino.",
+        "Unisco l’osservazione delle immagini alla tradizione degli Arcani Maggiori e Minori. Questo metodo aiuta a esplorare una domanda con attenzione, senza imporre risposte.",
     },
     ctaConsulto: "Prenota consulto",
     visione: {
       kicker: "Visione & Deontologia",
-      titolo: "Un Approccio Rigoroso, Empatico e Intuitivo",
-      lead: "I tarocchi non sono predestinazione immutabile, ma una grammatica per svelare l’invisibile e risvegliare le tue decisioni più autentiche.",
-      espandi: "Un approccio rigoroso",
+      titolo: "Una lettura consapevole",
+      lead: "Le carte offrono una prospettiva sul presente e sulle possibili linee evolutive; le scelte restano tue.",
+      espandi: "Scopri il mio approccio",
       riduci: "Mostra meno",
       pilastri: [
         {
-          titolo: "Introspezione non Dogmatica",
-          testo: "I tarocchi come specchio della psiche e bussola d’orientamento personale. Nessun fatalismo: stimoliamo il pensiero critico e la consapevolezza emotiva.",
-          etichetta: "Specchio archetipico",
+          titolo: "Lettura simbolica",
+          testo: "Interpreto le immagini e le dinamiche della stesa senza trasformarle in verità assolute.",
+          etichetta: "Metodo non deterministico",
         },
         {
-          titolo: "Spazio d’Ascolto Protetto",
-          testo: "Un’ora integrale (60 min) dedicata senza fretta ai tuoi sogni, desideri nascosti, nodi emotivi e scelte di vita, in un contesto privo di giudizio.",
-          etichetta: "Riservatezza assoluta",
+          titolo: "Ascolto riservato",
+          testo: "Un tempo dedicato alla tua domanda, in un contesto rispettoso e privo di giudizio.",
+          etichetta: "Rispetto e riservatezza",
         },
         {
-          titolo: "Doppia Modalità Fluida",
-          testo: "Consulti dal vivo in Via Crispi 37 a Macerata, oppure online via chiamata vocale WhatsApp. Nessuna videochiamata, per preservare la concentrazione auricolare.",
-          etichetta: "Presenza & Digitale",
+          titolo: "In studio o a distanza",
+          testo: "Ricevo su appuntamento a Macerata e online, tramite chiamata vocale WhatsApp.",
+          etichetta: "Due modalità",
         },
       ],
     },
     percorsi: {
-      titolo: "Percorsi di Chiarezza ed Equilibrio",
+      titolo: "Scegli la lettura più adatta",
       letture: [
         {
           id: "focus",
-          titolo: "Lettura Breve & Focalizzata",
+          titolo: "Lettura focalizzata",
           meta: "30 minuti — 40€",
-          testo: "Uno spazio concentrato su un quesito specifico o su un nodo puntuale, per ottenere chiarezza immediata e indicazioni concrete.",
+          testo: "Per esplorare una domanda specifica e mettere a fuoco gli elementi essenziali.",
           cta: "Prenota 30 min",
         },
         {
           id: "deep",
-          titolo: "Lettura Integrale a 360°",
+          titolo: "Lettura approfondita",
           meta: "60 minuti — 60€",
-          testo: "Un’ora di ascolto profondo e analisi dettagliata dei temi ricorrenti, delle dinamiche personali e delle scelte di vita.",
+          testo: "Più tempo per osservare dinamiche, temi ricorrenti e possibili direzioni.",
           cta: "Prenota 60 min",
         },
       ],
       itha: {
-        titolo: "ITHA — Percorsi Evolutivi",
-        testo: "Percorsi e approfondimenti simbolici dedicati all’esplorazione avanzata degli archetipi e della tradizione ermetica.",
+        titolo: "ITHA — Approfondimenti simbolici",
+        testo: "Uno spazio di studio degli archetipi e della tradizione ermetica.",
         cta: "Scopri Itha",
       },
     },
@@ -217,7 +212,7 @@ export const siteContent = {
     },
     passaggi: {
       titolo: "Dal Matto al Mondo — I 22 Passaggi dell’Eroe",
-      testo: "Dispensa didattica: simboli, schemi di tiraggio e corrispondenze. I titoli si sbloccano dopo l’acquisto, nello stesso spazio riservato dei consulti.",
+      testo: "Una dispensa sugli Arcani Maggiori, con simboli, schemi di lettura e corrispondenze. Dopo l’acquisto, la trovi nella tua area riservata.",
       cta: "Vai ai corsi e alle dispense",
     },
   },
@@ -248,38 +243,24 @@ export const siteContent = {
     },
     contatti: {
       kicker: "Contatti",
-      titolo: "Contatti – Inizia il Tuo Spazio di Ascolto",
+      titolo: "Contatti",
+      intro: "Per informazioni o appuntamenti, scrivimi o chiamami.",
       seo: {
         titolo: "Contatti | Tarot Italia a Macerata e online",
         descrizione:
-          "Contatti Tarot Italia di Maria Teresa Rogani: Via Crispi 37, 62100 Macerata. Consulti e Percorsi di Armonizzazione, su appuntamento, dal vivo e online.",
+          "Scrivi o chiama Maria Teresa Rogani per informazioni e appuntamenti. Ricevo a Macerata e online.",
       },
-      primoPasso: {
-        kicker: "Il Primo Passo",
-        titolo: "Il Primo Passo",
-        testo:
-          "Benvenuti nella sezione dedicata al contatto diretto. Se desiderate richiedere informazioni sui consulti singoli, approfondire la struttura dei Percorsi di Armonizzazione o semplicemente valutare quale modalità sia più adatta alle vostre esigenze attuali, potete scrivermi in totale riservatezza.",
-      },
-      canali: {
-        kicker: "Come Mettervi in Contatto",
-        titolo: "Come Mettervi in Contatto",
-        modulo: "Modulo di Contatto",
-        email: "Email Diretta",
-      },
-      note: {
-        kicker: "Note Operative",
-        titolo: "Note Operative",
-        gestione:
-          "Ciascuna richiesta viene letta e gestita personalmente da me (M. Teresa), garantendovi un’attenzione sartoriale fin dal primo messaggio.",
-        appuntamento:
-          "Gli incontri si svolgono su appuntamento e in uno spazio riservato, pensato per offrirvi il massimo rispetto dei vostri tempi e delle vostre esigenze.",
-      },
+      moduloKicker: "Modulo",
+      moduloTitolo: "Scrivimi",
+      recapitiTitolo: "Email e telefono",
+      sede: "Via Crispi 37, 62100 Macerata",
+      appuntamento: "Ricevo su appuntamento.",
       form: {
         nome: "Nome",
         email: "Email",
         oggetto: "Oggetto",
         messaggio: "Messaggio",
-        invia: "Invia il messaggio",
+        invia: "Apri il programma email",
       },
     },
     arcani: {
@@ -403,59 +384,60 @@ export const siteContent = {
   },
 
 
-  chiSiamo: {
+  chiSono: {
     kicker: "Chi sono",
-    titolo: "Visione ed Etica",
+    titolo: "Chi sono",
+    sottotitolo: "Tarologa a Macerata · Consulti in studio e online",
     seo: {
       titolo: "Maria Teresa Rogani | Chi sono – Tarot Italia a Macerata",
       descrizione:
-        "Maria Teresa Rogani, operatrice olistica a Macerata: visione ed etica di Tarot Italia. Tarologia archetipica e lettura dei tarocchi, dal vivo in Via Crispi 37 e online via WhatsApp.",
+        "Sono Maria Teresa Rogani, tarologa a Macerata. Integro analisi visiva e studio degli archetipi nei consulti in studio e online.",
     },
     visione: {
-      kicker: "La Visione e il Percorso",
-      titolo: "La Visione e il Percorso",
+      kicker: "La mia ricerca",
+      titolo: "Tarocchi, immagini e simboli",
       testo:
-        "Benvenuti in Tarot Italia. Mi chiamo Maria Teresa Rogani e il mio lavoro nasce dal desiderio di restituire alla lettura dei tarocchi la sua veste più autentica: quella di uno strumento rigoroso di indagine simbolica e consapevolezza interiore. Lettura dei tarocchi dal vivo, in Via Crispi 37 a Macerata, e online via chiamata vocale WhatsApp.",
+        "Mi chiamo Maria Teresa Rogani. Studio i tarocchi come un linguaggio simbolico: nei consulti osservo le immagini e le dinamiche della stesa per esplorare la domanda con cura e senza giudizio.",
     },
     metodo: {
       kicker: "Il Metodo",
-      titolo: "Il Metodo — Arcani Maggiori e Minori",
-      sottotitolo: "L’Integrazione tra Analisi Visiva e Sapienza Archetipica",
+      titolo: "Come leggo le carte",
+      sottotitolo: "Dall’immagine alla trama simbolica.",
       testo:
-        "Il mio approccio si fonda sull’integrazione tra l’analisi visiva e semiotica dell’immagine e la conoscenza profonda dei tarocchi, sia negli Arcani Maggiori che nei Minori. Non considero le carte come un automatismo interpretativo o una predizione meccanica, ma come un linguaggio iconografico complesso da decodificare con cura e rispetto.",
+        "Integro l’analisi di composizione, colore e iconografia con lo studio degli Arcani Maggiori e Minori. Leggo le carte nel loro insieme, senza affidarmi a significati automatici.",
       ponte:
-        "Per offrirvi uno strumento di orientamento chiaro e accessibile — sia che stiate muovendo i primi passi, sia che desideriate approfondire il piano spirituale ed evolutivo — ho strutturato i miei consulti in due grandi tipologie fondamentali:",
+        "Propongo due livelli di lettura, da scegliere in base alla domanda e al grado di approfondimento desiderato:",
       categorie: [
         {
-          titolo: "Il Tarocco Classico (Pratico, Immediato e Rassicurante)",
+          titolo: "Lettura pratica",
           lettura:
-            "Il significato superficiale e immediato: È la lettura più diffusa e accessibile, quella tradizionalmente associata alle figure “da mago” (eloquenza, scioltezza comunicativa e intuito pratico nella riuscita e nella gestione del lavoro).",
+            "Parto dai significati tradizionali e dalle immagini per mettere a fuoco questioni concrete e quotidiane.",
           serve:
-            "A cosa serve: È lo strumento ideale per chi si avvicina per la prima volta alle carte e cerca risposte rapide, chiare e orientate alla concretezza lavorativa e quotidiana, senza barriere complesse o timori legati alla tecnologia o agli investimenti.",
+            "È un primo accesso alle carte, adatto anche a chi si avvicina alla lettura per la prima volta.",
         },
         {
-          titolo: "Il Tarocco Esoterico (Il Piano Più Profondo e Archetipico)",
+          titolo: "Lettura archetipica",
           lettura:
-            "La decodifica simbolica: Un viaggio che va oltre l’apparenza visiva, esplorando l’origine storica, le radici iconografiche (dal Rinascimento italiano fino alle grandi scuole ermetiche) e il profondo valore archetipico delle lame.",
+            "Esamino i riferimenti storici, l’iconografia e gli archetipi che attraversano le lame.",
           serve:
-            "A cosa serve: È pensato per chi desidera andare in profondità, comprendendo la carta non solo come consiglio pratico, ma come specchio dell’inconscio, mappa di evoluzione personale e chiave di lettura della propria interiorità.",
+            "È un percorso di approfondimento per esplorare con più ampiezza temi e dinamiche personali.",
         },
       ],
     },
     etica: {
-      kicker: "Etica e Rispetto",
-      titolo: "Etica e Rispetto",
+      kicker: "Etica",
+      titolo: "Ascolto e responsabilità",
       testo:
-        "Credo in una tarologia etica e trasparente: ogni incontro è strutturato come uno spazio protetto di ascolto, privo di logiche commerciali o suggestioni deterministiche. Il mio obiettivo non è dirvi cosa accadrà, ma offrirvi chiarezza per restituirvi piena sovranità sulle vostre scelte di vita.",
+        "Offro uno spazio riservato, senza giudizio né risposte imposte. La lettura apre prospettive; le decisioni restano di chi consulta. Il servizio non sostituisce pareri o trattamenti medici, psicologici, sanitari, legali o finanziari.",
     },
     ctaConsulti: "Scopri i consulti",
     formazione: {
-      kicker: "Formazione Scolastica",
-      titolo: "La Grammatica Visiva dell’Anima",
-      lead: "Non semplici immagini o credenze del passato, ma una chiave di lettura visiva rigorosa che affonda le radici nella storia della comunicazione e del segno.",
+      kicker: "Il mio percorso",
+      titolo: "Formazione e ricerca",
+      lead: "La mia formazione visiva e umanistica informa il modo in cui osservo e interpreto le carte.",
       testi: [
-        "Il mio percorso parte da lontano, fondandosi su basi solide: sono diplomata come Tecnica Grafica e laureata in Tecniche della Comunicazione Visiva all’Accademia di Belle Arti di Macerata. Non si tratta di semplici titoli su un CV, ma del vero e proprio habitat metodologico che dà forma al mio lavoro. A questo nucleo visivo si uniscono gli anni di ricerca artistica in Scultura Contemporanea (sempre in Accademia) e lo studio della Filosofia Classica all’Università di Lettere e Filosofia di Macerata.",
-        "È grazie a questo intreccio di saperi che possiedo gli strumenti concreti per dissezionare la grammatica visiva, cromatica e compositiva delle lame. Ogni tratto, ogni equilibrio di pesi e ogni scelta simbolica non vengono decodificati come dogmi magici, ma come un linguaggio iconografico archetipico che parla direttamente alla mente profonda. È questo sguardo consapevole e rigoroso che trasforma un mazzo di carte in un autentico specchio di chiarezza e orientamento per voi e per la vostra vita.",
+        "Sono diplomata come Tecnica Grafica e laureata in Tecniche della Comunicazione Visiva all’Accademia di Belle Arti di Macerata. Ho approfondito la scultura contemporanea e la filosofia classica.",
+        "Questa formazione guida il mio sguardo su composizione, colore e simboli, che considero nel loro contesto storico e iconografico.",
       ],
     },
     percorsoKicker: "Percorso disciplinare",
@@ -486,58 +468,52 @@ export const siteContent = {
       },
     ],
     percorsoEsteso: {
-      kicker: "PERCORSO DISCIPLINARE ESTESO",
-      badge: "Percorso Disciplinare Certificato | ACCREDITAMENTI IPHM",
+      kicker: "Formazione complementare",
+      badge: "Formazione e attestati",
       titolo: "Formazione Olistica di Teresa",
-      lead: "Un percorso di continua ricerca, studio con maestri accreditati e pratica rigorosa su molteplici canali della salute energetica e della divinazione simbolica.",
+      lead: "Formazione continua in tarologia e discipline olistiche.",
       voci: [
         {
           badge: "Percorso 2025",
           icona: "✨",
           titolo: "Tarocchi Rider Waite Smith",
-          testo:
-            "Formata con la taromante Mariangela Aggio per il Percorso 2025 in lettura e decodifica intuitiva dei Tarocchi Rider Waite Smith.",
+          testo: "Ho seguito il Percorso 2025 in lettura e decodifica intuitiva con Mariangela Aggio.",
         },
         {
           badge: "Annuale 2023 / 2024",
           icona: "📖",
           titolo: "Accademia Nazionale del Tarocco Esoterico",
-          testo:
-            "Formata come tarologa nel percorso annuale diretto da Dorian Bones (artista, libero ricercatore, membro fondatore della Società dello Zolfo e direttore dell’Accademia Nazionale del Tarocco Esoterico).",
+          testo: "Ho completato il percorso annuale di tarologia diretto da Dorian Bones.",
         },
         {
           badge: "Lignaggio Originale",
           icona: "⚡",
           titolo: "Operatore Reiki II Livello",
-          testo:
-            "Certificata con il Maestro F. Tartuferi secondo il lignaggio originale di Mikao Usui® per il trattamento energetico e l’armonizzazione a distanza.",
+          testo: "Ho conseguito il secondo livello con M. F. Tartuferi, nel lignaggio Mikao Usui®.",
         },
         {
           badge: "Accredito IPHM",
           icona: "🧘",
           titolo: "Facilitatore Mindfulness",
-          testo:
-            "Formata presso Mindfulness Educators®, accreditata dall’ente internazionale IPHM (International Practitioners of Holistic Medicine).",
+          testo: "Mi sono formata presso Mindfulness Educators®, accreditata IPHM.",
         },
         {
           badge: "Accredito IPHM",
           icona: "🌿",
           titolo: "Operatore Naturopata",
-          testo:
-            "Formata presso Future Academy®, accreditata dall’ente IPHM (International Practitioners of Holistic Medicine) per il benessere integrato.",
+          testo: "Mi sono formata presso Future Academy®, accreditata IPHM.",
         },
         {
           badge: "Radiestesia & Energie",
           icona: "🧭",
           titolo: "Pendolo PTAH & Piramidologia",
-          testo:
-            "Specializzata nell’individuazione ed elaborazione delle energie sottili da oggetti, persone, luoghi, piante e animali. Percorso diretto dall’operatore olistico Emiliano Amici.",
+          testo: "Ho seguito un percorso di radiestesia con l’operatore olistico Emiliano Amici.",
         },
       ],
     },
     immagini: {
       hero: {
-        src: "/chi-siamo/hero-putti.webp?v=3",
+        src: "/chi-sono/hero-putti.webp?v=3",
         alt: "M. Teresa Rogani, Tarot Italia",
         position: "right center",
         fit: "contain",
@@ -545,27 +521,27 @@ export const siteContent = {
         height: 469,
       },
       teresa: {
-        src: "/chi-siamo/teresa-ritratto.jpg?v=6",
+        src: "/chi-sono/teresa-ritratto.jpg?v=6",
         alt: "Ritratto evocativo di M. Teresa Rogani, operatrice olistica ed esoterica, cartomante e tarologa professionista",
         caption: "M. Teresa Rogani",
       },
       pamela: {
-        src: "/chi-siamo/pamela-colman-smith.webp",
+        src: "/chi-sono/pamela-colman-smith.webp",
         alt: "Pamela Colman Smith",
         caption:
-          "Pamela Colman Smith (16 febbraio 1878 – 18 settembre 1951). Nel 1909 l’artista crea un innovativo mazzo di Tarocchi di 78 carte che sarebbe stato riconosciuto come rivoluzionario.",
-        nota: "Grazie alle scene descrittive che illustrano tutti gli Arcani minori, il mazzo si è distaccato dalla tradizione secolare dei Tarocchi per diventare il punto di riferimento per tutti i mazzi pubblicati in seguito.",
+          "Pamela Colman Smith (1878–1951), artista e illustratrice del mazzo Rider–Waite–Smith (1909).",
+        nota: "Le scene illustrate degli Arcani Minori resero questo mazzo un riferimento per le successive tradizioni di tarocchi.",
       },
       studio: {
-        src: "/chi-siamo/studio-board.jpg?v=1",
+        src: "/chi-sono/studio-board.jpg?v=1",
         alt: "Sede di Tarot Italia in Via Crispi 37 a Macerata",
         caption: "Via Crispi 37 · Macerata",
       },
       simboli: {
-        src: "/chi-siamo/tavolo-arcani.jpg?v=1",
+        src: "/chi-sono/tavolo-arcani.jpg?v=1",
         alt: "Carta dell'Eremita — Tarot Italia",
         caption: "Carta dell'Eremita",
-        nota: "Per alcuni l'Eremita rappresenta (tradizionalmente) la cautela e la prudenza (Eliphas Lévi ed altri) ma nell'osservazione della IX carta degli Arcani Maggiori nulla indica tali caratteristiche e certamente il “buio” non comporta per l'Eremita né incertezza né timore visto che l'allontanarsi dalle “luci comuni dei luoghi comuni” (le verità superficiali) è il presupposto stesso all'essere Eremita. L'Eremita quindi indica la ricerca mirata e la filosofia analitica attraverso l'attenta osservazione cosciente. Per Wirth è l'esperienza. È colui che da solo cerca la conoscenza e il sapere.",
+        nota: "L’Eremita richiama la ricerca della conoscenza e l’osservazione consapevole.",
       },
     },
   },
@@ -597,7 +573,7 @@ export const siteContent = {
     citazione:
       "Chiarezza, rispetto e crescita personale: la direzione resta tua.",
     immagine: {
-      src: "/chi-siamo/folklore-marche.svg?v=2",
+      src: "/chi-sono/folklore-marche.svg?v=2",
       alt: "Percorsi di armonizzazione e consapevolezza — Tarot Italia",
       caption: "Percorsi di Armonizzazione",
     },
@@ -909,8 +885,10 @@ export const siteContent = {
       descrizione:
         "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con Maria Teresa Rogani, dal vivo in Via Crispi 37 e via chiamata vocale WhatsApp.",
     },
-    apertura:
-      "Lettura dei tarocchi dal vivo, in Via Crispi 37 a Macerata, e online. Consulti di 30 o 60 minuti con Maria Teresa Rogani, su appuntamento. A distanza, chiamata vocale WhatsApp: nessuna videochiamata.",
+    intro:
+      "Uno spazio di ascolto per osservare con maggiore chiarezza una domanda e le possibilità a tua disposizione.",
+    letturaDalVivo:
+      "L’incontro con Maria Teresa Rogani dura 30 o 60 minuti e si svolge su appuntamento. A distanza, la sessione avviene tramite chiamata vocale WhatsApp, senza videochiamata.",
     modalita: {
       presenza: "Dal vivo",
       presenzaNota: "Via Crispi 37, Macerata",
@@ -927,60 +905,38 @@ export const siteContent = {
         height: 469,
       },
     },
-    orientamento: [
-      {
-        n: "01",
-        titolo: "Cosa sono i tarocchi?",
-        testo: "Un sistema di 78 lame che mappa gli archetipi dell’esperienza umana. Non una semplice predizione, ma uno specchio rigoroso del presente per decodificare il futuro.",
-      },
-      {
-        n: "02",
-        titolo: "A chi si rivolgono?",
-        testo: "A chiunque attraversi un momento di snodo, di domanda o di incertezza e cerchi coordinate lucide per fare chiarezza dentro e fuori di sé.",
-      },
-      {
-        n: "03",
-        titolo: "Quando fare una lettura?",
-        testo: "Quando la mente è disposta all’ascolto. È consigliabile interrogare le lame quando si è centrati, evitando il panico cieco o la confusione caotica: la risposta cerca una terra stabile.",
-      },
-      {
-        n: "04",
-        titolo: "Come approcciarsi?",
-        testo: "Con ascolto nudo e assenza di dogmi. Accostarsi alle carte richiede la disponibilità a ricevere una prospettiva veritiera, anche quando disattende le attese.",
-      },
-    ],
     faq: {
       kicker: "Chiarezza",
       titolo: "Domande frequenti",
       voci: [
         {
-          domanda: "Come funziona un consulto di tarocchi evolutivi a Macerata?",
+          domanda: "Che cosa comprende il consulto?",
           risposta:
-            "Un consulto di tarocchi evolutivi con Tarot Italia si svolge con Maria Teresa Rogani, operatrice olistica e tarologa professionista, dal vivo in Via Crispi 37 a Macerata oppure a distanza. Le letture durano 30 o 60 minuti, in uno spazio protetto di ascolto. Consulti su appuntamento. I consulti a distanza avvengono tramite chiamata vocale WhatsApp: nessuna videochiamata, per preservare la concentrazione auricolare.",
+            "È un incontro dedicato alla domanda o alla situazione che desideri esplorare. La lettura offre una prospettiva simbolica sul presente e non formula risposte deterministiche.",
         },
         {
-          domanda: "Un consulto è dal vivo o online?",
+          domanda: "Dove si svolge il consulto?",
           risposta:
-            "I consulti si tengono dal vivo, in Via Crispi 37, 62100 Macerata, e online via chiamata vocale WhatsApp. Dalle ore 19:00 i consulti avvengono esclusivamente online. Nessuna videochiamata, per preservare la concentrazione auricolare.",
+            "Puoi incontrare Maria Teresa Rogani su appuntamento in Via Crispi 37, a Macerata, oppure a distanza con una chiamata vocale WhatsApp. Dopo le 19:00 i consulti sono disponibili solo a distanza.",
         },
         {
-          domanda: "Quanto dura un consulto e come si prenota?",
+          domanda: "Quanto dura e quanto costa?",
           risposta:
-            "Sono disponibili un consulto di 30 minuti (40 €) e un consulto di 1 ora (60 €), onnicomprensivi. È possibile aggiungere un report di sintesi in PDF inviato via WhatsApp. La prenotazione si finalizza dal calendario di questa pagina: dopo il pagamento su Stripe la sessione è riservata sul tuo account. Per finalizzare è necessario accedere o registrarsi.",
+            "Puoi scegliere una sessione di 30 minuti a 40 € o di un’ora a 60 €. È disponibile anche un report di sintesi in PDF a 10 €, inviato via WhatsApp.",
         },
         {
-          domanda: "Che differenza c’è tra il consulto di 30 minuti e quello di 1 ora?",
+          domanda: "Come si prenota?",
           risposta:
-            "Il consulto di 30 minuti è una disamina puntuale di una singola questione nevralgica — relazionale, lavorativa o decisionale. Il consulto di 1 ora è un’analisi completa di stasi evolutiva, croce celtica integrata e dialogo archetipico: un’ora dedicata senza fretta a sogni, nodi emotivi e scelte di vita, in un contesto privo di giudizio.",
+            "Scegli durata, modalità, data e orario nel calendario. Per confermare la sessione è necessario accedere o registrarsi e completare il pagamento. Riceverai una conferma via email e potrai consultare la prenotazione nella tua area riservata.",
         },
         {
-          domanda: "I tarocchi secondo Tarot Italia predicono il futuro?",
+          domanda: "La lettura predice il futuro?",
           risposta:
-            "I tarocchi sono un sistema di 78 lame che mappa gli archetipi dell’esperienza umana. Non una semplice predizione, ma uno specchio rigoroso del presente per decodificare il futuro. Ogni incontro è uno spazio protetto di ascolto, privo di logiche commerciali o suggestioni deterministiche: l’obiettivo non è dire cosa accadrà, ma offrire chiarezza per restituire piena sovranità sulle scelte di vita. Attività disciplinata ai sensi della Legge 14 gennaio 2013, n. 4. Nessuna consulenza costituisce parere medico, sanitario o legale.",
+            "La lettura non descrive un futuro fatalmente già scritto. Attraverso una visione profonda del presente, i tarocchi aiutano ad analizzare le dinamiche in atto, intravedere le possibili linee evolutive e orientare con maggiore consapevolezza le proprie scelte. Il consulto non sostituisce pareri medici, sanitari o legali.",
         },
       ],
     },
-    procedi: "Ci siamo quasi!",
+    procedi: "Continua alla prenotazione",
     conferma: "Conferma e riserva la sessione",
     pagaStripe: "Paga e riserva la sessione",
     checkoutOk: "Pagamento ricevuto. La sessione è riservata. Ti ho scritto anche via email.",

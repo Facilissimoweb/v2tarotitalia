@@ -715,37 +715,6 @@ h3 {
   }
 }
 
-/* Hero interne: logo e titolo centrati, stesso palco di Chi sono. */
-.page-hero-stage {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  width: 100%;
-  min-height: 66svh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: var(--nav-offset);
-  padding-right: 1.5rem;
-  padding-bottom: 2.5rem;
-  padding-left: 1.5rem;
-  text-align: center;
-}
-
-.page-hero-stage > * {
-  max-width: 48rem;
-}
-
-@media (min-width: 768px) {
-  .page-hero-stage {
-    min-height: 72svh;
-    padding-right: 2.5rem;
-    padding-bottom: 3rem;
-    padding-left: 2.5rem;
-  }
-}
-
-
 /* ───────── Facilitazione visiva (vedi src/lib/accessibility.ts) ─────────
    Regole fuori da @layer: prevalgono sulle utility Tailwind. */
 

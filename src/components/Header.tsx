@@ -153,6 +153,14 @@ export function Header() {
               flagClassName="h-2.5 w-[0.9rem]"
             />
             <CartLink className={NAV_ICON_BTN} />
+            <NavLink
+              to="/"
+              className={NAV_ICON_BTN}
+              aria-label={nav.home}
+              title={nav.home}
+            >
+              <HomeIcon size={20} />
+            </NavLink>
             <button
               type="button"
               className={NAV_ICON_BTN}
@@ -184,6 +192,7 @@ function DesktopNavEntry({ item }: { item: NavItem }) {
         `${desktopLinkClass(isActive)}${item.icon ? " inline-flex items-center gap-1.5" : ""}`
       }
     >
+      {item.icon === "home" ? <HomeIcon size={14} /> : null}
       {item.icon === "shop" ? <ShopIcon size={14} /> : null}
       {item.label}
     </NavLink>
@@ -370,6 +379,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
                     {n}
                   </span>
                   <span className="inline-flex items-center gap-3 font-h1 text-[clamp(1.55rem,7.2vw,2.4rem)] uppercase leading-[0.92] tracking-[-0.045em]">
+                    {item.icon === "home" ? <HomeIcon size={20} /> : null}
                     {item.icon === "shop" ? <ShopIcon size={20} /> : null}
                     {item.label}
                   </span>
@@ -446,6 +456,25 @@ function ProfileIcon() {
       <circle cx="12" cy="12" r="8.25" />
       <circle cx="12" cy="10" r="2.4" />
       <path d="M7.2 17.6 C8 15.4 9.7 14.3 12 14.3 C14.3 14.3 16 15.4 16.8 17.6" />
+    </svg>
+  );
+}
+
+function HomeIcon({ size }: { size: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="m3 10 9-7 9 7" />
+      <path d="M5 9v12h14V9M9 21v-7h6v7" />
     </svg>
   );
 }

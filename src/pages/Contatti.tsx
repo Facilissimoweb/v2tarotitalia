@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from "react";
 import { siteContent } from "../data/siteContent";
-import { BrandSafetyNote } from "../components/BrandSafetyNote";
 import { Button, Kicker } from "../components/Button";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { MailToLink } from "../components/MailToLink";
@@ -82,49 +81,32 @@ function ContactForm() {
 export function Contatti() {
   return (
     <div>
-      <PageBanner title={copy.titolo} className="mb-10 md:mb-14" />
+      <PageBanner title={copy.titolo} subtitle={copy.intro} className="mb-6 md:mb-8" />
 
       <StackDeck>
-      <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
-        <div className="mx-auto max-w-3xl">
-          <Reveal>
-            <Kicker>{copy.primoPasso.kicker}</Kicker>
-          </Reveal>
-          <Reveal delay={80}>
-            <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-              {copy.primoPasso.titolo}
-            </h2>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-8 text-base leading-[1.9] text-ink/75">{copy.primoPasso.testo}</p>
-          </Reveal>
-        </div>
-      </StackSheet>
-
-      <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
+      <StackSheet className="bg-paper px-6 py-16 md:px-10 md:py-24">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
           <Reveal>
             <article>
-              <Kicker>{copy.canali.kicker}</Kicker>
+              <Kicker>{copy.moduloKicker}</Kicker>
               <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {copy.canali.titolo}
+                {copy.moduloTitolo}
               </h2>
-              <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{copy.canali.modulo}</p>
               <ContactForm />
             </article>
           </Reveal>
           <Reveal delay={100}>
-            <article className="bg-mist px-8 py-12 md:px-10 md:py-16">
+            <article className="bg-mist px-8 py-10 md:px-10 md:py-12">
               <SectionBrandMark align="start" />
-              <p className="mt-8 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{copy.canali.email}</p>
+              <h2 className="mt-8 font-display text-2xl font-normal text-ink">{copy.recapitiTitolo}</h2>
               <MailToLink
                 email={brand.email}
-                className="mt-4 block font-display text-xl italic text-ink underline decoration-ember-soft/50 underline-offset-4 hover:underline"
+                className="mt-4 block break-all font-display text-xl italic text-ink underline decoration-ember-soft/50 underline-offset-4 hover:underline"
               >
                 {brand.email}
               </MailToLink>
-              <p className="mt-10 text-sm leading-[1.9] text-ink/75">{brand.studioDiTeresa}</p>
-              <p className="mt-3 text-sm leading-[1.9] text-ink/75">{brand.piva}</p>
+              <p className="mt-8 text-sm leading-relaxed text-ink/75">{copy.sede}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink/75">{copy.appuntamento}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Button href={whatsappChatHref()}>{cta.whatsappRapido}</Button>
                 <Button href={getPhoneHref()} variant="ghost">
@@ -135,25 +117,6 @@ export function Contatti() {
           </Reveal>
         </div>
       </StackSheet>
-
-      <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-3xl">
-          <Reveal>
-            <Kicker>{copy.note.kicker}</Kicker>
-          </Reveal>
-          <Reveal delay={80}>
-            <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-              {copy.note.titolo}
-            </h2>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-8 text-base leading-[1.9] text-ink/75">{copy.note.gestione}</p>
-            <p className="mt-6 text-base leading-[1.9] text-ink/75">{copy.note.appuntamento}</p>
-          </Reveal>
-        </div>
-      </StackSheet>
-
-      <BrandSafetyNote />
       </StackDeck>
     </div>
   );

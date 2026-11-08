@@ -99,7 +99,7 @@ export function Footer() {
 
         <FooterColumn title={footer.informazioni}>
           <NavLink to="/chi-sono" className={colLink}>
-            {nav.chiSiamo}
+            {nav.chiSono}
           </NavLink>
           <NavLink to="/contatti" className={colLink}>
             {nav.contatti}

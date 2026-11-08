@@ -21,7 +21,7 @@ export function TerminiDiServizio() {
 
   return (
     <div>
-      <PageBanner title={vendita.titolo} className="mb-10 md:mb-14" />
+      <PageBanner title={vendita.titolo} className="mb-6 md:mb-8" />
 
       <section className="px-6 pb-24 md:px-10 md:pb-32">
         <article className="mx-auto max-w-3xl bg-paper px-8 py-12 md:px-12 md:py-16">

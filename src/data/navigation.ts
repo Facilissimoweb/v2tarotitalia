@@ -7,7 +7,7 @@ export type NavLeaf = {
   to: string;
   label: string;
   end?: boolean;
-  icon?: "shop";
+  icon?: "home" | "shop";
 };
 
 export type NavBranch = {
@@ -25,8 +25,8 @@ const tarocchi: NavBranch = {
   ],
 };
 
-const home: NavLeaf = { to: "/", label: nav.home, end: true };
-const chiSono: NavLeaf = { to: "/chi-sono", label: nav.chiSiamo };
+const home: NavLeaf = { to: "/", label: nav.home, end: true, icon: "home" };
+const chiSono: NavLeaf = { to: "/chi-sono", label: nav.chiSono };
 const consulti: NavLeaf = { to: "/consulti", label: nav.consulti };
 const percorsi: NavLeaf = { to: "/percorsi", label: nav.percorsi };
 const shop: NavLeaf = { to: "/shop", label: nav.shop, icon: "shop" };

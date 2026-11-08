@@ -13,7 +13,7 @@ export function Blog() {
         title={pages.blog.titolo}
         lead={brand.slogan}
         cta={{ to: "/consulti", label: cta.consultoWhatsapp }}
-        secondary={{ to: "/chi-sono", label: cta.leggiChiSiamo }}
+        secondary={{ to: "/chi-sono", label: cta.leggiChiSono }}
       />
       <StackSheet label={pages.blog.titolo} className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <BlogFeed />
