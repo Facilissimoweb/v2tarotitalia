@@ -83,13 +83,13 @@ export function HomeHero() {
             </motion.div>
             <motion.h1
               variants={riseIn}
-              className="font-amperzand text-h1-editorial text-black"
+              className="font-bellara hero-home-title text-black"
             >
-              <span className="relative isolate inline-block w-fit">
+              <span className="hero-home-title-tarot">
                 <span aria-hidden className="hero-tarot-bar" />
                 <span className="relative z-[1]">{marcaTarot}</span>
-              </span>{" "}
-              <span>{marcaItalia}</span>
+              </span>
+              <span className="hero-home-title-italia">{marcaItalia}</span>
             </motion.h1>
 
             <motion.p

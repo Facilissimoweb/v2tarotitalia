@@ -16,11 +16,12 @@
   --color-on-ink: #f3efe8;
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-h1: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-h2: var(--font-display);
+  --font-h2: "Cs Bellara", var(--font-display);
   --font-h3: var(--font-display);
   --font-body: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-inquisition: "The Inquisition", var(--font-h1);
   --font-amperzand: "Amperzand", var(--font-h1);
+  --font-bellara: "Cs Bellara", var(--font-h1);
   --radius-none: 0px;
   --radius-sm: 0px;
   --radius-md: 0px;
@@ -42,6 +43,14 @@
   font-family: "Amperzand";
   src: url("/fonts/Amperzand.ttf") format("truetype");
   font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cs Bellara";
+  src: url("/fonts/CsBellara.otf") format("opentype");
+  font-weight: 400 800;
   font-style: normal;
   font-display: swap;
 }
@@ -353,6 +362,43 @@ html::after {
   font-style: italic;
 }
 
+.font-bellara.text-h1-editorial {
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.02;
+  text-transform: none;
+  font-style: normal;
+  font-size: clamp(3.5rem, 16cqi, 7.75rem);
+}
+
+[data-home-hero] .hero-home-title {
+  display: block;
+  font-weight: 700;
+  font-style: normal;
+  text-transform: none;
+}
+
+[data-home-hero] .hero-home-title-tarot {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: fit-content;
+  font-size: clamp(4.35rem, 22cqi, 10.5rem);
+  font-weight: 700;
+  line-height: 0.86;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+[data-home-hero] .hero-home-title-italia {
+  display: block;
+  margin-top: 0.12em;
+  font-size: clamp(1.85rem, 8.5cqi, 4.15rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+}
+
 @utility text-h1-home {
   display: block;
   width: 100%;
@@ -436,6 +482,19 @@ html::after {
   .font-amperzand.text-h1-editorial {
     font-size: clamp(2.55rem, 13.5vw, 4.1rem);
     line-height: 1.12;
+  }
+
+  .font-bellara.text-h1-editorial {
+    font-size: clamp(3.55rem, 18vw, 5.5rem);
+    line-height: 1.08;
+  }
+
+  [data-home-hero] .hero-home-title-tarot {
+    font-size: clamp(4.5rem, 24vw, 6.75rem);
+  }
+
+  [data-home-hero] .hero-home-title-italia {
+    font-size: clamp(1.7rem, 9.5vw, 2.65rem);
   }
 
   .hero-tarot-bar {
@@ -539,6 +598,15 @@ h1.font-amperzand,
   text-transform: none;
 }
 
+h1.font-bellara,
+.font-bellara {
+  font-family: "Cs Bellara", var(--font-h1);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-style: normal;
+  text-transform: none;
+}
+
 .nav-brand-lockup {
   display: flex;
   min-width: 0;
@@ -584,8 +652,9 @@ h1.font-amperzand,
 }
 
 h2 {
-  font-family: var(--font-h2);
-  font-weight: 600;
+  font-family: "Cs Bellara", var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 h3 {
