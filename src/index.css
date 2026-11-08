@@ -20,6 +20,7 @@
   --font-h3: var(--font-display);
   --font-body: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-inquisition: "The Inquisition", var(--font-h1);
+  --font-amperzand: "Amperzand", var(--font-h1);
   --radius-none: 0px;
   --radius-sm: 0px;
   --radius-md: 0px;
@@ -32,6 +33,14 @@
 @font-face {
   font-family: "The Inquisition";
   src: url("/fonts/TheInquisition.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amperzand";
+  src: url("/fonts/Amperzand.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -336,6 +345,14 @@ html::after {
   line-height: 0.9;
 }
 
+.font-amperzand.text-h1-editorial {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  text-transform: none;
+  font-style: italic;
+}
+
 @utility text-h1-home {
   display: block;
   width: 100%;
@@ -414,6 +431,11 @@ html::after {
   .text-h1-editorial {
     font-size: clamp(3.85rem, 22vw, 5.75rem);
     line-height: 0.76;
+  }
+
+  .font-amperzand.text-h1-editorial {
+    font-size: clamp(2.55rem, 13.5vw, 4.1rem);
+    line-height: 1.12;
   }
 
   .hero-tarot-bar {
@@ -506,6 +528,15 @@ h1.font-inquisition,
   font-weight: 400;
   letter-spacing: 0.01em;
   font-style: normal;
+}
+
+h1.font-amperzand,
+.font-amperzand {
+  font-family: "Amperzand", var(--font-h1);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  font-style: italic;
+  text-transform: none;
 }
 
 .nav-brand-lockup {

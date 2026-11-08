@@ -7,9 +7,7 @@ import { Button } from "./Button";
 const { chiSono, home, nav, pages } = siteContent;
 
 const titolo = home.titolo;
-const parole = titolo.split(/\s+/);
-const ultima = parole.at(-1) ?? titolo;
-const precedenti = parole.slice(0, -1);
+const [marcaTarot, marcaItalia] = titolo.split(/\s+/);
 
 const azioni = [
   {
@@ -85,18 +83,13 @@ export function HomeHero() {
             </motion.div>
             <motion.h1
               variants={riseIn}
-              className="font-inquisition text-h1-editorial text-black"
+              className="font-amperzand text-h1-editorial text-black"
             >
-              {precedenti.map((parola) => (
-                <span key={parola} className="relative isolate block w-fit text-black">
-                  <span aria-hidden className="hero-tarot-bar" />
-                  <span className="relative z-[1]">{parola}</span>
-                </span>
-              ))}
-              <span className="mt-[0.08em] block text-[0.52em] font-normal leading-[0.88] tracking-[0.02em] text-black/45">
-                {ultima}
-                <span aria-hidden>.</span>
-              </span>
+              <span className="relative isolate inline-block w-fit">
+                <span aria-hidden className="hero-tarot-bar" />
+                <span className="relative z-[1]">{marcaTarot}</span>
+              </span>{" "}
+              <span>{marcaItalia}</span>
             </motion.h1>
 
             <motion.p
