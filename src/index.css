@@ -279,12 +279,6 @@
   isolation: isolate;
 }
 
-/* Ritaglio: l’anello nero del sigillo a filo, senza disco bianco. */
-.logo-nav-crop {
-  transform: scale(1.52);
-  transform-origin: center;
-}
-
 .logo-hero-crop {
   transform: scale(1.18);
   transform-origin: center;

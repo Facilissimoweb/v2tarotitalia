@@ -20,20 +20,22 @@ export function BrandLogo({ className = "", tone = "mark", finish = "ivory" }: P
   const eager = hero || nav;
   return (
     <span
-      className={`flex aspect-square shrink-0 items-center justify-center overflow-hidden rounded-full ${
-        nav ? "bg-transparent" : "bg-ivory"
+      className={`flex shrink-0 items-center justify-center ${
+        nav
+          ? "bg-transparent"
+          : "aspect-square overflow-hidden rounded-full bg-ivory"
       } ${metal ? "logo-medallion" : ""} ${className}`.trim()}
     >
       <img
         src={src}
         alt=""
-        width={800}
-        height={800}
+        width={nav ? 293 : 800}
+        height={nav ? 269 : 800}
         decoding={eager ? "sync" : "async"}
         fetchPriority={hero ? "high" : "auto"}
         loading={eager ? "eager" : "lazy"}
-        className={`h-full w-full object-cover object-center ${
-          nav ? "logo-nav-crop" : hero ? "logo-hero-crop" : ""
+        className={`h-full w-full object-center ${
+          nav ? "object-contain" : `object-cover ${hero ? "logo-hero-crop" : ""}`
         }`}
       />
     </span>
