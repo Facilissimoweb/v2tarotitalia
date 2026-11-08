@@ -3,18 +3,13 @@
 @theme {
   --color-ivory: #f9f8f6;
   --color-ink: #2b2523;
-  /* Eucalyptus: sigillo visibile, barre, pulsanti, orb. */
-  --color-ember: #4f8f75;
-  /* Sage Mist: hover del sigillo e voce chiara sulle lastre scure. */
-  --color-ember-hot: #9fc3b2;
-  /* Deep Forest: campitura scura. */
-  --color-ember-deep: #072e24;
-  /* Moss Shadow: kicker e meta sull’avorio. */
-  --color-ember-soft: #1f4d3a;
-  /* Sage Mist: icone, filetti e stati attivi sul grafite. */
-  --color-ember-pale: #9fc3b2;
-  /* Pale Lichen: testo sulle campiture Deep Forest. */
-  --color-lichen: #e7f1ec;
+  /* Bianco e nero: il pieno è il nero, la voce sulle lastre scure è il bianco. */
+  --color-ember: #111111;
+  --color-ember-hot: #2b2523;
+  --color-ember-deep: #000000;
+  --color-ember-soft: #111111;
+  --color-ember-pale: #ffffff;
+  --color-lichen: #ffffff;
   --color-graphite: #141210;
   --color-plate: #393632;
   --color-paper: #ffffff;
@@ -386,8 +381,6 @@ html::after {
 }
 
 [data-home-hero] .hero-home-title-tarot {
-  position: relative;
-  isolation: isolate;
   display: block;
   width: fit-content;
   font-size: clamp(4.35rem, 22cqi, 10.5rem);
@@ -423,26 +416,6 @@ html::after {
   text-transform: uppercase;
   color: rgb(17 17 17 / 0.18);
   font-size: clamp(12rem, 36vw, 28rem);
-}
-
-.hero-tarot-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  z-index: 0;
-  height: 0.1em;
-  transform: translateY(-50%) scaleX(0);
-  transform-origin: left center;
-  background-color: var(--color-ember);
-  pointer-events: none;
-  animation: hero-bar-draw 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.28s forwards;
-}
-
-@keyframes hero-bar-draw {
-  to {
-    transform: translateY(-50%) scaleX(1);
-  }
 }
 
 .hero-logo-mobile {
@@ -502,10 +475,6 @@ html::after {
 
   [data-home-hero] .hero-home-title-italia {
     font-size: clamp(1.7rem, 9.5vw, 2.65rem);
-  }
-
-  .hero-tarot-bar {
-    height: 0.13em;
   }
 
   .hero-visual-stage {
@@ -568,13 +537,6 @@ html::after {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-tarot-bar {
-    animation: none;
-    transform: translateY(-50%) scaleX(1);
-  }
-}
-
 /* Niente obliquo sintetico nei titoli H1 */
 .font-h1.italic,
 .font-h1 .italic {
@@ -614,48 +576,61 @@ h1.font-bellara,
   text-transform: none;
 }
 
-.nav-brand-lockup {
+.nav-wordmark {
   display: flex;
   min-width: 0;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
   color: #000000;
 }
 
-.nav-brand-tarot,
-.nav-brand-italia {
-  font-family: "The Inquisition", var(--font-h1);
-  font-weight: 400;
+.nav-wordmark__logo {
+  height: 3.35rem;
+  width: 3.35rem;
+  flex-shrink: 0;
+}
+
+.nav-wordmark__type {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  font-family: "Cs Bellara", var(--font-h1);
+  font-weight: 700;
   font-style: normal;
-  letter-spacing: 0.02em;
   color: #000000;
+}
+
+.nav-wordmark__tarot {
+  font-size: clamp(1.65rem, 1.7vw, 2.2rem);
+  line-height: 0.86;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-.nav-brand-tarot {
-  position: relative;
-  isolation: isolate;
-  width: fit-content;
-  font-size: clamp(1.42rem, 6.4vw, 1.72rem);
-  line-height: 0.78;
+.nav-wordmark__italia {
+  margin-top: 0.08em;
+  font-size: clamp(0.88rem, 0.9vw, 1.18rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
 }
 
-.nav-brand-tarot-bar {
-  position: absolute;
-  inset-inline: 0;
-  top: 50%;
-  z-index: 0;
-  height: 0.28em;
-  transform: translateY(-50%);
-  background-color: var(--color-ember);
-  pointer-events: none;
+.nav-wordmark--compact {
+  gap: 0.45rem;
 }
 
-.nav-brand-italia {
-  margin-top: 0.06em;
-  font-size: clamp(0.92rem, 4.1vw, 1.12rem);
-  line-height: 0.82;
+.nav-wordmark--compact .nav-wordmark__logo {
+  height: 2.45rem;
+  width: 2.45rem;
+}
+
+.nav-wordmark--compact .nav-wordmark__tarot {
+  font-size: clamp(1.12rem, 5.4vw, 1.42rem);
+}
+
+.nav-wordmark--compact .nav-wordmark__italia {
+  font-size: clamp(0.7rem, 3.3vw, 0.9rem);
 }
 
 h2 {
@@ -901,8 +876,7 @@ html[data-a11y-contrast="on"] body {
 }
 
 html[data-a11y-contrast="on"]::after,
-html[data-a11y-contrast="on"] .hero-ember-field,
-html[data-a11y-contrast="on"] .nav-brand-tarot-bar {
+html[data-a11y-contrast="on"] .hero-ember-field {
   display: none;
 }
 
@@ -1056,7 +1030,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 .dock-sphere[data-raised] {
   background-color: transparent;
   box-shadow: none;
-  color: #111111;
+  color: #f9f8f6;
 }
 
 .dock-sphere:focus-visible {
@@ -1121,6 +1095,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
   .dock-sphere[data-raised] {
     background-color: var(--color-ember);
+    color: #f9f8f6;
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.45);
   }
 

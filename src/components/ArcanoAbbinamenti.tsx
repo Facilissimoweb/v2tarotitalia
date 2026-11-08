@@ -86,13 +86,13 @@ export function ArcanoAbbinamenti({ slug }: Props) {
               onClick={() => setPartner(item.slug)}
               className={
                 active
-                  ? "bg-ember px-4 py-4 text-left text-graphite"
+                  ? "bg-ember px-4 py-4 text-left text-ivory"
                   : "bg-paper px-4 py-4 text-left text-ink transition-colors hover:bg-mist"
               }
             >
               <span
                 className={`block text-[0.625rem] uppercase tracking-[0.16em] ${
-                  active ? "text-graphite/75" : "text-ember-soft"
+                  active ? "text-ivory/75" : "text-ember-soft"
                 }`}
               >
                 {item.roman}

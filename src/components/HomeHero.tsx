@@ -85,10 +85,7 @@ export function HomeHero() {
               variants={riseIn}
               className="font-bellara hero-home-title text-black"
             >
-              <span className="hero-home-title-tarot">
-                <span aria-hidden className="hero-tarot-bar" />
-                <span className="relative z-[1]">{marcaTarot}</span>
-              </span>
+              <span className="hero-home-title-tarot">{marcaTarot}</span>
               <span className="hero-home-title-italia">{marcaItalia}</span>
             </motion.h1>
 

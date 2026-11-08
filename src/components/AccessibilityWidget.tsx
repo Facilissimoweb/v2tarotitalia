@@ -89,7 +89,7 @@ function Switch({
       >
         <span
           className={`absolute top-0.5 h-5 w-5 transition-[left,background-color] duration-200 ${
-            checked ? "left-[1.375rem] bg-ink" : "left-0.5 bg-ivory"
+            checked ? "left-[1.375rem] bg-ivory" : "left-0.5 bg-ivory"
           }`}
         />
       </span>

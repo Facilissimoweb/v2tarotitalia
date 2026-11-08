@@ -103,16 +103,11 @@ export function Header() {
 
           <NavLink
             to="/"
-            className="flex flex-col items-center px-8"
+            className="flex items-center justify-center px-4"
             aria-label={brand.wordmark}
             translate="no"
           >
-            <span className="nav-logo-glow">
-              <BrandLogo tone="nav" className="relative z-[1] h-[60px] w-[60px]" />
-            </span>
-            <span className="mt-1 font-h1 text-[1.2rem] leading-none text-black xl:text-[1.3rem]">
-              {brand.wordmark}
-            </span>
+            <NavWordmark />
           </NavLink>
 
           <div className="flex min-w-0 items-center justify-between gap-8 2xl:gap-10">
@@ -138,13 +133,7 @@ export function Header() {
             aria-label={brand.wordmark}
             translate="no"
           >
-            <span className="nav-brand-lockup min-w-0">
-              <span className="nav-brand-tarot">
-                <span aria-hidden className="nav-brand-tarot-bar" />
-                <span className="relative z-[1]">{marcaTarot}</span>
-              </span>
-              <span className="nav-brand-italia">{marcaItalia}</span>
-            </span>
+            <NavWordmark compact />
           </NavLink>
           <div className="relative z-10 flex shrink-0 items-center">
             <LanguageWidget
@@ -179,6 +168,18 @@ export function Header() {
         {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
       </AnimatePresence>
     </>
+  );
+}
+
+function NavWordmark({ compact = false }: { compact?: boolean }) {
+  return (
+    <span className={`nav-wordmark${compact ? " nav-wordmark--compact" : ""}`}>
+      <BrandLogo tone="nav" className="nav-wordmark__logo" />
+      <span className="nav-wordmark__type">
+        <span className="nav-wordmark__tarot">{marcaTarot}</span>
+        <span className="nav-wordmark__italia">{marcaItalia}</span>
+      </span>
+    </span>
   );
 }
 
@@ -303,7 +304,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       animate="show"
       exit="exit"
     >
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-ember" aria-hidden />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-ivory" aria-hidden />
       <span
         aria-hidden
         className="pointer-events-none absolute -right-8 bottom-[-0.22em] select-none font-h1 text-[min(78vw,24rem)] uppercase leading-[0.68] tracking-[-0.08em] text-white/[0.06]"
@@ -442,7 +443,7 @@ function CartLink({ className = "relative flex h-[40px] w-[40px] items-center ju
     >
       <BagIcon />
       {count > 0 ? (
-        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-graphite">
+        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-ivory">
           {count}
         </span>
       ) : null}

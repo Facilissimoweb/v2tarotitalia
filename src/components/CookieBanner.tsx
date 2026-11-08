@@ -125,7 +125,7 @@ function CookieRow({
         >
           <span
             className={`absolute top-0.5 h-6 w-6 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-              on ? "bg-ink" : "bg-ivory"
+              on ? "bg-ivory" : "bg-ivory"
             }`}
             style={{ transform: on ? "translate3d(1.35rem, 0, 0)" : "translate3d(0.15rem, 0, 0)" }}
           />

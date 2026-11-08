@@ -29,7 +29,7 @@ function Stars({ value }: { value: number }) {
 
 const AVATAR_TONES = [
   "bg-ink text-on-ink",
-  "bg-ember text-graphite",
+  "bg-ember text-ivory",
   "bg-ember-deep text-lichen",
 ] as const;
 

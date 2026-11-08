@@ -137,7 +137,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
                 onClick={() => onDate(cell.iso)}
                 className={`min-w-0 h-10 text-sm ${
                   selected
-                    ? "bg-ember text-graphite"
+                    ? "bg-ember text-ivory"
                     : disabled
                       ? "text-ink/20"
                       : cell.outside
