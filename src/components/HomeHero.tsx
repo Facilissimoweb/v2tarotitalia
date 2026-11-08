@@ -66,6 +66,7 @@ export function HomeHero() {
       className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ivory text-ink max-lg:pb-[calc(4.75rem+var(--dock-lift)+env(safe-area-inset-bottom,0px))] lg:min-h-[66svh] xl:min-h-[72svh]"
     >
       <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-5 pb-8 pt-[calc(var(--nav-offset)+2.85rem)] sm:px-6 md:px-10 md:pb-12 max-lg:justify-start lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible lg:pt-[calc(var(--nav-offset)+1.75rem)] xl:min-h-[72svh] xl:px-16 2xl:px-20">
+        <img src="/hero-paper.webp" alt="" aria-hidden className="hero-paper" />
         <div aria-hidden className="hero-ember-field" />
         <div aria-hidden className="hero-copy-veil lg:hidden" />
         <motion.div
