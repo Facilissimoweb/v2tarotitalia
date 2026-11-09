@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
@@ -59,12 +60,26 @@ const riseLogo: Variants = {
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
+  const filmRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const film = filmRef.current;
+    if (!film) return;
+    film.muted = true;
+    if (reduce !== false) {
+      film.pause();
+      return;
+    }
+    const pending = film.play();
+    if (pending) pending.catch(() => {});
+  }, [reduce]);
 
   return (
     <section
       data-home-hero
-      className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ivory text-ink max-lg:pb-[calc(4.75rem+var(--dock-lift)+env(safe-area-inset-bottom,0px))] lg:min-h-[66svh] xl:min-h-[72svh]"
+      className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
+      <div className="flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col lg:min-h-[66svh] xl:min-h-[72svh]">
       <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-5 pb-8 pt-[calc(var(--nav-offset)+2.85rem)] sm:px-6 md:px-10 md:pb-12 max-lg:justify-start lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible lg:pt-[calc(var(--nav-offset)+1.75rem)] xl:min-h-[72svh] xl:px-16 2xl:px-20">
         <img src="/hero-paper.webp" alt="" aria-hidden className="hero-paper" />
         <div aria-hidden className="hero-ember-field" />
@@ -184,6 +199,23 @@ export function HomeHero() {
             </span>
           </NavLink>
         ))}
+      </div>
+      </div>
+
+      <div className="relative z-[2] border-t border-white/10 bg-plate">
+        <video
+          ref={filmRef}
+          className="block aspect-[1280/320] w-full object-cover"
+          src="/video/TAROT.mp4"
+          poster="/video/TAROT-poster.webp"
+          width={1280}
+          height={320}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label={titolo}
+        />
       </div>
     </section>
   );
