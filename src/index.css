@@ -632,8 +632,8 @@ h1.font-bellara,
   display: flex;
   min-width: 0;
   flex-direction: column;
-  font-family: "Cs Bellara", var(--font-h1);
-  font-weight: 700;
+  font-family: "Poppins", var(--font-h1);
+  font-weight: 600;
   font-style: normal;
   color: #000000;
 }

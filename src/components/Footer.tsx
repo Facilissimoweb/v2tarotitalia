@@ -34,9 +34,11 @@ export function Footer() {
       </div>
       <div className="relative z-[1] mx-auto grid max-w-6xl gap-12 px-6 pb-10 pt-6 sm:px-10 md:grid-cols-2 md:pt-8 lg:grid-cols-4 lg:gap-10 lg:pt-10">
         <div>
-          <div translate="no" className="flex items-center gap-3">
-            <BrandLogo tone="hero" className="h-12 w-12 shrink-0" />
-            <p className="font-display text-[0.9375rem] tracking-[0.14em]">{brand.wordmark}</p>
+          <div translate="no" className="flex flex-col items-start gap-4">
+            <BrandLogo tone="hero" className="h-[7.75rem] w-[7.75rem] shrink-0 sm:h-[8.5rem] sm:w-[8.5rem]" />
+            <p className="font-display text-[1.7rem] font-medium leading-none tracking-[0.04em] sm:text-[1.95rem]">
+              {brand.wordmark}
+            </p>
           </div>
           <p className="mt-5 max-w-xs text-[0.8125rem] leading-relaxed text-[#EDE4D4]/80">{brand.descrizione}</p>
           <ul className="mt-6 space-y-2.5 text-[0.8125rem] text-[#EDE4D4]/80">

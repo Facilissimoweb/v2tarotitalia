@@ -35,7 +35,7 @@ export function BrandLogo({ className = "", tone = "mark", finish = "ivory" }: P
         fetchPriority={hero ? "high" : "auto"}
         loading={eager ? "eager" : "lazy"}
         className={`h-full w-full object-center ${
-          nav ? "object-contain" : `object-cover ${hero ? "logo-hero-crop" : ""}`
+          nav ? "object-contain" : "object-cover logo-hero-crop"
         }`}
       />
     </span>

@@ -306,7 +306,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
     >
       <div className="mx-auto flex w-full max-w-xl items-start justify-between gap-6 px-7 pt-[max(1.35rem,env(safe-area-inset-top))] sm:px-10 md:px-2 md:pt-10">
         <div data-widget-brand className="pt-1">
-          <BrandLogo className="h-11 w-11" />
+          <BrandLogo className="h-[6.25rem] w-[6.25rem] md:h-[7rem] md:w-[7rem]" />
           <p className="menu-brand mt-3">{brand.wordmark}</p>
           <p className="menu-kicker mt-6">{nav.menu}</p>
         </div>

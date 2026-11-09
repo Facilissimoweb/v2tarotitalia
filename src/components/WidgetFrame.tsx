@@ -14,7 +14,7 @@ export function SectionBrandMark({ align = "center" }: { align?: "center" | "sta
   return (
     <div className={centered ? "text-center" : ""}>
       <BrandLogo
-        className={`logo-hero-ring ${centered ? "mx-auto" : ""} h-24 w-24 md:h-28 md:w-28`}
+        className={`logo-hero-ring ${centered ? "mx-auto" : ""} h-[7rem] w-[7rem] md:h-[7rem] md:w-[7rem] lg:h-[7.75rem] lg:w-[7.75rem]`}
       />
       <p className="label-kicker mt-5">{brand.wordmark}</p>
     </div>
@@ -23,8 +23,14 @@ export function SectionBrandMark({ align = "center" }: { align?: "center" | "sta
 
 /** Logo ufficiale + scritta Tarot Italia. Obbligatorio in testa a ogni widget o modale. */
 export function WidgetBrandMark({ size = "md" }: MarkProps) {
-  const logo = size === "sm" ? "mx-auto h-12 w-12" : "mx-auto h-14 w-14";
-  const word = size === "sm" ? "mt-3 text-[0.625rem] tracking-[0.16em]" : "mt-3.5 text-[0.6875rem] tracking-[0.16em]";
+  const logo =
+    size === "sm"
+      ? "mx-auto h-[6.25rem] w-[6.25rem] md:h-[6.75rem] md:w-[6.75rem]"
+      : "mx-auto h-[7rem] w-[7rem] md:h-[7.75rem] md:w-[7.75rem]";
+  const word =
+    size === "sm"
+      ? "mt-4 text-[0.75rem] tracking-[0.16em]"
+      : "mt-4 text-[0.8125rem] tracking-[0.16em]";
   return (
     <div data-widget-brand className="text-center">
       <BrandLogo className={logo} />
