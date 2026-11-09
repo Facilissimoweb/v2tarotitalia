@@ -28,23 +28,23 @@ const [marcaTarot, marcaItalia] = brand.wordmark.split(/\s+/);
 const MENU_EASE = [0.22, 1, 0.36, 1] as const;
 
 const menuPanel: Variants = {
-  hidden: {},
-  show: {},
-  exit: { opacity: 0, transition: { duration: 0.18, ease: MENU_EASE } },
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { duration: 0.38, ease: MENU_EASE } },
+  exit: { opacity: 0, transition: { duration: 0.22, ease: MENU_EASE } },
 };
 
 const menuList: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.055, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.045, delayChildren: 0.08 } },
 };
 
 const menuItem: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: MENU_EASE } },
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.48, ease: MENU_EASE } },
 };
 
 const DRAWER_ICON =
-  "ti-btn ti-btn-icon flex h-12 w-12 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-ember-pale [&_svg]:h-[1.5rem] [&_svg]:w-[1.5rem] [&_svg]:stroke-[2.25]";
+  "ti-btn ti-btn-icon flex h-12 w-12 shrink-0 items-center justify-center text-ink transition-colors hover:text-ink/60 [&_svg]:h-[1.5rem] [&_svg]:w-[1.5rem] [&_svg]:stroke-[2.25]";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
@@ -298,34 +298,25 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
       role="dialog"
       aria-modal="true"
       aria-label={nav.menu}
-      className="fixed inset-0 z-[70] flex flex-col overflow-hidden bg-graphite text-on-ink xl:hidden"
+      className="menu-mobile fixed inset-0 z-[70] flex flex-col overflow-hidden xl:hidden"
       variants={reduce ? undefined : menuPanel}
       initial={reduce ? false : "hidden"}
       animate="show"
       exit="exit"
     >
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-2 bg-ivory" aria-hidden />
-      <span
-        aria-hidden
-        className="pointer-events-none absolute -right-8 bottom-[-0.22em] select-none font-h1 text-[min(78vw,24rem)] uppercase leading-[0.68] tracking-[-0.08em] text-white/[0.06]"
-      >
-        T
-      </span>
-
-      <div className="relative flex items-start justify-between gap-4 pl-7 pr-4 pt-[max(1rem,env(safe-area-inset-top))] sm:pl-10 sm:pr-6">
-        <div data-widget-brand className="pt-2">
-          <BrandLogo className="h-12 w-12" />
-          <p className="mt-3 font-display text-[0.625rem] uppercase tracking-[0.16em] text-on-ink">
-            {brand.wordmark}
-          </p>
-          <p className="mt-6 font-h1 text-[0.7rem] uppercase tracking-[0.22em] text-ember-pale">
-            {nav.menu}
-          </p>
+      <div className="mx-auto flex w-full max-w-xl items-start justify-between gap-6 px-7 pt-[max(1.35rem,env(safe-area-inset-top))] sm:px-10 md:px-2 md:pt-10">
+        <div data-widget-brand className="pt-1">
+          <BrandLogo className="h-11 w-11" />
+          <p className="menu-brand mt-3">{brand.wordmark}</p>
+          <p className="menu-kicker mt-6">{nav.menu}</p>
         </div>
         <WidgetCloseButton placement="inline" onClick={onClose} />
       </div>
 
-      <nav className="relative flex-1 overflow-y-auto overscroll-contain pb-4" aria-label="Principale">
+      <nav
+        className="relative mx-auto w-full max-w-xl flex-1 overflow-y-auto overscroll-contain px-7 pb-8 pt-8 sm:px-10 md:px-2 md:pb-12 md:pt-12"
+        aria-label="Principale"
+      >
         <motion.ul
           className="flex flex-col"
           variants={reduce ? undefined : menuList}
@@ -337,27 +328,19 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
             const n = String(index).padStart(2, "0");
             if (isNavBranch(item)) {
               return (
-                <motion.li key={item.label} variants={reduce ? undefined : menuItem} className="pl-7 pr-6 sm:pl-10">
-                  <p className="flex items-baseline gap-4 py-2">
-                    <span className="w-8 shrink-0 font-h1 text-[1rem] leading-none tracking-[-0.04em] text-ember-pale">
-                      {n}
-                    </span>
-                    <span className="font-h1 text-[clamp(1.55rem,7.2vw,2.4rem)] uppercase leading-[0.92] tracking-[-0.045em] text-on-ink/50">
-                      {item.label}
-                    </span>
+                <motion.li key={item.label} variants={reduce ? undefined : menuItem} className="menu-row">
+                  <p className="menu-link">
+                    <span className="menu-index">{n}</span>
+                    <span className="menu-voice">{item.label}</span>
                   </p>
-                  <ul className="mb-2 ml-12 border-l border-ember-pale/35">
+                  <ul className="menu-sub">
                     {item.children.map((child) => (
                       <li key={child.to}>
                         <NavLink
                           to={child.to}
-                          className={({ isActive }) =>
-                            `block py-2 pl-4 font-h1 text-[clamp(1.05rem,4.2vw,1.35rem)] uppercase leading-none tracking-[-0.03em] ${
-                              isActive ? "text-ember-pale" : "text-on-ink hover:text-ember-pale"
-                            }`
-                          }
+                          className={({ isActive }) => `menu-link menu-link--sub${isActive ? " is-active" : ""}`}
                         >
-                          {child.label}
+                          <span className="menu-voice menu-voice--sub">{child.label}</span>
                         </NavLink>
                       </li>
                     ))}
@@ -366,22 +349,16 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
               );
             }
             return (
-              <motion.li key={item.to} variants={reduce ? undefined : menuItem}>
+              <motion.li key={item.to} variants={reduce ? undefined : menuItem} className="menu-row">
                 <NavLink
                   to={item.to}
                   end={item.end}
-                  className={({ isActive }) =>
-                    `flex items-baseline gap-4 py-2.5 pl-7 pr-6 sm:pl-10 ${
-                      isActive ? "text-ember-pale" : "text-on-ink hover:text-ember-pale"
-                    }`
-                  }
+                  className={({ isActive }) => `menu-link${isActive ? " is-active" : ""}`}
                 >
-                  <span className="w-8 shrink-0 font-h1 text-[1rem] leading-none tracking-[-0.04em] text-ember-pale">
-                    {n}
-                  </span>
-                  <span className="inline-flex items-center gap-3 font-h1 text-[clamp(1.55rem,7.2vw,2.4rem)] uppercase leading-[0.92] tracking-[-0.045em]">
-                    {item.icon === "home" ? <HomeIcon size={20} /> : null}
-                    {item.icon === "shop" ? <ShopIcon size={20} /> : null}
+                  <span className="menu-index">{n}</span>
+                  <span className="menu-voice">
+                    {item.icon === "home" ? <HomeIcon size={18} /> : null}
+                    {item.icon === "shop" ? <ShopIcon size={18} /> : null}
                     {item.label}
                   </span>
                 </NavLink>
@@ -391,7 +368,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
         </motion.ul>
       </nav>
 
-      <div className="relative shrink-0 border-t border-white/10 pl-7 pr-4 pt-2 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:pl-10 sm:pr-6">
+      <div className="mx-auto w-full max-w-xl shrink-0 border-t border-ink/10 px-5 pt-1 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-8 md:px-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center">
             <PageSpeechTrigger className={DRAWER_ICON} />
@@ -399,7 +376,7 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
             <AccountLink className={DRAWER_ICON} />
             <CartLink className={DRAWER_ICON} />
           </div>
-          <LanguageWidget placement="drawer" className="w-auto justify-end py-2 text-on-ink/70 hover:text-on-ink" />
+          <LanguageWidget placement="drawer" className="w-auto justify-end py-2 text-ink/70 hover:text-ink" />
         </div>
       </div>
     </motion.div>

@@ -898,6 +898,141 @@ html[data-a11y-contrast="on"] :focus-visible {
   outline-offset: 2px;
 }
 
+/* Menu mobile e iPad: foglio avorio, voci in corsivo, stato attivo sottolineato. */
+.menu-mobile {
+  background-color: var(--color-ivory);
+  color: var(--color-ink);
+}
+
+.menu-brand {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+}
+
+.menu-kicker {
+  font-family: var(--font-display);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-ink) 55%, transparent);
+}
+
+.menu-row + .menu-row {
+  border-top: 1px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+.menu-link {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.95rem 0;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+.menu-link--sub {
+  padding: 0.45rem 0 0.45rem 1rem;
+}
+
+.menu-sub {
+  margin: 0 0 0.35rem 2.75rem;
+  border-left: 1px solid color-mix(in srgb, var(--color-ink) 16%, transparent);
+}
+
+.menu-index {
+  width: 1.75rem;
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: color-mix(in srgb, var(--color-ink) 48%, transparent);
+}
+
+.menu-voice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: "Noto Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(1.65rem, 5.2vw, 2.15rem);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--color-ink);
+}
+
+.menu-voice--sub {
+  font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+}
+
+.menu-link.is-active .menu-voice {
+  text-decoration-line: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.28em;
+}
+
+.menu-link:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+.menu-mobile button:not(.ti-btn-icon)::before {
+  content: none;
+}
+
+@media (min-width: 768px) {
+  .menu-voice {
+    font-size: 2.2rem;
+  }
+
+  .menu-voice--sub {
+    font-size: 1.45rem;
+  }
+
+  .menu-link {
+    padding: 1.15rem 0;
+  }
+}
+
+html[data-a11y-contrast="on"] .menu-mobile {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+html[data-a11y-contrast="on"] .menu-mobile .menu-brand,
+html[data-a11y-contrast="on"] .menu-mobile .menu-kicker,
+html[data-a11y-contrast="on"] .menu-mobile .menu-index,
+html[data-a11y-contrast="on"] .menu-mobile .menu-voice,
+html[data-a11y-contrast="on"] .menu-mobile .menu-link {
+  color: #000000;
+  background-color: transparent;
+  opacity: 1;
+}
+
+html[data-a11y-contrast="on"] .menu-mobile .menu-link.is-active .menu-voice {
+  color: #000000;
+  text-decoration-line: underline;
+  text-decoration-color: #000000;
+  text-decoration-thickness: 2px;
+}
+
+html[data-a11y-contrast="on"] .menu-mobile .menu-row + .menu-row,
+html[data-a11y-contrast="on"] .menu-mobile .menu-sub {
+  border-color: #000000;
+}
+
+html[data-a11y-contrast="on"] .menu-mobile [class*="opacity-"] {
+  opacity: 1;
+}
+
 html[data-a11y-contrast="on"] .nav-bronze {
   color: #000000;
   background-color: #ffffff;
