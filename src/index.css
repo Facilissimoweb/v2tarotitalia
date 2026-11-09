@@ -500,6 +500,27 @@ html::after {
     font-size: clamp(1.7rem, 9.5vw, 2.65rem);
   }
 
+  [data-home-hero] .hero-home-logo,
+  [data-home-hero] .hero-home-title {
+    margin-left: -1.25rem;
+    width: calc(100% + 1.25rem);
+  }
+
+  [data-home-hero] .hero-home-logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  [data-home-hero] .hero-home-title {
+    text-align: center;
+  }
+
+  [data-home-hero] .hero-home-title-tarot,
+  [data-home-hero] .hero-home-title-italia {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   .hero-visual-stage {
     position: relative;
     top: auto;

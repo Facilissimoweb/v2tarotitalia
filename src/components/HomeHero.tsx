@@ -92,7 +92,7 @@ export function HomeHero() {
         >
           <div className="hero-editorial-stage relative z-[12] min-w-0 max-lg:pl-5">
             <span aria-hidden className="absolute bottom-2 left-0 top-2 w-px bg-ink/25 lg:hidden" />
-            <motion.div variants={reduce ? undefined : riseLogo}>
+            <motion.div className="hero-home-logo" variants={reduce ? undefined : riseLogo}>
               <BrandLogo
                 tone="hero"
                 className="hero-glow mb-8 h-[5.5rem] w-[5.5rem] md:mb-10 md:h-[7rem] md:w-[7rem] lg:mb-8 lg:h-[7.75rem] lg:w-[7.75rem]"
