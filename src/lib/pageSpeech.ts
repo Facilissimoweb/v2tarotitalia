@@ -1,8 +1,10 @@
 import { useSyncExternalStore } from "react";
+import { isNaturalSpeechVoice, selectSpeechVoice } from "./speechVoice";
 
 /**
- * Lettura vocale della pagina: solo `window.speechSynthesis`, nessuna dipendenza.
- * Legge il contenuto di `main`, a pezzi, per evitare il taglio di Chrome sulle utterance lunghe.
+ * Lettura vocale della pagina: solo `window.speechSynthesis`, voci già presenti
+ * nel sistema. Nessun servizio esterno. I brani restano entro una frase o due,
+ * così l’intonazione non si spezza e Chrome non tronca la coda.
  */
 
 export type SpeechStatus = "idle" | "speaking" | "paused" | "unsupported";
@@ -14,7 +16,9 @@ type State = {
 
 const DEFAULT: State = { status: "idle", message: "none" };
 const UNSUPPORTED: State = { status: "unsupported", message: "none" };
-const CHUNK = 180;
+const CHUNK = 340;
+/** Chrome sospende la sintesi dopo circa 15 secondi se il motore non viene risvegliato. */
+const KEEP_ALIVE_MS = 10_000;
 const SKIP = new Set(["SCRIPT", "STYLE", "NOSCRIPT", "SVG", "BUTTON", "SELECT", "TEXTAREA", "NAV", "IFRAME"]);
 
 let state: State = { ...DEFAULT };
@@ -24,6 +28,10 @@ let index = 0;
 /** Chrome: senza un riferimento vivo l’utterance viene raccolta e la voce si interrompe. */
 const hold: { utterance: SpeechSynthesisUtterance | null } = { utterance: null };
 let voicesReady = false;
+let voicesSettled = false;
+let keepAlive = 0;
+let runToken = 0;
+let activeVoice: SpeechSynthesisVoice | undefined;
 
 function emit() {
   listeners.forEach((fn) => fn());
@@ -51,15 +59,49 @@ function speechLang() {
 }
 
 function pickVoice(lang: string): SpeechSynthesisVoice | undefined {
-  const list = synth()?.getVoices() ?? [];
-  if (!list.length) return undefined;
-  const wanted = lang.toLowerCase().replace("_", "-");
-  const prefix = wanted.slice(0, 2);
-  return (
-    list.find((v) => v.lang.replace("_", "-").toLowerCase() === wanted) ||
-    list.find((v) => v.lang.replace("_", "-").toLowerCase().startsWith(prefix) && v.default) ||
-    list.find((v) => v.lang.replace("_", "-").toLowerCase().startsWith(prefix))
-  );
+  return selectSpeechVoice(synth()?.getVoices() ?? [], lang);
+}
+
+function stopKeepAlive() {
+  if (!keepAlive) return;
+  window.clearInterval(keepAlive);
+  keepAlive = 0;
+}
+
+function startKeepAlive() {
+  stopKeepAlive();
+  keepAlive = window.setInterval(() => {
+    const engine = synth();
+    if (!engine || state.status !== "speaking") return;
+    if (engine.speaking && !engine.paused) engine.resume();
+  }, KEEP_ALIVE_MS);
+}
+
+function primeVoices() {
+  const engine = synth();
+  if (!engine) return Promise.resolve();
+  const naturalReady = () => isNaturalSpeechVoice(selectSpeechVoice(engine.getVoices(), speechLang()));
+  if (voicesSettled || naturalReady()) {
+    voicesSettled = true;
+    return Promise.resolve();
+  }
+  return new Promise<void>((resolve) => {
+    let done = false;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      voicesSettled = true;
+      engine.removeEventListener("voiceschanged", onChange);
+      resolve();
+    };
+    const onChange = () => {
+      if (naturalReady()) finish();
+    };
+    engine.addEventListener("voiceschanged", onChange);
+    engine.getVoices();
+    if (naturalReady()) finish();
+    else window.setTimeout(finish, 500);
+  });
 }
 
 function skipNode(el: Element | null) {
@@ -110,7 +152,15 @@ function chunkText(text: string) {
     if (!piece) return;
     if (piece.length > CHUNK) {
       flush();
-      for (let i = 0; i < piece.length; i += CHUNK) out.push(piece.slice(i, i + CHUNK).trim());
+      let rest = piece;
+      while (rest.length > CHUNK) {
+        const slice = rest.slice(0, CHUNK);
+        const cut = Math.max(slice.lastIndexOf(" "), slice.lastIndexOf(","), slice.lastIndexOf(";"));
+        const at = cut > 40 ? cut : CHUNK;
+        out.push(rest.slice(0, at).trim());
+        rest = rest.slice(at).trim();
+      }
+      if (rest) out.push(rest);
       return;
     }
     if (!buf) {
@@ -134,6 +184,7 @@ function speakNext() {
   if (!engine) return;
   if (index >= queue.length) {
     hold.utterance = null;
+    stopKeepAlive();
     commit({ status: "idle", message: "none" });
     return;
   }
@@ -141,10 +192,10 @@ function speakNext() {
   const utterance = new SpeechSynthesisUtterance(queue[index]);
   const lang = speechLang();
   utterance.lang = lang;
-  utterance.rate = 0.95;
+  utterance.rate = isNaturalSpeechVoice(activeVoice) ? 1 : 0.94;
   utterance.pitch = 1;
-  const voice = pickVoice(lang);
-  if (voice) utterance.voice = voice;
+  utterance.volume = 1;
+  if (activeVoice) utterance.voice = activeVoice;
 
   utterance.onend = () => {
     if (state.status !== "speaking") return;
@@ -153,6 +204,7 @@ function speakNext() {
   };
   utterance.onerror = (event) => {
     if (event.error === "interrupted" || event.error === "canceled") return;
+    stopKeepAlive();
     hold.utterance = null;
     queue = [];
     index = 0;
@@ -167,16 +219,20 @@ function ensureVoices() {
   const engine = synth();
   if (!engine || voicesReady) return;
   voicesReady = true;
-  engine.addEventListener("voiceschanged", () => {
-    /* le voci arrivano in ritardo su Chromium: al prossimo speak si usano */
-  });
+  const refresh = () => {
+    if (state.status === "speaking" || state.status === "paused") return;
+    activeVoice = pickVoice(speechLang());
+  };
+  engine.addEventListener("voiceschanged", refresh);
+  refresh();
 }
 
-function startFromMain() {
+async function startFromMain() {
   if (!speechSupported()) {
     commit({ status: "unsupported", message: "none" });
     return;
   }
+  const run = ++runToken;
   ensureVoices();
   const text = extractMainText();
   if (!text) {
@@ -187,6 +243,10 @@ function startFromMain() {
   queue = chunkText(text);
   index = 0;
   commit({ status: "speaking", message: "none" });
+  await primeVoices();
+  if (run !== runToken || state.status !== "speaking") return;
+  activeVoice = pickVoice(speechLang());
+  startKeepAlive();
   speakNext();
 }
 
@@ -201,6 +261,7 @@ export const pageSpeech = {
   },
   pause() {
     if (state.status !== "speaking") return;
+    stopKeepAlive();
     synth()?.pause();
     commit({ status: "paused", message: "none" });
   },
@@ -209,10 +270,13 @@ export const pageSpeech = {
     const engine = synth();
     if (!engine) return;
     commit({ status: "speaking", message: "none" });
+    startKeepAlive();
     if (engine.paused) engine.resume();
     else speakNext();
   },
   stop() {
+    runToken += 1;
+    stopKeepAlive();
     const engine = synth();
     if (engine) {
       if (engine.paused) engine.resume();
@@ -221,6 +285,7 @@ export const pageSpeech = {
     hold.utterance = null;
     queue = [];
     index = 0;
+    activeVoice = undefined;
     if (state.status === "unsupported") return;
     commit({ status: "idle", message: "none" });
   },
