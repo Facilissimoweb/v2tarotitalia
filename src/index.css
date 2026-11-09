@@ -479,56 +479,51 @@ html::after {
   }
 
   [data-home-hero] .hero-home-title-italia {
+    margin-top: 0.34em;
     font-size: clamp(1.7rem, 9.5vw, 2.65rem);
   }
 
   .hero-visual-stage {
-    position: absolute;
+    position: relative;
     top: auto;
-    right: -34%;
-    bottom: 0;
+    right: auto;
+    bottom: auto;
     left: auto;
     z-index: 1;
     display: flex;
-    width: min(118vw, 34rem);
-    height: clamp(14.75rem, 44vw, 18.25rem);
-    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    margin-top: 3.25rem;
+    align-items: flex-end;
     justify-content: flex-end;
-    overflow: hidden;
+    overflow: visible;
     pointer-events: none;
-    mask-image: linear-gradient(180deg, #000 52%, rgb(0 0 0 / 0.45) 78%, transparent 100%);
-    -webkit-mask-image: linear-gradient(180deg, #000 52%, rgb(0 0 0 / 0.45) 78%, transparent 100%);
+    mask-image: none;
+    -webkit-mask-image: none;
   }
 
   .hero-angelo {
-    height: min(52rem, 148vw);
-    width: auto;
+    height: auto;
+    width: min(74vw, 22rem);
     max-width: none;
-    object-fit: cover;
-    object-position: 68% 0%;
-    transform: translate3d(16%, 0, 0);
-    opacity: 0.88;
+    object-fit: contain;
+    object-position: center bottom;
+    transform: none;
+    opacity: 0.92;
   }
 
   .hero-copy-veil {
     position: absolute;
-    inset: 0;
+    inset: 0 0 auto 0;
     z-index: 2;
+    height: 46%;
     pointer-events: none;
-    background:
-      linear-gradient(
-        180deg,
-        var(--color-ivory) 0%,
-        rgb(249 248 246 / 0.7) 16%,
-        transparent 38%
-      ),
-      linear-gradient(
-        115deg,
-        var(--color-ivory) 0%,
-        rgb(249 248 246 / 0.92) 18%,
-        rgb(249 248 246 / 0.38) 32%,
-        transparent 52%
-      );
+    background: linear-gradient(
+      180deg,
+      rgb(249 248 246 / 0.72) 0%,
+      rgb(249 248 246 / 0.28) 62%,
+      transparent 100%
+    );
   }
 
   .hero-drop-t {
@@ -1805,14 +1800,24 @@ a.plate-tile::after {
 @media (max-width: 1023px) {
   .hero-visual-parallax {
     display: flex;
-    height: 100%;
+    height: auto;
     width: 100%;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: flex-end;
   }
 
+  .hero-angelo-mist {
+    left: 18%;
+    top: 4%;
+    width: 72%;
+    height: 70%;
+  }
+
   .hero-angelo-shadow {
-    display: none;
+    left: 22%;
+    bottom: 1%;
+    width: 52%;
+    height: 10%;
   }
 }
 

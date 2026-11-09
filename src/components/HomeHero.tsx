@@ -80,7 +80,7 @@ export function HomeHero() {
       className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
       <div className="flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col lg:min-h-[66svh] xl:min-h-[72svh]">
-      <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-5 pb-8 pt-[calc(var(--nav-offset)+2.85rem)] sm:px-6 md:px-10 md:pb-12 max-lg:justify-start lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible lg:pt-[calc(var(--nav-offset)+1.75rem)] xl:min-h-[72svh] xl:px-16 2xl:px-20">
+      <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-6 pb-12 pt-[calc(var(--nav-offset)+4.25rem)] sm:px-8 md:px-10 md:pb-14 max-lg:justify-start lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible lg:px-10 lg:pb-12 lg:pt-[calc(var(--nav-offset)+2.25rem)] xl:min-h-[72svh] xl:px-16 2xl:px-20">
         <img src="/hero-paper.webp" alt="" aria-hidden className="hero-paper" />
         <div aria-hidden className="hero-ember-field" />
         <div aria-hidden className="hero-copy-veil lg:hidden" />
@@ -90,11 +90,12 @@ export function HomeHero() {
           initial={reduce ? false : "hidden"}
           animate="show"
         >
-          <div className="hero-editorial-stage relative z-[12] min-w-0">
+          <div className="hero-editorial-stage relative z-[12] min-w-0 max-lg:pl-5">
+            <span aria-hidden className="absolute bottom-2 left-0 top-2 w-px bg-ink/25 lg:hidden" />
             <motion.div variants={reduce ? undefined : riseLogo}>
               <BrandLogo
                 tone="hero"
-                className="hero-glow mb-5 h-[6rem] w-[6rem] md:mb-7 md:h-[7rem] md:w-[7rem] lg:h-[7.75rem] lg:w-[7.75rem]"
+                className="hero-glow mb-8 h-[5.5rem] w-[5.5rem] md:mb-10 md:h-[7rem] md:w-[7rem] lg:mb-8 lg:h-[7.75rem] lg:w-[7.75rem]"
               />
             </motion.div>
             <motion.h1
@@ -105,28 +106,34 @@ export function HomeHero() {
               <span className="hero-home-title-italia">{marcaItalia}</span>
             </motion.h1>
 
+            <motion.div aria-hidden variants={riseIn} className="mt-9 flex items-center gap-3 lg:mt-8">
+              <span className="block size-[0.4375rem] bg-ink" />
+              <span className="block h-px w-16 bg-ink/40" />
+              <span className="block h-px w-8 bg-ink/15" />
+            </motion.div>
+
             <motion.p
               variants={riseIn}
-              className="mt-5 max-w-[18rem] font-display text-xl font-normal leading-snug text-ink lg:max-w-xl lg:text-lg xl:mt-6 xl:max-w-2xl xl:text-xl"
+              className="mt-8 max-w-[21rem] font-display text-xl font-normal leading-relaxed text-ink lg:mt-7 lg:max-w-xl lg:text-lg lg:leading-snug xl:mt-8 xl:max-w-2xl xl:text-xl"
             >
               {home.competenze}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-4 hidden max-w-xl font-display text-base font-normal leading-relaxed text-ink/70 md:block md:text-lg xl:mt-6"
+              className="mt-8 max-w-[22rem] font-display text-base font-normal leading-[1.85] text-ink/70 md:text-lg lg:mt-7 lg:max-w-xl xl:mt-8"
             >
               {home.benvenuto}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-4 font-display text-sm font-medium tracking-[0.04em] text-ink/70 md:mt-3 md:text-lg md:tracking-normal"
+              className="mt-9 font-display text-sm font-medium tracking-[0.04em] text-ink/70 md:text-lg md:tracking-normal lg:mt-7"
             >
               {home.firma}
             </motion.p>
 
-            <motion.div variants={riseIn} className="mt-8">
+            <motion.div variants={riseIn} className="mt-12 lg:mt-10">
               <Button to="/consulti" variant="ember" className="lg:hidden">
                 {home.ctaConsulto} →
               </Button>
@@ -159,7 +166,13 @@ export function HomeHero() {
                 {home.copyright}
               </p>
               <span aria-hidden className="hero-angelo-shadow" />
-              <div className="hero-angelo-float">
+              <div className="hero-angelo-float relative">
+                <span aria-hidden className="pointer-events-none absolute -inset-x-3 -inset-y-4 lg:hidden">
+                  <span className="absolute left-0 top-0 h-3.5 w-3.5 border-l border-t border-ink/40" />
+                  <span className="absolute right-0 top-0 h-3.5 w-3.5 border-r border-t border-ink/40" />
+                  <span className="absolute bottom-0 left-0 h-3.5 w-3.5 border-b border-l border-ink/40" />
+                  <span className="absolute bottom-0 right-0 h-3.5 w-3.5 border-b border-r border-ink/40" />
+                </span>
                 <img
                   src="/angelo-hero.webp"
                   alt=""
@@ -180,7 +193,7 @@ export function HomeHero() {
           <NavLink
             key={azione.n}
             to={azione.to}
-            className="plate-tile group flex min-h-[7.25rem] flex-col border-white/10 bg-plate px-4 py-5 text-on-ink transition-colors max-xl:border-b max-xl:border-r max-xl:[&:nth-child(2n)]:border-r-0 max-xl:[&:nth-last-child(-n+2)]:border-b-0 sm:min-h-[9.25rem] sm:px-6 sm:py-6 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:last:border-r-0"
+            className="plate-tile group flex min-h-[8.75rem] flex-col border-white/10 bg-plate px-5 py-7 text-on-ink transition-colors max-xl:border-b max-xl:border-r max-xl:[&:nth-child(2n)]:border-r-0 max-xl:[&:nth-last-child(-n+2)]:border-b-0 sm:min-h-[9.75rem] sm:px-7 sm:py-8 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:py-6 xl:last:border-r-0"
           >
             <span className="font-h1 text-[1.2rem] leading-none tracking-[-0.04em] text-ember-pale sm:text-[1.35rem]">
               {azione.n}
