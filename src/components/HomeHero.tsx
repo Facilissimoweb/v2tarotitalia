@@ -79,13 +79,13 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
-      <div className="flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col lg:min-h-[66svh] xl:min-h-[72svh]">
-      <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-6 pb-12 pt-[calc(var(--nav-offset)+4.25rem)] sm:px-8 md:px-10 md:pb-14 max-lg:justify-start lg:min-h-[66svh] lg:justify-center lg:overflow-x-visible lg:px-10 lg:pb-12 lg:pt-[calc(var(--nav-offset)+2.25rem)] xl:min-h-[72svh] xl:px-16 2xl:px-20">
+      <div className="flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col lg:min-h-0">
+      <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-6 pb-12 pt-[calc(var(--nav-offset)+4.25rem)] sm:px-8 md:px-10 md:pb-14 max-lg:justify-start lg:min-h-[100svh] lg:justify-center lg:px-10 lg:pb-[calc(7.25rem+var(--dock-lift))] lg:pt-[calc(var(--nav-offset)+1.5rem)] xl:px-16">
         <img src="/hero-paper.webp" alt="" aria-hidden className="hero-paper" />
         <div aria-hidden className="hero-ember-field" />
         <div aria-hidden className="hero-copy-veil lg:hidden" />
         <motion.div
-          className="relative mx-auto w-full max-w-[96rem] items-center max-lg:contents lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(16rem,0.95fr)] lg:gap-6 xl:gap-10"
+          className="relative mx-auto w-full items-center max-lg:contents lg:grid lg:max-w-6xl lg:grid-cols-[minmax(0,1.05fr)_minmax(15rem,0.72fr)] lg:items-center lg:gap-10 xl:max-w-7xl xl:gap-16"
           variants={container}
           initial={reduce ? false : "hidden"}
           animate="show"
@@ -95,7 +95,7 @@ export function HomeHero() {
             <motion.div className="hero-home-logo" variants={reduce ? undefined : riseLogo}>
               <BrandLogo
                 tone="hero"
-                className="hero-glow mb-8 h-[7rem] w-[7rem] md:mb-10 md:h-[7rem] md:w-[7rem] lg:mb-8 lg:h-[7.75rem] lg:w-[7.75rem]"
+                className="hero-glow mb-8 h-[7rem] w-[7rem] md:mb-10 md:h-[7rem] md:w-[7rem] lg:mb-6 lg:h-[6.5rem] lg:w-[6.5rem]"
               />
             </motion.div>
             <motion.h1
@@ -106,44 +106,38 @@ export function HomeHero() {
               <span className="hero-home-title-italia">{marcaItalia}</span>
             </motion.h1>
 
-            <motion.div aria-hidden variants={riseIn} className="mt-9 flex items-center gap-3 lg:mt-8">
-              <span className="block size-[0.4375rem] bg-ink" />
-              <span className="block h-px w-16 bg-ink/40" />
-              <span className="block h-px w-8 bg-ink/15" />
+            <motion.div aria-hidden variants={riseIn} className="mt-9 flex items-center gap-3 lg:mt-6">
+              <span className="block size-[0.4375rem] bg-ink lg:hidden" />
+              <span className="block h-px w-16 bg-ink/40 lg:hidden" />
+              <span className="block h-px w-8 bg-ink/15 lg:hidden" />
+              <span className="hidden h-0.5 w-10 bg-ember lg:block" />
             </motion.div>
 
             <motion.p
               variants={riseIn}
-              className="mt-8 max-w-[21rem] font-display text-xl font-normal leading-relaxed text-ink lg:mt-7 lg:max-w-xl lg:text-lg lg:leading-snug xl:mt-8 xl:max-w-2xl xl:text-xl"
+              className="mt-8 max-w-[21rem] font-display text-xl font-normal leading-relaxed text-ink lg:mt-5 lg:max-w-xl lg:text-lg lg:leading-snug xl:mt-6"
             >
               {home.competenze}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-8 max-w-[22rem] font-display text-base font-normal leading-[1.85] text-ink/70 md:text-lg lg:mt-7 lg:max-w-xl xl:mt-8"
+              className="mt-8 max-w-[22rem] font-display text-base font-normal leading-[1.85] text-ink/70 md:text-lg lg:mt-4 lg:max-w-xl xl:mt-5"
             >
               {home.benvenuto}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-9 font-display text-sm font-medium tracking-[0.04em] text-ink/70 md:text-lg md:tracking-normal lg:mt-7"
+              className="mt-9 font-display text-sm font-medium tracking-[0.04em] text-ink/70 md:text-lg md:tracking-normal lg:mt-4"
             >
               {home.firma}
             </motion.p>
 
-            <motion.div variants={riseIn} className="mt-12 lg:mt-10">
-              <Button to="/consulti" variant="ember" className="lg:hidden">
+            <motion.div variants={riseIn} className="mt-12 lg:mt-6">
+              <Button to="/consulti" variant="ember">
                 {home.ctaConsulto} →
               </Button>
-              <NavLink
-                to="/consulti"
-                className="hidden items-center gap-2 text-[0.6875rem] font-bold uppercase tracking-[0.22em] text-[#111111] transition-colors hover:text-[#111111]/50 lg:inline-flex"
-              >
-                {home.ctaConsulto}
-                <span aria-hidden>→</span>
-              </NavLink>
             </motion.div>
           </div>
 
@@ -153,18 +147,6 @@ export function HomeHero() {
           >
             <div className="hero-visual-parallax">
               <span aria-hidden className="hero-angelo-mist" />
-              <span
-                aria-hidden
-                className="hero-drop-t pointer-events-none absolute -right-8 bottom-[-18%] z-0 select-none xl:-right-16 xl:bottom-[-22%]"
-              >
-                {titolo.charAt(0)}
-              </span>
-              <p
-                aria-hidden
-                className="pointer-events-none absolute right-0 top-1/2 z-[1] hidden origin-center translate-x-1/2 -translate-y-1/2 rotate-90 text-[0.5625rem] font-semibold uppercase tracking-[0.32em] text-ink/35 xl:block"
-              >
-                {home.copyright}
-              </p>
               <span aria-hidden className="hero-angelo-shadow" />
               <div className="hero-angelo-float relative">
                 <span aria-hidden className="pointer-events-none absolute -inset-x-3 -inset-y-4 lg:hidden">
@@ -180,7 +162,7 @@ export function HomeHero() {
                   height={784}
                   fetchPriority="high"
                   decoding="async"
-                  className="hero-angelo relative z-[2] lg:translate-x-[8%]"
+                  className="hero-angelo relative z-[2]"
                 />
               </div>
             </div>

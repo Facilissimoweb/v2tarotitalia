@@ -430,16 +430,6 @@ html::after {
   font-size: clamp(2.4rem, calc(100cqi / 6.4), 5.25rem);
 }
 
-.hero-drop-t {
-  font-family: var(--font-h1);
-  font-weight: 800;
-  letter-spacing: -0.08em;
-  line-height: 0.68;
-  text-transform: uppercase;
-  color: rgb(17 17 17 / 0.18);
-  font-size: clamp(12rem, 36vw, 28rem);
-}
-
 .hero-logo-mobile {
   display: none;
 }
@@ -586,14 +576,33 @@ html::after {
     );
   }
 
-  .hero-drop-t {
-    display: none;
-  }
 }
 
 @media (min-width: 1024px) {
+  [data-home-hero] .hero-home-title-tarot {
+    font-size: clamp(4.85rem, 5.6vw, 6.85rem);
+  }
+
+  [data-home-hero] .hero-home-title-tarot::first-letter {
+    font-size: 1.3em;
+    line-height: 0.8;
+  }
+
+  [data-home-hero] .hero-home-title-italia {
+    width: fit-content;
+    margin-top: 0.04em;
+    font-size: clamp(2.2rem, 2.55vw, 3.15rem);
+  }
+
   .hero-angelo {
-    height: clamp(16rem, 48vw, 26rem);
+    height: auto;
+    width: min(100%, 20.5rem);
+    max-height: min(50vh, 30rem);
+    object-fit: contain;
+  }
+
+  .hero-visual-stage {
+    align-self: center;
   }
 }
 
