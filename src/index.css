@@ -1023,6 +1023,23 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
     transform: translate3d(8%, 0, 0);
     opacity: 0.7;
   }
+
+  /* Pulsanti: etichetta con intaglio laterale, bordo continuo, angolo morbido. */
+  .ti-btn:not(.ti-btn-icon) {
+    border: 2px solid #111111;
+    border-radius: 14px;
+    --ticket-notch: 8px;
+    -webkit-mask-image:
+      radial-gradient(circle at left center, transparent var(--ticket-notch), #000 calc(var(--ticket-notch) + 0.8px)),
+      radial-gradient(circle at right center, transparent var(--ticket-notch), #000 calc(var(--ticket-notch) + 0.8px));
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-composite: source-in;
+    mask-image:
+      radial-gradient(circle at left center, transparent var(--ticket-notch), #000 calc(var(--ticket-notch) + 0.8px)),
+      radial-gradient(circle at right center, transparent var(--ticket-notch), #000 calc(var(--ticket-notch) + 0.8px));
+    mask-repeat: no-repeat;
+    mask-composite: intersect;
+  }
 }
 
 @keyframes ti-btn-flow {
