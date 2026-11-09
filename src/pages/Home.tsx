@@ -5,6 +5,7 @@ import { SectionBrandMark } from "../components/WidgetFrame";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
 import { HomeHero } from "../components/HomeHero";
+import { HomeVolumes } from "../components/HomeVolumes";
 import { ImageSlot } from "../components/ImageSlot";
 import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
@@ -220,6 +221,8 @@ export function Home() {
         </StackSheet>
       ) : null}
       </StackDeck>
+
+      <HomeVolumes />
 
       {formazioneOpen ? <FormazioneOlisticaModal onClose={() => setFormazioneOpen(false)} /> : null}
     </div>

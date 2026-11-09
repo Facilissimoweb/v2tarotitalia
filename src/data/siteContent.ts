@@ -215,6 +215,28 @@ export const siteContent = {
       testo: "Una dispensa sugli Arcani Maggiori, con simboli, schemi di lettura e corrispondenze. Dopo l’acquisto, la trovi nella tua area riservata.",
       cta: "Vai ai corsi e alle dispense",
     },
+    volumi: {
+      kicker: "Volumi",
+      titolo: "Testi e agende",
+      lead: "I volumi ufficiali di Tarot Italia, in vendita su Amazon.",
+      acquista: "Acquista su Amazon",
+      prodotti: [
+        {
+          id: "agenda-365",
+          kicker: "Agenda",
+          titolo: "Agenda 365 giorni",
+          testo: "Pagine da compilare, per 365 giorni.",
+          href: "https://www.amazon.it/Agenda-365-giorni-pagine-compilare/dp/B0DBQ33LCM",
+        },
+        {
+          id: "quaderno-spread",
+          kicker: "Quaderno",
+          titolo: "Quaderno di Spread e Letture Tarologiche",
+          testo: "Venticinque spread di lettura, con grafiche per interpretare le carte.",
+          href: "https://www.amazon.it/Spread-Lettura-Tarologiche-accattivanti-interpretare/dp/B0DBQ7Z7DN",
+        },
+      ],
+    },
   },
 
   pages: {
