@@ -1,5 +1,4 @@
 import { siteContent } from "../data/siteContent";
-import { BrandLogo } from "./BrandLogo";
 import { Button, Kicker } from "./Button";
 import { Reveal } from "./Reveal";
 
@@ -25,11 +24,15 @@ export function HomeVolumes() {
           {volumi.prodotti.map((prodotto, index) => (
             <Reveal key={prodotto.id} delay={index * 80} className="h-full">
               <article className="depth-card flex h-full flex-col">
-                <div className="flex h-64 flex-col items-center justify-center bg-mist px-8 sm:h-72">
-                  <BrandLogo tone="hero" className="h-[6.5rem] w-[6.5rem] sm:h-[7rem] sm:w-[7rem]" />
-                  <p className="mt-6 text-[0.625rem] uppercase tracking-[0.22em] text-ink/55">
-                    {String(index + 1).padStart(2, "0")}
-                  </p>
+                <div className="depth-card__well bg-paper">
+                  <img
+                    src={prodotto.copertina}
+                    alt={prodotto.titolo}
+                    width={prodotto.larghezza}
+                    height={prodotto.altezza}
+                    className="depth-card__art block h-auto w-full"
+                    draggable={false}
+                  />
                 </div>
                 <div className="flex flex-1 flex-col p-8 md:p-10">
                   <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{prodotto.kicker}</p>
