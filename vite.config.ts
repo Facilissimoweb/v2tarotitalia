@@ -190,5 +190,27 @@ export default defineConfig(({ mode }) => {
       // Evita freeze lunghi/ripetuti dell’optimizer in locale.
       holdUntilCrawlEnd: false,
     },
+    build: {
+      rolldownOptions: {
+        output: {
+          codeSplitting: {
+            groups: [
+              {
+                name: "react",
+                test: /node_modules\/(react|react-dom|react-router|react-router-dom|scheduler)\//,
+              },
+              {
+                name: "motion",
+                test: /node_modules\/(motion|framer-motion)\//,
+              },
+              {
+                name: "supabase",
+                test: /node_modules\/@supabase\//,
+              },
+            ],
+          },
+        },
+      },
+    },
   };
 });

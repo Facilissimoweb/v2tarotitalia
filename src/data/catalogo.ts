@@ -1,4 +1,4 @@
-import { siteContent } from "./siteContent";
+import { siteContent } from "./siteContent.ts";
 
 export const REPORT_PDF_PRICE = siteContent.consulti.pdf.prezzo;
 

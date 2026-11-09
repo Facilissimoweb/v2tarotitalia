@@ -1,9 +1,9 @@
-import { ARCANI } from "../data/arcani";
-import { ARCANI_MINORI } from "../data/arcaniMinori";
-import { TARIFFE } from "../data/catalogo";
-import { siteContent } from "../data/siteContent";
-import { normalizeAppPath } from "./siteRoutes";
-import { SUBSTACK_HOME, SUBSTACK_PROFILE } from "./substack";
+import { ARCANI } from "../data/arcani.ts";
+import { ARCANI_MINORI } from "../data/arcaniMinori.ts";
+import { TARIFFE } from "../data/catalogo.ts";
+import { siteContent } from "../data/siteContent.ts";
+import { normalizeAppPath } from "./siteRoutes.ts";
+import { SUBSTACK_HOME, SUBSTACK_PROFILE } from "./substack.ts";
 
 const { admin, brand, chiSono, consulti, home, legal, nav, pages, percorsi } = siteContent;
 

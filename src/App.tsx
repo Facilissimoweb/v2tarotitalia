@@ -13,12 +13,10 @@ import { ComingSoon } from "./components/ComingSoon";
 import { StudioContactDock } from "./components/ContactDock";
 import { shopLive } from "./lib/launchFlags";
 import { useSiteAccess } from "./lib/useSiteAccess";
+import { AccessibilityPanel } from "./components/AccessibilityWidget";
 
 const PercorsiModal = lazy(() =>
   import("./components/PercorsiModal").then((m) => ({ default: m.PercorsiModal })),
-);
-const AccessibilityPanel = lazy(() =>
-  import("./components/AccessibilityWidget").then((m) => ({ default: m.AccessibilityPanel })),
 );
 const TarotChat = lazy(() =>
   import("./components/TarotChat").then((m) => ({ default: m.TarotChat })),
