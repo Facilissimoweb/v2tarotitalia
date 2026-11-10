@@ -136,7 +136,7 @@ export const siteContent = {
         "Tarot Italia, tarologia archetipica con Maria Teresa Rogani",
     },
     copyright: "© Tarot Italia",
-    firma: "di M. Teresa Rogani",
+    firma: "di Maria Teresa Rogani",
     benvenuto: "Una lettura simbolica degli Arcani per osservare il presente e orientare con consapevolezza le scelte.",
     competenze: "Cartomanzia e tarologia evolutiva · letture dei tarocchi dal vivo e online",
     lead: sloganBrand,
