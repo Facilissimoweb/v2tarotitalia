@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
 
-const { chiSono, home, nav, pages } = siteContent;
+const { brand, chiSono, home, nav, pages } = siteContent;
 
 const titolo = home.titolo;
 
@@ -36,8 +36,8 @@ const azioni = [
 ] as const;
 
 /**
- * Hero Home, su ogni schermo: video-copertina, logo fermo in basso a destra,
- * poi i quattro riquadri. Sul telefono il filmato è due terzi più alto della striscia precedente.
+ * Hero Home: video-copertina con titolo e firma a sinistra, logo fermo in basso a destra,
+ * poi i quattro riquadri. Sul telefono il filmato è più alto, per tenere testo e immagine interi.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -63,21 +63,29 @@ export function HomeHero() {
       <div className="relative mt-[var(--nav-offset)] border-t border-white/10 bg-plate lg:border-t-0">
         <video
           ref={filmRef}
-          className="block aspect-[12/5] w-full object-cover lg:aspect-auto lg:h-[calc(100svh-var(--nav-offset)-19.5rem)] lg:max-h-[48rem] lg:min-h-[22rem]"
+          className="block aspect-[4/3] w-full object-cover object-center sm:aspect-[5/4] lg:aspect-auto lg:h-[calc(100svh-var(--nav-offset)-19.5rem)] lg:max-h-[48rem] lg:min-h-[22rem]"
           src="/video/TAROT.mp4"
           poster="/video/TAROT-poster.webp"
           width={1280}
-          height={533}
+          height={960}
           muted
           loop
           playsInline
           preload="metadata"
           aria-label={titolo}
         />
-        <div className="pointer-events-none absolute bottom-3 right-3 z-[2] sm:bottom-4 sm:right-4 lg:bottom-6 lg:right-20 xl:bottom-8 xl:right-24">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex items-end justify-between gap-3 px-4 pb-4 pt-16 sm:gap-5 sm:px-6 sm:pb-5 lg:px-10 lg:pb-8 xl:px-14 xl:pb-10">
+          <div className="min-w-0 max-w-[62%] text-left sm:max-w-md lg:max-w-xl [text-shadow:0_1px_10px_rgb(0_0_0/0.55)]">
+            <h1 className="text-[1.65rem] leading-[1.1] text-white sm:text-[2rem] lg:text-[2.75rem]">
+              {brand.wordmark}
+            </h1>
+            <p className="mt-1 font-[family-name:var(--font-body)] text-[0.75rem] font-normal not-italic leading-snug text-white sm:text-sm lg:mt-2 lg:text-base">
+              {home.firma}
+            </p>
+          </div>
           <BrandLogo
             tone="hero"
-            className="h-16 w-16 sm:h-20 sm:w-20 lg:h-[6.5rem] lg:w-[6.5rem] xl:h-[7.75rem] xl:w-[7.75rem]"
+            className="h-16 w-16 shrink-0 sm:h-20 sm:w-20 lg:h-[6.5rem] lg:w-[6.5rem] xl:h-[7.75rem] xl:w-[7.75rem]"
           />
         </div>
       </div>
