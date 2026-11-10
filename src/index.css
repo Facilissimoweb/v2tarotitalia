@@ -18,7 +18,7 @@
   --color-on-ink: #f3efe8;
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-h1: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-h2: "Cs Bellara", var(--font-display);
+  --font-h2: "Noto Serif", Georgia, serif;
   --font-h3: var(--font-display);
   --font-body: "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-inquisition: "The Inquisition", var(--font-h1);
@@ -703,8 +703,9 @@ h1.font-bellara,
 }
 
 h2 {
-  font-family: "Cs Bellara", var(--font-display);
-  font-weight: 700;
+  font-family: "Noto Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
   letter-spacing: 0.01em;
 }
 
@@ -719,10 +720,16 @@ h3 {
     font-weight: 500;
   }
 
-  html body h2,
   html body h3,
   html body .font-display {
     font-weight: 600;
+  }
+
+  html body h2,
+  html body h2.font-display {
+    font-family: "Noto Serif", Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
   }
 
   html body p,
@@ -1000,7 +1007,13 @@ html[data-a11y-contrast="on"] :focus-visible {
 }
 
 .menu-voice--sub {
-  font-size: clamp(1.15rem, 3.2vw, 1.4rem);
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  line-height: 1.35;
+  text-transform: uppercase;
 }
 
 .menu-link.is-active .menu-voice {
@@ -1025,7 +1038,7 @@ html[data-a11y-contrast="on"] :focus-visible {
   }
 
   .menu-voice--sub {
-    font-size: 1.45rem;
+    font-size: 0.875rem;
   }
 
   .menu-link {
