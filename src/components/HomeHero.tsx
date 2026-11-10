@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
@@ -35,13 +35,27 @@ const azioni = [
   },
 ] as const;
 
+const PHONE_FILM = "(max-width: 1023px)";
+
 /**
  * Hero Home: sul video, a sinistra, il medaglione sopra «Tarot Italia» e la firma.
- * Poi i quattro riquadri. Sul telefono il filmato è alto, per tenere immagine e testo interi.
+ * Sui cellulari gira il filmato verticale; dal desktop in su resta quello largo.
+ * Poi i quattro riquadri.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
   const filmRef = useRef<HTMLVideoElement>(null);
+  const [phone, setPhone] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(PHONE_FILM).matches,
+  );
+
+  useEffect(() => {
+    const mq = window.matchMedia(PHONE_FILM);
+    const sync = () => setPhone(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const film = filmRef.current;
@@ -53,7 +67,12 @@ export function HomeHero() {
     }
     const pending = film.play();
     if (pending) pending.catch(() => {});
-  }, [reduce]);
+  }, [reduce, phone]);
+
+  const src = phone ? "/video/tarot-italia-telefono.mp4" : "/video/TAROT.mp4";
+  const poster = phone
+    ? "/video/tarot-italia-telefono-poster.webp"
+    : "/video/TAROT-poster.webp";
 
   return (
     <section
@@ -62,19 +81,24 @@ export function HomeHero() {
     >
       <div className="relative mt-[var(--nav-offset)] border-t border-white/10 bg-plate lg:border-t-0">
         <video
+          key={src}
           ref={filmRef}
-          className="block aspect-[3/4] min-h-[32rem] w-full object-cover object-center sm:aspect-[4/5] sm:min-h-[36rem] lg:aspect-auto lg:h-[calc(100svh-var(--nav-offset)-19.5rem)] lg:max-h-[48rem] lg:min-h-[22rem]"
-          src="/video/TAROT.mp4"
-          poster="/video/TAROT-poster.webp"
-          width={1280}
-          height={960}
+          className={
+            phone
+              ? "block aspect-[9/16] max-h-[calc(100svh-var(--nav-offset))] w-full object-cover object-center"
+              : "block h-[calc(100svh-var(--nav-offset)-19.5rem)] max-h-[48rem] min-h-[22rem] w-full object-cover object-center"
+          }
+          src={src}
+          poster={poster}
+          width={phone ? 1080 : 1280}
+          height={phone ? 1920 : 320}
           muted
           loop
           playsInline
           preload="metadata"
           aria-label={titolo}
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-5 sm:px-6 sm:pb-6 lg:px-10 lg:pb-8 xl:px-14 xl:pb-10">
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-24 sm:px-6 md:pb-32 lg:px-10 lg:pb-8 xl:px-14 xl:pb-10">
           <div className="flex max-w-[18rem] flex-col items-start text-left text-white sm:max-w-md lg:max-w-xl [text-shadow:0_1px_10px_rgb(0_0_0/0.55)]">
             <BrandLogo
               tone="hero"
