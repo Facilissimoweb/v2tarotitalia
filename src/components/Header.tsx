@@ -18,7 +18,8 @@ import { isCartDigital, isPaidDigital, readDigitalDrafts } from "../lib/digitalO
 import { formatBookingDay } from "../lib/whatsapp";
 import { LanguageChoices, LanguageWidget } from "./LanguageWidget";
 import { NavSlideOver } from "./NavSlideOver";
-import { AccessibilityTrigger } from "./AccessibilityWidget";
+import { AccessibilityControls, AccessibilityTrigger } from "./AccessibilityWidget";
+import { Button } from "./Button";
 import { PageSpeechTrigger } from "./PageSpeech";
 import { BrandLogo } from "./BrandLogo";
 import { ShopIcon } from "./ShopIcon";
@@ -60,8 +61,10 @@ const desktopLinkClass = (active: boolean) =>
 const NAV_ICON_CORE =
   "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-12`;
+const SLIDE_CTA =
+  "ti-btn mt-8 inline-flex w-full items-center justify-center bg-ink px-6 py-4 text-center text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-on-ink";
 
-type HoverPanel = "lingua" | "account" | "carrello";
+type HoverPanel = "lingua" | "account" | "carrello" | "facilitazione";
 
 export function Header() {
   const { pathname } = useLocation();
@@ -131,7 +134,14 @@ export function Header() {
                 />
               </div>
               <PageSpeechTrigger className={NAV_ICON_BTN} />
-              <AccessibilityTrigger className={NAV_ICON_BTN} />
+              <div onMouseEnter={() => hover.show("facilitazione")} onMouseLeave={hover.scheduleClose}>
+                <AccessibilityTrigger
+                  className={NAV_ICON_BTN}
+                  onActivate={() => hover.togglePin("facilitazione")}
+                  expanded={hover.panel === "facilitazione"}
+                  controls="nav-slide"
+                />
+              </div>
               <div onMouseEnter={() => hover.show("account")} onMouseLeave={hover.scheduleClose}>
                 <AccountLink className={NAV_ICON_BTN} expanded={hover.panel === "account"} controls="nav-slide" />
               </div>
@@ -204,6 +214,7 @@ export function Header() {
         {hover.panel === "lingua" ? <LanguageChoices autoFocus={hover.pinned} onSelect={hover.close} /> : null}
         {hover.panel === "account" ? <AccountPreview onNavigate={hover.close} /> : null}
         {hover.panel === "carrello" ? <CartPreview onNavigate={hover.close} /> : null}
+        {hover.panel === "facilitazione" ? <AccessibilityControls /> : null}
       </NavSlideOver>
     </>
   );
@@ -294,6 +305,7 @@ function slideTitle(panel: HoverPanel | null) {
   if (panel === "lingua") return siteContent.lingua.titolo;
   if (panel === "account") return nav.riservata;
   if (panel === "carrello") return nav.carrello;
+  if (panel === "facilitazione") return siteContent.accessibilita.titolo;
   return nav.menu;
 }
 
@@ -554,14 +566,14 @@ function AccountPreview({ onNavigate }: { onNavigate: () => void }) {
     <div className="flex flex-col items-start gap-6">
       <p className="text-sm leading-[1.8] text-ink/70">{auth.sogliaLead}</p>
       {session ? (
-        <Link to="/riservata" className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-ink" onClick={onNavigate}>
+        <Link to="/riservata" className={SLIDE_CTA} onClick={onNavigate}>
           {nav.riservata}
         </Link>
       ) : (
         <Link
           to={dest.to}
           state={dest.state}
-          className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-ink"
+          className={SLIDE_CTA}
           onClick={() => {
             dest.remember();
             onNavigate();
@@ -675,13 +687,9 @@ function CartPreview({ onNavigate }: { onNavigate: () => void }) {
           ))}
         </ul>
       ) : null}
-      <Link
-        to="/carrello"
-        className="mt-8 inline-flex text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-ink"
-        onClick={onNavigate}
-      >
+      <Button to="/carrello" className="mt-8 w-full" onClick={onNavigate}>
         {pages.carrello.titolo}
-      </Link>
+      </Button>
     </div>
   );
 }
