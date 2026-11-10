@@ -250,6 +250,16 @@
   isolation: isolate;
 }
 
+[data-site-footer] :where(button, a) {
+  box-shadow: none;
+}
+
+[data-site-footer] :where(button) {
+  border: 0;
+  background-color: transparent;
+  filter: none;
+}
+
 .footer-angelo-band {
   position: relative;
   z-index: 1;
