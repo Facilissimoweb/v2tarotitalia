@@ -1,14 +1,12 @@
 import { useEffect, useRef } from "react";
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { BrandLogo } from "./BrandLogo";
-import { Button } from "./Button";
 
 const { chiSono, home, nav, pages } = siteContent;
 
 const titolo = home.titolo;
-const [marcaTarot, marcaItalia] = titolo.split(/\s+/);
 
 const azioni = [
   {
@@ -37,27 +35,9 @@ const azioni = [
   },
 ] as const;
 
-const ease = [0.22, 1, 0.36, 1] as const;
-
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.04 } },
-};
-
-const riseIn: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease } },
-};
-
-const riseLogo: Variants = {
-  hidden: { opacity: 0, y: 28 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.85, ease } },
-};
-
 /**
- * Hero Home.
- * Desktop: video-copertina, logo fermo in basso a destra, poi i quattro riquadri.
- * Cellulare: manifesto a schermo pieno, angelo in overlay, fascia 01–04, video in coda.
+ * Hero Home, su ogni schermo: video-copertina, logo fermo in basso a destra,
+ * poi i quattro riquadri. Sul telefono il filmato è due terzi più alto della striscia precedente.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -80,117 +60,30 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
-      <h1 className="sr-only max-lg:hidden">{titolo}</h1>
-      <div className="relative order-3 border-t border-white/10 bg-plate lg:order-1 lg:mt-[var(--nav-offset)] lg:border-t-0">
+      <h1 className="sr-only">{titolo}</h1>
+      <div className="relative mt-[var(--nav-offset)] border-t border-white/10 bg-plate lg:border-t-0">
         <video
           ref={filmRef}
-          className="block aspect-[1280/320] w-full object-cover lg:aspect-auto lg:h-[calc(100svh-var(--nav-offset)-19.5rem)] lg:max-h-[48rem] lg:min-h-[22rem]"
+          className="block aspect-[12/5] w-full object-cover lg:aspect-auto lg:h-[calc(100svh-var(--nav-offset)-19.5rem)] lg:max-h-[48rem] lg:min-h-[22rem]"
           src="/video/TAROT.mp4"
           poster="/video/TAROT-poster.webp"
           width={1280}
-          height={320}
+          height={533}
           muted
           loop
           playsInline
           preload="metadata"
           aria-label={titolo}
         />
-        <div className="pointer-events-none absolute bottom-6 right-20 z-[2] hidden lg:block xl:bottom-8 xl:right-24">
-          <BrandLogo tone="hero" className="h-[6.5rem] w-[6.5rem] xl:h-[7.75rem] xl:w-[7.75rem]" />
+        <div className="pointer-events-none absolute bottom-3 right-3 z-[2] sm:bottom-4 sm:right-4 lg:bottom-6 lg:right-20 xl:bottom-8 xl:right-24">
+          <BrandLogo
+            tone="hero"
+            className="h-16 w-16 sm:h-20 sm:w-20 lg:h-[6.5rem] lg:w-[6.5rem] xl:h-[7.75rem] xl:w-[7.75rem]"
+          />
         </div>
       </div>
 
-      <div className="relative order-1 flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col justify-end overflow-x-clip px-6 pb-12 pt-[calc(var(--nav-offset)+4.25rem)] sm:px-8 md:px-10 md:pb-14 max-lg:justify-start lg:hidden">
-        <img src="/hero-paper.webp" alt="" aria-hidden className="hero-paper lg:hidden" />
-        <div aria-hidden className="hero-ember-field lg:hidden" />
-        <div aria-hidden className="hero-copy-veil lg:hidden" />
-        <motion.div
-          className="relative mx-auto w-full items-center max-lg:contents lg:mx-0 lg:block lg:max-w-3xl"
-          variants={container}
-          initial={reduce ? false : "hidden"}
-          animate="show"
-        >
-          <div className="hero-editorial-stage relative z-[12] min-w-0 max-lg:pl-5">
-            <span aria-hidden className="absolute bottom-2 left-0 top-2 w-px bg-ink/25 lg:hidden" />
-            <motion.div className="hero-home-logo lg:hidden" variants={reduce ? undefined : riseLogo}>
-              <BrandLogo
-                tone="hero"
-                className="hero-glow mb-8 h-[7rem] w-[7rem] md:mb-10 md:h-[7rem] md:w-[7rem]"
-              />
-            </motion.div>
-            <motion.h1
-              variants={riseIn}
-              className="font-bellara hero-home-title text-black"
-            >
-              <span className="hero-home-title-tarot">{marcaTarot}</span>
-              <span className="hero-home-title-italia">{marcaItalia}</span>
-            </motion.h1>
-
-            <motion.div aria-hidden variants={riseIn} className="mt-9 flex items-center gap-3 lg:mt-8">
-              <span className="block size-[0.4375rem] bg-ink lg:hidden" />
-              <span className="block h-px w-16 bg-ink/40 lg:hidden" />
-              <span className="block h-px w-8 bg-ink/15 lg:hidden" />
-              <span className="hidden h-0.5 w-10 bg-ember lg:block" />
-            </motion.div>
-
-            <motion.p
-              variants={riseIn}
-              className="mt-8 max-w-[21rem] font-display text-xl font-normal leading-relaxed text-ink lg:mt-8 lg:max-w-xl lg:text-lg lg:leading-snug"
-            >
-              {home.competenze}
-            </motion.p>
-
-            <motion.p
-              variants={riseIn}
-              className="mt-8 max-w-[22rem] font-display text-base font-normal leading-[1.85] text-ink/70 md:text-lg lg:mt-6 lg:max-w-xl"
-            >
-              {home.benvenuto}
-            </motion.p>
-
-            <motion.p
-              variants={riseIn}
-              className="mt-9 font-display text-sm font-medium tracking-[0.04em] text-ink/70 md:text-lg md:tracking-normal lg:mt-6"
-            >
-              {home.firma}
-            </motion.p>
-
-            <motion.div variants={riseIn} className="mt-12 lg:mt-10">
-              <Button to="/consulti" variant="ember">
-                {home.ctaConsulto} →
-              </Button>
-            </motion.div>
-          </div>
-
-          <motion.div
-            variants={riseIn}
-            className="hero-visual-stage relative z-[2] mx-auto flex w-full max-w-md items-center justify-center overflow-visible py-4 lg:hidden"
-          >
-            <div className="hero-visual-parallax">
-              <span aria-hidden className="hero-angelo-mist" />
-              <span aria-hidden className="hero-angelo-shadow" />
-              <div className="hero-angelo-float relative">
-                <span aria-hidden className="pointer-events-none absolute -inset-x-3 -inset-y-4 lg:hidden">
-                  <span className="absolute left-0 top-0 h-3.5 w-3.5 border-l border-t border-ink/40" />
-                  <span className="absolute right-0 top-0 h-3.5 w-3.5 border-r border-t border-ink/40" />
-                  <span className="absolute bottom-0 left-0 h-3.5 w-3.5 border-b border-l border-ink/40" />
-                  <span className="absolute bottom-0 right-0 h-3.5 w-3.5 border-b border-r border-ink/40" />
-                </span>
-                <img
-                  src="/angelo-hero.webp"
-                  alt=""
-                  width={556}
-                  height={784}
-                  fetchPriority="high"
-                  decoding="async"
-                  className="hero-angelo relative z-[2]"
-                />
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      <div className="relative z-[2] order-2 grid grid-cols-2 border-t border-plate xl:grid-cols-4">
+      <div className="relative z-[2] grid grid-cols-2 border-t border-plate xl:grid-cols-4">
         {azioni.map((azione) => (
           <NavLink
             key={azione.n}
