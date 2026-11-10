@@ -26,7 +26,6 @@ import { ShopIcon } from "./ShopIcon";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 
 const { auth, brand, consulti, nav, pages } = siteContent;
-const [marcaTarot, marcaItalia] = brand.wordmark.split(/\s+/);
 
 const MENU_EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -61,6 +60,7 @@ const desktopLinkClass = (active: boolean) =>
 const NAV_ICON_CORE =
   "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-12`;
+const NAV_ICON_BTN_MOBILE = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-9`;
 const SLIDE_CTA =
   "ti-btn mt-8 inline-flex w-full items-center justify-center bg-ink px-6 py-4 text-center text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-on-ink";
 
@@ -103,19 +103,24 @@ export function Header() {
           className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-6 px-6 2xl:gap-x-8 2xl:px-16 xl:grid"
           aria-label="Principale"
         >
-          <div className="flex items-center justify-end gap-x-7 2xl:gap-x-9">
-            {NAV_LEADING.map((item) => (
-              <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
-            ))}
+          <div className="flex min-w-0 items-center gap-x-3 min-[1440px]:gap-x-7 2xl:gap-x-9">
+            <NavLink to="/" end className="nav-title shrink-0" translate="no">
+              {brand.wordmark}
+            </NavLink>
+            <div className="ml-auto flex items-center justify-end gap-x-3 min-[1440px]:gap-x-7 2xl:gap-x-9">
+              {NAV_LEADING.map((item) => (
+                <DesktopNavEntry key={isNavBranch(item) ? item.label : item.to} item={item} />
+              ))}
+            </div>
           </div>
 
           <NavLink
             to="/"
-            className="flex items-center justify-center px-4"
-            aria-label={brand.wordmark}
-            translate="no"
+            end
+            className="flex items-center justify-center px-3"
+            aria-label={nav.home}
           >
-            <NavWordmark />
+            <BrandLogo tone="nav" className="nav-mark" />
           </NavLink>
 
           <div className="flex min-w-0 items-center justify-between gap-8 2xl:gap-10">
@@ -159,13 +164,16 @@ export function Header() {
         </nav>
 
         <div className="relative flex h-16 w-full items-center justify-between gap-2 px-3 sm:px-4 xl:hidden">
+          <NavLink to="/" end className="nav-title relative z-[1] min-w-0" translate="no">
+            {brand.wordmark}
+          </NavLink>
           <NavLink
             to="/"
-            className="relative z-[1] flex min-w-0 items-center"
-            aria-label={brand.wordmark}
-            translate="no"
+            end
+            className="absolute left-1/2 top-1/2 z-[1] flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
+            aria-label={nav.home}
           >
-            <NavWordmark compact />
+            <BrandLogo tone="nav" className="nav-mark" />
           </NavLink>
           <div className="relative z-10 flex shrink-0 items-center">
             <LanguageWidget
@@ -173,10 +181,10 @@ export function Header() {
               className="h-8 w-8"
               flagClassName="h-2.5 w-[0.9rem]"
             />
-            <CartLink className={NAV_ICON_BTN} />
+            <CartLink className={NAV_ICON_BTN_MOBILE} />
             <NavLink
               to="/"
-              className={NAV_ICON_BTN}
+              className={NAV_ICON_BTN_MOBILE}
               aria-label={nav.home}
               title={nav.home}
             >
@@ -184,7 +192,7 @@ export function Header() {
             </NavLink>
             <button
               type="button"
-              className={NAV_ICON_BTN}
+              className={NAV_ICON_BTN_MOBILE}
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? nav.chiudi : nav.menu}
@@ -307,18 +315,6 @@ function slideTitle(panel: HoverPanel | null) {
   if (panel === "carrello") return nav.carrello;
   if (panel === "facilitazione") return siteContent.accessibilita.titolo;
   return nav.menu;
-}
-
-function NavWordmark({ compact = false }: { compact?: boolean }) {
-  return (
-    <span className={`nav-wordmark${compact ? " nav-wordmark--compact" : ""}`}>
-      <BrandLogo tone="nav" className="nav-wordmark__logo" />
-      <span className="nav-wordmark__type">
-        <span className="nav-wordmark__tarot">{marcaTarot}</span>
-        <span className="nav-wordmark__italia">{marcaItalia}</span>
-      </span>
-    </span>
-  );
 }
 
 function DesktopNavEntry({ item }: { item: NavItem }) {
