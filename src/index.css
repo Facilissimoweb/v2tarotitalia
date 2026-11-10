@@ -655,14 +655,14 @@ h1.font-bellara,
   text-transform: none;
 }
 
-/* Titolo di barra: stesso carattere, peso e stile delle voci del menu mobile. Una sola scala. */
+/* Titolo di barra: stesso carattere delle voci del menu. Sul telefono è più raccolto, per stare nella barra senza sbavature. */
 .nav-title {
   font-family: "Noto Serif", Georgia, serif;
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.65rem, 5.2vw, 2.15rem);
-  line-height: 1.2;
-  letter-spacing: 0.01em;
+  font-size: 1.2rem;
+  line-height: 1;
+  letter-spacing: 0;
   text-transform: none;
   color: #000000;
   white-space: nowrap;
@@ -670,7 +670,9 @@ h1.font-bellara,
 
 @media (min-width: 768px) {
   .nav-title {
-    font-size: 2.2rem;
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
   }
 }
 
@@ -711,6 +713,18 @@ h2 {
   letter-spacing: 0.01em;
 }
 
+/* H1 di pagina: stesso carattere di «Tarot Italia» in navbar, corsivo pesante. */
+html body h1,
+html body h1.font-h1,
+html body h1.font-display {
+  font-family: "Noto Serif", Georgia, serif;
+  font-style: italic;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  font-synthesis: none;
+}
+
 h3 {
   font-family: var(--font-h3);
   font-weight: 600;
@@ -725,6 +739,16 @@ h3 {
   html body h3,
   html body .font-display {
     font-weight: 600;
+  }
+
+  html body h1,
+  html body h1.font-h1,
+  html body h1.font-display {
+    font-family: "Noto Serif", Georgia, serif;
+    font-style: italic;
+    font-weight: 900;
+    letter-spacing: 0.01em;
+    text-transform: none;
   }
 
   html body h2,
