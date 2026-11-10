@@ -79,23 +79,41 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
-      <div className="flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col lg:min-h-0">
-      <div className="relative flex flex-1 flex-col justify-end overflow-x-clip px-6 pb-12 pt-[calc(var(--nav-offset)+4.25rem)] sm:px-8 md:px-10 md:pb-14 max-lg:justify-start lg:min-h-[100svh] lg:justify-center lg:px-10 lg:pb-[calc(7.25rem+var(--dock-lift))] lg:pt-[calc(var(--nav-offset)+1.5rem)] xl:px-16">
-        <img src="/hero-paper.webp" alt="" aria-hidden className="hero-paper" />
-        <div aria-hidden className="hero-ember-field" />
+      <div className="relative order-3 border-t border-white/10 bg-plate lg:order-1 lg:mt-[var(--nav-offset)] lg:border-t-0">
+        <video
+          ref={filmRef}
+          className="block aspect-[1280/320] w-full object-cover lg:aspect-auto lg:h-[min(72vh,48rem)] lg:min-h-[28rem]"
+          src="/video/TAROT.mp4"
+          poster="/video/TAROT-poster.webp"
+          width={1280}
+          height={320}
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label={titolo}
+        />
+        <div className="pointer-events-none absolute bottom-6 right-20 z-[2] hidden lg:block xl:bottom-8 xl:right-24">
+          <BrandLogo tone="hero" className="h-[6.5rem] w-[6.5rem] xl:h-[7.75rem] xl:w-[7.75rem]" />
+        </div>
+      </div>
+
+      <div className="relative order-1 flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col justify-end overflow-x-clip px-6 pb-12 pt-[calc(var(--nav-offset)+4.25rem)] sm:px-8 md:px-10 md:pb-14 max-lg:justify-start lg:order-2 lg:min-h-0 lg:justify-start lg:px-16 lg:py-20 xl:px-24 xl:py-24">
+        <img src="/hero-paper.webp" alt="" aria-hidden className="hero-paper lg:hidden" />
+        <div aria-hidden className="hero-ember-field lg:hidden" />
         <div aria-hidden className="hero-copy-veil lg:hidden" />
         <motion.div
-          className="relative mx-auto w-full items-center max-lg:contents lg:grid lg:max-w-6xl lg:grid-cols-[minmax(0,1.05fr)_minmax(15rem,0.72fr)] lg:items-center lg:gap-10 xl:max-w-7xl xl:gap-16"
+          className="relative mx-auto w-full items-center max-lg:contents lg:mx-0 lg:block lg:max-w-3xl"
           variants={container}
           initial={reduce ? false : "hidden"}
           animate="show"
         >
           <div className="hero-editorial-stage relative z-[12] min-w-0 max-lg:pl-5">
             <span aria-hidden className="absolute bottom-2 left-0 top-2 w-px bg-ink/25 lg:hidden" />
-            <motion.div className="hero-home-logo" variants={reduce ? undefined : riseLogo}>
+            <motion.div className="hero-home-logo lg:hidden" variants={reduce ? undefined : riseLogo}>
               <BrandLogo
                 tone="hero"
-                className="hero-glow mb-8 h-[7rem] w-[7rem] md:mb-10 md:h-[7rem] md:w-[7rem] lg:mb-6 lg:h-[6.5rem] lg:w-[6.5rem]"
+                className="hero-glow mb-8 h-[7rem] w-[7rem] md:mb-10 md:h-[7rem] md:w-[7rem]"
               />
             </motion.div>
             <motion.h1
@@ -106,7 +124,7 @@ export function HomeHero() {
               <span className="hero-home-title-italia">{marcaItalia}</span>
             </motion.h1>
 
-            <motion.div aria-hidden variants={riseIn} className="mt-9 flex items-center gap-3 lg:mt-6">
+            <motion.div aria-hidden variants={riseIn} className="mt-9 flex items-center gap-3 lg:mt-8">
               <span className="block size-[0.4375rem] bg-ink lg:hidden" />
               <span className="block h-px w-16 bg-ink/40 lg:hidden" />
               <span className="block h-px w-8 bg-ink/15 lg:hidden" />
@@ -115,27 +133,27 @@ export function HomeHero() {
 
             <motion.p
               variants={riseIn}
-              className="mt-8 max-w-[21rem] font-display text-xl font-normal leading-relaxed text-ink lg:mt-5 lg:max-w-xl lg:text-lg lg:leading-snug xl:mt-6"
+              className="mt-8 max-w-[21rem] font-display text-xl font-normal leading-relaxed text-ink lg:mt-8 lg:max-w-xl lg:text-lg lg:leading-snug"
             >
               {home.competenze}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-8 max-w-[22rem] font-display text-base font-normal leading-[1.85] text-ink/70 md:text-lg lg:mt-4 lg:max-w-xl xl:mt-5"
+              className="mt-8 max-w-[22rem] font-display text-base font-normal leading-[1.85] text-ink/70 md:text-lg lg:mt-6 lg:max-w-xl"
             >
               {home.benvenuto}
             </motion.p>
 
             <motion.p
               variants={riseIn}
-              className="mt-9 font-display text-sm font-medium tracking-[0.04em] text-ink/70 md:text-lg md:tracking-normal lg:mt-4"
+              className="mt-9 font-display text-sm font-medium tracking-[0.04em] text-ink/70 md:text-lg md:tracking-normal lg:mt-6"
             >
               {home.firma}
             </motion.p>
 
-            <motion.div variants={riseIn} className="mt-12 lg:mt-6">
-              <Button to="/consulti" variant="ember" className="ti-btn-plain">
+            <motion.div variants={riseIn} className="mt-12 lg:mt-10">
+              <Button to="/consulti" variant="ember">
                 {home.ctaConsulto} →
               </Button>
             </motion.div>
@@ -143,7 +161,7 @@ export function HomeHero() {
 
           <motion.div
             variants={riseIn}
-            className="hero-visual-stage relative z-[2] mx-auto flex w-full max-w-md items-center justify-center overflow-visible py-4 lg:mx-0 lg:max-w-none lg:py-0"
+            className="hero-visual-stage relative z-[2] mx-auto flex w-full max-w-md items-center justify-center overflow-visible py-4 lg:hidden"
           >
             <div className="hero-visual-parallax">
               <span aria-hidden className="hero-angelo-mist" />
@@ -170,7 +188,7 @@ export function HomeHero() {
         </motion.div>
       </div>
 
-      <div className="relative z-[2] grid grid-cols-2 border-t border-plate xl:grid-cols-4">
+      <div className="relative z-[2] order-2 grid grid-cols-2 border-t border-plate lg:order-3 xl:grid-cols-4">
         {azioni.map((azione) => (
           <NavLink
             key={azione.n}
@@ -194,23 +212,6 @@ export function HomeHero() {
             </span>
           </NavLink>
         ))}
-      </div>
-      </div>
-
-      <div className="relative z-[2] border-t border-white/10 bg-plate">
-        <video
-          ref={filmRef}
-          className="block aspect-[1280/320] w-full object-cover"
-          src="/video/TAROT.mp4"
-          poster="/video/TAROT-poster.webp"
-          width={1280}
-          height={320}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-label={titolo}
-        />
       </div>
     </section>
   );
