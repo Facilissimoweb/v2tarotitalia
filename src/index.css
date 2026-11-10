@@ -687,19 +687,6 @@ h1.font-bellara,
   }
 }
 
-/* Logo sul video: solo il segno, in bianco. */
-.hero-logo-white {
-  overflow: visible;
-  border-radius: 0;
-  background: transparent;
-}
-
-.hero-logo-white img {
-  object-fit: contain;
-  transform: none;
-  filter: url("#hero-logo-white") drop-shadow(0 0 1px rgb(0 0 0 / 0.9)) drop-shadow(0 2px 8px rgb(0 0 0 / 0.45));
-}
-
 /* Occhio di barra: intero, nel proprio riquadro, centrato. */
 .nav-mark {
   height: 2.4rem;
