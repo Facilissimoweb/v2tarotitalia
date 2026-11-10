@@ -135,7 +135,7 @@ export function HomeHero() {
             </motion.p>
 
             <motion.div variants={riseIn} className="mt-12 lg:mt-6">
-              <Button to="/consulti" variant="ember">
+              <Button to="/consulti" variant="ember" className="ti-btn-plain">
                 {home.ctaConsulto} →
               </Button>
             </motion.div>

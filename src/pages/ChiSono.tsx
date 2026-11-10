@@ -103,7 +103,7 @@ export function ChiSono() {
 
           <Reveal delay={200}>
             <div className="mt-14 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">
-              <Button to="/consulti">{nav.consulti}</Button>
+              <Button to="/consulti" className="ti-btn-plain">{nav.consulti}</Button>
               <Button to="/arcani" variant="ghost">
                 {nav.arcaniMaggiori}
               </Button>
@@ -189,7 +189,7 @@ export function ChiSono() {
           <div className="mx-auto max-w-2xl bg-mist px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
-              <Button to="/consulti">{chiSono.ctaConsulti}</Button>
+              <Button to="/consulti" className="ti-btn-plain">{chiSono.ctaConsulti}</Button>
               <Button to="/contatti" variant="ghost">
                 {cta.scriviStudio}
               </Button>

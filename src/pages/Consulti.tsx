@@ -261,7 +261,7 @@ export function Consulti() {
               </div>
             </div>
             {error ? <p className="mt-4 text-center text-sm text-ink">{error}</p> : null}
-            <Button type="button" className="mt-8 w-full max-w-full whitespace-normal text-center" onClick={() => void proceed()}>
+            <Button type="button" className="ti-btn-plain mt-8 w-full max-w-full whitespace-normal text-center" onClick={() => void proceed()}>
               {consulti.procedi}
             </Button>
           </section>

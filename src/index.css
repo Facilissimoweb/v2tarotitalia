@@ -1239,6 +1239,34 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
     mask-repeat: no-repeat;
     mask-composite: intersect;
   }
+
+  /* Interno piatto: nessuna luce o ombra dentro il riempimento. */
+  :where(button, .ti-btn):not(.dock-sphere, .inset-0)::before {
+    content: none;
+    background: none;
+    filter: none;
+    animation: none;
+    opacity: 0;
+  }
+
+  /* Rilievo solo esterno, sulla sagoma del tasto. */
+  .ti-btn:not(.ti-btn-icon):not(.ti-btn-plain) {
+    box-shadow: none;
+    filter: drop-shadow(0 14px 18px rgb(20 18 16 / 0.24));
+  }
+
+  /* Prenotazione: piatto, senza ombra e senza bordo. */
+  .ti-btn.ti-btn-plain,
+  .ti-btn.ti-btn-plain:hover,
+  .ti-btn.ti-btn-plain:focus-visible,
+  .ti-btn.ti-btn-plain:active {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    filter: none;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
 }
 
 @keyframes ti-btn-flow {
@@ -1336,25 +1364,7 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
 }
 
 .dock-sphere::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background: linear-gradient(
-    128deg,
-    transparent 28%,
-    rgb(17 17 17 / 0.06) 44%,
-    rgb(17 17 17 / 0.28) 62%,
-    transparent 80%
-  );
-  filter: blur(2.5px);
-  transform: translate3d(10%, 0, 0);
-  opacity: 0.9;
-  transition:
-    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease;
+  content: none;
 }
 
 .dock-sphere:hover::before,
@@ -1868,7 +1878,6 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   position: relative;
   background-color: var(--color-paper);
   box-shadow:
-    0 1px 0 rgb(255 255 255 / 0.7) inset,
     6px 10px 0 rgb(20 18 16 / 0.07),
     0 20px 36px -30px rgb(20 18 16 / 0.55);
   transition:
@@ -1896,9 +1905,7 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
 }
 
 .depth-lift {
-  box-shadow:
-    0 1px 0 rgb(255 255 255 / 0.8) inset,
-    0 16px 34px -26px rgb(20 18 16 / 0.55);
+  box-shadow: 0 16px 34px -26px rgb(20 18 16 / 0.55);
 }
 
 .plate-tile {
@@ -1931,14 +1938,13 @@ a.plate-tile::after {
 
 .ember-seal,
 .lime-seal {
-  box-shadow:
-    inset 3px 0 0 var(--color-ember),
-    6px 8px 0 rgb(20 18 16 / 0.06);
+  background-color: var(--color-mist);
+  box-shadow: 0 16px 28px -22px rgb(20 18 16 / 0.45);
 }
 
 .ember-seal-dark,
 .lime-seal-dark {
-  box-shadow: inset 0 2px 0 var(--color-ember-pale);
+  box-shadow: none;
 }
 
 .atmosphere-quote::before {

@@ -173,7 +173,7 @@ export function AdminAgenda() {
                 disabled={Boolean(hold) || site}
                 onClick={() => setSlot(hour)}
                 className={`px-3 py-3 text-sm ${
-                  selected ? "bg-ink text-on-ink" : hold || site ? "bg-mist text-ink/45" : "ring-1 ring-inset ring-ink/15 hover:bg-mist"
+                  selected ? "bg-ink text-on-ink" : hold || site ? "bg-mist text-ink/45" : "bg-paper text-ink hover:bg-mist"
                 }`}
               >
                 {hour}
@@ -200,7 +200,7 @@ export function AdminAgenda() {
                 type="button"
                 onClick={() => setMinutes(option.minuti === 60 ? 60 : 30)}
                 className={`px-4 py-3 text-[0.625rem] uppercase tracking-[0.14em] ${
-                  minutes === option.minuti ? "bg-ink text-on-ink" : "ring-1 ring-inset ring-ink/20"
+                  minutes === option.minuti ? "bg-ink text-on-ink" : "bg-paper text-ink"
                 }`}
               >
                 {option.titolo}
@@ -213,7 +213,7 @@ export function AdminAgenda() {
               type="button"
               onClick={() => setSource("offline")}
               className={`px-4 py-3 text-[0.625rem] uppercase tracking-[0.14em] ${
-                source === "offline" ? "bg-ink text-on-ink" : "ring-1 ring-inset ring-ink/20"
+                source === "offline" ? "bg-ink text-on-ink" : "bg-paper text-ink"
               }`}
             >
               {admin.offline}
@@ -222,7 +222,7 @@ export function AdminAgenda() {
               type="button"
               onClick={() => setSource("block")}
               className={`px-4 py-3 text-[0.625rem] uppercase tracking-[0.14em] ${
-                source === "block" ? "bg-ink text-on-ink" : "ring-1 ring-inset ring-ink/20"
+                source === "block" ? "bg-ink text-on-ink" : "bg-paper text-ink"
               }`}
             >
               {admin.blocco}

@@ -64,7 +64,7 @@ export function Percorsi() {
                   <div className="mt-10">
                     <Button
                       variant="ghost"
-                      className="w-full"
+                      className="ti-btn-plain w-full"
                       onClick={() => openPercorso(tipo.id)}
                     >
                       {cta.prenotaPercorso}
@@ -91,8 +91,8 @@ export function Percorsi() {
             <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
             <p className="mt-6 text-sm leading-[1.9] text-ink/65">{percorsi.chiacchierata}</p>
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
-              <Button onClick={() => openPercorso()}>{cta.prenotaPercorso}</Button>
-              <Button to="/consulti" variant="ghost">
+              <Button className="ti-btn-plain" onClick={() => openPercorso()}>{cta.prenotaPercorso}</Button>
+              <Button to="/consulti" variant="ghost" className="ti-btn-plain">
                 {chiSono.ctaConsulti}
               </Button>
             </div>

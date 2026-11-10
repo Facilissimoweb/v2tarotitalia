@@ -120,7 +120,7 @@ export function BookingConfirm() {
       </div>
 
       {error ? <p className="mt-4 text-sm text-ink">{error}</p> : null}
-      <Button type="button" className="mt-8 w-full" disabled={busy} onClick={() => void confirm()}>
+      <Button type="button" className="ti-btn-plain mt-8 w-full" disabled={busy} onClick={() => void confirm()}>
         {consulti.pagaStripe}
       </Button>
       <LegalNotice kind={notice} onClose={() => setNotice(null)} />

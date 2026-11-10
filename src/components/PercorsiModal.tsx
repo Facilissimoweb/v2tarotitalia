@@ -200,7 +200,7 @@ export function PercorsiModal() {
             {error ? <p className="text-sm text-ink">{error}</p> : null}
 
             {session ? (
-              <Button type="submit" className="w-full" disabled={!ready}>
+              <Button type="submit" className="ti-btn-plain w-full" disabled={!ready}>
                 {percorsi.inviaWhatsapp}
               </Button>
             ) : (

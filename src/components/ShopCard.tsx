@@ -59,7 +59,7 @@ export function ShopCard({ item, owned, busy, localized, delay = 0, onBuy, onDow
 
           {item.kind === "consult" && item.consultId ? (
             <div className="mt-8">
-              <Button className="w-full" to={`/consulti?tipo=${item.consultId}`}>
+              <Button className="ti-btn-plain w-full" to={`/consulti?tipo=${item.consultId}`}>
                 {cta.consultoWhatsapp} · €{item.price}
               </Button>
             </div>
