@@ -55,8 +55,9 @@ const riseLogo: Variants = {
 };
 
 /**
- * Hero Home: griglia editoriale asimmetrica.
- * Su cellulare: manifesto a schermo pieno, angelo in overlay, fascia 01–04 compatta.
+ * Hero Home.
+ * Desktop: video-copertina, logo fermo in basso a destra, poi i quattro riquadri.
+ * Cellulare: manifesto a schermo pieno, angelo in overlay, fascia 01–04, video in coda.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -79,10 +80,11 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
+      <h1 className="sr-only max-lg:hidden">{titolo}</h1>
       <div className="relative order-3 border-t border-white/10 bg-plate lg:order-1 lg:mt-[var(--nav-offset)] lg:border-t-0">
         <video
           ref={filmRef}
-          className="block aspect-[1280/320] w-full object-cover lg:aspect-auto lg:h-[min(72vh,48rem)] lg:min-h-[28rem]"
+          className="block aspect-[1280/320] w-full object-cover lg:aspect-auto lg:h-[calc(100svh-var(--nav-offset)-19.5rem)] lg:max-h-[48rem] lg:min-h-[22rem]"
           src="/video/TAROT.mp4"
           poster="/video/TAROT-poster.webp"
           width={1280}
@@ -98,7 +100,7 @@ export function HomeHero() {
         </div>
       </div>
 
-      <div className="relative order-1 flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col justify-end overflow-x-clip px-6 pb-12 pt-[calc(var(--nav-offset)+4.25rem)] sm:px-8 md:px-10 md:pb-14 max-lg:justify-start lg:order-2 lg:min-h-0 lg:justify-start lg:px-16 lg:py-20 xl:px-24 xl:py-24">
+      <div className="relative order-1 flex min-h-[calc(100svh-4.75rem-var(--dock-lift)-env(safe-area-inset-bottom,0px))] flex-col justify-end overflow-x-clip px-6 pb-12 pt-[calc(var(--nav-offset)+4.25rem)] sm:px-8 md:px-10 md:pb-14 max-lg:justify-start lg:hidden">
         <img src="/hero-paper.webp" alt="" aria-hidden className="hero-paper lg:hidden" />
         <div aria-hidden className="hero-ember-field lg:hidden" />
         <div aria-hidden className="hero-copy-veil lg:hidden" />
@@ -188,7 +190,7 @@ export function HomeHero() {
         </motion.div>
       </div>
 
-      <div className="relative z-[2] order-2 grid grid-cols-2 border-t border-plate lg:order-3 xl:grid-cols-4">
+      <div className="relative z-[2] order-2 grid grid-cols-2 border-t border-plate xl:grid-cols-4">
         {azioni.map((azione) => (
           <NavLink
             key={azione.n}
