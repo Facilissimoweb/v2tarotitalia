@@ -32,37 +32,41 @@ export function Footer() {
         <span className="atmosphere-footer__orb" />
         <span className="atmosphere-footer__orb atmosphere-footer__orb--b" />
       </div>
-      <div className="relative z-[1] mx-auto grid max-w-6xl gap-12 px-6 pb-10 pt-6 sm:px-10 md:grid-cols-2 md:pt-8 lg:grid-cols-4 lg:gap-10 lg:pt-10">
-        <div>
-          <div translate="no" className="flex flex-col items-start gap-4">
-            <BrandLogo tone="hero" className="h-[7.75rem] w-[7.75rem] shrink-0 sm:h-[8.5rem] sm:w-[8.5rem]" />
-            <p className="font-display text-[1.7rem] font-medium leading-none tracking-[0.04em] sm:text-[1.95rem]">
-              {brand.wordmark}
-            </p>
-          </div>
-          <p className="mt-5 max-w-xs text-[0.8125rem] leading-relaxed text-[#EDE4D4]/80">{brand.descrizione}</p>
-          <ul className="mt-6 space-y-2.5 text-[0.8125rem] text-[#EDE4D4]/80">
-            <li className="flex items-start gap-2.5">
+      <div className="relative z-[1] mx-auto flex max-w-6xl flex-col items-center px-6 pt-14 text-center sm:px-10 lg:pt-20">
+        <div translate="no" className="flex w-full flex-col items-center gap-5">
+          <BrandLogo tone="hero" className="h-[7.75rem] w-[7.75rem] sm:h-[8.5rem] sm:w-[8.5rem]" />
+          <p className="font-display text-[1.7rem] font-medium leading-none tracking-[0.04em] sm:text-[1.95rem]">
+            {brand.wordmark}
+          </p>
+        </div>
+        <p className="mt-5 max-w-xl text-[0.8125rem] leading-relaxed text-[#EDE4D4]/80">{brand.descrizione}</p>
+
+        <div className="mt-10 flex w-full max-w-3xl flex-col items-center gap-3 text-[0.8125rem] leading-relaxed text-[#EDE4D4]/80">
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-8">
+            <span className="inline-flex items-center gap-2.5">
               <MailGlyph />
               <MailToLink email={brand.email} className="hover:text-ember-pale">
                 {brand.email}
               </MailToLink>
-            </li>
+            </span>
             {tel ? (
-              <li className="flex items-start gap-2.5">
+              <span className="inline-flex items-center gap-2.5">
                 <PhoneGlyph />
                 <a href={tel} className="hover:text-ember-pale">
                   {brand.whatsapp}
                 </a>
-              </li>
+              </span>
             ) : null}
-            <li className="flex items-start gap-2.5">
-              <PinGlyph />
-              <span>{brand.studioDiTeresa}</span>
-            </li>
-            <li>{brand.piva}</li>
-          </ul>
-          <div className="mt-5 flex items-center gap-3 text-[#EDE4D4]/80">
+          </div>
+          <p className="inline-flex max-w-xl items-start gap-2.5 text-balance">
+            <PinGlyph />
+            <span>{brand.studioDiTeresa}</span>
+          </p>
+          <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-8">
+            <span>{brand.piva}</span>
+            <LanguageWidget placement="footer" className="shadow-none" />
+          </div>
+          <div className="mt-1 flex items-center gap-4">
             <a href={wa} className="hover:text-ember-pale" aria-label={cta.whatsappRapido} {...WHATSAPP_ANCHOR}>
               <WhatsAppGlyph />
             </a>
@@ -71,10 +75,11 @@ export function Footer() {
                 <TelegramGlyph />
               </a>
             ) : null}
-            <LanguageWidget placement="footer" />
           </div>
         </div>
+      </div>
 
+      <div className="relative z-[1] mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-12 border-t border-[#EDE4D4]/12 px-6 py-14 sm:px-10 md:grid-cols-3 md:gap-10">
         <FooterColumn title={footer.esplora}>
           <NavLink to="/" end className={colLink}>
             {nav.home}
@@ -106,10 +111,10 @@ export function Footer() {
           <NavLink to="/contatti" className={colLink}>
             {nav.contatti}
           </NavLink>
-          <button type="button" className={`${colLink} text-left`} onClick={() => setNotice("tutela")}>
+          <button type="button" className={colLink} onClick={() => setNotice("tutela")}>
             {tutela.kicker}
           </button>
-          <button type="button" className={`${colLink} text-left`} onClick={() => setNotice("disclaimer")}>
+          <button type="button" className={colLink} onClick={() => setNotice("disclaimer")}>
             {legal.disclaimer.sezione}
           </button>
         </FooterColumn>
@@ -155,9 +160,9 @@ export function Footer() {
 
 function FooterColumn({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <div>
+    <div className="flex flex-col items-center text-center">
       <p className={colTitle}>{title}</p>
-      <div className="mt-6 flex flex-col items-start gap-3">{children}</div>
+      <div className="mt-6 flex flex-col items-center gap-3">{children}</div>
     </div>
   );
 }
