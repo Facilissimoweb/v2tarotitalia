@@ -763,6 +763,53 @@ h3 {
   color: var(--color-ember-soft);
 }
 
+/* Navbar desktop: pannello che scorre da destra, sotto la barra. */
+.nav-slide-scrim {
+  position: fixed;
+  top: var(--nav-offset);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 55;
+  border: 0;
+  background: rgb(43 37 35 / 0.18);
+  box-shadow: none;
+}
+
+.nav-slide {
+  position: fixed;
+  top: var(--nav-offset);
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  width: min(26rem, calc(100vw - 1.5rem));
+  overflow: hidden;
+  background: var(--color-ivory);
+  border-left: 1px solid rgb(43 37 35 / 0.08);
+  box-shadow: -16px 0 36px rgb(20 18 16 / 0.12);
+  transform: translate3d(100%, 0, 0);
+  pointer-events: none;
+  transition: transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-slide.is-open {
+  transform: translate3d(0, 0, 0);
+  pointer-events: auto;
+}
+
+@media (max-width: 1279px) {
+  .nav-slide,
+  .nav-slide-scrim {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-slide {
+    transition: none;
+  }
+}
+
 /* Widget e modali: pagina intera su smartphone, card centrata da md in su. */
 @layer components {
   .overlay-scrim {

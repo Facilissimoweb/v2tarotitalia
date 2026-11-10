@@ -13,6 +13,10 @@ type Props = {
   placement: "nav" | "footer" | "drawer";
   className?: string;
   flagClassName?: string;
+  /** Sul desktop la navbar apre il pannello laterale: il clic non apre il dialogo. */
+  onActivate?: () => void;
+  expanded?: boolean;
+  controls?: string;
 };
 
 function matchesQuery(query: string, label: string, name: string, code: string) {
@@ -21,46 +25,30 @@ function matchesQuery(query: string, label: string, name: string, code: string) 
   return hay.includes(query);
 }
 
-export function LanguageWidget({ placement, className = "", flagClassName }: Props) {
-  const { language, setLanguage } = useLanguage();
+export function LanguageWidget({ placement, className = "", flagClassName, onActivate, expanded, controls }: Props) {
+  const { language } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const current = language === SITE_SOURCE_LANG ? null : language;
   const titleId = useId();
-  const searchId = useId();
   const triggerRef = useRef<HTMLButtonElement>(null);
-  const searchRef = useRef<HTMLInputElement>(null);
+  const dialog = !onActivate;
 
   useEffect(() => {
-    if (!open) return;
+    if (!open || !dialog) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
     document.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const focus = window.setTimeout(() => searchRef.current?.focus(), 40);
     return () => {
-      window.clearTimeout(focus);
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [open]);
-
-  useEffect(() => {
-    if (!open) setQuery("");
-  }, [open]);
+  }, [open, dialog]);
 
   const compact = placement === "nav";
   const drawer = placement === "drawer";
-  const active = current ? findLanguage(current) : null;
   const selectedLabel = languageLabel(language);
-  const needle = query.trim().toLowerCase();
-  const filtered = useMemo(
-    () => SITE_LANGUAGES.filter((lang) => matchesQuery(needle, lang.label, lang.name, lang.code)),
-    [needle],
-  );
-  const showItalian = matchesQuery(needle, lingua.originale, "Italian", SITE_SOURCE_LANG);
 
   return (
     <>
@@ -75,10 +63,14 @@ export function LanguageWidget({ placement, className = "", flagClassName }: Pro
               : `inline-flex items-center gap-2 text-[0.8125rem] uppercase tracking-[0.16em] text-inherit shadow-none hover:text-white ${className}`
         }
         aria-haspopup="dialog"
-        aria-expanded={open}
+        aria-expanded={onActivate ? Boolean(expanded) : open}
+        aria-controls={controls}
         aria-label={`${nav.lingua}: ${selectedLabel}`}
         translate="no"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          if (onActivate) onActivate();
+          else setOpen(true);
+        }}
       >
         <LanguageFlag
           code={language}
@@ -104,14 +96,9 @@ export function LanguageWidget({ placement, className = "", flagClassName }: Pro
         )}
       </button>
 
-      {open
+      {dialog && open
         ? createPortal(
-            <div
-              className="overlay-scrim z-[85] bg-ink/35"
-              role="dialog"
-              aria-modal="true"
-              aria-labelledby={titleId}
-            >
+            <div className="overlay-scrim z-[85] bg-ink/35" role="dialog" aria-modal="true" aria-labelledby={titleId}>
               <button
                 type="button"
                 className="absolute inset-0 hidden cursor-default md:block"
@@ -128,64 +115,88 @@ export function LanguageWidget({ placement, className = "", flagClassName }: Pro
                     triggerRef.current?.focus();
                   }}
                 />
-                <div className="shrink-0 px-7 pt-10 md:px-12 md:pt-14">
+                <div className="overlay-body px-7 py-10 md:px-12 md:py-14">
                   <WidgetFrame title={lingua.titolo} titleId={titleId}>
-                    <p className="text-sm leading-[1.8] text-ink/70">{lingua.lead}</p>
-                    <label className="mt-6 block" htmlFor={searchId}>
-                      <span className="sr-only">{lingua.cerca}</span>
-                      <input
-                        ref={searchRef}
-                        id={searchId}
-                        type="search"
-                        value={query}
-                        onChange={(event) => setQuery(event.target.value)}
-                        placeholder={lingua.cerca}
-                        autoComplete="off"
-                        spellCheck={false}
-                        className="w-full border-0 border-b border-ink/15 bg-transparent py-2.5 font-body text-sm text-ink outline-none placeholder:text-ink/30 focus:border-ink/40"
-                      />
-                    </label>
+                    <LanguageChoices autoFocus onSelect={() => setOpen(false)} />
                   </WidgetFrame>
                 </div>
-                <ul className="overlay-body mt-2 px-7 pb-10 md:px-12 md:pb-14">
-                  {showItalian ? (
-                    <li>
-                      <LanguageOption
-                        code={SITE_SOURCE_LANG}
-                        label={lingua.originale}
-                        selected={!current}
-                        onSelect={() => {
-                          setLanguage(SITE_SOURCE_LANG);
-                          setOpen(false);
-                        }}
-                      />
-                    </li>
-                  ) : null}
-                  {filtered.map((lang) => (
-                    <li key={lang.code}>
-                      <LanguageOption
-                        code={lang.code}
-                        label={lang.label}
-                        selected={current === lang.code}
-                        onSelect={() => {
-                          setLanguage(lang.code);
-                          setOpen(false);
-                        }}
-                      />
-                    </li>
-                  ))}
-                </ul>
-                {active ? (
-                  <p className="shrink-0 px-7 pb-6 text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft md:px-12">
-                    {active.label}
-                  </p>
-                ) : null}
               </div>
             </div>,
             document.body,
           )
         : null}
     </>
+  );
+}
+
+export function LanguageChoices({ onSelect, autoFocus = false }: { onSelect?: () => void; autoFocus?: boolean }) {
+  const { language, setLanguage } = useLanguage();
+  const [query, setQuery] = useState("");
+  const searchId = useId();
+  const searchRef = useRef<HTMLInputElement>(null);
+  const current = language === SITE_SOURCE_LANG ? null : language;
+  const active = current ? findLanguage(current) : null;
+  const needle = query.trim().toLowerCase();
+  const filtered = useMemo(
+    () => SITE_LANGUAGES.filter((lang) => matchesQuery(needle, lang.label, lang.name, lang.code)),
+    [needle],
+  );
+  const showItalian = matchesQuery(needle, lingua.originale, "Italian", SITE_SOURCE_LANG);
+
+  useEffect(() => {
+    if (!autoFocus) return;
+    const focus = window.setTimeout(() => searchRef.current?.focus(), 40);
+    return () => window.clearTimeout(focus);
+  }, [autoFocus]);
+
+  function choose(code: string) {
+    setLanguage(code);
+    onSelect?.();
+  }
+
+  return (
+    <div>
+      <p className="text-sm leading-[1.8] text-ink/70">{lingua.lead}</p>
+      <label className="mt-6 block" htmlFor={searchId}>
+        <span className="sr-only">{lingua.cerca}</span>
+        <input
+          ref={searchRef}
+          id={searchId}
+          type="search"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder={lingua.cerca}
+          autoComplete="off"
+          spellCheck={false}
+          className="w-full border-0 border-b border-ink/15 bg-transparent py-2.5 font-body text-sm text-ink outline-none placeholder:text-ink/30 focus:border-ink/40"
+        />
+      </label>
+      <ul className="mt-2">
+        {showItalian ? (
+          <li>
+            <LanguageOption
+              code={SITE_SOURCE_LANG}
+              label={lingua.originale}
+              selected={!current}
+              onSelect={() => choose(SITE_SOURCE_LANG)}
+            />
+          </li>
+        ) : null}
+        {filtered.map((lang) => (
+          <li key={lang.code}>
+            <LanguageOption
+              code={lang.code}
+              label={lang.label}
+              selected={current === lang.code}
+              onSelect={() => choose(lang.code)}
+            />
+          </li>
+        ))}
+      </ul>
+      {active ? (
+        <p className="mt-4 text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{active.label}</p>
+      ) : null}
+    </div>
   );
 }
 
