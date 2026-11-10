@@ -22,7 +22,7 @@ export function Percorsi() {
       />
 
       <StackDeck>
-      <StackSheet className="bg-ivory px-6 pb-20 md:px-10 md:pb-28">
+      <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto max-w-3xl">
           <Reveal>
             <Kicker>{percorsi.introKicker}</Kicker>
@@ -44,23 +44,23 @@ export function Percorsi() {
         </div>
       </StackSheet>
 
-      <StackSheet className="bg-paper px-6 pb-24 md:px-10 md:pb-32">
+      <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <Kicker>{percorsi.percorsiKicker}</Kicker>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">{percorsi.titoloElenco}</h2>
           </Reveal>
-          <div className="mt-16 grid gap-10 md:grid-cols-3 md:gap-8 lg:gap-12">
+          <div className="mt-16 grid grid-cols-1 items-stretch gap-10 lg:grid-cols-3 lg:gap-12">
             {percorsi.tipologie.map((tipo, i) => (
-              <Reveal key={tipo.id} delay={i * 90}>
-                <article className="depth-panel flex h-full flex-col bg-paper px-8 py-10 md:px-9 md:py-12">
+              <Reveal key={tipo.id} delay={i * 90} className="h-full min-w-0 lg:row-span-4 lg:grid lg:grid-rows-subgrid">
+                <article className="depth-panel flex h-full min-w-0 flex-col bg-paper p-10 lg:row-span-4 lg:grid lg:w-full lg:grid-rows-subgrid lg:p-12">
                   <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                     {String(i + 1).padStart(2, "0")}
                   </p>
-                  <h3 className="mt-5 font-display text-xl leading-snug text-ink md:text-[1.35rem]">
+                  <h3 className="mt-5 min-h-[2lh] font-display text-xl leading-snug text-ink lg:min-h-0 lg:text-[1.35rem]">
                     {tipo.titolo}
                   </h3>
-                  <p className="mt-6 flex-1 text-sm leading-[1.9] text-ink/70">{tipo.testo}</p>
+                  <p className="mt-6 min-h-[7lh] flex-1 text-sm leading-[1.9] text-ink/70 lg:min-h-0">{tipo.testo}</p>
                   <div className="mt-10">
                     <Button
                       variant="ghost"
