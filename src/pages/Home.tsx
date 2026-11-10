@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
+import { BrandLogo } from "../components/BrandLogo";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
@@ -13,6 +14,36 @@ import { StackDeck, StackSheet } from "../components/StackSheet";
 import { shopLive } from "../lib/launchFlags";
 const { brand, chiSono, cta, home, nav } = siteContent;
 
+/** Frasi già presenti nei paragrafi: solo più peso, nessun testo nuovo. */
+const PARTI_SALIENTI = [
+  "Maria Teresa Rogani",
+  "sistema di immagini e simboli",
+  "Arcani Maggiori e Minori",
+  "senza imporre risposte",
+  "Via Crispi 37",
+  "Macerata",
+  "Nessuna consulenza costituisce parere medico, sanitario o legale.",
+] as const;
+
+function conPeso(testo: string, parti: readonly string[]): ReactNode[] {
+  const presenti = parti.filter((parte) => testo.includes(parte));
+  if (presenti.length === 0) return [testo];
+  const pattern = presenti
+    .slice()
+    .sort((a, b) => b.length - a.length)
+    .map((parte) => parte.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .join("|");
+  return testo.split(new RegExp(`(${pattern})`, "g")).map((pezzo, i) =>
+    presenti.includes(pezzo) ? (
+      <strong key={`${i}-${pezzo}`} className="font-bold text-ink">
+        {pezzo}
+      </strong>
+    ) : (
+      pezzo
+    ),
+  );
+}
+
 export function Home() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
   const [visioneOpen, setVisioneOpen] = useState(false);
@@ -23,7 +54,14 @@ export function Home() {
 
       <StackDeck>
       <StackSheet label={nav.chiSono} className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <BrandLogo
+              tone="hero"
+              className="logo-hero-ring h-[5.5rem] w-[5.5rem] md:h-24 md:w-24"
+            />
+          </Reveal>
+          <div className="mt-8 grid items-start gap-16 md:mt-10 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>
               <Kicker>{home.chiSono.kicker}</Kicker>
@@ -34,17 +72,25 @@ export function Home() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-8 text-base leading-[1.85] text-ink/75">{home.chiSono.benvenuto}</p>
-              <p className="mt-6 text-base leading-[1.85] text-ink/75">{home.chiSono.iconografia}</p>
+              <p className="mt-8 text-base leading-[1.85] text-ink/75">
+                {conPeso(home.chiSono.benvenuto, PARTI_SALIENTI)}
+              </p>
+              <p className="mt-6 text-base leading-[1.85] text-ink/75">
+                {conPeso(home.chiSono.iconografia, PARTI_SALIENTI)}
+              </p>
             </Reveal>
             <Reveal delay={300}>
               <div className="depth-panel mt-10 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  {brand.titolare} · Tarologa
+                  {conPeso(`${brand.titolare} · Tarologa`, PARTI_SALIENTI)}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.studioDiTeresa}</p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.deontologia}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">
+                  {conPeso(brand.studioDiTeresa, PARTI_SALIENTI)}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">
+                  {conPeso(brand.deontologia, PARTI_SALIENTI)}
+                </p>
               </div>
             </Reveal>
             <Reveal delay={400}>
@@ -67,6 +113,7 @@ export function Home() {
             ratio="portrait"
             fit="contain"
           />
+          </div>
         </div>
       </StackSheet>
 
