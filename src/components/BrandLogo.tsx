@@ -9,18 +9,15 @@ type Props = {
   className?: string;
   tone?: BrandLogoTone;
   finish?: BrandLogoFinish;
-  /** Medaglione intero, senza il ritaglio a filo dell’anello. */
-  complete?: boolean;
 };
 
 /** Medaglione ufficiale. Finish metal: ombra di distacco sulle superfici scure. */
-export function BrandLogo({ className = "", tone = "mark", finish = "ivory", complete = false }: Props) {
+export function BrandLogo({ className = "", tone = "mark", finish = "ivory" }: Props) {
   const src = tone === "hero" ? brand.logoHero : tone === "nav" ? brand.logoNav : brand.logo;
   const hero = tone === "hero";
   const nav = tone === "nav";
   const metal = finish === "metal" && !nav;
   const eager = hero || nav;
-  const intact = complete || nav;
   return (
     <span
       className={`flex shrink-0 items-center justify-center ${
@@ -37,7 +34,9 @@ export function BrandLogo({ className = "", tone = "mark", finish = "ivory", com
         decoding={eager ? "sync" : "async"}
         fetchPriority={hero ? "high" : "auto"}
         loading={eager ? "eager" : "lazy"}
-        className={`h-full w-full object-center ${intact ? "object-contain" : "object-cover logo-hero-crop"}`}
+        className={`h-full w-full object-center ${
+          nav ? "object-contain" : "object-cover logo-hero-crop"
+        }`}
       />
     </span>
   );
