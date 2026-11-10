@@ -4,6 +4,7 @@ import { Button, Kicker } from "../components/Button";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
+import { BrandLogo } from "../components/BrandLogo";
 import { HomeHero } from "../components/HomeHero";
 import { HomeVolumes } from "../components/HomeVolumes";
 import { ImageSlot } from "../components/ImageSlot";
@@ -21,8 +22,19 @@ export function Home() {
     <div className="w-full min-w-0">
       <HomeHero />
 
+      <section className="bg-ivory px-6 pb-0 pt-14 text-center text-ink md:px-10 md:pt-20">
+        <div className="mx-auto flex max-w-3xl flex-col items-center">
+          <BrandLogo tone="hero" complete className="h-28 w-28 md:h-36 md:w-36" />
+          <h1 className="mt-6 text-[1.85rem] leading-[1.15] md:mt-8 md:text-[2.35rem]">{brand.wordmark}</h1>
+          <p className="mt-3 font-[family-name:var(--font-body)] text-[0.8125rem] font-normal not-italic leading-snug text-ink/65 md:text-sm">
+            {home.firma}
+          </p>
+        </div>
+        <div aria-hidden className="mx-auto mt-12 h-px w-full max-w-6xl bg-ink/25 md:mt-16" />
+      </section>
+
       <StackDeck>
-      <StackSheet label={nav.chiSono} className="bg-mist px-6 py-24 md:px-10 md:py-32">
+      <StackSheet label={nav.chiSono} className="bg-mist px-6 pb-24 pt-12 md:px-10 md:pb-32 md:pt-16">
         <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>

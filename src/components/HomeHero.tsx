@@ -60,7 +60,6 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
-      <h1 className="sr-only">{titolo}</h1>
       <div className="relative mt-[var(--nav-offset)] border-t border-white/10 bg-plate lg:border-t-0">
         <video
           ref={filmRef}
