@@ -28,11 +28,18 @@ function AccessibilityIcon() {
   );
 }
 
-type TriggerProps = { className?: string };
+type TriggerProps = {
+  className?: string;
+  /** Sul desktop la navbar apre il pannello laterale: il clic non apre il dialogo intero. */
+  onActivate?: () => void;
+  expanded?: boolean;
+  controls?: string;
+};
 
 /** Pulsante di apertura (Header, menu mobile). Il pannello è unico, montato in `App`. */
-export function AccessibilityTrigger({ className = "" }: TriggerProps) {
+export function AccessibilityTrigger({ className = "", onActivate, expanded, controls }: TriggerProps) {
   const { open } = useAccessibility();
+  const slide = Boolean(onActivate);
   return (
     <button
       type="button"
@@ -42,9 +49,13 @@ export function AccessibilityTrigger({ className = "" }: TriggerProps) {
       }
       aria-label={copy.trigger}
       aria-haspopup="dialog"
-      aria-expanded={open}
-      aria-controls={open ? "pannello-accessibilita" : undefined}
+      aria-expanded={slide ? Boolean(expanded) : open}
+      aria-controls={slide ? controls : open ? "pannello-accessibilita" : undefined}
       onClick={(event: MouseEvent<HTMLButtonElement>) => {
+        if (onActivate) {
+          onActivate();
+          return;
+        }
         lastTrigger = event.currentTarget;
         a11y.setOpen(!open);
       }}
@@ -98,12 +109,63 @@ function Switch({
 }
 
 const stepBtn =
-  "flex h-12 flex-1 items-center justify-center bg-paper font-display text-lg text-ink ring-1 ring-ink/20 transition-colors duration-200 hover:bg-mist disabled:opacity-35 disabled:hover:bg-paper";
+  "flex min-h-14 flex-1 items-center justify-center bg-ink px-2 text-center text-[0.6875rem] font-bold uppercase leading-tight tracking-[0.12em] text-ivory transition-colors duration-200 hover:bg-[#3a3430] disabled:opacity-35";
+
+/** Controlli della facilitazione: usati nel pannello intero e nel cassetto desktop. */
+export function AccessibilityControls() {
+  const prefs = useAccessibility();
+  const { size, contrast, font, spacing } = prefs;
+
+  return (
+    <>
+      <div>
+        <p className="label-kicker">{copy.testo}</p>
+        <div className="mt-3 flex items-stretch gap-2">
+          <button
+            type="button"
+            className={stepBtn}
+            aria-label={copy.riduci}
+            disabled={size <= 0}
+            onClick={() => a11y.setSize(size - 1)}
+          >
+            {copy.riduci}
+          </button>
+          <output
+            aria-live="polite"
+            className="flex w-16 shrink-0 items-center justify-center bg-ivory font-display text-lg text-ink"
+          >
+            {SIZE_STEPS[size]}%
+          </output>
+          <button
+            type="button"
+            className={stepBtn}
+            aria-label={copy.aumenta}
+            disabled={size >= SIZE_STEPS.length - 1}
+            onClick={() => a11y.setSize(size + 1)}
+          >
+            {copy.aumenta}
+          </button>
+        </div>
+      </div>
+
+      <PageSpeechControls />
+
+      <div className="mt-5">
+        <Switch checked={contrast} label={copy.contrasto} note={copy.contrastoNota} onToggle={() => a11y.toggle("contrast")} />
+        <Switch checked={font} label={copy.font} note={copy.fontNota} onToggle={() => a11y.toggle("font")} />
+        <Switch checked={spacing} label={copy.spaziatura} note={copy.spaziaturaNota} onToggle={() => a11y.toggle("spacing")} />
+      </div>
+
+      <Button className="mt-8 w-full" disabled={isDefault(prefs)} onClick={() => a11y.reset()}>
+        {copy.ripristina}
+      </Button>
+    </>
+  );
+}
 
 /** Pannello di facilitazione visiva: non modale, così le modifiche si vedono subito sulla pagina. */
 export function AccessibilityPanel() {
-  const prefs = useAccessibility();
-  const { open, size, contrast, font, spacing } = prefs;
+  const { open } = useAccessibility();
   const titleId = useId();
   const panel = useRef<HTMLDivElement>(null);
 
@@ -135,52 +197,7 @@ export function AccessibilityPanel() {
           {copy.titolo}
         </h2>
 
-        <div className="mt-6">
-          <p className="label-kicker">{copy.testo}</p>
-          <div className="mt-3 flex items-stretch gap-2">
-            <button
-              type="button"
-              className={stepBtn}
-              aria-label={copy.riduci}
-              disabled={size <= 0}
-              onClick={() => a11y.setSize(size - 1)}
-            >
-              <span aria-hidden>A−</span>
-            </button>
-            <output
-              aria-live="polite"
-              className="flex w-16 shrink-0 items-center justify-center font-display text-base text-ink"
-            >
-              {SIZE_STEPS[size]}%
-            </output>
-            <button
-              type="button"
-              className={stepBtn}
-              aria-label={copy.aumenta}
-              disabled={size >= SIZE_STEPS.length - 1}
-              onClick={() => a11y.setSize(size + 1)}
-            >
-              <span aria-hidden>A+</span>
-            </button>
-          </div>
-        </div>
-
-        <PageSpeechControls />
-
-        <div className="mt-5">
-          <Switch checked={contrast} label={copy.contrasto} note={copy.contrastoNota} onToggle={() => a11y.toggle("contrast")} />
-          <Switch checked={font} label={copy.font} note={copy.fontNota} onToggle={() => a11y.toggle("font")} />
-          <Switch
-            checked={spacing}
-            label={copy.spaziatura}
-            note={copy.spaziaturaNota}
-            onToggle={() => a11y.toggle("spacing")}
-          />
-        </div>
-
-        <Button variant="ghost" className="mt-2 w-full" disabled={isDefault(prefs)} onClick={() => a11y.reset()}>
-          {copy.ripristina}
-        </Button>
+        <AccessibilityControls />
       </div>
     </div>,
     document.body,

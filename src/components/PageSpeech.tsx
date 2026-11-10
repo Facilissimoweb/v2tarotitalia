@@ -4,7 +4,7 @@ import { pageSpeech, usePageSpeech } from "../lib/pageSpeech";
 const { accessibilita: copy } = siteContent;
 
 const cell =
-  "flex h-12 flex-1 items-center justify-center bg-plate text-ember-pale ring-1 ring-ember-pale transition-opacity hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember-pale disabled:opacity-35 disabled:hover:opacity-35";
+  "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 bg-ink px-1 py-2 text-center text-[0.625rem] font-bold uppercase leading-tight tracking-[0.08em] text-ivory transition-colors hover:bg-[#3a3430] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-35";
 
 function SpeakerIcon() {
   return (
@@ -96,6 +96,7 @@ export function PageSpeechControls() {
           onClick={() => (paused ? pageSpeech.resume() : pageSpeech.play())}
         >
           <PlayIcon />
+          <span>{paused ? copy.riprendi : copy.ascolta}</span>
         </button>
         <button
           type="button"
@@ -105,6 +106,7 @@ export function PageSpeechControls() {
           onClick={() => pageSpeech.pause()}
         >
           <PauseIcon />
+          <span>{copy.pausa}</span>
         </button>
         <button
           type="button"
@@ -114,6 +116,7 @@ export function PageSpeechControls() {
           onClick={() => pageSpeech.stop()}
         >
           <StopIcon />
+          <span>{copy.ferma}</span>
         </button>
       </div>
       <p id="lettura-vocale-stato" className="mt-2 min-h-[1rem] text-xs text-ink/65" aria-live="polite">
