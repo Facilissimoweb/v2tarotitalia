@@ -4,6 +4,7 @@ import { siteContent } from "../data/siteContent";
 import { Button } from "./Button";
 import { MailToLink } from "./MailToLink";
 import { WidgetCloseButton } from "./WidgetCloseButton";
+import { conPeso } from "./Prosa";
 import { WidgetFrame } from "./WidgetFrame";
 import { WHATSAPP_ANCHOR, whatsappChatHref } from "../lib/whatsapp";
 
@@ -278,7 +279,7 @@ export function LegalCopy({ children }: { children: string }) {
   let match: RegExpExecArray | null;
   const re = new RegExp(TOKEN.source, "g");
   while ((match = re.exec(children))) {
-    if (match.index > last) nodes.push(children.slice(last, match.index));
+    if (match.index > last) nodes.push(...conPeso(children.slice(last, match.index)));
     const token = match[0];
     const md = token.match(/^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/);
     if (md) {
@@ -327,7 +328,7 @@ export function LegalCopy({ children }: { children: string }) {
     }
     last = match.index + token.length;
   }
-  if (last < children.length) nodes.push(children.slice(last));
+  if (last < children.length) nodes.push(...conPeso(children.slice(last)));
   return <>{nodes}</>;
 }
 

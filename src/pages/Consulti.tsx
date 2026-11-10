@@ -16,6 +16,7 @@ import { fetchOccupiedSlots, isOccupied } from "../lib/occupiedSlots";
 import { loginPath } from "../lib/authReturn";
 import { formatBookingDay } from "../lib/whatsapp";
 import { Button } from "../components/Button";
+import { conPeso } from "../components/Prosa";
 import { BookingCalendar } from "../components/BookingCalendar";
 import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
@@ -231,7 +232,7 @@ export function Consulti() {
               </p>
             ) : (
               <p className="mt-8 min-w-0 bg-mist p-5 text-[0.75rem] leading-relaxed text-ink/70 [overflow-wrap:anywhere] sm:p-8">
-                {siteContent.brand.studioDiTeresa}
+                {conPeso(siteContent.brand.studioDiTeresa)}
               </p>
             )}
           </section>
@@ -279,7 +280,7 @@ export function Consulti() {
               Lettura dei tarocchi dal vivo
             </h2>
             <p className="mt-5 text-sm leading-[1.9] text-ink/75">
-              {consulti.letturaDalVivo}
+              {conPeso(consulti.letturaDalVivo)}
             </p>
           </article>
           <article className="border-t border-ink/15 pt-6">
@@ -290,10 +291,10 @@ export function Consulti() {
               Lettura dei tarocchi in Via Crispi a Macerata
             </h2>
             <p className="mt-5 text-sm leading-[1.9] text-ink/75">
-              {siteContent.brand.studioDiTeresa}
+              {conPeso(siteContent.brand.studioDiTeresa)}
             </p>
             <p className="mt-4 text-sm leading-[1.9] text-ink/75">
-              {consulti.studioSeraChiuso}
+              {conPeso(consulti.studioSeraChiuso)}
             </p>
           </article>
         </div>

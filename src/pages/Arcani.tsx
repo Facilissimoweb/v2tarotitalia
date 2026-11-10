@@ -4,6 +4,7 @@ import { siteContent } from "../data/siteContent";
 import { ArcanoAbbinamenti } from "../components/ArcanoAbbinamenti";
 import { ArcanoArt } from "../components/ArcanoArt";
 import { Button } from "../components/Button";
+import { apertura, conPeso } from "../components/Prosa";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { StackSheet } from "../components/StackSheet";
@@ -73,19 +74,19 @@ export function ArcanoDetail() {
         </Reveal>
         <div>
           <Reveal>
-            <p className="mb-10 font-display text-lg leading-relaxed text-ink/80">{arcano.essence}</p>
+            <p className="mb-10 font-display text-lg leading-relaxed text-ink/80">{conPeso(arcano.essence)}</p>
           </Reveal>
           <div className="grid gap-8 md:grid-cols-2">
             <Reveal>
               <article className="depth-panel bg-mist p-8">
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Dritto</p>
-                <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.upright}</p>
+                <p className="mt-5 text-sm leading-[1.75] text-ink/80">{apertura(arcano.upright)}</p>
               </article>
             </Reveal>
             <Reveal delay={100}>
               <article className="depth-panel bg-mist p-8">
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Rovescio</p>
-                <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.reversed}</p>
+                <p className="mt-5 text-sm leading-[1.75] text-ink/80">{apertura(arcano.reversed)}</p>
               </article>
             </Reveal>
           </div>

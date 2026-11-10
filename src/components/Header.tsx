@@ -22,6 +22,7 @@ import { AccessibilityControls, AccessibilityTrigger } from "./AccessibilityWidg
 import { Button } from "./Button";
 import { PageSpeechTrigger } from "./PageSpeech";
 import { BrandLogo } from "./BrandLogo";
+import { conPeso } from "./Prosa";
 import { ShopIcon } from "./ShopIcon";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 
@@ -552,7 +553,7 @@ function AccountPreview({ onNavigate }: { onNavigate: () => void }) {
   const dest = accountDest();
   return (
     <div className="flex flex-col items-start gap-6">
-      <p className="text-sm leading-[1.8] text-ink/70">{auth.sogliaLead}</p>
+      <p className="text-sm leading-[1.8] text-ink/70">{conPeso(auth.sogliaLead)}</p>
       {session ? (
         <Link to="/riservata" className={SLIDE_CTA} onClick={onNavigate}>
           {nav.riservata}
@@ -663,7 +664,7 @@ function CartPreview({ onNavigate }: { onNavigate: () => void }) {
 
   return (
     <div>
-      <p className="text-sm leading-[1.8] text-ink/70">{pages.carrello.lead}</p>
+      <p className="text-sm leading-[1.8] text-ink/70">{conPeso(pages.carrello.lead)}</p>
       {lines.length === 0 ? <p className="mt-6 text-sm leading-[1.8] text-ink/70">{pages.carrello.vuoto}</p> : null}
       {lines.length > 0 ? (
         <ul className="mt-6">

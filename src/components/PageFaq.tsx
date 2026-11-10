@@ -1,3 +1,4 @@
+import { conPeso } from "./Prosa";
 import { Reveal } from "./Reveal";
 import { Kicker } from "./Button";
 import { StackSheet } from "./StackSheet";
@@ -35,7 +36,7 @@ export function PageFaq({ kicker, titolo, voci }: Props) {
                     {voce.domanda}
                   </h3>
                 </dt>
-                <dd className="mt-5 text-base leading-[1.9] text-ink/75">{voce.risposta}</dd>
+                <dd className="mt-5 text-base leading-[1.9] text-ink/75">{conPeso(voce.risposta)}</dd>
               </div>
             </Reveal>
           ))}

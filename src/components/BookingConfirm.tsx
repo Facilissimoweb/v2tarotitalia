@@ -17,6 +17,7 @@ import { isEveningSlot, resolveBookingMode, sessionModeLabel } from "../lib/book
 import { startStripeCheckout } from "../lib/stripeCheckout";
 import { formatBookingDay } from "../lib/whatsapp";
 import { Button, Kicker } from "./Button";
+import { conPeso } from "./Prosa";
 import { ConsentFields } from "./ConsentFields";
 import { LegalNotice, type LegalKind } from "./LegalNotice";
 
@@ -89,7 +90,7 @@ export function BookingConfirm() {
     <section className="mb-16 bg-paper p-8 md:p-10">
       <Kicker>{auth.sogliaTitolo}</Kicker>
       <h2 className="mt-4 font-display text-2xl leading-snug text-ink">{consulti.conferma}</h2>
-      <p className="mt-4 text-sm leading-[1.9] text-ink/70">{consulti.avvisoConferma}</p>
+      <p className="mt-4 text-sm leading-[1.9] text-ink/70">{conPeso(consulti.avvisoConferma)}</p>
 
       <div className="mt-8 bg-mist p-6">
         <Row k="Sessione" v={`${option?.titolo ?? draft.type} (${draft.minutes} min)`} />
@@ -102,7 +103,7 @@ export function BookingConfirm() {
         </div>
       </div>
       {isEveningSlot(draft.slot) ? (
-        <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink/65">{consulti.seraOnline}</p>
+        <p className="mt-4 text-[0.6875rem] leading-relaxed text-ink/65">{conPeso(consulti.seraOnline)}</p>
       ) : null}
 
       <div className="mt-8 flex flex-col gap-8">

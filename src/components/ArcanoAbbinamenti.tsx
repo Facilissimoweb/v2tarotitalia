@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ARCANI } from "../data/arcani";
 import { getCombinazione } from "../data/combinazioni";
 import { siteContent } from "../data/siteContent";
+import { apertura } from "./Prosa";
 
 type Props = {
   slug: string;
@@ -114,7 +115,7 @@ export function ArcanoAbbinamenti({ slug }: Props) {
           {combo ? (
             <>
               <p className="mt-5 font-display text-lg text-ink">{combo.titolo}</p>
-              <p className="mt-4 text-sm leading-[1.75] text-ink/80">{combo.sintesi}</p>
+              <p className="mt-4 text-sm leading-[1.75] text-ink/80">{apertura(combo.sintesi)}</p>
             </>
           ) : (
             <p className="mt-5 font-display text-lg italic leading-relaxed text-ink">
