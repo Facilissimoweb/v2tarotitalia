@@ -164,16 +164,8 @@ export function Header() {
         </nav>
 
         <div className="relative flex h-16 w-full items-center justify-between gap-2 px-3 sm:px-4 xl:hidden">
-          <NavLink to="/" end className="nav-title relative z-[1] min-w-0" translate="no">
+          <NavLink to="/" end className="nav-title min-w-0" translate="no">
             {brand.wordmark}
-          </NavLink>
-          <NavLink
-            to="/"
-            end
-            className="absolute left-1/2 top-1/2 z-[1] flex -translate-x-1/2 -translate-y-1/2 items-center justify-center"
-            aria-label={nav.home}
-          >
-            <BrandLogo tone="nav" className="nav-mark" />
           </NavLink>
           <div className="relative z-10 flex shrink-0 items-center">
             <LanguageWidget
