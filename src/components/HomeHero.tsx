@@ -36,8 +36,8 @@ const azioni = [
 ] as const;
 
 /**
- * Hero Home: video-copertina con titolo e firma a sinistra, logo fermo in basso a destra,
- * poi i quattro riquadri. Sul telefono il filmato è più alto, per tenere testo e immagine interi.
+ * Hero Home: sul video, a sinistra, il logo bianco sopra «Tarot Italia» e la firma.
+ * Poi i quattro riquadri. Sul telefono il filmato è alto, per tenere immagine e testo interi.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -63,7 +63,7 @@ export function HomeHero() {
       <div className="relative mt-[var(--nav-offset)] border-t border-white/10 bg-plate lg:border-t-0">
         <video
           ref={filmRef}
-          className="block aspect-[4/3] w-full object-cover object-center sm:aspect-[5/4] lg:aspect-auto lg:h-[calc(100svh-var(--nav-offset)-19.5rem)] lg:max-h-[48rem] lg:min-h-[22rem]"
+          className="block aspect-[3/4] min-h-[32rem] w-full object-cover object-center sm:aspect-[4/5] sm:min-h-[36rem] lg:aspect-auto lg:h-[calc(100svh-var(--nav-offset)-19.5rem)] lg:max-h-[48rem] lg:min-h-[22rem]"
           src="/video/TAROT.mp4"
           poster="/video/TAROT-poster.webp"
           width={1280}
@@ -74,8 +74,23 @@ export function HomeHero() {
           preload="metadata"
           aria-label={titolo}
         />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex items-end justify-between gap-3 px-4 pb-4 pt-16 sm:gap-5 sm:px-6 sm:pb-5 lg:px-10 lg:pb-8 xl:px-14 xl:pb-10">
-          <div className="min-w-0 max-w-[62%] text-left sm:max-w-md lg:max-w-xl [text-shadow:0_1px_10px_rgb(0_0_0/0.55)]">
+        <svg className="absolute h-0 w-0" aria-hidden>
+          <filter id="hero-logo-white" colorInterpolationFilters="sRGB">
+            <feColorMatrix
+              type="matrix"
+              values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  -0.333 -0.333 -0.333 1 0"
+            />
+            <feComponentTransfer>
+              <feFuncA type="linear" slope="2.4" intercept="-0.55" />
+            </feComponentTransfer>
+          </filter>
+        </svg>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-5 sm:px-6 sm:pb-6 lg:px-10 lg:pb-8 xl:px-14 xl:pb-10">
+          <div className="flex max-w-[18rem] flex-col items-start text-left text-white sm:max-w-md lg:max-w-xl [text-shadow:0_1px_10px_rgb(0_0_0/0.55)]">
+            <BrandLogo
+              tone="hero"
+              className="hero-logo-white mb-3 h-16 w-16 sm:mb-4 sm:h-20 sm:w-20 lg:mb-5 lg:h-[6.5rem] lg:w-[6.5rem] xl:h-[7.75rem] xl:w-[7.75rem]"
+            />
             <h1 className="text-[1.65rem] leading-[1.1] text-white sm:text-[2rem] lg:text-[2.75rem]">
               {brand.wordmark}
             </h1>
@@ -83,10 +98,6 @@ export function HomeHero() {
               {home.firma}
             </p>
           </div>
-          <BrandLogo
-            tone="hero"
-            className="h-16 w-16 shrink-0 sm:h-20 sm:w-20 lg:h-[6.5rem] lg:w-[6.5rem] xl:h-[7.75rem] xl:w-[7.75rem]"
-          />
         </div>
       </div>
 
