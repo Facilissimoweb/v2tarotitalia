@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { conPeso } from "./Prosa";
 
 export type PageBannerMedia = {
   src: string;
@@ -52,7 +53,7 @@ export function PageBanner({
         <h1 className="font-h1 text-h1">{title}</h1>
         {subtitle ? (
           <p className="mt-3 max-w-3xl font-display text-base leading-relaxed text-ink/75 md:text-lg">
-            {subtitle}
+            {typeof subtitle === "string" ? conPeso(subtitle) : subtitle}
           </p>
         ) : null}
         <span aria-hidden className="mt-8 block h-0.5 w-10 bg-ember" />

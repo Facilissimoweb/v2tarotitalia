@@ -10,6 +10,7 @@ import {
 import { siteContent } from "../data/siteContent";
 import { ArcanoMinoreArt } from "../components/ArcanoMinoreArt";
 import { Button } from "../components/Button";
+import { apertura, conPeso } from "../components/Prosa";
 import { PageHero } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { StackDeck, StackSheet } from "../components/StackSheet";
@@ -44,7 +45,7 @@ export function ArcaniMinori() {
               {seme.nome}
             </span>
             <span className="mt-3 line-clamp-2 flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55">
-              {seme.essenza}
+              {conPeso(seme.essenza)}
             </span>
             <span
               aria-hidden
@@ -72,7 +73,7 @@ export function ArcaniMinori() {
                 <p className="mt-2 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                   {seme.sottotitolo}
                 </p>
-                <p className="mt-5 max-w-2xl text-sm leading-[1.9] text-ink/75">{seme.essenza}</p>
+                <p className="mt-5 max-w-2xl text-sm leading-[1.9] text-ink/75">{conPeso(seme.essenza)}</p>
               </Reveal>
 
               {lame.length > 0 ? (
@@ -142,19 +143,19 @@ export function ArcanoMinoreDetail() {
         </Reveal>
         <div>
           <Reveal>
-            <p className="mb-10 font-display text-lg leading-relaxed text-ink/80">{arcano.essence}</p>
+            <p className="mb-10 font-display text-lg leading-relaxed text-ink/80">{conPeso(arcano.essence)}</p>
           </Reveal>
           <div className="grid gap-8 md:grid-cols-2">
             <Reveal>
               <article className="depth-panel bg-mist p-8">
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Dritto</p>
-                <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.upright}</p>
+                <p className="mt-5 text-sm leading-[1.75] text-ink/80">{apertura(arcano.upright)}</p>
               </article>
             </Reveal>
             <Reveal delay={100}>
               <article className="depth-panel bg-mist p-8">
                 <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">Rovescio</p>
-                <p className="mt-5 text-sm leading-[1.75] text-ink/80">{arcano.reversed}</p>
+                <p className="mt-5 text-sm leading-[1.75] text-ink/80">{apertura(arcano.reversed)}</p>
               </article>
             </Reveal>
           </div>

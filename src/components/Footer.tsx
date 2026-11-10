@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { useConsent } from "../context/ConsentContext";
 import { BrandLogo } from "./BrandLogo";
+import { conPeso } from "./Prosa";
 import { LanguageWidget } from "./LanguageWidget";
 import { LegalNotice, type LegalKind } from "./LegalNotice";
 import { FooterShare } from "./FooterShare";
@@ -39,7 +40,7 @@ export function Footer() {
             {brand.wordmark}
           </p>
         </div>
-        <p className="mt-5 max-w-xl text-[0.8125rem] leading-relaxed text-[#EDE4D4]/80">{brand.descrizione}</p>
+        <p className="mt-5 max-w-xl text-[0.8125rem] leading-relaxed text-[#EDE4D4]/80">{conPeso(brand.descrizione)}</p>
 
         <div className="mt-10 flex w-full max-w-3xl flex-col items-center gap-3 text-[0.8125rem] leading-relaxed text-[#EDE4D4]/80">
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-8">
@@ -60,7 +61,7 @@ export function Footer() {
           </div>
           <p className="inline-flex max-w-xl items-start gap-2.5 text-balance">
             <PinGlyph />
-            <span>{brand.studioDiTeresa}</span>
+            <span>{conPeso(brand.studioDiTeresa)}</span>
           </p>
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-8">
             <span>{brand.piva}</span>

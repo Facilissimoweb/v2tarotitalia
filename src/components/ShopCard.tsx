@@ -2,6 +2,7 @@ import { siteContent } from "../data/siteContent";
 import type { ShopItem } from "../data/productRegistry";
 import type { DigitalProductId } from "../data/catalogo";
 import { Button } from "./Button";
+import { conPeso } from "./Prosa";
 import { ProtectedAudio } from "./ProtectedAudio";
 import { Reveal } from "./Reveal";
 
@@ -48,7 +49,7 @@ export function ShopCard({ item, owned, busy, localized, delay = 0, onBuy, onDow
               </p>
             </div>
           </div>
-          <p className="mt-5 flex-1 text-sm leading-[1.75] text-ink/70">{item.blurb}</p>
+          <p className="mt-5 flex-1 text-sm leading-[1.75] text-ink/70">{conPeso(item.blurb)}</p>
 
           {owned && digital?.audio ? (
             <div className="mt-8 bg-mist p-6">

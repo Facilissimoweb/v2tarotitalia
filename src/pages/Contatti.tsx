@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
+import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { MailToLink } from "../components/MailToLink";
 import { PageBanner } from "../components/PageBanner";
@@ -105,8 +106,8 @@ export function Contatti() {
               >
                 {brand.email}
               </MailToLink>
-              <p className="mt-8 text-sm leading-relaxed text-ink/75">{copy.sede}</p>
-              <p className="mt-2 text-sm leading-relaxed text-ink/75">{copy.appuntamento}</p>
+              <p className="mt-8 text-sm leading-relaxed text-ink/75">{conPeso(copy.sede)}</p>
+              <p className="mt-2 text-sm leading-relaxed text-ink/75">{conPeso(copy.appuntamento)}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Button href={whatsappChatHref()}>{cta.whatsappRapido}</Button>
                 <Button href={getPhoneHref()} variant="ghost">

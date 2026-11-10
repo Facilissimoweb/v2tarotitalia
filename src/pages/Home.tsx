@@ -1,7 +1,8 @@
-import { useState, type ReactNode } from "react";
+import { useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { BrandLogo } from "../components/BrandLogo";
+import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
@@ -13,36 +14,6 @@ import { Reveal } from "../components/Reveal";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { shopLive } from "../lib/launchFlags";
 const { brand, chiSono, cta, home, nav } = siteContent;
-
-/** Frasi già presenti nei paragrafi: solo più peso, nessun testo nuovo. */
-const PARTI_SALIENTI = [
-  "Maria Teresa Rogani",
-  "sistema di immagini e simboli",
-  "Arcani Maggiori e Minori",
-  "senza imporre risposte",
-  "Via Crispi 37",
-  "Macerata",
-  "Nessuna consulenza costituisce parere medico, sanitario o legale.",
-] as const;
-
-function conPeso(testo: string, parti: readonly string[]): ReactNode[] {
-  const presenti = parti.filter((parte) => testo.includes(parte));
-  if (presenti.length === 0) return [testo];
-  const pattern = presenti
-    .slice()
-    .sort((a, b) => b.length - a.length)
-    .map((parte) => parte.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-    .join("|");
-  return testo.split(new RegExp(`(${pattern})`, "g")).map((pezzo, i) =>
-    presenti.includes(pezzo) ? (
-      <strong key={`${i}-${pezzo}`} className="font-bold text-ink">
-        {pezzo}
-      </strong>
-    ) : (
-      pezzo
-    ),
-  );
-}
 
 export function Home() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
@@ -73,23 +44,23 @@ export function Home() {
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-8 text-base leading-[1.85] text-ink/75">
-                {conPeso(home.chiSono.benvenuto, PARTI_SALIENTI)}
+                {conPeso(home.chiSono.benvenuto)}
               </p>
               <p className="mt-6 text-base leading-[1.85] text-ink/75">
-                {conPeso(home.chiSono.iconografia, PARTI_SALIENTI)}
+                {conPeso(home.chiSono.iconografia)}
               </p>
             </Reveal>
             <Reveal delay={300}>
               <div className="depth-panel mt-10 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  {conPeso(`${brand.titolare} · Tarologa`, PARTI_SALIENTI)}
+                  {conPeso(`${brand.titolare} · Tarologa`)}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">
-                  {conPeso(brand.studioDiTeresa, PARTI_SALIENTI)}
+                  {conPeso(brand.studioDiTeresa)}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">
-                  {conPeso(brand.deontologia, PARTI_SALIENTI)}
+                  {conPeso(brand.deontologia)}
                 </p>
               </div>
             </Reveal>
@@ -148,7 +119,7 @@ export function Home() {
                         featured ? "text-on-ink/75" : "text-ink/70"
                       }`}
                     >
-                      {lettura.testo}
+                      {conPeso(lettura.testo)}
                     </p>
                     <div className="mt-10">
                       <Button
@@ -197,7 +168,7 @@ export function Home() {
                     </h2>
                   </Reveal>
                   <Reveal delay={80}>
-                    <p className="text-base leading-[1.75] text-ink/75">{home.visione.lead}</p>
+                    <p className="text-base leading-[1.75] text-ink/75">{conPeso(home.visione.lead)}</p>
                   </Reveal>
                 </div>
                 <div className="mt-14 grid gap-8 lg:grid-cols-3">
@@ -208,7 +179,7 @@ export function Home() {
                           {String(i + 1).padStart(2, "0")}
                         </p>
                         <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
-                        <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{pilastro.testo}</p>
+                        <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{conPeso(pilastro.testo)}</p>
                         <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">
                           {pilastro.etichetta}
                         </p>
@@ -257,7 +228,7 @@ export function Home() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-5 text-base leading-[1.75] text-ink/70">{home.passaggi.testo}</p>
+              <p className="mt-5 text-base leading-[1.75] text-ink/70">{conPeso(home.passaggi.testo)}</p>
             </Reveal>
             <Reveal delay={300}>
               <div className="mt-10">

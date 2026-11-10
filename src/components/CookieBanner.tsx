@@ -2,6 +2,7 @@ import { useEffect, useId, useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { useConsent } from "../context/ConsentContext";
 import { Button } from "./Button";
+import { conPeso } from "./Prosa";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 import { WidgetFrame } from "./WidgetFrame";
 
@@ -41,7 +42,7 @@ export function CookieBanner() {
         <WidgetCloseButton onClick={dismiss} />
         <div className="overlay-body px-7 py-10 md:px-12 md:py-14">
           <WidgetFrame title={cookies.titolo} titleId={titleId}>
-            <p className="text-sm leading-[1.8] text-ink/70">{cookies.descrizione}</p>
+            <p className="text-sm leading-[1.8] text-ink/70">{conPeso(cookies.descrizione)}</p>
 
             <ul className="mt-10 divide-y divide-ink/10">
               <li className="py-6">
@@ -108,7 +109,7 @@ function CookieRow({
     <div className="flex items-start justify-between gap-6">
       <div className="min-w-0">
         <p className="font-display text-lg leading-snug text-ink">{title}</p>
-        <p className="mt-3 text-sm leading-relaxed text-ink/65">{text}</p>
+        <p className="mt-3 text-sm leading-relaxed text-ink/65">{conPeso(text)}</p>
       </div>
       {locked ? (
         <span className="shrink-0 bg-ink px-2 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ember-pale">

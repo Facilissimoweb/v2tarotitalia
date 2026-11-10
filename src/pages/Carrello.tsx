@@ -6,6 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import { BookingConfirm } from "../components/BookingConfirm";
 import { DigitalConfirm } from "../components/DigitalConfirm";
 import { Button } from "../components/Button";
+import { conPeso } from "../components/Prosa";
 import { PageHero } from "../components/PageHero";
 import {
   clearBookingDraft,
@@ -132,7 +133,7 @@ export function Carrello() {
         )}
         {!session && digitalDrafts.length > 0 ? (
           <div className="mb-10 bg-paper p-8">
-            <p className="text-sm leading-[1.9] text-ink/70">{auth.sogliaLead}</p>
+            <p className="text-sm leading-[1.9] text-ink/70">{conPeso(auth.sogliaLead)}</p>
             <Link
               to={loginHref("/carrello")}
               state={{ from: "/carrello" }}
@@ -159,7 +160,7 @@ export function Carrello() {
           ) : (
             <article className="mb-10 bg-paper p-8">
               <DraftSummary />
-              <p className="mt-6 text-sm leading-[1.9] text-ink/70">{auth.sogliaLead}</p>
+              <p className="mt-6 text-sm leading-[1.9] text-ink/70">{conPeso(auth.sogliaLead)}</p>
               <Link
                 to={loginHref("/carrello")}
                 state={{ from: "/carrello" }}

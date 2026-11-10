@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { siteContent } from "../data/siteContent";
+import { conPeso } from "./Prosa";
 import { useAuth } from "../context/AuthContext";
 import { usePercorsi } from "../context/PercorsiContext";
 import { emptyConsents, hasRequiredConsents, type Consents } from "../lib/storage";
@@ -81,8 +82,8 @@ export function PercorsiModal() {
       <WidgetDialog title={percorsi.titoloWidget} onClose={resetAndClose} wide>
         {sent ? (
           <div className="flex flex-col gap-6 text-left">
-            <p className="text-sm leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
-            <p className="text-sm leading-[1.9] text-ink/70">{percorsi.chiacchierata}</p>
+            <p className="text-sm leading-[1.9] text-ink/75">{conPeso(percorsi.mediazione)}</p>
+            <p className="text-sm leading-[1.9] text-ink/70">{conPeso(percorsi.chiacchierata)}</p>
             <Button
               href={whatsappHref(
                 buildPercorsoMessage({
@@ -99,7 +100,7 @@ export function PercorsiModal() {
           </div>
         ) : pane === "accesso" ? (
           <div className="flex flex-col gap-8 text-left">
-            <p className="text-sm leading-[1.9] text-ink/75">{consulti.accessoObbligatorio}</p>
+            <p className="text-sm leading-[1.9] text-ink/75">{conPeso(consulti.accessoObbligatorio)}</p>
             <AuthForm
               redirectTo={`${window.location.pathname}${window.location.search}`}
               onPrivacy={() => setLegalKind("privacy")}
@@ -116,7 +117,7 @@ export function PercorsiModal() {
           </div>
         ) : (
           <form className="flex flex-col gap-8 text-left" onSubmit={onSubmit}>
-            <p className="text-sm leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
+            <p className="text-sm leading-[1.9] text-ink/75">{conPeso(percorsi.mediazione)}</p>
             {tipo ? (
               <p className="bg-mist p-5 text-sm leading-relaxed text-ink/75">
                 <span className="mb-2 block text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
@@ -125,11 +126,11 @@ export function PercorsiModal() {
                 {tipo.titolo}
               </p>
             ) : null}
-            <p className="text-sm leading-[1.9] text-ink/70">{percorsi.chiacchierata}</p>
+            <p className="text-sm leading-[1.9] text-ink/70">{conPeso(percorsi.chiacchierata)}</p>
 
             <section className="max-h-56 overflow-y-auto border-y border-ink/10 py-6">
               <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsi.legaleKicker}</p>
-              <p className="mt-4 text-xs leading-[1.9] text-ink/70">{brand.deontologia}</p>
+              <p className="mt-4 text-xs leading-[1.9] text-ink/70">{conPeso(brand.deontologia)}</p>
               <p className="mt-6 font-display text-sm text-ink">{legal.disclaimer.heading}</p>
               {legal.disclaimer.paragrafi.map((p) => (
                 <p key={p.slice(0, 48)} className="mt-4 text-[0.6875rem] leading-[1.85] text-ink/65">
@@ -225,7 +226,7 @@ export function PercorsiModal() {
             >
               {percorsi.inviaWhatsapp}
             </a>
-            <p className="text-center text-[0.75rem] leading-relaxed text-ink/55">{consulti.accessoObbligatorio}</p>
+            <p className="text-center text-[0.75rem] leading-relaxed text-ink/55">{conPeso(consulti.accessoObbligatorio)}</p>
             {!session ? (
               <button
                 type="button"
