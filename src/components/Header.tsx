@@ -1,5 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useReducedMotion, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
 import {
@@ -12,17 +12,19 @@ import {
   type NavItem,
 } from "../data/navigation";
 import { useAuth } from "../context/AuthContext";
-import { cartItemCount, readBookingDraft } from "../lib/storage";
+import { cartItemCount, draftMatchesSettled, isCartPurchase, readBookingDraft, sameBookingSlot } from "../lib/storage";
 import { loginHref, rememberAuthReturn } from "../lib/authReturn";
 import { isCartDigital, isPaidDigital, readDigitalDrafts } from "../lib/digitalOrders";
-import { LanguageWidget } from "./LanguageWidget";
+import { formatBookingDay } from "../lib/whatsapp";
+import { LanguageChoices, LanguageWidget } from "./LanguageWidget";
+import { NavSlideOver } from "./NavSlideOver";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { PageSpeechTrigger } from "./PageSpeech";
 import { BrandLogo } from "./BrandLogo";
 import { ShopIcon } from "./ShopIcon";
 import { WidgetCloseButton } from "./WidgetCloseButton";
 
-const { brand, nav } = siteContent;
+const { auth, brand, consulti, nav, pages } = siteContent;
 const [marcaTarot, marcaItalia] = brand.wordmark.split(/\s+/);
 
 const MENU_EASE = [0.22, 1, 0.36, 1] as const;
@@ -59,9 +61,12 @@ const NAV_ICON_CORE =
   "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-12`;
 
+type HoverPanel = "lingua" | "account" | "carrello";
+
 export function Header() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const hover = useNavHover(pathname);
 
   useEffect(() => {
     setOpen(false);
@@ -117,11 +122,28 @@ export function Header() {
               ))}
             </div>
             <div className="flex shrink-0 items-center">
-              <LanguageWidget placement="nav" />
+              <div onMouseEnter={() => hover.show("lingua")} onMouseLeave={hover.scheduleClose}>
+                <LanguageWidget
+                  placement="nav"
+                  onActivate={() => hover.togglePin("lingua")}
+                  expanded={hover.panel === "lingua"}
+                  controls="nav-slide"
+                />
+              </div>
               <PageSpeechTrigger className={NAV_ICON_BTN} />
               <AccessibilityTrigger className={NAV_ICON_BTN} />
-              <AccountLink className={NAV_ICON_BTN} />
-              <CartLink className={NAV_ICON_BTN} />
+              <div onMouseEnter={() => hover.show("account")} onMouseLeave={hover.scheduleClose}>
+                <AccountLink className={NAV_ICON_BTN} expanded={hover.panel === "account"} controls="nav-slide" />
+              </div>
+              <div onMouseEnter={() => hover.show("carrello")} onMouseLeave={hover.scheduleClose}>
+                <CartLink
+                  className={NAV_ICON_BTN}
+                  preview
+                  expanded={hover.panel === "carrello"}
+                  controls="nav-slide"
+                  onActivate={() => hover.togglePin("carrello")}
+                />
+              </div>
             </div>
           </div>
         </nav>
@@ -167,8 +189,112 @@ export function Header() {
       <AnimatePresence>
         {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
       </AnimatePresence>
+
+      <NavSlideOver
+        id="nav-slide"
+        open={hover.panel !== null}
+        pinned={hover.pinned}
+        title={slideTitle(hover.panel)}
+        onClose={hover.close}
+        onMouseEnter={() => {
+          if (hover.panel) hover.show(hover.panel);
+        }}
+        onMouseLeave={hover.scheduleClose}
+      >
+        {hover.panel === "lingua" ? <LanguageChoices autoFocus={hover.pinned} onSelect={hover.close} /> : null}
+        {hover.panel === "account" ? <AccountPreview onNavigate={hover.close} /> : null}
+        {hover.panel === "carrello" ? <CartPreview onNavigate={hover.close} /> : null}
+      </NavSlideOver>
     </>
   );
+}
+
+function useNavHover(pathname: string) {
+  const [panel, setPanel] = useState<HoverPanel | null>(null);
+  const [pinned, setPinned] = useState(false);
+  const pinnedRef = useRef(false);
+  const panelRef = useRef<HoverPanel | null>(null);
+  const timer = useRef<number | null>(null);
+
+  useEffect(() => {
+    pinnedRef.current = pinned;
+    panelRef.current = panel;
+  }, [pinned, panel]);
+
+  useEffect(() => {
+    setPanel(null);
+    setPinned(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!pinned) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [pinned]);
+
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setPinned(false);
+        setPanel(null);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  useEffect(
+    () => () => {
+      if (timer.current) window.clearTimeout(timer.current);
+    },
+    [],
+  );
+
+  function clearTimer() {
+    if (timer.current) window.clearTimeout(timer.current);
+  }
+
+  function show(id: HoverPanel) {
+    clearTimer();
+    if (pinnedRef.current && panelRef.current && panelRef.current !== id) setPinned(false);
+    setPanel(id);
+  }
+
+  function scheduleClose() {
+    clearTimer();
+    timer.current = window.setTimeout(() => {
+      if (!pinnedRef.current) setPanel(null);
+    }, 180);
+  }
+
+  function togglePin(id: HoverPanel) {
+    clearTimer();
+    if (pinnedRef.current && panelRef.current === id) {
+      setPinned(false);
+      setPanel(null);
+      return;
+    }
+    setPinned(true);
+    setPanel(id);
+  }
+
+  function close() {
+    clearTimer();
+    setPinned(false);
+    setPanel(null);
+  }
+
+  return { panel, pinned, show, scheduleClose, togglePin, close };
+}
+
+function slideTitle(panel: HoverPanel | null) {
+  if (panel === "lingua") return siteContent.lingua.titolo;
+  if (panel === "account") return nav.riservata;
+  if (panel === "carrello") return nav.carrello;
+  return nav.menu;
 }
 
 function NavWordmark({ compact = false }: { compact?: boolean }) {
@@ -383,26 +509,118 @@ function MobileDrawer({ onClose }: { onClose: () => void }) {
   );
 }
 
-function AccountLink({ className = "flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink" }: { className?: string }) {
+function AccountLink({
+  className = "flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink",
+  expanded,
+  controls,
+}: {
+  className?: string;
+  expanded?: boolean;
+  controls?: string;
+}) {
   const { session } = useAuth();
-  const checkoutIntent = Boolean(readDigitalDrafts().length || readBookingDraft());
-  const guestTo = checkoutIntent ? loginHref("/carrello") : "/login";
+  const dest = accountDest();
   return (
     <NavLink
-      to={session ? "/riservata" : guestTo}
-      state={session ? undefined : { from: checkoutIntent ? "/carrello" : "/riservata" }}
-      onClick={() => {
-        if (!session && checkoutIntent) rememberAuthReturn("/carrello");
-      }}
+      to={session ? "/riservata" : dest.to}
+      state={session ? undefined : dest.state}
+      onClick={() => dest.remember()}
       className={className}
       aria-label={session ? nav.riservata : nav.accedi}
+      aria-expanded={expanded}
+      aria-controls={controls}
+      aria-haspopup="dialog"
     >
       <ProfileIcon />
     </NavLink>
   );
 }
 
-function CartLink({ className = "relative flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink" }: { className?: string }) {
+function accountDest() {
+  const checkoutIntent = Boolean(readDigitalDrafts().length || readBookingDraft());
+  return {
+    to: checkoutIntent ? loginHref("/carrello") : "/login",
+    state: { from: checkoutIntent ? "/carrello" : "/riservata" },
+    remember() {
+      if (checkoutIntent) rememberAuthReturn("/carrello");
+    },
+  };
+}
+
+function AccountPreview({ onNavigate }: { onNavigate: () => void }) {
+  const { session } = useAuth();
+  const dest = accountDest();
+  return (
+    <div className="flex flex-col items-start gap-6">
+      <p className="text-sm leading-[1.8] text-ink/70">{auth.sogliaLead}</p>
+      {session ? (
+        <Link to="/riservata" className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-ink" onClick={onNavigate}>
+          {nav.riservata}
+        </Link>
+      ) : (
+        <Link
+          to={dest.to}
+          state={dest.state}
+          className="text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-ink"
+          onClick={() => {
+            dest.remember();
+            onNavigate();
+          }}
+        >
+          {auth.login}
+        </Link>
+      )}
+    </div>
+  );
+}
+
+function CartLink({
+  className = "relative flex h-[40px] w-[40px] items-center justify-center text-ink/70 transition-colors hover:text-ink",
+  preview = false,
+  expanded,
+  controls,
+  onActivate,
+}: {
+  className?: string;
+  preview?: boolean;
+  expanded?: boolean;
+  controls?: string;
+  onActivate?: () => void;
+}) {
+  const count = useCartSnapshot().count;
+  const badge =
+    count > 0 ? (
+      <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-ivory">
+        {count}
+      </span>
+    ) : null;
+
+  if (preview) {
+    return (
+      <button
+        type="button"
+        className={`relative ${className}`}
+        aria-label={nav.carrello}
+        aria-haspopup="dialog"
+        aria-expanded={expanded}
+        aria-controls={controls}
+        onClick={onActivate}
+      >
+        <BagIcon />
+        {badge}
+      </button>
+    );
+  }
+
+  return (
+    <NavLink to="/carrello" className={`relative ${className}`} aria-label={nav.carrello}>
+      <BagIcon />
+      {badge}
+    </NavLink>
+  );
+}
+
+function useCartSnapshot() {
   const { purchases, digitalOrders } = useAuth();
   const pendingDigital = digitalOrders.filter(isCartDigital);
   const digitalDrafts = readDigitalDrafts().filter(
@@ -410,21 +628,61 @@ function CartLink({ className = "relative flex h-[40px] w-[40px] items-center ju
       !pendingDigital.some((order) => order.productId === item.productId) &&
       !digitalOrders.some((order) => order.productId === item.productId && isPaidDigital(order)),
   );
+  const draft = readBookingDraft();
+  const showDraft = Boolean(draft && !draftMatchesSettled(purchases));
+  const pending = purchases.filter(isCartPurchase).filter((item) => !draft || !showDraft || !sameBookingSlot(item, draft));
   const extra = pendingDigital.length + digitalDrafts.length;
-  const count = cartItemCount(purchases, extra);
+  return { count: cartItemCount(purchases, extra), pending, pendingDigital, digitalDrafts, draft: showDraft ? draft : null };
+}
+
+function CartPreview({ onNavigate }: { onNavigate: () => void }) {
+  const { pending, pendingDigital, digitalDrafts, draft } = useCartSnapshot();
+  const lines: { key: string; title: string; detail: string }[] = [];
+  if (draft) {
+    const option = consulti.opzioni.find((item) => item.id === draft.type);
+    lines.push({
+      key: "draft",
+      title: option?.titolo ?? draft.type,
+      detail: `${formatBookingDay(draft.dateIso)} · ${draft.slot} · € ${draft.total}`,
+    });
+  }
+  for (const item of digitalDrafts) {
+    lines.push({ key: item.productId, title: item.title, detail: `${item.format} · € ${item.price}` });
+  }
+  for (const order of pendingDigital) {
+    lines.push({ key: order.id, title: order.title, detail: `${order.format} · € ${order.price}` });
+  }
+  for (const purchase of pending) {
+    const option = consulti.opzioni.find((item) => item.id === purchase.type);
+    lines.push({
+      key: purchase.id,
+      title: option?.titolo ?? purchase.type,
+      detail: `${purchase.minutes} min${purchase.slot ? ` · ${purchase.slot}` : ""}`,
+    });
+  }
+
   return (
-    <NavLink
-      to="/carrello"
-      className={`relative ${className}`}
-      aria-label={nav.carrello}
-    >
-      <BagIcon />
-      {count > 0 ? (
-        <span className="absolute right-0.5 top-0.5 min-w-[1rem] bg-ember px-1 text-center text-[0.625rem] leading-4 text-ivory">
-          {count}
-        </span>
+    <div>
+      <p className="text-sm leading-[1.8] text-ink/70">{pages.carrello.lead}</p>
+      {lines.length === 0 ? <p className="mt-6 text-sm leading-[1.8] text-ink/70">{pages.carrello.vuoto}</p> : null}
+      {lines.length > 0 ? (
+        <ul className="mt-6">
+          {lines.map((line) => (
+            <li key={line.key} className="border-t border-ink/10 py-4">
+              <p className="font-display text-lg leading-snug text-ink">{line.title}</p>
+              <p className="mt-1 text-sm text-ink/60">{line.detail}</p>
+            </li>
+          ))}
+        </ul>
       ) : null}
-    </NavLink>
+      <Link
+        to="/carrello"
+        className="mt-8 inline-flex text-[0.6875rem] font-semibold uppercase tracking-[0.16em] text-ink"
+        onClick={onNavigate}
+      >
+        {pages.carrello.titolo}
+      </Link>
+    </div>
   );
 }
 
