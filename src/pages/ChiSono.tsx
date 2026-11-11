@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { siteContent } from "../data/siteContent";
+import { FaqSchede } from "../components/FaqSchede";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { PageBanner } from "../components/PageBanner";
 import { ImageSlot } from "../components/ImageSlot";
@@ -101,6 +102,13 @@ export function ChiSono() {
               </Reveal>
             ))}
           </div>
+
+          <FaqSchede
+            titolo={chiSono.metodo.faq.titolo}
+            precedente={chiSono.metodo.faq.precedente}
+            successiva={chiSono.metodo.faq.successiva}
+            voci={chiSono.metodo.faq.voci}
+          />
 
           <Reveal delay={200}>
             <div className="mt-14 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">

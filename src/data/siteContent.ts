@@ -471,6 +471,38 @@ export const siteContent = {
             "È un percorso di approfondimento per esplorare con più ampiezza temi e dinamiche personali.",
         },
       ],
+      faq: {
+        titolo: "Domande Frequenti (FAQ)",
+        precedente: "Domanda precedente",
+        successiva: "Domanda successiva",
+        voci: [
+          {
+            domanda: "Che differenza c’è tra la cartomanzia tradizionale e il mio metodo?",
+            risposta:
+              "La cartomanzia tradizionale cerca spesso risposte meccaniche e a tenuta stagna (sì, no, quando). Il mio approccio è un ibrido che integra sia la cartomanzia pura che la tarologia evolutiva: utilizzo i 78 Arcani (tra Maggiori e Minori) non per inchiodarti a un futuro immobile, ma per trasformare il caos in cosmos, dando alla stesa una piega molto più riflessiva e profonda rispetto all’immediatezza di una risposta statica.",
+          },
+          {
+            domanda: "Ha senso fare una domanda semplice o legata agli affetti, come «Mi pensa?»",
+            risposta:
+              "Assolutamente sì. Spesso si parte da un interrogativo immediato o impulsivo tipico della cartomanzia per scavare in profondità. Da una domanda sugli affetti inizio a tracciare dinamiche, motivazioni e chiavi di lettura per nulla banali, restituendo alla situazione una prospettiva riflessiva e la sua reale complessità.",
+          },
+          {
+            domanda: "Qual è il ruolo dei 78 Arcani durante una sessione?",
+            risposta:
+              "I 78 Arcani — comprensivi sia di Arcani Maggiori che di Minori — agiscono come icone, archetipi e specchi della tua interiorità. Non sono entità che decidono per te, ma messaggeri e narratori che ti accompagnano nell’esplorazione della tua narrazione più autentica, in uno spazio sicuro e privo di giudizio.",
+          },
+          {
+            domanda: "Cosa devo aspettarmi alla fine di una consulenza?",
+            risposta:
+              "Di uscire con una visione rinnovata. Più che risposte preconfezionate, riceverai tracce, chiavi di lettura e consapevolezze pratiche per rimettere ordine nel tuo vissuto e riprendere in mano le redini del tuo percorso con maggiore chiarezza.",
+          },
+          {
+            domanda: "Come si svolge la lettura, e mi serve una conoscenza preliminare?",
+            risposta:
+              "Non è richiesta alcuna conoscenza preliminare della simbologia o del linguaggio degli arcani. Lavoro integrando la lettura viva della cartomanzia con un percorso di riflessione profonda: ti accolgo esattamente dove ti trovi, guidandoti passo dopo passo attraverso le immagini per decifrare la tua storia.",
+          },
+        ],
+      },
     },
     etica: {
       kicker: "Etica",
