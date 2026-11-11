@@ -7,7 +7,6 @@ import { loginHref, rememberAuthReturn } from "../lib/authReturn";
 import { cartItemCount, readBookingDraft } from "../lib/storage";
 import { isCartDigital, isPaidDigital, readDigitalDrafts } from "../lib/digitalOrders";
 import { tarotChatUi } from "../lib/tarotChat/ui";
-import { BrandLogo } from "./BrandLogo";
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { ShopIcon } from "./ShopIcon";
@@ -22,7 +21,7 @@ type Props = {
 };
 
 /**
- * Navbar laterale mobile a destra: chip verde fluttuante (occhio + chat + freccia).
+ * Navbar laterale mobile a destra: chip verde (casa + chat + hamburger).
  * Stessa forma e stesso hide/show allo scroll su tutto il sito.
  */
 export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
@@ -78,7 +77,7 @@ export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
               aria-label={nav.chiudi}
               onClick={() => onOpenChange(false)}
             >
-              <ExpandIcon open={open} />
+              <MenuIcon open={open} />
             </button>
           ) : null}
           <NavLink
@@ -88,7 +87,7 @@ export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
             aria-label={nav.home}
             onClick={() => onOpenChange(false)}
           >
-            <BrandLogo tone="nav" className={open ? "h-8 w-auto" : "h-7 w-auto"} />
+            <HomeIcon size={open ? 22 : 20} />
           </NavLink>
           {open ? (
             <div className="side-rail-copy min-w-0 flex-1">
@@ -117,7 +116,7 @@ export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
                 aria-label={nav.menu}
                 onClick={() => onOpenChange(true)}
               >
-                <ExpandIcon open={open} />
+                <MenuIcon open={open} />
               </button>
             </>
           )}
@@ -151,22 +150,8 @@ export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
             </nav>
 
             <div className="mt-auto flex flex-col gap-1 border-t border-white/10 px-2 pb-2 pt-3">
-              <div className="side-rail-item">
-                <span className="side-rail-icon">
-                  <LanguageWidget
-                    placement="nav"
-                    className="h-11 w-11 text-on-ink"
-                    flagClassName="h-3 w-[1.05rem]"
-                  />
-                </span>
-                <span className="side-rail-label">{nav.lingua}</span>
-              </div>
-              <div className="side-rail-item">
-                <span className="side-rail-icon">
-                  <AccessibilityTrigger className="flex h-11 w-11 items-center justify-center text-on-ink/80 hover:text-on-ink [&_svg]:h-[1.2rem] [&_svg]:w-[1.2rem]" />
-                </span>
-                <span className="side-rail-label">{siteContent.accessibilita.titolo}</span>
-              </div>
+              <LanguageWidget placement="nav" railLabel={nav.lingua} className="text-on-ink" />
+              <AccessibilityTrigger railLabel={siteContent.accessibilita.titolo} className="text-on-ink" />
               <AccountRailLink />
               <CartRailLink />
             </div>
@@ -267,9 +252,9 @@ function useCartCount() {
   return cartItemCount(purchases, pendingDigital.length + digitalDrafts.length);
 }
 
-function HomeIcon() {
+function HomeIcon({ size = 18 }: { size?: number }) {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="m3 10 9-7 9 7" />
       <path d="M5 9v12h14V9M9 21v-7h6v7" />
     </svg>
@@ -372,7 +357,7 @@ function ChipChatIcon() {
   );
 }
 
-function ExpandIcon({ open }: { open: boolean }) {
+function MenuIcon({ open }: { open: boolean }) {
   return (
     <svg
       width="22"
@@ -380,13 +365,22 @@ function ExpandIcon({ open }: { open: boolean }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2.35"
+      strokeWidth="2.45"
       strokeLinecap="round"
-      strokeLinejoin="round"
       aria-hidden
-      className={`side-rail-chevron ${open ? "is-open" : ""}`}
     >
-      <path d="M9 6 L15 12 L9 18" />
+      {open ? (
+        <>
+          <path d="M6 6 L18 18" />
+          <path d="M18 6 L6 18" />
+        </>
+      ) : (
+        <>
+          <path d="M5 7 H19" />
+          <path d="M5 12 H19" />
+          <path d="M5 17 H19" />
+        </>
+      )}
     </svg>
   );
 }

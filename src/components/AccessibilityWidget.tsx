@@ -34,18 +34,22 @@ type TriggerProps = {
   onActivate?: () => void;
   expanded?: boolean;
   controls?: string;
+  /** Etichetta testuale nella rail mobile: rende cliccabile tutta la riga. */
+  railLabel?: string;
 };
 
 /** Pulsante di apertura (Header, menu mobile). Il pannello è unico, montato in `App`. */
-export function AccessibilityTrigger({ className = "", onActivate, expanded, controls }: TriggerProps) {
+export function AccessibilityTrigger({ className = "", onActivate, expanded, controls, railLabel }: TriggerProps) {
   const { open } = useAccessibility();
   const slide = Boolean(onActivate);
   return (
     <button
       type="button"
       className={
-        className ||
-        "flex h-[40px] w-[40px] shrink-0 items-center justify-center text-ink/70 transition-colors hover:text-ink"
+        railLabel
+          ? `side-rail-item ${className}`.trim()
+          : className ||
+            "flex h-[40px] w-[40px] shrink-0 items-center justify-center text-ink/70 transition-colors hover:text-ink"
       }
       aria-label={copy.trigger}
       aria-haspopup="dialog"
@@ -60,7 +64,16 @@ export function AccessibilityTrigger({ className = "", onActivate, expanded, con
         a11y.setOpen(!open);
       }}
     >
-      <AccessibilityIcon />
+      {railLabel ? (
+        <>
+          <span className="side-rail-icon">
+            <AccessibilityIcon />
+          </span>
+          <span className="side-rail-label">{railLabel}</span>
+        </>
+      ) : (
+        <AccessibilityIcon />
+      )}
     </button>
   );
 }
