@@ -35,7 +35,7 @@ export function FaqSchede({ titolo, precedente, successiva, voci }: Props) {
       <div className="flex flex-wrap items-end justify-between gap-6">
         <h3 className="font-display text-2xl font-normal leading-snug text-ink md:text-3xl">{titolo}</h3>
         <div className="flex items-center gap-3">
-          <p className="text-[0.625rem] uppercase tracking-[0.16em] text-terra">
+          <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
             {String(indice + 1).padStart(2, "0")} / {String(voci.length).padStart(2, "0")}
           </p>
           <button
@@ -66,7 +66,7 @@ export function FaqSchede({ titolo, precedente, successiva, voci }: Props) {
       >
         {voci.map((voce, i) => (
           <article key={voce.domanda} className="depth-panel w-full min-w-full shrink-0 snap-start bg-paper p-8 md:p-10">
-            <p className="text-[0.625rem] uppercase tracking-[0.16em] text-terra">
+            <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
               {String(i + 1).padStart(2, "0")}
             </p>
             <h4 className="mt-4 font-display text-xl font-normal leading-snug text-ink md:text-2xl">{voce.domanda}</h4>

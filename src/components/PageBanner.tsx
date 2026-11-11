@@ -46,7 +46,7 @@ export function PageBanner({
     >
       <div className="mx-auto max-w-6xl">
         {eyebrow ? (
-          <p className="mb-3 text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-terra">
+          <p className="mb-3 text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-ember-soft">
             {eyebrow}
           </p>
         ) : null}
