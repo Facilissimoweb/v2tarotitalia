@@ -1,9 +1,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { AnimatePresence, motion, useReducedMotion, type Variants } from "motion/react";
 import { siteContent } from "../data/siteContent";
 import {
-  MAIN_NAV,
   NAV_LEADING,
   NAV_TRAILING,
   isNavBranch,
@@ -22,32 +20,11 @@ import { AccessibilityControls, AccessibilityTrigger } from "./AccessibilityWidg
 import { Button } from "./Button";
 import { PageSpeechTrigger } from "./PageSpeech";
 import { BrandLogo } from "./BrandLogo";
+import { MobileSideRail } from "./MobileSideRail";
 import { conPeso } from "./Prosa";
 import { ShopIcon } from "./ShopIcon";
-import { WidgetCloseButton } from "./WidgetCloseButton";
 
 const { auth, brand, consulti, nav, pages } = siteContent;
-
-const MENU_EASE = [0.22, 1, 0.36, 1] as const;
-
-const menuPanel: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.38, ease: MENU_EASE } },
-  exit: { opacity: 0, transition: { duration: 0.22, ease: MENU_EASE } },
-};
-
-const menuList: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.045, delayChildren: 0.08 } },
-};
-
-const menuItem: Variants = {
-  hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.48, ease: MENU_EASE } },
-};
-
-const DRAWER_ICON =
-  "ti-btn ti-btn-icon flex h-12 w-12 shrink-0 items-center justify-center text-ink transition-colors hover:text-ink/60 [&_svg]:h-[1.5rem] [&_svg]:w-[1.5rem] [&_svg]:stroke-[2.25]";
 
 /** Visualizzazione estesa: solo grandi schermi, come da navbar definitiva. */
 const desktopLinkClass = (active: boolean) =>
@@ -61,8 +38,6 @@ const desktopLinkClass = (active: boolean) =>
 const NAV_ICON_CORE =
   "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-12`;
-const NAV_ICON_BTN_MOBILE =
-  "ti-btn ti-btn-icon flex h-10 w-10 shrink-0 items-center justify-center text-black transition-colors hover:text-black/55 [&_svg]:h-[1.35rem] [&_svg]:w-[1.35rem] [&_svg]:stroke-[2.25]";
 const SLIDE_CTA =
   "ti-btn mt-8 inline-flex w-full items-center justify-center bg-ink px-6 py-4 text-center text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-on-ink";
 
@@ -97,12 +72,12 @@ export function Header() {
   return (
     <>
       <div
-        className="nav-bronze pointer-events-none fixed inset-x-0 top-0 z-[51] h-[env(safe-area-inset-top,0px)] border-0 shadow-none"
+        className="nav-bronze pointer-events-none fixed inset-x-0 top-0 z-[51] hidden h-[env(safe-area-inset-top,0px)] border-0 shadow-none xl:block"
         aria-hidden
       />
-      <header className="site-chrome nav-bronze fixed inset-x-0 top-0 z-50 border-b">
+      <header className="site-chrome nav-bronze fixed inset-x-0 top-0 z-50 hidden border-b xl:block">
         <nav
-          className="mx-auto hidden h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-6 px-6 2xl:gap-x-8 2xl:px-16 xl:grid"
+          className="mx-auto grid h-[108px] w-full grid-cols-[1fr_auto_1fr] items-center gap-x-6 px-6 2xl:gap-x-8 2xl:px-16"
           aria-label="Principale"
         >
           <div className="flex min-w-0 items-center gap-x-3 min-[1440px]:gap-x-7 2xl:gap-x-9">
@@ -164,42 +139,9 @@ export function Header() {
             </div>
           </div>
         </nav>
-
-        <div className="relative flex h-[4.25rem] w-full items-center justify-between gap-3 px-3.5 sm:px-5 xl:hidden">
-          <NavLink
-            to="/"
-            end
-            className="flex min-w-0 items-center gap-2.5"
-            aria-label={nav.home}
-            translate="no"
-          >
-            <BrandLogo tone="nav" className="nav-mark-mobile shrink-0" />
-            <span className="nav-title nav-title-mobile min-w-0 truncate">{brand.wordmark}</span>
-          </NavLink>
-          <div className="nav-actions-glass relative z-10 flex shrink-0 items-center gap-0.5 p-1">
-            <LanguageWidget
-              placement="nav"
-              className="h-10 w-10"
-              flagClassName="h-3 w-[1.05rem]"
-            />
-            <CartLink className={NAV_ICON_BTN_MOBILE} />
-            <button
-              type="button"
-              className={`${NAV_ICON_BTN_MOBILE} nav-menu-trigger`}
-              aria-expanded={open}
-              aria-controls="menu-mobile"
-              aria-label={open ? nav.chiudi : nav.menu}
-              onClick={() => setOpen((v) => !v)}
-            >
-              {open ? <CloseIcon /> : <MenuIcon />}
-            </button>
-          </div>
-        </div>
       </header>
 
-      <AnimatePresence>
-        {open ? <MobileDrawer onClose={() => setOpen(false)} /> : null}
-      </AnimatePresence>
+      <MobileSideRail open={open} onOpenChange={setOpen} />
 
       <NavSlideOver
         id="nav-slide"
@@ -404,109 +346,6 @@ function TarocchiMenu({ item }: { item: NavBranch }) {
         </ul>
       </div>
     </div>
-  );
-}
-
-function MobileDrawer({ onClose }: { onClose: () => void }) {
-  const reduce = useReducedMotion();
-  let index = 0;
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [onClose]);
-
-  return (
-    <motion.div
-      id="menu-mobile"
-      role="dialog"
-      aria-modal="true"
-      aria-label={nav.menu}
-      className="menu-mobile fixed inset-0 z-[70] flex flex-col overflow-hidden xl:hidden"
-      variants={reduce ? undefined : menuPanel}
-      initial={reduce ? false : "hidden"}
-      animate="show"
-      exit="exit"
-    >
-      <div className="mx-auto flex w-full max-w-xl items-start justify-between gap-6 px-7 pt-[max(1.35rem,env(safe-area-inset-top))] sm:px-10 md:px-2 md:pt-10">
-        <div data-widget-brand className="pt-1">
-          <BrandLogo className="h-[6.25rem] w-[6.25rem] md:h-[7rem] md:w-[7rem]" />
-          <p className="menu-brand mt-3">{brand.wordmark}</p>
-          <p className="menu-kicker mt-6">{nav.menu}</p>
-        </div>
-        <WidgetCloseButton placement="inline" onClick={onClose} />
-      </div>
-
-      <nav
-        className="relative mx-auto w-full max-w-xl flex-1 overflow-y-auto overscroll-contain px-7 pb-8 pt-8 sm:px-10 md:px-2 md:pb-12 md:pt-12"
-        aria-label="Principale"
-      >
-        <motion.ul
-          className="flex flex-col"
-          variants={reduce ? undefined : menuList}
-          initial={reduce ? false : "hidden"}
-          animate="show"
-        >
-          {MAIN_NAV.map((item) => {
-            index += 1;
-            const n = String(index).padStart(2, "0");
-            if (isNavBranch(item)) {
-              return (
-                <motion.li key={item.label} variants={reduce ? undefined : menuItem} className="menu-row">
-                  <p className="menu-link">
-                    <span className="menu-index">{n}</span>
-                    <span className="menu-voice">{item.label}</span>
-                  </p>
-                  <ul className="menu-sub">
-                    {item.children.map((child) => (
-                      <li key={child.to}>
-                        <NavLink
-                          to={child.to}
-                          className={({ isActive }) => `menu-link menu-link--sub${isActive ? " is-active" : ""}`}
-                        >
-                          <span className="menu-voice menu-voice--sub">{child.label}</span>
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.li>
-              );
-            }
-            return (
-              <motion.li key={item.to} variants={reduce ? undefined : menuItem} className="menu-row">
-                <NavLink
-                  to={item.to}
-                  end={item.end}
-                  className={({ isActive }) => `menu-link${isActive ? " is-active" : ""}`}
-                >
-                  <span className="menu-index">{n}</span>
-                  <span className="menu-voice">
-                    {item.icon === "home" ? <HomeIcon size={18} /> : null}
-                    {item.icon === "shop" ? <ShopIcon size={18} /> : null}
-                    {item.label}
-                  </span>
-                </NavLink>
-              </motion.li>
-            );
-          })}
-        </motion.ul>
-      </nav>
-
-      <div className="mx-auto w-full max-w-xl shrink-0 border-t border-ink/10 px-5 pt-1 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-8 md:px-0">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center">
-            <PageSpeechTrigger className={DRAWER_ICON} />
-            <AccessibilityTrigger className={DRAWER_ICON} />
-            <AccountLink className={DRAWER_ICON} />
-            <CartLink className={DRAWER_ICON} />
-          </div>
-          <LanguageWidget placement="drawer" className="w-auto justify-end py-2 text-ink/70 hover:text-ink" />
-        </div>
-      </div>
-    </motion.div>
   );
 }
 
@@ -721,18 +560,3 @@ function BagIcon() {
   );
 }
 
-function MenuIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round">
-      <path d="M4 7 H20 M4 12 H20 M4 17 H20" />
-    </svg>
-  );
-}
-
-function CloseIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.25" strokeLinecap="round">
-      <path d="M6 6 L18 18 M18 6 L6 18" />
-    </svg>
-  );
-}
