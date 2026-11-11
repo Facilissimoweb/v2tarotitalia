@@ -2592,6 +2592,100 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   box-shadow: 0 16px 34px -26px rgb(20 18 16 / 0.55);
 }
 
+/* Home mobile: i quattro riquadri diventano grandi pulsanti con profondità. */
+@media (max-width: 1279px) {
+  .home-action-grid {
+    gap: 0.85rem;
+    padding: 0.85rem 0.85rem 1.15rem;
+    background: var(--color-ivory);
+    border-top: 0;
+  }
+
+  .home-action-btn {
+    min-height: 9.5rem;
+    border: 0;
+    border-radius: 1.15rem;
+    padding: 1.35rem 1.15rem 1.2rem;
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.12) inset,
+      0 14px 28px -16px rgb(20 18 16 / 0.55);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .home-action-btn[data-depth="1"] {
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.14) inset,
+      0 10px 22px -14px rgb(20 18 16 / 0.48);
+  }
+
+  .home-action-btn[data-depth="2"] {
+    transform: translateY(-2px);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.16) inset,
+      0 16px 30px -14px rgb(20 18 16 / 0.58);
+  }
+
+  .home-action-btn[data-depth="3"] {
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.12) inset,
+      0 12px 26px -15px rgb(20 18 16 / 0.52);
+  }
+
+  .home-action-btn[data-depth="4"] {
+    transform: translateY(-3px);
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.18) inset,
+      0 18px 34px -12px rgb(20 18 16 / 0.62);
+  }
+
+  .home-action-btn:active {
+    transform: translateY(1px) scale(0.985);
+  }
+
+  .home-action-title {
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+  }
+
+  .home-action-btn.plate-tile::before {
+    left: 1rem;
+    right: 1rem;
+    border-radius: 999px;
+  }
+
+  a.home-action-btn.plate-tile::after {
+    left: 1.15rem;
+    right: 1.15rem;
+    bottom: 0.85rem;
+  }
+}
+
+@media (max-width: 1279px) and (min-width: 640px) {
+  .home-action-grid {
+    gap: 1rem;
+    padding: 1rem 1rem 1.35rem;
+  }
+
+  .home-action-btn {
+    min-height: 10.5rem;
+    border-radius: 1.25rem;
+    padding: 1.5rem 1.35rem 1.35rem;
+  }
+
+  .home-action-title {
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
+  }
+}
+
+@media (min-width: 1280px) {
+  .home-action-title {
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+  }
+}
+
 .plate-tile {
   position: relative;
   isolation: isolate;

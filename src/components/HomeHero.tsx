@@ -156,25 +156,26 @@ export function HomeHero() {
         </div>
       </div>
 
-      <div className="relative z-[2] grid grid-cols-2 border-t border-plate xl:grid-cols-4">
-        {azioni.map((azione) => (
+      <div className="home-action-grid relative z-[2] grid grid-cols-2 xl:grid-cols-4 xl:border-t xl:border-plate">
+        {azioni.map((azione, i) => (
           <NavLink
             key={azione.n}
             to={azione.to}
-            className="plate-tile group flex min-h-[8.75rem] flex-col border-white/10 bg-plate px-5 py-7 text-on-ink transition-colors max-xl:border-b max-xl:border-r max-xl:[&:nth-child(2n)]:border-r-0 max-xl:[&:nth-last-child(-n+2)]:border-b-0 sm:min-h-[9.75rem] sm:px-7 sm:py-8 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:py-6 xl:last:border-r-0"
+            data-depth={i + 1}
+            className="home-action-btn plate-tile group flex min-h-[8.75rem] flex-col border-white/10 bg-plate px-5 py-7 text-on-ink transition-[transform,box-shadow,colors] sm:min-h-[9.75rem] sm:px-7 sm:py-8 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:py-6 xl:last:border-r-0"
           >
-            <span className="font-h1 text-[1.2rem] leading-none tracking-[-0.04em] text-ember-pale sm:text-[1.35rem]">
+            <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-ember-pale sm:text-[1.45rem] xl:text-[1.35rem]">
               {azione.n}
             </span>
-            <span className="mt-4 text-[0.625rem] font-bold uppercase tracking-[0.18em] text-on-ink transition-colors group-hover:text-ember-pale sm:mt-5 sm:text-[0.6875rem]">
+            <span className="home-action-title mt-4 font-bold uppercase text-on-ink transition-colors group-hover:text-ember-pale sm:mt-5">
               {azione.titolo}
             </span>
-            <span className="mt-3 hidden flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55 sm:block sm:line-clamp-2">
+            <span className="mt-3 hidden flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55 sm:block sm:line-clamp-2 xl:mt-3">
               {azione.testo}
             </span>
             <span
               aria-hidden
-              className="mt-4 text-[0.8125rem] text-ember-pale transition-transform group-hover:translate-x-1 sm:mt-5"
+              className="mt-auto pt-4 text-[0.9375rem] text-ember-pale transition-transform group-hover:translate-x-1 sm:mt-5 sm:pt-0 xl:text-[0.8125rem]"
             >
               →
             </span>
