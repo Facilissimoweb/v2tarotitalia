@@ -2643,9 +2643,9 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   }
 
   .home-action-title {
-    font-size: 0.95rem;
-    letter-spacing: 0.12em;
-    line-height: 1.25;
+    font-size: 1.05rem;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
   }
 
   .home-action-btn.plate-tile::before {
@@ -2674,8 +2674,8 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   }
 
   .home-action-title {
-    font-size: 1.05rem;
-    letter-spacing: 0.14em;
+    font-size: 1.15rem;
+    letter-spacing: 0.12em;
   }
 }
 
