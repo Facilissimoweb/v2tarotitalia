@@ -81,7 +81,7 @@ export function ContactDock({ onCookies, hidden = false }: DockBarProps) {
     >
       <nav
         ref={navRef}
-        className={dockClass}
+        className={`${dockClass} contact-dock-bar`}
         aria-label={nav.contatti}
         style={{
           ["--dock-notch-x" as string]: `${orb.x}px`,
