@@ -1337,6 +1337,11 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   [data-l-chrome] {
     padding-bottom: calc(var(--l-dock-h) + env(safe-area-inset-bottom, 0px));
   }
+
+  /* Intestazioni pagina: lasciano spazio alla chip occhio+freccia. */
+  header[data-page-top] {
+    padding-left: calc(var(--side-rail-w) + 0.85rem);
+  }
 }
 
 /* Rail mobile: a riposo solo occhio+freccia (altezza tagliata). */
