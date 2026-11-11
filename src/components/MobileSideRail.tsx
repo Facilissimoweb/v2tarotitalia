@@ -21,7 +21,7 @@ type Props = {
 };
 
 /**
- * Navbar laterale mobile a destra: chip verde (casa → hamburger → chat).
+ * Navbar laterale mobile a destra: chip linen (casa → hamburger → chat).
  * Stessa forma e stesso hide/show allo scroll su tutto il sito.
  */
 export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
