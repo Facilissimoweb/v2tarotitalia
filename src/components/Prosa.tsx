@@ -39,6 +39,7 @@ const PARTI_SALIENTI = [
   "Arcani Maggiori e Minori",
   "sistema di immagini e simboli",
   "senza trasformarle in verità assolute",
+  "tarologa, cartomante e ricercatrice esoterica",
   "Maria Teresa Rogani (Teresa)",
   "Percorsi di Armonizzazione",
   "non per oracolo automatico",

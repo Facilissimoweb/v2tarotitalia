@@ -72,7 +72,7 @@ export function Home() {
               <div className="depth-panel mt-10 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  {conPeso(`${brand.titolare} · Tarologa`)}
+                  {conPeso(`${brand.titolare} · ${brand.ruolo}`)}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">
                   {conPeso(brand.studioDiTeresa)}

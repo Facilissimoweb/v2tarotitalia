@@ -50,6 +50,9 @@ export function ChiSono() {
               <div className="depth-panel mt-12 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
+                  {conPeso(`${brand.titolare} · ${brand.ruolo}`)}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">
                   {conPeso("Ricevo su appuntamento in Via Crispi 37, a Macerata, e online tramite chiamata vocale WhatsApp.")}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.piva}</p>
