@@ -88,7 +88,6 @@ export function ChiSono() {
               src={chiSono.immagini.simboli.src}
               alt={chiSono.immagini.simboli.alt}
               caption={chiSono.immagini.simboli.caption}
-              note={chiSono.immagini.simboli.nota}
               fit="contain"
               className="w-full"
             />
