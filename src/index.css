@@ -2603,63 +2603,72 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   box-shadow: 0 16px 34px -26px rgb(20 18 16 / 0.55);
 }
 
-/* Home mobile: i quattro riquadri diventano grandi pulsanti con profondità. */
+/* Home mobile: un unico blocco 3D a angoli morbidi, sfera al crocevia. */
 @media (max-width: 1279px) {
   .home-action-grid {
-    gap: 0.85rem;
-    padding: 0.85rem 0.85rem 1.15rem;
-    background: var(--color-ivory);
+    gap: 0;
+    padding: 0;
+    margin: 0.85rem;
+    background: var(--color-plate);
     border-top: 0;
+    border-radius: 1.65rem;
+    overflow: hidden;
+    box-shadow:
+      0 1px 0 rgb(255 255 255 / 0.14) inset,
+      0 22px 44px -18px rgb(20 18 16 / 0.58),
+      0 8px 18px -12px rgb(20 18 16 / 0.4);
   }
 
-  /* Sigillo occhio al centro del crocevia dei quattro riquadri. */
-  .home-action-eye {
-    filter: drop-shadow(0 8px 18px rgb(20 18 16 / 0.28));
+  .home-action-sphere {
+    filter: drop-shadow(0 10px 18px rgb(20 18 16 / 0.35));
   }
 
-  .home-action-eye .logo-hero-crop {
-    transform: scale(1.08);
+  .home-action-sphere__orb {
+    display: block;
+    width: 3.85rem;
+    height: 3.85rem;
+    border-radius: 999px;
+    background:
+      radial-gradient(circle at 32% 28%, #ffffff 0%, #f3efe8 16%, #cfc7bc 40%, #5c5651 68%, #2b2523 100%);
+    box-shadow:
+      inset -10px -12px 22px rgb(0 0 0 / 0.42),
+      inset 7px 9px 16px rgb(255 255 255 / 0.28),
+      0 0 0 1px rgb(255 255 255 / 0.12);
   }
 
   .home-action-btn {
     min-height: 9.5rem;
     border: 0;
-    border-radius: 1.15rem;
+    border-radius: 0;
     padding: 1.35rem 1.15rem 1.2rem;
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.12) inset,
-      0 14px 28px -16px rgb(20 18 16 / 0.55);
+    box-shadow: none;
     -webkit-tap-highlight-color: transparent;
   }
 
   .home-action-btn[data-depth="1"] {
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.14) inset,
-      0 10px 22px -14px rgb(20 18 16 / 0.48);
+    border-right: 1px solid rgb(255 255 255 / 0.08);
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
   }
 
   .home-action-btn[data-depth="2"] {
-    transform: translateY(-2px);
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.16) inset,
-      0 16px 30px -14px rgb(20 18 16 / 0.58);
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
   }
 
   .home-action-btn[data-depth="3"] {
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.12) inset,
-      0 12px 26px -15px rgb(20 18 16 / 0.52);
+    border-right: 1px solid rgb(255 255 255 / 0.08);
   }
 
-  .home-action-btn[data-depth="4"] {
-    transform: translateY(-3px);
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.18) inset,
-      0 18px 34px -12px rgb(20 18 16 / 0.62);
+  .home-action-btn[data-align="end"] {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .home-action-btn[data-align="end"] .home-action-title {
+    text-align: right;
   }
 
   .home-action-btn:active {
-    transform: translateY(1px) scale(0.985);
+    background: color-mix(in srgb, var(--color-plate) 86%, #000 14%);
   }
 
   .home-action-title {
@@ -2668,28 +2677,25 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
     line-height: 1.2;
   }
 
-  .home-action-btn.plate-tile::before {
-    left: 1rem;
-    right: 1rem;
-    border-radius: 999px;
-  }
-
+  .home-action-btn.plate-tile::before,
   a.home-action-btn.plate-tile::after {
-    left: 1.15rem;
-    right: 1.15rem;
-    bottom: 0.85rem;
+    display: none;
   }
 }
 
 @media (max-width: 1279px) and (min-width: 640px) {
   .home-action-grid {
-    gap: 1rem;
-    padding: 1rem 1rem 1.35rem;
+    margin: 1rem;
+    border-radius: 1.85rem;
+  }
+
+  .home-action-sphere__orb {
+    width: 4.35rem;
+    height: 4.35rem;
   }
 
   .home-action-btn {
     min-height: 10.5rem;
-    border-radius: 1.25rem;
     padding: 1.5rem 1.35rem 1.35rem;
   }
 

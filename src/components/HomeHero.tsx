@@ -157,38 +157,39 @@ export function HomeHero() {
       </div>
 
       <div className="home-action-grid relative z-[2] grid grid-cols-2 xl:grid-cols-4 xl:border-t xl:border-plate">
-        {azioni.map((azione, i) => (
-          <NavLink
-            key={azione.n}
-            to={azione.to}
-            data-depth={i + 1}
-            className="home-action-btn plate-tile group flex min-h-[8.75rem] flex-col border-white/10 bg-plate px-5 py-7 text-on-ink transition-[transform,box-shadow,colors] sm:min-h-[9.75rem] sm:px-7 sm:py-8 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:py-6 xl:last:border-r-0"
-          >
-            <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-ember-pale sm:text-[1.45rem] xl:text-[1.35rem]">
-              {azione.n}
-            </span>
-            <span className="home-action-title mt-4 font-bold uppercase text-on-ink transition-colors group-hover:text-ember-pale sm:mt-5">
-              {azione.titolo}
-            </span>
-            <span className="mt-3 hidden flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55 sm:block sm:line-clamp-2 xl:mt-3">
-              {azione.testo}
-            </span>
-            <span
-              aria-hidden
-              className="mt-auto pt-4 text-[0.9375rem] text-ember-pale transition-transform group-hover:translate-x-1 sm:mt-5 sm:pt-0 xl:text-[0.8125rem]"
+        {azioni.map((azione, i) => {
+          const endAlign = i === 1 || i === 3;
+          return (
+            <NavLink
+              key={azione.n}
+              to={azione.to}
+              data-depth={i + 1}
+              data-align={endAlign ? "end" : "start"}
+              className="home-action-btn plate-tile group flex min-h-[8.75rem] flex-col border-white/10 bg-plate px-5 py-7 text-on-ink transition-[transform,box-shadow,colors] sm:min-h-[9.75rem] sm:px-7 sm:py-8 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:py-6 xl:last:border-r-0"
             >
-              →
-            </span>
-          </NavLink>
-        ))}
+              <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-ember-pale sm:text-[1.45rem] xl:text-[1.35rem]">
+                {azione.n}
+              </span>
+              <span className="home-action-title mt-4 font-bold uppercase text-on-ink transition-colors group-hover:text-ember-pale sm:mt-5">
+                {azione.titolo}
+              </span>
+              <span className="mt-3 hidden flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55 sm:block sm:line-clamp-2 xl:mt-3">
+                {azione.testo}
+              </span>
+              <span
+                aria-hidden
+                className="mt-auto pt-4 text-[0.9375rem] text-ember-pale transition-transform group-hover:translate-x-1 sm:mt-5 sm:pt-0 xl:text-[0.8125rem]"
+              >
+                →
+              </span>
+            </NavLink>
+          );
+        })}
         <div
           aria-hidden
-          className="home-action-eye pointer-events-none absolute left-1/2 top-1/2 z-[3] -translate-x-1/2 -translate-y-1/2 xl:hidden"
+          className="home-action-sphere pointer-events-none absolute left-1/2 top-1/2 z-[3] -translate-x-1/2 -translate-y-1/2 xl:hidden"
         >
-          <BrandLogo
-            tone="mark"
-            className="h-[4.25rem] w-[4.25rem] shadow-[0_10px_28px_rgb(20_18_16/0.35)] sm:h-[4.75rem] sm:w-[4.75rem]"
-          />
+          <span className="home-action-sphere__orb" />
         </div>
       </div>
     </section>
