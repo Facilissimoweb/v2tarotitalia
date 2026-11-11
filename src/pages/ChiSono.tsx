@@ -7,6 +7,7 @@ import { Button, Kicker } from "../components/Button";
 import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { Reveal } from "../components/Reveal";
+import { SectionRails } from "../components/SectionRails";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 
 const { brand, chiSono, cta, nav } = siteContent;
@@ -25,14 +26,14 @@ export function ChiSono() {
 
       <StackDeck>
       <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
-        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-[minmax(0,0.9fr)_1.1fr] md:gap-24">
+        <SectionRails className="mx-auto max-w-6xl items-start">
           <ImageSlot
             src={chiSono.immagini.teresa.src}
             alt={chiSono.immagini.teresa.alt}
             caption={chiSono.immagini.teresa.caption}
             fit="contain"
           />
-          <div className="md:pt-10">
+          <div className="md:pt-6">
             <Reveal>
               <Kicker>{chiSono.visione.kicker}</Kicker>
             </Reveal>
@@ -42,29 +43,29 @@ export function ChiSono() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">
+              <p className="section-prose section-prose--lead mt-10">
                 {conPeso(chiSono.visione.testo)}
               </p>
             </Reveal>
             <Reveal delay={280}>
               <div className="depth-panel mt-12 bg-paper p-8">
                 <SectionBrandMark align="start" />
-                <p className="mt-4 text-sm leading-relaxed text-ink/70">
+                <p className="section-prose section-prose--compact mt-4">
                   {conPeso(`${brand.titolare} · ${brand.ruolo}`)}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">
+                <p className="section-prose section-prose--compact">
                   {conPeso("Ricevo su appuntamento in Via Crispi 37, a Macerata, e online tramite chiamata vocale WhatsApp.")}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.piva}</p>
+                <p className="section-prose section-prose--compact">{brand.piva}</p>
               </div>
             </Reveal>
           </div>
-        </div>
+        </SectionRails>
       </StackSheet>
 
       <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
-          <div className="grid items-start gap-16 md:grid-cols-2 md:gap-24">
+          <SectionRails className="items-start">
             <div>
               <Reveal>
                 <Kicker>{chiSono.metodo.kicker}</Kicker>
@@ -78,8 +79,8 @@ export function ChiSono() {
                 </p>
               </Reveal>
               <Reveal delay={200}>
-                <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{conPeso(chiSono.metodo.testo)}</p>
-                <p className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">{conPeso(chiSono.metodo.ponte)}</p>
+                <p className="section-prose section-prose--lead mt-10">{conPeso(chiSono.metodo.testo)}</p>
+                <p className="section-prose">{conPeso(chiSono.metodo.ponte)}</p>
               </Reveal>
             </div>
             <ImageSlot
@@ -90,20 +91,18 @@ export function ChiSono() {
               fit="contain"
               className="w-full"
             />
-          </div>
+          </SectionRails>
 
-          <div className="mt-20 grid gap-12 md:grid-cols-2 md:gap-16">
+          <SectionRails className="mt-20">
             {chiSono.metodo.categorie.map((voce, i) => (
               <Reveal key={voce.titolo} delay={i * 80}>
-                <p className="text-[0.625rem] font-semibold uppercase tracking-[0.22em] text-ember-soft">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
+                <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
                 <h3 className="mt-5 font-display text-2xl font-normal leading-snug text-ink">{voce.titolo}</h3>
-                <p className="mt-8 text-base leading-[1.9] text-ink/75">{conPeso(voce.lettura)}</p>
-                <p className="mt-5 text-base leading-[1.9] text-ink/75">{conPeso(voce.serve)}</p>
+                <p className="section-prose mt-8">{conPeso(voce.lettura)}</p>
+                <p className="section-prose">{conPeso(voce.serve)}</p>
               </Reveal>
             ))}
-          </div>
+          </SectionRails>
 
           <Reveal delay={200}>
             <div className="mt-14 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">
@@ -130,13 +129,13 @@ export function ChiSono() {
             </h2>
           </Reveal>
           <Reveal delay={200}>
-            <p className="mt-10 text-base leading-[1.9] text-ink/75">{conPeso(chiSono.etica.testo)}</p>
+            <p className="section-prose section-prose--lead mt-10">{conPeso(chiSono.etica.testo)}</p>
           </Reveal>
         </div>
       </StackSheet>
 
       <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-24">
+        <SectionRails className="mx-auto max-w-6xl items-start">
           <div>
             <Reveal>
               <Kicker>{chiSono.formazione.kicker}</Kicker>
@@ -147,9 +146,9 @@ export function ChiSono() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{conPeso(chiSono.formazione.lead)}</p>
+              <p className="section-prose section-prose--lead mt-10">{conPeso(chiSono.formazione.lead)}</p>
               {chiSono.formazione.testi.map((paragrafo) => (
-                <p key={paragrafo.slice(0, 48)} className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">
+                <p key={paragrafo.slice(0, 48)} className="section-prose">
                   {conPeso(paragrafo)}
                 </p>
               ))}
@@ -162,7 +161,7 @@ export function ChiSono() {
             fit="contain"
             className="mx-auto w-full max-w-md md:max-w-lg"
           />
-        </div>
+        </SectionRails>
       </StackSheet>
 
       <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
@@ -174,7 +173,7 @@ export function ChiSono() {
             {chiSono.percorsoDisciplinare.map((item, i) => (
               <Reveal key={item.titolo} as="li" delay={i * 80} className="grid gap-3 py-10 md:grid-cols-[1fr_1fr] md:gap-16">
                 <p className="font-display text-xl text-ink">{item.titolo}</p>
-                <p className="text-sm leading-relaxed text-ink/65 md:text-right">{conPeso(item.dettaglio)}</p>
+                <p className="section-prose section-prose--compact md:ml-auto md:text-right">{conPeso(item.dettaglio)}</p>
               </Reveal>
             ))}
           </ul>

@@ -806,6 +806,105 @@ h3 {
   font-weight: 600;
 }
 
+/*
+ * Prosa di sezione (respiro editoriale): corpo leggero, interlinea ampia,
+ * accenti in grassetto via conPeso. Filetti verticali tra colonne.
+ */
+.section-prose {
+  max-width: 36rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.85;
+  letter-spacing: 0.005em;
+  color: rgb(from var(--color-ink) r g b / 0.72);
+}
+
+.section-prose--lead {
+  max-width: 38rem;
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  color: rgb(from var(--color-ink) r g b / 0.8);
+}
+
+.section-prose--compact {
+  max-width: 32rem;
+  font-size: 0.875rem;
+  line-height: 1.8;
+  color: rgb(from var(--color-ink) r g b / 0.68);
+}
+
+.section-prose + .section-prose {
+  margin-top: 1.75rem;
+}
+
+.section-prose strong {
+  font-weight: 700;
+  color: rgb(from var(--color-ink) r g b / 0.92);
+}
+
+.section-index {
+  font-family: var(--font-body);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ember-soft);
+}
+
+.section-rails {
+  display: grid;
+  gap: 3rem;
+}
+
+.section-rails > * {
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .section-rails {
+    gap: 0;
+  }
+
+  .section-rails--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .section-rails--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .section-rails > * {
+    padding-inline: 2.25rem;
+  }
+
+  .section-rails > *:first-child {
+    padding-left: 0;
+  }
+
+  .section-rails > *:last-child {
+    padding-right: 0;
+  }
+
+  .section-rails > * + * {
+    border-left: 1px solid rgb(from var(--color-ink) r g b / 0.12);
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-rails > * {
+    padding-inline: 2.75rem;
+  }
+
+  .section-rails > *:first-child {
+    padding-left: 0;
+  }
+
+  .section-rails > *:last-child {
+    padding-right: 0;
+  }
+}
+
 /* Desktop: titoli pieni, corpo medio. */
 @media (min-width: 1280px) {
   html body {

@@ -4,6 +4,7 @@ import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
 import { Reveal } from "../components/Reveal";
+import { SectionRails } from "../components/SectionRails";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
@@ -34,13 +35,13 @@ export function Percorsi() {
             </h2>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-8 text-base leading-[1.9] text-ink/75">{conPeso(percorsi.descrizione)}</p>
+            <p className="section-prose section-prose--lead mt-8">{conPeso(percorsi.descrizione)}</p>
           </Reveal>
           <Reveal delay={220}>
-            <p className="mt-6 text-base leading-[1.9] text-ink/70">{conPeso(percorsi.intro)}</p>
+            <p className="section-prose">{conPeso(percorsi.intro)}</p>
           </Reveal>
           <Reveal delay={250}>
-            <p className="mt-6 text-base leading-[1.9] text-ink/75">{conPeso(percorsi.mediazione)}</p>
+            <p className="section-prose">{conPeso(percorsi.mediazione)}</p>
           </Reveal>
         </div>
       </StackSheet>
@@ -51,30 +52,26 @@ export function Percorsi() {
             <Kicker>{percorsi.percorsiKicker}</Kicker>
             <h2 className="mt-4 font-display text-3xl md:text-4xl">{percorsi.titoloElenco}</h2>
           </Reveal>
-          <div className="mt-16 grid grid-cols-1 items-stretch gap-10 lg:grid-cols-3 lg:gap-12">
+          <SectionRails cols={3} className="mt-16 items-stretch">
             {percorsi.tipologie.map((tipo, i) => (
-              <Reveal key={tipo.id} delay={i * 90} className="h-full min-w-0 lg:row-span-4 lg:grid lg:grid-rows-subgrid">
-                <article className="depth-panel flex h-full min-w-0 flex-col bg-paper p-10 lg:row-span-4 lg:grid lg:w-full lg:grid-rows-subgrid lg:p-12">
-                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
-                    {String(i + 1).padStart(2, "0")}
-                  </p>
-                  <h3 className="mt-5 min-h-[2lh] font-display text-xl leading-snug text-ink lg:min-h-0 lg:text-[1.35rem]">
-                    {tipo.titolo}
-                  </h3>
-                  <p className="mt-6 min-h-[7lh] flex-1 text-sm leading-[1.9] text-ink/70 lg:min-h-0">{conPeso(tipo.testo)}</p>
-                  <div className="mt-10">
-                    <Button
-                      variant="ghost"
-                      className="ti-btn-plain w-full"
-                      onClick={() => openPercorso(tipo.id)}
-                    >
-                      {cta.prenotaPercorso}
-                    </Button>
-                  </div>
-                </article>
+              <Reveal key={tipo.id} delay={i * 90} className="flex h-full min-w-0 flex-col">
+                <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
+                <h3 className="mt-5 font-display text-xl leading-snug text-ink lg:text-[1.35rem]">
+                  {tipo.titolo}
+                </h3>
+                <p className="section-prose mt-6 flex-1">{conPeso(tipo.testo)}</p>
+                <div className="mt-10">
+                  <Button
+                    variant="ghost"
+                    className="ti-btn-plain w-full"
+                    onClick={() => openPercorso(tipo.id)}
+                  >
+                    {cta.prenotaPercorso}
+                  </Button>
+                </div>
               </Reveal>
             ))}
-          </div>
+          </SectionRails>
         </div>
       </StackSheet>
 
@@ -89,8 +86,8 @@ export function Percorsi() {
         <Reveal delay={120}>
           <div className="depth-panel mx-auto mt-20 max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />
-            <p className="mt-8 text-sm leading-[1.9] text-ink/70">{conPeso(brand.deontologia)}</p>
-            <p className="mt-6 text-sm leading-[1.9] text-ink/65">{conPeso(percorsi.chiacchierata)}</p>
+            <p className="section-prose section-prose--compact mx-auto mt-8">{conPeso(brand.deontologia)}</p>
+            <p className="section-prose section-prose--compact mx-auto">{conPeso(percorsi.chiacchierata)}</p>
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
               <Button className="ti-btn-plain" onClick={() => openPercorso()}>{cta.prenotaPercorso}</Button>
               <Button to="/consulti" variant="ghost" className="ti-btn-plain">

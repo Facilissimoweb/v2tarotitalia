@@ -6,6 +6,7 @@ import { SectionBrandMark } from "../components/WidgetFrame";
 import { MailToLink } from "../components/MailToLink";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
+import { SectionRails } from "../components/SectionRails";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { openMailto } from "../lib/mailto";
 import { getPhoneHref, whatsappChatHref } from "../lib/whatsapp";
@@ -86,7 +87,7 @@ export function Contatti() {
 
       <StackDeck>
       <StackSheet className="bg-paper px-6 py-16 md:px-10 md:py-24">
-        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
+        <SectionRails className="mx-auto max-w-6xl items-start">
           <Reveal>
             <article>
               <Kicker>{copy.moduloKicker}</Kicker>
@@ -106,8 +107,8 @@ export function Contatti() {
               >
                 {brand.email}
               </MailToLink>
-              <p className="mt-8 text-sm leading-relaxed text-ink/75">{conPeso(copy.sede)}</p>
-              <p className="mt-2 text-sm leading-relaxed text-ink/75">{conPeso(copy.appuntamento)}</p>
+              <p className="section-prose section-prose--compact mt-8">{conPeso(copy.sede)}</p>
+              <p className="section-prose section-prose--compact">{conPeso(copy.appuntamento)}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Button href={whatsappChatHref()}>{cta.whatsappRapido}</Button>
                 <Button href={getPhoneHref()} variant="ghost">
@@ -116,7 +117,7 @@ export function Contatti() {
               </div>
             </article>
           </Reveal>
-        </div>
+        </SectionRails>
       </StackSheet>
       </StackDeck>
     </div>

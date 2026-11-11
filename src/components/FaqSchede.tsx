@@ -70,7 +70,7 @@ export function FaqSchede({ titolo, precedente, successiva, voci }: Props) {
               {String(i + 1).padStart(2, "0")}
             </p>
             <h4 className="mt-4 font-display text-xl font-normal leading-snug text-ink md:text-2xl">{voce.domanda}</h4>
-            <p className="mt-6 text-base leading-[1.9] text-ink/75">{conPeso(voce.risposta)}</p>
+            <p className="section-prose mt-6">{conPeso(voce.risposta)}</p>
           </article>
         ))}
       </div>
