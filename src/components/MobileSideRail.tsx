@@ -19,7 +19,7 @@ type Props = {
 };
 
 /**
- * Navbar laterale mobile: a riposo solo occhio + freccia (altezza tagliata).
+ * Navbar laterale mobile a destra: a riposo solo occhio + freccia (chip magra).
  * Scompare scorrendo in basso, ricompare scorrendo in alto. Tap freccia = menu.
  */
 export function MobileSideRail({ open, onOpenChange }: Props) {
@@ -87,15 +87,31 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
         }`}
         aria-label={nav.menu}
       >
-        <div className={`flex px-1.5 pt-2 ${open ? "items-center gap-3 px-2.5" : "flex-col items-center gap-3"}`}>
+        <div
+          className={`flex pt-1.5 ${
+            open ? "items-center gap-3 px-2.5" : "flex-col items-center gap-1.5 px-0.5"
+          }`}
+        >
+          {open ? (
+            <button
+              type="button"
+              className="side-rail-toggle flex h-11 w-11 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-on-ink/80"
+              aria-expanded={open}
+              aria-controls="side-rail-nav"
+              aria-label={nav.chiudi}
+              onClick={() => onOpenChange(false)}
+            >
+              <ExpandIcon open={open} />
+            </button>
+          ) : null}
           <NavLink
             to="/"
             end
-            className="flex h-12 w-12 shrink-0 items-center justify-center"
+            className={`flex shrink-0 items-center justify-center ${open ? "h-11 w-11" : "h-9 w-9"}`}
             aria-label={nav.home}
             onClick={() => onOpenChange(false)}
           >
-            <BrandLogo tone="nav" className="h-9 w-auto" />
+            <BrandLogo tone="nav" className={open ? "h-8 w-auto" : "h-7 w-auto"} />
           </NavLink>
           {open ? (
             <div className="side-rail-copy min-w-0 flex-1">
@@ -104,17 +120,18 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
               </p>
               <p className="truncate text-[0.65rem] uppercase tracking-[0.14em] text-on-ink/45">{nav.menu}</p>
             </div>
-          ) : null}
-          <button
-            type="button"
-            className="side-rail-toggle flex h-14 w-14 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-on-ink/80"
-            aria-expanded={open}
-            aria-controls="side-rail-nav"
-            aria-label={open ? nav.chiudi : nav.menu}
-            onClick={() => onOpenChange(!open)}
-          >
-            <ExpandIcon open={open} />
-          </button>
+          ) : (
+            <button
+              type="button"
+              className="side-rail-toggle flex h-10 w-10 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-on-ink/80"
+              aria-expanded={open}
+              aria-controls="side-rail-nav"
+              aria-label={nav.menu}
+              onClick={() => onOpenChange(true)}
+            >
+              <ExpandIcon open={open} />
+            </button>
+          )}
         </div>
 
         {open ? (
@@ -351,8 +368,8 @@ function BagIcon() {
 function ExpandIcon({ open }: { open: boolean }) {
   return (
     <svg
-      width="28"
-      height="28"
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
