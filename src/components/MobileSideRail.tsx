@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { MAIN_NAV, isNavBranch, isTarocchiPath, type NavLeaf } from "../data/navigation";
@@ -16,19 +16,19 @@ const { brand, nav } = siteContent;
 type Props = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  /** Condiviso con la placca wordmark: stesso hide/show allo scroll. */
+  away?: boolean;
 };
 
 /**
  * Navbar laterale mobile a destra: chip fluttuante verticale (occhio + freccia).
- * Stessa forma in Home e nelle altre pagine. Scompare allo scroll in basso.
+ * Stessa forma e stesso hide/show allo scroll su tutto il sito.
  */
-export function MobileSideRail({ open, onOpenChange }: Props) {
+export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
   const { pathname } = useLocation();
-  const [away, setAway] = useState(false);
 
   useEffect(() => {
     onOpenChange(false);
-    setAway(false);
   }, [pathname, onOpenChange]);
 
   useEffect(() => {
@@ -44,31 +44,6 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
       document.body.style.overflow = prev;
     };
   }, [open, onOpenChange]);
-
-  useEffect(() => {
-    if (open) {
-      setAway(false);
-      return;
-    }
-    let lastY = window.scrollY;
-    let ticking = false;
-
-    const onScroll = () => {
-      if (ticking) return;
-      ticking = true;
-      window.requestAnimationFrame(() => {
-        const y = window.scrollY;
-        const delta = y - lastY;
-        if (delta > 6 && y > 48) setAway(true);
-        else if (delta < -6) setAway(false);
-        lastY = y;
-        ticking = false;
-      });
-    };
-
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [open]);
 
   return (
     <div className="xl:hidden" data-mobile-side-rail>

@@ -20,6 +20,7 @@ import { AccessibilityControls, AccessibilityTrigger } from "./AccessibilityWidg
 import { Button } from "./Button";
 import { PageSpeechTrigger } from "./PageSpeech";
 import { BrandLogo } from "./BrandLogo";
+import { useChromeAway } from "../hooks/useChromeAway";
 import { MobileAppBar } from "./MobileAppBar";
 import { MobileSideRail } from "./MobileSideRail";
 import { conPeso } from "./Prosa";
@@ -47,6 +48,7 @@ type HoverPanel = "lingua" | "account" | "carrello" | "facilitazione";
 export function Header() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
+  const chromeAway = useChromeAway(open, pathname);
   const hover = useNavHover(pathname);
 
   useEffect(() => {
@@ -142,8 +144,8 @@ export function Header() {
         </nav>
       </header>
 
-      <MobileAppBar />
-      <MobileSideRail open={open} onOpenChange={setOpen} />
+      <MobileAppBar away={chromeAway} />
+      <MobileSideRail open={open} onOpenChange={setOpen} away={chromeAway} />
 
       <NavSlideOver
         id="nav-slide"

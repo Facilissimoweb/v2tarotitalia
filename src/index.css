@@ -1315,7 +1315,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 }
 
 :root {
-  /* Mobile Home: chip fluttuante. Pagine interne: shell app + dock. */
+  /* Mobile: placca wordmark + chip menu fluttuante + dock. */
   --app-bar-h: 2.85rem;
   --nav-offset: calc(12px + env(safe-area-inset-top, 0px));
   --dock-lift: 1.25rem;
@@ -1344,25 +1344,40 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 }
 
-/* Shell app: wordmark a sinistra, menu a destra (escl. Home). */
+/* Placca wordmark: spezzata dopo il titolo (non a tutta larghezza). */
 .mobile-app-bar {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
+  right: auto;
   z-index: 68;
-  display: flex;
+  display: inline-flex;
+  width: max-content;
+  max-width: calc(100vw - var(--side-rail-w) - 1.25rem);
   height: calc(var(--app-bar-h) + env(safe-area-inset-top, 0px));
   align-items: center;
   padding-top: env(safe-area-inset-top, 0px);
   padding-left: 1rem;
-  padding-right: 1rem;
+  padding-right: 0.95rem;
   color: var(--color-on-ink);
   background: var(--l-chrome-bg);
+  border: 0;
+  border-right: 1px solid rgb(255 255 255 / 0.1);
   border-bottom: 1px solid rgb(255 255 255 / 0.1);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 12px 28px rgb(20 18 16 / 0.18);
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
   backdrop-filter: blur(18px) saturate(1.25);
+  transition:
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s ease;
+}
+
+.mobile-app-bar.is-away {
+  transform: translate3d(0, -120%, 0);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .mobile-app-bar-wordmark {
@@ -1374,6 +1389,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   line-height: 1;
   color: rgb(255 255 255 / 0.92);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .mobile-app-bar-wordmark:hover {
@@ -1383,6 +1399,16 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 @media (min-width: 1280px) {
   .mobile-app-bar {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-app-bar {
+    transition: none;
+  }
+
+  .mobile-app-bar.is-away {
+    transform: none;
   }
 }
 
