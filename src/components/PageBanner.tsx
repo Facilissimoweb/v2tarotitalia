@@ -42,7 +42,7 @@ export function PageBanner({
   return (
     <header
       data-page-top
-      className={`px-6 pt-[calc(var(--nav-offset)+1.5rem)] text-ink md:px-10 md:pt-[calc(var(--nav-offset)+2rem)] ${className}`.trim()}
+      className={`pr-6 pl-[calc(var(--side-rail-w)+1.15rem)] pt-[calc(var(--nav-offset)+1.5rem)] text-ink md:pr-10 md:pl-[calc(var(--side-rail-w)+1.5rem)] md:pt-[calc(var(--nav-offset)+2rem)] xl:px-10 ${className}`.trim()}
     >
       <div className="mx-auto max-w-6xl">
         {eyebrow ? (
