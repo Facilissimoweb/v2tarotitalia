@@ -124,7 +124,7 @@ export function HomeHero() {
         {phone ? (
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[78%] bg-[linear-gradient(to_top,rgb(0_0_0/0.86)_0%,rgb(0_0_0/0.7)_38%,rgb(0_0_0/0.52)_66%,rgb(0_0_0/0.18)_88%,transparent_100%)]"
+            className="home-hero-scrim pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[78%]"
           />
         ) : null}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-8 sm:px-6 lg:px-10 xl:px-14 xl:pb-10">
