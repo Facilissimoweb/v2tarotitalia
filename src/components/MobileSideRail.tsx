@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { MAIN_NAV, isNavBranch, isTarocchiPath, type NavLeaf } from "../data/navigation";
@@ -6,12 +6,13 @@ import { useAuth } from "../context/AuthContext";
 import { loginHref, rememberAuthReturn } from "../lib/authReturn";
 import { cartItemCount, readBookingDraft } from "../lib/storage";
 import { isCartDigital, isPaidDigital, readDigitalDrafts } from "../lib/digitalOrders";
+import { tarotChatUi } from "../lib/tarotChat/ui";
 import { BrandLogo } from "./BrandLogo";
 import { LanguageWidget } from "./LanguageWidget";
 import { AccessibilityTrigger } from "./AccessibilityWidget";
 import { ShopIcon } from "./ShopIcon";
 
-const { brand, nav } = siteContent;
+const { brand, nav, tarotChat } = siteContent;
 
 type Props = {
   open: boolean;
@@ -21,11 +22,12 @@ type Props = {
 };
 
 /**
- * Navbar laterale mobile a destra: chip fluttuante verticale (occhio + freccia).
+ * Navbar laterale mobile a destra: chip verde fluttuante (occhio + chat + freccia).
  * Stessa forma e stesso hide/show allo scroll su tutto il sito.
  */
 export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
   const { pathname } = useLocation();
+  const chatOpen = useSyncExternalStore(tarotChatUi.subscribe, tarotChatUi.getOpen, () => false);
 
   useEffect(() => {
     onOpenChange(false);
@@ -96,16 +98,28 @@ export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
               <p className="truncate text-[0.65rem] uppercase tracking-[0.14em] text-on-ink/45">{nav.menu}</p>
             </div>
           ) : (
-            <button
-              type="button"
-              className="side-rail-toggle flex h-10 w-10 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-on-ink/80"
-              aria-expanded={open}
-              aria-controls="side-rail-nav"
-              aria-label={nav.menu}
-              onClick={() => onOpenChange(true)}
-            >
-              <ExpandIcon open={open} />
-            </button>
+            <>
+              <button
+                type="button"
+                className="side-rail-chat flex h-10 w-10 shrink-0 items-center justify-center transition-opacity hover:opacity-80"
+                aria-label={tarotChat.trigger}
+                aria-haspopup="dialog"
+                aria-expanded={chatOpen}
+                onClick={() => tarotChatUi.toggle()}
+              >
+                <ChipChatIcon />
+              </button>
+              <button
+                type="button"
+                className="side-rail-toggle flex h-10 w-10 shrink-0 items-center justify-center transition-opacity hover:opacity-80"
+                aria-expanded={open}
+                aria-controls="side-rail-nav"
+                aria-label={nav.menu}
+                onClick={() => onOpenChange(true)}
+              >
+                <ExpandIcon open={open} />
+              </button>
+            </>
           )}
         </div>
 
@@ -336,6 +350,24 @@ function BagIcon() {
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
       <path d="M6 8 H18 L19.2 20 H4.8 Z" />
       <path d="M9 8 V7.2 C9 5.1 10.4 3.8 12 3.8 C13.6 3.8 15 5.1 15 7.2 V8" />
+    </svg>
+  );
+}
+
+function ChipChatIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.35"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
     </svg>
   );
 }
