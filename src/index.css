@@ -855,7 +855,7 @@ h3 {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-terra);
+  color: var(--color-ember-soft);
 }
 
 /* Mobile: filetto orizzontale tra i blocchi. Desktop: filetto verticale. */
@@ -961,7 +961,7 @@ h3 {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--color-terra);
+  color: var(--color-ember-soft);
 }
 
 /* Navbar desktop: pannello che scorre da destra, sotto la barra. */
