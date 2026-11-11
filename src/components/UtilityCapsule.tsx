@@ -97,7 +97,7 @@ function ArrowUpIcon() {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="3.15"
+      strokeWidth="3.6"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
