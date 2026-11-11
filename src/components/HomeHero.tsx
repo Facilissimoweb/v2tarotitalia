@@ -100,11 +100,11 @@ export function HomeHero() {
           <img
             src={HERO_MOBILE_IMG}
             alt={titolo}
-            width={736}
-            height={1104}
+            width={1200}
+            height={1467}
             decoding="async"
             fetchPriority="high"
-            className="block aspect-[2/3] max-h-[100svh] w-full object-cover object-center"
+            className="block aspect-[4/5] max-h-[100svh] w-full object-cover object-center"
           />
         ) : (
           <video
