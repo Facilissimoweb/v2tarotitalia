@@ -127,7 +127,13 @@ export function HomeHero() {
             className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[78%] bg-[linear-gradient(to_top,rgb(0_0_0/0.86)_0%,rgb(0_0_0/0.7)_38%,rgb(0_0_0/0.52)_66%,rgb(0_0_0/0.18)_88%,transparent_100%)]"
           />
         ) : null}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-8 sm:px-6 lg:px-10 xl:px-14 xl:pb-10">
+        <div
+          className={
+            phone
+              ? "pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-8 pl-[4.75rem] sm:px-6 sm:pl-[5rem]"
+              : "pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-8 sm:px-6 lg:px-10 xl:px-14 xl:pb-10"
+          }
+        >
           <motion.div
             className="flex max-w-[18rem] flex-col items-start text-left text-white sm:max-w-md lg:max-w-xl [text-shadow:0_1px_12px_rgb(0_0_0/0.65),0_2px_24px_rgb(0_0_0/0.4)]"
             variants={reduce ? undefined : entrata}
