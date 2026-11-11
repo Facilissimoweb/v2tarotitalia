@@ -141,12 +141,26 @@ export const siteContent = {
     competenze: "Cartomanzia e tarologia evolutiva · letture dei tarocchi dal vivo e online",
     lead: sloganBrand,
     chiSono: {
-      kicker: "Il mio approccio",
-      titolo: "Le immagini dei tarocchi come linguaggio",
-      benvenuto:
-        "Mi chiamo Maria Teresa Rogani. Nei consulti leggo i tarocchi come un sistema di immagini e simboli, non come un automatismo interpretativo.",
-      iconografia:
-        "Unisco l’osservazione delle immagini alla tradizione degli Arcani Maggiori e Minori. Questo metodo aiuta a esplorare una domanda con attenzione, senza imporre risposte.",
+      kicker: "Metodo",
+      titolo: "I Tarocchi come narratori del Sé, immagini e tracce di una storia",
+      blocchi: [
+        [
+          "Benvenuti in Tarot Italia, sono Teresa e mi occupo (con l’aiuto dei 78 Arcani dei tarocchi) di ",
+          { chiave: "fare ordine nella tua storia personale" },
+          ". Spesso chi viene da me si aspetta delle risposte a tenuta stagna. Sì, no, sicuramente. Nella realtà, dopo una sessione di tarologia, il consultante riesce a ",
+          { chiave: "fare del caos un cosmos" },
+          ".",
+        ],
+        [
+          "Ovvero, da una domanda apparentemente infantile come «Mi pensa?», iniziamo a tracciare motivazioni e soluzioni niente affatto banali, e in qualche modo funzionali al tuo benessere. Questo processo è tarologia, e questi sono i tarocchi nella loro veste di ",
+          { chiave: "indagatori e narratori dello specchio" },
+          ". Icone, archetipi e messaggeri: il mio compito è accompagnarti nella ",
+          { chiave: "narrazione più autentica di te" },
+          ", in uno spazio unico e in ",
+          { chiave: "totale assenza di pregiudizi" },
+          ".",
+        ],
+      ],
     },
     ctaConsulto: "Prenota consulto",
     visione: {

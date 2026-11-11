@@ -13,6 +13,21 @@ import { StackDeck, StackSheet } from "../components/StackSheet";
 import { shopLive } from "../lib/launchFlags";
 const { brand, chiSono, cta, home, nav } = siteContent;
 
+function BloccoMetodo({ parti }: { parti: readonly (string | { chiave: string })[] }) {
+  return parti.map((parte, i) =>
+    typeof parte === "string" ? (
+      <span key={i}>{parte}</span>
+    ) : (
+      <strong
+        key={i}
+        className="font-normal italic text-ink [font-family:'Noto_Serif',Georgia,serif]"
+      >
+        {parte.chiave}
+      </strong>
+    ),
+  );
+}
+
 export function Home() {
   const [formazioneOpen, setFormazioneOpen] = useState(false);
   const [visioneOpen, setVisioneOpen] = useState(false);
@@ -34,8 +49,11 @@ export function Home() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-8 text-base leading-[1.85] text-ink/75">{home.chiSono.benvenuto}</p>
-              <p className="mt-6 text-base leading-[1.85] text-ink/75">{home.chiSono.iconografia}</p>
+              {home.chiSono.blocchi.map((blocco, i) => (
+                <p key={i} className={`text-base leading-[1.85] text-ink/75 ${i === 0 ? "mt-8" : "mt-6"}`}>
+                  <BloccoMetodo parti={blocco} />
+                </p>
+              ))}
             </Reveal>
             <Reveal delay={300}>
               <div className="depth-panel mt-10 bg-paper p-8">
