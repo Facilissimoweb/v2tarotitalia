@@ -1332,10 +1332,9 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 }
 
-/* Contenuto: spazio per la chip rail + dock a tutta larghezza. */
+/* Contenuto: spaziatura originale; solo padding basso per il dock full-width. */
 @media (max-width: 1279px) {
   [data-l-chrome] {
-    padding-left: var(--side-rail-w);
     padding-bottom: calc(var(--l-dock-h) + env(safe-area-inset-bottom, 0px));
   }
 }
