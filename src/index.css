@@ -9,10 +9,10 @@
   --color-ember-deep: #000000;
   --color-ember-soft: #111111;
   --color-ember-pale: #ffffff;
-  /* Rosso terra: sigillo caldo per CTA e accenti sobri. */
-  --color-terra: #b4272b;
-  --color-terra-deep: #8f1f22;
-  --color-terra-soft: #9a4a4c;
+  /* Terra allineata al plate: niente rosso in CTA e accenti. */
+  --color-terra: #393632;
+  --color-terra-deep: #2b2523;
+  --color-terra-soft: #5c5652;
   --color-lichen: #ffffff;
   --color-graphite: #141210;
   --color-plate: #393632;

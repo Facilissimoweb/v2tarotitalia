@@ -31,7 +31,8 @@ export function ChiSono() {
             src={chiSono.immagini.teresa.src}
             alt={chiSono.immagini.teresa.alt}
             caption={chiSono.immagini.teresa.caption}
-            fit="contain"
+            ratio="landscape"
+            fit="cover"
           />
           <div className="md:pt-6">
             <Reveal>
