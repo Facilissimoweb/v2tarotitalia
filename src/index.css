@@ -2612,6 +2612,15 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
     border-top: 0;
   }
 
+  /* Sigillo occhio al centro del crocevia dei quattro riquadri. */
+  .home-action-eye {
+    filter: drop-shadow(0 8px 18px rgb(20 18 16 / 0.28));
+  }
+
+  .home-action-eye .logo-hero-crop {
+    transform: scale(1.08);
+  }
+
   .home-action-btn {
     min-height: 9.5rem;
     border: 0;

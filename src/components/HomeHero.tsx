@@ -181,6 +181,15 @@ export function HomeHero() {
             </span>
           </NavLink>
         ))}
+        <div
+          aria-hidden
+          className="home-action-eye pointer-events-none absolute left-1/2 top-1/2 z-[3] -translate-x-1/2 -translate-y-1/2 xl:hidden"
+        >
+          <BrandLogo
+            tone="mark"
+            className="h-[4.25rem] w-[4.25rem] shadow-[0_10px_28px_rgb(20_18_16/0.35)] sm:h-[4.75rem] sm:w-[4.75rem]"
+          />
+        </div>
       </div>
     </section>
   );
