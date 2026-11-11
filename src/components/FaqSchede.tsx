@@ -31,7 +31,7 @@ export function FaqSchede({ titolo, precedente, successiva, voci }: Props) {
   };
 
   return (
-    <section className="mt-20 min-w-0 max-w-full" aria-label={titolo}>
+    <section className="mt-12 min-w-0 max-w-full" aria-label={titolo}>
       <div className="flex flex-wrap items-end justify-between gap-6">
         <h3 className="font-display text-2xl font-normal leading-snug text-ink md:text-3xl">{titolo}</h3>
         <div className="flex items-center gap-3">
@@ -65,7 +65,7 @@ export function FaqSchede({ titolo, precedente, successiva, voci }: Props) {
         className="flex w-full snap-x snap-mandatory overflow-x-auto scroll-auto [scrollbar-width:none] [touch-action:pan-x_pan-y] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden"
       >
         {voci.map((voce, i) => (
-          <article key={voce.domanda} className="depth-panel w-full min-w-full shrink-0 snap-start bg-ivory p-8 md:p-10">
+          <article key={voce.domanda} className="depth-panel w-full min-w-full shrink-0 snap-start bg-paper p-8 md:p-10">
             <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
               {String(i + 1).padStart(2, "0")}
             </p>
