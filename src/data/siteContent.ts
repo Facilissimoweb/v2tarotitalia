@@ -595,15 +595,15 @@ export const siteContent = {
     },
     immagini: {
       hero: {
-        src: "/chi-sono/hero-putti.webp?v=3",
+        src: "/chi-sono/teresa-ritratto.webp?v=7",
         alt: "M. Teresa Rogani, Tarot Italia",
-        position: "right center",
-        fit: "contain",
-        width: 938,
-        height: 469,
+        position: "center center",
+        fit: "cover",
+        width: 1600,
+        height: 899,
       },
       teresa: {
-        src: "/chi-sono/teresa-ritratto.jpg?v=6",
+        src: "/chi-sono/teresa-ritratto.webp?v=7",
         alt: `Ritratto di M. Teresa Rogani, ${ruoloInFrase}`,
         caption: "M. Teresa Rogani",
       },
