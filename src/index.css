@@ -1332,7 +1332,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 }
 
-/* Contenuto: lascia spazio alla rail, non più coperto. */
+/* Contenuto: spazio per la chip rail + dock a tutta larghezza. */
 @media (max-width: 1279px) {
   [data-l-chrome] {
     padding-left: var(--side-rail-w);
@@ -1340,32 +1340,52 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 }
 
-/* Rail laterale mobile: braccio verticale della L, stile plate. */
+/* Rail mobile: a riposo solo occhio+freccia (altezza tagliata). */
 .side-rail {
-  top: 0;
+  top: calc(0.45rem + env(safe-area-inset-top, 0px));
   left: 0;
-  bottom: 0;
+  bottom: auto;
+  height: auto;
   width: var(--side-rail-w);
   overflow: hidden;
   color: var(--color-on-ink);
   background: var(--l-chrome-bg);
   border: 0;
   border-right: 1px solid rgb(255 255 255 / 0.1);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: calc(var(--l-dock-h) + env(safe-area-inset-bottom, 0px));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 12px 28px rgb(20 18 16 / 0.22);
+  padding: 0.35rem 0 0.55rem;
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
   backdrop-filter: blur(18px) saturate(1.25);
   transition:
     width 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.28s ease,
     box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.side-rail.is-collapsed {
+  height: auto;
+  bottom: auto;
+}
+
 .side-rail.is-open {
+  top: 0;
+  bottom: calc(var(--l-dock-h) + env(safe-area-inset-bottom, 0px));
+  height: auto;
   width: var(--side-rail-w-open);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: 0.5rem;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.1),
     0 24px 48px rgb(20 18 16 / 0.28);
+}
+
+.side-rail.is-away {
+  transform: translate3d(0, -120%, 0);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .side-rail-toggle {
@@ -1393,10 +1413,10 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   backdrop-filter: blur(2px);
 }
 
-/* Dock: braccio orizzontale della L, stesso plate della rail (solo piccoli schermi). */
+/* Dock: larghezza intera da bordo a bordo (solo piccoli schermi). */
 @media (max-width: 1279px) {
   [data-contact-dock] {
-    left: var(--side-rail-w);
+    left: 0;
     right: 0;
     bottom: 0;
     z-index: 69;
@@ -1523,6 +1543,11 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   .side-rail-copy,
   .side-rail-label {
     transition: none;
+  }
+
+  .side-rail.is-away {
+    transform: none;
+    opacity: 0;
   }
 }
 

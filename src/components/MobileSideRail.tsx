@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { MAIN_NAV, isNavBranch, isTarocchiPath, type NavLeaf } from "../data/navigation";
@@ -19,14 +19,16 @@ type Props = {
 };
 
 /**
- * Navbar laterale mobile: a riposo solo occhio + freccia; al tap si apre il menu.
- * Il dock contatti (braccio orizzontale della L) resta separato.
+ * Navbar laterale mobile: a riposo solo occhio + freccia (altezza tagliata).
+ * Scompare scorrendo in basso, ricompare scorrendo in alto. Tap freccia = menu.
  */
 export function MobileSideRail({ open, onOpenChange }: Props) {
   const { pathname } = useLocation();
+  const [away, setAway] = useState(false);
 
   useEffect(() => {
     onOpenChange(false);
+    setAway(false);
   }, [pathname, onOpenChange]);
 
   useEffect(() => {
@@ -43,6 +45,31 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
     };
   }, [open, onOpenChange]);
 
+  useEffect(() => {
+    if (open) {
+      setAway(false);
+      return;
+    }
+    let lastY = window.scrollY;
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const y = window.scrollY;
+        const delta = y - lastY;
+        if (delta > 6 && y > 48) setAway(true);
+        else if (delta < -6) setAway(false);
+        lastY = y;
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open]);
+
   return (
     <div className="xl:hidden" data-mobile-side-rail>
       {open ? (
@@ -55,7 +82,9 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
       ) : null}
 
       <aside
-        className={`side-rail fixed z-[69] flex flex-col ${open ? "is-open" : "is-collapsed"}`}
+        className={`side-rail fixed z-[69] flex flex-col ${open ? "is-open" : "is-collapsed"}${
+          away && !open ? " is-away" : ""
+        }`}
         aria-label={nav.menu}
       >
         <div className={`flex px-1.5 pt-2 ${open ? "items-center gap-3 px-2.5" : "flex-col items-center gap-3"}`}>
