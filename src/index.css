@@ -9,6 +9,10 @@
   --color-ember-deep: #000000;
   --color-ember-soft: #111111;
   --color-ember-pale: #ffffff;
+  /* Rosso terra: sigillo caldo per CTA e accenti sobri. */
+  --color-terra: #b4272b;
+  --color-terra-deep: #8f1f22;
+  --color-terra-soft: #9a4a4c;
   --color-lichen: #ffffff;
   --color-graphite: #141210;
   --color-plate: #393632;
@@ -851,7 +855,7 @@ h3 {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-ember-soft);
+  color: var(--color-terra);
 }
 
 /* Mobile: filetto orizzontale tra i blocchi. Desktop: filetto verticale. */
@@ -957,7 +961,7 @@ h3 {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 600;
-  color: var(--color-ember-soft);
+  color: var(--color-terra);
 }
 
 /* Navbar desktop: pannello che scorre da destra, sotto la barra. */
@@ -1164,6 +1168,9 @@ html[data-a11y-contrast="on"] {
   --color-ember-deep: #000000;
   --color-ember-soft: #000000;
   --color-ember-pale: #000000;
+  --color-terra: #000000;
+  --color-terra-deep: #000000;
+  --color-terra-soft: #000000;
   --color-lichen: #ffffff;
   --color-on-ink: #ffffff;
 }
@@ -1912,7 +1919,8 @@ html[data-a11y-contrast="on"] .side-rail-item.is-active {
 
   /* Pulsanti: etichetta con intaglio laterale, bordo continuo, angolo morbido. */
   .ti-btn:not(.ti-btn-icon) {
-    border: 2px solid #111111;
+    border-width: 2px;
+    border-style: solid;
     border-radius: 14px;
     --ticket-notch: 8px;
     -webkit-mask-image:

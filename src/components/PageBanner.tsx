@@ -46,7 +46,7 @@ export function PageBanner({
     >
       <div className="mx-auto max-w-6xl">
         {eyebrow ? (
-          <p className="mb-3 text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-ember-soft">
+          <p className="mb-3 text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-terra">
             {eyebrow}
           </p>
         ) : null}
@@ -56,7 +56,7 @@ export function PageBanner({
             {typeof subtitle === "string" ? conPeso(subtitle) : subtitle}
           </p>
         ) : null}
-        <span aria-hidden className="mt-8 block h-0.5 w-10 bg-ember" />
+        <span aria-hidden className="mt-8 block h-0.5 w-10 bg-terra" />
       </div>
     </header>
   );
