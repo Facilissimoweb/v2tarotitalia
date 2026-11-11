@@ -115,9 +115,15 @@ export function HomeHero() {
             aria-label={titolo}
           />
         )}
+        {phone ? (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[78%] bg-[linear-gradient(to_top,rgb(0_0_0/0.86)_0%,rgb(0_0_0/0.7)_38%,rgb(0_0_0/0.52)_66%,rgb(0_0_0/0.18)_88%,transparent_100%)]"
+          />
+        ) : null}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-8 sm:px-6 lg:px-10 xl:px-14 xl:pb-10">
           <motion.div
-            className="flex max-w-[18rem] flex-col items-start text-left text-white sm:max-w-md lg:max-w-xl [text-shadow:0_1px_10px_rgb(0_0_0/0.55)]"
+            className="flex max-w-[18rem] flex-col items-start text-left text-white sm:max-w-md lg:max-w-xl [text-shadow:0_1px_12px_rgb(0_0_0/0.65),0_2px_24px_rgb(0_0_0/0.4)]"
             variants={reduce ? undefined : entrata}
             initial={reduce ? false : "hidden"}
             animate="show"
@@ -125,18 +131,18 @@ export function HomeHero() {
             <motion.div variants={reduce ? undefined : entrataPezzo}>
               <BrandLogo
                 tone="hero"
-                className="mb-3 h-16 w-16 sm:mb-4 sm:h-20 sm:w-20 lg:mb-5 lg:h-[6.5rem] lg:w-[6.5rem] xl:h-[7.75rem] xl:w-[7.75rem]"
+                className="mb-3.5 h-[5.25rem] w-[5.25rem] shadow-[0_12px_32px_rgb(0_0_0/0.45)] sm:mb-4 sm:h-[5.5rem] sm:w-[5.5rem] lg:mb-5 lg:h-[6.5rem] lg:w-[6.5rem] lg:shadow-none xl:h-[7.75rem] xl:w-[7.75rem]"
               />
             </motion.div>
             <motion.h1
               variants={reduce ? undefined : entrataPezzo}
-              className="text-[1.65rem] leading-[1.1] text-white sm:text-[2rem] lg:text-[2.75rem]"
+              className="text-[1.75rem] leading-[1.1] text-white sm:text-[2rem] lg:text-[2.75rem]"
             >
               {brand.wordmark}
             </motion.h1>
             <motion.p
               variants={reduce ? undefined : entrataPezzo}
-              className="mt-1 font-[family-name:var(--font-body)] text-[0.75rem] font-normal not-italic leading-snug text-white sm:text-sm lg:mt-2 lg:text-base"
+              className="mt-1.5 font-[family-name:var(--font-body)] text-[0.8125rem] font-normal not-italic leading-snug text-white/95 sm:mt-1 sm:text-sm lg:mt-2 lg:text-base"
             >
               {home.firma}
             </motion.p>
