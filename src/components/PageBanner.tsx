@@ -52,7 +52,7 @@ export function PageBanner({
         ) : null}
         <h1 className="font-h1 text-h1">{title}</h1>
         {subtitle ? (
-          <p className="mt-3 max-w-3xl font-display text-base leading-relaxed text-ink/75 md:text-lg">
+          <p className="section-prose section-prose--lead mt-4 max-w-3xl md:text-[1.125rem]">
             {typeof subtitle === "string" ? conPeso(subtitle) : subtitle}
           </p>
         ) : null}
