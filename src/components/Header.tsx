@@ -20,6 +20,7 @@ import { AccessibilityControls, AccessibilityTrigger } from "./AccessibilityWidg
 import { Button } from "./Button";
 import { PageSpeechTrigger } from "./PageSpeech";
 import { BrandLogo } from "./BrandLogo";
+import { MobileAppBar } from "./MobileAppBar";
 import { MobileSideRail } from "./MobileSideRail";
 import { conPeso } from "./Prosa";
 import { ShopIcon } from "./ShopIcon";
@@ -141,6 +142,7 @@ export function Header() {
         </nav>
       </header>
 
+      <MobileAppBar />
       <MobileSideRail open={open} onOpenChange={setOpen} />
 
       <NavSlideOver
