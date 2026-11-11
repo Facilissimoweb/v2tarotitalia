@@ -17,6 +17,8 @@ type Props = {
   onActivate?: () => void;
   expanded?: boolean;
   controls?: string;
+  /** Etichetta testuale nella rail mobile: rende cliccabile tutta la riga. */
+  railLabel?: string;
 };
 
 function matchesQuery(query: string, label: string, name: string, code: string) {
@@ -25,7 +27,15 @@ function matchesQuery(query: string, label: string, name: string, code: string) 
   return hay.includes(query);
 }
 
-export function LanguageWidget({ placement, className = "", flagClassName, onActivate, expanded, controls }: Props) {
+export function LanguageWidget({
+  placement,
+  className = "",
+  flagClassName,
+  onActivate,
+  expanded,
+  controls,
+  railLabel,
+}: Props) {
   const { language } = useLanguage();
   const [open, setOpen] = useState(false);
   const titleId = useId();
@@ -46,9 +56,12 @@ export function LanguageWidget({ placement, className = "", flagClassName, onAct
     };
   }, [open, dialog]);
 
-  const compact = placement === "nav";
+  const compact = placement === "nav" && !railLabel;
   const drawer = placement === "drawer";
   const selectedLabel = languageLabel(language);
+  const flagClass =
+    flagClassName ||
+    (compact ? "h-[1.35rem] w-8" : drawer ? "h-5 w-7" : railLabel ? "h-3 w-[1.05rem]" : "h-4 w-6");
 
   return (
     <>
@@ -56,11 +69,13 @@ export function LanguageWidget({ placement, className = "", flagClassName, onAct
         ref={triggerRef}
         type="button"
         className={
-          compact
-            ? `ti-btn ti-btn-icon flex h-12 ${className || "w-12"} shrink-0 items-center justify-center text-inherit transition-opacity hover:opacity-70`
-            : drawer
-              ? `flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em] ${className || "text-ink/55 hover:text-ink"}`
-              : `inline-flex items-center gap-2 text-[0.8125rem] uppercase tracking-[0.16em] text-inherit shadow-none hover:text-white ${className}`
+          railLabel
+            ? `side-rail-item ${className}`.trim()
+            : compact
+              ? `ti-btn ti-btn-icon flex h-12 ${className || "w-12"} shrink-0 items-center justify-center text-inherit transition-opacity hover:opacity-70`
+              : drawer
+                ? `flex w-full items-center justify-center gap-3 py-4 text-center font-body text-[0.8125rem] font-medium uppercase not-italic leading-none tracking-[0.16em] ${className || "text-ink/55 hover:text-ink"}`
+                : `inline-flex items-center gap-2 text-[0.8125rem] uppercase tracking-[0.16em] text-inherit shadow-none hover:text-white ${className}`
         }
         aria-haspopup="dialog"
         aria-expanded={onActivate ? Boolean(expanded) : open}
@@ -72,27 +87,27 @@ export function LanguageWidget({ placement, className = "", flagClassName, onAct
           else setOpen(true);
         }}
       >
-        <LanguageFlag
-          code={language}
-          className={
-            flagClassName
-              ? flagClassName
-              : compact
-                ? "h-[1.35rem] w-8"
-                : drawer
-                  ? "h-5 w-7"
-                  : "h-4 w-6"
-          }
-        />
-        {compact ? (
-          <span className="sr-only">{selectedLabel}</span>
-        ) : drawer ? (
+        {railLabel ? (
           <>
-            <span>{nav.lingua}</span>
-            <span className="opacity-50">{selectedLabel}</span>
+            <span className="side-rail-icon">
+              <LanguageFlag code={language} className={flagClass} />
+            </span>
+            <span className="side-rail-label">{railLabel}</span>
           </>
         ) : (
-          nav.lingua
+          <>
+            <LanguageFlag code={language} className={flagClass} />
+            {compact ? (
+              <span className="sr-only">{selectedLabel}</span>
+            ) : drawer ? (
+              <>
+                <span>{nav.lingua}</span>
+                <span className="opacity-50">{selectedLabel}</span>
+              </>
+            ) : (
+              nav.lingua
+            )}
+          </>
         )}
       </button>
 
