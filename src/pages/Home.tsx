@@ -20,10 +20,7 @@ function BloccoMetodo({ parti }: { parti: readonly (string | { chiave: string })
     typeof parte === "string" ? (
       <span key={i}>{parte}</span>
     ) : (
-      <strong
-        key={i}
-        className="font-normal italic text-ink [font-family:'Noto_Serif',Georgia,serif]"
-      >
+      <strong key={i} className="font-bold not-italic">
         {parte.chiave}
       </strong>
     ),

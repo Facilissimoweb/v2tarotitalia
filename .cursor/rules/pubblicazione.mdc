@@ -1,0 +1,12 @@
+---
+description: Quando un lavoro è pronto da pubblicare, consegnare sempre il link della pull request
+alwaysApply: true
+---
+
+# Pubblicazione
+
+Quando restituisci un’azione da pubblicare, indica sempre la pull request aperta, con l’URL completo, così il merge si avvia da lì.
+
+Esempio: https://github.com/Facilissimoweb/v2tarotitalia/pull/36
+
+Il merge su `main` lo fa chi pubblica. Non pusciare direttamente su `main`.
