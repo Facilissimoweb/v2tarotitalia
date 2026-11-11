@@ -811,61 +811,65 @@ h3 {
  * accenti in grassetto via conPeso. Filetti verticali tra colonne.
  */
 .section-prose {
-  max-width: 36rem;
+  max-width: 34rem;
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 400;
-  line-height: 1.85;
-  letter-spacing: 0.005em;
-  color: rgb(from var(--color-ink) r g b / 0.72);
-}
-
-.section-prose--lead {
-  max-width: 38rem;
-  font-size: 1.0625rem;
-  line-height: 1.78;
-  color: rgb(from var(--color-ink) r g b / 0.8);
-}
-
-.section-prose--compact {
-  max-width: 32rem;
-  font-size: 0.875rem;
-  line-height: 1.8;
+  line-height: 1.95;
+  letter-spacing: 0.01em;
   color: rgb(from var(--color-ink) r g b / 0.68);
 }
 
+.section-prose--lead {
+  max-width: 40rem;
+  font-size: 1.125rem;
+  line-height: 1.85;
+  letter-spacing: 0.008em;
+  color: rgb(from var(--color-ink) r g b / 0.82);
+}
+
+.section-prose--compact {
+  max-width: 30rem;
+  font-size: 0.8125rem;
+  line-height: 1.85;
+  letter-spacing: 0.02em;
+  color: rgb(from var(--color-ink) r g b / 0.62);
+}
+
 .section-prose + .section-prose {
-  margin-top: 1.75rem;
+  margin-top: 2rem;
 }
 
 .section-prose strong {
   font-weight: 700;
-  color: rgb(from var(--color-ink) r g b / 0.92);
+  color: var(--color-ink);
 }
 
 .section-index {
   font-family: var(--font-body);
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--color-ember-soft);
 }
 
+/* Mobile: filetto orizzontale tra i blocchi. Desktop: filetto verticale. */
 .section-rails {
   display: grid;
-  gap: 3rem;
+  gap: 0;
 }
 
 .section-rails > * {
   min-width: 0;
+  padding-block: 2rem;
+}
+
+.section-rails > * + * {
+  border-top: 1px solid rgb(from var(--color-ink) r g b / 0.22);
 }
 
 @media (min-width: 768px) {
-  .section-rails {
-    gap: 0;
-  }
-
   .section-rails--2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -875,7 +879,8 @@ h3 {
   }
 
   .section-rails > * {
-    padding-inline: 2.25rem;
+    padding-block: 0;
+    padding-inline: 2.5rem;
   }
 
   .section-rails > *:first-child {
@@ -887,13 +892,14 @@ h3 {
   }
 
   .section-rails > * + * {
-    border-left: 1px solid rgb(from var(--color-ink) r g b / 0.12);
+    border-top: 0;
+    border-left: 1px solid rgb(from var(--color-ink) r g b / 0.22);
   }
 }
 
 @media (min-width: 1024px) {
   .section-rails > * {
-    padding-inline: 2.75rem;
+    padding-inline: 3.25rem;
   }
 
   .section-rails > *:first-child {
