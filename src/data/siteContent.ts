@@ -152,9 +152,15 @@ export const siteContent = {
           ".",
         ],
         [
-          "Ovvero, da una domanda apparentemente infantile come «Mi pensa?», iniziamo a tracciare motivazioni e soluzioni niente affatto banali, e in qualche modo funzionali al tuo benessere. Questo processo è tarologia, e questi sono i tarocchi nella loro veste di ",
+          "Ovvero, da una domanda apparentemente infantile come «Mi pensa?», iniziamo a tracciare motivazioni e soluzioni niente affatto banali, e in qualche modo funzionali al tuo benessere.",
+        ],
+        [
+          "Questo processo è tarologia, e questi sono i tarocchi nella loro veste di ",
           { chiave: "indagatori e narratori dello specchio" },
-          ". Icone, archetipi e messaggeri: il mio compito è accompagnarti nella ",
+          ".",
+        ],
+        [
+          "Icone, archetipi e messaggeri: il mio compito è accompagnarti nella ",
           { chiave: "narrazione più autentica di te" },
           ", in uno spazio unico e in ",
           { chiave: "totale assenza di pregiudizi" },
