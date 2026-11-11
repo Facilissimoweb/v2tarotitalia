@@ -1,3 +1,5 @@
+const ruoloInFrase = "tarologa, cartomante e ricercatrice esoterica";
+const ruoloProfessionale = "Tarologa, cartomante e ricercatrice esoterica";
 const sottotitoloBrand = "Tarot Italia di Maria Teresa Rogani, operatore olistico";
 const descrizioneBrand = "Cartomanzia, Tarologia e Percorsi di Armonizzazione a Macerata";
 const sloganBrand = `${sottotitoloBrand} • ${descrizioneBrand}`;
@@ -10,7 +12,7 @@ export const siteContent = {
     logoHero: "/logo-hero.png",
     logoNav: "/logo-nav-eye.webp",
     titolare: "Maria Teresa Rogani",
-    ruolo: "Operatrice olistica e ricercatrice esoterica, cartomante e tarologa professionista",
+    ruolo: ruoloProfessionale,
     sottotitolo: sottotitoloBrand,
     descrizione: descrizioneBrand,
     slogan: sloganBrand,
@@ -131,7 +133,7 @@ export const siteContent = {
     seo: {
       titolo: "Tarot Italia | Cartomante e tarologia evolutiva a Macerata",
       descrizione:
-        "Sono Maria Teresa Rogani, tarologa a Macerata. Consulti dal vivo e online, con una lettura simbolica degli Arcani Maggiori e Minori.",
+        `Sono Maria Teresa Rogani, ${ruoloInFrase} a Macerata. Consulti dal vivo e online, con una lettura simbolica degli Arcani Maggiori e Minori.`,
       immagineAlt:
         "Tarot Italia, tarologia archetipica con Maria Teresa Rogani",
     },
@@ -304,7 +306,7 @@ export const siteContent = {
       seo: {
         titolo: "Percorsi di Armonizzazione | Tarot Italia",
         descrizione:
-          "Percorsi di Armonizzazione e Consapevolezza a Macerata e online. Tarologia archetipica con M. Teresa Rogani, Tarot Italia.",
+          `Percorsi di Armonizzazione e Consapevolezza a Macerata e online, curati da M. Teresa Rogani, ${ruoloInFrase}.`,
       },
     },
     blog: {
@@ -313,7 +315,7 @@ export const siteContent = {
       seo: {
         titolo: "Blog | Tarologia archetipica – Tarot Italia",
         descrizione:
-          "Il blog di Tarot Italia: tarologia archetipica, simboli e letture. Articoli di M. Teresa Rogani, a Macerata e online.",
+          `Il blog di Tarot Italia: tarologia archetipica, simboli e letture. Articoli di M. Teresa Rogani, ${ruoloInFrase}, a Macerata e online.`,
       },
       caricamento: "Sto aprendo l’archivio…",
       errore: "L’archivio non è raggiungibile in questo momento. Riprova tra poco.",
@@ -328,7 +330,7 @@ export const siteContent = {
       seo: {
         titolo: "Contatti | Tarot Italia a Macerata e online",
         descrizione:
-          "Scrivi o chiama Maria Teresa Rogani per informazioni e appuntamenti. Ricevo a Macerata e online.",
+          `Scrivi o chiama Maria Teresa Rogani, ${ruoloInFrase}, per informazioni e appuntamenti. Ricevo a Macerata e online.`,
       },
       moduloKicker: "Modulo",
       moduloTitolo: "Scrivimi",
@@ -467,17 +469,17 @@ export const siteContent = {
   chiSono: {
     kicker: "Chi sono",
     titolo: "Chi sono",
-    sottotitolo: "Tarologa a Macerata · Consulti in studio e online",
+    sottotitolo: ruoloProfessionale,
     seo: {
       titolo: "Maria Teresa Rogani | Chi sono – Tarot Italia a Macerata",
       descrizione:
-        "Sono Maria Teresa Rogani, tarologa a Macerata. Integro analisi visiva e studio degli archetipi nei consulti in studio e online.",
+        `Sono Maria Teresa Rogani, ${ruoloInFrase} a Macerata. Integro analisi visiva e studio degli archetipi nei consulti in studio e online.`,
     },
     visione: {
       kicker: "La mia ricerca",
       titolo: "Tarocchi, immagini e simboli",
       testo:
-        "Mi chiamo Maria Teresa Rogani. Studio i tarocchi come un linguaggio simbolico: nei consulti osservo le immagini e le dinamiche della stesa per esplorare la domanda con cura e senza giudizio.",
+        `Mi chiamo Maria Teresa Rogani e opero come ${ruoloInFrase}. Studio i tarocchi come un linguaggio simbolico: nei consulti osservo le immagini e le dinamiche della stesa per esplorare la domanda con cura e senza giudizio.`,
     },
     metodo: {
       kicker: "Il Metodo",
@@ -602,7 +604,7 @@ export const siteContent = {
       },
       teresa: {
         src: "/chi-sono/teresa-ritratto.jpg?v=6",
-        alt: "Ritratto evocativo di M. Teresa Rogani, operatrice olistica ed esoterica, cartomante e tarologa professionista",
+        alt: `Ritratto di M. Teresa Rogani, ${ruoloInFrase}`,
         caption: "M. Teresa Rogani",
       },
       pamela: {
@@ -658,7 +660,7 @@ export const siteContent = {
       caption: "Percorsi di Armonizzazione",
     },
     mediazione:
-      "I percorsi sono curati da Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica, a Macerata.",
+      `I percorsi sono curati da Maria Teresa Rogani (Teresa), ${ruoloInFrase}, a Macerata.`,
     intro:
       "Per chi attraversa uno stallo emotivo o sente di aver perso la centratura.",
     chiacchierata:
@@ -704,7 +706,7 @@ export const siteContent = {
         {
           domanda: "Chi cura i Percorsi di Armonizzazione?",
           risposta:
-            "Maria Teresa Rogani (Teresa), operatrice olistica ed esoterica. Studio in Via Crispi 37, 62100 Macerata, su appuntamento.",
+            `Maria Teresa Rogani (Teresa), ${ruoloInFrase}. Studio in Via Crispi 37, 62100 Macerata, su appuntamento.`,
         },
         {
           domanda: "Che differenza c’è tra un consulto singolo e un percorso?",
@@ -913,7 +915,7 @@ export const siteContent = {
 - Per i percorsi di armonizzazione: chiarisci che costo e struttura variano e si definiscono su misura in base all’entità e alla profondità del cammino personale. Non inventare pacchetti o listini. Usa [[CTA:consulti]] e/o [[CTA:percorsi]] quando rimandi alle pagine.
 
 6) Identità e ruolo di Teresa (divieto assoluto di termini psicologici)
-- Se chiedono chi è Teresa o quale sia il suo ruolo: basati sulla pagina Chi sono del sito. Teresa lavora con la tarologia evolutiva, i simboli e la comunicazione visiva (formazione all’Accademia di Belle Arti).
+- Se chiedono chi è Teresa o quale sia il suo ruolo: basati sulla pagina Chi sono del sito. Teresa opera come ${ruoloInFrase}. Lavora con la tarologia evolutiva, i simboli e la comunicazione visiva (formazione all’Accademia di Belle Arti).
 - È assolutamente vietato associare la figura o il lavoro di Teresa a termini psicologici, terapeutici o clinici (es. terapia, psicologo, psicoterapeuta, diagnosi, cura clinica).
 - Dirotta sempre alla lettura della pagina Chi sono (/chi-sono) o al contatto diretto con Teresa (+39 379 103 82 53). Usa [[CTA:whatsapp,phone]] quando inviti al contatto; non inventare biografie, titoli o metodi non presenti sul sito.
 
@@ -963,12 +965,12 @@ export const siteContent = {
     seo: {
       titolo: "Consulti di tarocchi evolutivi | Tarot Italia",
       descrizione:
-        "Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con Maria Teresa Rogani, dal vivo in Via Crispi 37 e via chiamata vocale WhatsApp.",
+        `Consulti di tarocchi evolutivi a Macerata e online. Letture da 30 o 60 minuti con Maria Teresa Rogani, ${ruoloInFrase}, dal vivo in Via Crispi 37 e via chiamata vocale WhatsApp.`,
     },
     intro:
       "Uno spazio di ascolto per osservare con maggiore chiarezza una domanda e le possibilità a tua disposizione.",
     letturaDalVivo:
-      "L’incontro con Maria Teresa Rogani dura 30 o 60 minuti e si svolge su appuntamento. A distanza, la sessione avviene tramite chiamata vocale WhatsApp, senza videochiamata.",
+      `L’incontro con Maria Teresa Rogani, ${ruoloInFrase}, dura 30 o 60 minuti e si svolge su appuntamento. A distanza, la sessione avviene tramite chiamata vocale WhatsApp, senza videochiamata.`,
     modalita: {
       presenza: "Dal vivo",
       presenzaNota: "Via Crispi 37, Macerata",
