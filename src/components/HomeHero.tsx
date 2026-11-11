@@ -89,7 +89,13 @@ export function HomeHero() {
       data-home-hero
       className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
-      <div className="relative mt-[var(--nav-offset)] overflow-hidden border-t border-white/10 bg-plate lg:border-t-0">
+      <div
+        className={
+          phone
+            ? "relative overflow-hidden border-t border-white/10 bg-plate"
+            : "relative mt-[var(--nav-offset)] overflow-hidden border-t border-white/10 bg-plate lg:border-t-0"
+        }
+      >
         {phone ? (
           <img
             src={HERO_MOBILE_IMG}
@@ -98,7 +104,7 @@ export function HomeHero() {
             height={728}
             decoding="async"
             fetchPriority="high"
-            className="block aspect-square max-h-[calc(100svh-var(--nav-offset))] w-full object-cover object-center"
+            className="block aspect-square max-h-[100svh] w-full object-cover object-center"
           />
         ) : (
           <video

@@ -61,7 +61,8 @@ const desktopLinkClass = (active: boolean) =>
 const NAV_ICON_CORE =
   "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-12`;
-const NAV_ICON_BTN_MOBILE = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-9`;
+const NAV_ICON_BTN_MOBILE =
+  "ti-btn ti-btn-icon flex h-10 w-10 shrink-0 items-center justify-center text-black transition-colors hover:text-black/55 [&_svg]:h-[1.35rem] [&_svg]:w-[1.35rem] [&_svg]:stroke-[2.25]";
 const SLIDE_CTA =
   "ti-btn mt-8 inline-flex w-full items-center justify-center bg-ink px-6 py-4 text-center text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-on-ink";
 
@@ -164,28 +165,27 @@ export function Header() {
           </div>
         </nav>
 
-        <div className="relative flex h-16 w-full items-center justify-between gap-2 px-3 sm:px-4 xl:hidden">
-          <NavLink to="/" end className="nav-title min-w-0" translate="no">
-            {brand.wordmark}
+        <div className="relative flex h-[4.25rem] w-full items-center justify-between gap-3 px-3.5 sm:px-5 xl:hidden">
+          <NavLink
+            to="/"
+            end
+            className="flex min-w-0 items-center gap-2.5"
+            aria-label={nav.home}
+            translate="no"
+          >
+            <BrandLogo tone="nav" className="nav-mark-mobile shrink-0" />
+            <span className="nav-title nav-title-mobile min-w-0 truncate">{brand.wordmark}</span>
           </NavLink>
-          <div className="relative z-10 flex shrink-0 items-center">
+          <div className="nav-actions-glass relative z-10 flex shrink-0 items-center gap-0.5 p-1">
             <LanguageWidget
               placement="nav"
-              className="h-8 w-8"
-              flagClassName="h-2.5 w-[0.9rem]"
+              className="h-10 w-10"
+              flagClassName="h-3 w-[1.05rem]"
             />
             <CartLink className={NAV_ICON_BTN_MOBILE} />
-            <NavLink
-              to="/"
-              className={NAV_ICON_BTN_MOBILE}
-              aria-label={nav.home}
-              title={nav.home}
-            >
-              <HomeIcon size={20} />
-            </NavLink>
             <button
               type="button"
-              className={NAV_ICON_BTN_MOBILE}
+              className={`${NAV_ICON_BTN_MOBILE} nav-menu-trigger`}
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? nav.chiudi : nav.menu}
