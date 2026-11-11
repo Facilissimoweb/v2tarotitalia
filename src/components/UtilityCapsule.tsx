@@ -32,7 +32,10 @@ export function UtilityCapsule() {
   return (
     <nav
       className="pointer-events-auto fixed right-2 z-[45] flex flex-col items-center gap-0 rounded-full border-2 border-ember-pale bg-plate p-1 sm:right-3 sm:gap-0.5 sm:p-1.5 md:right-4"
-      style={{ bottom: "calc(4.65rem + var(--dock-lift) + env(safe-area-inset-bottom, 0px))" }}
+      style={{
+        bottom:
+          "calc(var(--l-dock-h, 4.65rem) + var(--dock-lift) + env(safe-area-inset-bottom, 0px))",
+      }}
     >
       <button
         type="button"

@@ -1315,11 +1315,15 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 }
 
 :root {
-  /* Mobile: rail laterale floating, niente top bar. */
+  /* Mobile: chrome a L (rail + dock), niente top bar. */
   --nav-offset: calc(12px + env(safe-area-inset-top, 0px));
   --dock-lift: 1.25rem;
   --side-rail-w: 3.85rem;
   --side-rail-w-open: 16.5rem;
+  --l-dock-h: 4.35rem;
+  --l-chrome-bg:
+    linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 42%),
+    rgb(from var(--color-plate) r g b / 0.94);
 }
 
 @media (min-width: 1280px) {
@@ -1328,21 +1332,28 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 }
 
-/* Rail laterale mobile: plate floating, collasso/espansione. */
+/* Contenuto: lascia spazio alla rail, non più coperto. */
+@media (max-width: 1279px) {
+  [data-l-chrome] {
+    padding-left: var(--side-rail-w);
+    padding-bottom: calc(var(--l-dock-h) + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+/* Rail laterale mobile: braccio verticale della L, stile plate. */
 .side-rail {
-  top: calc(0.65rem + env(safe-area-inset-top, 0px));
-  left: 0.65rem;
-  bottom: calc(5.75rem + env(safe-area-inset-bottom, 0px));
+  top: 0;
+  left: 0;
+  bottom: 0;
   width: var(--side-rail-w);
   overflow: hidden;
   color: var(--color-on-ink);
-  background:
-    linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 42%),
-    rgb(from var(--color-plate) r g b / 0.92);
-  border: 1px solid rgb(255 255 255 / 0.12);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.08),
-    0 18px 40px rgb(20 18 16 / 0.28);
+  background: var(--l-chrome-bg);
+  border: 0;
+  border-right: 1px solid rgb(255 255 255 / 0.1);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: calc(var(--l-dock-h) + env(safe-area-inset-bottom, 0px));
   -webkit-backdrop-filter: blur(18px) saturate(1.25);
   backdrop-filter: blur(18px) saturate(1.25);
   transition:
@@ -1354,7 +1365,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   width: var(--side-rail-w-open);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.1),
-    0 24px 48px rgb(20 18 16 / 0.36);
+    0 24px 48px rgb(20 18 16 / 0.28);
 }
 
 .side-rail-scrim {
@@ -1362,6 +1373,64 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   background: rgb(43 37 35 / 0.28);
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
+}
+
+/* Dock: braccio orizzontale della L, stesso plate della rail (solo piccoli schermi). */
+@media (max-width: 1279px) {
+  [data-contact-dock] {
+    left: var(--side-rail-w);
+    right: 0;
+    bottom: 0;
+    z-index: 69;
+    justify-content: stretch;
+    padding: 0;
+  }
+
+  [data-contact-dock] .contact-dock-bar {
+    width: 100%;
+    max-width: none;
+    min-height: calc(var(--l-dock-h) + env(safe-area-inset-bottom, 0px));
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 0.25rem;
+    padding: 0.45rem 0.75rem calc(0.45rem + env(safe-area-inset-bottom, 0px));
+    border-radius: 0;
+    box-shadow: none;
+    color: var(--color-on-ink);
+    background: var(--l-chrome-bg);
+    -webkit-backdrop-filter: blur(18px) saturate(1.25);
+    backdrop-filter: blur(18px) saturate(1.25);
+  }
+
+  [data-contact-dock] .dock-skin {
+    border: 0;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 0;
+    background: transparent;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  [data-contact-dock] .dock-sphere {
+    height: 2.65rem;
+    width: 2.65rem;
+    border-radius: 0;
+    background: transparent;
+    color: rgb(255 255 255 / 0.78);
+    box-shadow: none;
+  }
+
+  [data-contact-dock] .dock-sphere[data-raised],
+  [data-contact-dock] .dock-sphere:hover,
+  [data-contact-dock] .dock-sphere:focus-visible {
+    background: rgb(249 248 246 / 0.14);
+    color: rgb(255 255 255 / 0.95);
+    box-shadow: none;
+  }
+
+  [data-contact-dock] .dock-fluid-orb {
+    display: none;
+  }
 }
 
 .side-rail-copy {
@@ -1450,6 +1519,12 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
+
+  [data-contact-dock] .contact-dock-bar {
+    background: var(--color-plate);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 html[data-a11y-contrast="on"] .side-rail {
@@ -1459,6 +1534,18 @@ html[data-a11y-contrast="on"] .side-rail {
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
+}
+
+html[data-a11y-contrast="on"] [data-contact-dock] .contact-dock-bar {
+  color: #000000;
+  background: #ffffff;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+html[data-a11y-contrast="on"] [data-contact-dock] .dock-sphere {
+  color: #000000;
+  background: #ffffff;
 }
 
 html[data-a11y-contrast="on"] .side-rail-item {
