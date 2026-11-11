@@ -49,9 +49,11 @@ const entrataPezzo: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.72, ease: ENTRATA } },
 };
 
+const HERO_MOBILE_IMG = "/hero-home-mobile.jpg";
+
 /**
- * Hero Home: sul video, a sinistra e poco sopra il bordo, il medaglione sopra «Tarot Italia» e la firma.
- * Entrano in sequenza. Sui cellulari gira il filmato verticale; dal desktop in su resta quello largo.
+ * Hero Home: sul media, a sinistra e poco sopra il bordo, il medaglione sopra «Tarot Italia» e la firma.
+ * Entrano in sequenza. Sui piccoli device la foto hero; dal desktop in su il filmato largo.
  * Poi i quattro riquadri.
  */
 export function HomeHero() {
@@ -70,6 +72,7 @@ export function HomeHero() {
   }, []);
 
   useEffect(() => {
+    if (phone) return;
     const film = filmRef.current;
     if (!film) return;
     film.muted = true;
@@ -81,35 +84,37 @@ export function HomeHero() {
     if (pending) pending.catch(() => {});
   }, [reduce, phone]);
 
-  const src = phone ? "/video/tarot-italia-telefono.mp4" : "/video/TAROT.mp4";
-  const poster = phone
-    ? "/video/tarot-italia-telefono-poster.webp"
-    : "/video/TAROT-poster.webp";
-
   return (
     <section
       data-home-hero
       className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
     >
       <div className="relative mt-[var(--nav-offset)] overflow-hidden border-t border-white/10 bg-plate lg:border-t-0">
-        <video
-          key={src}
-          ref={filmRef}
-          className={
-            phone
-              ? "block aspect-[9/16] max-h-[calc(100svh-var(--nav-offset))] w-full object-cover object-center"
-              : "block h-[calc(100svh-var(--nav-offset)-19.5rem)] max-h-[48rem] min-h-[22rem] w-full object-cover object-center"
-          }
-          src={src}
-          poster={poster}
-          width={phone ? 1080 : 1280}
-          height={phone ? 1920 : 320}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-label={titolo}
-        />
+        {phone ? (
+          <img
+            src={HERO_MOBILE_IMG}
+            alt={titolo}
+            width={736}
+            height={728}
+            decoding="async"
+            fetchPriority="high"
+            className="block aspect-square max-h-[calc(100svh-var(--nav-offset))] w-full object-cover object-center"
+          />
+        ) : (
+          <video
+            ref={filmRef}
+            className="block h-[calc(100svh-var(--nav-offset)-19.5rem)] max-h-[48rem] min-h-[22rem] w-full object-cover object-center"
+            src="/video/TAROT.mp4"
+            poster="/video/TAROT-poster.webp"
+            width={1280}
+            height={720}
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label={titolo}
+          />
+        )}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-8 sm:px-6 lg:px-10 xl:px-14 xl:pb-10">
           <motion.div
             className="flex max-w-[18rem] flex-col items-start text-left text-white sm:max-w-md lg:max-w-xl [text-shadow:0_1px_10px_rgb(0_0_0/0.55)]"
