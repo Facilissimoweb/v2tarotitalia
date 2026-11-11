@@ -9,11 +9,6 @@ import { SeoManager } from "../lib/pageSeo";
 import { PageSpeechSkipLink } from "./PageSpeech";
 import { pageSpeech } from "../lib/pageSpeech";
 
-function useAppShell() {
-  const { pathname } = useLocation();
-  return pathname !== "/";
-}
-
 function PostAuthBounce() {
   const { session, ready } = useAuth();
   const { pathname, search, state } = useLocation();
@@ -79,13 +74,8 @@ function ProtectMedia() {
 }
 
 export function Layout() {
-  const appShell = useAppShell();
   return (
-    <div
-      data-l-chrome
-      data-app-shell={appShell ? "on" : undefined}
-      className="flex min-h-dvh flex-col bg-ivory text-ink"
-    >
+    <div data-l-chrome data-app-shell="on" className="flex min-h-dvh flex-col bg-ivory text-ink">
       <ProtectMedia />
       <PageSpeechSkipLink />
       <ScrollToTop />

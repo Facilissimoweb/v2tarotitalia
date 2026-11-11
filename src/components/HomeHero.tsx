@@ -92,7 +92,7 @@ export function HomeHero() {
       <div
         className={
           phone
-            ? "relative overflow-hidden border-t border-white/10 bg-plate"
+            ? "relative mt-[var(--nav-offset)] overflow-hidden border-t border-white/10 bg-plate"
             : "relative mt-[var(--nav-offset)] overflow-hidden border-t border-white/10 bg-plate lg:border-t-0"
         }
       >
