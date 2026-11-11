@@ -187,9 +187,9 @@ export function HomeHero() {
         })}
         <div
           aria-hidden
-          className="home-action-sphere pointer-events-none absolute left-1/2 top-1/2 z-[3] -translate-x-1/2 -translate-y-1/2 xl:hidden"
+          className="home-action-circle pointer-events-none absolute left-1/2 top-1/2 z-[3] -translate-x-1/2 -translate-y-1/2 xl:hidden"
         >
-          <span className="home-action-sphere__orb" />
+          <span className="home-action-circle__disk" />
         </div>
       </div>
     </section>
