@@ -2603,6 +2603,18 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   box-shadow: 0 16px 34px -26px rgb(20 18 16 / 0.55);
 }
 
+/* Hero mobile: sfumatura plate, stesso tono del cerchio di congiunzione. */
+.home-hero-scrim {
+  background: linear-gradient(
+    to top,
+    rgb(from var(--color-plate) r g b / 0.92) 0%,
+    rgb(from var(--color-plate) r g b / 0.78) 38%,
+    rgb(from var(--color-plate) r g b / 0.55) 66%,
+    rgb(from var(--color-plate) r g b / 0.2) 88%,
+    transparent 100%
+  );
+}
+
 /* Home mobile: riquadri distanziati, cerchio come congiunzione al crocevia. */
 @media (max-width: 1279px) {
   .home-action-grid {
@@ -2622,10 +2634,8 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
     height: 3.35rem;
     border-radius: 999px;
     background: var(--color-plate);
-    border: 1px solid rgb(255 255 255 / 0.14);
-    box-shadow:
-      0 1px 0 rgb(255 255 255 / 0.16) inset,
-      0 10px 22px -10px rgb(20 18 16 / 0.5);
+    border: 1px solid var(--color-plate);
+    box-shadow: 0 10px 22px -10px rgb(20 18 16 / 0.5);
   }
 
   .home-action-btn {
