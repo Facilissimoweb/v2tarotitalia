@@ -21,7 +21,7 @@ type Props = {
 };
 
 /**
- * Navbar laterale mobile a destra: chip verde (casa + chat + hamburger).
+ * Navbar laterale mobile a destra: chip verde (casa → hamburger → chat).
  * Stessa forma e stesso hide/show allo scroll su tutto il sito.
  */
 export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
@@ -100,16 +100,6 @@ export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
             <>
               <button
                 type="button"
-                className="side-rail-chat flex h-10 w-10 shrink-0 items-center justify-center transition-opacity hover:opacity-80"
-                aria-label={tarotChat.trigger}
-                aria-haspopup="dialog"
-                aria-expanded={chatOpen}
-                onClick={() => tarotChatUi.toggle()}
-              >
-                <ChipChatIcon />
-              </button>
-              <button
-                type="button"
                 className="side-rail-toggle flex h-10 w-10 shrink-0 items-center justify-center transition-opacity hover:opacity-80"
                 aria-expanded={open}
                 aria-controls="side-rail-nav"
@@ -117,6 +107,16 @@ export function MobileSideRail({ open, onOpenChange, away = false }: Props) {
                 onClick={() => onOpenChange(true)}
               >
                 <MenuIcon open={open} />
+              </button>
+              <button
+                type="button"
+                className="side-rail-chat flex h-10 w-10 shrink-0 items-center justify-center transition-opacity hover:opacity-80"
+                aria-label={tarotChat.trigger}
+                aria-haspopup="dialog"
+                aria-expanded={chatOpen}
+                onClick={() => tarotChatUi.toggle()}
+              >
+                <ChipChatIcon />
               </button>
             </>
           )}

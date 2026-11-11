@@ -1430,8 +1430,10 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   --l-chrome-bg:
     linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 42%),
     rgb(from var(--color-plate) r g b / 0.94);
-  /* Chip menu mobile: verde saturo (non pastello). */
+  /* Chip + dock mobile: stesso verde saturo; icone nero plate. */
   --chip-accent: #1f9d55;
+  --dock-accent: var(--chip-accent);
+  --chrome-icon: var(--color-plate);
 }
 
 @media (min-width: 1280px) {
@@ -1548,7 +1550,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 .side-rail.is-collapsed {
   height: auto;
   bottom: auto;
-  color: #ffffff;
+  color: var(--chrome-icon);
   background: var(--chip-accent);
   border-left: 1px solid rgb(0 0 0 / 0.12);
   box-shadow:
@@ -1558,9 +1560,10 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   backdrop-filter: none;
 }
 
+.side-rail.is-collapsed a,
 .side-rail.is-collapsed .side-rail-toggle,
 .side-rail.is-collapsed .side-rail-chat {
-  color: #ffffff;
+  color: var(--chrome-icon);
 }
 
 /* Con shell app: chip fluttuante verticale sotto la barra, come in Home. */
@@ -1636,15 +1639,15 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
     padding: 0.45rem 0.75rem calc(0.45rem + env(safe-area-inset-bottom, 0px));
     border-radius: 0;
     box-shadow: none;
-    color: var(--color-on-ink);
-    background: var(--l-chrome-bg);
-    -webkit-backdrop-filter: blur(18px) saturate(1.25);
-    backdrop-filter: blur(18px) saturate(1.25);
+    color: var(--chrome-icon);
+    background: var(--dock-accent);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 
   [data-contact-dock] .dock-skin {
     border: 0;
-    border-top: 1px solid rgb(255 255 255 / 0.1);
+    border-top: 1px solid rgb(43 37 35 / 0.12);
     border-radius: 0;
     background: transparent;
     -webkit-mask-image: none;
@@ -1656,15 +1659,15 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
     width: 2.65rem;
     border-radius: 0;
     background: transparent;
-    color: rgb(255 255 255 / 0.78);
+    color: var(--chrome-icon);
     box-shadow: none;
   }
 
   [data-contact-dock] .dock-sphere[data-raised],
   [data-contact-dock] .dock-sphere:hover,
   [data-contact-dock] .dock-sphere:focus-visible {
-    background: rgb(249 248 246 / 0.14);
-    color: rgb(255 255 255 / 0.95);
+    background: rgb(43 37 35 / 0.08);
+    color: var(--chrome-icon);
     box-shadow: none;
   }
 
