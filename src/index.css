@@ -1368,6 +1368,24 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
     0 24px 48px rgb(20 18 16 / 0.28);
 }
 
+.side-rail-toggle {
+  color: rgb(255 255 255 / 0.88);
+}
+
+.side-rail-chevron {
+  transition: transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.side-rail-chevron.is-open {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-rail-chevron {
+    transition: none;
+  }
+}
+
 .side-rail-scrim {
   border: 0;
   background: rgb(43 37 35 / 0.28);
