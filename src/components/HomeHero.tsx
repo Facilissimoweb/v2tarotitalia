@@ -92,7 +92,7 @@ export function HomeHero() {
       <div
         className={
           phone
-            ? "relative mt-[var(--nav-offset)] overflow-hidden border-t border-white/10 bg-plate"
+            ? "relative overflow-hidden bg-plate"
             : "relative mt-[var(--nav-offset)] overflow-hidden border-t border-white/10 bg-plate lg:border-t-0"
         }
       >
@@ -104,7 +104,7 @@ export function HomeHero() {
             height={1467}
             decoding="async"
             fetchPriority="high"
-            className="block aspect-[4/5] max-h-[100svh] w-full object-cover object-center"
+            className="block aspect-[4/5] max-h-[100svh] w-full object-cover object-top"
           />
         ) : (
           <video
