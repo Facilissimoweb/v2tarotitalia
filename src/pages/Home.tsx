@@ -4,6 +4,7 @@ import { Button, Kicker } from "../components/Button";
 import { BrandLogo } from "../components/BrandLogo";
 import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
+import { FaqSchede } from "../components/FaqSchede";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
 import { HomeHero } from "../components/HomeHero";
@@ -45,7 +46,7 @@ export function Home() {
             />
           </Reveal>
           <div className="mt-8 grid items-start gap-16 md:mt-10 md:grid-cols-2 md:gap-20">
-          <div>
+          <div className="min-w-0">
             <Reveal>
               <Kicker>{home.chiSono.kicker}</Kicker>
             </Reveal>
@@ -61,6 +62,12 @@ export function Home() {
                 </p>
               ))}
             </Reveal>
+            <FaqSchede
+              titolo={home.chiSono.faq.titolo}
+              precedente={home.chiSono.faq.precedente}
+              successiva={home.chiSono.faq.successiva}
+              voci={home.chiSono.faq.voci}
+            />
             <Reveal delay={300}>
               <div className="depth-panel mt-10 bg-paper p-8">
                 <SectionBrandMark align="start" />

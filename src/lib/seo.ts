@@ -517,6 +517,9 @@ function jsonLdGraph(page: SeoPage): object[] | null {
   const crumbs = breadcrumbJsonLd(page);
   if (crumbs) graph.push(crumbs);
 
+  if (page.path === "/") {
+    graph.push(faqPageJsonLd("/", home.chiSono.faq.voci));
+  }
   if (page.path === "/consulti") {
     graph.push(consultiServiceJsonLd(), faqPageJsonLd("/consulti", consulti.faq.voci));
   }
