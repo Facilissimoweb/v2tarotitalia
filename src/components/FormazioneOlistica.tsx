@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { siteContent } from "../data/siteContent";
+import { conPeso } from "./Prosa";
 import { WidgetDialog } from "./WidgetDialog";
 
 const { percorsoEsteso } = siteContent.chiSono;
@@ -29,7 +30,7 @@ function FormazioneCards() {
             {voce.icona}
           </span>
           <h3 className="mt-4 font-display text-xl leading-snug text-ivory">{voce.titolo}</h3>
-          <p className="mt-5 flex-1 text-sm leading-[1.85] text-ivory/85">{voce.testo}</p>
+          <p className="mt-5 flex-1 text-sm leading-[1.85] text-ivory/85">{conPeso(voce.testo)}</p>
         </article>
       ))}
     </div>
@@ -42,7 +43,7 @@ export function FormazioneOlisticaBody() {
       <p className="text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsoEsteso.kicker}</p>
       <p className="mt-4 text-center text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{percorsoEsteso.badge}</p>
       <p className="mx-auto mt-5 max-w-2xl text-center text-sm leading-[1.85] text-ink/70">
-        {percorsoEsteso.lead}
+        {conPeso(percorsoEsteso.lead)}
       </p>
       <div className="mt-10">
         <FormazioneCards />

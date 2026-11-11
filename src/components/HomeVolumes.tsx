@@ -1,5 +1,6 @@
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "./Button";
+import { conPeso } from "./Prosa";
 import { Reveal } from "./Reveal";
 
 const { home } = siteContent;
@@ -17,7 +18,7 @@ export function HomeVolumes() {
           >
             {volumi.titolo}
           </h2>
-          <p className="mt-6 max-w-xl text-base leading-[1.85] text-ink/75">{volumi.lead}</p>
+          <p className="mt-6 max-w-xl text-base leading-[1.85] text-ink/75">{conPeso(volumi.lead)}</p>
         </Reveal>
 
         <div className="mt-14 grid gap-8 sm:grid-cols-2 sm:gap-10 lg:max-w-4xl">
@@ -37,7 +38,7 @@ export function HomeVolumes() {
                 <div className="flex flex-1 flex-col p-8 md:p-10">
                   <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{prodotto.kicker}</p>
                   <h3 className="mt-4 font-display text-2xl font-normal leading-snug text-ink">{prodotto.titolo}</h3>
-                  <p className="mt-5 flex-1 text-sm leading-[1.8] text-ink/70">{prodotto.testo}</p>
+                  <p className="mt-5 flex-1 text-sm leading-[1.8] text-ink/70">{conPeso(prodotto.testo)}</p>
                   <div className="mt-8">
                     <Button
                       href={prodotto.href}

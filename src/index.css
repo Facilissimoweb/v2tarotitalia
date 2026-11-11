@@ -655,11 +655,11 @@ h1.font-bellara,
   text-transform: none;
 }
 
-/* Titolo di barra: stesso carattere delle voci del menu. Sul telefono è più raccolto, per stare nella barra senza sbavature. */
+/* Titolo di barra: stesso corsivo pesante di «Tarot Italia» nella hero. Sul telefono è più raccolto, per stare nella barra senza sbavature. */
 .nav-title {
   font-family: "Noto Serif", Georgia, serif;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 900;
   font-size: 1.2rem;
   line-height: 1;
   letter-spacing: 0;
@@ -680,7 +680,7 @@ h1.font-bellara,
   html body .nav-title {
     font-family: "Noto Serif", Georgia, serif;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 900;
     font-size: 2.2rem;
     letter-spacing: 0.01em;
     text-transform: none;

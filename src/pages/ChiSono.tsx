@@ -4,6 +4,7 @@ import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { PageBanner } from "../components/PageBanner";
 import { ImageSlot } from "../components/ImageSlot";
 import { Button, Kicker } from "../components/Button";
+import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { Reveal } from "../components/Reveal";
 import { StackDeck, StackSheet } from "../components/StackSheet";
@@ -42,14 +43,14 @@ export function ChiSono() {
             </Reveal>
             <Reveal delay={200}>
               <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">
-                {chiSono.visione.testo}
+                {conPeso(chiSono.visione.testo)}
               </p>
             </Reveal>
             <Reveal delay={280}>
               <div className="depth-panel mt-12 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  Ricevo su appuntamento in Via Crispi 37, a Macerata, e online tramite chiamata vocale WhatsApp.
+                  {conPeso("Ricevo su appuntamento in Via Crispi 37, a Macerata, e online tramite chiamata vocale WhatsApp.")}
                 </p>
                 <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.piva}</p>
               </div>
@@ -70,12 +71,12 @@ export function ChiSono() {
                   {chiSono.metodo.titolo}
                 </h2>
                 <p className="mt-5 font-display text-xl font-normal leading-snug text-ink/80 md:text-2xl">
-                  {chiSono.metodo.sottotitolo}
+                  {conPeso(chiSono.metodo.sottotitolo)}
                 </p>
               </Reveal>
               <Reveal delay={200}>
-                <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{chiSono.metodo.testo}</p>
-                <p className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">{chiSono.metodo.ponte}</p>
+                <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{conPeso(chiSono.metodo.testo)}</p>
+                <p className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">{conPeso(chiSono.metodo.ponte)}</p>
               </Reveal>
             </div>
             <ImageSlot
@@ -95,8 +96,8 @@ export function ChiSono() {
                   {String(i + 1).padStart(2, "0")}
                 </p>
                 <h3 className="mt-5 font-display text-2xl font-normal leading-snug text-ink">{voce.titolo}</h3>
-                <p className="mt-8 text-base leading-[1.9] text-ink/75">{voce.lettura}</p>
-                <p className="mt-5 text-base leading-[1.9] text-ink/75">{voce.serve}</p>
+                <p className="mt-8 text-base leading-[1.9] text-ink/75">{conPeso(voce.lettura)}</p>
+                <p className="mt-5 text-base leading-[1.9] text-ink/75">{conPeso(voce.serve)}</p>
               </Reveal>
             ))}
           </div>
@@ -126,7 +127,7 @@ export function ChiSono() {
             </h2>
           </Reveal>
           <Reveal delay={200}>
-            <p className="mt-10 text-base leading-[1.9] text-ink/75">{chiSono.etica.testo}</p>
+            <p className="mt-10 text-base leading-[1.9] text-ink/75">{conPeso(chiSono.etica.testo)}</p>
           </Reveal>
         </div>
       </StackSheet>
@@ -143,10 +144,10 @@ export function ChiSono() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{chiSono.formazione.lead}</p>
+              <p className="mt-10 max-w-xl text-base leading-[1.9] text-ink/75">{conPeso(chiSono.formazione.lead)}</p>
               {chiSono.formazione.testi.map((paragrafo) => (
                 <p key={paragrafo.slice(0, 48)} className="mt-8 max-w-xl text-base leading-[1.9] text-ink/75">
-                  {paragrafo}
+                  {conPeso(paragrafo)}
                 </p>
               ))}
             </Reveal>
@@ -170,7 +171,7 @@ export function ChiSono() {
             {chiSono.percorsoDisciplinare.map((item, i) => (
               <Reveal key={item.titolo} as="li" delay={i * 80} className="grid gap-3 py-10 md:grid-cols-[1fr_1fr] md:gap-16">
                 <p className="font-display text-xl text-ink">{item.titolo}</p>
-                <p className="text-sm leading-relaxed text-ink/65 md:text-right">{item.dettaglio}</p>
+                <p className="text-sm leading-relaxed text-ink/65 md:text-right">{conPeso(item.dettaglio)}</p>
               </Reveal>
             ))}
           </ul>

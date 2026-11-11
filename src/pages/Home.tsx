@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
+import { BrandLogo } from "../components/BrandLogo";
+import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { FormazioneOlisticaModal } from "../components/FormazioneOlistica";
 import { GoogleReviews } from "../components/GoogleReviews";
@@ -38,7 +40,14 @@ export function Home() {
 
       <StackDeck>
       <StackSheet label={nav.chiSono} className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto grid max-w-6xl items-start gap-16 md:grid-cols-2 md:gap-20">
+        <div className="mx-auto max-w-6xl">
+          <Reveal>
+            <BrandLogo
+              tone="hero"
+              className="logo-hero-ring h-[5.5rem] w-[5.5rem] md:h-24 md:w-24"
+            />
+          </Reveal>
+          <div className="mt-8 grid items-start gap-16 md:mt-10 md:grid-cols-2 md:gap-20">
           <div>
             <Reveal>
               <Kicker>{home.chiSono.kicker}</Kicker>
@@ -59,10 +68,14 @@ export function Home() {
               <div className="depth-panel mt-10 bg-paper p-8">
                 <SectionBrandMark align="start" />
                 <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  {brand.titolare} · Tarologa
+                  {conPeso(`${brand.titolare} · Tarologa`)}
                 </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.studioDiTeresa}</p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">{brand.deontologia}</p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">
+                  {conPeso(brand.studioDiTeresa)}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-ink/65">
+                  {conPeso(brand.deontologia)}
+                </p>
               </div>
             </Reveal>
             <Reveal delay={400}>
@@ -85,6 +98,7 @@ export function Home() {
             ratio="portrait"
             fit="contain"
           />
+          </div>
         </div>
       </StackSheet>
 
@@ -119,7 +133,7 @@ export function Home() {
                         featured ? "text-on-ink/75" : "text-ink/70"
                       }`}
                     >
-                      {lettura.testo}
+                      {conPeso(lettura.testo)}
                     </p>
                     <div className="mt-10">
                       <Button
@@ -168,7 +182,7 @@ export function Home() {
                     </h2>
                   </Reveal>
                   <Reveal delay={80}>
-                    <p className="text-base leading-[1.75] text-ink/75">{home.visione.lead}</p>
+                    <p className="text-base leading-[1.75] text-ink/75">{conPeso(home.visione.lead)}</p>
                   </Reveal>
                 </div>
                 <div className="mt-14 grid gap-8 lg:grid-cols-3">
@@ -179,7 +193,7 @@ export function Home() {
                           {String(i + 1).padStart(2, "0")}
                         </p>
                         <h3 className="mt-4 font-display text-xl leading-snug text-ink">{pilastro.titolo}</h3>
-                        <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{pilastro.testo}</p>
+                        <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">{conPeso(pilastro.testo)}</p>
                         <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">
                           {pilastro.etichetta}
                         </p>
@@ -228,7 +242,7 @@ export function Home() {
               </h2>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-5 text-base leading-[1.75] text-ink/70">{home.passaggi.testo}</p>
+              <p className="mt-5 text-base leading-[1.75] text-ink/70">{conPeso(home.passaggi.testo)}</p>
             </Reveal>
             <Reveal delay={300}>
               <div className="mt-10">

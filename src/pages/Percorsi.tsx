@@ -5,6 +5,7 @@ import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
 import { Reveal } from "../components/Reveal";
 import { StackDeck, StackSheet } from "../components/StackSheet";
+import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
 
 const { brand, chiSono, cta, nav, pages, percorsi } = siteContent;
@@ -33,13 +34,13 @@ export function Percorsi() {
             </h2>
           </Reveal>
           <Reveal delay={160}>
-            <p className="mt-8 text-base leading-[1.9] text-ink/75">{percorsi.descrizione}</p>
+            <p className="mt-8 text-base leading-[1.9] text-ink/75">{conPeso(percorsi.descrizione)}</p>
           </Reveal>
           <Reveal delay={220}>
-            <p className="mt-6 text-base leading-[1.9] text-ink/70">{percorsi.intro}</p>
+            <p className="mt-6 text-base leading-[1.9] text-ink/70">{conPeso(percorsi.intro)}</p>
           </Reveal>
           <Reveal delay={250}>
-            <p className="mt-6 text-base leading-[1.9] text-ink/75">{percorsi.mediazione}</p>
+            <p className="mt-6 text-base leading-[1.9] text-ink/75">{conPeso(percorsi.mediazione)}</p>
           </Reveal>
         </div>
       </StackSheet>
@@ -60,7 +61,7 @@ export function Percorsi() {
                   <h3 className="mt-5 min-h-[2lh] font-display text-xl leading-snug text-ink lg:min-h-0 lg:text-[1.35rem]">
                     {tipo.titolo}
                   </h3>
-                  <p className="mt-6 min-h-[7lh] flex-1 text-sm leading-[1.9] text-ink/70 lg:min-h-0">{tipo.testo}</p>
+                  <p className="mt-6 min-h-[7lh] flex-1 text-sm leading-[1.9] text-ink/70 lg:min-h-0">{conPeso(tipo.testo)}</p>
                   <div className="mt-10">
                     <Button
                       variant="ghost"
@@ -82,14 +83,14 @@ export function Percorsi() {
       <StackSheet label={nav.percorsi} className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <Reveal>
           <blockquote className="mx-auto max-w-lg border-l-2 border-ember pl-8">
-            <p className="font-display text-xl italic leading-relaxed text-ink">«{percorsi.citazione}»</p>
+            <p className="font-display text-xl italic leading-relaxed text-ink">«{conPeso(percorsi.citazione)}»</p>
           </blockquote>
         </Reveal>
         <Reveal delay={120}>
           <div className="depth-panel mx-auto mt-20 max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
             <SectionBrandMark />
-            <p className="mt-8 text-sm leading-[1.9] text-ink/70">{brand.deontologia}</p>
-            <p className="mt-6 text-sm leading-[1.9] text-ink/65">{percorsi.chiacchierata}</p>
+            <p className="mt-8 text-sm leading-[1.9] text-ink/70">{conPeso(brand.deontologia)}</p>
+            <p className="mt-6 text-sm leading-[1.9] text-ink/65">{conPeso(percorsi.chiacchierata)}</p>
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
               <Button className="ti-btn-plain" onClick={() => openPercorso()}>{cta.prenotaPercorso}</Button>
               <Button to="/consulti" variant="ghost" className="ti-btn-plain">
