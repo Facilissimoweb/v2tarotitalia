@@ -19,13 +19,11 @@ type Props = {
 };
 
 /**
- * Navbar laterale mobile a destra: occhio + freccia.
- * In Home la chip fluttua e può scomparire allo scroll; nelle altre pagine
- * si allinea alla shell app (barra wordmark) e resta fissa.
+ * Navbar laterale mobile a destra: chip fluttuante verticale (occhio + freccia).
+ * Stessa forma in Home e nelle altre pagine. Scompare allo scroll in basso.
  */
 export function MobileSideRail({ open, onOpenChange }: Props) {
   const { pathname } = useLocation();
-  const appShell = pathname !== "/";
   const [away, setAway] = useState(false);
 
   useEffect(() => {
@@ -48,7 +46,7 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
   }, [open, onOpenChange]);
 
   useEffect(() => {
-    if (open || appShell) {
+    if (open) {
       setAway(false);
       return;
     }
@@ -70,7 +68,7 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [open, appShell]);
+  }, [open]);
 
   return (
     <div className="xl:hidden" data-mobile-side-rail>
@@ -90,12 +88,8 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
         aria-label={nav.menu}
       >
         <div
-          className={`flex ${
-            open
-              ? "items-center gap-3 px-2.5 pt-1.5"
-              : appShell
-                ? "h-full flex-row items-center justify-center gap-0 px-0.5"
-                : "flex-col items-center gap-1.5 px-0.5 pt-1.5"
+          className={`flex pt-1.5 ${
+            open ? "items-center gap-3 px-2.5" : "flex-col items-center gap-1.5 px-0.5"
           }`}
         >
           {open ? (
@@ -113,13 +107,11 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
           <NavLink
             to="/"
             end
-            className={`flex shrink-0 items-center justify-center ${
-              open ? "h-11 w-11" : appShell ? "h-7 w-7" : "h-9 w-9"
-            }`}
+            className={`flex shrink-0 items-center justify-center ${open ? "h-11 w-11" : "h-9 w-9"}`}
             aria-label={nav.home}
             onClick={() => onOpenChange(false)}
           >
-            <BrandLogo tone="nav" className={open ? "h-8 w-auto" : appShell ? "h-6 w-auto" : "h-7 w-auto"} />
+            <BrandLogo tone="nav" className={open ? "h-8 w-auto" : "h-7 w-auto"} />
           </NavLink>
           {open ? (
             <div className="side-rail-copy min-w-0 flex-1">
@@ -131,15 +123,13 @@ export function MobileSideRail({ open, onOpenChange }: Props) {
           ) : (
             <button
               type="button"
-              className={`side-rail-toggle flex shrink-0 items-center justify-center text-on-ink transition-colors hover:text-on-ink/80 ${
-                appShell ? "h-8 w-7" : "h-10 w-10"
-              }`}
+              className="side-rail-toggle flex h-10 w-10 shrink-0 items-center justify-center text-on-ink transition-colors hover:text-on-ink/80"
               aria-expanded={open}
               aria-controls="side-rail-nav"
               aria-label={nav.menu}
               onClick={() => onOpenChange(true)}
             >
-              <ExpandIcon open={open} compact={appShell} />
+              <ExpandIcon open={open} />
             </button>
           )}
         </div>
@@ -375,12 +365,11 @@ function BagIcon() {
   );
 }
 
-function ExpandIcon({ open, compact = false }: { open: boolean; compact?: boolean }) {
-  const size = compact ? 18 : 22;
+function ExpandIcon({ open }: { open: boolean }) {
   return (
     <svg
-      width={size}
-      height={size}
+      width="22"
+      height="22"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

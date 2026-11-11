@@ -1341,7 +1341,6 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
   [data-l-chrome][data-app-shell="on"] {
     --nav-offset: calc(var(--app-bar-h) + env(safe-area-inset-top, 0px));
-    --side-rail-w: 3.35rem;
   }
 }
 
@@ -1357,7 +1356,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   align-items: center;
   padding-top: env(safe-area-inset-top, 0px);
   padding-left: 1rem;
-  padding-right: calc(var(--side-rail-w) + 0.35rem);
+  padding-right: 1rem;
   color: var(--color-on-ink);
   background: var(--l-chrome-bg);
   border-bottom: 1px solid rgb(255 255 255 / 0.1);
@@ -1418,16 +1417,10 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   bottom: auto;
 }
 
-/* Con shell app: la chip chiusa si fonde nella barra superiore. */
+/* Con shell app: chip fluttuante verticale sotto la barra, come in Home. */
 @media (max-width: 1279px) {
   [data-app-shell="on"] .side-rail.is-collapsed {
-    top: env(safe-area-inset-top, 0px);
-    height: var(--app-bar-h);
-    padding: 0;
-    border-left: 1px solid rgb(255 255 255 / 0.12);
-    border-bottom: 1px solid rgb(255 255 255 / 0.1);
-    box-shadow: none;
-    background: transparent;
+    top: calc(var(--nav-offset) + 0.45rem);
   }
 }
 

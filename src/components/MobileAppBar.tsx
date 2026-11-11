@@ -5,7 +5,7 @@ const { brand, nav } = siteContent;
 
 /**
  * Shell app mobile (escl. Home): barra fissa con wordmark.
- * La chip menu resta sul bordo destro e si allinea a questa barra.
+ * Il menu resta la chip fluttuante verticale a destra (come in Home).
  */
 export function MobileAppBar() {
   const { pathname } = useLocation();
