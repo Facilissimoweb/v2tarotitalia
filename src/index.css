@@ -3682,20 +3682,33 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
 }
 
 /* Pannelli contenuto: meno soft-UI, più file tipografico. */
-[data-edition="gazette"] .depth-panel {
-  border: 1px solid var(--edition-border);
-  border-radius: 0;
-  box-shadow: none;
-}
-
+[data-edition="gazette"] .depth-panel,
 [data-edition="gazette"] .depth-card {
   border: 1px solid var(--edition-border);
   border-radius: 0;
   box-shadow: none;
+  background: var(--color-paper);
+}
+
+[data-edition="gazette"] .depth-panel::after,
+[data-edition="gazette"] .depth-card::before {
+  display: none;
+}
+
+[data-edition="gazette"] h3.font-display,
+[data-edition="gazette"] h4.font-display {
+  font-family: var(--font-h3);
+  font-style: normal;
+  letter-spacing: 0.01em;
 }
 
 [data-edition="gazette"] .section-copy-head {
   border-left-color: rgb(from var(--color-ink) r g b / 0.28);
+}
+
+/* Banner interno: nameplate Gazette. */
+[data-edition="gazette"] [data-page-top] h1 {
+  font-family: var(--font-h2);
 }
 
 [data-edition="gazette"] .edition-sheet {

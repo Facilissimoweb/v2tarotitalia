@@ -26,39 +26,42 @@ export function HomeVolumes() {
           </SectionCopy>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 sm:gap-8 md:mt-14">
+        <ol className="edition-leaders mt-12 md:mt-14">
           {volumi.prodotti.map((prodotto, index) => (
-            <Reveal key={prodotto.id} delay={index * 80} className="h-full">
-              <article className="depth-card flex h-full flex-col">
-                <div className="depth-card__well bg-paper">
-                  <img
-                    src={prodotto.copertina}
-                    alt={prodotto.titolo}
-                    width={prodotto.larghezza}
-                    height={prodotto.altezza}
-                    className="depth-card__art block h-auto w-full"
-                    draggable={false}
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-8 md:p-10">
-                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">{prodotto.kicker}</p>
-                  <h3 className="mt-4 font-display text-2xl font-normal leading-snug text-ink">{prodotto.titolo}</h3>
-                  <p className="mt-5 flex-1 text-sm leading-[1.8] text-ink/70">{conPeso(prodotto.testo)}</p>
-                  <div className="mt-8">
+            <Reveal key={prodotto.id} delay={index * 80} as="li">
+              <div className="edition-leaders__row items-start gap-y-4 py-6 md:gap-x-8">
+                <span className="edition-leaders__n">{String(index + 1).padStart(2, "0")}</span>
+                <div className="min-w-0 flex-1 basis-[min(100%,18rem)] sm:basis-auto">
+                  <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
+                    {prodotto.kicker}
+                  </p>
+                  <h3 className="edition-leaders__title mt-2 block">{prodotto.titolo}</h3>
+                  <p className="edition-note__body mt-4">{conPeso(prodotto.testo)}</p>
+                  <div className="mt-6">
                     <Button
                       href={prodotto.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full"
+                      variant="ghost"
                     >
                       {volumi.acquista}
                     </Button>
                   </div>
                 </div>
-              </article>
+                <div className="w-full max-w-[11rem] shrink-0 border border-ink/15 bg-paper sm:ms-auto">
+                  <img
+                    src={prodotto.copertina}
+                    alt={prodotto.titolo}
+                    width={prodotto.larghezza}
+                    height={prodotto.altezza}
+                    className="block h-auto w-full"
+                    draggable={false}
+                  />
+                </div>
+              </div>
             </Reveal>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

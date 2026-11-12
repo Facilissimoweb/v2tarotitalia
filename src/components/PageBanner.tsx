@@ -44,19 +44,21 @@ export function PageBanner({
       data-page-top
       className={`pl-6 pr-[calc(var(--side-rail-w)+0.85rem)] pt-[calc(var(--nav-offset)+1.25rem)] text-ink md:pl-10 md:pr-[calc(var(--side-rail-w)+1.1rem)] md:pt-[calc(var(--nav-offset)+1.75rem)] xl:px-10 ${className}`.trim()}
     >
-      <div className="mx-auto max-w-6xl">
+      <div className="page-shell">
         {eyebrow ? (
           <p className="mb-3 text-[0.625rem] font-semibold uppercase tracking-[0.18em] text-ember-soft">
             {eyebrow}
           </p>
         ) : null}
-        <h1 className="font-h1 text-h1">{title}</h1>
+        <h1 className="font-display text-[clamp(2rem,6vw,3.25rem)] font-bold leading-[0.95] tracking-[-0.01em]">
+          {title}
+        </h1>
         {subtitle ? (
-          <p className="section-prose section-prose--lead mt-4 max-w-3xl md:text-[1.125rem]">
+          <p className="section-prose section-prose--lead mt-5">
             {typeof subtitle === "string" ? conPeso(subtitle) : subtitle}
           </p>
         ) : null}
-        <span aria-hidden className="mt-8 block h-0.5 w-10 bg-terra" />
+        <span aria-hidden className="mt-8 block h-[3px] w-full max-w-none bg-ink" />
       </div>
     </header>
   );
