@@ -3,6 +3,7 @@ import { Kicker } from "./Button";
 import { LegalCopy } from "./LegalNotice";
 import { MailToLink } from "./MailToLink";
 import { Reveal } from "./Reveal";
+import { SectionCopy } from "./SectionCopy";
 import { StackSheet } from "./StackSheet";
 
 const { brand, legal } = siteContent;
@@ -12,17 +13,19 @@ export function BrandSafetyNote() {
   return (
     <StackSheet label={tutela.kicker} className="bg-mist px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-5xl">
-        <Reveal>
-          <Kicker>{tutela.kicker}</Kicker>
-          <h2 className="mt-4 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-            {tutela.titolo}
-          </h2>
-        </Reveal>
-        <Reveal delay={80}>
-          <p className="mt-8 max-w-3xl text-base leading-[1.9] text-ink/75">
-            <LegalCopy>{tutela.intro}</LegalCopy>
-          </p>
-        </Reveal>
+        <SectionCopy className="max-w-3xl">
+          <Reveal>
+            <Kicker>{tutela.kicker}</Kicker>
+            <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+              {tutela.titolo}
+            </h2>
+          </Reveal>
+          <Reveal delay={80}>
+            <p className="section-prose section-prose--lead">
+              <LegalCopy>{tutela.intro}</LegalCopy>
+            </p>
+          </Reveal>
+        </SectionCopy>
         <div className="mt-14 grid gap-8 md:grid-cols-2">
           {tutela.punti.map((punto, i) => (
             <Reveal key={punto.titolo} delay={i * 80}>

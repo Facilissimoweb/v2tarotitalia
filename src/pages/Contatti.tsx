@@ -6,6 +6,7 @@ import { SectionBrandMark } from "../components/WidgetFrame";
 import { MailToLink } from "../components/MailToLink";
 import { PageBanner } from "../components/PageBanner";
 import { Reveal } from "../components/Reveal";
+import { SectionCopy } from "../components/SectionCopy";
 import { SectionRails } from "../components/SectionRails";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { openMailto } from "../lib/mailto";
@@ -90,10 +91,12 @@ export function Contatti() {
         <SectionRails className="mx-auto max-w-6xl items-start">
           <Reveal>
             <article>
-              <Kicker>{copy.moduloKicker}</Kicker>
-              <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {copy.moduloTitolo}
-              </h2>
+              <SectionCopy>
+                <Kicker>{copy.moduloKicker}</Kicker>
+                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                  {copy.moduloTitolo}
+                </h2>
+              </SectionCopy>
               <ContactForm />
             </article>
           </Reveal>
