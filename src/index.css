@@ -3427,3 +3427,208 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
   animation: none;
   transform: none;
 }
+
+/* —— Home edition (prova Gazette): regole tipografiche, sommario a file —— */
+[data-home-edition="gazette"] {
+  /* Stessi volti di Gazette: Literata (prosa), Archivo (UI), Bodoni Moda (copertina). */
+  --font-body: "Literata", Georgia, "Noto Serif", serif;
+  --font-h1: "Archivo", "Helvetica Neue", "Noto Sans JP", system-ui, sans-serif;
+  --font-h2: "Bodoni Moda", Didot, Georgia, "Noto Serif", serif;
+  --font-h3: "Archivo", "Helvetica Neue", system-ui, sans-serif;
+  --font-display: "Bodoni Moda", Didot, Georgia, serif;
+  --edition-border: rgb(from var(--color-ink) r g b / 0.14);
+  --edition-rule: rgb(from var(--color-ink) r g b / 0.88);
+  --edition-muted: rgb(from var(--color-ink) r g b / 0.55);
+  --edition-leader: rgb(from var(--color-ink) r g b / 0.35);
+}
+
+[data-home-edition="gazette"] {
+  font-family: var(--font-body);
+}
+
+[data-home-edition="gazette"] :where(h1, h2, h3, .font-display) {
+  font-family: var(--font-display);
+}
+
+[data-home-edition="gazette"] .edition-section__title,
+[data-home-edition="gazette"] .edition-cover__kicker,
+[data-home-edition="gazette"] .edition-cover__trail,
+[data-home-edition="gazette"] .edition-leaders__n,
+[data-home-edition="gazette"] .edition-leaders__trail,
+[data-home-edition="gazette"] .edition-note__sign {
+  font-family: var(--font-h1);
+}
+
+[data-home-edition="gazette"] .edition-shell {
+  width: min(100% - 2rem, 64rem);
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+[data-home-edition="gazette"] .edition-cover {
+  background: var(--color-mist);
+  color: var(--color-ink);
+  padding: 1.5rem 1.35rem 1.75rem;
+}
+
+@media (min-width: 640px) {
+  [data-home-edition="gazette"] .edition-cover {
+    padding: 2.5rem 2.75rem 2.75rem;
+  }
+}
+
+[data-home-edition="gazette"] .edition-cover__kicker {
+  font-family: var(--font-h1);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--edition-muted);
+}
+
+[data-home-edition="gazette"] .edition-cover__line {
+  margin-top: 0.55rem;
+  max-width: 22ch;
+  font-family: var(--font-h2);
+  font-size: clamp(1.65rem, 4.5vw, 2.75rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+[data-home-edition="gazette"] .edition-cover__trail {
+  margin-top: 1.35rem;
+  font-family: var(--font-h1);
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--edition-muted);
+}
+
+[data-home-edition="gazette"] .edition-section {
+  padding-block: 2.75rem 0.25rem;
+}
+
+@media (min-width: 640px) {
+  [data-home-edition="gazette"] .edition-section {
+    padding-block: 3.5rem 0.5rem;
+  }
+}
+
+[data-home-edition="gazette"] .edition-section__title {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-h1);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--color-ink);
+}
+
+[data-home-edition="gazette"] .edition-section__title .tabular {
+  color: var(--edition-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+[data-home-edition="gazette"] .edition-leaders {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--edition-rule);
+}
+
+[data-home-edition="gazette"] .edition-leaders > li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.65rem;
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--edition-border);
+}
+
+[data-home-edition="gazette"] .edition-leaders__n {
+  width: 2rem;
+  flex-shrink: 0;
+  font-family: var(--font-h1);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--edition-muted);
+}
+
+[data-home-edition="gazette"] .edition-leaders__title {
+  font-family: var(--font-h2);
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-ink);
+  text-decoration: none;
+}
+
+[data-home-edition="gazette"] .edition-leaders__title:hover {
+  color: var(--color-ember);
+}
+
+[data-home-edition="gazette"] .edition-leaders__fill {
+  flex: 1 1 auto;
+  min-width: 1.5rem;
+  align-self: flex-end;
+  margin-bottom: 0.28em;
+  border-bottom: 2px dotted var(--edition-leader);
+}
+
+@media (max-width: 639px) {
+  [data-home-edition="gazette"] .edition-leaders__fill {
+    display: none;
+  }
+}
+
+[data-home-edition="gazette"] .edition-leaders__trail {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-family: var(--font-h1);
+  font-size: 0.8125rem;
+  color: var(--edition-muted);
+}
+
+@media (max-width: 639px) {
+  [data-home-edition="gazette"] .edition-leaders__trail {
+    flex-basis: 100%;
+    margin-left: 2.65rem;
+  }
+}
+
+[data-home-edition="gazette"] .edition-note {
+  max-width: 42rem;
+  border-top: 1px solid var(--edition-rule);
+  padding-top: 1rem;
+}
+
+[data-home-edition="gazette"] .edition-note p {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-ink);
+}
+
+[data-home-edition="gazette"] .edition-note__sign {
+  margin-top: 0.85rem;
+  font-family: var(--font-h1);
+  font-size: 0.875rem;
+  color: var(--edition-muted);
+}
+
+[data-home-edition="gazette"] .edition-sheet {
+  background: var(--color-ivory);
+}
+
+[data-home-edition="gazette"] .edition-sheet--mist {
+  background: var(--color-mist);
+}
+
+[data-home-edition="gazette"] .edition-sheet--paper {
+  background: var(--color-paper);
+}
+
+/* Nella prova Gazette la griglia neumorphic lascia spazio al sommario. */
+[data-home-edition="gazette"] .home-action-grid {
+  display: none;
+}

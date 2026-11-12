@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
@@ -8,113 +8,35 @@ const { brand, chiSono, home, nav, pages } = siteContent;
 
 const titolo = home.titolo;
 
-/** Stesse icone del menù mobile (MobileSideRail). */
-function PersonIcon() {
-  return (
-    <svg
-      className="home-action-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <circle cx="12" cy="8" r="3.2" />
-      <path d="M5.5 19.5 C7 16.8 9.2 15.4 12 15.4 C14.8 15.4 17 16.8 18.5 19.5" />
-    </svg>
-  );
-}
-
-function ConsultiIcon() {
-  return (
-    <svg
-      className="home-action-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M7 4 H15 L17 6 V20 H7 Z" />
-      <path d="M9 8 H13 M9 12 H13 M9 16 H11" />
-    </svg>
-  );
-}
-
-function PathIcon() {
-  return (
-    <svg
-      className="home-action-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M5 19 C5 12 10 12 12 8 C14 12 19 12 19 19" />
-      <circle cx="12" cy="5" r="2" />
-    </svg>
-  );
-}
-
-function BlogIcon() {
-  return (
-    <svg
-      className="home-action-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M5 5 H19 V19 H5 Z" />
-      <path d="M8 9 H16 M8 12 H16 M8 15 H13" />
-    </svg>
-  );
-}
-
 const azioni: ReadonlyArray<{
   n: string;
   titolo: string;
   testo: string;
   to: string;
-  icon: ReactNode;
 }> = [
   {
     n: "01",
     titolo: nav.chiSono,
     testo: chiSono.sottotitolo,
     to: "/chi-sono",
-    icon: <PersonIcon />,
   },
   {
     n: "02",
     titolo: nav.consulti,
     testo: home.percorsi.letture[0].testo,
     to: "/consulti",
-    icon: <ConsultiIcon />,
   },
   {
     n: "03",
     titolo: nav.percorsi,
     testo: pages.percorsi.titolo,
     to: "/percorsi",
-    icon: <PathIcon />,
   },
   {
     n: "04",
     titolo: nav.blog,
     testo: pages.blog.leggi,
     to: "/blog",
-    icon: <BlogIcon />,
   },
 ];
 
@@ -192,7 +114,7 @@ export function HomeHero() {
         ) : (
           <video
             ref={filmRef}
-            className="block h-[calc(100svh-var(--nav-offset)-19.5rem)] max-h-[48rem] min-h-[22rem] w-full object-cover object-center"
+            className="block h-[calc(100svh-var(--nav-offset)-8rem)] max-h-[42rem] min-h-[22rem] w-full object-cover object-center"
             src="/video/TAROT.mp4"
             poster="/video/TAROT-poster.webp"
             width={1280}
@@ -239,24 +161,35 @@ export function HomeHero() {
         </div>
       </div>
 
-      <div className="home-action-grid relative z-[2] grid grid-cols-2 xl:grid-cols-4">
-        {azioni.map((azione) => (
-          <NavLink
-            key={azione.n}
-            to={azione.to}
-            className="home-action-btn group flex flex-col text-ink"
-          >
-            <span className="home-action-top">
-              <span className="home-action-index">{azione.n}</span>
-              <span className="home-action-glyph" aria-hidden>
-                {azione.icon}
-              </span>
-            </span>
-            <span className="home-action-title">{azione.titolo}</span>
-            <span className="home-action-copy">{azione.testo}</span>
-          </NavLink>
-        ))}
+      {/* Copertina + sommario (ritmo Gazette), al posto delle card neumorphic. */}
+      <div className="relative z-[2] w-full bg-ivory pb-6 text-ink sm:pb-10">
+        <div className="edition-shell">
+          <div className="edition-cover mt-0">
+            <p className="edition-cover__kicker">{home.edition.inCopertina}</p>
+            <p className="edition-cover__line">{home.benvenuto}</p>
+            <p className="edition-cover__trail">{home.competenze}</p>
+          </div>
+
+          <section className="edition-section px-1" aria-labelledby="edition-contents">
+            <h2 id="edition-contents" className="edition-section__title">
+              {home.edition.inQuestoNumero}
+            </h2>
+            <ol className="edition-leaders">
+              {azioni.map((azione) => (
+                <li key={azione.n}>
+                  <span className="edition-leaders__n">{azione.n}</span>
+                  <NavLink to={azione.to} className="edition-leaders__title">
+                    {azione.titolo}
+                  </NavLink>
+                  <span className="edition-leaders__fill" aria-hidden />
+                  <span className="edition-leaders__trail">{azione.testo}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </div>
       </div>
+
     </section>
   );
 }
