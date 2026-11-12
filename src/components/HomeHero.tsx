@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
@@ -8,113 +8,35 @@ const { brand, chiSono, home, nav, pages } = siteContent;
 
 const titolo = home.titolo;
 
-/** Stesse icone del menù mobile (MobileSideRail). */
-function PersonIcon() {
-  return (
-    <svg
-      className="home-action-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <circle cx="12" cy="8" r="3.2" />
-      <path d="M5.5 19.5 C7 16.8 9.2 15.4 12 15.4 C14.8 15.4 17 16.8 18.5 19.5" />
-    </svg>
-  );
-}
-
-function ConsultiIcon() {
-  return (
-    <svg
-      className="home-action-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M7 4 H15 L17 6 V20 H7 Z" />
-      <path d="M9 8 H13 M9 12 H13 M9 16 H11" />
-    </svg>
-  );
-}
-
-function PathIcon() {
-  return (
-    <svg
-      className="home-action-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M5 19 C5 12 10 12 12 8 C14 12 19 12 19 19" />
-      <circle cx="12" cy="5" r="2" />
-    </svg>
-  );
-}
-
-function BlogIcon() {
-  return (
-    <svg
-      className="home-action-icon"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M5 5 H19 V19 H5 Z" />
-      <path d="M8 9 H16 M8 12 H16 M8 15 H13" />
-    </svg>
-  );
-}
-
 const azioni: ReadonlyArray<{
   n: string;
   titolo: string;
   testo: string;
   to: string;
-  icon: ReactNode;
 }> = [
   {
     n: "01",
     titolo: nav.chiSono,
     testo: chiSono.sottotitolo,
     to: "/chi-sono",
-    icon: <PersonIcon />,
   },
   {
     n: "02",
     titolo: nav.consulti,
     testo: home.percorsi.letture[0].testo,
     to: "/consulti",
-    icon: <ConsultiIcon />,
   },
   {
     n: "03",
     titolo: nav.percorsi,
     testo: pages.percorsi.titolo,
     to: "/percorsi",
-    icon: <PathIcon />,
   },
   {
     n: "04",
     titolo: nav.blog,
     testo: pages.blog.leggi,
     to: "/blog",
-    icon: <BlogIcon />,
   },
 ];
 
