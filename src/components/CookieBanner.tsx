@@ -122,14 +122,9 @@ function CookieRow({
           aria-checked={on}
           aria-label={title}
           onClick={() => onChange?.(!on)}
-          className={`relative mt-1 h-7 w-12 shrink-0 ${on ? "bg-ember" : "bg-plate"}`}
+          className="cookie-switch mt-1"
         >
-          <span
-            className={`absolute top-0.5 h-6 w-6 transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
-              on ? "bg-ivory" : "bg-ivory"
-            }`}
-            style={{ transform: on ? "translate3d(1.35rem, 0, 0)" : "translate3d(0.15rem, 0, 0)" }}
-          />
+          <span className="cookie-switch__knob" />
         </button>
       )}
     </div>
