@@ -3430,10 +3430,33 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
 
 /* —— Home edition (prova Gazette): regole tipografiche, sommario a file —— */
 [data-home-edition="gazette"] {
+  /* Stessi volti di Gazette: Literata (prosa), Archivo (UI), Bodoni Moda (copertina). */
+  --font-body: "Literata", Georgia, "Noto Serif", serif;
+  --font-h1: "Archivo", "Helvetica Neue", "Noto Sans JP", system-ui, sans-serif;
+  --font-h2: "Bodoni Moda", Didot, Georgia, "Noto Serif", serif;
+  --font-h3: "Archivo", "Helvetica Neue", system-ui, sans-serif;
+  --font-display: "Bodoni Moda", Didot, Georgia, serif;
   --edition-border: rgb(from var(--color-ink) r g b / 0.14);
   --edition-rule: rgb(from var(--color-ink) r g b / 0.88);
   --edition-muted: rgb(from var(--color-ink) r g b / 0.55);
   --edition-leader: rgb(from var(--color-ink) r g b / 0.35);
+}
+
+[data-home-edition="gazette"] {
+  font-family: var(--font-body);
+}
+
+[data-home-edition="gazette"] :where(h1, h2, h3, .font-display) {
+  font-family: var(--font-display);
+}
+
+[data-home-edition="gazette"] .edition-section__title,
+[data-home-edition="gazette"] .edition-cover__kicker,
+[data-home-edition="gazette"] .edition-cover__trail,
+[data-home-edition="gazette"] .edition-leaders__n,
+[data-home-edition="gazette"] .edition-leaders__trail,
+[data-home-edition="gazette"] .edition-note__sign {
+  font-family: var(--font-h1);
 }
 
 [data-home-edition="gazette"] .edition-shell {

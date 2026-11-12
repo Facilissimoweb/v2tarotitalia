@@ -172,8 +172,7 @@ export function HomeHero() {
 
           <section className="edition-section px-1" aria-labelledby="edition-contents">
             <h2 id="edition-contents" className="edition-section__title">
-              {home.edition.inQuestoNumero}{" "}
-              <span className="tabular">({azioni.length})</span>
+              {home.edition.inQuestoNumero}
             </h2>
             <ol className="edition-leaders">
               {azioni.map((azione) => (

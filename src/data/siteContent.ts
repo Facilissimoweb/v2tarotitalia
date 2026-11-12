@@ -145,7 +145,7 @@ export const siteContent = {
     /* Prova Home stile Gazette: etichette di sommario (non claim di brand). */
     edition: {
       inCopertina: "In copertina",
-      inQuestoNumero: "In questo numero",
+      inQuestoNumero: "Menù",
       dallaFondatrice: "Dalla fondatrice",
     },
     chiSono: {
