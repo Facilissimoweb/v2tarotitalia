@@ -860,7 +860,7 @@ h3 {
 
 /*
  * Prosa di sezione = ritmo Gazette (Literata, un corpo, aria tra i capoversi).
- * Filetto spezzato: testa (.section-copy-head), poi un tratto per paragrafo.
+ * Niente filetti verticali: Gazette usa solo regole orizzontali.
  */
 .section-copy {
   display: flex;
@@ -871,14 +871,8 @@ h3 {
 }
 
 .section-copy-head {
-  border-left: 7px solid rgb(from var(--color-ink) r g b / 0.7);
-  padding-left: 1.05rem;
-}
-
-@media (min-width: 768px) {
-  .section-copy-head {
-    padding-left: 1.35rem;
-  }
+  border-left: 0;
+  padding-left: 0;
 }
 
 .section-copy :where(h2) {
@@ -891,19 +885,10 @@ h3 {
 .section-copy :where(dd.section-prose),
 .section-copy :where(p.text-base) {
   margin-top: 0;
-  border-left: 3px solid rgb(from var(--color-ink) r g b / 0.45);
-  padding-left: 1.05rem;
+  border-left: 0;
+  padding-left: 0;
 }
 
-@media (min-width: 768px) {
-  .section-copy :where(.section-prose),
-  .section-copy :where(dd.section-prose),
-  .section-copy :where(p.text-base) {
-    padding-left: 1.35rem;
-  }
-}
-
-/* Spezza il filetto tra un paragrafo e il successivo. */
 .section-copy :where(.section-prose + .section-prose),
 .section-copy :where(p.text-base + p.text-base) {
   margin-top: 1.15rem;
@@ -956,60 +941,25 @@ h3 {
   color: var(--color-ember-soft);
 }
 
-/* Mobile: filetto orizzontale tra i blocchi. Desktop: filetto verticale. */
+/* Griglia sezioni: gap, niente filetti verticali (Gazette). */
 .section-rails {
   display: grid;
-  gap: 0;
+  gap: 2.5rem;
 }
 
 .section-rails > * {
   min-width: 0;
-  padding-block: 2rem;
-}
-
-.section-rails > * + * {
-  border-top: 1px solid rgb(from var(--color-ink) r g b / 0.22);
 }
 
 @media (min-width: 768px) {
   .section-rails--2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem 4rem;
   }
 
   .section-rails--3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .section-rails > * {
-    padding-block: 0;
-    padding-inline: 2.5rem;
-  }
-
-  .section-rails > *:first-child {
-    padding-left: 0;
-  }
-
-  .section-rails > *:last-child {
-    padding-right: 0;
-  }
-
-  .section-rails > * + * {
-    border-top: 0;
-    border-left: 1px solid rgb(from var(--color-ink) r g b / 0.22);
-  }
-}
-
-@media (min-width: 1024px) {
-  .section-rails > * {
-    padding-inline: 3.25rem;
-  }
-
-  .section-rails > *:first-child {
-    padding-left: 0;
-  }
-
-  .section-rails > *:last-child {
-    padding-right: 0;
+    gap: 2.5rem 3rem;
   }
 }
 
@@ -2933,16 +2883,6 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   color: var(--color-ink);
 }
 
-[data-l-chrome][data-ground="lumiere"] .section-copy-head {
-  border-left-color: rgb(from var(--color-ink) r g b / 0.28);
-}
-
-[data-l-chrome][data-ground="lumiere"] .section-copy :where(.section-prose),
-[data-l-chrome][data-ground="lumiere"] .section-copy :where(dd.section-prose),
-[data-l-chrome][data-ground="lumiere"] .section-copy :where(p.text-base) {
-  border-left-color: rgb(from var(--color-ink) r g b / 0.16);
-}
-
 [data-l-chrome][data-ground="lumiere"] .home-action-grid,
 [data-l-chrome][data-ground="lumiere"] .plate-focus-grid {
   background: transparent;
@@ -3702,8 +3642,13 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
   letter-spacing: 0.01em;
 }
 
-[data-edition="gazette"] .section-copy-head {
-  border-left-color: rgb(from var(--color-ink) r g b / 0.28);
+[data-edition="gazette"] .section-copy-head,
+[data-edition="gazette"] .section-copy :where(.section-prose),
+[data-edition="gazette"] .section-copy :where(dd.section-prose),
+[data-edition="gazette"] .section-copy :where(p.text-base),
+[data-edition="gazette"] .section-rails > * + * {
+  border-left: 0;
+  padding-left: 0;
 }
 
 /* Banner interno: nameplate Gazette. */

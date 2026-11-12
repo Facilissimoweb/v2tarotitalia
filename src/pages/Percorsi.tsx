@@ -89,7 +89,7 @@ export function Percorsi() {
 
       <StackSheet label={nav.percorsi} className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <Reveal>
-          <blockquote className="mx-auto max-w-lg border-l-2 border-ember pl-8">
+          <blockquote className="edition-note mx-auto max-w-lg border-t border-ink/80 pt-5">
             <p className="font-display text-xl italic leading-relaxed text-ink">«{conPeso(percorsi.citazione)}»</p>
           </blockquote>
         </Reveal>

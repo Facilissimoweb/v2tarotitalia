@@ -8,8 +8,7 @@ type Props = {
 };
 
 /**
- * Griglia editoriale con filetti verticali sottili (respiro visivo alla Trigger).
- * Su mobile resta una colonna senza bordi.
+ * Griglia editoriale a colonne (gap, senza filetti verticali — ritmo Gazette).
  */
 export function SectionRails({ children, cols = 2, className = "" }: Props) {
   return (

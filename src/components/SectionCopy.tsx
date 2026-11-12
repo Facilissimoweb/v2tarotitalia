@@ -7,13 +7,13 @@ type Props = {
 
 /**
  * Blocco editoriale: tipografia raccolta.
- * Il filetto è spezzato — testa spessa (SectionCopyHead), poi un tratto per paragrafo.
+ * Blocco editoriale: kicker + titolo + prosa (senza filetti verticali).
  */
 export function SectionCopy({ children, className = "" }: Props) {
   return <div className={`section-copy ${className}`.trim()}>{children}</div>;
 }
 
-/** Kicker + titolo: un solo filetto spesso, spezzato prima della prosa. */
+/** Kicker + titolo della sezione. */
 export function SectionCopyHead({ children, className = "" }: Props) {
   return <div className={`section-copy-head ${className}`.trim()}>{children}</div>;
 }
