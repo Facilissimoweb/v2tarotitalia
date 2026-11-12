@@ -1677,21 +1677,22 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 }
 
 /*
- * Terreno organico: lo soft UI resta; vive il suolo sotto.
- * Veli mist/linen/ink (stessi colori), pozzi e respiro lento.
+ * Terreno scuro (prova): plate vivo sotto soft UI ivory.
+ * Le schede/chip/dock restano chiare in rilievo.
  */
 [data-l-chrome] {
   position: relative;
   isolation: isolate;
-  background-color: var(--color-ivory) !important;
+  background-color: var(--color-plate) !important;
   background-image:
-    radial-gradient(115% 58% at 100% -6%, rgb(231 226 218 / 0.92), transparent 54%),
-    radial-gradient(95% 50% at -8% 18%, rgb(239 236 231 / 0.95), transparent 52%),
-    radial-gradient(80% 48% at 88% 42%, rgb(57 54 50 / 0.045), transparent 58%),
-    radial-gradient(70% 42% at 12% 78%, rgb(231 226 218 / 0.7), transparent 55%),
-    radial-gradient(90% 55% at 55% 108%, rgb(57 54 50 / 0.055), transparent 52%),
-    linear-gradient(168deg, rgb(255 255 255 / 0.42) 0%, transparent 38%, rgb(231 226 218 / 0.38) 100%) !important;
+    radial-gradient(120% 60% at 100% -8%, rgb(72 66 60 / 0.95), transparent 52%),
+    radial-gradient(95% 55% at -10% 20%, rgb(45 40 36 / 0.9), transparent 50%),
+    radial-gradient(80% 50% at 78% 48%, rgb(20 16 14 / 0.55), transparent 58%),
+    radial-gradient(70% 45% at 18% 82%, rgb(80 72 64 / 0.45), transparent 55%),
+    radial-gradient(90% 55% at 50% 110%, rgb(12 10 9 / 0.65), transparent 52%),
+    linear-gradient(168deg, rgb(255 255 255 / 0.06) 0%, transparent 40%, rgb(0 0 0 / 0.28) 100%) !important;
   background-attachment: fixed;
+  color: var(--color-on-ink);
 }
 
 [data-l-chrome]::before {
@@ -1701,10 +1702,10 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   inset: -12%;
   z-index: 0;
   background:
-    radial-gradient(circle at 18% 22%, rgb(255 255 255 / 0.55), transparent 26%),
-    radial-gradient(circle at 82% 38%, rgb(231 226 218 / 0.65), transparent 30%),
-    radial-gradient(circle at 48% 72%, rgb(57 54 50 / 0.045), transparent 34%),
-    radial-gradient(circle at 72% 88%, rgb(239 236 231 / 0.7), transparent 28%);
+    radial-gradient(circle at 16% 20%, rgb(255 255 255 / 0.1), transparent 28%),
+    radial-gradient(circle at 84% 36%, rgb(201 154 122 / 0.08), transparent 32%),
+    radial-gradient(circle at 46% 70%, rgb(0 0 0 / 0.35), transparent 36%),
+    radial-gradient(circle at 70% 90%, rgb(255 255 255 / 0.06), transparent 30%);
   animation: ground-breathe 26s ease-in-out infinite alternate;
   will-change: transform, opacity;
 }
@@ -2915,10 +2916,10 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   height: min(22rem, 58vw);
   border-radius: 999px;
   background:
-    radial-gradient(ellipse at 45% 48%, rgb(255 255 255 / 0.55), transparent 68%),
-    radial-gradient(ellipse at 70% 60%, rgb(231 226 218 / 0.4), transparent 72%);
-  filter: blur(8px);
-  opacity: 0.85;
+    radial-gradient(ellipse at 45% 48%, rgb(255 255 255 / 0.1), transparent 68%),
+    radial-gradient(ellipse at 70% 60%, rgb(0 0 0 / 0.28), transparent 72%);
+  filter: blur(10px);
+  opacity: 0.9;
   transform: rotate(-6deg);
 }
 
@@ -2928,8 +2929,8 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   top: 28%;
   transform: rotate(5deg);
   background:
-    radial-gradient(ellipse at 55% 42%, rgb(239 236 231 / 0.7), transparent 66%),
-    radial-gradient(ellipse at 30% 70%, rgb(57 54 50 / 0.04), transparent 70%);
+    radial-gradient(ellipse at 55% 42%, rgb(255 255 255 / 0.08), transparent 66%),
+    radial-gradient(ellipse at 30% 70%, rgb(0 0 0 / 0.32), transparent 70%);
 }
 
 .sheet-plane:nth-of-type(3n)::before {
@@ -2943,25 +2944,148 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   z-index: 1;
 }
 
-/* Sezioni piatte: velo traslucido sul terreno vivo (stessi pigmenti). */
-[data-l-chrome] .sheet-plane.bg-ivory {
-  background-color: rgb(from var(--color-ivory) r g b / 0.42) !important;
-  background-image:
-    linear-gradient(180deg, rgb(255 255 255 / 0.28), transparent 38%),
-    radial-gradient(ellipse 90% 55% at 50% 0%, rgb(231 226 218 / 0.35), transparent 62%);
-}
-
-[data-l-chrome] .sheet-plane.bg-mist {
-  background-color: rgb(from var(--color-mist) r g b / 0.5) !important;
-  background-image:
-    linear-gradient(165deg, rgb(255 255 255 / 0.32), transparent 45%),
-    radial-gradient(ellipse 80% 50% at 80% 20%, rgb(249 248 246 / 0.45), transparent 60%);
-}
-
+/* Sezioni: velo plate sul terreno scuro (non ivory piatto). */
+[data-l-chrome] .sheet-plane.bg-ivory,
+[data-l-chrome] .sheet-plane.bg-mist,
 [data-l-chrome] .sheet-plane.bg-paper {
-  background-color: rgb(from var(--color-paper) r g b / 0.48) !important;
+  background-color: rgb(from var(--color-plate) r g b / 0.35) !important;
   background-image:
-    radial-gradient(ellipse 70% 45% at 20% 30%, rgb(255 255 255 / 0.55), transparent 65%);
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), transparent 42%),
+    radial-gradient(ellipse 90% 55% at 50% 0%, rgb(0 0 0 / 0.2), transparent 62%);
+  color: var(--color-on-ink);
+}
+
+/* Prosa e titoli sul fondo scuro. */
+[data-l-chrome][data-ground="dark"] main :where(.text-ink, h1, h2, h3, h4, .label-kicker) {
+  color: var(--color-on-ink) !important;
+}
+
+[data-l-chrome][data-ground="dark"] main :where([class*="text-ink/"]) {
+  color: rgb(243 239 232 / 0.7) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .section-prose {
+  color: rgb(243 239 232 / 0.72);
+}
+
+[data-l-chrome][data-ground="dark"] .section-prose--lead {
+  color: rgb(243 239 232 / 0.86);
+}
+
+[data-l-chrome][data-ground="dark"] .section-prose--compact {
+  color: rgb(243 239 232 / 0.65);
+}
+
+[data-l-chrome][data-ground="dark"] .section-prose strong {
+  color: var(--color-on-ink);
+}
+
+[data-l-chrome][data-ground="dark"] .section-copy-head {
+  border-left-color: rgb(243 239 232 / 0.55);
+}
+
+[data-l-chrome][data-ground="dark"] .section-copy :where(.section-prose),
+[data-l-chrome][data-ground="dark"] .section-copy :where(dd.section-prose),
+[data-l-chrome][data-ground="dark"] .section-copy :where(p.text-base) {
+  border-left-color: rgb(243 239 232 / 0.35);
+}
+
+/* Isole soft UI chiare: testo ink ripristinato. */
+[data-l-chrome][data-ground="dark"] :where(
+  .home-action-btn,
+  .home-action-btn *,
+  .depth-card,
+  .depth-card *,
+  .depth-panel:not(.depth-panel--dark),
+  .depth-panel:not(.depth-panel--dark) *,
+  .overlay-panel,
+  .overlay-panel *,
+  .nav-bronze,
+  .nav-bronze *,
+  .contact-dock-bar,
+  .side-rail.is-collapsed,
+  .side-rail.is-collapsed *
+) {
+  color: inherit;
+}
+
+[data-l-chrome][data-ground="dark"] .home-action-btn {
+  color: var(--color-ink) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .home-action-title {
+  color: var(--color-ink) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .home-action-copy {
+  color: rgb(43 37 35 / 0.55) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .home-action-index {
+  color: rgb(43 37 35 / 0.22) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .depth-card,
+[data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) {
+  background-color: var(--neu-face) !important;
+  color: var(--color-ink) !important;
+  box-shadow: var(--neu-raised);
+}
+
+/* Isole chiare (card/panel non sheet): testo ink, niente pale su bianco. */
+[data-l-chrome][data-ground="dark"] main :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane) {
+  color: var(--color-ink) !important;
+}
+
+[data-l-chrome][data-ground="dark"] main :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane) :where(
+  .text-ink,
+  h1,
+  h2,
+  h3,
+  h4,
+  p,
+  li,
+  dt,
+  dd,
+  span,
+  a,
+  .label-kicker,
+  .section-prose,
+  .section-prose strong
+) {
+  color: var(--color-ink) !important;
+}
+
+[data-l-chrome][data-ground="dark"] main :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane) :where([class*="text-ink/"]) {
+  color: rgb(43 37 35 / 0.7) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .depth-card :where(.text-ink, h2, h3, p, li),
+[data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) :where(.text-ink, h2, h3, p, li) {
+  color: var(--color-ink) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .depth-card :where([class*="text-ink/"]),
+[data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) :where([class*="text-ink/"]) {
+  color: rgb(43 37 35 / 0.7) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .home-action-grid {
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgb(255 255 255 / 0.06), transparent 55%),
+    rgb(from var(--color-plate) r g b / 0.25) !important;
+}
+
+[data-l-chrome][data-ground="dark"] .plate-focus-grid {
+  background:
+    radial-gradient(ellipse 85% 60% at 50% 40%, rgb(0 0 0 / 0.25), transparent 70%),
+    rgb(from var(--color-plate) r g b / 0.2) !important;
+}
+
+/* Grano: pellicola soft-light sul fondo scuro. */
+html:has([data-ground="dark"])::after {
+  opacity: 0.07;
+  mix-blend-mode: soft-light;
 }
 
 .sheet-plane + .sheet-plane {
@@ -3080,9 +3204,7 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   gap: 1.15rem;
   padding: 1.15rem 1rem 1.45rem;
   margin: 0;
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 0%, rgb(255 255 255 / 0.35), transparent 55%),
-    rgb(from var(--color-ivory) r g b / 0.35);
+  background: transparent;
   border-top: 0;
   overflow: visible;
 }

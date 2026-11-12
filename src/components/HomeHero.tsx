@@ -170,7 +170,7 @@ export function HomeHero() {
   return (
     <section
       data-home-hero
-      className="relative isolate flex flex-col overflow-hidden bg-ivory text-ink"
+      className="relative isolate flex flex-col overflow-hidden text-on-ink"
     >
       <div
         className={
