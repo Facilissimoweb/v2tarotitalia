@@ -58,17 +58,11 @@ export function Home() {
                   <Reveal delay={80}>
                     <div className="edition-note">
                       <h2 className="edition-note__headline">{home.chiSono.titolo}</h2>
-                      {home.chiSono.blocchi.map((blocco, i) =>
-                        i === 0 ? (
-                          <h3 key={i} className="edition-note__lead mt-5">
-                            <BloccoMetodo parti={blocco} />
-                          </h3>
-                        ) : (
-                          <p key={i} className="mt-5">
-                            <BloccoMetodo parti={blocco} />
-                          </p>
-                        ),
-                      )}
+                      {home.chiSono.blocchi.map((blocco, i) => (
+                        <p key={i} className="edition-note__body">
+                          <BloccoMetodo parti={blocco} />
+                        </p>
+                      ))}
                       <p className="edition-note__sign">{brand.titolare}</p>
                     </div>
                   </Reveal>
