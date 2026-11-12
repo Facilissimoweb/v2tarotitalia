@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
@@ -8,32 +8,117 @@ const { brand, chiSono, home, nav, pages } = siteContent;
 
 const titolo = home.titolo;
 
-const azioni = [
+function IconSun() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="home-action-icon">
+      <circle cx="12" cy="12" r="3.25" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M5.9 5.9l1.55 1.55M16.55 16.55l1.55 1.55M18.1 5.9l-1.55 1.55M7.45 16.55l-1.55 1.55"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+function IconPalette() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="home-action-icon">
+      <path
+        d="M12 3.75c-4.7 0-8.25 3.2-8.25 7.35 0 2.85 1.7 5.2 4.25 6.35.35.15.7-.1.7-.48v-.7c0-1.7 1.38-3.08 3.08-3.08h3.72c2.55 0 4.75-1.9 4.75-4.35C20.25 6.2 16.7 3.75 12 3.75Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <circle cx="8.2" cy="9.2" r="0.95" fill="currentColor" />
+      <circle cx="11.35" cy="7.55" r="0.95" fill="currentColor" />
+      <circle cx="14.85" cy="8.15" r="0.95" fill="currentColor" />
+      <circle cx="16.1" cy="11.2" r="0.95" fill="currentColor" />
+    </svg>
+  );
+}
+
+function IconLayers() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="home-action-icon">
+      <path
+        d="M12 4.5 4.75 8.35 12 12.2l7.25-3.85L12 4.5Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m4.75 12 7.25 3.85L19.25 12"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m4.75 15.65 7.25 3.85 7.25-3.85"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function IconGrid() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className="home-action-icon">
+      {[6, 12, 18].flatMap((y) =>
+        [6, 12, 18].map((x) => (
+          <circle key={`${x}-${y}`} cx={x} cy={y} r="1.15" fill="currentColor" />
+        )),
+      )}
+    </svg>
+  );
+}
+
+const azioni: ReadonlyArray<{
+  n: string;
+  titolo: string;
+  testo: string;
+  to: string;
+  icon: ReactNode;
+}> = [
   {
     n: "01",
     titolo: nav.chiSono,
     testo: chiSono.sottotitolo,
     to: "/chi-sono",
+    icon: <IconSun />,
   },
   {
     n: "02",
     titolo: nav.consulti,
     testo: home.percorsi.letture[0].testo,
     to: "/consulti",
+    icon: <IconPalette />,
   },
   {
     n: "03",
     titolo: nav.percorsi,
     testo: pages.percorsi.titolo,
     to: "/percorsi",
+    icon: <IconLayers />,
   },
   {
     n: "04",
     titolo: nav.blog,
     testo: pages.blog.leggi,
     to: "/blog",
+    icon: <IconGrid />,
   },
-] as const;
+];
 
 const PHONE_FILM = "(max-width: 1023px)";
 
@@ -54,7 +139,7 @@ const HERO_MOBILE_IMG = "/hero-home-mobile.jpg";
 /**
  * Hero Home: sul media, a sinistra e poco sopra il bordo, il medaglione sopra «Tarot Italia» e la firma.
  * Entrano in sequenza. Sui piccoli device la foto hero; dal desktop in su il filmato largo.
- * Poi i quattro riquadri.
+ * Poi i quattro riquadri neumorfici.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -156,41 +241,23 @@ export function HomeHero() {
         </div>
       </div>
 
-      <div className="home-action-grid relative z-[2] grid grid-cols-2 xl:grid-cols-4 xl:border-t xl:border-plate">
-        {azioni.map((azione, i) => {
-          const endAlign = i === 1 || i === 3;
-          return (
-            <NavLink
-              key={azione.n}
-              to={azione.to}
-              data-depth={i + 1}
-              data-align={endAlign ? "end" : "start"}
-              className="home-action-btn plate-tile group flex min-h-[8.75rem] flex-col border-white/10 bg-plate px-5 py-7 text-on-ink transition-[transform,box-shadow,colors] sm:min-h-[9.75rem] sm:px-7 sm:py-8 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:py-6 xl:last:border-r-0"
-            >
-              <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-ember-pale sm:text-[1.45rem] xl:text-[1.35rem]">
-                {azione.n}
+      <div className="home-action-grid relative z-[2] grid grid-cols-2 xl:grid-cols-4">
+        {azioni.map((azione) => (
+          <NavLink
+            key={azione.n}
+            to={azione.to}
+            className="home-action-btn group flex flex-col text-ink"
+          >
+            <span className="home-action-top">
+              <span className="home-action-index">{azione.n}</span>
+              <span className="home-action-glyph" aria-hidden>
+                {azione.icon}
               </span>
-              <span className="home-action-title mt-4 font-bold uppercase text-on-ink transition-colors group-hover:text-ember-pale sm:mt-5">
-                {azione.titolo}
-              </span>
-              <span className="mt-3 hidden flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55 sm:block sm:line-clamp-2 xl:mt-3">
-                {azione.testo}
-              </span>
-              <span
-                aria-hidden
-                className="mt-auto pt-4 text-[0.9375rem] text-ember-pale transition-transform group-hover:translate-x-1 sm:mt-5 sm:pt-0 xl:text-[0.8125rem]"
-              >
-                →
-              </span>
-            </NavLink>
-          );
-        })}
-        <div
-          aria-hidden
-          className="home-action-circle pointer-events-none absolute left-1/2 top-1/2 z-[3] -translate-x-1/2 -translate-y-1/2 xl:hidden"
-        >
-          <span className="home-action-circle__disk" />
-        </div>
+            </span>
+            <span className="home-action-title">{azione.titolo}</span>
+            <span className="home-action-copy">{azione.testo}</span>
+          </NavLink>
+        ))}
       </div>
     </section>
   );
