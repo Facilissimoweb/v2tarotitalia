@@ -12,6 +12,7 @@ import { HomeVolumes } from "../components/HomeVolumes";
 import { ImageSlot } from "../components/ImageSlot";
 import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
+import { SectionCopy } from "../components/SectionCopy";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { shopLive } from "../lib/launchFlags";
 const { chiSono, cta, home, nav } = siteContent;
@@ -47,21 +48,23 @@ export function Home() {
           </Reveal>
           <div className="mt-8 grid items-start gap-16 md:mt-10 md:grid-cols-2 md:gap-20">
           <div className="min-w-0">
-            <Reveal>
-              <Kicker>{home.chiSono.kicker}</Kicker>
-            </Reveal>
-            <Reveal delay={100}>
-              <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                {home.chiSono.titolo}
-              </h2>
-            </Reveal>
-            <Reveal delay={200}>
-              {home.chiSono.blocchi.map((blocco, i) => (
-                <p key={i} className={`text-base leading-[1.85] text-ink/75 ${i === 0 ? "mt-8" : "mt-6"}`}>
-                  <BloccoMetodo parti={blocco} />
-                </p>
-              ))}
-            </Reveal>
+            <SectionCopy>
+              <Reveal>
+                <Kicker>{home.chiSono.kicker}</Kicker>
+              </Reveal>
+              <Reveal delay={100}>
+                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                  {home.chiSono.titolo}
+                </h2>
+              </Reveal>
+              <Reveal delay={200}>
+                {home.chiSono.blocchi.map((blocco, i) => (
+                  <p key={i} className="section-prose section-prose--lead">
+                    <BloccoMetodo parti={blocco} />
+                  </p>
+                ))}
+              </Reveal>
+            </SectionCopy>
             <FaqSchede
               titolo={home.chiSono.faq.titolo}
               precedente={home.chiSono.faq.precedente}
@@ -95,10 +98,12 @@ export function Home() {
       <StackSheet label={nav.consulti} className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <Kicker>{nav.consulti}</Kicker>
-            <h2 className="mt-4 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-              {home.percorsi.titolo}
-            </h2>
+            <SectionCopy>
+              <Kicker>{nav.consulti}</Kicker>
+              <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                {home.percorsi.titolo}
+              </h2>
+            </SectionCopy>
           </Reveal>
           <div className="mt-14 grid gap-8 md:grid-cols-2">
             {home.percorsi.letture.map((lettura, i) => {
@@ -166,13 +171,17 @@ export function Home() {
               <div className="pt-24 md:pt-32">
                 <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
                   <Reveal>
-                    <Kicker>{home.visione.kicker}</Kicker>
-                    <h2 className="mt-5 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-                      {home.visione.titolo}
-                    </h2>
+                    <SectionCopy>
+                      <Kicker>{home.visione.kicker}</Kicker>
+                      <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                        {home.visione.titolo}
+                      </h2>
+                    </SectionCopy>
                   </Reveal>
                   <Reveal delay={80}>
-                    <p className="text-base leading-[1.75] text-ink/75">{conPeso(home.visione.lead)}</p>
+                    <SectionCopy>
+                      <p className="section-prose section-prose--lead">{conPeso(home.visione.lead)}</p>
+                    </SectionCopy>
                   </Reveal>
                 </div>
                 <div className="mt-14 grid gap-8 lg:grid-cols-3">

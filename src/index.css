@@ -811,37 +811,64 @@ h3 {
 }
 
 /*
- * Prosa di sezione (respiro editoriale): corpo leggero, interlinea ampia,
- * accenti in grassetto via conPeso. Filetti verticali tra colonne.
+ * Prosa di sezione: corpo leggero, interlinea raccolta, accenti via conPeso.
+ * Blocchi editoriali: filetto sinistro (.section-copy).
  */
+.section-copy {
+  border-left: 1px solid rgb(from var(--color-ink) r g b / 0.28);
+  padding-left: 1.05rem;
+}
+
+@media (min-width: 768px) {
+  .section-copy {
+    padding-left: 1.35rem;
+  }
+}
+
+.section-copy :where(h2) {
+  margin-top: 0.65rem;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+}
+
+.section-copy :where(.section-prose),
+.section-copy :where(p.text-base) {
+  margin-top: 0.95rem;
+}
+
+.section-copy :where(.section-prose + .section-prose),
+.section-copy :where(p.text-base + p.text-base) {
+  margin-top: 0.7rem;
+}
+
 .section-prose {
   max-width: 34rem;
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 400;
-  line-height: 1.95;
-  letter-spacing: 0.01em;
+  line-height: 1.55;
+  letter-spacing: 0;
   color: rgb(from var(--color-ink) r g b / 0.68);
 }
 
 .section-prose--lead {
   max-width: 40rem;
-  font-size: 1.125rem;
-  line-height: 1.85;
-  letter-spacing: 0.008em;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  letter-spacing: 0;
   color: rgb(from var(--color-ink) r g b / 0.82);
 }
 
 .section-prose--compact {
   max-width: 30rem;
   font-size: 0.8125rem;
-  line-height: 1.85;
-  letter-spacing: 0.02em;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
   color: rgb(from var(--color-ink) r g b / 0.62);
 }
 
 .section-prose + .section-prose {
-  margin-top: 2rem;
+  margin-top: 0.85rem;
 }
 
 .section-prose strong {

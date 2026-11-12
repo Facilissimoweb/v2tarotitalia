@@ -4,6 +4,7 @@ import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
 import { Reveal } from "../components/Reveal";
+import { SectionCopy } from "../components/SectionCopy";
 import { SectionRails } from "../components/SectionRails";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { conPeso } from "../components/Prosa";
@@ -26,49 +27,55 @@ export function Percorsi() {
       <StackDeck>
       <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto max-w-3xl">
-          <Reveal>
-            <Kicker>{percorsi.introKicker}</Kicker>
-          </Reveal>
-          <Reveal delay={80}>
-            <h2 className="mt-6 font-display text-3xl font-normal leading-snug text-ink md:text-4xl">
-              {percorsi.titoloSezione}
-            </h2>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="section-prose section-prose--lead mt-8">{conPeso(percorsi.descrizione)}</p>
-          </Reveal>
-          <Reveal delay={220}>
-            <p className="section-prose">{conPeso(percorsi.intro)}</p>
-          </Reveal>
-          <Reveal delay={250}>
-            <p className="section-prose">{conPeso(percorsi.mediazione)}</p>
-          </Reveal>
+          <SectionCopy>
+            <Reveal>
+              <Kicker>{percorsi.introKicker}</Kicker>
+            </Reveal>
+            <Reveal delay={80}>
+              <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                {percorsi.titoloSezione}
+              </h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="section-prose section-prose--lead">{conPeso(percorsi.descrizione)}</p>
+            </Reveal>
+            <Reveal delay={220}>
+              <p className="section-prose">{conPeso(percorsi.intro)}</p>
+            </Reveal>
+            <Reveal delay={250}>
+              <p className="section-prose">{conPeso(percorsi.mediazione)}</p>
+            </Reveal>
+          </SectionCopy>
         </div>
       </StackSheet>
 
       <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-6xl">
           <Reveal>
-            <Kicker>{percorsi.percorsiKicker}</Kicker>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">{percorsi.titoloElenco}</h2>
+            <SectionCopy>
+              <Kicker>{percorsi.percorsiKicker}</Kicker>
+              <h2 className="font-display text-3xl md:text-4xl">{percorsi.titoloElenco}</h2>
+            </SectionCopy>
           </Reveal>
           <SectionRails cols={3} className="mt-16 items-stretch">
             {percorsi.tipologie.map((tipo, i) => (
               <Reveal key={tipo.id} delay={i * 90} className="flex h-full min-w-0 flex-col">
-                <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-5 font-display text-xl leading-snug text-ink lg:text-[1.35rem]">
-                  {tipo.titolo}
-                </h3>
-                <p className="section-prose mt-6 flex-1">{conPeso(tipo.testo)}</p>
-                <div className="mt-10">
-                  <Button
-                    variant="ghost"
-                    className="ti-btn-plain w-full"
-                    onClick={() => openPercorso(tipo.id)}
-                  >
-                    {cta.prenotaPercorso}
-                  </Button>
-                </div>
+                <SectionCopy className="flex h-full flex-col">
+                  <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
+                  <h3 className="mt-3 font-display text-xl leading-snug text-ink lg:text-[1.35rem]">
+                    {tipo.titolo}
+                  </h3>
+                  <p className="section-prose flex-1">{conPeso(tipo.testo)}</p>
+                  <div className="mt-8">
+                    <Button
+                      variant="ghost"
+                      className="ti-btn-plain w-full"
+                      onClick={() => openPercorso(tipo.id)}
+                    >
+                      {cta.prenotaPercorso}
+                    </Button>
+                  </div>
+                </SectionCopy>
               </Reveal>
             ))}
           </SectionRails>
