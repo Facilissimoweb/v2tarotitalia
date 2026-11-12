@@ -21,7 +21,7 @@ export function Arcani() {
         secondary={{ to: "/arcani-minori", label: siteContent.nav.arcaniMinori }}
       />
       <StackSheet label={siteContent.pages.arcani.titolo} className="bg-ivory">
-      <div className="mx-auto max-w-6xl px-6 pb-24 md:px-10 md:pb-32">
+      <div className="page-shell px-6 pb-24 md:px-10 md:pb-32">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 sm:gap-10 lg:grid-cols-4">
           {ARCANI.map((a, i) => (
             <Reveal key={a.slug} delay={(i % 4) * 80} className={i % 2 === 1 ? "sm:mt-8" : ""}>
