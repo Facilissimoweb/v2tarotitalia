@@ -134,7 +134,11 @@ export function HomeHero() {
         ) : null}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] flex justify-start px-4 pb-8 sm:px-6 lg:px-10 xl:px-14 xl:pb-10">
           <motion.div
-            className="flex max-w-[18rem] flex-col items-start text-left text-white sm:max-w-md lg:max-w-xl [text-shadow:0_1px_12px_rgb(0_0_0/0.65),0_2px_24px_rgb(0_0_0/0.4)]"
+            className={
+              phone
+                ? "flex max-w-[18rem] flex-col items-start text-left text-ink sm:max-w-md"
+                : "flex max-w-[18rem] flex-col items-start text-left text-white sm:max-w-md lg:max-w-xl [text-shadow:0_1px_12px_rgb(0_0_0/0.65),0_2px_24px_rgb(0_0_0/0.4)]"
+            }
             variants={reduce ? undefined : entrata}
             initial={reduce ? false : "hidden"}
             animate="show"
@@ -147,13 +151,21 @@ export function HomeHero() {
             </motion.div>
             <motion.h1
               variants={reduce ? undefined : entrataPezzo}
-              className="text-[1.75rem] leading-[1.1] text-white sm:text-[2rem] lg:text-[2.75rem]"
+              className={
+                phone
+                  ? "text-[1.75rem] leading-[1.1] text-ink sm:text-[2rem]"
+                  : "text-[1.75rem] leading-[1.1] text-white sm:text-[2rem] lg:text-[2.75rem]"
+              }
             >
               {brand.wordmark}
             </motion.h1>
             <motion.p
               variants={reduce ? undefined : entrataPezzo}
-              className="mt-1.5 font-[family-name:var(--font-body)] text-[0.8125rem] font-normal not-italic leading-snug text-white/95 sm:mt-1 sm:text-sm lg:mt-2 lg:text-base"
+              className={
+                phone
+                  ? "mt-1.5 font-[family-name:var(--font-body)] text-[0.8125rem] font-normal not-italic leading-snug text-ink/80 sm:mt-1 sm:text-sm"
+                  : "mt-1.5 font-[family-name:var(--font-body)] text-[0.8125rem] font-normal not-italic leading-snug text-white/95 sm:mt-1 sm:text-sm lg:mt-2 lg:text-base"
+              }
             >
               {home.firma}
             </motion.p>
