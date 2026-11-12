@@ -2936,6 +2936,19 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   background: transparent;
 }
 
+/* Contratto colonne desktop: shell contenuti / colonna di lettura. */
+@utility page-shell {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 64rem;
+}
+
+@utility page-prose {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 42rem;
+}
+
 .sheet-plane + .sheet-plane {
   box-shadow: none;
 }
