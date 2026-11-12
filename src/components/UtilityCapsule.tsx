@@ -42,7 +42,7 @@ export function UtilityCapsule() {
         data-torna-su
         aria-label={cta.tornaSu}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="grid h-11 w-11 place-items-center bg-white text-ink shadow-[0_8px_20px_rgb(20_18_16/0.18)] hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:h-12 sm:w-12 md:h-[3.25rem] md:w-[3.25rem]"
+        className="app-glass-fab grid h-11 w-11 place-items-center text-ink hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:h-12 sm:w-12 md:h-[3.25rem] md:w-[3.25rem]"
       >
         <ArrowUpIcon />
       </button>
