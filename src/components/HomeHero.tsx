@@ -166,8 +166,8 @@ export function HomeHero() {
         <div className="edition-shell">
           <div className="edition-cover mt-0">
             <p className="edition-cover__kicker">{home.edition.inCopertina}</p>
-            <p className="edition-cover__line">{home.benvenuto}</p>
-            <p className="edition-cover__trail">{home.competenze}</p>
+            <h2 className="edition-cover__line">{home.benvenuto}</h2>
+            <h3 className="edition-cover__trail">{home.competenze}</h3>
           </div>
 
           <section className="edition-section px-1" aria-labelledby="edition-contents">
@@ -177,12 +177,12 @@ export function HomeHero() {
             <ol className="edition-leaders">
               {azioni.map((azione) => (
                 <li key={azione.n}>
-                  <span className="edition-leaders__n">{azione.n}</span>
-                  <NavLink to={azione.to} className="edition-leaders__title">
-                    {azione.titolo}
+                  <NavLink to={azione.to} className="edition-leaders__link">
+                    <span className="edition-leaders__n">{azione.n}</span>
+                    <span className="edition-leaders__title">{azione.titolo}</span>
+                    <span className="edition-leaders__fill" aria-hidden />
+                    <span className="edition-leaders__trail">{azione.testo}</span>
                   </NavLink>
-                  <span className="edition-leaders__fill" aria-hidden />
-                  <span className="edition-leaders__trail">{azione.testo}</span>
                 </li>
               ))}
             </ol>

@@ -20,11 +20,12 @@
   --color-mist: #e8e5e0;
   --color-linen: #d9d4cc;
   --color-on-ink: #f0ede8;
-  --font-display: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", system-ui, sans-serif;
-  --font-h1: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
-  --font-h2: "Noto Serif JP", "Hiragino Mincho ProN", "Noto Serif", "Yu Mincho", Georgia, serif;
-  --font-h3: var(--font-display);
-  --font-body: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  /* Gazette: Bodoni Moda (display/H2), Archivo (UI/H3), Literata (prosa). */
+  --font-display: "Bodoni Moda", Didot, Georgia, "Noto Serif", serif;
+  --font-h1: "Archivo", "Helvetica Neue", "Noto Sans JP", system-ui, sans-serif;
+  --font-h2: "Bodoni Moda", Didot, Georgia, "Noto Serif", serif;
+  --font-h3: "Archivo", "Helvetica Neue", "Noto Sans JP", system-ui, sans-serif;
+  --font-body: "Literata", Georgia, "Noto Serif", serif;
   --font-inquisition: "The Inquisition", var(--font-h1);
   --font-amperzand: "Amperzand", var(--font-h1);
   --font-bellara: "Cs Bellara", var(--font-h1);
@@ -129,13 +130,19 @@
     text-rendering: optimizeLegibility;
   }
 
-  :where(h1, h2, .font-display, .font-h1) {
+  :where(h1, h2, .font-display) {
     font-family: var(--font-h2);
-    letter-spacing: 0.02em;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
   }
 
-  :where(h3, .label-kicker, .ti-btn) {
-    font-family: var(--font-display);
+  :where(h3, .font-h1, .label-kicker) {
+    font-family: var(--font-h3);
+    letter-spacing: 0.01em;
+  }
+
+  :where(.ti-btn) {
+    font-family: var(--font-h1);
   }
 
   ::selection {
@@ -3428,56 +3435,53 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
   transform: none;
 }
 
-/* —— Home edition (prova Gazette): regole tipografiche, sommario a file —— */
-[data-home-edition="gazette"] {
-  /* Stessi volti di Gazette: Literata (prosa), Archivo (UI), Bodoni Moda (copertina). */
-  --font-body: "Literata", Georgia, "Noto Serif", serif;
-  --font-h1: "Archivo", "Helvetica Neue", "Noto Sans JP", system-ui, sans-serif;
-  --font-h2: "Bodoni Moda", Didot, Georgia, "Noto Serif", serif;
-  --font-h3: "Archivo", "Helvetica Neue", system-ui, sans-serif;
-  --font-display: "Bodoni Moda", Didot, Georgia, serif;
+/* —— Edition Gazette sitewide: file tipografici, sommario, gerarchia H2/H3 —— */
+[data-edition="gazette"] {
   --edition-border: rgb(from var(--color-ink) r g b / 0.14);
   --edition-rule: rgb(from var(--color-ink) r g b / 0.88);
   --edition-muted: rgb(from var(--color-ink) r g b / 0.55);
   --edition-leader: rgb(from var(--color-ink) r g b / 0.35);
-}
-
-[data-home-edition="gazette"] {
   font-family: var(--font-body);
 }
 
-[data-home-edition="gazette"] :where(h1, h2, h3, .font-display) {
-  font-family: var(--font-display);
+[data-edition="gazette"] :where(h1, h2, .font-display) {
+  font-family: var(--font-h2);
 }
 
-[data-home-edition="gazette"] .edition-section__title,
-[data-home-edition="gazette"] .edition-cover__kicker,
-[data-home-edition="gazette"] .edition-cover__trail,
-[data-home-edition="gazette"] .edition-leaders__n,
-[data-home-edition="gazette"] .edition-leaders__trail,
-[data-home-edition="gazette"] .edition-note__sign {
+[data-edition="gazette"] :where(h3) {
+  font-family: var(--font-h3);
+  font-weight: 500;
+}
+
+[data-edition="gazette"] .edition-section__title,
+[data-edition="gazette"] .edition-cover__kicker,
+[data-edition="gazette"] .edition-leaders__n,
+[data-edition="gazette"] .edition-leaders__trail,
+[data-edition="gazette"] .edition-note__sign,
+[data-edition="gazette"] .label-kicker,
+[data-edition="gazette"] .kicker {
   font-family: var(--font-h1);
 }
 
-[data-home-edition="gazette"] .edition-shell {
+[data-edition="gazette"] .edition-shell {
   width: min(100% - 2rem, 64rem);
   margin-inline: auto;
   padding-inline: 0;
 }
 
-[data-home-edition="gazette"] .edition-cover {
+[data-edition="gazette"] .edition-cover {
   background: var(--color-mist);
   color: var(--color-ink);
   padding: 1.5rem 1.35rem 1.75rem;
 }
 
 @media (min-width: 640px) {
-  [data-home-edition="gazette"] .edition-cover {
+  [data-edition="gazette"] .edition-cover {
     padding: 2.5rem 2.75rem 2.75rem;
   }
 }
 
-[data-home-edition="gazette"] .edition-cover__kicker {
+[data-edition="gazette"] .edition-cover__kicker {
   font-family: var(--font-h1);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -3485,7 +3489,7 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
   color: var(--edition-muted);
 }
 
-[data-home-edition="gazette"] .edition-cover__line {
+[data-edition="gazette"] .edition-cover__line {
   margin-top: 0.55rem;
   max-width: 22ch;
   font-family: var(--font-h2);
@@ -3497,25 +3501,29 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
   text-wrap: balance;
 }
 
-[data-home-edition="gazette"] .edition-cover__trail {
+[data-edition="gazette"] .edition-cover__trail {
   margin-top: 1.35rem;
-  font-family: var(--font-h1);
-  font-size: 0.875rem;
+  max-width: 42rem;
+  font-family: var(--font-h3);
+  font-size: clamp(0.95rem, 2.2vw, 1.125rem);
+  font-weight: 500;
+  font-style: normal;
   line-height: 1.55;
   color: var(--edition-muted);
+  text-wrap: pretty;
 }
 
-[data-home-edition="gazette"] .edition-section {
+[data-edition="gazette"] .edition-section {
   padding-block: 2.75rem 0.25rem;
 }
 
 @media (min-width: 640px) {
-  [data-home-edition="gazette"] .edition-section {
+  [data-edition="gazette"] .edition-section {
     padding-block: 3.5rem 0.5rem;
   }
 }
 
-[data-home-edition="gazette"] .edition-section__title {
+[data-edition="gazette"] .edition-section__title {
   margin-bottom: 0.75rem;
   font-family: var(--font-h1);
   font-size: 0.875rem;
@@ -3524,28 +3532,41 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
   color: var(--color-ink);
 }
 
-[data-home-edition="gazette"] .edition-section__title .tabular {
+[data-edition="gazette"] .edition-section__title .tabular {
   color: var(--edition-muted);
   font-variant-numeric: tabular-nums;
 }
 
-[data-home-edition="gazette"] .edition-leaders {
+[data-edition="gazette"] .edition-leaders {
   margin: 0;
   padding: 0;
   list-style: none;
   border-top: 1px solid var(--edition-rule);
 }
 
-[data-home-edition="gazette"] .edition-leaders > li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.5rem 0.65rem;
-  padding-block: 0.85rem;
+[data-edition="gazette"] .edition-leaders > li {
+  padding: 0;
   border-bottom: 1px solid var(--edition-border);
 }
 
-[data-home-edition="gazette"] .edition-leaders__n {
+[data-edition="gazette"] .edition-leaders__link,
+[data-edition="gazette"] .edition-leaders__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.65rem;
+  min-width: 0;
+  width: 100%;
+  padding-block: 0.85rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+[data-edition="gazette"] .edition-leaders__link:hover .edition-leaders__title {
+  color: var(--color-ember);
+}
+
+[data-edition="gazette"] .edition-leaders__n {
   width: 2rem;
   flex-shrink: 0;
   font-family: var(--font-h1);
@@ -3554,20 +3575,19 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
   color: var(--edition-muted);
 }
 
-[data-home-edition="gazette"] .edition-leaders__title {
+[data-edition="gazette"] .edition-leaders__title {
+  min-width: 0;
+  max-width: 100%;
   font-family: var(--font-h2);
   font-size: clamp(1.05rem, 2.4vw, 1.35rem);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.25;
   color: var(--color-ink);
-  text-decoration: none;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
-[data-home-edition="gazette"] .edition-leaders__title:hover {
-  color: var(--color-ember);
-}
-
-[data-home-edition="gazette"] .edition-leaders__fill {
+[data-edition="gazette"] .edition-leaders__fill {
   flex: 1 1 auto;
   min-width: 1.5rem;
   align-self: flex-end;
@@ -3576,59 +3596,109 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
 }
 
 @media (max-width: 639px) {
-  [data-home-edition="gazette"] .edition-leaders__fill {
+  [data-edition="gazette"] .edition-leaders__fill {
     display: none;
   }
 }
 
-[data-home-edition="gazette"] .edition-leaders__trail {
+[data-edition="gazette"] .edition-leaders__trail {
   margin-left: auto;
-  flex-shrink: 0;
+  min-width: 0;
+  max-width: 100%;
   font-family: var(--font-h1);
   font-size: 0.8125rem;
+  line-height: 1.45;
   color: var(--edition-muted);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-wrap: pretty;
 }
 
 @media (max-width: 639px) {
-  [data-home-edition="gazette"] .edition-leaders__trail {
-    flex-basis: 100%;
+  [data-edition="gazette"] .edition-leaders__trail {
+    flex: 1 1 100%;
     margin-left: 2.65rem;
+    margin-right: 0;
+    width: calc(100% - 2.65rem);
+  }
+
+  [data-edition="gazette"] .edition-leaders__title {
+    flex: 1 1 calc(100% - 3rem);
   }
 }
 
-[data-home-edition="gazette"] .edition-note {
+[data-edition="gazette"] .edition-note {
   max-width: 42rem;
   border-top: 1px solid var(--edition-rule);
   padding-top: 1rem;
 }
 
-[data-home-edition="gazette"] .edition-note p {
+[data-edition="gazette"] .edition-note__headline {
+  margin: 0;
+  font-family: var(--font-h2);
+  font-size: clamp(1.5rem, 3.5vw, 2rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  text-wrap: balance;
+}
+
+[data-edition="gazette"] .edition-note__lead {
+  margin: 0;
+  font-family: var(--font-h3);
+  font-size: clamp(1.05rem, 2.4vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--color-ink);
+  text-wrap: pretty;
+}
+
+[data-edition="gazette"] .edition-note p {
   font-family: var(--font-body);
   font-size: 1.05rem;
   line-height: 1.75;
   color: var(--color-ink);
 }
 
-[data-home-edition="gazette"] .edition-note__sign {
+[data-edition="gazette"] .edition-note__sign {
   margin-top: 0.85rem;
   font-family: var(--font-h1);
   font-size: 0.875rem;
   color: var(--edition-muted);
 }
 
-[data-home-edition="gazette"] .edition-sheet {
+/* Pannelli contenuto: meno soft-UI, più file tipografico. */
+[data-edition="gazette"] .depth-panel {
+  border: 1px solid var(--edition-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+[data-edition="gazette"] .depth-card {
+  border: 1px solid var(--edition-border);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+[data-edition="gazette"] .section-copy-head {
+  border-left-color: rgb(from var(--color-ink) r g b / 0.28);
+}
+
+[data-edition="gazette"] .edition-sheet {
   background: var(--color-ivory);
 }
 
-[data-home-edition="gazette"] .edition-sheet--mist {
+[data-edition="gazette"] .edition-sheet--mist {
   background: var(--color-mist);
 }
 
-[data-home-edition="gazette"] .edition-sheet--paper {
+[data-edition="gazette"] .edition-sheet--paper {
   background: var(--color-paper);
 }
 
 /* Nella prova Gazette la griglia neumorphic lascia spazio al sommario. */
-[data-home-edition="gazette"] .home-action-grid {
+[data-edition="gazette"] .home-action-grid {
   display: none;
 }

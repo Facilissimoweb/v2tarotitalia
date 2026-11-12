@@ -34,7 +34,7 @@ export function Home() {
   const [visioneOpen, setVisioneOpen] = useState(false);
 
   return (
-    <div className="w-full min-w-0" data-home-edition="gazette">
+    <div className="w-full min-w-0">
       <HomeHero />
 
       <StackDeck>
@@ -57,14 +57,18 @@ export function Home() {
                   </Reveal>
                   <Reveal delay={80}>
                     <div className="edition-note">
-                      <p className="font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
-                        {home.chiSono.titolo}
-                      </p>
-                      {home.chiSono.blocchi.map((blocco, i) => (
-                        <p key={i} className="mt-5">
-                          <BloccoMetodo parti={blocco} />
-                        </p>
-                      ))}
+                      <h2 className="edition-note__headline">{home.chiSono.titolo}</h2>
+                      {home.chiSono.blocchi.map((blocco, i) =>
+                        i === 0 ? (
+                          <h3 key={i} className="edition-note__lead mt-5">
+                            <BloccoMetodo parti={blocco} />
+                          </h3>
+                        ) : (
+                          <p key={i} className="mt-5">
+                            <BloccoMetodo parti={blocco} />
+                          </p>
+                        ),
+                      )}
                       <p className="edition-note__sign">{brand.titolare}</p>
                     </div>
                   </Reveal>
@@ -118,15 +122,15 @@ export function Home() {
                 <ol className="edition-leaders">
                   {home.percorsi.letture.map((lettura, i) => (
                     <li key={lettura.id}>
-                      <span className="edition-leaders__n">{String(i + 1).padStart(2, "0")}</span>
                       <Link
                         to={`/consulti?tipo=${lettura.id}`}
-                        className="edition-leaders__title"
+                        className="edition-leaders__link"
                       >
-                        {lettura.titolo}
+                        <span className="edition-leaders__n">{String(i + 1).padStart(2, "0")}</span>
+                        <span className="edition-leaders__title">{lettura.titolo}</span>
+                        <span className="edition-leaders__fill" aria-hidden />
+                        <span className="edition-leaders__trail">{lettura.meta}</span>
                       </Link>
-                      <span className="edition-leaders__fill" aria-hidden />
-                      <span className="edition-leaders__trail">{lettura.meta}</span>
                     </li>
                   ))}
                 </ol>
@@ -187,13 +191,15 @@ export function Home() {
                   <ol className="edition-leaders mt-10">
                     {home.visione.pilastri.map((pilastro, i) => (
                       <li key={pilastro.titolo}>
-                        <span className="edition-leaders__n">{String(i + 1).padStart(2, "0")}</span>
-                        <span className="edition-leaders__title">{pilastro.titolo}</span>
-                        <span className="edition-leaders__fill" aria-hidden />
-                        <span className="edition-leaders__trail">{pilastro.etichetta}</span>
-                        <p className="mt-2 basis-full pl-10 text-sm leading-[1.8] text-ink/70 sm:pl-0 sm:basis-auto sm:w-full">
-                          {conPeso(pilastro.testo)}
-                        </p>
+                        <div className="edition-leaders__row">
+                          <span className="edition-leaders__n">{String(i + 1).padStart(2, "0")}</span>
+                          <span className="edition-leaders__title">{pilastro.titolo}</span>
+                          <span className="edition-leaders__fill" aria-hidden />
+                          <span className="edition-leaders__trail">{pilastro.etichetta}</span>
+                          <p className="mt-2 w-full basis-full pl-[2.65rem] text-sm leading-[1.8] text-ink/70 sm:pl-0">
+                            {conPeso(pilastro.testo)}
+                          </p>
+                        </div>
                       </li>
                     ))}
                   </ol>
