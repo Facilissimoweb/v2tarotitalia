@@ -10,14 +10,14 @@ const { volumi } = home;
 export function HomeVolumes() {
   return (
     <section className="bg-ivory px-6 py-24 md:px-10 md:py-32" aria-labelledby="volumi-titolo">
-      <div className="mx-auto max-w-6xl">
+      <div className="page-shell">
         <Reveal>
-          <SectionCopy className="max-w-xl">
+          <SectionCopy className="page-prose !mx-0">
             <SectionCopyHead>
               <Kicker>{volumi.kicker}</Kicker>
               <h2
                 id="volumi-titolo"
-                className="max-w-xl font-display text-3xl font-normal text-ink md:text-4xl"
+                className="font-display text-3xl font-normal text-ink md:text-4xl"
               >
                 {volumi.titolo}
               </h2>
@@ -26,7 +26,7 @@ export function HomeVolumes() {
           </SectionCopy>
         </Reveal>
 
-        <div className="mt-14 grid gap-8 sm:grid-cols-2 sm:gap-10 lg:max-w-4xl">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 sm:gap-8 md:mt-14">
           {volumi.prodotti.map((prodotto, index) => (
             <Reveal key={prodotto.id} delay={index * 80} className="h-full">
               <article className="depth-card flex h-full flex-col">
