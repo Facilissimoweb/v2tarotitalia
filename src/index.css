@@ -20,11 +20,11 @@
   --color-mist: #efece7;
   --color-linen: #e7e2da;
   --color-on-ink: #f3efe8;
-  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-h1: "Outfit", ui-sans-serif, system-ui, sans-serif;
-  --font-h2: "Noto Serif", Georgia, serif;
+  --font-display: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", system-ui, sans-serif;
+  --font-h1: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-h2: "Noto Serif JP", "Hiragino Mincho ProN", "Noto Serif", "Yu Mincho", Georgia, serif;
   --font-h3: var(--font-display);
-  --font-body: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", system-ui, sans-serif;
   --font-inquisition: "The Inquisition", var(--font-h1);
   --font-amperzand: "Amperzand", var(--font-h1);
   --font-bellara: "Cs Bellara", var(--font-h1);
@@ -122,8 +122,20 @@
     background: var(--color-ivory);
     color: var(--color-ink);
     font-family: var(--font-body);
+    font-feature-settings: "palt" 1;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  :where(h1, h2, .font-display, .font-h1) {
+    font-family: var(--font-h2);
+    letter-spacing: 0.02em;
+  }
+
+  :where(h3, .label-kicker, .ti-btn) {
+    font-family: var(--font-display);
   }
 
   ::selection {
@@ -157,11 +169,11 @@
   }
 }
 
-/* Titoli H1: Outfit ExtraBold, geometrica come Olline/Mograph. */
+/* Titoli H1: Noto Sans JP bold, tracking calmo. */
 @utility font-h1 {
   font-family: var(--font-h1);
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 /* Ritaglio del file: l’anello nero del sigillo arriva a filo della sfera. */
@@ -740,7 +752,7 @@ h1.font-bellara,
 
 /* Titolo di barra: stesso corsivo pesante di «Tarot Italia» nella hero. Sul telefono è più raccolto, per stare nella barra senza sbavature. */
 .nav-title {
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: var(--font-h2);
   font-style: italic;
   font-weight: 900;
   font-size: 1.2rem;
@@ -787,7 +799,7 @@ h1.font-bellara,
 
 @media (min-width: 1280px) {
   html body .nav-title {
-    font-family: "Noto Serif", Georgia, serif;
+    font-family: var(--font-h2);
     font-style: italic;
     font-weight: 900;
     font-size: 2.2rem;
@@ -816,7 +828,7 @@ h1.font-bellara,
 }
 
 h2 {
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: var(--font-h2);
   font-style: italic;
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -826,7 +838,7 @@ h2 {
 html body h1,
 html body h1.font-h1,
 html body h1.font-display {
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: var(--font-h2);
   font-style: italic;
   font-weight: 900;
   letter-spacing: 0.01em;
@@ -895,16 +907,16 @@ h3 {
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 400;
-  line-height: 1.55;
-  letter-spacing: 0;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
   color: rgb(from var(--color-ink) r g b / 0.68);
 }
 
 .section-prose--lead {
   max-width: 40rem;
   font-size: 1.0625rem;
-  line-height: 1.5;
-  letter-spacing: 0;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
   color: rgb(from var(--color-ink) r g b / 0.82);
 }
 
@@ -1005,7 +1017,7 @@ h3 {
   html body h1,
   html body h1.font-h1,
   html body h1.font-display {
-    font-family: "Noto Serif", Georgia, serif;
+    font-family: var(--font-h2);
     font-style: italic;
     font-weight: 900;
     letter-spacing: 0.01em;
@@ -1014,7 +1026,7 @@ h3 {
 
   html body h2,
   html body h2.font-display {
-    font-family: "Noto Serif", Georgia, serif;
+    font-family: var(--font-h2);
     font-style: italic;
     font-weight: 400;
   }
@@ -1403,7 +1415,7 @@ html[data-a11y-contrast="on"] :focus-visible {
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  font-family: "Noto Serif", Georgia, serif;
+  font-family: var(--font-h2);
   font-style: italic;
   font-weight: 400;
   font-size: clamp(1.65rem, 5.2vw, 2.15rem);
@@ -2924,50 +2936,6 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   background: transparent;
 }
 
-/*
- * Prova tipografica Home: stessi font che compaiono in giapponese
- * (Noto Sans/Serif JP + stack di sistema Hiragino/Yu Gothic).
- */
-[data-home-type="jp"] {
-  --font-body: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", system-ui, sans-serif;
-  --font-display: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", system-ui, sans-serif;
-  --font-h1: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
-  --font-h2: "Noto Serif JP", "Hiragino Mincho ProN", "Noto Serif", "Yu Mincho", Georgia, serif;
-  --font-h3: var(--font-display);
-  font-family: var(--font-body);
-  font-feature-settings: "palt" 1;
-  letter-spacing: 0.01em;
-  line-height: 1.7;
-}
-
-[data-home-type="jp"] :where(h1, h2, .font-display, .font-h1) {
-  font-family: var(--font-h2);
-  letter-spacing: 0.02em;
-  font-weight: 600;
-}
-
-[data-home-type="jp"] :where(h3, .label-kicker, .home-action-title, .ti-btn) {
-  font-family: var(--font-display);
-  letter-spacing: 0.06em;
-}
-
-[data-home-type="jp"] .home-action-title {
-  letter-spacing: 0.1em;
-  font-weight: 700;
-}
-
-[data-home-type="jp"] .home-action-copy,
-[data-home-type="jp"] .section-prose {
-  font-family: var(--font-body);
-  letter-spacing: 0.02em;
-  line-height: 1.85;
-}
-
-[data-home-type="jp"] .home-action-index {
-  font-family: var(--font-h1);
-  font-weight: 700;
-}
-
 .sheet-plane + .sheet-plane {
   box-shadow: none;
 }
@@ -3162,9 +3130,10 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
 .home-action-title {
   display: block;
   margin-top: 0.95rem;
+  font-family: var(--font-display);
   font-size: 0.8125rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   line-height: 1.2;
   text-transform: uppercase;
   color: var(--color-ink);
@@ -3176,9 +3145,11 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  font-family: var(--font-body);
   font-size: 0.78rem;
   font-weight: 400;
-  line-height: 1.5;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
   color: rgb(43 37 35 / 0.55);
 }
 
