@@ -147,24 +147,18 @@ export const siteContent = {
       titolo: "I Tarocchi come narratori del Sé, immagini e tracce di una storia",
       blocchi: [
         [
-          "Benvenuti in Tarot Italia, sono Teresa e mi occupo (con l’aiuto dei 78 Arcani dei tarocchi) di ",
+          "Benvenuti in Tarot Italia. Sono Teresa: con i 78 Arcani aiuto a ",
           { chiave: "fare ordine nella tua storia personale" },
-          ". Spesso chi viene da me si aspetta delle risposte a tenuta stagna. Sì, no, sicuramente. Nella realtà, dopo una sessione di tarologia, il consultante riesce a ",
-          { chiave: "fare del caos un cosmos" },
+          ", trasformando ",
+          { chiave: "il caos in cosmos" },
           ".",
         ],
         [
-          "Ovvero, da una domanda apparentemente infantile come «Mi pensa?», iniziamo a tracciare motivazioni e soluzioni niente affatto banali, e in qualche modo funzionali al tuo benessere.",
-        ],
-        [
-          "Questo processo è tarologia, e questi sono i tarocchi nella loro veste di ",
+          "I tarocchi agiscono come ",
           { chiave: "indagatori e narratori dello specchio" },
-          ".",
-        ],
-        [
-          "Icone, archetipi e messaggeri: il mio compito è accompagnarti nella ",
+          ": ti accompagno nella ",
           { chiave: "narrazione più autentica di te" },
-          ", in uno spazio unico e in ",
+          ", in ",
           { chiave: "totale assenza di pregiudizi" },
           ".",
         ],

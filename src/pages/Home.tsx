@@ -14,7 +14,7 @@ import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { shopLive } from "../lib/launchFlags";
-const { brand, chiSono, cta, home, nav } = siteContent;
+const { chiSono, cta, home, nav } = siteContent;
 
 function BloccoMetodo({ parti }: { parti: readonly (string | { chiave: string })[] }) {
   return parti.map((parte, i) =>
@@ -69,20 +69,6 @@ export function Home() {
               voci={home.chiSono.faq.voci}
             />
             <Reveal delay={300}>
-              <div className="depth-panel mt-10 bg-paper p-8">
-                <SectionBrandMark align="start" />
-                <p className="mt-4 text-sm leading-relaxed text-ink/70">
-                  {conPeso(`${brand.titolare} · ${brand.ruolo}`)}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">
-                  {conPeso(brand.studioDiTeresa)}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink/65">
-                  {conPeso(brand.deontologia)}
-                </p>
-              </div>
-            </Reveal>
-            <Reveal delay={400}>
               <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Button to="/chi-sono" variant="ghost">
                   {cta.leggiChiSono} →
