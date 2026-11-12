@@ -6,10 +6,10 @@ const base =
   "ti-btn inline-flex items-center justify-center gap-2 px-6 py-4 text-[0.6875rem] font-bold uppercase tracking-[0.2em] transition-colors duration-200 disabled:opacity-40";
 
 const variants = {
-  primary: "border-terra bg-terra text-ivory hover:border-terra-deep hover:bg-terra-deep",
-  ghost: "border-ink bg-paper text-ink hover:border-ink hover:bg-ink hover:text-on-ink",
-  ember: "border-terra bg-terra text-ivory hover:border-terra-deep hover:bg-terra-deep",
-  paper: "border-ink/20 bg-paper text-ink hover:border-ink/30 hover:bg-mist",
+  primary: "border-ember bg-ember text-ivory hover:border-ember-hot hover:bg-ember-hot",
+  ghost: "border-ivory/25 bg-ivory text-ink hover:border-ivory hover:bg-paper",
+  ember: "border-ember bg-ember text-ivory hover:border-ember-hot hover:bg-ember-hot",
+  paper: "border-ink/15 bg-paper text-ink hover:border-ink/25 hover:bg-mist",
 };
 
 type Props = {

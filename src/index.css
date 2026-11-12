@@ -3,19 +3,19 @@
 @theme {
   --color-ivory: #f9f8f6;
   --color-ink: #2b2523;
-  /* Bianco e nero: il pieno è il nero, la voce sulle lastre scure è il bianco. */
-  --color-ember: #111111;
-  --color-ember-hot: #2b2523;
-  --color-ember-deep: #000000;
-  --color-ember-soft: #111111;
-  --color-ember-pale: #ffffff;
-  /* Terra allineata al plate: niente rosso in CTA e accenti. */
-  --color-terra: #393632;
-  --color-terra-deep: #2b2523;
-  --color-terra-soft: #5c5652;
+  /* Lumiere: ember pieno = sigillo CTA; soft = voce secondaria. */
+  --color-ember: #e85c12;
+  --color-ember-hot: #d14f0e;
+  --color-ember-deep: #b8440c;
+  --color-ember-soft: #c99a7a;
+  --color-ember-pale: #f3efe8;
+  /* Terra: grigio caldo distinto dal plate (mai stesso tono dei tasti su fondo). */
+  --color-terra: #5c5652;
+  --color-terra-deep: #3f3a37;
+  --color-terra-soft: #8a837c;
   --color-lichen: #ffffff;
-  --color-graphite: #141210;
-  --color-plate: #393632;
+  --color-graphite: #1c1816;
+  --color-plate: #2f2b28;
   --color-paper: #ffffff;
   --color-mist: #efece7;
   --color-linen: #e7e2da;
@@ -1312,10 +1312,10 @@ html[data-a11y-contrast="on"] {
   --color-ember-hot: #000000;
   --color-ember-deep: #000000;
   --color-ember-soft: #000000;
-  --color-ember-pale: #000000;
+  --color-ember-pale: #ffffff;
   --color-terra: #000000;
   --color-terra-deep: #000000;
-  --color-terra-soft: #000000;
+  --color-terra-soft: #333333;
   --color-lichen: #ffffff;
   --color-on-ink: #ffffff;
 }
@@ -2327,7 +2327,7 @@ html[data-a11y-contrast="on"] .side-rail-item.is-active {
   }
 
   .ti-btn:not(.ti-btn-icon):not(.ti-btn-plain) {
-    box-shadow: var(--neu-ink-raised-sm);
+    box-shadow: var(--neu-raised-sm);
     filter: none;
     transition:
       transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
@@ -2338,29 +2338,22 @@ html[data-a11y-contrast="on"] .side-rail-item.is-active {
   }
 
   .ti-btn:not(.ti-btn-icon):not(.ti-btn-plain):hover {
-    box-shadow: var(--neu-ink-raised);
+    box-shadow: var(--neu-raised);
     transform: translateY(-1px);
   }
 
   .ti-btn:not(.ti-btn-icon):not(.ti-btn-plain):active {
-    box-shadow: var(--neu-ink-pressed-sm);
+    box-shadow: var(--neu-pressed-sm);
     transform: translateY(1px);
   }
 
-  /* Ghost/paper su ivory: rilievo chiaro. */
-  .ti-btn.border-ink.bg-paper,
-  .ti-btn.bg-paper {
-    box-shadow: var(--neu-raised-sm);
+  /* Contrasto tassativo: superficie scura → testo chiaro; chiara → testo ink. */
+  .ti-btn:where(.bg-ember, .bg-ember-hot, .bg-ember-deep, .bg-terra, .bg-terra-deep, .bg-ink, .bg-plate, .bg-graphite) {
+    color: var(--color-ivory) !important;
   }
 
-  .ti-btn.border-ink.bg-paper:hover,
-  .ti-btn.bg-paper:hover {
-    box-shadow: var(--neu-raised);
-  }
-
-  .ti-btn.border-ink.bg-paper:active,
-  .ti-btn.bg-paper:active {
-    box-shadow: var(--neu-pressed-sm);
+  .ti-btn:where(.bg-ivory, .bg-paper, .bg-mist, .bg-linen) {
+    color: var(--color-ink) !important;
   }
 
   .ti-btn.ti-btn-plain,
@@ -2946,36 +2939,42 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   z-index: 1;
 }
 
-/* Sezioni: velo plate sul terreno scuro (non ivory piatto). */
+/*
+ * Contratto visivo semplice (fondo scuro):
+ * - pagina/sheet: testo chiaro
+ * - isole ivory (card, overlay, chrome): testo ink
+ * - tasti: regole .ti-btn sopra (mai ink su superficie scura)
+ */
 [data-l-chrome] .sheet-plane.bg-ivory,
 [data-l-chrome] .sheet-plane.bg-mist,
 [data-l-chrome] .sheet-plane.bg-paper {
-  background-color: rgb(from var(--color-plate) r g b / 0.35) !important;
-  background-image:
-    linear-gradient(180deg, rgb(255 255 255 / 0.05), transparent 42%),
-    radial-gradient(ellipse 90% 55% at 50% 0%, rgb(0 0 0 / 0.2), transparent 62%);
+  background-color: transparent !important;
+  background-image: none !important;
   color: var(--color-on-ink);
 }
 
-/* Prosa e titoli sul fondo scuro. */
-[data-l-chrome][data-ground="dark"] main :where(.text-ink, h1, h2, h3, h4, .label-kicker) {
-  color: var(--color-on-ink) !important;
+[data-l-chrome][data-ground="dark"] main :where(h1, h2, h3, h4, .label-kicker) {
+  color: var(--color-on-ink);
+}
+
+[data-l-chrome][data-ground="dark"] main :where(.text-ink) {
+  color: var(--color-on-ink);
 }
 
 [data-l-chrome][data-ground="dark"] main :where([class*="text-ink/"]) {
-  color: rgb(243 239 232 / 0.7) !important;
-}
-
-[data-l-chrome][data-ground="dark"] .section-prose {
   color: rgb(243 239 232 / 0.72);
 }
 
+[data-l-chrome][data-ground="dark"] .section-prose {
+  color: rgb(243 239 232 / 0.74);
+}
+
 [data-l-chrome][data-ground="dark"] .section-prose--lead {
-  color: rgb(243 239 232 / 0.86);
+  color: rgb(243 239 232 / 0.88);
 }
 
 [data-l-chrome][data-ground="dark"] .section-prose--compact {
-  color: rgb(243 239 232 / 0.65);
+  color: rgb(243 239 232 / 0.68);
 }
 
 [data-l-chrome][data-ground="dark"] .section-prose strong {
@@ -2983,105 +2982,95 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
 }
 
 [data-l-chrome][data-ground="dark"] .section-copy-head {
-  border-left-color: rgb(243 239 232 / 0.55);
+  border-left-color: rgb(243 239 232 / 0.5);
 }
 
 [data-l-chrome][data-ground="dark"] .section-copy :where(.section-prose),
 [data-l-chrome][data-ground="dark"] .section-copy :where(dd.section-prose),
 [data-l-chrome][data-ground="dark"] .section-copy :where(p.text-base) {
-  border-left-color: rgb(243 239 232 / 0.35);
+  border-left-color: rgb(243 239 232 / 0.32);
 }
 
-/* Isole soft UI chiare: testo ink ripristinato. */
+/* Isole chiare: ink dentro, senza forzare i tasti (gestiti da .ti-btn). */
 [data-l-chrome][data-ground="dark"] :where(
   .home-action-btn,
-  .home-action-btn *,
   .depth-card,
-  .depth-card *,
   .depth-panel:not(.depth-panel--dark),
-  .depth-panel:not(.depth-panel--dark) *,
   .overlay-panel,
-  .overlay-panel *,
   .nav-bronze,
-  .nav-bronze *,
   .contact-dock-bar,
-  .side-rail.is-collapsed,
-  .side-rail.is-collapsed *
+  .side-rail.is-collapsed
 ) {
-  color: inherit;
+  color: var(--color-ink);
 }
 
 [data-l-chrome][data-ground="dark"] .home-action-btn {
-  color: var(--color-ink) !important;
+  color: var(--color-ink);
 }
 
 [data-l-chrome][data-ground="dark"] .home-action-title {
-  color: var(--color-ink) !important;
+  color: var(--color-ink);
 }
 
 [data-l-chrome][data-ground="dark"] .home-action-copy {
-  color: rgb(43 37 35 / 0.55) !important;
+  color: rgb(43 37 35 / 0.58);
 }
 
 [data-l-chrome][data-ground="dark"] .home-action-index {
-  color: rgb(43 37 35 / 0.22) !important;
+  color: rgb(43 37 35 / 0.22);
 }
 
 [data-l-chrome][data-ground="dark"] .depth-card,
 [data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) {
-  background-color: var(--neu-face) !important;
-  color: var(--color-ink) !important;
+  background-color: var(--neu-face);
+  color: var(--color-ink);
   box-shadow: var(--neu-raised);
 }
 
-/* Isole chiare (card/panel non sheet): testo ink, niente pale su bianco. */
-[data-l-chrome][data-ground="dark"] main :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane) {
-  color: var(--color-ink) !important;
+[data-l-chrome][data-ground="dark"] main
+  :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane):not(.ti-btn) {
+  color: var(--color-ink);
 }
 
-[data-l-chrome][data-ground="dark"] main :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane) :where(
-  .text-ink,
-  h1,
-  h2,
-  h3,
-  h4,
-  p,
-  li,
-  dt,
-  dd,
-  span,
-  a,
-  .label-kicker,
-  .section-prose,
-  .section-prose strong
-) {
-  color: var(--color-ink) !important;
+[data-l-chrome][data-ground="dark"] main
+  :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane):not(.ti-btn)
+  :where(
+    .text-ink,
+    h1,
+    h2,
+    h3,
+    h4,
+    p,
+    li,
+    dt,
+    dd,
+    span:not(.ti-btn *),
+    .label-kicker,
+    .section-prose,
+    .section-prose strong
+  ) {
+  color: var(--color-ink);
 }
 
-[data-l-chrome][data-ground="dark"] main :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane) :where([class*="text-ink/"]) {
-  color: rgb(43 37 35 / 0.7) !important;
+[data-l-chrome][data-ground="dark"] main
+  :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane):not(.ti-btn)
+  :where([class*="text-ink/"]) {
+  color: rgb(43 37 35 / 0.7);
 }
 
 [data-l-chrome][data-ground="dark"] .depth-card :where(.text-ink, h2, h3, p, li),
 [data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) :where(.text-ink, h2, h3, p, li) {
-  color: var(--color-ink) !important;
+  color: var(--color-ink);
 }
 
 [data-l-chrome][data-ground="dark"] .depth-card :where([class*="text-ink/"]),
 [data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) :where([class*="text-ink/"]) {
-  color: rgb(43 37 35 / 0.7) !important;
+  color: rgb(43 37 35 / 0.7);
 }
 
-[data-l-chrome][data-ground="dark"] .home-action-grid {
-  background:
-    radial-gradient(ellipse 90% 70% at 50% 0%, rgb(255 255 255 / 0.06), transparent 55%),
-    rgb(from var(--color-plate) r g b / 0.25) !important;
-}
-
+[data-l-chrome][data-ground="dark"] .home-action-grid,
 [data-l-chrome][data-ground="dark"] .plate-focus-grid {
-  background:
-    radial-gradient(ellipse 85% 60% at 50% 40%, rgb(0 0 0 / 0.25), transparent 70%),
-    rgb(from var(--color-plate) r g b / 0.2) !important;
+  background: transparent;
 }
 
 /* Grano: pellicola soft-light sul fondo scuro. */

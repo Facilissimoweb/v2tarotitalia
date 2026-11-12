@@ -41,7 +41,7 @@ const NAV_ICON_CORE =
   "flex h-12 shrink-0 items-center justify-center text-black transition-colors hover:text-black/60 [&_svg]:h-[1.625rem] [&_svg]:w-[1.625rem] [&_svg]:stroke-[2.25]";
 const NAV_ICON_BTN = `ti-btn ti-btn-icon ${NAV_ICON_CORE} w-12`;
 const SLIDE_CTA =
-  "ti-btn mt-8 inline-flex w-full items-center justify-center border-terra bg-terra px-6 py-4 text-center text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-ivory hover:border-terra-deep hover:bg-terra-deep";
+  "ti-btn mt-8 inline-flex w-full items-center justify-center border-ember bg-ember px-6 py-4 text-center text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-ivory hover:border-ember-hot hover:bg-ember-hot";
 
 type HoverPanel = "lingua" | "account" | "carrello" | "facilitazione";
 
