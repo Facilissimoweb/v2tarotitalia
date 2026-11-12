@@ -142,6 +142,12 @@ export const siteContent = {
     benvenuto: "Una lettura simbolica degli Arcani per osservare il presente e orientare con consapevolezza le scelte.",
     competenze: "Cartomanzia e tarologia evolutiva · letture dei tarocchi dal vivo e online",
     lead: sloganBrand,
+    /* Prova Home stile Gazette: etichette di sommario (non claim di brand). */
+    edition: {
+      inCopertina: "In copertina",
+      inQuestoNumero: "In questo numero",
+      dallaFondatrice: "Dalla fondatrice",
+    },
     chiSono: {
       kicker: "Metodo",
       titolo: "I Tarocchi come narratori del Sé, immagini e tracce di una storia",

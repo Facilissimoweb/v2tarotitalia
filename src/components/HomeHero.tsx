@@ -192,7 +192,7 @@ export function HomeHero() {
         ) : (
           <video
             ref={filmRef}
-            className="block h-[calc(100svh-var(--nav-offset)-19.5rem)] max-h-[48rem] min-h-[22rem] w-full object-cover object-center"
+            className="block h-[calc(100svh-var(--nav-offset)-8rem)] max-h-[42rem] min-h-[22rem] w-full object-cover object-center"
             src="/video/TAROT.mp4"
             poster="/video/TAROT-poster.webp"
             width={1280}
@@ -239,24 +239,36 @@ export function HomeHero() {
         </div>
       </div>
 
-      <div className="home-action-grid relative z-[2] grid grid-cols-2 xl:grid-cols-4">
-        {azioni.map((azione) => (
-          <NavLink
-            key={azione.n}
-            to={azione.to}
-            className="home-action-btn group flex flex-col text-ink"
-          >
-            <span className="home-action-top">
-              <span className="home-action-index">{azione.n}</span>
-              <span className="home-action-glyph" aria-hidden>
-                {azione.icon}
-              </span>
-            </span>
-            <span className="home-action-title">{azione.titolo}</span>
-            <span className="home-action-copy">{azione.testo}</span>
-          </NavLink>
-        ))}
+      {/* Copertina + sommario (ritmo Gazette), al posto delle card neumorphic. */}
+      <div className="relative z-[2] w-full bg-ivory pb-6 text-ink sm:pb-10">
+        <div className="edition-shell">
+          <div className="edition-cover mt-0">
+            <p className="edition-cover__kicker">{home.edition.inCopertina}</p>
+            <p className="edition-cover__line">{home.benvenuto}</p>
+            <p className="edition-cover__trail">{home.competenze}</p>
+          </div>
+
+          <section className="edition-section px-1" aria-labelledby="edition-contents">
+            <h2 id="edition-contents" className="edition-section__title">
+              {home.edition.inQuestoNumero}{" "}
+              <span className="tabular">({azioni.length})</span>
+            </h2>
+            <ol className="edition-leaders">
+              {azioni.map((azione) => (
+                <li key={azione.n}>
+                  <span className="edition-leaders__n">{azione.n}</span>
+                  <NavLink to={azione.to} className="edition-leaders__title">
+                    {azione.titolo}
+                  </NavLink>
+                  <span className="edition-leaders__fill" aria-hidden />
+                  <span className="edition-leaders__trail">{azione.testo}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </div>
       </div>
+
     </section>
   );
 }

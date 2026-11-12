@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "../components/Button";
 import { BrandLogo } from "../components/BrandLogo";
@@ -12,10 +13,9 @@ import { HomeVolumes } from "../components/HomeVolumes";
 import { ImageSlot } from "../components/ImageSlot";
 import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
-import { SectionCopy, SectionCopyHead } from "../components/SectionCopy";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { shopLive } from "../lib/launchFlags";
-const { chiSono, cta, home, nav } = siteContent;
+const { brand, chiSono, cta, home, nav } = siteContent;
 
 function BloccoMetodo({ parti }: { parti: readonly (string | { chiave: string })[] }) {
   return parti.map((parte, i) =>
@@ -34,12 +34,12 @@ export function Home() {
   const [visioneOpen, setVisioneOpen] = useState(false);
 
   return (
-    <div className="w-full min-w-0">
+    <div className="w-full min-w-0" data-home-edition="gazette">
       <HomeHero />
 
       <StackDeck>
-        <StackSheet label={nav.chiSono} className="bg-mist px-6 py-24 md:px-10 md:py-32">
-          <div className="page-shell">
+        <StackSheet label={nav.chiSono} className="edition-sheet edition-sheet--mist px-6 py-16 md:px-10 md:py-24">
+          <div className="edition-shell page-shell">
             <div className="grid items-start gap-12 md:grid-cols-2 md:gap-16 xl:gap-20">
               <div className="min-w-0">
                 <Reveal>
@@ -48,26 +48,29 @@ export function Home() {
                     className="logo-hero-ring h-[5.5rem] w-[5.5rem] md:h-24 md:w-24"
                   />
                 </Reveal>
-                <SectionCopy className="mt-8 md:mt-10">
-                  <SectionCopyHead>
-                    <Reveal>
-                      <Kicker>{home.chiSono.kicker}</Kicker>
-                    </Reveal>
-                    <Reveal delay={100}>
-                      <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                        {home.chiSono.titolo}
-                      </h2>
-                    </Reveal>
-                  </SectionCopyHead>
-                  <Reveal delay={200}>
-                    {home.chiSono.blocchi.map((blocco, i) => (
-                      <p key={i} className="section-prose section-prose--lead">
-                        <BloccoMetodo parti={blocco} />
-                      </p>
-                    ))}
+
+                <section className="edition-section !pt-8 md:!pt-10" aria-labelledby="edition-editor">
+                  <Reveal>
+                    <h2 id="edition-editor" className="edition-section__title">
+                      {home.edition.dallaFondatrice}
+                    </h2>
                   </Reveal>
-                </SectionCopy>
-                <Reveal delay={300}>
+                  <Reveal delay={80}>
+                    <div className="edition-note">
+                      <p className="font-display text-2xl font-normal leading-snug text-ink md:text-3xl">
+                        {home.chiSono.titolo}
+                      </p>
+                      {home.chiSono.blocchi.map((blocco, i) => (
+                        <p key={i} className="mt-5">
+                          <BloccoMetodo parti={blocco} />
+                        </p>
+                      ))}
+                      <p className="edition-note__sign">{brand.titolare}</p>
+                    </div>
+                  </Reveal>
+                </section>
+
+                <Reveal delay={200}>
                   <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                     <Button to="/chi-sono" variant="ghost">
                       {cta.leggiChiSono} →
@@ -104,61 +107,48 @@ export function Home() {
           </div>
         </StackSheet>
 
-        <StackSheet label={nav.consulti} className="bg-paper px-6 py-24 md:px-10 md:py-32">
-          <div className="page-shell">
+        <StackSheet label={nav.consulti} className="edition-sheet edition-sheet--paper px-6 py-16 md:px-10 md:py-24">
+          <div className="edition-shell page-shell">
             <Reveal>
-              <SectionCopy className="page-prose !mx-0">
-                <SectionCopyHead>
-                  <Kicker>{nav.consulti}</Kicker>
-                  <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                    {home.percorsi.titolo}
-                  </h2>
-                </SectionCopyHead>
-              </SectionCopy>
+              <section className="edition-section !pt-0" aria-labelledby="edition-letture">
+                <h2 id="edition-letture" className="edition-section__title">
+                  {home.percorsi.titolo}{" "}
+                  <span className="tabular">({home.percorsi.letture.length})</span>
+                </h2>
+                <ol className="edition-leaders">
+                  {home.percorsi.letture.map((lettura, i) => (
+                    <li key={lettura.id}>
+                      <span className="edition-leaders__n">{String(i + 1).padStart(2, "0")}</span>
+                      <Link
+                        to={`/consulti?tipo=${lettura.id}`}
+                        className="edition-leaders__title"
+                      >
+                        {lettura.titolo}
+                      </Link>
+                      <span className="edition-leaders__fill" aria-hidden />
+                      <span className="edition-leaders__trail">{lettura.meta}</span>
+                    </li>
+                  ))}
+                </ol>
+                <div className="mt-8 space-y-4 page-prose !mx-0 max-w-none">
+                  {home.percorsi.letture.map((lettura) => (
+                    <p key={`copy-${lettura.id}`} className="text-sm leading-[1.85] text-ink/70">
+                      <strong className="font-display text-ink">{lettura.titolo}.</strong>{" "}
+                      {conPeso(lettura.testo)}{" "}
+                      <Link
+                        to={`/consulti?tipo=${lettura.id}`}
+                        className="underline decoration-ink/30 underline-offset-4 hover:decoration-ember"
+                      >
+                        {lettura.cta} →
+                      </Link>
+                    </p>
+                  ))}
+                </div>
+              </section>
             </Reveal>
 
-            <div className="mt-12 grid gap-6 md:mt-14 md:grid-cols-2 md:gap-8">
-              {home.percorsi.letture.map((lettura, i) => {
-                const featured = lettura.id === "deep";
-                return (
-                  <Reveal key={lettura.id} delay={i * 80}>
-                    <article
-                      className={`depth-panel flex h-full flex-col p-8 md:p-10 ${
-                        featured ? "depth-panel--dark bg-plate text-on-ink" : "bg-ivory"
-                      }`}
-                    >
-                      <p
-                        className={`text-[0.625rem] uppercase tracking-[0.16em] ${
-                          featured ? "text-on-ink/55" : "text-ember-soft"
-                        }`}
-                      >
-                        {lettura.meta}
-                      </p>
-                      <h3 className="mt-4 font-display text-xl leading-snug">{lettura.titolo}</h3>
-                      <p
-                        className={`mt-6 flex-1 text-sm leading-[1.85] ${
-                          featured ? "text-on-ink/75" : "text-ink/70"
-                        }`}
-                      >
-                        {conPeso(lettura.testo)}
-                      </p>
-                      <div className="mt-10">
-                        <Button
-                          to={`/consulti?tipo=${lettura.id}`}
-                          variant={featured ? "paper" : "ghost"}
-                          className="w-full"
-                        >
-                          {lettura.cta}
-                        </Button>
-                      </div>
-                    </article>
-                  </Reveal>
-                );
-              })}
-            </div>
-
-            <Reveal delay={240}>
-              <div className="mt-14 flex justify-center">
+            <Reveal delay={160}>
+              <div className="mt-12 flex justify-start">
                 <Button
                   type="button"
                   variant="ghost"
@@ -181,42 +171,33 @@ export function Home() {
               }`}
             >
               <div className="overflow-hidden">
-                <div className="pt-16 md:pt-20">
+                <section className="edition-section" aria-labelledby="edition-visione">
                   <Reveal>
-                    <SectionCopy className="page-prose !mx-0">
-                      <SectionCopyHead>
-                        <Kicker>{home.visione.kicker}</Kicker>
-                        <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                          {home.visione.titolo}
-                        </h2>
-                      </SectionCopyHead>
-                      <p className="section-prose section-prose--lead">
-                        {conPeso(home.visione.lead)}
-                      </p>
-                    </SectionCopy>
+                    <Kicker>{home.visione.kicker}</Kicker>
+                    <h2
+                      id="edition-visione"
+                      className="mt-2 font-display text-3xl font-normal text-ink md:text-4xl"
+                    >
+                      {home.visione.titolo}
+                    </h2>
+                    <p className="edition-note mt-6 !border-t-0 !pt-0 text-base leading-[1.75] text-ink/80">
+                      {conPeso(home.visione.lead)}
+                    </p>
                   </Reveal>
-
-                  <div className="mt-12 grid gap-6 md:mt-14 md:grid-cols-3 md:gap-8">
+                  <ol className="edition-leaders mt-10">
                     {home.visione.pilastri.map((pilastro, i) => (
-                      <Reveal key={pilastro.titolo} delay={i * 80}>
-                        <article className="depth-panel flex h-full flex-col bg-ivory p-8 md:p-9">
-                          <p className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
-                            {String(i + 1).padStart(2, "0")}
-                          </p>
-                          <h3 className="mt-4 font-display text-xl leading-snug text-ink">
-                            {pilastro.titolo}
-                          </h3>
-                          <p className="mt-6 flex-1 text-sm leading-[1.85] text-ink/70">
-                            {conPeso(pilastro.testo)}
-                          </p>
-                          <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">
-                            {pilastro.etichetta}
-                          </p>
-                        </article>
-                      </Reveal>
+                      <li key={pilastro.titolo}>
+                        <span className="edition-leaders__n">{String(i + 1).padStart(2, "0")}</span>
+                        <span className="edition-leaders__title">{pilastro.titolo}</span>
+                        <span className="edition-leaders__fill" aria-hidden />
+                        <span className="edition-leaders__trail">{pilastro.etichetta}</span>
+                        <p className="mt-2 basis-full pl-10 text-sm leading-[1.8] text-ink/70 sm:pl-0 sm:basis-auto sm:w-full">
+                          {conPeso(pilastro.testo)}
+                        </p>
+                      </li>
                     ))}
-                  </div>
-                </div>
+                  </ol>
+                </section>
               </div>
             </div>
           </div>
@@ -224,24 +205,24 @@ export function Home() {
 
         <StackSheet
           label={home.citazione.autore}
-          className="bg-mist px-6 pb-24 pt-32 text-center md:px-10 md:pb-32 md:pt-40"
+          className="edition-sheet edition-sheet--mist px-6 pb-20 pt-24 text-left md:px-10 md:pb-28 md:pt-32"
         >
-          <div className="page-prose">
+          <div className="edition-shell page-prose !mx-auto">
             <Reveal>
               <SectionBrandMark />
             </Reveal>
             <Reveal delay={80}>
-              <blockquote className="atmosphere-quote mx-auto mt-10 max-w-lg font-display text-xl italic leading-relaxed text-ink md:text-2xl">
+              <blockquote className="edition-note mt-8 border-t border-ink/80 pt-5 font-display text-xl italic leading-relaxed text-ink md:text-2xl">
                 «{home.citazione.testo}»
               </blockquote>
             </Reveal>
             <Reveal delay={160}>
-              <p className="mt-10 text-[0.625rem] uppercase tracking-[0.16em] text-ink">
+              <p className="edition-note__sign mt-6 uppercase tracking-[0.14em]">
                 {home.citazione.autore}
               </p>
             </Reveal>
             <Reveal delay={220}>
-              <p className="mt-3 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
+              <p className="mt-2 text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft">
                 {home.citazione.fonte}
               </p>
             </Reveal>
@@ -253,8 +234,8 @@ export function Home() {
         </StackSheet>
 
         {shopLive() ? (
-          <StackSheet label={home.passaggi.titolo} className="bg-paper px-6 py-24 md:px-10 md:py-32">
-            <div className="depth-panel page-prose bg-mist p-10 text-center md:p-14">
+          <StackSheet label={home.passaggi.titolo} className="edition-sheet edition-sheet--paper px-6 py-24 md:px-10 md:py-32">
+            <div className="edition-shell page-prose !mx-auto text-center">
               <Reveal>
                 <SectionBrandMark />
               </Reveal>
