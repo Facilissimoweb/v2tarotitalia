@@ -30,13 +30,13 @@ export function ArcaniMinori() {
       />
       <nav
         aria-label={nav.arcaniMinori}
-        className="relative z-[2] grid grid-cols-1 border-t border-plate sm:grid-cols-2 xl:grid-cols-4"
+        className="plate-focus-grid relative z-[2] grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4"
       >
         {SEMI_MINORI.map((seme, i) => (
           <a
             key={seme.id}
             href={`#${seme.id}`}
-            className="plate-tile group flex min-h-[9.25rem] flex-col border-white/10 bg-plate px-6 py-6 text-on-ink transition-colors max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:border-r xl:px-8 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
+            className="plate-tile group flex min-h-[9.25rem] flex-col bg-plate px-6 py-6 text-on-ink transition-colors xl:px-8"
           >
             <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-ember-pale">
               {String(i + 1).padStart(2, "0")}

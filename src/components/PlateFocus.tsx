@@ -11,11 +11,11 @@ type Props = {
 /** Quattro lastre editoriali, stesso linguaggio visivo dei quadranti Hero. */
 export function PlateFocus({ items }: Props) {
   return (
-    <section className="relative z-[2] grid w-full min-w-0 grid-cols-1 border-t border-plate sm:grid-cols-2 xl:grid-cols-4">
+    <section className="plate-focus-grid relative z-[2] grid w-full min-w-0 grid-cols-1 sm:grid-cols-2 xl:grid-cols-4">
       {items.map((voce) => (
         <article
           key={voce.n}
-          className="plate-tile flex min-h-[12.5rem] min-w-0 max-w-full flex-col border-white/10 bg-plate px-[clamp(1.25rem,5vw,2rem)] py-8 text-on-ink max-sm:border-b max-sm:last:border-b-0 sm:border-r sm:[&:nth-child(2n)]:border-r-0 xl:min-h-[16.5rem] xl:border-r xl:px-8 xl:py-10 xl:[&:nth-child(2n)]:border-r xl:last:border-r-0"
+          className="plate-tile flex min-h-[12.5rem] min-w-0 max-w-full flex-col bg-plate px-[clamp(1.25rem,5vw,2rem)] py-8 text-on-ink xl:min-h-[16.5rem] xl:px-8 xl:py-10"
         >
           <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-ember-pale">
             {voce.n}
