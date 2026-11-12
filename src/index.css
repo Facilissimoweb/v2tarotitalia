@@ -1,25 +1,25 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ivory: #f9f8f6;
-  --color-ink: #2b2523;
-  /* Lumiere: ember pieno = sigillo CTA; soft = voce secondaria. */
+  /* Carta tipografica: carta fredda, inchiostro, pietra; ember solo sigillo. */
+  --color-ivory: #f5f3ef;
+  --color-ink: #1f1c1a;
   --color-ember: #e85c12;
-  --color-ember-hot: #d14f0e;
-  --color-ember-deep: #b8440c;
-  --color-ember-soft: #c99a7a;
-  --color-ember-pale: #f3efe8;
+  --color-ember-hot: #c94a0d;
+  --color-ember-deep: #a53d0b;
+  --color-ember-soft: #6f6861;
+  --color-ember-pale: #ebe8e3;
   /* Terra: grigio caldo distinto dal plate (mai stesso tono dei tasti su fondo). */
-  --color-terra: #5c5652;
-  --color-terra-deep: #3f3a37;
-  --color-terra-soft: #8a837c;
+  --color-terra: #5a5550;
+  --color-terra-deep: #3c3835;
+  --color-terra-soft: #7a746c;
   --color-lichen: #ffffff;
-  --color-graphite: #1c1816;
-  --color-plate: #2f2b28;
+  --color-graphite: #161412;
+  --color-plate: #2a2623;
   --color-paper: #ffffff;
-  --color-mist: #efece7;
-  --color-linen: #e7e2da;
-  --color-on-ink: #f3efe8;
+  --color-mist: #e8e5e0;
+  --color-linen: #d9d4cc;
+  --color-on-ink: #f0ede8;
   --font-display: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", system-ui, sans-serif;
   --font-h1: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
   --font-h2: "Noto Serif JP", "Hiragino Mincho ProN", "Noto Serif", "Yu Mincho", Georgia, serif;
@@ -1631,10 +1631,10 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   --neu-radius: 0.75rem;
   --neu-radius-sm: 0.55rem;
   --neu-radius-lg: 0.9rem;
-  /* Chip/dock: ember-soft chiarissimo, allineato ai filetti di sezione. */
-  --chrome-ember-wash: color-mix(in srgb, var(--color-ember-soft) 18%, var(--color-ivory) 82%);
-  --chip-accent: var(--chrome-ember-wash);
-  --dock-accent: var(--chrome-ember-wash);
+  /* Chip/dock: wash grafite leggero (editoriale), non pesca. */
+  --chrome-editorial: color-mix(in srgb, var(--color-ink) 5%, var(--color-ivory) 95%);
+  --chip-accent: var(--chrome-editorial);
+  --dock-accent: var(--chrome-editorial);
   --chrome-icon: var(--color-plate);
   --glass-blur: blur(18px) saturate(1.4);
   --glass-edge: rgb(255 255 255 / 0.4);
@@ -2924,13 +2924,13 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
 }
 
 [data-l-chrome][data-ground="lumiere"] .section-copy-head {
-  border-left-color: rgb(from var(--color-ember-soft) r g b / 0.65);
+  border-left-color: rgb(from var(--color-ink) r g b / 0.28);
 }
 
 [data-l-chrome][data-ground="lumiere"] .section-copy :where(.section-prose),
 [data-l-chrome][data-ground="lumiere"] .section-copy :where(dd.section-prose),
 [data-l-chrome][data-ground="lumiere"] .section-copy :where(p.text-base) {
-  border-left-color: rgb(from var(--color-ember-soft) r g b / 0.4);
+  border-left-color: rgb(from var(--color-ink) r g b / 0.16);
 }
 
 [data-l-chrome][data-ground="lumiere"] .home-action-grid,
