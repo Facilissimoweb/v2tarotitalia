@@ -88,7 +88,7 @@ export function Contatti() {
 
       <StackDeck>
       <StackSheet className="bg-paper px-6 py-16 md:px-10 md:py-24">
-        <SectionRails className="mx-auto max-w-6xl items-start">
+        <SectionRails className="page-shell items-start">
           <Reveal>
             <article>
               <SectionCopy>
@@ -103,7 +103,7 @@ export function Contatti() {
             </article>
           </Reveal>
           <Reveal delay={100}>
-            <article className="bg-mist px-8 py-10 md:px-10 md:py-12">
+            <article className="edition-note border-t border-ink/80 pt-6">
               <SectionBrandMark align="start" />
               <h2 className="mt-8 font-display text-2xl font-normal text-ink">{copy.recapitiTitolo}</h2>
               <MailToLink
@@ -112,8 +112,8 @@ export function Contatti() {
               >
                 {brand.email}
               </MailToLink>
-              <p className="section-prose section-prose--compact mt-8">{conPeso(copy.sede)}</p>
-              <p className="section-prose section-prose--compact">{conPeso(copy.appuntamento)}</p>
+              <p className="edition-note__body mt-8">{conPeso(copy.sede)}</p>
+              <p className="edition-note__body">{conPeso(copy.appuntamento)}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <Button href={whatsappChatHref()}>{cta.whatsappRapido}</Button>
                 <Button href={getPhoneHref()} variant="ghost">

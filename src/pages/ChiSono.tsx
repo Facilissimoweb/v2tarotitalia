@@ -27,7 +27,7 @@ export function ChiSono() {
 
       <StackDeck>
       <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
-        <SectionRails className="mx-auto max-w-6xl items-start">
+        <SectionRails className="page-shell items-start">
           <ImageSlot
             src={chiSono.immagini.teresa.src}
             alt={chiSono.immagini.teresa.alt}
@@ -54,15 +54,15 @@ export function ChiSono() {
               </Reveal>
             </SectionCopy>
             <Reveal delay={280}>
-              <div className="depth-panel mt-12 bg-paper p-8">
+              <div className="edition-note mt-12 border-t border-ink/80 pt-6">
                 <SectionBrandMark align="start" />
-                <p className="section-prose section-prose--compact mt-4">
+                <p className="edition-note__body mt-4">
                   {conPeso(`${brand.titolare} · ${brand.ruolo}`)}
                 </p>
-                <p className="section-prose section-prose--compact">
+                <p className="edition-note__body">
                   {conPeso("Ricevo su appuntamento in Via Crispi 37, a Macerata, e online tramite chiamata vocale WhatsApp.")}
                 </p>
-                <p className="section-prose section-prose--compact">{brand.piva}</p>
+                <p className="edition-note__sign">{brand.piva}</p>
               </div>
             </Reveal>
           </div>
@@ -70,7 +70,7 @@ export function ChiSono() {
       </StackSheet>
 
       <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-6xl">
+        <div className="page-shell">
           <SectionRails className="items-start">
             <SectionCopy>
               <SectionCopyHead>
@@ -81,7 +81,7 @@ export function ChiSono() {
                   <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
                     {chiSono.metodo.titolo}
                   </h2>
-                  <p className="mt-3 font-display text-xl font-normal leading-snug text-ink/80 md:text-2xl">
+                  <p className="section-prose section-prose--lead mt-4">
                     {conPeso(chiSono.metodo.sottotitolo)}
                   </p>
                 </Reveal>
@@ -100,20 +100,22 @@ export function ChiSono() {
             />
           </SectionRails>
 
-          <SectionRails className="mt-20">
+          <ol className="edition-leaders mt-20">
             {chiSono.metodo.categorie.map((voce, i) => (
-              <Reveal key={voce.titolo} delay={i * 80}>
-                <SectionCopy>
-                  <SectionCopyHead>
-                    <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="mt-3 font-display text-2xl font-normal leading-snug text-ink">{voce.titolo}</h3>
-                  </SectionCopyHead>
-                  <p className="section-prose">{conPeso(voce.lettura)}</p>
-                  <p className="section-prose">{conPeso(voce.serve)}</p>
-                </SectionCopy>
+              <Reveal key={voce.titolo} delay={i * 80} as="li">
+                <div className="edition-leaders__row">
+                  <span className="edition-leaders__n">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="edition-leaders__title">{voce.titolo}</h3>
+                  <p className="edition-note__body mt-3 w-full basis-full pl-[2.65rem] sm:pl-0">
+                    {conPeso(voce.lettura)}
+                  </p>
+                  <p className="edition-note__body w-full basis-full pl-[2.65rem] sm:pl-0">
+                    {conPeso(voce.serve)}
+                  </p>
+                </div>
               </Reveal>
             ))}
-          </SectionRails>
+          </ol>
 
           <Reveal delay={200}>
             <div className="mt-14 flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap">
@@ -150,7 +152,7 @@ export function ChiSono() {
       </StackSheet>
 
       <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
-        <SectionRails className="mx-auto max-w-6xl items-start">
+        <SectionRails className="page-shell items-start">
           <SectionCopy>
             <SectionCopyHead>
               <Reveal>
@@ -206,7 +208,7 @@ export function ChiSono() {
 
       <StackSheet label={brand.wordmark} className="bg-paper px-6 py-24 md:px-10 md:py-32">
         <Reveal>
-          <div className="mx-auto max-w-2xl bg-mist px-8 py-16 text-center md:px-16 md:py-20">
+          <div className="edition-shell page-prose !mx-auto border-t border-ink/80 pt-10 text-center">
             <SectionBrandMark />
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
               <Button to="/consulti" className="ti-btn-plain">{chiSono.ctaConsulti}</Button>

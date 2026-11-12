@@ -5,7 +5,6 @@ import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
 import { Reveal } from "../components/Reveal";
 import { SectionCopy, SectionCopyHead } from "../components/SectionCopy";
-import { SectionRails } from "../components/SectionRails";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
@@ -52,39 +51,37 @@ export function Percorsi() {
       </StackSheet>
 
       <StackSheet className="bg-paper px-6 py-24 md:px-10 md:py-32">
-        <div className="mx-auto max-w-6xl">
+        <div className="page-shell">
           <Reveal>
-            <SectionCopy>
+            <SectionCopy className="page-prose !mx-0">
               <SectionCopyHead>
                 <Kicker>{percorsi.percorsiKicker}</Kicker>
                 <h2 className="font-display text-3xl md:text-4xl">{percorsi.titoloElenco}</h2>
               </SectionCopyHead>
             </SectionCopy>
           </Reveal>
-          <SectionRails cols={3} className="mt-16 items-stretch">
+          <ol className="edition-leaders mt-12 md:mt-14">
             {percorsi.tipologie.map((tipo, i) => (
-              <Reveal key={tipo.id} delay={i * 90} className="flex h-full min-w-0 flex-col">
-                <SectionCopy className="flex h-full flex-col">
-                  <SectionCopyHead>
-                    <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
-                    <h3 className="mt-3 font-display text-xl leading-snug text-ink lg:text-[1.35rem]">
-                      {tipo.titolo}
-                    </h3>
-                  </SectionCopyHead>
-                  <p className="section-prose flex-1">{conPeso(tipo.testo)}</p>
-                  <div className="mt-8">
+              <Reveal key={tipo.id} delay={i * 90} as="li">
+                <div className="edition-leaders__row">
+                  <span className="edition-leaders__n">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="edition-leaders__title">{tipo.titolo}</h3>
+                  <p className="edition-note__body mt-3 w-full basis-full pl-[2.65rem] sm:pl-0">
+                    {conPeso(tipo.testo)}
+                  </p>
+                  <div className="mt-5 w-full basis-full pl-[2.65rem] sm:pl-0">
                     <Button
                       variant="ghost"
-                      className="ti-btn-plain w-full"
+                      className="ti-btn-plain"
                       onClick={() => openPercorso(tipo.id)}
                     >
                       {cta.prenotaPercorso}
                     </Button>
                   </div>
-                </SectionCopy>
+                </div>
               </Reveal>
             ))}
-          </SectionRails>
+          </ol>
         </div>
       </StackSheet>
 
@@ -97,10 +94,10 @@ export function Percorsi() {
           </blockquote>
         </Reveal>
         <Reveal delay={120}>
-          <div className="depth-panel mx-auto mt-20 max-w-2xl bg-paper px-8 py-16 text-center md:px-16 md:py-20">
+          <div className="edition-shell page-prose !mx-auto mt-20 border-t border-ink/80 pt-10 text-center">
             <SectionBrandMark />
-            <p className="section-prose section-prose--compact mx-auto mt-8">{conPeso(brand.deontologia)}</p>
-            <p className="section-prose section-prose--compact mx-auto">{conPeso(percorsi.chiacchierata)}</p>
+            <p className="edition-note__body mx-auto mt-8">{conPeso(brand.deontologia)}</p>
+            <p className="edition-note__body mx-auto">{conPeso(percorsi.chiacchierata)}</p>
             <div className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:justify-center">
               <Button className="ti-btn-plain" onClick={() => openPercorso()}>{cta.prenotaPercorso}</Button>
               <Button to="/consulti" variant="ghost" className="ti-btn-plain">

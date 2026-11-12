@@ -123,9 +123,9 @@
     background: var(--color-ivory);
     color: var(--color-ink);
     font-family: var(--font-body);
-    font-feature-settings: "palt" 1;
-    letter-spacing: 0.01em;
-    line-height: 1.7;
+    /* Literata (Gazette): niente palt CJK — rompe l’armonia del latino. */
+    letter-spacing: 0;
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -859,13 +859,13 @@ h3 {
 }
 
 /*
- * Prosa di sezione: corpo leggero, interlinea raccolta, accenti via conPeso.
- * Filetto spezzato: testa spessa (.section-copy-head), poi un tratto per paragrafo.
+ * Prosa di sezione = ritmo Gazette (Literata, un corpo, aria tra i capoversi).
+ * Filetto spezzato: testa (.section-copy-head), poi un tratto per paragrafo.
  */
 .section-copy {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1.1rem;
   border-left: 0;
   padding-left: 0;
 }
@@ -883,8 +883,8 @@ h3 {
 
 .section-copy :where(h2) {
   margin-top: 0.65rem;
-  letter-spacing: -0.03em;
-  line-height: 1.12;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .section-copy :where(.section-prose),
@@ -906,41 +906,44 @@ h3 {
 /* Spezza il filetto tra un paragrafo e il successivo. */
 .section-copy :where(.section-prose + .section-prose),
 .section-copy :where(p.text-base + p.text-base) {
-  margin-top: 0.75rem;
+  margin-top: 1.15rem;
 }
 
 .section-prose {
-  max-width: 34rem;
+  max-width: 40rem;
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: 1.05rem;
   font-weight: 400;
-  line-height: 1.8;
-  letter-spacing: 0.02em;
-  color: rgb(from var(--color-ink) r g b / 0.68);
+  font-style: normal;
+  line-height: 1.75;
+  letter-spacing: 0;
+  color: var(--color-ink);
 }
 
 .section-prose--lead {
-  max-width: 40rem;
-  font-size: 1.0625rem;
+  max-width: 42rem;
+  font-size: 1.05rem;
   line-height: 1.75;
-  letter-spacing: 0.02em;
-  color: rgb(from var(--color-ink) r g b / 0.82);
+  letter-spacing: 0;
+  color: var(--color-ink);
 }
 
 .section-prose--compact {
-  max-width: 30rem;
-  font-size: 0.8125rem;
-  line-height: 1.55;
-  letter-spacing: 0.01em;
-  color: rgb(from var(--color-ink) r g b / 0.62);
+  max-width: 40rem;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  letter-spacing: 0;
+  color: rgb(from var(--color-ink) r g b / 0.78);
 }
 
 .section-prose + .section-prose {
-  margin-top: 0.85rem;
+  margin-top: 1.15rem;
 }
 
 .section-prose strong {
+  font-family: inherit;
   font-weight: 700;
+  font-style: inherit;
   color: var(--color-ink);
 }
 
@@ -3679,20 +3682,33 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
 }
 
 /* Pannelli contenuto: meno soft-UI, più file tipografico. */
-[data-edition="gazette"] .depth-panel {
-  border: 1px solid var(--edition-border);
-  border-radius: 0;
-  box-shadow: none;
-}
-
+[data-edition="gazette"] .depth-panel,
 [data-edition="gazette"] .depth-card {
   border: 1px solid var(--edition-border);
   border-radius: 0;
   box-shadow: none;
+  background: var(--color-paper);
+}
+
+[data-edition="gazette"] .depth-panel::after,
+[data-edition="gazette"] .depth-card::before {
+  display: none;
+}
+
+[data-edition="gazette"] h3.font-display,
+[data-edition="gazette"] h4.font-display {
+  font-family: var(--font-h3);
+  font-style: normal;
+  letter-spacing: 0.01em;
 }
 
 [data-edition="gazette"] .section-copy-head {
   border-left-color: rgb(from var(--color-ink) r g b / 0.28);
+}
+
+/* Banner interno: nameplate Gazette. */
+[data-edition="gazette"] [data-page-top] h1 {
+  font-family: var(--font-h2);
 }
 
 [data-edition="gazette"] .edition-sheet {

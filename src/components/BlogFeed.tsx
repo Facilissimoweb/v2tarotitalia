@@ -18,10 +18,10 @@ function formatPostDate(iso: string) {
 function StatusPanel({ title, note }: { title: string; note?: string }) {
   return (
     <Reveal>
-      <div className="mx-auto max-w-2xl bg-mist px-8 py-20 text-center md:px-16 md:py-28">
-        <p className="font-display text-2xl italic leading-relaxed text-ink">{title}</p>
-        {note ? <p className="mt-8 text-sm leading-[1.9] text-ink/65">{note}</p> : null}
-        <div className="mt-10">
+      <div className="edition-shell page-prose !mx-auto border-t border-ink/80 pt-8 text-left">
+        <p className="edition-note__headline !mb-4">{title}</p>
+        {note ? <p className="edition-note__body">{note}</p> : null}
+        <div className="mt-8">
           <Button href={SUBSTACK_HOME} {...EXTERNAL} variant="ghost">
             {copy.suSubstack}
           </Button>
@@ -33,15 +33,16 @@ function StatusPanel({ title, note }: { title: string; note?: string }) {
 
 function LoadingPanel() {
   return (
-    <div className="mx-auto max-w-3xl" aria-busy="true" aria-live="polite">
+    <div className="edition-shell page-prose !mx-auto" aria-busy="true" aria-live="polite">
       <p className="sr-only">{copy.caricamento}</p>
-      <ul className="grid gap-6">
+      <ul className="edition-leaders">
         {[0, 1, 2].map((slot) => (
-          <li key={slot} className="bg-mist px-8 py-10 md:px-10 md:py-12">
-            <div className="h-2 w-24 bg-ink/10 motion-safe:animate-pulse" />
-            <div className="mt-6 h-7 w-4/5 bg-ink/10 motion-safe:animate-pulse" />
-            <div className="mt-5 h-3 w-full bg-ink/10 motion-safe:animate-pulse" />
-            <div className="mt-3 h-3 w-2/3 bg-ink/10 motion-safe:animate-pulse" />
+          <li key={slot}>
+            <div className="edition-leaders__row">
+              <span className="edition-leaders__n">{String(slot + 1).padStart(2, "0")}</span>
+              <span className="h-5 w-2/3 bg-ink/10 motion-safe:animate-pulse" />
+              <span className="mt-3 h-3 w-full bg-ink/10 motion-safe:animate-pulse" />
+            </div>
           </li>
         ))}
       </ul>
@@ -49,31 +50,21 @@ function LoadingPanel() {
   );
 }
 
-function PostCard({ post, index }: { post: SubstackPost; index: number }) {
+function PostRow({ post, index }: { post: SubstackPost; index: number }) {
   const dateLabel = formatPostDate(post.date);
   return (
-    <Reveal delay={(index % 2) * 80} as="li">
-      <article className="depth-panel flex h-full flex-col bg-paper px-8 py-10 md:px-10 md:py-12">
-        {dateLabel ? (
-          <time
-            dateTime={post.date}
-            className="text-[0.625rem] uppercase tracking-[0.16em] text-ember-soft"
-          >
-            {dateLabel}
-          </time>
-        ) : null}
-        <h2 className="mt-5 font-display text-2xl font-normal leading-snug text-ink">{post.title}</h2>
+    <Reveal delay={(index % 4) * 60} as="li">
+      <a href={post.link} {...EXTERNAL} className="edition-leaders__link">
+        <span className="edition-leaders__n">{String(index + 1).padStart(2, "0")}</span>
+        <span className="edition-leaders__title">{post.title}</span>
+        <span className="edition-leaders__fill" aria-hidden />
+        <span className="edition-leaders__trail">{dateLabel || copy.leggi}</span>
         {post.snippet ? (
-          <p className="mt-5 flex-1 text-sm leading-[1.75] text-ink/75">{post.snippet}</p>
+          <span className="edition-note__body mt-2 w-full basis-full pl-[2.65rem] sm:pl-0">
+            {post.snippet}
+          </span>
         ) : null}
-        <a
-          href={post.link}
-          {...EXTERNAL}
-          className="mt-8 inline-flex items-center self-start px-0 py-2 text-[0.6875rem] font-bold uppercase tracking-[0.2em] text-ink underline decoration-ember-soft/60 underline-offset-4 transition-colors hover:text-ember-soft"
-        >
-          {copy.leggi}
-        </a>
-      </article>
+      </a>
     </Reveal>
   );
 }
@@ -90,10 +81,10 @@ export function BlogFeed() {
   }
 
   return (
-    <ul className="mx-auto grid max-w-5xl grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
+    <ol className="edition-leaders edition-shell page-shell !mx-auto">
       {payload.posts.map((post, index) => (
-        <PostCard key={post.id} post={post} index={index} />
+        <PostRow key={post.id} post={post} index={index} />
       ))}
-    </ul>
+    </ol>
   );
 }
