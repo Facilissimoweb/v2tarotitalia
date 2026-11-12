@@ -10,9 +10,9 @@ type Props = {
 };
 
 const mark =
-  "flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink text-ivory shadow-[0_8px_18px_rgba(43,37,35,0.28)] ring-2 ring-ink transition-[transform,background-color,color] duration-200 hover:scale-[1.05] hover:bg-ember hover:text-ivory focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember";
+  "widget-close flex h-12 w-12 shrink-0 items-center justify-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink";
 
-/** Chiusura uniforme di widget e modali: cerchio ink, X ivory marcata, tap 48px. */
+/** Chiusura uniforme di widget e modali: glifo soft UI, tap 48px. */
 export function WidgetCloseButton({ onClick, placement = "panel", className = "" }: Props) {
   return (
     <button

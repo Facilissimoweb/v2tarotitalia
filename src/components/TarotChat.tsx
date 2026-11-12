@@ -96,7 +96,7 @@ export function TarotChat() {
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby={titleId}
-                className="overlay-panel md:h-[min(86dvh,36rem)] md:max-h-[min(86dvh,36rem)] md:max-w-lg md:shadow-[0_24px_60px_rgba(43,37,35,0.28)] md:ring-1 md:ring-ink/10"
+                className="overlay-panel md:h-[min(86dvh,36rem)] md:max-h-[min(86dvh,36rem)] md:max-w-lg"
               >
                 <WidgetCloseButton onClick={() => tarotChatUi.setOpen(false)} />
 

@@ -52,7 +52,7 @@ export function WidgetDialog({ title, titleId, onClose, children, footer, wide, 
           </WidgetFrame>
         </div>
         {footer ? (
-          <div className="relative z-[200] shrink-0 overflow-visible border-t border-ink/10 bg-ivory px-7 py-5 md:px-12 md:py-6">
+          <div className="relative z-[200] shrink-0 overflow-visible border-t border-ink/10 bg-[var(--neu-face)] px-7 py-5 md:px-12 md:py-6">
             {footer}
           </div>
         ) : null}
