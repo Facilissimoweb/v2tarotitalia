@@ -43,7 +43,7 @@ export function FaqSchede({ titolo, precedente, successiva, voci }: Props) {
             onClick={() => vai(-1)}
             disabled={indice === 0}
             aria-label={precedente}
-            className="inline-flex h-12 w-12 items-center justify-center bg-ivory text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist disabled:cursor-not-allowed disabled:bg-ivory/20 disabled:text-on-ink/45 disabled:ring-ivory/25 disabled:opacity-100"
+            className="inline-flex h-12 w-12 items-center justify-center bg-paper text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist disabled:cursor-not-allowed disabled:opacity-35"
           >
             <Freccia verso={-1} />
           </button>
@@ -52,7 +52,7 @@ export function FaqSchede({ titolo, precedente, successiva, voci }: Props) {
             onClick={() => vai(1)}
             disabled={indice === voci.length - 1}
             aria-label={successiva}
-            className="inline-flex h-12 w-12 items-center justify-center bg-ivory text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist disabled:cursor-not-allowed disabled:bg-ivory/20 disabled:text-on-ink/45 disabled:ring-ivory/25 disabled:opacity-100"
+            className="inline-flex h-12 w-12 items-center justify-center bg-paper text-ink ring-1 ring-ink/15 transition-colors duration-200 hover:bg-mist disabled:cursor-not-allowed disabled:opacity-35"
           >
             <Freccia verso={1} />
           </button>

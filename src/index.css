@@ -1673,58 +1673,21 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 }
 
 /*
- * Fondo unico scuro (plate). Soft UI ivory in rilievo con alone corto.
+ * Lumiere: fondo ivory, testo ink. Soft UI (chip/dock/schede) resta in rilievo.
  */
 [data-l-chrome] {
   position: relative;
   isolation: isolate;
-  background-color: var(--color-plate) !important;
+  background-color: var(--color-ivory) !important;
   background-image: none !important;
-  color: var(--color-on-ink);
+  color: var(--color-ink);
 }
 
 [data-l-chrome]::before {
   content: none;
 }
 
-/* Mobile: un solo campo plate continuo, alone di bordo ancora più corto.
- * Token su :root così valgono anche per dock/chip/FAB fuori dal flusso. */
 @media (max-width: 1279px) {
-  :root:has([data-ground="dark"]) {
-    --neu-light: rgb(255 255 255 / 0.18);
-    --neu-raised:
-      2px 3px 4px rgb(8 6 5 / 0.5),
-      0 0 0 1px rgb(255 255 255 / 0.08);
-    --neu-raised-sm:
-      1px 2px 3px rgb(8 6 5 / 0.45),
-      0 0 0 1px rgb(255 255 255 / 0.07);
-    --neu-raised-soft:
-      2px 2px 4px rgb(8 6 5 / 0.4),
-      0 0 0 1px rgb(255 255 255 / 0.06);
-  }
-
-  [data-l-chrome][data-ground="dark"] {
-    background-color: var(--color-plate) !important;
-    background-image: none !important;
-  }
-
-  [data-l-chrome][data-ground="dark"] .sheet-plane::before {
-    content: none;
-  }
-
-  [data-l-chrome][data-ground="dark"] .sheet-plane.bg-ivory,
-  [data-l-chrome][data-ground="dark"] .sheet-plane.bg-mist,
-  [data-l-chrome][data-ground="dark"] .sheet-plane.bg-paper {
-    background-color: transparent !important;
-    background-image: none !important;
-  }
-
-  [data-l-chrome][data-ground="dark"] .home-action-grid,
-  [data-l-chrome][data-ground="dark"] .plate-focus-grid {
-    background: transparent !important;
-    background-image: none !important;
-  }
-
   [data-site-footer].footer-graphite,
   .footer-graphite {
     margin: 0 !important;
@@ -2911,10 +2874,10 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   height: min(22rem, 58vw);
   border-radius: 999px;
   background:
-    radial-gradient(ellipse at 45% 48%, rgb(255 255 255 / 0.1), transparent 68%),
-    radial-gradient(ellipse at 70% 60%, rgb(0 0 0 / 0.28), transparent 72%);
-  filter: blur(10px);
-  opacity: 0.9;
+    radial-gradient(ellipse at 45% 48%, rgb(255 255 255 / 0.55), transparent 68%),
+    radial-gradient(ellipse at 70% 60%, rgb(from var(--color-ember-soft) r g b / 0.12), transparent 72%);
+  filter: blur(14px);
+  opacity: 0.55;
   transform: rotate(-6deg);
 }
 
@@ -2924,14 +2887,14 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   top: 28%;
   transform: rotate(5deg);
   background:
-    radial-gradient(ellipse at 55% 42%, rgb(255 255 255 / 0.08), transparent 66%),
-    radial-gradient(ellipse at 30% 70%, rgb(0 0 0 / 0.32), transparent 70%);
+    radial-gradient(ellipse at 55% 42%, rgb(255 255 255 / 0.45), transparent 66%),
+    radial-gradient(ellipse at 30% 70%, rgb(from var(--color-ember-soft) r g b / 0.1), transparent 70%);
 }
 
 .sheet-plane:nth-of-type(3n)::before {
   top: 48%;
   width: min(36rem, 80vw);
-  opacity: 0.7;
+  opacity: 0.4;
 }
 
 .sheet-plane > * {
@@ -2939,144 +2902,26 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   z-index: 1;
 }
 
-/*
- * Contratto visivo semplice (fondo scuro):
- * - pagina/sheet: testo chiaro
- * - isole ivory (card, overlay, chrome): testo ink
- * - tasti: regole .ti-btn sopra (mai ink su superficie scura)
- */
-[data-l-chrome] .sheet-plane.bg-ivory,
-[data-l-chrome] .sheet-plane.bg-mist,
-[data-l-chrome] .sheet-plane.bg-paper {
-  background-color: transparent !important;
-  background-image: none !important;
-  color: var(--color-on-ink);
-}
-
-[data-l-chrome][data-ground="dark"] main :where(h1, h2, h3, h4, .label-kicker) {
-  color: var(--color-on-ink);
-}
-
-[data-l-chrome][data-ground="dark"] main :where(.text-ink) {
-  color: var(--color-on-ink);
-}
-
-[data-l-chrome][data-ground="dark"] main :where([class*="text-ink/"]) {
-  color: rgb(243 239 232 / 0.72);
-}
-
-[data-l-chrome][data-ground="dark"] .section-prose {
-  color: rgb(243 239 232 / 0.74);
-}
-
-[data-l-chrome][data-ground="dark"] .section-prose--lead {
-  color: rgb(243 239 232 / 0.88);
-}
-
-[data-l-chrome][data-ground="dark"] .section-prose--compact {
-  color: rgb(243 239 232 / 0.68);
-}
-
-[data-l-chrome][data-ground="dark"] .section-prose strong {
-  color: var(--color-on-ink);
-}
-
-[data-l-chrome][data-ground="dark"] .section-copy-head {
-  border-left-color: rgb(243 239 232 / 0.5);
-}
-
-[data-l-chrome][data-ground="dark"] .section-copy :where(.section-prose),
-[data-l-chrome][data-ground="dark"] .section-copy :where(dd.section-prose),
-[data-l-chrome][data-ground="dark"] .section-copy :where(p.text-base) {
-  border-left-color: rgb(243 239 232 / 0.32);
-}
-
-/* Isole chiare: ink dentro, senza forzare i tasti (gestiti da .ti-btn). */
-[data-l-chrome][data-ground="dark"] :where(
-  .home-action-btn,
-  .depth-card,
-  .depth-panel:not(.depth-panel--dark),
-  .overlay-panel,
-  .nav-bronze,
-  .contact-dock-bar,
-  .side-rail.is-collapsed
-) {
+/* Sheet: tornano ivory/mist/paper nativi (niente velo plate). */
+[data-l-chrome][data-ground="lumiere"] .sheet-plane.bg-ivory,
+[data-l-chrome][data-ground="lumiere"] .sheet-plane.bg-mist,
+[data-l-chrome][data-ground="lumiere"] .sheet-plane.bg-paper {
   color: var(--color-ink);
 }
 
-[data-l-chrome][data-ground="dark"] .home-action-btn {
-  color: var(--color-ink);
+[data-l-chrome][data-ground="lumiere"] .section-copy-head {
+  border-left-color: rgb(from var(--color-ember-soft) r g b / 0.65);
 }
 
-[data-l-chrome][data-ground="dark"] .home-action-title {
-  color: var(--color-ink);
+[data-l-chrome][data-ground="lumiere"] .section-copy :where(.section-prose),
+[data-l-chrome][data-ground="lumiere"] .section-copy :where(dd.section-prose),
+[data-l-chrome][data-ground="lumiere"] .section-copy :where(p.text-base) {
+  border-left-color: rgb(from var(--color-ember-soft) r g b / 0.4);
 }
 
-[data-l-chrome][data-ground="dark"] .home-action-copy {
-  color: rgb(43 37 35 / 0.58);
-}
-
-[data-l-chrome][data-ground="dark"] .home-action-index {
-  color: rgb(43 37 35 / 0.22);
-}
-
-[data-l-chrome][data-ground="dark"] .depth-card,
-[data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) {
-  background-color: var(--neu-face);
-  color: var(--color-ink);
-  box-shadow: var(--neu-raised);
-}
-
-[data-l-chrome][data-ground="dark"] main
-  :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane):not(.ti-btn) {
-  color: var(--color-ink);
-}
-
-[data-l-chrome][data-ground="dark"] main
-  :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane):not(.ti-btn)
-  :where(
-    .text-ink,
-    h1,
-    h2,
-    h3,
-    h4,
-    p,
-    li,
-    dt,
-    dd,
-    span:not(.ti-btn *),
-    .label-kicker,
-    .section-prose,
-    .section-prose strong
-  ) {
-  color: var(--color-ink);
-}
-
-[data-l-chrome][data-ground="dark"] main
-  :where(.bg-ivory, .bg-paper, .bg-mist):not(.sheet-plane):not(.ti-btn)
-  :where([class*="text-ink/"]) {
-  color: rgb(43 37 35 / 0.7);
-}
-
-[data-l-chrome][data-ground="dark"] .depth-card :where(.text-ink, h2, h3, p, li),
-[data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) :where(.text-ink, h2, h3, p, li) {
-  color: var(--color-ink);
-}
-
-[data-l-chrome][data-ground="dark"] .depth-card :where([class*="text-ink/"]),
-[data-l-chrome][data-ground="dark"] .depth-panel:not(.depth-panel--dark) :where([class*="text-ink/"]) {
-  color: rgb(43 37 35 / 0.7);
-}
-
-[data-l-chrome][data-ground="dark"] .home-action-grid,
-[data-l-chrome][data-ground="dark"] .plate-focus-grid {
+[data-l-chrome][data-ground="lumiere"] .home-action-grid,
+[data-l-chrome][data-ground="lumiere"] .plate-focus-grid {
   background: transparent;
-}
-
-/* Grano: pellicola soft-light sul fondo scuro. */
-html:has([data-ground="dark"])::after {
-  opacity: 0.07;
-  mix-blend-mode: soft-light;
 }
 
 .sheet-plane + .sheet-plane {
@@ -3178,14 +3023,14 @@ html:has([data-ground="dark"])::after {
   box-shadow: 0 5px 12px -6px rgb(20 18 16 / 0.4);
 }
 
-/* Hero mobile: sfumatura plate, stesso tono del cerchio di congiunzione. */
+/* Hero mobile: sfumatura verso ivory Lumiere. */
 .home-hero-scrim {
   background: linear-gradient(
     to top,
-    rgb(from var(--color-plate) r g b / 0.92) 0%,
-    rgb(from var(--color-plate) r g b / 0.78) 38%,
-    rgb(from var(--color-plate) r g b / 0.55) 66%,
-    rgb(from var(--color-plate) r g b / 0.2) 88%,
+    rgb(from var(--color-ivory) r g b / 0.98) 0%,
+    rgb(from var(--color-ivory) r g b / 0.82) 38%,
+    rgb(from var(--color-ivory) r g b / 0.5) 66%,
+    rgb(from var(--color-ivory) r g b / 0.18) 88%,
     transparent 100%
   );
 }
