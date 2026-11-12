@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { NavLink } from "react-router-dom";
 import { siteContent } from "../data/siteContent";
@@ -8,32 +8,115 @@ const { brand, chiSono, home, nav, pages } = siteContent;
 
 const titolo = home.titolo;
 
-const azioni = [
+/** Stesse icone del menù mobile (MobileSideRail). */
+function PersonIcon() {
+  return (
+    <svg
+      className="home-action-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="8" r="3.2" />
+      <path d="M5.5 19.5 C7 16.8 9.2 15.4 12 15.4 C14.8 15.4 17 16.8 18.5 19.5" />
+    </svg>
+  );
+}
+
+function ConsultiIcon() {
+  return (
+    <svg
+      className="home-action-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M7 4 H15 L17 6 V20 H7 Z" />
+      <path d="M9 8 H13 M9 12 H13 M9 16 H11" />
+    </svg>
+  );
+}
+
+function PathIcon() {
+  return (
+    <svg
+      className="home-action-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M5 19 C5 12 10 12 12 8 C14 12 19 12 19 19" />
+      <circle cx="12" cy="5" r="2" />
+    </svg>
+  );
+}
+
+function BlogIcon() {
+  return (
+    <svg
+      className="home-action-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M5 5 H19 V19 H5 Z" />
+      <path d="M8 9 H16 M8 12 H16 M8 15 H13" />
+    </svg>
+  );
+}
+
+const azioni: ReadonlyArray<{
+  n: string;
+  titolo: string;
+  testo: string;
+  to: string;
+  icon: ReactNode;
+}> = [
   {
     n: "01",
     titolo: nav.chiSono,
     testo: chiSono.sottotitolo,
     to: "/chi-sono",
+    icon: <PersonIcon />,
   },
   {
     n: "02",
     titolo: nav.consulti,
     testo: home.percorsi.letture[0].testo,
     to: "/consulti",
+    icon: <ConsultiIcon />,
   },
   {
     n: "03",
     titolo: nav.percorsi,
     testo: pages.percorsi.titolo,
     to: "/percorsi",
+    icon: <PathIcon />,
   },
   {
     n: "04",
     titolo: nav.blog,
     testo: pages.blog.leggi,
     to: "/blog",
+    icon: <BlogIcon />,
   },
-] as const;
+];
 
 const PHONE_FILM = "(max-width: 1023px)";
 
@@ -54,7 +137,7 @@ const HERO_MOBILE_IMG = "/hero-home-mobile.jpg";
 /**
  * Hero Home: sul media, a sinistra e poco sopra il bordo, il medaglione sopra «Tarot Italia» e la firma.
  * Entrano in sequenza. Sui piccoli device la foto hero; dal desktop in su il filmato largo.
- * Poi i quattro riquadri.
+ * Poi i quattro riquadri neumorfici.
  */
 export function HomeHero() {
   const reduce = useReducedMotion();
@@ -156,41 +239,23 @@ export function HomeHero() {
         </div>
       </div>
 
-      <div className="home-action-grid relative z-[2] grid grid-cols-2 xl:grid-cols-4 xl:border-t xl:border-plate">
-        {azioni.map((azione, i) => {
-          const endAlign = i === 1 || i === 3;
-          return (
-            <NavLink
-              key={azione.n}
-              to={azione.to}
-              data-depth={i + 1}
-              data-align={endAlign ? "end" : "start"}
-              className="home-action-btn plate-tile group flex min-h-[8.75rem] flex-col border-white/10 bg-plate px-5 py-7 text-on-ink transition-[transform,box-shadow,colors] sm:min-h-[9.75rem] sm:px-7 sm:py-8 xl:min-h-[9.25rem] xl:border-r xl:px-8 xl:py-6 xl:last:border-r-0"
-            >
-              <span className="font-h1 text-[1.35rem] leading-none tracking-[-0.04em] text-ember-pale sm:text-[1.45rem] xl:text-[1.35rem]">
-                {azione.n}
+      <div className="home-action-grid relative z-[2] grid grid-cols-2 xl:grid-cols-4">
+        {azioni.map((azione) => (
+          <NavLink
+            key={azione.n}
+            to={azione.to}
+            className="home-action-btn group flex flex-col text-ink"
+          >
+            <span className="home-action-top">
+              <span className="home-action-index">{azione.n}</span>
+              <span className="home-action-glyph" aria-hidden>
+                {azione.icon}
               </span>
-              <span className="home-action-title mt-4 font-bold uppercase text-on-ink transition-colors group-hover:text-ember-pale sm:mt-5">
-                {azione.titolo}
-              </span>
-              <span className="mt-3 hidden flex-1 text-[0.9375rem] font-medium leading-relaxed text-on-ink/55 sm:block sm:line-clamp-2 xl:mt-3">
-                {azione.testo}
-              </span>
-              <span
-                aria-hidden
-                className="mt-auto pt-4 text-[0.9375rem] text-ember-pale transition-transform group-hover:translate-x-1 sm:mt-5 sm:pt-0 xl:text-[0.8125rem]"
-              >
-                →
-              </span>
-            </NavLink>
-          );
-        })}
-        <div
-          aria-hidden
-          className="home-action-circle pointer-events-none absolute left-1/2 top-1/2 z-[3] -translate-x-1/2 -translate-y-1/2 xl:hidden"
-        >
-          <span className="home-action-circle__disk" />
-        </div>
+            </span>
+            <span className="home-action-title">{azione.titolo}</span>
+            <span className="home-action-copy">{azione.testo}</span>
+          </NavLink>
+        ))}
       </div>
     </section>
   );
