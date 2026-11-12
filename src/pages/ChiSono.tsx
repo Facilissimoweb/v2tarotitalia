@@ -7,7 +7,7 @@ import { Button, Kicker } from "../components/Button";
 import { conPeso } from "../components/Prosa";
 import { SectionBrandMark } from "../components/WidgetFrame";
 import { Reveal } from "../components/Reveal";
-import { SectionCopy } from "../components/SectionCopy";
+import { SectionCopy, SectionCopyHead } from "../components/SectionCopy";
 import { SectionRails } from "../components/SectionRails";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 
@@ -37,14 +37,16 @@ export function ChiSono() {
           />
           <div className="md:pt-6">
             <SectionCopy>
-              <Reveal>
-                <Kicker>{chiSono.visione.kicker}</Kicker>
-              </Reveal>
-              <Reveal delay={100}>
-                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                  {chiSono.visione.titolo}
-                </h2>
-              </Reveal>
+              <SectionCopyHead>
+                <Reveal>
+                  <Kicker>{chiSono.visione.kicker}</Kicker>
+                </Reveal>
+                <Reveal delay={100}>
+                  <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                    {chiSono.visione.titolo}
+                  </h2>
+                </Reveal>
+              </SectionCopyHead>
               <Reveal delay={200}>
                 <p className="section-prose section-prose--lead">
                   {conPeso(chiSono.visione.testo)}
@@ -71,17 +73,19 @@ export function ChiSono() {
         <div className="mx-auto max-w-6xl">
           <SectionRails className="items-start">
             <SectionCopy>
-              <Reveal>
-                <Kicker>{chiSono.metodo.kicker}</Kicker>
-              </Reveal>
-              <Reveal delay={100}>
-                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                  {chiSono.metodo.titolo}
-                </h2>
-                <p className="mt-3 font-display text-xl font-normal leading-snug text-ink/80 md:text-2xl">
-                  {conPeso(chiSono.metodo.sottotitolo)}
-                </p>
-              </Reveal>
+              <SectionCopyHead>
+                <Reveal>
+                  <Kicker>{chiSono.metodo.kicker}</Kicker>
+                </Reveal>
+                <Reveal delay={100}>
+                  <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                    {chiSono.metodo.titolo}
+                  </h2>
+                  <p className="mt-3 font-display text-xl font-normal leading-snug text-ink/80 md:text-2xl">
+                    {conPeso(chiSono.metodo.sottotitolo)}
+                  </p>
+                </Reveal>
+              </SectionCopyHead>
               <Reveal delay={200}>
                 <p className="section-prose section-prose--lead">{conPeso(chiSono.metodo.testo)}</p>
                 <p className="section-prose">{conPeso(chiSono.metodo.ponte)}</p>
@@ -100,8 +104,10 @@ export function ChiSono() {
             {chiSono.metodo.categorie.map((voce, i) => (
               <Reveal key={voce.titolo} delay={i * 80}>
                 <SectionCopy>
-                  <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
-                  <h3 className="mt-3 font-display text-2xl font-normal leading-snug text-ink">{voce.titolo}</h3>
+                  <SectionCopyHead>
+                    <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
+                    <h3 className="mt-3 font-display text-2xl font-normal leading-snug text-ink">{voce.titolo}</h3>
+                  </SectionCopyHead>
                   <p className="section-prose">{conPeso(voce.lettura)}</p>
                   <p className="section-prose">{conPeso(voce.serve)}</p>
                 </SectionCopy>
@@ -126,14 +132,16 @@ export function ChiSono() {
       <StackSheet className="bg-ivory px-6 py-24 md:px-10 md:py-32">
         <div className="mx-auto max-w-3xl">
           <SectionCopy>
-            <Reveal>
-              <Kicker>{chiSono.etica.kicker}</Kicker>
-            </Reveal>
-            <Reveal delay={100}>
-              <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                {chiSono.etica.titolo}
-              </h2>
-            </Reveal>
+            <SectionCopyHead>
+              <Reveal>
+                <Kicker>{chiSono.etica.kicker}</Kicker>
+              </Reveal>
+              <Reveal delay={100}>
+                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                  {chiSono.etica.titolo}
+                </h2>
+              </Reveal>
+            </SectionCopyHead>
             <Reveal delay={200}>
               <p className="section-prose section-prose--lead">{conPeso(chiSono.etica.testo)}</p>
             </Reveal>
@@ -144,14 +152,16 @@ export function ChiSono() {
       <StackSheet className="bg-mist px-6 py-24 md:px-10 md:py-32">
         <SectionRails className="mx-auto max-w-6xl items-start">
           <SectionCopy>
-            <Reveal>
-              <Kicker>{chiSono.formazione.kicker}</Kicker>
-            </Reveal>
-            <Reveal delay={100}>
-              <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                {chiSono.formazione.titolo}
-              </h2>
-            </Reveal>
+            <SectionCopyHead>
+              <Reveal>
+                <Kicker>{chiSono.formazione.kicker}</Kicker>
+              </Reveal>
+              <Reveal delay={100}>
+                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                  {chiSono.formazione.titolo}
+                </h2>
+              </Reveal>
+            </SectionCopyHead>
             <Reveal delay={200}>
               <p className="section-prose section-prose--lead">{conPeso(chiSono.formazione.lead)}</p>
               {chiSono.formazione.testi.map((paragrafo) => (

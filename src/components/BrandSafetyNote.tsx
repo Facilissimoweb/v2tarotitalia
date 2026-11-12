@@ -3,7 +3,7 @@ import { Kicker } from "./Button";
 import { LegalCopy } from "./LegalNotice";
 import { MailToLink } from "./MailToLink";
 import { Reveal } from "./Reveal";
-import { SectionCopy } from "./SectionCopy";
+import { SectionCopy, SectionCopyHead } from "./SectionCopy";
 import { StackSheet } from "./StackSheet";
 
 const { brand, legal } = siteContent;
@@ -14,12 +14,14 @@ export function BrandSafetyNote() {
     <StackSheet label={tutela.kicker} className="bg-mist px-6 py-24 md:px-10 md:py-32">
       <div className="mx-auto max-w-5xl">
         <SectionCopy className="max-w-3xl">
-          <Reveal>
-            <Kicker>{tutela.kicker}</Kicker>
-            <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-              {tutela.titolo}
-            </h2>
-          </Reveal>
+          <SectionCopyHead>
+            <Reveal>
+              <Kicker>{tutela.kicker}</Kicker>
+              <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                {tutela.titolo}
+              </h2>
+            </Reveal>
+          </SectionCopyHead>
           <Reveal delay={80}>
             <p className="section-prose section-prose--lead">
               <LegalCopy>{tutela.intro}</LegalCopy>

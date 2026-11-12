@@ -2,7 +2,7 @@ import { siteContent } from "../data/siteContent";
 import { Button, Kicker } from "./Button";
 import { conPeso } from "./Prosa";
 import { Reveal } from "./Reveal";
-import { SectionCopy } from "./SectionCopy";
+import { SectionCopy, SectionCopyHead } from "./SectionCopy";
 
 const { home } = siteContent;
 const { volumi } = home;
@@ -13,13 +13,15 @@ export function HomeVolumes() {
       <div className="mx-auto max-w-6xl">
         <Reveal>
           <SectionCopy className="max-w-xl">
-            <Kicker>{volumi.kicker}</Kicker>
-            <h2
-              id="volumi-titolo"
-              className="max-w-xl font-display text-3xl font-normal text-ink md:text-4xl"
-            >
-              {volumi.titolo}
-            </h2>
+            <SectionCopyHead>
+              <Kicker>{volumi.kicker}</Kicker>
+              <h2
+                id="volumi-titolo"
+                className="max-w-xl font-display text-3xl font-normal text-ink md:text-4xl"
+              >
+                {volumi.titolo}
+              </h2>
+            </SectionCopyHead>
             <p className="section-prose section-prose--lead">{conPeso(volumi.lead)}</p>
           </SectionCopy>
         </Reveal>
