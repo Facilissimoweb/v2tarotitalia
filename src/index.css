@@ -1631,8 +1631,10 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   --neu-radius: 0.75rem;
   --neu-radius-sm: 0.55rem;
   --neu-radius-lg: 0.9rem;
-  --chip-accent: var(--neu-face);
-  --dock-accent: var(--neu-face);
+  /* Chip/dock: ember-soft chiarissimo, allineato ai filetti di sezione. */
+  --chrome-ember-wash: color-mix(in srgb, var(--color-ember-soft) 18%, var(--color-ivory) 82%);
+  --chip-accent: var(--chrome-ember-wash);
+  --dock-accent: var(--chrome-ember-wash);
   --chrome-icon: var(--color-plate);
   --glass-blur: blur(18px) saturate(1.4);
   --glass-edge: rgb(255 255 255 / 0.4);
@@ -2078,7 +2080,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 
   .side-rail.is-collapsed {
-    background: var(--neu-face);
+    background: var(--chip-accent);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     box-shadow: var(--neu-raised-soft);
@@ -2097,7 +2099,7 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   }
 
   [data-contact-dock] .contact-dock-bar {
-    background: var(--neu-face);
+    background: var(--dock-accent);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     box-shadow: var(--neu-raised-soft);
