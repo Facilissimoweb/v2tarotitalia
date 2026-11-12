@@ -823,7 +823,7 @@ h3 {
 }
 
 .section-copy-head {
-  border-left: 5px solid rgb(from var(--color-ink) r g b / 0.62);
+  border-left: 7px solid rgb(from var(--color-ink) r g b / 0.7);
   padding-left: 1.05rem;
 }
 
