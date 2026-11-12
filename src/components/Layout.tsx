@@ -75,7 +75,7 @@ function ProtectMedia() {
 
 export function Layout() {
   return (
-    <div data-l-chrome data-app-shell="on" className="flex min-h-dvh flex-col text-ink">
+    <div data-l-chrome data-app-shell="on" data-ground="dark" className="flex min-h-dvh flex-col text-on-ink">
       <ProtectMedia />
       <PageSpeechSkipLink />
       <ScrollToTop />
