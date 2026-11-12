@@ -388,10 +388,10 @@ html::after {
   position: fixed;
   inset: 0;
   z-index: 8;
-  opacity: 0.028;
+  opacity: 0.05;
   mix-blend-mode: multiply;
   background-image: url("/textures/paper-grain.svg");
-  background-size: 220px 220px;
+  background-size: 180px 180px;
 }
 
 .hero-paper {
@@ -1646,12 +1646,6 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
 
   [data-l-chrome][data-app-shell="on"] {
     --nav-offset: calc(0.45rem + var(--app-bar-h) + env(safe-area-inset-top, 0px));
-    background-color: var(--color-ivory);
-    background-image:
-      radial-gradient(115% 55% at 100% -8%, rgb(231 226 218 / 0.85), transparent 52%),
-      radial-gradient(90% 45% at -10% 108%, rgb(57 54 50 / 0.06), transparent 48%),
-      linear-gradient(180deg, rgb(255 255 255 / 0.35), transparent 28%);
-    background-attachment: fixed;
   }
 
   [data-l-chrome][data-app-shell="on"] .sheet-plane {
@@ -1679,6 +1673,56 @@ html[data-a11y-spacing="on"] :where(h2, h3, h4, h5, h6) {
   [data-l-chrome][data-app-shell="on"] .reveal.is-in {
     transform: translate3d(0, 0, 0) scale(1);
     filter: none;
+  }
+}
+
+/*
+ * Terreno organico: lo soft UI resta; vive il suolo sotto.
+ * Veli mist/linen/ink (stessi colori), pozzi e respiro lento.
+ */
+[data-l-chrome] {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-ivory) !important;
+  background-image:
+    radial-gradient(115% 58% at 100% -6%, rgb(231 226 218 / 0.92), transparent 54%),
+    radial-gradient(95% 50% at -8% 18%, rgb(239 236 231 / 0.95), transparent 52%),
+    radial-gradient(80% 48% at 88% 42%, rgb(57 54 50 / 0.045), transparent 58%),
+    radial-gradient(70% 42% at 12% 78%, rgb(231 226 218 / 0.7), transparent 55%),
+    radial-gradient(90% 55% at 55% 108%, rgb(57 54 50 / 0.055), transparent 52%),
+    linear-gradient(168deg, rgb(255 255 255 / 0.42) 0%, transparent 38%, rgb(231 226 218 / 0.38) 100%) !important;
+  background-attachment: fixed;
+}
+
+[data-l-chrome]::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: -12%;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgb(255 255 255 / 0.55), transparent 26%),
+    radial-gradient(circle at 82% 38%, rgb(231 226 218 / 0.65), transparent 30%),
+    radial-gradient(circle at 48% 72%, rgb(57 54 50 / 0.045), transparent 34%),
+    radial-gradient(circle at 72% 88%, rgb(239 236 231 / 0.7), transparent 28%);
+  animation: ground-breathe 26s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+@keyframes ground-breathe {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.72;
+  }
+  to {
+    transform: translate3d(-1.8%, 1.2%, 0) scale(1.06);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-l-chrome]::before {
+    animation: none;
   }
 }
 
@@ -2827,6 +2871,9 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   inset: 0;
   z-index: 0;
   overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 45% at 18% 12%, rgb(255 255 255 / 0.09), transparent 60%),
+    radial-gradient(ellipse 55% 40% at 88% 78%, rgb(0 0 0 / 0.2), transparent 62%);
 }
 
 .atmosphere-footer__orb {
@@ -2852,10 +2899,73 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
 
 .sheet-plane {
   position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.sheet-plane::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+  inset: auto;
+  left: -8%;
+  top: 12%;
+  width: min(42rem, 92vw);
+  height: min(22rem, 58vw);
+  border-radius: 999px;
+  background:
+    radial-gradient(ellipse at 45% 48%, rgb(255 255 255 / 0.55), transparent 68%),
+    radial-gradient(ellipse at 70% 60%, rgb(231 226 218 / 0.4), transparent 72%);
+  filter: blur(8px);
+  opacity: 0.85;
+  transform: rotate(-6deg);
+}
+
+.sheet-plane:nth-of-type(even)::before {
+  left: auto;
+  right: -10%;
+  top: 28%;
+  transform: rotate(5deg);
+  background:
+    radial-gradient(ellipse at 55% 42%, rgb(239 236 231 / 0.7), transparent 66%),
+    radial-gradient(ellipse at 30% 70%, rgb(57 54 50 / 0.04), transparent 70%);
+}
+
+.sheet-plane:nth-of-type(3n)::before {
+  top: 48%;
+  width: min(36rem, 80vw);
+  opacity: 0.7;
+}
+
+.sheet-plane > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Sezioni piatte: velo traslucido sul terreno vivo (stessi pigmenti). */
+[data-l-chrome] .sheet-plane.bg-ivory {
+  background-color: rgb(from var(--color-ivory) r g b / 0.42) !important;
+  background-image:
+    linear-gradient(180deg, rgb(255 255 255 / 0.28), transparent 38%),
+    radial-gradient(ellipse 90% 55% at 50% 0%, rgb(231 226 218 / 0.35), transparent 62%);
+}
+
+[data-l-chrome] .sheet-plane.bg-mist {
+  background-color: rgb(from var(--color-mist) r g b / 0.5) !important;
+  background-image:
+    linear-gradient(165deg, rgb(255 255 255 / 0.32), transparent 45%),
+    radial-gradient(ellipse 80% 50% at 80% 20%, rgb(249 248 246 / 0.45), transparent 60%);
+}
+
+[data-l-chrome] .sheet-plane.bg-paper {
+  background-color: rgb(from var(--color-paper) r g b / 0.48) !important;
+  background-image:
+    radial-gradient(ellipse 70% 45% at 20% 30%, rgb(255 255 255 / 0.55), transparent 65%);
 }
 
 .sheet-plane + .sheet-plane {
-  box-shadow: 0 -22px 40px -34px rgb(20 18 16 / 0.38);
+  box-shadow: none;
 }
 
 .depth-frame {
@@ -2970,7 +3080,9 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   gap: 1.15rem;
   padding: 1.15rem 1rem 1.45rem;
   margin: 0;
-  background: var(--color-ivory);
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgb(255 255 255 / 0.35), transparent 55%),
+    rgb(from var(--color-ivory) r g b / 0.35);
   border-top: 0;
   overflow: visible;
 }
@@ -3154,7 +3266,9 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   gap: 1rem;
   padding: 1rem;
   border: 0;
-  background: var(--neu-face);
+  background:
+    radial-gradient(ellipse 85% 60% at 50% 40%, rgb(231 226 218 / 0.4), transparent 70%),
+    rgb(from var(--color-ivory) r g b / 0.3);
 }
 
 a.plate-tile::after {
