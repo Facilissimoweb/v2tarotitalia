@@ -24,7 +24,7 @@ Fonte allineata a `.cursor/rules/site-content.mdc`.
 ## Estetica Lumiere
 
 - Palette editoriale: ivory `#F5F3EF`, ink `#1F1C1A`, ember `#E85C12` (sigillo), ember-soft `#6F6861` (kicker/meta/pietra). Filetti in inchiostro, non pesca. Sage/oliva non si usa.
-- Whitespace generoso, raggio 0px, Noto Serif + Inter. Hero con CTA primaria (esclusi articoli del blog).
+- Whitespace generoso, raggio 0px. Tipografia Gazette: Literata (prosa), Archivo (UI/H3), Bodoni Moda (H1/H2/copertina). Hero con CTA primaria (esclusi articoli del blog).
 - Animazioni React sobrie, fluide e ipnotiche; non distrarre.
 - Widget, modali e pannelli fluttuanti (Cookie Banner incluso): in testa, in questo ordine vincolante — 1) logo ufficiale (`/logo.png`); 2) scritta **Tarot Italia**; 3) titolo specifico del widget e contenuti. Usare `WidgetFrame` / `WidgetBrandMark`. Ogni nuovo widget o modale deve ereditare questo standard.
 
