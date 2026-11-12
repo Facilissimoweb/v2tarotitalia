@@ -12,7 +12,7 @@ import { HomeVolumes } from "../components/HomeVolumes";
 import { ImageSlot } from "../components/ImageSlot";
 import { GoogleReviewsHeroLink } from "../components/PageHero";
 import { Reveal } from "../components/Reveal";
-import { SectionCopy } from "../components/SectionCopy";
+import { SectionCopy, SectionCopyHead } from "../components/SectionCopy";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { shopLive } from "../lib/launchFlags";
 const { chiSono, cta, home, nav } = siteContent;
@@ -49,14 +49,16 @@ export function Home() {
           <div className="mt-8 grid items-start gap-16 md:mt-10 md:grid-cols-2 md:gap-20">
           <div className="min-w-0">
             <SectionCopy>
-              <Reveal>
-                <Kicker>{home.chiSono.kicker}</Kicker>
-              </Reveal>
-              <Reveal delay={100}>
-                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                  {home.chiSono.titolo}
-                </h2>
-              </Reveal>
+              <SectionCopyHead>
+                <Reveal>
+                  <Kicker>{home.chiSono.kicker}</Kicker>
+                </Reveal>
+                <Reveal delay={100}>
+                  <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                    {home.chiSono.titolo}
+                  </h2>
+                </Reveal>
+              </SectionCopyHead>
               <Reveal delay={200}>
                 {home.chiSono.blocchi.map((blocco, i) => (
                   <p key={i} className="section-prose section-prose--lead">
@@ -99,10 +101,12 @@ export function Home() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionCopy>
-              <Kicker>{nav.consulti}</Kicker>
-              <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                {home.percorsi.titolo}
-              </h2>
+              <SectionCopyHead>
+                <Kicker>{nav.consulti}</Kicker>
+                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                  {home.percorsi.titolo}
+                </h2>
+              </SectionCopyHead>
             </SectionCopy>
           </Reveal>
           <div className="mt-14 grid gap-8 md:grid-cols-2">
@@ -172,10 +176,12 @@ export function Home() {
                 <div className="grid items-end gap-10 md:grid-cols-2 md:gap-16">
                   <Reveal>
                     <SectionCopy>
-                      <Kicker>{home.visione.kicker}</Kicker>
-                      <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                        {home.visione.titolo}
-                      </h2>
+                      <SectionCopyHead>
+                        <Kicker>{home.visione.kicker}</Kicker>
+                        <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                          {home.visione.titolo}
+                        </h2>
+                      </SectionCopyHead>
                     </SectionCopy>
                   </Reveal>
                   <Reveal delay={80}>

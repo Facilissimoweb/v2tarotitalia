@@ -4,7 +4,7 @@ import { Button, Kicker } from "../components/Button";
 import { PageBanner } from "../components/PageBanner";
 import { PageFaq } from "../components/PageFaq";
 import { Reveal } from "../components/Reveal";
-import { SectionCopy } from "../components/SectionCopy";
+import { SectionCopy, SectionCopyHead } from "../components/SectionCopy";
 import { SectionRails } from "../components/SectionRails";
 import { StackDeck, StackSheet } from "../components/StackSheet";
 import { conPeso } from "../components/Prosa";
@@ -28,14 +28,16 @@ export function Percorsi() {
       <StackSheet className="bg-ivory px-6 pb-24 md:px-10 md:pb-32">
         <div className="mx-auto max-w-3xl">
           <SectionCopy>
-            <Reveal>
-              <Kicker>{percorsi.introKicker}</Kicker>
-            </Reveal>
-            <Reveal delay={80}>
-              <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
-                {percorsi.titoloSezione}
-              </h2>
-            </Reveal>
+            <SectionCopyHead>
+              <Reveal>
+                <Kicker>{percorsi.introKicker}</Kicker>
+              </Reveal>
+              <Reveal delay={80}>
+                <h2 className="font-display text-3xl font-normal text-ink md:text-4xl">
+                  {percorsi.titoloSezione}
+                </h2>
+              </Reveal>
+            </SectionCopyHead>
             <Reveal delay={160}>
               <p className="section-prose section-prose--lead">{conPeso(percorsi.descrizione)}</p>
             </Reveal>
@@ -53,18 +55,22 @@ export function Percorsi() {
         <div className="mx-auto max-w-6xl">
           <Reveal>
             <SectionCopy>
-              <Kicker>{percorsi.percorsiKicker}</Kicker>
-              <h2 className="font-display text-3xl md:text-4xl">{percorsi.titoloElenco}</h2>
+              <SectionCopyHead>
+                <Kicker>{percorsi.percorsiKicker}</Kicker>
+                <h2 className="font-display text-3xl md:text-4xl">{percorsi.titoloElenco}</h2>
+              </SectionCopyHead>
             </SectionCopy>
           </Reveal>
           <SectionRails cols={3} className="mt-16 items-stretch">
             {percorsi.tipologie.map((tipo, i) => (
               <Reveal key={tipo.id} delay={i * 90} className="flex h-full min-w-0 flex-col">
                 <SectionCopy className="flex h-full flex-col">
-                  <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
-                  <h3 className="mt-3 font-display text-xl leading-snug text-ink lg:text-[1.35rem]">
-                    {tipo.titolo}
-                  </h3>
+                  <SectionCopyHead>
+                    <p className="section-index">{String(i + 1).padStart(2, "0")}</p>
+                    <h3 className="mt-3 font-display text-xl leading-snug text-ink lg:text-[1.35rem]">
+                      {tipo.titolo}
+                    </h3>
+                  </SectionCopyHead>
                   <p className="section-prose flex-1">{conPeso(tipo.testo)}</p>
                   <div className="mt-8">
                     <Button
