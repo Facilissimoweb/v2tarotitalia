@@ -146,11 +146,11 @@ export const siteContent = {
     edition: {
       inCopertina: "In copertina",
       inQuestoNumero: "Menù",
-      dallaFondatrice: "Dalla fondatrice",
+      dallaFondatrice: "Tarot Italia",
     },
     chiSono: {
       kicker: "Metodo",
-      titolo: "I Tarocchi come narratori del Sé, immagini e tracce di una storia",
+      titolo: "I Tarocchi come narratori del Sé,\nimmagini e tracce di una storia",
       blocchi: [
         [
           "Benvenuti in Tarot Italia. Sono Teresa: con i 78 Arcani aiuto a ",

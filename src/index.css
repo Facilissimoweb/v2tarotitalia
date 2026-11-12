@@ -3639,9 +3639,10 @@ html[data-a11y-contrast="on"] .footer-angelo-tile {
   font-size: clamp(1.5rem, 3.5vw, 2rem);
   font-weight: 700;
   font-style: italic;
-  line-height: 1.2;
+  line-height: 1.25;
   letter-spacing: -0.01em;
   color: var(--color-ink);
+  white-space: pre-line;
   text-wrap: balance;
 }
 
