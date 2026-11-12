@@ -2924,6 +2924,50 @@ html[data-a11y-contrast="on"] :where(button, .ti-btn)::before {
   background: transparent;
 }
 
+/*
+ * Prova tipografica Home: stessi font che compaiono in giapponese
+ * (Noto Sans/Serif JP + stack di sistema Hiragino/Yu Gothic).
+ */
+[data-home-type="jp"] {
+  --font-body: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", system-ui, sans-serif;
+  --font-display: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", system-ui, sans-serif;
+  --font-h1: "Noto Sans JP", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --font-h2: "Noto Serif JP", "Hiragino Mincho ProN", "Noto Serif", "Yu Mincho", Georgia, serif;
+  --font-h3: var(--font-display);
+  font-family: var(--font-body);
+  font-feature-settings: "palt" 1;
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+}
+
+[data-home-type="jp"] :where(h1, h2, .font-display, .font-h1) {
+  font-family: var(--font-h2);
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+[data-home-type="jp"] :where(h3, .label-kicker, .home-action-title, .ti-btn) {
+  font-family: var(--font-display);
+  letter-spacing: 0.06em;
+}
+
+[data-home-type="jp"] .home-action-title {
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+[data-home-type="jp"] .home-action-copy,
+[data-home-type="jp"] .section-prose {
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+  line-height: 1.85;
+}
+
+[data-home-type="jp"] .home-action-index {
+  font-family: var(--font-h1);
+  font-weight: 700;
+}
+
 .sheet-plane + .sheet-plane {
   box-shadow: none;
 }
