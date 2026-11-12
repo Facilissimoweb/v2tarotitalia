@@ -34,7 +34,7 @@ export function Home() {
   const [visioneOpen, setVisioneOpen] = useState(false);
 
   return (
-    <div className="w-full min-w-0">
+    <div className="w-full min-w-0" data-home-type="jp">
       <HomeHero />
 
       <StackDeck>
