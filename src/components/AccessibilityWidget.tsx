@@ -122,7 +122,7 @@ function Switch({
 }
 
 const stepBtn =
-  "flex min-h-14 flex-1 items-center justify-center bg-ink px-2 text-center text-[0.6875rem] font-bold uppercase leading-tight tracking-[0.12em] text-ivory transition-colors duration-200 hover:bg-[#3a3430] disabled:opacity-35";
+  "flex min-h-14 flex-1 items-center justify-center bg-graphite px-2 text-center text-[0.6875rem] font-bold uppercase leading-tight tracking-[0.12em] text-ink transition-colors duration-200 hover:bg-[#2a2623] disabled:opacity-35";
 
 /** Controlli della facilitazione: usati nel pannello intero e nel cassetto desktop. */
 export function AccessibilityControls() {

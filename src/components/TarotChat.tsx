@@ -85,7 +85,7 @@ export function TarotChat() {
 
   return createPortal(
             <div
-              className="overlay-scrim z-[70] bg-ink/35"
+              className="overlay-scrim z-[70] bg-black/55"
               role="presentation"
               onClick={(event) => {
                 if (event.target === event.currentTarget) tarotChatUi.setOpen(false);
@@ -126,7 +126,7 @@ export function TarotChat() {
                       <div
                         className={`max-w-[92%] px-4 py-3 text-sm leading-relaxed ${
                           message.role === "user"
-                            ? "bg-ink text-on-ink"
+                            ? "bg-graphite text-on-ink"
                             : "bg-mist text-ink ring-1 ring-ink/8"
                         }`}
                       >
@@ -176,7 +176,7 @@ export function TarotChat() {
                     <button
                       type="submit"
                       disabled={loading || !draft.trim()}
-                      className="shrink-0 bg-ink px-4 py-2.5 text-[0.625rem] font-medium uppercase tracking-[0.2em] text-on-ink transition-opacity disabled:opacity-40"
+                      className="shrink-0 bg-graphite px-4 py-2.5 text-[0.625rem] font-medium uppercase tracking-[0.2em] text-on-ink transition-opacity disabled:opacity-40"
                     >
                       {copy.invia}
                     </button>

@@ -7,7 +7,7 @@ const base =
 
 const variants = {
   primary: "border-ember bg-ember text-ivory hover:border-ember-hot hover:bg-ember-hot",
-  ghost: "border-ink/20 bg-paper text-ink hover:border-ink hover:bg-ink hover:text-on-ink",
+  ghost: "border-ink/20 bg-paper text-ink hover:border-ink hover:bg-graphite hover:text-on-ink",
   ember: "border-ember bg-ember text-ivory hover:border-ember-hot hover:bg-ember-hot",
   paper: "border-ink/15 bg-paper text-ink hover:border-ink/25 hover:bg-mist",
 };

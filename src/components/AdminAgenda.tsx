@@ -150,7 +150,7 @@ export function AdminAgenda() {
                 disabled={cell.outside || cell.iso < today}
                 onClick={() => setDateIso(cell.iso)}
                 className={`aspect-square text-sm ${
-                  selected ? "bg-ink text-on-ink" : taken ? "bg-mist text-ink" : "text-ink/80 hover:bg-mist"
+                  selected ? "bg-graphite text-on-ink" : taken ? "bg-mist text-ink" : "text-ink/80 hover:bg-mist"
                 } ${cell.outside || cell.iso < today ? "opacity-30" : ""}`}
               >
                 {cell.day}
@@ -173,7 +173,7 @@ export function AdminAgenda() {
                 disabled={Boolean(hold) || site}
                 onClick={() => setSlot(hour)}
                 className={`px-3 py-3 text-sm ${
-                  selected ? "bg-ink text-on-ink" : hold || site ? "bg-mist text-ink/45" : "bg-paper text-ink hover:bg-mist"
+                  selected ? "bg-graphite text-on-ink" : hold || site ? "bg-mist text-ink/45" : "bg-paper text-ink hover:bg-mist"
                 }`}
               >
                 {hour}
@@ -200,7 +200,7 @@ export function AdminAgenda() {
                 type="button"
                 onClick={() => setMinutes(option.minuti === 60 ? 60 : 30)}
                 className={`px-4 py-3 text-[0.625rem] uppercase tracking-[0.14em] ${
-                  minutes === option.minuti ? "bg-ink text-on-ink" : "bg-paper text-ink"
+                  minutes === option.minuti ? "bg-graphite text-on-ink" : "bg-paper text-ink"
                 }`}
               >
                 {option.titolo}
@@ -213,7 +213,7 @@ export function AdminAgenda() {
               type="button"
               onClick={() => setSource("offline")}
               className={`px-4 py-3 text-[0.625rem] uppercase tracking-[0.14em] ${
-                source === "offline" ? "bg-ink text-on-ink" : "bg-paper text-ink"
+                source === "offline" ? "bg-graphite text-on-ink" : "bg-paper text-ink"
               }`}
             >
               {admin.offline}
@@ -222,7 +222,7 @@ export function AdminAgenda() {
               type="button"
               onClick={() => setSource("block")}
               className={`px-4 py-3 text-[0.625rem] uppercase tracking-[0.14em] ${
-                source === "block" ? "bg-ink text-on-ink" : "bg-paper text-ink"
+                source === "block" ? "bg-graphite text-on-ink" : "bg-paper text-ink"
               }`}
             >
               {admin.blocco}
