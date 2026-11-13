@@ -40,8 +40,8 @@ function LoadingPanel() {
           <li key={slot}>
             <div className="edition-leaders__row">
               <span className="edition-leaders__n">{String(slot + 1).padStart(2, "0")}</span>
-              <span className="h-5 w-2/3 bg-ink/10 motion-safe:animate-pulse" />
-              <span className="mt-3 h-3 w-full bg-ink/10 motion-safe:animate-pulse" />
+              <span className="h-5 w-2/3 bg-graphite/10 motion-safe:animate-pulse" />
+              <span className="mt-3 h-3 w-full bg-graphite/10 motion-safe:animate-pulse" />
             </div>
           </li>
         ))}

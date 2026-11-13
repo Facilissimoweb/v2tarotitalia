@@ -58,7 +58,7 @@ export function PageBanner({
             {typeof subtitle === "string" ? conPeso(subtitle) : subtitle}
           </p>
         ) : null}
-        <span aria-hidden className="mt-8 block h-[3px] w-full max-w-none bg-ink" />
+        <span aria-hidden className="mt-8 block h-[3px] w-full max-w-none bg-graphite" />
       </div>
     </header>
   );

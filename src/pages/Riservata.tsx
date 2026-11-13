@@ -246,7 +246,7 @@ export function Riservata() {
               aria-controls={`pannello-${id}`}
               onClick={() => openTab(id)}
               className={`whitespace-nowrap px-4 py-2 text-[0.6875rem] uppercase tracking-[0.16em] ${
-                tab === id ? "bg-ink text-on-ink" : "bg-mist text-ink/60"
+                tab === id ? "bg-graphite text-on-ink" : "bg-mist text-ink/60"
               }`}
             >
               {label}
@@ -594,7 +594,7 @@ function DigitalArchiveCard({
               onClick={() => {
                 void onDownload(product.id, asset.id, asset.filename, asset.title);
               }}
-              className="inline-flex bg-ink px-4 py-2 text-[0.6875rem] uppercase tracking-[0.2em] text-on-ink"
+              className="inline-flex bg-graphite px-4 py-2 text-[0.6875rem] uppercase tracking-[0.2em] text-on-ink"
             >
               {busy ? lingua.genera : `${cta.scarica} · ${asset.title}`}
             </button>

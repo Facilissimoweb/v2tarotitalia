@@ -15,7 +15,7 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
     return (
       <div
         className="flex min-h-[50vh] flex-col items-center justify-center gap-6 px-6 py-24 text-center"
-        style={{ backgroundColor: "#F9F8F6", color: "#2B2523" }}
+        style={{ backgroundColor: "#12100E", color: "#F4F1EA" }}
         role="status"
         aria-live="polite"
         aria-busy="true"

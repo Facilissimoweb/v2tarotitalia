@@ -18,7 +18,7 @@ export function ComingSoon() {
   }, []);
 
   return (
-    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-ink px-6 text-white">
+    <main className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-graphite px-6 text-white">
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <img
           src={copy.sfondo}

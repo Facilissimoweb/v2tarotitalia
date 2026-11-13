@@ -65,7 +65,7 @@ export function LegalNotice({ kind, onClose }: Props) {
 
   return createPortal(
     <div
-      className="overlay-scrim z-[90] bg-ink/35"
+      className="overlay-scrim z-[90] bg-black/55"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}

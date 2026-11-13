@@ -33,7 +33,7 @@ export function CookieBanner() {
 
   return (
     <div
-      className="overlay-scrim z-[80] bg-ink/35"
+      className="overlay-scrim z-[80] bg-black/55"
       role="dialog"
       aria-modal="true"
       aria-labelledby={titleId}
@@ -112,7 +112,7 @@ function CookieRow({
         <p className="mt-3 text-sm leading-relaxed text-ink/65">{conPeso(text)}</p>
       </div>
       {locked ? (
-        <span className="shrink-0 bg-ink px-2 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ember-pale">
+        <span className="shrink-0 bg-graphite px-2 py-1 text-[0.625rem] uppercase tracking-[0.16em] text-ember-pale">
           {lockedLabel}
         </span>
       ) : (

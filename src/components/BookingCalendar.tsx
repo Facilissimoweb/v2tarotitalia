@@ -165,7 +165,7 @@ export function BookingCalendar({ dateIso, slot, onDate, onSlot }: Props) {
               onClick={() => onSlot(hour)}
               className={`min-w-0 py-3 text-xs ${
                 slot === hour && available
-                  ? "bg-ink text-on-ink"
+                  ? "bg-graphite text-on-ink"
                   : available
                     ? "bg-paper text-ink hover:bg-mist"
                     : "bg-mist text-ink/25"

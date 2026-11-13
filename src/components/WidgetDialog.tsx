@@ -29,7 +29,7 @@ export function WidgetDialog({ title, titleId, onClose, children, footer, wide, 
 
   return (
     <div
-      className="overlay-scrim z-[80] bg-ink/45"
+      className="overlay-scrim z-[80] bg-black/60"
       role="dialog"
       aria-modal="true"
       aria-labelledby={labelledBy}

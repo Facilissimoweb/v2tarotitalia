@@ -138,7 +138,7 @@ export function Carrello() {
               to={loginHref("/carrello")}
               state={{ from: "/carrello" }}
               onClick={() => rememberAuthReturn("/carrello")}
-              className="mt-8 inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
+              className="mt-8 inline-flex bg-graphite px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
             >
               {nav.accedi}
             </Link>
@@ -165,7 +165,7 @@ export function Carrello() {
                 to={loginHref("/carrello")}
                 state={{ from: "/carrello" }}
                 onClick={() => rememberAuthReturn("/carrello")}
-                className="mt-8 inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
+                className="mt-8 inline-flex bg-graphite px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
               >
                 {nav.accedi}
               </Link>
@@ -279,7 +279,7 @@ function PendingDigitalCard({
             to={loginHref("/carrello")}
             state={{ from: "/carrello" }}
             onClick={() => rememberAuthReturn("/carrello")}
-            className="inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
+            className="inline-flex bg-graphite px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
           >
             {pages.corsi.paga}
           </Link>
@@ -353,7 +353,7 @@ function PendingCard({
             to={loginHref("/carrello")}
             state={{ from: "/carrello" }}
             onClick={() => rememberAuthReturn("/carrello")}
-            className="inline-flex bg-ink px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
+            className="inline-flex bg-graphite px-6 py-4 text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-on-ink"
           >
             {consulti.pagaStripe}
           </Link>

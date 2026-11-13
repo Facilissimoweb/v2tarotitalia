@@ -4,7 +4,7 @@ import { pageSpeech, usePageSpeech } from "../lib/pageSpeech";
 const { accessibilita: copy } = siteContent;
 
 const cell =
-  "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 bg-ink px-1 py-2 text-center text-[0.625rem] font-bold uppercase leading-tight tracking-[0.08em] text-ivory transition-colors hover:bg-[#3a3430] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-35";
+  "flex min-h-14 flex-1 flex-col items-center justify-center gap-1 bg-graphite px-1 py-2 text-center text-[0.625rem] font-bold uppercase leading-tight tracking-[0.08em] text-ink transition-colors hover:bg-[#2a2623] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ember disabled:opacity-35";
 
 function SpeakerIcon() {
   return (

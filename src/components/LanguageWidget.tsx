@@ -113,7 +113,7 @@ export function LanguageWidget({
 
       {dialog && open
         ? createPortal(
-            <div className="overlay-scrim z-[85] bg-ink/35" role="dialog" aria-modal="true" aria-labelledby={titleId}>
+            <div className="overlay-scrim z-[85] bg-black/55" role="dialog" aria-modal="true" aria-labelledby={titleId}>
               <button
                 type="button"
                 className="absolute inset-0 hidden cursor-default md:block"

@@ -260,7 +260,7 @@ function Category({
             type="button"
             onClick={() => onSelect(campo.id)}
             className={`px-5 py-4 text-left text-sm leading-snug ${
-              selected === campo.id ? "bg-ink text-on-ink" : "bg-mist text-ink hover:bg-paper"
+              selected === campo.id ? "bg-graphite text-on-ink" : "bg-mist text-ink hover:bg-paper"
             }`}
           >
             {campo.titolo}

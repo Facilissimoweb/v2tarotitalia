@@ -192,13 +192,13 @@ export function AuthForm({ mode: modeProp, onMode, onPrivacy, onVendita, onSucce
 
 function compactTab(active: boolean) {
   return `px-4 py-2 text-[0.625rem] uppercase tracking-[0.16em] ${
-    active ? "bg-ink text-on-ink" : "bg-mist text-ink/55"
+    active ? "bg-graphite text-on-ink" : "bg-mist text-ink/55"
   }`;
 }
 
 function sogliaTab(active: boolean) {
   return `w-full px-4 py-3 text-sm leading-snug ${
-    active ? "bg-ink text-on-ink" : "bg-mist text-ink/70"
+    active ? "bg-graphite text-on-ink" : "bg-mist text-ink/70"
   }`;
 }
 
